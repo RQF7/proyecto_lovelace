@@ -41,7 +41,7 @@
 % Encabezado y pie
 \pagestyle{fancy}
 \fancyhf{}
-\chead{\Titulo{}}                           % Centro arriba
+\chead{\Titulo}                             % Centro arriba
 \rfoot{Página \thepage \
    de \pageref{LastPage}}                   % Derecha abajo
 \lfoot{Trabajo terminal}                    % Izquierda abajo
@@ -58,9 +58,9 @@
 
 % Configuración de PDF producto
 \hypersetup{
-  pdftitle={\Titulo{}},                     % Título
-  pdfauthor={\Autor{}},                     % Autor
-  pdfsubject={\Subtitulo{}},                % Subtítulo
+  pdftitle={\Titulo},                       % Título
+  pdfauthor={\Autor},                       % Autor
+  pdfsubject={\Subtitulo},                  % Subtítulo
   bookmarksnumbered=false,                  % Numeración de marcadores
   bookmarksopen=true,                       % Marcadores anidados
   bookmarksopenlevel=3,                     % Profundidad de anidación
@@ -76,3 +76,6 @@
 \title{\Titulo{}}
 \author{\Autor{}}
 \date{\today}
+
+% Archivos de plantillas
+\input{plantillas/portada.sty}
