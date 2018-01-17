@@ -1,0 +1,14 @@
+#
+# Archivo de configuración de Travis.
+# Proyecto Lovelace.
+#
+
+# Instalación de dependencias
+install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq \
+    texlive texlive-latex-recommended texlive-latex-extra
+
+# Fase de construcción
+script:
+  - make -C documentos_entregables
