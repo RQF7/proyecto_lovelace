@@ -1,5 +1,7 @@
 # Proyecto Lovelace
 
+[![Build Status](https://travis-ci.com/RQF7/proyecto_lovelace.svg?token=57K77bpWmFas4ams6Ewm&branch=master)](https://travis-ci.com/RQF7/proyecto_lovelace)
+
 ## Estructura de carpetas
 
  * **documentos_entregables:** documentación del proyecto y presentaciones de
