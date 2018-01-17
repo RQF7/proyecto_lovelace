@@ -1,0 +1,78 @@
+%
+% Especificación de formato y plantillas para documento final.
+% Proyecto Lovelace.
+%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{formato}[2017/10/13 Paquete para formato de documento de TT]
+
+% Dependencias de librerías.
+\RequirePackage[utf8]{inputenc}             % Codificación de texto fuente
+\RequirePackage[spanish]{babel}             % Idioma del documento
+\RequirePackage{graphicx}                   % Gestión de imágenes
+\RequirePackage{float}                      % Para configuración de portada
+\RequirePackage{fancyhdr}                   % Encabezado y pie de página
+\RequirePackage{xcolor}                     % Gestión de colores
+\RequirePackage{titlesec}                   % Formato de títulos y subtítulos
+\RequirePackage{amsmath}                    % Símbolos matemáticos
+\RequirePackage{lastpage}                   % Conteo de páginas
+\RequirePackage[]{hyperref}                 % Opciones del pdf producto
+\RequirePackage{bookmark}                   % Opciones del pdf producto
+\RequirePackage[backend=biber,              % Estilo Biblatex
+                style=numeric,              % Etiquetas numéricas
+                sorting=none,               % Ordenado según aparición
+                citestyle=ieee              % Tipo ieee
+                ]{biblatex}                 % Referencias
+\RequirePackage[letterpaper,                % Tamaño
+                textwidth=7in,              % Ancho
+                textheight=9.0in,           % Alto
+                top=1.0in]{geometry}        % Márgenes
+
+% Formato de párrafos
+\setlength{\parindent}{2em}                 % Sangría
+\setlength{\parskip}{1em}                   % Espacio entre párrafos
+\renewcommand{\baselinestretch}{1.5}        % Interlineado
+
+% Formato de títulos
+\titlespacing{\section}{0pc}{0pc}{0pc}
+\titlespacing{\subsection}{0pc}{0pc}{0pc}
+\titlespacing{\subsubsection}{0pc}{0pc}{0pc}
+
+% Encabezado y pie
+\pagestyle{fancy}
+\fancyhf{}
+\chead{\Titulo{}}                           % Centro arriba
+\rfoot{Página \thepage \
+   de \pageref{LastPage}}                   % Derecha abajo
+\lfoot{Trabajo terminal}                    % Izquierda abajo
+\renewcommand{\headrulewidth}{0.5pt}        % Línea encabezado
+\renewcommand{\footrulewidth}{0.5pt}        % Línea pie
+
+% Cambios en las traducciones de babel
+\addto\captionsspanish {
+  \renewcommand*\contentsname{Contenido}
+  \renewcommand*\listfigurename{Lista de figuras}
+  \renewcommand*\tablename{Tabla}
+  \renewcommand*\listtablename{Lista de tablas}
+}
+
+% Configuración de PDF producto
+\hypersetup{
+  pdftitle={\Titulo{}},                     % Título
+  pdfauthor={\Autor{}},                     % Autor
+  pdfsubject={\Subtitulo{}},                % Subtítulo
+  bookmarksnumbered=false,                  % Numeración de marcadores
+  bookmarksopen=true,                       % Marcadores anidados
+  bookmarksopenlevel=3,                     % Profundidad de anidación
+  pdfstartview=Fit,                         % Vista inicial
+  pdfpagemode=UseOutlines,                  % Modo de página
+  colorlinks,                               % Modificar color por default
+  linkcolor={black!255!black},              % Color de vínculos
+  citecolor={black!50!black},               % Color de citas
+  urlcolor={black!80!black}                 % Color de URLs
+}
+
+% Información de latex
+\title{\Titulo{}}
+\author{\Autor{}}
+\date{\today}

@@ -1,0 +1,62 @@
+%
+% Archivo principal de documento final.
+% Proyecto Lovelace.
+%
+
+\documentclass[10pt, letterpaper, oneside]{book}
+\usepackage[spanish, mexico]{babel}
+\usepackage[utf8]{inputenc}
+\newcommand{\Titulo}{Generación de tokens para protejer
+                     datos de tarjetas bancarias}
+\newcommand{\Subtitulo}{Número 20180008}
+\newcommand{\Director}{Dra. Sandra Díaz Santiago}
+\newcommand{\Autor}{Daniel Ayala Zamorano \\
+                    Laura Natalia Borbolla Palacios \\
+                    Ricardo Quezada Figueroa}
+\newcommand{\Fecha}{Enero de 2018}
+\usepackage{formato}
+
+\begin{document}
+
+  % Portada
+  % TODO: pasar esto al archivo del formato.
+  \begin{titlepage}
+    \begin{center}
+      \begin{large}
+        Instituto Politécnico Nacional\\
+        \vspace*{0.2in}
+        Escuela Superior de Cómputo\\
+        \vspace*{1.0in}
+      \end{large}
+      \begin{large}
+        Trabajo terminal\\
+        \vspace*{0.2in}
+        \Director{}\\
+        \vspace*{1.0in}
+      \end{large}
+      \rule{7in}{0.5pt}\\
+      \vspace*{0.1in}
+      \begin{Large}
+        \textbf{\Titulo{}} \\
+        \vspace*{0.1in}
+        \Subtitulo{} \\
+      \end{Large}
+      \vspace*{0.1in}
+      \rule{7in}{0.5pt}\\
+      \begin{large}
+        \vspace*{1.0in}
+        \Autor{} \\
+      \end{large}
+      \begin{large}
+        \vspace*{1.0in}
+        \Fecha{}\\
+      \end{large}
+    \end{center}
+  \end{titlepage}
+
+  \tableofcontents
+  \newpage
+  \input{intro/intro.tex}
+  \input{preliminares/preliminares.tex}
+
+\end{document}
