@@ -17,5 +17,5 @@ install:
 # Fase de construcción
 script:
   - make -C documentos_entregables
-  - make -C documentos_entregables referencias
-  - make -C documentos_entregables
+#  - make -C documentos_entregables referencias
+#  - make -C documentos_entregables
