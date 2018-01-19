@@ -11,7 +11,11 @@ install:
     texlive-latex-recommended
     texlive-latex-extra
     texlive-lang-spanish
+    texlive-bibtex-extra
+    biber
 
 # Fase de construcción
 script:
+  - make -C documentos_entregables
+  - make -C documentos_entregables referencias
   - make -C documentos_entregables
