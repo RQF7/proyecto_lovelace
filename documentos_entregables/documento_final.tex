@@ -19,9 +19,22 @@
 \begin{document}
 
   \Portada
+  \pdfbookmark[1]{\contentsname}{Contenido}
   \tableofcontents
   \newpage
+
   \input{contenidos/intro/intro.tex}
   \input{contenidos/antecedentes/antecedentes.tex}
+
+  \printbibliography[
+    heading=bibintoc,
+    title={Bibliografía}
+  ]
+
+  \addcontentsline{toc}{chapter}{\listfigurename}
+  \listoffigures
+
+  \addcontentsline{toc}{chapter}{\listtablename}
+  \listoftables
 
 \end{document}

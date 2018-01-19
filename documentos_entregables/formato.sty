@@ -16,13 +16,16 @@
 \RequirePackage{titlesec}                   % Formato de títulos y subtítulos
 \RequirePackage{amsmath}                    % Símbolos matemáticos
 \RequirePackage{lastpage}                   % Conteo de páginas
+\RequirePackage{caption}                    % Pies de imágenes y tablas
+\RequirePackage{subcaption}                 % Pies en figuras anidadas
 \RequirePackage[]{hyperref}                 % Opciones del pdf producto
 \RequirePackage{bookmark}                   % Opciones del pdf producto
-%\RequirePackage[backend=biber,             % Estilo Biblatex
-%                style=numeric,             % Etiquetas numéricas
-%                sorting=none,              % Ordenado según aparición
-%                citestyle=ieee             % Tipo ieee
-%                ]{biblatex}                % Referencias
+%\RequirePackage{biblatex}
+\RequirePackage[backend=biber,             % Estilo Biblatex
+                style=numeric,             % Etiquetas numéricas
+                sorting=none,              % Ordenado según aparición
+                citestyle=ieee             % Tipo ieee
+                ]{biblatex}                % Referencias
 \RequirePackage[letterpaper,                % Tamaño
                 textwidth=7in,              % Ancho
                 textheight=9.0in,           % Alto
@@ -34,6 +37,15 @@
 \renewcommand{\baselinestretch}{1.5}        % Interlineado
 
 % Formato de títulos
+\titleformat{\chapter}[display]
+{\bfseries\Huge} % Formato
+{Capítulo \ \thechapter} % Etiqueta
+{0.5ex} % Separación
+{} % Antes de
+[
+  \newpage
+] % Después de
+
 \titlespacing{\section}{0pc}{0pc}{0pc}
 \titlespacing{\subsection}{0pc}{0pc}{0pc}
 \titlespacing{\subsubsection}{0pc}{0pc}{0pc}
@@ -59,7 +71,6 @@
 % Configuración de PDF producto
 \hypersetup{
   pdftitle={\Titulo},                       % Título
-  pdfauthor={\Autor},                       % Autor
   pdfsubject={\Subtitulo},                  % Subtítulo
   bookmarksnumbered=false,                  % Numeración de marcadores
   bookmarksopen=true,                       % Marcadores anidados
@@ -79,3 +90,6 @@
 
 % Archivos de plantillas
 \input{plantillas/portada.sty}
+
+% Archivo con referencias
+\addbibresource{referencias.bib}
