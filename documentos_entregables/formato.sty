@@ -66,7 +66,9 @@
   \renewcommand*\listfigurename{Lista de figuras}
   \renewcommand*\tablename{Tabla}
   \renewcommand*\listtablename{Lista de tablas}
+  \renewcommand*{\lstlistlistingname}{Lista de algoritmos}
 }
+
 
 % Configuración de PDF producto
 \hypersetup{
@@ -94,3 +96,27 @@
 
 % Archivo con referencias
 \addbibresource{referencias.bib}
+
+% Redefinición de listas y de bibliografía.
+% Se hacen secciones en lugar de capítulos.
+
+\makeatletter
+\renewcommand\listoffigures{
+  \section*{\listfigurename}
+    \@mkboth{\MakeUppercase\listfigurename}
+            {\MakeUppercase\listfigurename}
+  \@starttoc{lof}
+}
+\renewcommand\listoftables{
+  \section*{\listtablename}
+    \@mkboth{\MakeUppercase\listtablename}
+            {\MakeUppercase\listtablename}
+  \@starttoc{lot}
+}
+\renewcommand\lstlistoflistings{
+  \section*{\lstlistlistingname}
+    \@mkboth{\MakeUppercase\lstlistlistingname}
+            {\MakeUppercase\lstlistlistingname}
+  \@starttoc{lol}
+}
+\makeatother
