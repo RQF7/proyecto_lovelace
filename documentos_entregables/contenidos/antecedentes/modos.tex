@@ -80,7 +80,7 @@ se debe de partir en bloques ($ T = B_1 || B_2 || \dots || B_n $).
   \label{figura:ecb}
 \end{figure}
 
-\begin{algoritmo}[caption={Modo de operación ECB, cifrado.}]
+\begin{pseudocodigo}[caption={Modo de operación ECB, cifrado.}]
   entrada: llave $ L $; bloques de mensaje $ B_1, B_2 \dots B_n $.
    salida: bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
   inicio
@@ -89,9 +89,9 @@ se debe de partir en bloques ($ T = B_1 || B_2 || \dots || B_n $).
     fin
     regresar $Bc$
   fin
-\end{algoritmo}
+\end{pseudocodigo}
 
-\begin{algoritmo}[caption={Modo de operación ECB, descifrado.}]
+\begin{pseudocodigo}[caption={Modo de operación ECB, descifrado.}]
   entrada: llave $ L $; bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
    salida: bloques de mensaje original $ B_1, B_2 \dots B_n $.
   inicio
@@ -100,7 +100,7 @@ se debe de partir en bloques ($ T = B_1 || B_2 || \dots || B_n $).
     fin
     regresar $B$
   fin
-\end{algoritmo}
+\end{pseudocodigo}
 
 
 \subsection{\textit{Cipher-block Chaining} (CBC)}
@@ -142,7 +142,7 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
 
 \vspace{0.5cm}
 
-\begin{algoritmo}[caption={Modo de operación CBC, cifrado.}, label={cbc:1}]
+\begin{pseudocodigo}[caption={Modo de operación CBC, cifrado.}, label={cbc:1}]
   entrada: llave $ L $; vector de inicialización $ VI $;
            bloques de mensaje $ B_1, B_2 \dots B_n $.
    salida: bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
@@ -153,9 +153,9 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
     fin
     regresar $Bc$
   fin
-\end{algoritmo}
+\end{pseudocodigo}
 
-\begin{algoritmo}[caption={Modo de operación CBC, descifrado.}, label={cbc:2}]
+\begin{pseudocodigo}[caption={Modo de operación CBC, descifrado.}, label={cbc:2}]
   entrada: llave $ L $; vector de inicialización $ VI $;
            bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
    salida: bloques de mensaje original $ B_1, B_2 \dots B_n $.
@@ -166,7 +166,7 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
     fin
     regresar $B$
   fin
-\end{algoritmo}
+\end{pseudocodigo}
 
 \subsection{\textit{Cipher Feedback} (CFE)}
 

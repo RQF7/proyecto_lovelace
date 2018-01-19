@@ -13,10 +13,10 @@
 \newcommand{\algoritmoformateado}{\thechapter .\arabic{numero_de_algoritmo}}
 
 % Define la etiqueta de los captions.
-\DeclareCaptionLabelFormat{etiqueta_de_algoritmo}{Algoritmo \algoritmoformateado}
+\DeclareCaptionLabelFormat{etiqueta_de_algoritmo}{Pseudocódigo \algoritmoformateado}
 
 % Define el nuevo entorno.
-\lstnewenvironment{algoritmo}[1][]
+\lstnewenvironment{pseudocodigo}[1][]
 {
   % Incrementa el contador de algoritmos.
   \refstepcounter{numero_de_algoritmo}
