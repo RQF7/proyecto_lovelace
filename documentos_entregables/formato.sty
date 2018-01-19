@@ -20,12 +20,12 @@
 \RequirePackage{subcaption}                 % Pies en figuras anidadas
 \RequirePackage[]{hyperref}                 % Opciones del pdf producto
 \RequirePackage{bookmark}                   % Opciones del pdf producto
-%\RequirePackage{biblatex}
-\RequirePackage[backend=biber,             % Estilo Biblatex
-                style=numeric,             % Etiquetas numéricas
-                sorting=none,              % Ordenado según aparición
-                citestyle=ieee             % Tipo ieee
-                ]{biblatex}                % Referencias
+\RequirePackage{listings}                   % Listas de algoritmos
+\RequirePackage[backend=biber,              % Estilo Biblatex
+                style=numeric,              % Etiquetas numéricas
+                sorting=none,               % Ordenado según aparición
+                citestyle=ieee              % Tipo ieee
+                ]{biblatex}                 % Referencias
 \RequirePackage[letterpaper,                % Tamaño
                 textwidth=7in,              % Ancho
                 textheight=9.0in,           % Alto
@@ -90,6 +90,7 @@
 
 % Archivos de plantillas
 \input{plantillas/portada.sty}
+\input{plantillas/algoritmo.sty}
 
 % Archivo con referencias
 \addbibresource{referencias.bib}

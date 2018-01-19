@@ -1,0 +1,51 @@
+%
+% Plantilla para entorno de algoritmos.
+% Proyecto Lovelace.
+%
+% Mis más sinceros agradecimientos al usuario «pnpo»:
+% https://tex.stackexchange.com/questions/111116/what-is-the-best-looking-pseudo-code-package
+%
+
+% Define un nuevo contador a nivel de capítulo.
+\newcounter{numero_de_algoritmo}[chapter]
+
+% Define un comando para el formato de la numeración.
+\newcommand{\algoritmoformateado}{\thechapter .\arabic{numero_de_algoritmo}}
+
+% Define la etiqueta de los captions.
+\DeclareCaptionLabelFormat{etiqueta_de_algoritmo}{Algoritmo \algoritmoformateado}
+
+% Define el nuevo entorno.
+\lstnewenvironment{algoritmo}[1][]
+{
+  % Incrementa el contador de algoritmos.
+  \refstepcounter{numero_de_algoritmo}
+  % Define la configuración de los captions:
+  % coloca la etiqueta definida arriba y la separa del texto con dos puntos.
+  \captionsetup{labelformat=etiqueta_de_algoritmo,labelsep=colon}
+  % Configuración de entorno listing
+  \lstset{
+    mathescape=true,
+    frame=tb,
+    numbers=left,
+    numberstyle=\tiny,
+    basicstyle=\footnotesize,
+    keywordstyle=\color{black}\bfseries,
+    captionpos=b,
+    % Palabras clave
+    keywords={
+      ,entrada,
+      salida,
+      inicio,
+      fin,
+      si,
+      sino,
+      mientras,
+      para todo,
+      regresar,
+    }
+    xleftmargin=.01\textwidth,
+    #1 % Configuraciones específicas ¿?
+  }
+}
+{}
