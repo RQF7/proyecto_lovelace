@@ -51,8 +51,8 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
            bloques de mensaje $ B_1, B_2 \dots B_n $.
    salida: bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
   inicio
-    $Bc_0$ $\gets$ $ VI $                         // El vector de incialización
-    para_todo $B$                 // entra al primer bloque.
+    $Bc_0$ $\gets$ $ VI $                        // El vector de inicialización
+    para_todo $B$                // entra al primer bloque.
       $Bc_i$ $\gets$ C($L$, $B_i \oplus Bc_{i - 1}$)
     fin
     regresar $Bc$

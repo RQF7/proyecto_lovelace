@@ -13,9 +13,15 @@ install:
     texlive-lang-spanish
     texlive-bibtex-extra
     biber
+    hunspell
 
 # Fase de construcción
 script:
+
+  # Compilación de archivos de LaTeX
   - make -C documentos_entregables
 #  - make -C documentos_entregables referencias
 #  - make -C documentos_entregables
+
+  # Revisión de ortografía
+  - make -C documentos_entregables ortografía

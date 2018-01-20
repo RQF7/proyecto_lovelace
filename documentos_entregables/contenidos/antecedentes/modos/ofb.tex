@@ -37,10 +37,10 @@ solamente se la pasa cifrando una y otra vez el vector de inicialización.
            bloques de mensaje (cifrado o descifrado) $ B_1, B_2 \dots B_n $.
    salida: bloques de mensaje (cifrado o descifrado) $ Bc_1, Bc_2 \dots Bc_n $.
   inicio
-    aux $\gets$ $ VI $
+    auxiliar $\gets$ $ VI $
     para_todo $B$
-      aux $\gets$ C($L$, aux)
-      $Bc_i$ $\gets$  aux $\oplus$ $B_i$
+      auxiliar $\gets$ C($L$, auxiliar)
+      $Bc_i$ $\gets$  auxiliar $\oplus$ $B_i$
     fin
     regresar $Bc$
   fin

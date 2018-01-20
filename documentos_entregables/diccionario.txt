@@ -1,0 +1,53 @@
+@Lovelace
+
+===============================================================================
+     Especificación de diccionario local para correcciones ortográficas.
+                               Proyecto Lovelace.
+===============================================================================
+
+Omisiones del diccionario
+===============================================================================
+*irrestricto
+*pseudocódigo
+*pseudocódigos
+
+Tecnicismos y extranjerismos
+===============================================================================
+@cifrador
+@cifradores
+@hash
+
+Otros idiomas
+===============================================================================
+@block
+@Chaining
+@Cipher
+@Codebook
+@Electronic
+@Feedback
+@Output
+
+Nombres propios y siglas
+===============================================================================
+@CBC
+@CFB
+@ECB
+@hunspell
+@LaTeX
+@OFB
+
+Sintaxis de LaTeX y similares
+===============================================================================
+En teoría el modo LaTeX de hunspell tendría que ser lo suficientemente bueno
+para que esta lista esté vacía.
+La mayoría de los problemas vienen de los entornos propios (como el de los
+pseudocódigos), debe de haber alguna forma de introducirlos a las excepciones.
+@bibintoc
+@C
+@caption
+@cbc
+@cfb
+@H
+@heading
+@label
+@title
