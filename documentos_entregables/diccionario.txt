@@ -8,6 +8,7 @@
 Omisiones del diccionario
 ===============================================================================
 *autenticación
+*contraparte
 *Criptoanálisis
 *criptoanálisis
 *criptología
