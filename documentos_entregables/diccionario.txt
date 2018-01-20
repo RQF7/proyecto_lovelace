@@ -7,9 +7,15 @@
 
 Omisiones del diccionario
 ===============================================================================
+*autenticación
+*Criptoanálisis
+*criptoanálisis
+*criptología
 *irrestricto
+*permutación
 *pseudocódigo
 *pseudocódigos
+*reordenen
 
 Tecnicismos y extranjerismos
 ===============================================================================
@@ -19,22 +25,40 @@ Tecnicismos y extranjerismos
 
 Otros idiomas
 ===============================================================================
+@Adaptively
+@adaptively
+@and
+@attack
 @block
 @Chaining
 @Cipher
+@Ciphertext
+@ciphertext
+@Chosen
+@chosen
 @Codebook
 @Electronic
 @Feedback
+@Graphos
+@Kriptos
+@only
 @Output
+@plaintext
 
 Nombres propios y siglas
 ===============================================================================
+@Alice
+@Bob
 @CBC
 @CFB
+@Claude
 @ECB
+@Elwood
 @hunspell
 @LaTeX
 @OFB
+@Shannon
+@XX
 
 Sintaxis de LaTeX y similares
 ===============================================================================
