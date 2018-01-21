@@ -23,6 +23,16 @@ Omisiones del diccionario
 *pseudocódigo
 *pseudocódigos
 *reordenen
+*subllave
+*subllaves
+*regresarlo
+*semidébil
+*semidébiles
+*computacionalmente
+*preimagen
+*preimágenes
+*procesadoras
+*parametrizar
 *síncrono
 *Síncronos
 *síncronos
@@ -33,6 +43,8 @@ Tecnicismos y extranjerismos
 @cifrador
 @cifradores
 @hash
+@mod
+@inv
 
 Otros idiomas
 ===============================================================================
@@ -55,6 +67,15 @@ Otros idiomas
 @only
 @Output
 @plaintext
+@Secure
+@Fast
+@Encryption
+@Routine
+@safer
+@Encryption
+@Standard
+@International
+@Algorithm
 
 Nombres propios y siglas
 ===============================================================================
@@ -70,6 +91,21 @@ Nombres propios y siglas
 @OFB
 @Shannon
 @XX
+@Feistel
+@AES
+@FEAL
+@SAFER
+@RC
+@Rijndael
+@MACs
+@SHA
+@MAC
+@SSL
+@IPSec
+@MDC
+@Eve
+@RSA
+@MD
 
 Sintaxis de LaTeX y similares
 ===============================================================================
@@ -86,3 +122,17 @@ pseudocódigos), debe de haber alguna forma de introducirlos a las excepciones.
 @heading
 @label
 @title
+
+Letras
+===============================================================================
+@K
+@rc
+@j
+@x
+@s
+@X
+@j
+@i
+@m
+@b
+@c

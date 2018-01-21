@@ -1,0 +1,91 @@
+%
+% Sección de cifrado por bloques, capítulo de antecedentes.
+% Proyecto Lovelace.
+%
+
+\newpage
+\section{Cifrados por bloques}
+
+Los cifrados por bloque son esquemas de cifrado simétricos que, como bien 
+lo explica su nombre, operan mediante bloques de datos. Normalmente los 
+bloques tienen una longitud de 64 o de 128, mientras que las llaves 
+pueden ser de 56, 128, 192 o 256.
+
+En muchos sistemas criptográficos, estos cifrados son elementos 
+importantes, pues su versatilidad permite construir con ellos 
+generadores de números pseudoaleatorios, cifrados de flujo MACs y 
+funciones hash. Sirven también como componentes centrales en técnicas de 
+autenticación de mensajes, mecanismos de integridad de datos, protocolos 
+de autenticación de entidad y esquemas de firma electrónica que usan 
+llaves simétricas. 
+
+Los cifrados por bloque están limitados en la práctica por varios 
+factores, tales como el límite de memoria, la velocidad requerida o 
+restricciones impuestas por el hardware o el software en el que se 
+implementan. Normalmente, se debe escoger entre eficiencia y seguridad
+
+\subsection{Definición}
+
+\begin{equation}
+  \label{cifrado_bloques_def}
+ 	E: \{0,1\}^r \times \{0,1\}^n \longrightarrow \{0,1\}^n, (k,m) 
+	\longmapsto  E(k,m)
+\end{equation}
+
+
+Utilizando una llave secreta $k$ de longitud binaria $r$ el algoritmo de 
+cifrado $E$ cifra bloques en claro $m$ de una longitud binaria fija $n$ y 
+da como resultado bloques cifrados $c = E (k,m)$ cuya longitud también es 
+$n$. $n$ es el tamaño de bloque del cifrado. 
+El espacio de llave $K = \{0,1\}^r$. Para cada llave, existe una función 
+$D_k(c)$ que permite tomar un bloque cifrado $c$ y regresarlo a su forma 
+original $m$.
+
+Generalmente, los cifrados por bloque procesan el texto claro en bloques 
+relativamente grandes ($n \geq 64$), contrastando con los cifradores de 
+flujo. Cuando la longitud del mensaje en claro excede el tamaño de 
+bloque, se utilizan los modos de operación.
+
+Los parámetros más importantes de los cifrados por bloque son los 
+siguientes:
+\begin{itemize}
+	\item Tamaño de bloque
+	\item Tamaño de llave
+\end{itemize}
+
+\subsection{Criterios para evaluar los cifrados por bloque}
+
+A continuación se listan algunos de los criterios que pueden ser tomados en cuenta para evaluar estos cifrados:
+\begin{enumerate}
+	\item \textbf{Nivel de seguridad.} La confianza que se le tiene a un 
+		cifrado va creciendo con el tiempo, pues va siendo analizado y 
+		sometido a pruebas.
+	\item \textbf{Tamaño de llave.} La entropía del espacio de la llave 
+		define un límite superior en la seguridad del cifrado al tomar en 
+		cuenta la búsqueda exhaustiva. Sin embargo, hay que tener cuidado 
+		con su tamaño, pues también aumentan los costos de generación, 
+		transmisión, almacenamiento, etcétera.
+	\item \textbf{Tamaño de bloque.} Impacta la seguridad, pues entre más 
+		grandes, mejor; sin embargo, tiene repercusiones en el costo de la 
+		implementación, además de que puede afectar el rendimiento del 
+		cifrado.
+	\item \textbf{Expansión de datos.} Es extremadamente deseable que los 
+		datos cifrados no aumenten su tamaño respecto a los datos en claro.
+	\item \textbf{Propagación de error.} Descifrar datos que contienen 
+		errores de bit puede llevar a recuperar incorrectamente el texto en
+		claro, además de propagar errores en los bloques pendientes por 
+		descifrar. Normalmente, el tamaño de bloque afecta el error de 
+		propagación.
+\end{enumerate}
+
+%\input{contenidos/antecedentes/bloques/DES.tex}
+
+\subsection{AES}
+
+\subsubsection{Algoritmo de Rijndael}
+
+\subsection{FEAL}
+
+\input{contenidos/antecedentes/bloques/IDEA.tex}
+\input{contenidos/antecedentes/bloques/SAFER.tex}
+\input{contenidos/antecedentes/bloques/RC5.tex}
