@@ -24,6 +24,15 @@ factores, tales como el límite de memoria, la velocidad requerida o
 restricciones impuestas por el hardware o el software en el que se 
 implementan. Normalmente, se debe escoger entre eficiencia y seguridad
 
+Idealmente, al cifrar por bloques, cada bit del bloque cifrado depende
+de todos los bits de la llave y del texto en claro; no debería existir
+una relación estadística evidente entre el texto en claro y el texto
+cifrado; el alterar tan solo un bit en el texto en claro o en la llave 
+debería alterar cada uno de los bits del texto cifrado con una 
+probabilidad de $\frac{1}{2}$; y alterar un bit del texto cifrado
+debería provocar resultados impredecibles al recuperar el texto en
+claro.
+
 \subsection{Definición}
 
 \begin{equation}
@@ -78,14 +87,9 @@ A continuación se listan algunos de los criterios que pueden ser tomados en cue
 		propagación.
 \end{enumerate}
 
-%\input{contenidos/antecedentes/bloques/DES.tex}
 
-\subsection{AES}
-
-\subsubsection{Algoritmo de Rijndael}
-
-\subsection{FEAL}
-
+\input{contenidos/antecedentes/bloques/DES.tex}
+\input{contenidos/antecedentes/bloques/FEAL.tex}
 \input{contenidos/antecedentes/bloques/IDEA.tex}
 \input{contenidos/antecedentes/bloques/SAFER.tex}
 \input{contenidos/antecedentes/bloques/RC5.tex}

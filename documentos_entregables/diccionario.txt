@@ -34,6 +34,9 @@ Omisiones del diccionario
 *síncrono
 *Síncronos
 *síncronos
+*biyecciones
+*mapeos
+*autorreversible
 
 Tecnicismos y extranjerismos
 ===============================================================================
@@ -74,6 +77,7 @@ Otros idiomas
 @Standard
 @International
 @Algorithm
+@Encipherment
 
 Nombres propios y siglas
 ===============================================================================
@@ -92,6 +96,7 @@ Nombres propios y siglas
 @Feistel
 @AES
 @FEAL
+@feal
 @SAFER
 @RC
 @Rijndael
@@ -104,6 +109,8 @@ Nombres propios y siglas
 @Eve
 @RSA
 @MD
+@FIPS
+
 
 Sintaxis de LaTeX y similares
 ===============================================================================
@@ -134,3 +141,5 @@ Letras
 @m
 @b
 @c
+@N
+@d
