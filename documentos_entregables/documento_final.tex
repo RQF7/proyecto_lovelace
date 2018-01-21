@@ -19,7 +19,12 @@
 \begin{document}
 
   \Portada
+
+  % TODO: hacer que el título del índice funcione como sección, no como
+  % capítulo; crear dos índices, el primero general (sólo dos niveles) y el
+  % segundo a detalle (todos los niveles).
   \pdfbookmark[1]{\contentsname}{Contenido}
+  \setcounter{tocdepth}{4}
   \tableofcontents
   \newpage
 
