@@ -80,6 +80,9 @@ Otros idiomas
 @International
 @Algorithm
 @Encipherment
+@Advanced
+@SubBytes
+@MixColumns
 
 Nombres propios y siglas
 ===============================================================================
@@ -97,6 +100,7 @@ Nombres propios y siglas
 @XX
 @Feistel
 @AES
+@aes
 @FEAL
 @feal
 @SAFER
@@ -112,6 +116,7 @@ Nombres propios y siglas
 @RSA
 @MD
 @FIPS
+@NIST
 
 
 Sintaxis de LaTeX y similares
