@@ -8,12 +8,16 @@
 Omisiones del diccionario
 ===============================================================================
 *autenticación
+*Autosincronizables
+*autosincronizables
 *contraparte
+*cifrándolos
 *Criptoanálisis
 *criptoanálisis
 *criptología
 *irrestricto
 *permutación
+*pseudoaleatorio
 *pseudocódigo
 *pseudocódigos
 *reordenen
@@ -27,9 +31,13 @@ Omisiones del diccionario
 *preimágenes
 *procesadoras
 *parametrizar
+*síncrono
+*Síncronos
+*síncronos
 
 Tecnicismos y extranjerismos
 ===============================================================================
+@buffer
 @cifrador
 @cifradores
 @hash
