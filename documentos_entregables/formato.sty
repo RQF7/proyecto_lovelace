@@ -129,4 +129,10 @@
             {\MakeUppercase\lstlistlistingname}
   \@starttoc{lol}
 }
+\renewcommand\tableofcontents{
+  \section*{\contentsname}
+    \@mkboth{\MakeUppercase\contentsname}
+            {\MakeUppercase\contentsname}
+  \@starttoc{toc}
+}
 \makeatother
