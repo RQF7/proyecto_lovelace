@@ -5,14 +5,14 @@
 
 \section{Cifrados por bloques}
 
-Los cifrados por bloque son esquemas de cifrado simétricos que, como bien
+Los cifrados por bloque son esquemas de cifrado que, como bien
 lo explica su nombre, operan mediante bloques de datos. Normalmente los
-bloques tienen una longitud de 64 o de 128, mientras que las llaves
-pueden ser de 56, 128, 192 o 256.
+bloques tienen una longitud de 64 o de 128 bits, mientras que las llaves
+pueden ser de 56, 128, 192 o 256 bits.
 
-En muchos sistemas criptográficos, estos cifrados son elementos
-importantes, pues su versatilidad permite construir con ellos
-generadores de números pseudoaleatorios, cifrados de flujo MACs y
+En muchos sistemas criptográficos, los cifrados por bloque simétricos 
+son elementos importantes, pues su versatilidad permite construir con 
+ellos generadores de números pseudoaleatorios, cifrados de flujo MACs y
 funciones hash. Sirven también como componentes centrales en técnicas de
 autenticación de mensajes, mecanismos de integridad de datos, protocolos
 de autenticación de entidad y esquemas de firma electrónica que usan
@@ -36,8 +36,8 @@ claro.
 
 \begin{equation}
   \label{cifrado_bloques_def}
- 	E: \{0,1\}^r \times \{0,1\}^n \longrightarrow \{0,1\}^n, (k,m)
-	\longmapsto  E(k,m)
+ 	E: \{0,1\}^r \times \{0,1\}^n \longrightarrow \{0,1\}^n
+ 	   (k,m) \longmapsto  E(k,m)
 \end{equation}
 
 
@@ -45,14 +45,14 @@ Utilizando una llave secreta $k$ de longitud binaria $r$ el algoritmo de
 cifrado $E$ cifra bloques en claro $m$ de una longitud binaria fija $n$ y
 da como resultado bloques cifrados $c = E (k,m)$ cuya longitud también es
 $n$. $n$ es el tamaño de bloque del cifrado.
-El espacio de llave $K = \{0,1\}^r$. Para cada llave, existe una función
-$D_k(c)$ que permite tomar un bloque cifrado $c$ y regresarlo a su forma
-original $m$.
+El espacio de llave está dado por $K = \{0,1\}^r$, para cada llave existe una 
+función $D_k(c)$ que permite tomar un bloque cifrado $c$ y regresarlo a su 
+forma original $m$.
 
 Generalmente, los cifrados por bloque procesan el texto claro en bloques
 relativamente grandes ($n \geq 64$), contrastando con los cifradores de
-flujo. Cuando la longitud del mensaje en claro excede el tamaño de
-bloque, se utilizan los modos de operación.
+flujo, que toman bit por bit. Cuando la longitud del mensaje en claro excede 
+el tamaño de bloque, se utilizan los modos de operación.
 
 Los parámetros más importantes de los cifrados por bloque son los
 siguientes:
@@ -63,7 +63,8 @@ siguientes:
 
 \subsection{Criterios para evaluar los cifrados por bloque}
 
-A continuación se listan algunos de los criterios que pueden ser tomados en cuenta para evaluar estos cifrados:
+A continuación se listan algunos de los criterios que pueden ser tomados 
+en cuenta para evaluar estos cifrados:
 \begin{enumerate}
 	\item \textbf{Nivel de seguridad.} La confianza que se le tiene a un
 		cifrado va creciendo con el tiempo, pues va siendo analizado y
