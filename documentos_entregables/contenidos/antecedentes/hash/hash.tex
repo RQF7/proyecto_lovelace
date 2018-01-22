@@ -2,71 +2,73 @@
 % Sección de funciones hash, capítulo de antecedentes.
 % Proyecto Lovelace.
 %
-\newpage
+
 \section{Funciones hash}
 
 Se refiere al conjunto de funciones computacionalmente eficientes que
 mapean cadenas binarias de una longitud arbitraria a cadenas binarias
 de una longitud fija, llamadas valores hash.
 
-Si se tiene una función hash cuya salida es una cadena de $n-$bits, 
+Si se tiene una función hash cuya salida es una cadena de $n-$bits,
 la probabilidad de que una cadena aleatoria
 sea mapeada a un valor hash de $n-$bits es de $2^n$. Si se desea utilizar
-a una función hash $h$ en un ámbito criptográfico, es importante que 
-cumpla con dos cosas: primero, que sea resistente a las colisiones o, 
+a una función hash $h$ en un ámbito criptográfico, es importante que
+cumpla con dos cosas: primero, que sea resistente a las colisiones o,
 en otras palabras, que no sea computacionalmente factible encontrar dos entradas distintas que den el mismo valor (una colisión entre las entradas $x$ y $y$ tal que $h(x) = h(y)$); y segundo, que tenga resistencia a una segunda preimagen, o sea que, dado un valor hash $h(z) = y$, no sea computacionalmente factible encontrar una entrada $x$ tal que $h(x) = y$ mientras $z \neq x$.
 
-Algunos ejemplos de las funciones hash criptográficas son el SHA-1 y el 
+Algunos ejemplos de las funciones hash criptográficas son el SHA-1 y el
 MD5. En los esquemas de firma electrónica, se obtiene el valor hash del
-mensaje ($h(m)$) y se pone en el lugar de la firma. Los valores hash 
-también son utilizados para revisar la integridad de las llaves públicas 
+mensaje ($h(m)$) y se pone en el lugar de la firma. Los valores hash
+también son utilizados para revisar la integridad de las llaves públicas
 y; al utilizarse con una llave secreta, las funciones criptográficas hash
 se convierten en códigos de autenticación de mensaje (MAC, por sus siglas
 en inglés), una de las herramientas más utilizadas en protocolos como SSL
-e IPSec para revisar la integridad de un mensaje y autenticar al 
+e IPSec para revisar la integridad de un mensaje y autenticar al
 remitente.
 
 Matemáticamente, una función hash es una función
+
 \begin{equation}
   \label{funcion_hash_def}
  	h: \{0, 1\}^* \longrightarrow \{0,1\}^n, m \longmapsto h(m)
 \end{equation}
 
-La longitud de $n$ suele ser entre 128 y 512 bits. 
+La longitud de $n$ suele ser entre 128 y 512 bits.
 Es importante resaltar que uno de los requerimientos básicos de las
-funciones hash es que los valores $h(m)$ sean fáciles de calcular, 
-de manera, ya sea en software o en hardware, sean prácticas al 
-implementarse. 
+funciones hash es que los valores $h(m)$ sean fáciles de calcular,
+de manera, ya sea en software o en hardware, sean prácticas al
+implementarse.
 
 Una de las aplicaciones más conocidas de las funciones hash es la de
 cifrar las contraseñas: en un sistema, en vez de almacenar la contraseña
-$clave$, se guarda su valor hash $h(clave)$. Así, cuando un usuario 
+$clave$, se guarda su valor hash $h(clave)$. Así, cuando un usuario
 ingresa su contraseña, el sistema calcula su valor hash y lo compara con
 el que se tiene guardado. Realizar esto ayuda a evitar que las contraseñas
-sean conocidas para los usuarios con privilegios, como pueden ser los 
+sean conocidas para los usuarios con privilegios, como pueden ser los
 administradores.
 
 \subsection{Integridad de datos}
 Las funciones criptográficas hash también son conocidas como funciones
 \textit{procesadoras de mensajes} y el valor hash $h(m)$ de un mensaje
 $m$ dado es llamado \textit{huella} de $m$; ya que es una representación
-compacta de m y, dada la resistencia a la segunda preimagen, la huella 
+compacta de m y, dada la resistencia a la segunda preimagen, la huella
 es, prácticamente, única. Si el mensaje fuese modificado, el valor hash
-sería distinto; por lo que si se tienen almacenados los valores hash, 
-basta con calcular su valor $h(m)$ y compararlo con el que se tiene 
+sería distinto; por lo que si se tienen almacenados los valores hash,
+basta con calcular su valor $h(m)$ y compararlo con el que se tiene
 guardado para detectar modificaciones. Por esta razón, las funciones
-hash también son llamadas códigos de detección de modificaciones (MDC, 
+hash también son llamadas códigos de detección de modificaciones (MDC,
 por sus siglas en inglés).
 
 \subsection{Autenticación de mensajes}
-Otra importante aplicación de las funciones hash es la autenticación del mensaje. Si una función hash es utilizada para la autenticación de 
+Otra importante aplicación de las funciones hash es la autenticación del mensaje. Si una función hash es utilizada para la autenticación de
 mensajes, es llamada código de autenticación de mensajes (MAC, por sus
-siglas en inglés). MAC es una técnica simétrica estándar muy utilizada para autenticar y proteger la integridad de un mensaje. Dependen de 
+siglas en inglés). MAC es una técnica simétrica estándar muy utilizada para autenticar y proteger la integridad de un mensaje. Dependen de
 una llave secreta que tienen las partes interesadas y, al contrario de las
 firmas electrónicas donde solo una persona conoce la llave privada y es
 capaz de generar la firma, cada uno de los participantes puede producir
 el MAC válido para un mensaje. La llave privada $k$ es utilizada para
 parametrizar la función hash.
+
 \begin{equation}
   \label{funcion_hash_mac}
  	(h_k: \{0, 1\}^* \longrightarrow \{0,1\}^n)_{k \in K}
@@ -78,21 +80,23 @@ de Alice. En el esquema básico de firma RSA, Alice puede firmar mensajes
 que estén codificados por números $ m \in \{0, \dots, n-1\}$. Para firmar
 $m$, aplica el algoritmo de descifrado y obtiene la firma $\sigma = m^d$ $mod$ $n$ de $m$.
 Normalmente, $n$ es un número de 1024 bits y Alice puede firmar una cadena
-de bits $m$ tal que, cuando es interpretada como número, sea menor que 
-$n$. Esto es una cadena de, máximo, 128 caracteres ASCII: la mayoría de 
-los documentos que se desean firmar suelen ser mucho más grandes. Este 
-problema existe en todos los esquemas de firma digital y usualmente es 
-resuelto al aplicar una función hash resistente a colisiones $h$. 
+de bits $m$ tal que, cuando es interpretada como número, sea menor que
+$n$. Esto es una cadena de, máximo, 128 caracteres ASCII: la mayoría de
+los documentos que se desean firmar suelen ser mucho más grandes. Este
+problema existe en todos los esquemas de firma digital y usualmente es
+resuelto al aplicar una función hash resistente a colisiones $h$.
 De esta forma, primero se obtiene el valor hash del mensaje $h(m)$ y esto
 es lo que se firma en lugar del mensaje mismo ($m$):
+
 \begin{equation}
   \label{funcion_hash_sign}
  	\sigma = h(m)^d mod n
 \end{equation}
+
 Los mensajes que tengan el mismo valor hash tienen la misma firma. En este
-caso, es primordial que la función hash $h$ sea resistente a colisiones 
-para garantizar el no repudio. De otra manera, Alice podría firmar el 
+caso, es primordial que la función hash $h$ sea resistente a colisiones
+para garantizar el no repudio. De otra manera, Alice podría firmar el
 mensaje $m$ y después decir que había firmado un mensaje distinto ($n$).
 La resistencia a segundas preimágenes previene que un atacante Eve tome un
-mensaje $m$ firmado por Alice, genere un mensaje nuevo $n$ y utilice 
+mensaje $m$ firmado por Alice, genere un mensaje nuevo $n$ y utilice
 $\sigma$ como una firma válida de Alice para $n$.
