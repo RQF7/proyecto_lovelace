@@ -2,25 +2,27 @@
 
 Cifra bloques de 64 bits utilizando una llave de 128 bits. Este cifrado
 está basado en una generalización de la estructura Feistel y consiste en
-8 rondas idénticas seguidas por una transformación. Cada ronda $r$ 
-utiliza 6 subllaves $K^{(r)}_i$ ($1 \leq i \leq 6$) de 16 bits que se 
-encargan de transformar una entrada $X$ de 64 bits en una salida de 
-cuatro bloques de 16-bits, que son utilizados como entrada en la 
-siguiente ronda. La salida de la ronda 8 tiene como entrada la 
-transformación de salida que, al emplear cuatro llaves adicionales 
-$K^{(9)}_i$ ($1 \leq i \leq 4$), produce los datos cifrados 
+8 rondas idénticas seguidas por una transformación. Cada ronda $r$
+utiliza 6 subllaves $K^{(r)}_i$ ($1 \leq i \leq 6$) de 16 bits que se
+encargan de transformar una entrada $X$ de 64 bits en una salida de
+cuatro bloques de 16-bits, que son utilizados como entrada en la
+siguiente ronda. La salida de la ronda 8 tiene como entrada la
+transformación de salida que, al emplear cuatro llaves adicionales
+$K^{(9)}_i$ ($1 \leq i \leq 4$), produce los datos cifrados
 $Y = (Y_1, Y_2, Y_3, Y_4)$.
 
-%   Lo siento, pero si corto la línea de la entrada, la entrada queda a 
+%   Lo siento, pero si corto la línea de la entrada, la entrada queda a
 %  la mitad y se ve muy raro.
 
 \begin{pseudocodigo}[caption={IDEA, cifrado.}, label={idea:1}]
-  entrada: $64-$bits de datos en claro $M = m_1 \dots m_64$; llave de $128-$bits $ K = k_1 \dots k_{128}$.
-  salida: bloque cifrado de $64-$bits $Y = (Y_1, Y_2, Y_3, Y_4)$.
+  entrada:   $64-$bits de datos en claro $M = m_1 \dots m_64$;
+             llave de $128-$bits $ K = k_1 \dots k_{128}$.
+  salida:    bloque cifrado de $64-$bits $Y = (Y_1, Y_2, Y_3, Y_4)$.
   inicio
     Calcular las subllaves $K^{(r)}_1, \dots, K^{(r)}_{6}$ para las rondas $1 \leq r \leq 8$ y $K^{(9)}_1, \dots, K^{(9)}_{4}$
     para la transformación de salida.
-    $(X_1, X_2, X_3, X_4) \leftarrow (m_1 \dots m_{16}, m_{17} \dots m_{32}, m_{33} \dots m_{48}, m_{49} \dots m_{64})$ donde $X_i$ almacena 16 bits.
+    $(X_1, X_2, X_3, X_4) \leftarrow (m_1 \dots m_{16}, m_{17} \dots m_{32}, m_{33} \dots m_{48}, m_{49} \dots m_{64})$
+        donde $X_i$ almacena 16 bits.
     Para la ronda $r$ desde 1 hasta 8:
       a) $X_1 \leftarrow X_1 \times K_1^{(r)} mod 2^{16} + 1$
          $X_4 \leftarrow X_4 \times K_4^{(r)} mod 2^{16} + 1$
@@ -43,13 +45,13 @@ $Y = (Y_1, Y_2, Y_3, Y_4)$.
   fin
 \end{pseudocodigo}
 
-El descifrado se realiza con el mismo algoritmo de cifrado, pero 
+El descifrado se realiza con el mismo algoritmo de cifrado, pero
 utilizando como entrada los datos cifrados $Y$ como entrada $M$. Se usa la
 misma llave $K$; aunque las subllaves sufren una modificación al ser
-generadas, pues se utiliza una tabla y se realizan las operaciones 
+generadas, pues se utiliza una tabla y se realizan las operaciones
 contrarias (inverso de la adición y el inverso del producto).
 
-Descartando los ataques a las llaves débiles, no hay un mejor ataque 
+Descartando los ataques a las llaves débiles, no hay un mejor ataque
 publicado para el IDEA de 8 rondas que el de la búsqueda exhaustiva
-en el espacio de llave. Por lo que la seguridad está ligada a la 
+en el espacio de llave. Por lo que la seguridad está ligada a la
 creciente debilidad de su tamaño de bloque relativamente pequeño.
