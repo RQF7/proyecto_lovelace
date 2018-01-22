@@ -83,6 +83,11 @@ Otros idiomas
 @Advanced
 @SubBytes
 @MixColumns
+@one
+@way
+@function
+@collision
+@resistant
 
 Nombres propios y siglas
 ===============================================================================
@@ -117,7 +122,7 @@ Nombres propios y siglas
 @MD
 @FIPS
 @NIST
-
+@CRHF
 
 Sintaxis de LaTeX y similares
 ===============================================================================
