@@ -6,11 +6,13 @@
 \subsection{Modos de operación}
 
 Por sí solos, los cifrados por bloques solamente permiten el cifrado y
-descifrado de bloques de información de tamaño fijo. Para la mayoría de los
-casos, menos de 256 bits\cite{modos_de_operacion}, lo cual es equivalente a
-alrededor de 8 caracteres. Es fácil darse cuenta de que esta restricción no
-es ningún tema menor: en la gran mayoría de las aplicaciones, la longitud de
-lo que se quiere ocultar es arbitraria.
+descifrado de bloques de información de tamaño fijo; donde, en la mayoría de
+los casos, los bloques son de menos de 256 bits\cite{modos_de_operacion}, lo
+cual es equivalente a alrededor de 8 caracteres. Es fácil darse cuenta de que
+esta restricción no es ningún tema menor: en la gran mayoría de las
+aplicaciones, la longitud de lo que se quiere ocultar es arbitraria.
+
+% TODO: formalizamos.
 
 Los modos de operación permiten extender la funcionalidad de los cifrados por
 bloques para poder aplicarlos a información de tamaño irrestricto. Formalizamos
@@ -36,6 +38,8 @@ bloque cifrado, el cuál también tiene longitud $ n $.
 En este caso $ L $ es la misma que en \ref{cifrado_por_bloques}, $ T $ y
 $ Tc $ son el texto original y el texto cifrado, respectivamente, y ambos
 son de longitud arbitraria: $ T, Tc \in \{0, 1\}^* $.
+
+% TODO: presentamos x2.
 
 Un primer enfoque (y quizás el más intuitivo) es partir el mensaje original
 en bloques del tamaño requerido y después aplicar el algoritmo a cada bloque

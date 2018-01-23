@@ -5,9 +5,9 @@
 
 \subsubsection{\textit{Output Feedback} (OFB)}
 
-Este es muy similar al anterior (CFB), salvo porque la retroalimentación va
+Este modo es muy similar al anterior (CFB), salvo que la retroalimentación va
 directamente de la salida del cifrador a bloques. De esta forma, nada que
-tenga que ver con el texto en claro, llega al cifrado a bloques; este
+tenga que ver con el texto en claro llega al cifrado a bloques; este
 solamente se la pasa cifrando una y otra vez el vector de inicialización.
 
 \begin{figure}[H]
@@ -32,7 +32,7 @@ solamente se la pasa cifrando una y otra vez el vector de inicialización.
 \begin{pseudocodigo}[caption={Modo de operación OFB (cifrado y descifrado).}]
   entrada: llave $ L $; vector de inicialización $ VI $;
            bloques de mensaje (cifrado o descifrado) $ B_1, B_2 \dots B_n $.
-   salida: bloques de mensaje (cifrado o descifrado) $ Bc_1, Bc_2 \dots Bc_n $.
+  salida:  bloques de mensaje (cifrado o descifrado) $ Bc_1, Bc_2 \dots Bc_n $.
   inicio
     auxiliar $\gets$ $ VI $
     para_todo $B$

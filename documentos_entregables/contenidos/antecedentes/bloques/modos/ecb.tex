@@ -33,7 +33,7 @@ se debe de partir en bloques ($ T = B_1 || B_2 || \dots || B_n $).
 
 \begin{pseudocodigo}[caption={Modo de operación ECB, cifrado.}]
   entrada: llave $ L $; bloques de mensaje $ B_1, B_2 \dots B_n $.
-   salida: bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
+  salida:  bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
   inicio
     para_todo $B$
       $Bc_i$ $\gets$ C($L$, $B_i$)
@@ -44,7 +44,7 @@ se debe de partir en bloques ($ T = B_1 || B_2 || \dots || B_n $).
 
 \begin{pseudocodigo}[caption={Modo de operación ECB, descifrado.}]
   entrada: llave $ L $; bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
-   salida: bloques de mensaje original $ B_1, B_2 \dots B_n $.
+  salida:  bloques de mensaje original $ B_1, B_2 \dots B_n $.
   inicio
     para_todo $Bc$
       $B_i$ $\gets$ $C^{-1}$($L$, $Bc_i$)
