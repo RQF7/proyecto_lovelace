@@ -34,7 +34,7 @@
 % Formato de párrafos
 \setlength{\parindent}{2em}                 % Sangría
 \setlength{\parskip}{1em}                   % Espacio entre párrafos
-\renewcommand{\baselinestretch}{1.5}        % Interlineado
+\renewcommand{\baselinestretch}{1.25}       % Interlineado
 
 % Formato de títulos
 \titleformat{\chapter}[display]
@@ -46,9 +46,19 @@
   \newpage
 ] % Después de
 
+% izquierda, arriba, abajo
 \titlespacing{\section}{0pc}{0pc}{0pc}
-\titlespacing{\subsection}{0pc}{0pc}{0pc}
-\titlespacing{\subsubsection}{0pc}{0pc}{0pc}
+\titlespacing{\subsection}{0pc}{1pc}{0pc}
+\titlespacing{\subsubsection}{0pc}{1pc}{0pc}
+
+% Secciones en nueva página
+\newcommand{\sectionbreak}{\clearpage}
+
+% Espaciado en floats H (arriba y abajo)
+\setlength{\intextsep}{2em}                 % Con H
+\setlength{\textfloatsep}{2em}              % Con T y B
+% https://tex.stackexchange.com/questions/36361/how-can-i-inject-the-proper-
+% amount-of-vertical-space-between-captions-and-figure/36362#comment72508_36362
 
 % Encabezado y pie
 \pagestyle{fancy}
@@ -118,5 +128,11 @@
     \@mkboth{\MakeUppercase\lstlistlistingname}
             {\MakeUppercase\lstlistlistingname}
   \@starttoc{lol}
+}
+\renewcommand\tableofcontents{
+  \section*{\contentsname}
+    \@mkboth{\MakeUppercase\contentsname}
+            {\MakeUppercase\contentsname}
+  \@starttoc{toc}
 }
 \makeatother

@@ -3,7 +3,10 @@
 % Proyecto Lovelace.
 %
 % Mis más sinceros agradecimientos al usuario «pnpo»:
-% https://tex.stackexchange.com/questions/111116/what-is-the-best-looking-pseudo-code-package
+% https://tex.stackexchange.com/questions/111116/what-is-the-best-looking-
+% pseudo-code-package
+% La documentación:
+% http://www.texdoc.net/texmf-dist/doc/latex/listings/listings.pdf
 %
 
 % Define un nuevo contador a nivel de capítulo.
@@ -27,8 +30,8 @@
   \lstset{
     mathescape=true,
     frame=tb,
-    numbers=left,
-    numberstyle=\tiny,
+    numbers=none,
+    %numberstyle=\tiny,
     basicstyle=\footnotesize,
     keywordstyle=\color{black}\bfseries,
     captionpos=b,
@@ -46,7 +49,12 @@
       para_todo,
       regresar,
     }
-    xleftmargin=.01\textwidth,
+    %xleftmargin=.01\textwidth,
+    linewidth=5.0in,
+    xleftmargin=0.5in,
+    xrightmargin=0.5in,
+    aboveskip=2em,
+    belowskip=2em,
     #1 % Configuraciones específicas ¿?
   }
 }

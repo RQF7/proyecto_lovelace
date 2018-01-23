@@ -1,21 +1,21 @@
 \subsection{Data Encryption Standard (DES)}
 
-Este es, probablemente, el cifrado simétrico por bloques más conocido; 
-ya que en la década de los 70 estableció un precedente al ser el primer 
-algoritmo a nivel comercial que publicó abiertamente sus 
+Este es, probablemente, el cifrado simétrico por bloques más conocido;
+ya que en la década de los 70 estableció un precedente al ser el primer
+algoritmo a nivel comercial que publicó abiertamente sus
 especificaciones y detalles de implementación. Se encuentra definido
 en el estándar americano FIPS 46-2.
 
 DES es un cifrado Feistel que procesa bloques de $n=64$ bits y produce
 bloques cifrados de la misma longitud. Aunque la llave es de 64 bits, 8
 son de paridad, por lo que el tamaño \textit{efectivo} de la llave es de
-56 bits. Las $2^{56}$ llaves implementan, máximo, $2^{56}$ de las 
+56 bits. Las $2^{56}$ llaves implementan, máximo, $2^{56}$ de las
 $2^{64}!$ posibles biyecciones en bloques de 64 bits.
 
-Con la llave $K$ se generan 16 subllaves $K_i$ de 48 bits; una para cada 
-ronda. En cada ronda se utilizan 8 \textit{cajas-s} (mapeos de 
+Con la llave $K$ se generan 16 subllaves $K_i$ de 48 bits; una para cada
+ronda. En cada ronda se utilizan 8 \textit{cajas-s} (mapeos de
 sustitución de 6 a 4 bits). La entrada de 64 bits es dividida por la mitad
-en $L_0$ y $R_0$. Cada ronda $i$ va tomando las entradas $L_{i-1}$ y 
+en $L_0$ y $R_0$. Cada ronda $i$ va tomando las entradas $L_{i-1}$ y
 $R_{i-1}$ de la ronda anterior y produce salidas de 32 bits $L_i$ y $R_i$
 mientras $1 \leq i \leq 16$ de la siguiente manera:
 
@@ -29,28 +29,32 @@ mientras $1 \leq i \leq 16$ de la siguiente manera:
  	R_i = L_{i-1} \oplus f(R_{i-1}, K_i); f(R_{i-1}, K_i) = P(S(E(R_{i-1})\oplus K_i))
 \end{equation}
 
-$E$ se encarga de expandir $R_{i-1}$ de 32 bits a 48, $P$ es una 
-permutación de 32 bits y $S$ son las cajas-s. 
+$E$ se encarga de expandir $R_{i-1}$ de 32 bits a 48, $P$ es una
+permutación de 32 bits y $S$ son las cajas-s.
 
 \begin{pseudocodigo}[caption={DES, cifrado.}, label={des:1}]
-  entrada:	64 bits de texto en claro $M = m_1 \dots m_64$; llave de 64 bits $K = k_1 \dots k_{64}$.
-  salida: 	bloque de texto cifrado de 64 bits $C = c_1 \dots c_{64}$.
+  entrada:  64 bits de texto en claro $M = m_1 \dots m_64$;
+            llave de 64 bits $K = k_1 \dots k_{64}$.
+  salida:   bloque de texto cifrado de 64 bits $C = c_1 \dots c_{64}$.
   inicio
     Calcular 16 subllaves $K_i$ de 48 bits partiendo de $K$.
     $(L_0, R_0) \leftarrow IP(m_1m_2\dots m_{64}$
-    Para $i$ desde 1 hasta 16: Calcular $L_i$ y $R_i$ mediante las ecuaciones mostradas anteriormente. 
+    Para $i$ desde 1 hasta 16: Calcular $L_i$ y $R_i$ mediante las ecuaciones
+    mostradas anteriormente.
     Obtener $f(R_{i-1}, K_i)$ así:
-    	a) Expandir $R_{i-1} = r_1r_2\dots r_{32}$ de 32 a 48 bits usando $E$: $T \leftarrow E(R_{i-1})$.
-    	b) $T^\prime \leftarrow T \oplus K_i$. Donde $T^\prime$ es representado como ocho cadenas de 6 bits cada una $(B_1, \dots, B_8)$.
-    	c) $T'' \leftarrow (S_1(B_1), S_2(B_2), \dots S_8(B_8))$
-    	d) $T''' \leftarrow P(T'')$
+      a) Expandir $R_{i-1} = r_1r_2\dots r_{32}$ de 32 a 48 bits
+         usando $E$: $T \leftarrow E(R_{i-1})$.
+      b) $T^\prime \leftarrow T \oplus K_i$. Donde $T^\prime$ es representado
+         como ocho cadenas de 6 bits cada una $(B_1, \dots, B_8)$.
+      c) $T'' \leftarrow (S_1(B_1), S_2(B_2), \dots S_8(B_8))$
+      d) $T''' \leftarrow P(T'')$
     fin
     $b_1b_2 \dots b_{64} \leftarrow (R_{16}, L{16})$.
     $C \leftarrow IP^{-1}(b_1b_2 \dots b_{64})$
   fin
 \end{pseudocodigo}
 
-El descifrado DES consiste en el mismo algoritmo de cifrado, con la 
+El descifrado DES consiste en el mismo algoritmo de cifrado, con la
 misma llave $K$, pero utilizando las subllaves en orden inverso:
 $K_{16}, K{15}, \dots, K_1$.
 
@@ -58,16 +62,16 @@ $K_{16}, K{15}, \dots, K_1$.
 Tomando en cuenta las siguientes definiciones
 
 \begin{itemize}
-	\item Llave débil: una llave $K$ tal que $E_K(E_K(x)) = x$ para toda 
+	\item Llave débil: una llave $K$ tal que $E_K(E_K(x)) = x$ para toda
 		$x$.
 	\item Llaves semidébiles: se tiene un par de llaves $K_1, K_2$ tal que
 		$E_{K_1}(E_{K_2}(x)) = x$
 \end{itemize}
 
 DES tiene cuatro llaves débiles y seis pares de llaves semidébiles.
-Las cuatro llaves débiles generan subllaves $K_i$ iguales y, debido a 
-que DES es un cifrado Feistel, el cifrado es autorreversible. O sea que 
+Las cuatro llaves débiles generan subllaves $K_i$ iguales y, debido a
+que DES es un cifrado Feistel, el cifrado es autorreversible. O sea que
 al final se obtiene de nuevo el texto en claro, pues cifrar dos veces
 con la misma llave regresa la entrada original.
-Respecto a los pares semidébiles, el cifrado con una de las llaves del 
-par es equivalente al descifrado  con la otra (o viceversa). 
+Respecto a los pares semidébiles, el cifrado con una de las llaves del
+par es equivalente al descifrado  con la otra (o viceversa).

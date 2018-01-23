@@ -1,26 +1,27 @@
 \subsection{Fast Data Encipherment Algorithm (FEAL)}
 
 Es una familia de algoritmos que ha tenido una participación crítica
-en el desarrollo y refinamiento de varias técnicas del criptoanálisis, 
+en el desarrollo y refinamiento de varias técnicas del criptoanálisis,
 tales como el criptoanálisis lineal y diferencial. FEAL-N mapea
 bloques de texto en claro de 64 bits a bloques de 64 bits de texto
-cifrado mediante una llave secreta de 64 bits. Es un cifrado Feistel de 
+cifrado mediante una llave secreta de 64 bits. Es un cifrado Feistel de
 $n-$rondas parecido a DES, pero con una función $f$ más simple.
 
-FEAL fue diseñado para ser veloz y simple, especialmente para 
+FEAL fue diseñado para ser veloz y simple, especialmente para
 microprocesadores de 8 bits: usa operaciones orientadas a bytes, evita
 el uso de permutaciones de bit y tablas de consulta. La versión inicial
-de cuatro rondas (FEAL-4), propuesto como una alternativa rápida a DES, 
+de cuatro rondas (FEAL-4), propuesto como una alternativa rápida a DES,
 fue encontrado mucho más inseguro de lo planeado; por lo que se propuso
 realizar más rondas (FEAL-16 y FEAL-32) para compensar y ofrecer un nivel
 de seguridad parecido a DES; sin embargo, el rendimiento se ve fuertemente
-afectado mientras el número de rondas aumenta; y, mientras DES puede 
-mejorar su velocidad con tablas de consulta, resulta más complicado 
+afectado mientras el número de rondas aumenta; y, mientras DES puede
+mejorar su velocidad con tablas de consulta, resulta más complicado
 para FEAL.
 
 \begin{pseudocodigo}[caption={FEAL-8, cifrado.}, label={feal8:1}]
-  entrada:	64 bits de texto en claro $M = m_1 \dots m_64$; llave de 64 bits $K = k_1 \dots k_64$.
-  salida: 	bloque de texto cifrado de 64 bits $C = c_1 \dots c_64$.
+  entrada:    64 bits de texto en claro $M = m_1 \dots m_64$;
+              llave de 64 bits $K = k_1 \dots k_64$.
+  salida:     bloque de texto cifrado de 64 bits $C = c_1 \dots c_64$.
   inicio
     Calcular 16 subllaves de 16 bits para $K$.
     Definir $M_L = m_1 \dots m_32; M_R = m_33 \dots m_64$.
@@ -36,12 +37,14 @@ para FEAL.
   fin
 \end{pseudocodigo}
 
+% ¿Qué demonios? Las tuplas de llaves se salen del margen.
+
 Para descifrar se utiliza el mismo algoritmo, con la misma llave $K$ y el
-texto cifrado $C = (R_8, L_8)$ se utiliza como la entrada $M$; sin 
-embargo, la generación de llaves se hace al revés: las subllaves 
-$((K_12, K_13), (K_14, K_15))$ se utilizan para la $\oplus$ inicial, las 
-$((K_8, K_9), (K_10, K_11))$ para la $\oplus$ final y en las rondas se 
+texto cifrado $C = (R_8, L_8)$ se utiliza como la entrada $M$; sin
+embargo, la generación de llaves se hace al revés: las subllaves
+$((K_12, K_13), (K_14, K_15))$ se utilizan para la $\oplus$ inicial, las
+$((K_8, K_9), (K_10, K_11))$ para la $\oplus$ final y en las rondas se
 utiliza de la subllave $K_7$ a la $K_0$.
 
-FEAL con una llave de 64 bits puede ser generalizado a $N-$ rondas con 
+FEAL con una llave de 64 bits puede ser generalizado a $N-$ rondas con
 $N$ par, aunque se recomienda $N = 2^x$.
