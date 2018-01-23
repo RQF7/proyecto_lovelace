@@ -36,8 +36,8 @@ claro.
 
 \begin{equation}
   \label{cifrado_bloques_def}
- 	E: \{0,1\}^r \times \{0,1\}^n \longrightarrow \{0,1\}^n
- 	   (k,m) \longmapsto  E(k,m)
+  E: \{0,1\}^r \times \{0,1\}^n \longrightarrow \{0,1\}^n
+     (k,m) \longmapsto  E(k,m)
 \end{equation}
 
 
@@ -57,8 +57,8 @@ el tamaño de bloque, se utilizan los modos de operación.
 Los parámetros más importantes de los cifrados por bloque son los
 siguientes:
 \begin{itemize}
-	\item Tamaño de bloque
-	\item Tamaño de llave
+  \item Tamaño de bloque
+  \item Tamaño de llave
 \end{itemize}
 
 \subsection{Criterios para evaluar los cifrados por bloque}
@@ -66,25 +66,25 @@ siguientes:
 A continuación se listan algunos de los criterios que pueden ser tomados 
 en cuenta para evaluar estos cifrados:
 \begin{enumerate}
-	\item \textbf{Nivel de seguridad.} La confianza que se le tiene a un
-		cifrado va creciendo con el tiempo, pues va siendo analizado y
-		sometido a pruebas.
-	\item \textbf{Tamaño de llave.} La entropía del espacio de la llave
-		define un límite superior en la seguridad del cifrado al tomar en
-		cuenta la búsqueda exhaustiva. Sin embargo, hay que tener cuidado
-		con su tamaño, pues también aumentan los costos de generación,
-		transmisión, almacenamiento, etcétera.
-	\item \textbf{Tamaño de bloque.} Impacta la seguridad, pues entre más
-		grandes, mejor; sin embargo, tiene repercusiones en el costo de la
-		implementación, además de que puede afectar el rendimiento del
-		cifrado.
-	\item \textbf{Expansión de datos.} Es extremadamente deseable que los
-		datos cifrados no aumenten su tamaño respecto a los datos en claro.
-	\item \textbf{Propagación de error.} Descifrar datos que contienen
-		errores de bit puede llevar a recuperar incorrectamente el texto en
-		claro, además de propagar errores en los bloques pendientes por
-		descifrar. Normalmente, el tamaño de bloque afecta el error de
-		propagación.
+  \item \textbf{Nivel de seguridad.} La confianza que se le tiene a un
+    cifrado va creciendo con el tiempo, pues va siendo analizado y
+    sometido a pruebas.
+  \item \textbf{Tamaño de llave.} La entropía del espacio de la llave
+    define un límite superior en la seguridad del cifrado al tomar en
+    cuenta la búsqueda exhaustiva. Sin embargo, hay que tener cuidado
+    con su tamaño, pues también aumentan los costos de generación,
+    transmisión, almacenamiento, etcétera.
+  \item \textbf{Tamaño de bloque.} Impacta la seguridad, pues entre más
+    grandes, mejor; sin embargo, tiene repercusiones en el costo de la
+    implementación, además de que puede afectar el rendimiento del
+    cifrado.
+  \item \textbf{Expansión de datos.} Es extremadamente deseable que los
+    datos cifrados no aumenten su tamaño respecto a los datos en claro.
+  \item \textbf{Propagación de error.} Descifrar datos que contienen
+    errores de bit puede llevar a recuperar incorrectamente el texto en
+    claro, además de propagar errores en los bloques pendientes por
+    descifrar. Normalmente, el tamaño de bloque afecta el error de
+    propagación.
 \end{enumerate}
 
 A continuación se listan algunos algoritmos de cifrado por bloques.

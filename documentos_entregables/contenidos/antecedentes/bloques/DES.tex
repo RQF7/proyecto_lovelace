@@ -21,12 +21,12 @@ mientras $1 \leq i \leq 16$ de la siguiente manera:
 
 \begin{equation}
   \label{cifrado_des_li}
- 	L_i = R_{i-1}
+  L_i = R_{i-1}
 \end{equation}
 
 \begin{equation}
   \label{cifrado_des_di}
- 	R_i = L_{i-1} \oplus f(R_{i-1}, K_i); f(R_{i-1}, K_i) = P(S(E(R_{i-1})\oplus K_i))
+  R_i = L_{i-1} \oplus f(R_{i-1}, K_i); f(R_{i-1}, K_i) = P(S(E(R_{i-1})\oplus K_i))
 \end{equation}
 
 $E$ se encarga de expandir $R_{i-1}$ de 32 bits a 48, $P$ es una
@@ -62,10 +62,10 @@ $K_{16}, K{15}, \dots, K_1$.
 Tomando en cuenta las siguientes definiciones
 
 \begin{itemize}
-	\item Llave débil: una llave $K$ tal que $E_K(E_K(x)) = x$ para toda
-		$x$.
-	\item Llaves semidébiles: se tiene un par de llaves $K_1, K_2$ tal que
-		$E_{K_1}(E_{K_2}(x)) = x$
+  \item Llave débil: una llave $K$ tal que $E_K(E_K(x)) = x$ para toda
+    $x$.
+  \item Llaves semidébiles: se tiene un par de llaves $K_1, K_2$ tal que
+    $E_{K_1}(E_{K_2}(x)) = x$
 \end{itemize}
 
 DES tiene cuatro llaves débiles y seis pares de llaves semidébiles.

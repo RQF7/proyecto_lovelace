@@ -11,7 +11,8 @@ seleccionada. Se le hicieron algunas modificaciones, pues Rijndael soporta
 combinaciones de llaves y bloques de longitud 128, 169, 192, 224 y 256;
 mientras que AES tiene fijo el tamaño de bloque y solo utiliza los tres
 tamaños mencionados anteriormente. Dependiendo del tamaño de la llave, se
-tiene el número de rondas: 10 para las de 128 bits, 12 para las de 192 y 14 para las de 256.
+tiene el número de rondas: 10 para las de 128 bits, 
+12 para las de 192 y 14 para las de 256.
 
 El cifrado requiere de una matriz de $4 \times 4$ denominada matriz de
 estado.
@@ -25,10 +26,10 @@ estado.
   Iniciar matriz de estado con el bloque en claro.
   Realizar $AddRoundKey(matriz\_estado, k_0)$
   Para $i$ desde 1 hasta $num\_rondas$:
-  	$SubBytes(matriz\_estado)$
-  	$ShiftRows(matriz\_estado)$
-  	$MixColumns(matriz\_estado)$
-  	$AddRoundKey(matriz\_estado, k_i)$
+    $SubBytes(matriz\_estado)$
+    $ShiftRows(matriz\_estado)$
+    $MixColumns(matriz\_estado)$
+    $AddRoundKey(matriz\_estado, k_i)$
   fin
   $SubBytes(matriz\_estado)$
   $ShiftRows(matriz\_estado)$
@@ -63,12 +64,12 @@ Entonces este paso transforma una columna $a$ al multiplicarla con el
 siguiente polinomio fijo:
 \begin{equation}
   \label{cifrado_aes_poli}
- 	c(X) = 03X^3 + 01X^2 + 01X+ 02
+  c(X) = 03X^3 + 01X^2 + 01X+ 02
 \end{equation}
 y se toma el residuo del producto módulo $X^4+1$:
 \begin{equation}
   \label{cifrado_aes_mix}
- 	a(X) \mapsto a(X) \cdotp c(X) mod (X^4+1)
+  a(X) \mapsto a(X) \cdotp c(X) mod (X^4+1)
 \end{equation}
 
 \subsubsection{AddRoundKey}
@@ -82,7 +83,7 @@ Para obtener el nuevo valor de la matriz de estado se realiza lo
 siguiente:
 \begin{equation}
   \label{cifrado_aes_addkey}
- 	(matriz\_estado, k_i) \mapsto matriz\_estado \oplus k_i
+  (matriz\_estado, k_i) \mapsto matriz\_estado \oplus k_i
 \end{equation}
 
 Como se tiene una matriz\_estado, la llave de ronda ($k_i$) también

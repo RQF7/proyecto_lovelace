@@ -13,18 +13,18 @@ Matemáticamente, una función hash es una función
 
 \begin{equation}
   \label{funcion_hash_def}
- 	h: \{0, 1\}^* \longrightarrow \{0,1\}^n
- 	m \longmapsto h(m)
+  h: \{0, 1\}^* \longrightarrow \{0,1\}^n
+  m \longmapsto h(m)
 \end{equation}
 
 La longitud de $n$ suele ser entre 128 y 512 bits. Las funciones hash
 $h$ tienen las siguientes propiedades:
 \begin{enumerate}
-	\item Compresión: $h$ mapea una entrada $x$ (cuya longitud
-		finita es arbitraria) a una salida $h(x)$ de longitud fija $n$.
-	\item Facilidad de cómputo: dada $x$ y $h$, $h(x)$ es
-		calculada ya sea sin necesitar mucho espacio, tiempo de cómputo, o
-		requiere pocas operaciones, etcétera.
+  \item Compresión: $h$ mapea una entrada $x$ (cuya longitud
+    finita es arbitraria) a una salida $h(x)$ de longitud fija $n$.
+  \item Facilidad de cómputo: dada $x$ y $h$, $h(x)$ es
+    calculada ya sea sin necesitar mucho espacio, tiempo de cómputo, o
+    requiere pocas operaciones, etcétera.
 \end{enumerate}
 
 De manera general, las funciones hash se pueden dividir en dos
@@ -35,22 +35,22 @@ Sea una función hash sin llave $h$ con entradas $x$, $x^\prime$ y
 salidas $y$ y $y^\prime$, respectivamente. A continuación se listan
 algunas de las propiedades que puede tener:
 \begin{enumerate}
-	\item Resistencia de preimagen: no es computacionalmente factible
-		para una salida específica $y$ encontrar una entrada $x^\prime$ que
-		dé como resultado el mismo valor hash $h(x^\prime) = y$ si no se
-		conoce $x$. Esta propiedad también es llamada
-		\textit{de un sentido}.
-	\item Resistencia de segunda preimagen: no es computacionalmente
-		factible encontrar una segunda entrada $x^\prime$  que tenga la
-		misma salida que una entrada específica $x$: $x \neq x^\prime$
-		tal que $h(x) = h(x^\prime)$. Esta propiedad también es conocida
-		como \textit{de débil resistencia a colisiones}.
-	\item Resistencia a las colisiones: no es computacionalmente factible
-		encontrar dos entradas distintas $x$, $x^\prime$ que lleven al
-		mismo valor hash, o sea, $h(x) = h(x^\prime)$. A diferencia de la
-		anterior, la selección de ambas entradas no está restringida. Esta
-		propiedad también es conocida como
-		\textit{de gran resistencia a colisiones}.
+  \item Resistencia de preimagen: no es computacionalmente factible
+    para una salida específica $y$ encontrar una entrada $x^\prime$ que
+    dé como resultado el mismo valor hash $h(x^\prime) = y$ si no se
+    conoce $x$. Esta propiedad también es llamada
+    \textit{de un sentido}.
+  \item Resistencia de segunda preimagen: no es computacionalmente
+    factible encontrar una segunda entrada $x^\prime$  que tenga la
+    misma salida que una entrada específica $x$: $x \neq x^\prime$
+    tal que $h(x) = h(x^\prime)$. Esta propiedad también es conocida
+    como \textit{de débil resistencia a colisiones}.
+  \item Resistencia a las colisiones: no es computacionalmente factible
+    encontrar dos entradas distintas $x$, $x^\prime$ que lleven al
+    mismo valor hash, o sea, $h(x) = h(x^\prime)$. A diferencia de la
+    anterior, la selección de ambas entradas no está restringida. Esta
+    propiedad también es conocida como
+    \textit{de gran resistencia a colisiones}.
 \end{enumerate}
 
 Una función hash $h$ que cumple con las propiedades de resistencia de
@@ -107,7 +107,7 @@ utilizada para parametrizar la función hash.
 
 \begin{equation}
   \label{funcion_hash_mac}
- 	(h_k: \{0, 1\}^* \longrightarrow \{0,1\}^n)_{k \in K}
+  (h_k: \{0, 1\}^* \longrightarrow \{0,1\}^n)_{k \in K}
 \end{equation}
 
 \subsection{Firmas}
@@ -128,7 +128,7 @@ esto es lo que se firma en lugar del mensaje mismo ($m$):
 
 \begin{equation}
   \label{funcion_hash_sign}
- 	\sigma = h(m)^d \quad mod \quad n
+  \sigma = h(m)^d \quad mod \quad n
 \end{equation}
 
 Los mensajes que tengan el mismo valor hash tienen la misma firma. En

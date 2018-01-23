@@ -6,15 +6,15 @@ llave y el número de rondas $r$ es variable; aunque se recomiendan 12
 rondas para 32 bits y 16 para cuando se tienen palabras de 64.
 
 \begin{pseudocodigo}[caption={RC5, cifrado.}, label={rc5:1}]
-  entrada:	$2w-$bits de datos en claro $M = (A, B)$; $r$; 
-  		llave $K$ = $K$[0]$\dots K$[$b-1$] 
-  salida: 	$2w-$bits de datos cifrados $C$.
+  entrada:  $2w-$bits de datos en claro $M = (A, B)$; $r$; 
+      llave $K$ = $K$[0]$\dots K$[$b-1$] 
+  salida:   $2w-$bits de datos cifrados $C$.
   inicio
     Calcular $2r + 2$ subllaves $K_0, \dots, K_{2r+1}$
     $A \leftarrow A + K_0 mod 2^w, B \leftarrow B + K_1 mod 2^w$
     Para $i$ desde $1$ hasta $r$:
-    	$A \leftarrow ((A \oplus B) \hookleftarrow B) + K_{2i} mod 2^w$
-    	$B \leftarrow ((B \oplus A) \hookleftarrow A) + K_{2i+1} mod 2^w$ 
+      $A \leftarrow ((A \oplus B) \hookleftarrow B) + K_{2i} mod 2^w$
+      $B \leftarrow ((B \oplus A) \hookleftarrow A) + K_{2i+1} mod 2^w$ 
     fin
     Regresar $C \leftarrow (A,B)$
   fin
