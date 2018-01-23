@@ -12,16 +12,16 @@ un tamaño de bloque igual a 1.
 
 Un cifrado de flujo aplica transformaciones de acuerdo a un flujo de llave:
 una secuencia de símbolos pertenecientes al espacio de llaves. El flujo de
-llave puede ser generado de manera aleatoria, o por un algoritmo
-pseudoaleatorio que toma una semilla a la entrada, o por una semilla y
-símbolos cifrados anteriormente.
+llave puede ser generado tanto de manera aleatoria, como por un algoritmo
+pseudoaleatorio que reciba a la entrada, o bien una semilla, o bien una
+semilla y algunos bits del texto cifrado.
 
 Entre las ventajas de los cifrados de flujo sobre los cifrados de bloque se
-encuentran el hecho de que son más rápidos en hardware, son más útiles cuando
+encuentra el hecho de que son más rápidos en hardware y más útiles cuando
 el buffer es limitado o se necesita procesar la información al momento de
 llegada. La propagación de los errores es limitada o nula, por lo que también
-son más útiles en casos en los que hay probabilidades altas de errores en la
-transmisión \cite{menezes}.
+son más apropiados en casos en los que hay probabilidades altas de errores en
+la transmisión \cite{menezes}.
 
 Los cifrados de bloques funcionan sin ninguna clase de memoria (por sí solos);
 en contraste, la función de cifrado de un cifrado de flujo puede variar
