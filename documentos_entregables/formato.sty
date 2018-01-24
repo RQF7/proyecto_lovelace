@@ -31,7 +31,7 @@
                 textheight=9.0in,           % Alto
                 top=1.0in,
                 bindingoffset=6mm
-                ]{geometry}        % Márgenes
+                ]{geometry}                 % Márgenes
 
 % Nota sobre geometry:
 % Un biding offset de 6mm parece dejar los márgenes iguales para
@@ -82,12 +82,13 @@
 
 % El entorno «plain» es el que utilizan las página de los capítulos
 % Se redefine para que no tengan ni pie ni encabezado.
-\fancypagestyle{plain}{
-\fancyfoot[LE, RO]{}
-\fancyfoot[LO, RE]{}
-\fancyhead[CE, CO]{}
-\renewcommand{\headrulewidth}{0.0pt}
-\renewcommand{\footrulewidth}{0.0pt}}
+\fancypagestyle{plain} {
+  \fancyfoot[LE, RO]{}
+  \fancyfoot[LO, RE]{}
+  \fancyhead[CE, CO]{}
+  \renewcommand{\headrulewidth}{0.0pt}
+  \renewcommand{\footrulewidth}{0.0pt}
+}
 
 % Cambios en las traducciones de babel
 \addto\captionsspanish {
