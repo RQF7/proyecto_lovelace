@@ -22,6 +22,12 @@ referencias:
 	biber --input-directory $(CARPETA_TEMPORAL) \
 		$(CARPETA_TEMPORAL)/$(NOMBRE_DE_ARCHIVO).bcf
 
+# Al igual que biber, si se modifican las entradas del glosario hay que hacer
+# operación sandwich: pdflatex, makeglossaries, pdflatex.
+
+glosarios:
+	makeglossaries -d $(CARPETA_TEMPORAL) $(NOMBRE_DE_ARCHIVO)
+
 # Es necesario tener el ejecutable de hunspell en el PATH, y el diccionario
 # es_MX instalado. Este comando (ortografía) es ejecutado por Travis para
 # validar un push, si lo que se quiere es ejecutar de manera local, es más

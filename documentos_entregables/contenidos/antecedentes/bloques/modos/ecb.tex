@@ -3,7 +3,7 @@
 % Proyecto Lovelace.
 %
 
-\subsubsection{\textit{Electronic Codebook} (ECB)}
+\subsubsection{\acrfull{gl:ecb}}
 
 La figura \ref{figura:ecb} muestra un diagrama esquemático de este modo de
 operación. Según la ecuación \ref{modo_de_operacion}, el algoritmo recibe a la
@@ -27,11 +27,11 @@ se debe de partir en bloques ($ T = B_1 || B_2 || \dots || B_n $).
           \caption{Descifrado.}
       \end{center}
   \end{subfigure}
-  \caption{Modo de operación ECB.}
+  \caption{Modo de operación \acrshort{gl:ecb}.}
   \label{figura:ecb}
 \end{figure}
 
-\begin{pseudocodigo}[caption={Modo de operación ECB, cifrado.}]
+\begin{pseudocodigo}[caption={Modo de operación \acrshort{gl:ecb}, cifrado.}]
   entrada: llave $ L $; bloques de mensaje $ B_1, B_2 \dots B_n $.
   salida:  bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
   inicio
@@ -42,7 +42,7 @@ se debe de partir en bloques ($ T = B_1 || B_2 || \dots || B_n $).
   fin
 \end{pseudocodigo}
 
-\begin{pseudocodigo}[caption={Modo de operación ECB, descifrado.}]
+\begin{pseudocodigo}[caption={Modo de operación \acrshort{gl:ecb}, descifrado.}]
   entrada: llave $ L $; bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
   salida:  bloques de mensaje original $ B_1, B_2 \dots B_n $.
   inicio
