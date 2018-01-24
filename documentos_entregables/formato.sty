@@ -47,13 +47,11 @@
 
 % Formato de títulos
 \titleformat{\chapter}[display]
-{\bfseries\Huge} % Formato
-{Capítulo \ \thechapter} % Etiqueta
-{0.5ex} % Separación
-{} % Antes de
-[
-  \newpage
-] % Después de
+{\bfseries\Huge\centering}                  % Formato
+{Capítulo \ \thechapter}                    % Etiqueta
+{0.5ex}                                     % Separación
+{}                                          % Antes de
+[\newpage]                                  % Después de
 
 % izquierda, arriba, abajo
 \titlespacing{\section}{0pc}{0pc}{0pc}
@@ -81,6 +79,15 @@
 \fancyfoot[LE, RO]{\nouppercase\leftmark}   % Izquierda abajo
 \renewcommand{\headrulewidth}{0.5pt}        % Línea encabezado
 \renewcommand{\footrulewidth}{0.5pt}        % Línea pie
+
+% El entorno «plain» es el que utilizan las página de los capítulos
+% Se redefine para que no tengan ni pie ni encabezado.
+\fancypagestyle{plain}{
+\fancyfoot[LE, RO]{}
+\fancyfoot[LO, RE]{}
+\fancyhead[CE, CO]{}
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}}
 
 % Cambios en las traducciones de babel
 \addto\captionsspanish {
