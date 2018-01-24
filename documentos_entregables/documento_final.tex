@@ -3,12 +3,12 @@
 % Proyecto Lovelace.
 %
 
-\documentclass[11pt, letterpaper, oneside]{book}
+\documentclass[11pt, letterpaper, twosides]{book}
 \usepackage[spanish, mexico]{babel}
 \usepackage[utf8]{inputenc}
-\newcommand{\Titulo}{Generación de tokens para proteger
-                     datos de tarjetas bancarias}
-\newcommand{\Subtitulo}{Número 20180008}
+\newcommand{\Titulo}{Generación de \textit{tokens} para proteger
+                     los datos de tarjetas bancarias}
+\newcommand{\Subtitulo}{Trabajo terminal No. 2017-B008}
 \newcommand{\Director}{Dra. Sandra Díaz Santiago}
 \newcommand{\Autor}{Daniel Ayala Zamorano \\
                     Laura Natalia Borbolla Palacios \\
@@ -20,10 +20,10 @@
 
   \Portada
 
-  % TODO: hacer que el título del índice funcione como sección, no como
-  % capítulo; crear dos índices, el primero general (sólo dos niveles) y el
+  % TODO: crear dos índices, el primero general (sólo dos niveles) y el
   % segundo a detalle (todos los niveles).
   \pdfbookmark[1]{\contentsname}{Contenido}
+  \setcounter{page}{2}
   \setcounter{tocdepth}{4}
   \tableofcontents
   \newpage

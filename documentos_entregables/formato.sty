@@ -29,7 +29,15 @@
 \RequirePackage[letterpaper,                % Tamaño
                 textwidth=7in,              % Ancho
                 textheight=9.0in,           % Alto
-                top=1.0in]{geometry}        % Márgenes
+                top=1.0in,
+                bindingoffset=6mm]{geometry}        % Márgenes
+
+% Nota sobre geometry:
+% Un biding offset de 6mm parece dejar los márgenes iguales para
+% páginas pares e impares (no lo entiendo, simplemente me lo dijo
+% tex.stackexchange), creo que ya que vayamos a imprimir es una buena idea
+% leer la documentación
+% http://texdoc.net/texmf-dist/doc/latex/geometry/geometry.pdf
 
 % Formato de párrafos
 \setlength{\parindent}{2em}                 % Sangría
@@ -61,12 +69,15 @@
 % amount-of-vertical-space-between-captions-and-figure/36362#comment72508_36362
 
 % Encabezado y pie
+% Parámetros de fancyhead y fancyfoot:
+% C (center), L (left), R (right)
+% E (even), O (odd)
 \pagestyle{fancy}
 \fancyhf{}
-\chead{\Titulo}                             % Centro arriba
-\rfoot{Página \thepage \
+\fancyhead[CE,CO]{\Titulo}                  % Centro arriba
+\fancyfoot[RE, LO]{Página \thepage \
    de \pageref{LastPage}}                   % Derecha abajo
-\lfoot{Trabajo terminal}                    % Izquierda abajo
+\fancyfoot[LE, RO]{\nouppercase\leftmark}   % Izquierda abajo
 \renewcommand{\headrulewidth}{0.5pt}        % Línea encabezado
 \renewcommand{\footrulewidth}{0.5pt}        % Línea pie
 
