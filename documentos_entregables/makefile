@@ -31,3 +31,4 @@ referencias:
 ortografía:
 	hunspell -a -d es_MX -t diccionario.txt $(NOMBRE_DE_ARCHIVO).tex \
 		$(UBICACION_CONTENIDO) | ./evaluador.py
+	#hunspell -a -d es_MX -t diccionario.txt *.md ../*.md | ./evaluador.py

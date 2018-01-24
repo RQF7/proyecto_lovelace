@@ -9,12 +9,12 @@
 
 ## Flujos de trabajo
 
-* Los poendientes semanales se encuentran en las páginas de los proyectos:
+* Los pendientes semanales se encuentran en las páginas de los proyectos:
   * [Proyecto Gödel](https://github.com/RQF7/proyecto_lovelace/projects/1):
     estudio e implementación de algoritmos para generar tokens. Capítulos
     de introducción y antecedentes.
 * Las observaciones al trabajo de los demás se hacen por medio de los
   [issues](https://github.com/RQF7/proyecto_lovelace/issues). Estos tienen
   marcadores para indicar el progreso de las correcciones; es responsabilidad
-  del autor ir marcandolos según sus avances. Quien abrió el issue es quien
+  del autor ir marcándolos según sus avances. Quien abrió el issue es quien
   debe cerrarlo (después de revisar las correcciones).

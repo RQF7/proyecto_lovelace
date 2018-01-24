@@ -13,7 +13,7 @@ if __name__ == '__main__':
   aprobado = True
   numErrores = 0
   for cadena in fileinput.input():
-    if cadena[0] == '&':
+    if cadena[0] == '&' or cadena[0] == '#':
       print('Error: ', cadena[2:])
       aprobado = False
       numErrores += 1
@@ -22,5 +22,5 @@ if __name__ == '__main__':
     print('Evaluación terminada. Todo en orden.')
     exit(0)
   else:
-    print('Evaluación terminada. ' + str(numErrores) + ' error(s).')
+    print('Evaluación terminada. ' + str(numErrores) + ' error(es).')
     exit(-1)
