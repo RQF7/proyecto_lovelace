@@ -7,14 +7,14 @@
  * **documentos_entregables:** documentación del proyecto y presentaciones de
    TT1 y TT2.
 
-## Pendientes a corto plazo (semanales)
+## Flujos de trabajo
 
-* Capítulo de antecedentes:
-  * Introducción a la criptografía.
-  * Cifrados por bloque.
-  * Cifrados de flujo.
-  * Modos de operación.
-  * Funciones hash.
-* [Documento estándar del PCI](https://www.pcisecuritystandards.org/documents/Tokenization_Product_Security_Guidelines.pdf):
-  pensar en requerimientos para tokens.
-* Revisar algoritmos para tokenización.
+* Los poendientes semanales se encuentran en las páginas de los proyectos:
+  * [Proyecto Gödel](https://github.com/RQF7/proyecto_lovelace/projects/1):
+    estudio e implementación de algoritmos para generar tokens. Capítulos
+    de introducción y antecedentes.
+* Las observaciones al trabajo de los demás se hacen por medio de los
+  [issues](https://github.com/RQF7/proyecto_lovelace/issues). Estos tienen
+  marcadores para indicar el progreso de las correcciones; es responsabilidad
+  del autor ir marcandolos según sus avances. Quien abrió el issue es quien
+  debe cerrarlo (después de revisar las correcciones).
