@@ -48,6 +48,8 @@ Tecnicismos y extranjerismos
 @hash
 @mod
 @inv
+@ShiftRows
+@AddRoundKey
 
 Otros idiomas
 ===============================================================================
@@ -88,6 +90,7 @@ Otros idiomas
 @function
 @collision
 @resistant
+@Known
 
 Nombres propios y siglas
 ===============================================================================
@@ -123,6 +126,7 @@ Nombres propios y siglas
 @FIPS
 @NIST
 @CRHF
+@OWHF
 
 Sintaxis de LaTeX y similares
 ===============================================================================
@@ -139,6 +143,7 @@ pseudocódigos), debe de haber alguna forma de introducirlos a las excepciones.
 @heading
 @label
 @title
+@altlist
 
 Letras
 ===============================================================================
@@ -155,3 +160,10 @@ Letras
 @c
 @N
 @d
+@gl
+@t
+@l
+@g
+@L
+@h
+@f
