@@ -1,22 +1,22 @@
 \subsection{Secure And Fast Encryption Routine (SAFER)}
 
-El cifrado SAFER K-64 es un cifrado por bloques de 64 bits iterativo.
-Consiste en $r$ rondas idénticas seguidas por una transformación. 
-Originalmente se recomendaban $6$ rondas seguidas, sin embargo, ahora
-se utiliza una generación de claves ligeramente modificada y el uso de
-$8$ rondas (máximo 10). Ambas generaciones de llaves expanden la llave
-de 64 bits en $2r+1$ subllaves, cada una de 64 bits (dos por cada ronda
-y una más para la transformación de salida).
+El cifrado \acrshort{gl:safer} K-64 es un cifrado por bloques de 64 bits
+iterativo. Consiste en $r$ \glspl{gl:ronda} idénticas seguidas por una
+transformación. Originalmente se recomendaban $6$ \glspl{gl:ronda} seguidas,
+sin embargo, ahora se utiliza una generación de claves ligeramente modificada y
+el uso de $8$ \glspl{gl:ronda} (máximo 10). Ambas generaciones de llaves
+expanden la llave de 64 bits en $2r+1$ subllaves, cada una de 64 bits (dos por
+cada ronda y una más para la transformación de salida).
 
 Este cifrado consiste completamente en operaciones de bytes, por lo que
 es adecuado para procesadores con tamaños de palabra pequeños, como los
 chips de tarjetas.
 
-%   Lo siento, pero si corto la línea de la entrada, la entrada queda a 
+%   Lo siento, pero si corto la línea de la entrada, la entrada queda a
 %  la mitad y se ve muy raro.
 
 \begin{pseudocodigo}[caption={SAFER K-64, cifrado.}, label={safer:1}]
-  entrada: $r, 6\leq r \leq10$; $64-$bits de datos en claro $M = m_1 \dots m_64$; $ K = k_1 \dots k_{64}$.
+  entrada: $r, 6\leq r \leq10$; $64-$bits de datos en claro $M = m_1 \dots m_{64}$; $ K = k_1 \dots k_{64}$.
   salida: bloque cifrado de $64-$bits $Y = (Y_1, \dots, Y_8)$.
   inicio
     Calcular las subllaves $K_1, \dots, K_{2r+1}$
@@ -24,7 +24,7 @@ chips de tarjetas.
     Para $i$ desde $1$ hasta $r$:
       a) Para $j = 1, 4, 5, 8: X_j \leftarrow X_j \oplus K_{2i-1}[j]$
         Para $j = 2, 3, 6, 7: X_j \leftarrow X_j + K_{2i-1}[j]$$mod$ $2^8$
-      b) Para $j = 1, 4, 5, 8: X_j \leftarrow S$[$X_j$] 
+      b) Para $j = 1, 4, 5, 8: X_j \leftarrow S$[$X_j$]
         Para $j = 2, 3, 6, 7: X_j \leftarrow S_{inversa}X_j$
       c) Para $j = 1, 4, 5, 8: X_j \leftarrow X_j + K_{2i}[j]$$mod$ $2^8$
         Para $j = 2, 3, 6, 7: X_j \leftarrow X_j \oplus K_{2i}[j]$
@@ -36,11 +36,14 @@ chips de tarjetas.
         $(Y_5, Y_6 ) \leftarrow f(X_2, X_4), (Y_7, Y_8) \leftarrow f(X_6, X_8)$.
         Para $j$ desde 1 hasta 8: $X_j \leftarrow Y_j$.
     fin
-    Para $j = 1, 4, 5, 8: Y_j \leftarrow X_j \oplus K_{2r+1}[j]$. 
-      Para $j = 2, 3, 6, 7: Y_j \leftarrow X_j + K_{2r+1} [j] mod 2^8$.
+    Para $j = 1, 4, 5, 8: Y_j \leftarrow X_j \oplus K_{2r+1}[j]$.
+      Para $j = 2, 3, 6, 7: Y_j \leftarrow X_j + K_{2r+1} [j] \mod 2^8$.
   fin
 \end{pseudocodigo}
 
-Para descifrar, se utiliza la misma llave $K$ y las subllaves $K_i$ 
+Para descifrar, se utiliza la misma llave $K$ y las subllaves $K_i$
 que fueron utilizadas al cifrar. Cada paso del cifrado se hace en orden
-inverso, del último al primero; comenzando con una transformación de entrada utilizando la llave $K_{2r+1}$ para deshacer la transformación de salida, se sigue con las rondas de descifrado utilizando las llaves de $K_{2r}$ a $K_1$, invirtiendo los pasos cada ronda.
+inverso, del último al primero; comenzando con una transformación de entrada
+utilizando la llave $K_{2r+1}$ para deshacer la transformación de salida, se
+sigue con las \glspl{gl:ronda} de descifrado utilizando las llaves de $K_{2r}$
+a $K_1$, invirtiendo los pasos cada ronda.

@@ -1,20 +1,20 @@
 \subsection{RC5}
-Este cifrado por bloques tiene una arquitectura orientada a palabras (ya 
-sea $w = 16, 32, 64$bits) y tiene una descripción muy compacta adecuada 
-tanto para hardware como para software. Tanto ĺa longitud $b$ de la 
-llave y el número de rondas $r$ es variable; aunque se recomiendan 12 
-rondas para 32 bits y 16 para cuando se tienen palabras de 64.
+Este cifrado por bloques tiene una arquitectura orientada a palabras (ya
+sea $w = 16, 32, 64$bits) y tiene una descripción muy compacta adecuada
+tanto para hardware como para software. Tanto ĺa longitud $b$ de la
+llave y el número de \glspl{gl:ronda} $r$ es variable; aunque se recomiendan 12
+\glspl{gl:ronda} para 32 bits y 16 para cuando se tienen palabras de 64.
 
 \begin{pseudocodigo}[caption={RC5, cifrado.}, label={rc5:1}]
-  entrada:  $2w-$bits de datos en claro $M = (A, B)$; $r$; 
-      llave $K$ = $K$[0]$\dots K$[$b-1$] 
+  entrada:  $2w-$bits de datos en claro $M = (A, B)$; $r$;
+      llave $K$ = $K$[0]$\dots K$[$b-1$]
   salida:   $2w-$bits de datos cifrados $C$.
   inicio
     Calcular $2r + 2$ subllaves $K_0, \dots, K_{2r+1}$
-    $A \leftarrow A + K_0 mod 2^w, B \leftarrow B + K_1 mod 2^w$
+    $A \leftarrow A + K_0 \mod2^w, B \leftarrow B + K_1 \mod2^w$
     Para $i$ desde $1$ hasta $r$:
-      $A \leftarrow ((A \oplus B) \hookleftarrow B) + K_{2i} mod 2^w$
-      $B \leftarrow ((B \oplus A) \hookleftarrow A) + K_{2i+1} mod 2^w$ 
+      $A \leftarrow ((A \oplus B) \hookleftarrow B) + K_{2i} \mod2^w$
+      $B \leftarrow ((B \oplus A) \hookleftarrow A) + K_{2i+1} \mod2^w$
     fin
     Regresar $C \leftarrow (A,B)$
   fin
@@ -22,16 +22,16 @@ rondas para 32 bits y 16 para cuando se tienen palabras de 64.
 
 Para descifrar, RC5 utiliza el siguiente algoritmo.
 \begin{pseudocodigo}[caption={RC5, descifrado.}, label={rc5:2}]
-  entrada:  $2w-$bits de datos cifrados $C = (A, B)$; $r$; 
-      llave $K$ = $K$[0]$\dots K$[$b-1$] 
+  entrada:  $2w-$bits de datos cifrados $C = (A, B)$; $r$;
+      llave $K$ = $K$[0]$\dots K$[$b-1$]
   salida:   $2w-$bits de datos en claro $M$.
   inicio
     Calcular $2r + 2$ subllaves $K_0, \dots, K_{2r+1}$
-    $A \leftarrow A + K_0 mod 2^w, B \leftarrow B + K_1 mod 2^w$
+    $A \leftarrow A + K_0 \mod2^w, B \leftarrow B + K_1 \mod2^w$
     Para $i$ desde $r$ hasta $1$:
-      $B \leftarrow ((B - K_{2i+1} mod 2^w) \hookrightarrow A) \oplus A$
-      $A \leftarrow ((A - K_{2i} mod 2^w) \hookrightarrow B) \oplus B$
+      $B \leftarrow ((B - K_{2i+1} \mod2^w) \hookrightarrow A) \oplus A$
+      $A \leftarrow ((A - K_{2i} \mod2^w) \hookrightarrow B) \oplus B$
     fin
-    Regresar $M \leftarrow (A-K_0 mod 2^w, B-K_1 mod 2^w)$
+    Regresar $M \leftarrow (A-K_0 \mod2^w, B-K_1 \mod2^w)$
   fin
 \end{pseudocodigo}

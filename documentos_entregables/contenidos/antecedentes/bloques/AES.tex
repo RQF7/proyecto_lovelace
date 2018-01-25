@@ -1,6 +1,6 @@
 \subsection{Advanced Encryption Standard (AES)}
 
-Dado que el tamaño de bloque y la longitud de la llave de DES
+Dado que el tamaño de bloque y la longitud de la llave de \acrshort{gl:des}
 se volvieron muy pequeños para resistir los embates del progreso
 de la tecnología, el NIST comenzó la búsqueda de un nuevo cifrado
 estándar en 1997; este cifrado debía tener un tamaño de bloque de,
@@ -9,10 +9,10 @@ al menos, 128 bits y soportar tres tamaños de llave: 128, 192 y 256 bits.
 Después de pasar por un proceso de selección, la propuesta Rijndael fue
 seleccionada. Se le hicieron algunas modificaciones, pues Rijndael soporta
 combinaciones de llaves y bloques de longitud 128, 169, 192, 224 y 256;
-mientras que AES tiene fijo el tamaño de bloque y solo utiliza los tres
-tamaños mencionados anteriormente. Dependiendo del tamaño de la llave, se
-tiene el número de rondas: 10 para las de 128 bits, 
-12 para las de 192 y 14 para las de 256.
+mientras que \acrshort{gl:aes} tiene fijo el tamaño de bloque y solo utiliza
+los tres tamaños mencionados anteriormente. Dependiendo del tamaño de la
+llave, se tiene el número de \glspl{gl:ronda}: 10 para las de 128 bits, 12 para
+las de 192 y 14 para las de 256.
 
 El cifrado requiere de una matriz de $4 \times 4$ denominada matriz de
 estado.
@@ -39,7 +39,7 @@ estado.
   fin
 \end{pseudocodigo}
 
-Como todos los pasos realizados en las rondas son invertibles, el
+Como todos los pasos realizados en las \glspl{gl:ronda} son invertibles, el
 proceso de descifrado consiste en aplicar las funciones inversas a
 $SubBytes$, $ShiftRows$, $MixColumns$ y $AddRoundKey$ en el orden
 opuesto.
@@ -48,7 +48,7 @@ opuesto.
 Esta es la única transformación no lineal de Rijndael. Sustituye
 los bytes de la matriz de estado byte a byte al aplicar la función
 $S_{RD}$ a cada elemento de la matriz. La función $S_{RD}$ es también
-conocida como Caja S y no depende de la llave. La misma caja es utilizada
+conocida como Caja-S y no depende de la llave. La misma caja es utilizada
 para los bytes en todas las posiciones.
 
 \subsubsection{ShiftRows}
