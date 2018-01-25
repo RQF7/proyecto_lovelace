@@ -9,32 +9,33 @@
 
 %% Glosario de términos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\newglossaryentry{latex}
-%{
-%  name=latex,
-%  description={Is a mark up language specially suited
-%  for scientific documents}
-%}
-%
-%\newglossaryentry{maths}
-%{
-%  name=mathematics,
-%  description={Mathematics is what mathematicians do}
-%}
-
 \newglossaryentry{gl:modo_de_operacion}
 {
   name = modo de operación,
+  plural = modos de operación,
   description = {
-    Permite extender la funcionalidad de un cifrado a bloques para operar
-    sobre tamaños de información arbitrarios
+    Construcción que permite extender la funcionalidad de un cifrado a bloques
+    para operar sobre tamaños de información arbitrarios%
+  }
+}
+
+\newglossaryentry{gl:vector_de_inicializacion}
+{
+  name = vector de inicialización,
+  plural = vectores de inicialización,
+  description = {
+    Cadena de bits de tamaño fijo que sirve como entrada a muchas primitivas
+    criptográficas (e. g. algunos modos de operación). Generalmente se requiere
+    que sea generado de forma aleatoria%
   }
 }
 
 %% Siglas %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\newacronym{gcd}{GCD}{Greatest Common Divisor}
-%
-%\newacronym{lcm}{LCM}{Least Common Multiple}
-
 \newacronym{gl:ecb}{ECB}{\textit{Electronic Codebook}}
+
+\newacronym{gl:cbc}{CBC}{\textit{Cipher-block Chaining}}
+
+\newacronym{gl:cfb}{CFB}{\textit{Cipher Feedback}}
+
+\newacronym{gl:ofb}{OFB}{\textit{Output Feedback}}
