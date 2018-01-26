@@ -17,6 +17,7 @@ Omisiones del diccionario
 *Criptoanálisis
 *criptoanálisis
 *criptología
+*enlistan
 *irrestricto
 *permutación
 *pseudoaleatorio
