@@ -167,8 +167,8 @@ Nombres propios y siglas
 @Adi
 @Shamir
 @Leonard
-@Adlman
-
+@Adleman
+@fips
 
 En etiquetas o variables
 ===============================================================================
