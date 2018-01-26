@@ -66,9 +66,9 @@
   Gran parte de los algoritmos de cifrado que caen en este tipo de criptografía 
   esta basados en las redes Feistel, que son un método de cifrado propuesto por 
   el criptógrafo Horst Feistel, mismo que desarrollo el Data Encryption Standard 
-  (DES) a principios de la década de los 70, que fue el cifrado usado por el 
-  gobierno estadounidense hasta que 2002, año que el Advanced Encryption 
-  Standard (AES) lo sustituyo. 
+  (\acrshort{gl:des}) a principios de la década de los 70, que fue el cifrado 
+  usado por el gobierno estadounidense hasta que 2002, año que el Advanced 
+  Encryption Standard (\acrshort{gl:aes}) lo sustituyo. 
 
   Ahora, adentrándose en la criptografía asimétrica, se tiene que su idea
   principal es el uso de 2 llaves distintas para cada persona, una llave
@@ -105,35 +105,37 @@
   establecer llaves secretas entre dos partes sin contacto previo por medio 
   de un canal inseguro.
 
-  Otro precursor fue el sistema criptográfico RSA (nombre obtenido por las 
-  siglas de los apellidos de sus desarrolladores, Ron Rivest, Adi Shamir y 
-  Leonard Adleman), publicado en 1978 y que fue el primer sistema criptográfico 
-  capaz de servir tanto para cifrar mensajes, cómo para la implementación de 
-  firmas digitales. A pesar de que sus orígenes son de ya hace casi cuatro 
-  décadas, este sistema aun es uno de los más ampliamente usados.
+  Otro precursor fue el sistema criptográfico \acrshort{gl:rsa} (nombre 
+  obtenido por las siglas de los apellidos de sus desarrolladores, Ron Rivest, 
+  Adi Shamir y Leonard Adleman), publicado en 1978 y que fue el primer sistema 
+  criptográfico capaz de servir tanto para cifrar mensajes, cómo para la 
+  implementación de firmas digitales. A pesar de que sus orígenes son de ya 
+  hace casi cuatro décadas, este sistema aun es uno de los más ampliamente 
+  usados.
 
-  Entre los motivos del éxito de RSA está, que su funcionamiento se basa en la 
-  teoría elemental de números, ya que usa propiedades descritas en esta teoría; 
-  y su seguridad, ya que se basa en la incapacidad de poder factorizar números 
-  grandes de forma eficiente.
+  Entre los motivos del éxito de \acrshort{gl:rsa} está, que su funcionamiento 
+  se basa en la teoría elemental de números, ya que usa propiedades descritas 
+  en esta teoría; y su seguridad, ya que se basa en la incapacidad de poder 
+  factorizar números grandes de forma eficiente.
 
-  El algoritmo de RSA consta de 3 partes, la generación de llaves, el cifrado 
-  y el descifrado. El proceso para poder generar un par de llaves (pública y 
-  privada) con RSA se muestra en el pseudocódigo \ref{rsa:1}. 
+  El algoritmo de \acrshort{gl:rsa} consta de 3 partes, la generación de llaves, 
+  el cifrado y el descifrado. El proceso para poder generar un par de llaves 
+  (pública y privada) con \acrshort{gl:rsa} se muestra en el pseudocódigo 
+  \ref{rsa:1}. 
 
   % Me pase de 80 caracteres porque dentro del pseudocodigo me marca el salto 
   % de linea en el pdf.
-  \begin{pseudocodigo}[caption={Proceso de generación de llaves de RSA.}, 
-  label={rsa:1}]
+  \begin{pseudocodigo}[caption={Proceso de generación de llaves de 
+    \acrshort{gl:rsa}.}, label={rsa:1}]
     entrada: ninguna.
     salida:  llave pública $(n,e)$ y privada $(n,d)$.
     inicio
       Elegir de forma aleatoria 2 números primos $p$ y $q$, que sean de gran 
       magnitud y de una longitud parecida.
       Calcular el módulo $n\: =\: p \:. \:q$
-      Calcular $\varphi{n} \:= \:(p-1) \:(q-1)$.
+      Calcular $\varphi(n) \:= \:(p-1) \:(q-1)$.
       Elegir un exponente de cifrado $e$ tal que $e \:< \:\varphi(n)$ y $mcd(e,\varphi(n)) \:= \:1$.
-      Encontrar el exponente de descifrado $d$ tal que $e . d \:$ mód $ \:\varphi(n) \:= \:1$.
+      Encontrar el exponente de descifrado $d$ tal que $e . d \:\mod \:\varphi(n) \:= \:1$.
     fin
   \end{pseudocodigo}
 
@@ -152,4 +154,3 @@
     D: \mathbb{Z}_n \longrightarrow \mathbb{Z}_n, x \longmapsto x^d 
   \end{equation}
 
-  
