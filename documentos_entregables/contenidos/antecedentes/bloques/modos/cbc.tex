@@ -47,13 +47,13 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
     caption={\Gls{gl:modo_de_operacion} \acrshort{gl:cbc}, cifrado.},
     label={cbc:1}%
   ]
-  entrada: llave $ L $; vector de inicialización $ VI $;
-           bloques de mensaje $ B_1, B_2 \dots B_n $.
+  entrada: llave $ k $; vector de inicialización $ VI $;
+           bloques de mensaje $ Bm_1, Bm_2 \dots Bm_n $.
   salida:  bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
   inicio
     $Bc_0$ $\gets$ $ VI $                        // El vector de inicialización
-    para_todo $B$                // entra al primer bloque.
-      $Bc_i$ $\gets$ C($L$, $B_i \oplus Bc_{i - 1}$)
+    para_todo $Bm$               // entra al primer bloque.
+      $Bc_i$ $\gets$ E($k$, $Bm_i \oplus Bc_{i - 1}$)
     fin
     regresar $Bc$
   fin
@@ -63,14 +63,14 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
     caption={\Gls{gl:modo_de_operacion} \acrshort{gl:cbc}, descifrado.},
     label={cbc:2}%
   ]
-  entrada: llave $ L $; vector de inicialización $ VI $;
+  entrada: llave $ k $; vector de inicialización $ VI $;
            bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
-  salida:  bloques de mensaje original $ B_1, B_2 \dots B_n $.
+  salida:  bloques de mensaje original $ Bm_1, Bm_2 \dots Bm_n $.
   inicio
     $Bc_0$ $\gets$ $ VI $
     para_todo $Bc$
-      $B_i$ $\gets$ $C^{-1}$($L$, $Bc_i$) $\oplus$ $Bc_{i-1}$
+      $Bm_i$ $\gets$ $D_k$($Bc_i$) $\oplus$ $Bc_{i-1}$
     fin
-    regresar $B$
+    regresar $Bm$
   fin
 \end{pseudocodigo}

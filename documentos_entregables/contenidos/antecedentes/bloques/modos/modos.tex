@@ -5,37 +5,20 @@
 
 \subsection{Modos de operación}
 
+La información que aquí se presenta se puede consultar a mayor detalle en
+\cite{modo_de_operacion} y \cite{menezes}.
+
 Por sí solos, los cifrados por bloques solamente permiten el cifrado y
 descifrado de bloques de información de tamaño fijo; donde, en la mayoría de
-los casos, los bloques son de menos de 256 bits\cite{modos_de_operacion}, lo
-cual es equivalente a alrededor de 8 caracteres. Es fácil darse cuenta de que
-esta restricción no es ningún tema menor: en la gran mayoría de las
-aplicaciones, la longitud de lo que se quiere ocultar es arbitraria.
+los casos, los bloques son de menos de 256 bits, lo cual es equivalente a
+alrededor de 8 caracteres. Es fácil darse cuenta de que esta restricción no es
+ningún tema menor: en la gran mayoría de las aplicaciones, la longitud de lo
+que se quiere ocultar es arbitraria.
 
 Los \glspl{gl:modo_de_operacion} permiten extender la funcionalidad de los
-cifrados por bloques para poder aplicarlos a información de tamaño irrestricto.
-Se formaliza este concepto definiendo a un cifrado por bloques como una función
-$ C $ (ecuación \ref{cifrado_por_bloques}) y a un \gls{gl:modo_de_operacion}
-como una función $ M $ (ecuación \ref{modo_de_operacion}).
-
-\begin{equation}
-  \label{cifrado_por_bloques}
-  C(L, B) \rightarrow Bc
-\end{equation}
-
-En donde $ L $ es la llave y $ B $ es el bloque a cifrar; ambos con un tamaño
-definido: $ L \in \{0, 1\}^k $ ($ k $ es el tamaño de la llave) y
-$ B \in \{0, 1\}^n $ ($ n $ es el tamaño de bloque). $ Bc $ representa al
-bloque cifrado, el cuál también tiene longitud $ n $.
-
-\begin{equation}
-  \label{modo_de_operacion}
-  M(L, T) \rightarrow Tc
-\end{equation}
-
-En este caso $ L $ es la misma que en \ref{cifrado_por_bloques}, $ T $ y
-$ Tc $ son el texto original y el texto cifrado, respectivamente, y ambos
-son de longitud arbitraria: $ T, Tc \in \{0, 1\}^* $.
+cifrados por bloques para poder aplicarlos a información de tamaño irrestricto:
+reciben el texto original (de tamaño arbitrario) y lo cifran, ocupando en el
+proceso un cifrado por bloques.
 
 Un primer enfoque (y quizás el más intuitivo) es partir el mensaje original
 en bloques del tamaño requerido y después aplicar el algoritmo a cada bloque
