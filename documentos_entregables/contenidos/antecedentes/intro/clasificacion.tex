@@ -14,13 +14,14 @@
 
   Una manera de clasificar es de acuerdo a las técnicas y métodos empleados
   para cifrar la información, esta clasificación se puede observar en la
-  siguiente figura.
+  figura \ref{clasificacion_cripto}.
 
   \begin{figure}[H]
     \begin{center}
       \includegraphics[width=0.75\linewidth]
         {contenidos/antecedentes/intro/img/clasificacion_cripto.png}
       \caption{Clasificación de la criptografía.}
+      \label{clasificacion_cripto}
     \end{center}
   \end{figure}
 
@@ -42,17 +43,19 @@
       \includegraphics[width=0.8\linewidth]
         {contenidos/antecedentes/intro/img/cripto_simetrica.png}
       \caption{Canal de comunicación con criptografía simétrica.}
+      \label{cripto_simetrica}
     \end{center}
   \end{figure}
 
-  En la figura anterior se puede observar el proceso para establecer una
-  comunicación segura por medio de la criptografía simétrica. Primero, tanto
-  Alice como Bob deben de establecer una llave única y compartida $k$, para
-  que después, Alice, actuando como el emisor, cifre un mensaje $m$ usando
-  la llave $k$ por medio del algoritmo de cifrado $E(k,m)$ para obtener el
-  mensaje cifrado $c$ y enviárselo a Bob. Posteriormente Bob, como receptor,
-  se encarga de descifrar $c$ con ayuda de la llave $k$ por medio del
-  algoritmo de descifrado $D(k,c)$ para obtener el mensaje original $m$.
+  En la figura \ref{cripto_simetrica} se puede observar el proceso para 
+  establecer una comunicación segura por medio de la criptografía simétrica. 
+  Primero, tanto Alice como Bob deben de establecer una llave única y 
+  compartida $k$, para que después, Alice, actuando como el emisor, cifre un 
+  mensaje $m$ usando la llave $k$ por medio del algoritmo de cifrado $E(k,m)$ 
+  para obtener el mensaje cifrado $c$ y enviárselo a Bob. Posteriormente Bob, 
+  como receptor, se encarga de descifrar $c$ con ayuda de la llave $k$ por 
+  medio del algoritmo de descifrado $D(k,c)$ para obtener el mensaje original 
+  $m$.
 
   Entre los beneficios de este tipo de criptografía está su utilidad para
   cifrar archivos personales, su relativa facilidad de uso y para garantizar
@@ -72,13 +75,14 @@
   cifrado $E(pk,m)$ para obtener $c$ y enviarlo. Después Bob como receptor,
   se encarga de descifrar $c$ por medio del algoritmo de descifrado
   $D(sk,c)$ haciendo uso de su llave privada $sk$. Este proceso se refleja
-  gráficamente el la siguiente figura.
+  gráficamente el la figura \ref{cripto_asimetrica}.
 
   \begin{figure}[H]
     \begin{center}
       \includegraphics[width=0.8\linewidth]
         {contenidos/antecedentes/intro/img/cripto_asimetrica.png}
       \caption{Canal de comunicación con criptografía asimétrica.}
+      \label{cripto_asimetrica}
     \end{center}
   \end{figure}
 
