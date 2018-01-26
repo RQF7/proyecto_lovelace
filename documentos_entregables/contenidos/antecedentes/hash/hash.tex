@@ -4,17 +4,19 @@
 %
 
 \section{Funciones hash}
+La información presentada a continuación puede consultarse con más profundidad en las siguientes referencias \cite{hash_hussein, menezes, DBLP:series/isc/DelfsK07}
 
 Se refiere al conjunto de funciones computacionalmente eficientes que
 mapean cadenas binarias de una longitud arbitraria a cadenas binarias
 de una longitud fija, llamadas valores hash.
 
 Matemáticamente, una función hash es una función
-
 \begin{equation}
   \label{funcion_hash_def}
-  h: \{0, 1\}^* \longrightarrow \{0,1\}^n
-  m \longmapsto h(m)
+  \begin{split}
+      h: \{0, 1\}^* \longrightarrow \{0,1\}^n \\
+      m \longmapsto h(m)
+  \end{split}
 \end{equation}
 
 La longitud de $n$ suele ser entre 128 y 512 bits. Las funciones hash
@@ -107,7 +109,7 @@ utilizada para parametrizar la función hash.
 
 \begin{equation}
   \label{funcion_hash_mac}
-  (h_k: \{0, 1\}^* \longrightarrow \{0,1\}^n)_{k \in K}
+  h_k: \{0, 1\}^* \longrightarrow \{0,1\}^n
 \end{equation}
 
 \subsection{Firmas}
@@ -139,3 +141,45 @@ distinto ($n$).
 La resistencia a segundas preimágenes previene que un atacante Eve tome
 un mensaje $m$ firmado por Alice, genere un mensaje nuevo $n$ y utilice
 $\sigma$ como una firma válida de Alice para $n$.
+
+\subsection{Message Digest-4 (MD4)}
+En la década de 1990 esta función hash fue diseñada Ronald Rivest.
+Tiene entradas de longitud arbitraria y la longitud de la salida
+procesada es de 128 bits. El \acrshort{gl:md4} fue innovador y
+clave en el diseño para los algoritmos venideros de esta clase (como
+el \acrshort{gl:md5}).
+
+\subsection{RIPEMD}
+Esta función hash, publicada en 1996, está basada en \acrshort{gl:md4} y fue
+diseñada por Hans Dobbertin y otros. Consiste en dos formas equivalentes de la
+función de compresión de \acrshort{gl:md4}. El algoritmo original (RIPEMD-160)
+devuelve bloques \textit{procesados} de 160 bits; cuando en 1996 Hans
+descubrió en 1996 una colisión en dos rondas, se desarrollaron nuevas versiones
+mejoradas: RIPEMD-128, RIPE-256, RIPE-320; las cuales dan bloques procesados de
+128, 256 y 320 bits respectivamente.
+
+\subsection{\textit{Secure Hash Algorithm (SHA)}}
+El algoritmo \acrshort{gl:sha} fue publicado por \acrshort{gl:nist} y
+\acrshort{gl:nsa} en 1993; este algoritmo produce bloques de 160 bits y
+fue desarrollado para reemplazar al \acrshort{gl:md4}; sin embargo, poco
+después de haber sido publicado tuvo que ser quitado por problemas de
+seguridad. Actualmente, \acrshort{gl:sha} es conocido como \acrshort{gl:sha}-0.
+
+En 1995, \acrshort{gl:sha}-0 fue reemplazado por \acrshort{gl:sha}-1; tiene
+una salida de la misma longitud que su predecesor y es una de las funciones
+hash más populares. Hay que destacar que la seguridad que brinda esta función
+es limitada, pues tiene el mismo nivel que un cifrado por bloques de 80 bits.
+
+En 2002 \acrshort{gl:nist} publicó tres funciones hash más:
+\acrshort{gl:sha}-256, \acrshort{gl:sha}-384 y \acrshort{gl:sha}-512; esta
+familia de funciones hash es conocida como \acrshort{gl:sha}-2 y fue
+desarrollada para cubrir la necesidad de una llave más grande para poder
+empatar su tamaño con \acrshort{gl:aes}. Dos años más tarde, una nueva
+función hash fue agregada a la familia \acrshort{gl:sha}-2:
+\acrshort{gl:sha}-224.
+
+Finalmente, en 2008, \acrshort{gl:nist} inició un concurso para buscar al
+\acrshort{gl:sha}-3 y en 2012 anunció al ganador: Keccak, una función hash
+desarrollada por Guido Bertoni, Joan Daemen, Michael Peeters y Gilles Van
+Assche. Esta función tiene una construcción completamente distinta a las
+familias anteriores.

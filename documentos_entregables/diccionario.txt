@@ -91,6 +91,9 @@ Otros idiomas
 @collision
 @resistant
 @Known
+@Message
+@Digest
+@Keccak
 
 Nombres propios y siglas
 ===============================================================================
@@ -127,6 +130,24 @@ Nombres propios y siglas
 @NIST
 @CRHF
 @OWHF
+@Ronald
+@Rivest
+@Hans
+@Dobbertin
+@Bertoni
+@Joan
+@Daemen
+@Michael
+@Peeters
+@Gilles
+@Assche
+@md
+@RIPEMD
+@RIPE
+@sha
+@nist
+@nsa
+
 
 Sintaxis de LaTeX y similares
 ===============================================================================
