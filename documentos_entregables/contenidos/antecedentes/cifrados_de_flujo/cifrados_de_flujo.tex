@@ -5,6 +5,9 @@
 
 \section{Cifrados de flujo}
 
+La información de esta sección (junto con las subsecciones contenidas) puede
+ser encontrada con mayor detalle en \cite{menezes} y \cite{stallings}.
+
 A diferencia de los cifrados de bloque, que trabajan sobre grupos enteros de
 bits a la vez, los cifrados de flujo trabajan sobre bits individuales,
 cifrándolos uno por uno. Una manera de verlos es como cifrados por bloques con
@@ -21,7 +24,7 @@ encuentra el hecho de que son más rápidos en hardware y más útiles cuando
 el buffer es limitado o se necesita procesar la información al momento de
 llegada. La propagación de los errores es limitada o nula, por lo que también
 son más apropiados en casos en los que hay probabilidades altas de errores en
-la transmisión \cite{menezes}.
+la transmisión.
 
 Los cifrados de bloques funcionan sin ninguna clase de memoria (por sí solos);
 en contraste, la función de cifrado de un cifrado de flujo puede variar
@@ -30,9 +33,5 @@ memoria asociado. Otra denominación para estos cifrados es \textit{de estado},
 por que la salida no depende solamente del texto en claro y de la llave, sino
 que también depende del estado actual.
 
-Una clasificación común es en \textit{síncronos} y
-en \textit{autosincronizables}. A continuación se describen a grandes rasgos
-ambos modelos.
-
-\input{contenidos/antecedentes/cifrados_de_flujo/sincronos.tex}
-\input{contenidos/antecedentes/cifrados_de_flujo/autosincronizables.tex}
+\input{contenidos/antecedentes/cifrados_de_flujo/clasificacion.tex}
+\input{contenidos/antecedentes/cifrados_de_flujo/RC4.tex}

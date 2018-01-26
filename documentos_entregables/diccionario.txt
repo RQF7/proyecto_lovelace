@@ -26,6 +26,7 @@ Omisiones del diccionario
 *reordenen
 *subllave
 *subllaves
+*subsecciones
 *regresarlo
 *semidébil
 *semidébiles
@@ -157,10 +158,18 @@ entradas de glosario definido como excepción: todos los nombres de referencias
 los está marcando como errores. Espero que no se nos pase una de a verdad:
 @cbc
 @cfb
+@cod
 @ecb
+@ieee
 @inicializacion
+@lan
 @operacion
 @ofb
+@rsa
+@ssl
+@tls
+@wep
+@wpa
 
 
 Sintaxis de LaTeX y similares
