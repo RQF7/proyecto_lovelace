@@ -159,17 +159,15 @@ Nombres propios y siglas
 @mdc
 @maa
 @feistel
+@Horst
 @Diffie
 @Hellman
 @Whitfield
+@Martin
 @Adi
 @Shamir
 @Leonard
-@fips
-@Horst
-@Martin
-@Adleman
-
+@Adlman
 
 
 En etiquetas o variables
