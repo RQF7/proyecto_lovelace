@@ -41,6 +41,8 @@ Omisiones del diccionario
 *biyecciones
 *mapeos
 *autorreversible
+*factorizar
+*criptógrafo
 
 Tecnicismos y extranjerismos
 ===============================================================================
@@ -96,6 +98,10 @@ Otros idiomas
 @Message
 @Digest
 @Keccak
+@New
+@Directions
+@in
+@Cryptography
 
 Nombres propios y siglas
 ===============================================================================
@@ -149,6 +155,21 @@ Nombres propios y siglas
 @sha
 @nist
 @nsa
+@mac
+@mdc
+@maa
+@feistel
+@Diffie
+@Hellman
+@Whitfield
+@Adi
+@Shamir
+@Leonard
+@fips
+@Horst
+@Martin
+@Adleman
+
 
 
 En etiquetas o variables
@@ -170,6 +191,8 @@ los está marcando como errores. Espero que no se nos pase una de a verdad:
 @tls
 @wep
 @wpa
+@autenticacion
+@biyeccion
 
 
 Sintaxis de LaTeX y similares
@@ -212,3 +235,4 @@ Letras
 @L
 @h
 @f
+@R
