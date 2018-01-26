@@ -4,6 +4,7 @@
 %
 
 \subsubsection{\textit{Output Feedback} (OFB)}
+\label{sec:ofb}
 
 Este modo es muy similar al anterior (\acrshort{gl:cfb}), salvo que la
 retroalimentación va directamente de la salida del cifrador a bloques. De esta
@@ -34,14 +35,14 @@ este solamente se la pasa cifrando una y otra vez el
     caption={\Gls{gl:modo_de_operacion} \acrshort{gl:ofb}%
       (cifrado y descifrado).}%
     ]
-  entrada: llave $ L $; vector de inicialización $ VI $;
-           bloques de mensaje (cifrado o descifrado) $ B_1, B_2 \dots B_n $.
+  entrada: llave $ k $; vector de inicialización $ VI $;
+           bloques de mensaje (cifrado o descifrado) $ Bm_1, Bm_2 \dots Bm_n $.
   salida:  bloques de mensaje (cifrado o descifrado) $ Bc_1, Bc_2 \dots Bc_n $.
   inicio
     auxiliar $\gets$ $ VI $
-    para_todo $B$
-      auxiliar $\gets$ C($L$, auxiliar)
-      $Bc_i$ $\gets$  auxiliar $\oplus$ $B_i$
+    para_todo $Bm$
+      auxiliar $\gets$ E_k(auxiliar)
+      $Bc_i$ $\gets$  auxiliar $\oplus$ $Bm_i$
     fin
     regresar $Bc$
   fin

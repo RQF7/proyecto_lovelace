@@ -17,6 +17,7 @@ Omisiones del diccionario
 *Criptoanálisis
 *criptoanálisis
 *criptología
+*enlistan
 *irrestricto
 *permutación
 *pseudoaleatorio
@@ -25,6 +26,7 @@ Omisiones del diccionario
 *reordenen
 *subllave
 *subllaves
+*subsecciones
 *regresarlo
 *semidébil
 *semidébiles
@@ -149,6 +151,27 @@ Nombres propios y siglas
 @nsa
 
 
+En etiquetas o variables
+===============================================================================
+Al parecer el modo LaTeX de hunspell no tiene el entorno de las referencias a
+entradas de glosario definido como excepción: todos los nombres de referencias
+los está marcando como errores. Espero que no se nos pase una de a verdad:
+@cbc
+@cfb
+@cod
+@ecb
+@ieee
+@inicializacion
+@lan
+@operacion
+@ofb
+@rsa
+@ssl
+@tls
+@wep
+@wpa
+
+
 Sintaxis de LaTeX y similares
 ===============================================================================
 En teoría el modo LaTeX de hunspell tendría que ser lo suficientemente bueno
@@ -169,6 +192,7 @@ pseudocódigos), debe de haber alguna forma de introducirlos a las excepciones.
 Letras
 ===============================================================================
 @K
+@k
 @rc
 @j
 @x

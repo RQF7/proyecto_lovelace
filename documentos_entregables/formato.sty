@@ -22,6 +22,7 @@
 \RequirePackage{bookmark}                   % Opciones del pdf producto
 \RequirePackage{listings}                   % Listas de algoritmos
 \RequirePackage[acronym, toc]{glossaries}   % Gestión de glosario
+\RequirePackage{amsfonts}                   % Carga de Letras en modo matemático
 \RequirePackage[backend=biber,              % Estilo Biblatex
                 style=numeric,              % Etiquetas numéricas
                 sorting=none,               % Ordenado según aparición
@@ -35,7 +36,7 @@
                 ]{geometry}                 % Márgenes
 
 % Nota sobre geometry:
-% Un biding offset de 6mm parece dejar los márgenes iguales para
+% Un binding offset de 6mm parece dejar los márgenes iguales para
 % páginas pares e impares (no lo entiendo, simplemente me lo dijo
 % tex.stackexchange), creo que ya que vayamos a imprimir es una buena idea
 % leer la documentación
@@ -128,8 +129,11 @@
 % Archivo con entradas del glosario
 \input{contenidos/glosario.tex}
 
+% Archivo con definición de siglas
+\input{contenidos/siglas.tex}
+
 % Archivo con referencias
-\addbibresource{referencias.bib}
+\addbibresource{contenidos/referencias.bib}
 
 % Redefinición de listas y de bibliografía.
 % Se hacen secciones en lugar de capítulos.

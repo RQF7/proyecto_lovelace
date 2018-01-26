@@ -6,11 +6,10 @@
 \subsubsection{\textit{Electronic Codebook} (ECB)}
 
 La figura \ref{figura:ecb} muestra un diagrama esquemático de este
-\gls{gl:modo_de_operacion}. Según la ecuación \ref{modo_de_operacion}, el
-algoritmo recibe a la entrada una llave y un mensaje de longitud arbitraria:
-la llave se pasa sin ninguna modificación a cada función del cifrado por
-bloques; el mensaje se debe de partir en bloques
-($ T = B_1 || B_2 || \dots || B_n $).
+\gls{gl:modo_de_operacion}. El algoritmo recibe a la entrada una llave y un
+mensaje de longitud arbitraria: la llave se pasa sin ninguna modificación a
+cada función del cifrado por bloques; el mensaje se debe de partir en bloques
+($ M = Bm_1 || Bm_2 || \dots || Bm_n $).
 
 \begin{figure}[H]
   \centering
@@ -35,11 +34,11 @@ bloques; el mensaje se debe de partir en bloques
 \begin{pseudocodigo}[%
     caption={\Gls{gl:modo_de_operacion} \acrshort{gl:ecb}, cifrado.}%
   ]
-  entrada: llave $ L $; bloques de mensaje $ B_1, B_2 \dots B_n $.
+  entrada: llave $ k $; bloques de mensaje $ Bm_1, Bm_2 \dots Bm_n $.
   salida:  bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
   inicio
-    para_todo $B$
-      $Bc_i$ $\gets$ C($L$, $B_i$)
+    para_todo $Bm$
+      $Bc_i$ $\gets$ E_k($Bm_i$)
     fin
     regresar $Bc$
   fin
@@ -48,12 +47,12 @@ bloques; el mensaje se debe de partir en bloques
 \begin{pseudocodigo}[%
     caption={\Gls{gl:modo_de_operacion} \acrshort{gl:ecb}, descifrado.}%
   ]
-  entrada: llave $ L $; bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
+  entrada: llave $ k $; bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
   salida:  bloques de mensaje original $ B_1, B_2 \dots B_n $.
   inicio
     para_todo $Bc$
-      $B_i$ $\gets$ $C^{-1}$($L$, $Bc_i$)
+      $Bm_i$ $\gets$ $D_k$($Bc_i$)
     fin
-    regresar $B$
+    regresar $Bm$
   fin
 \end{pseudocodigo}

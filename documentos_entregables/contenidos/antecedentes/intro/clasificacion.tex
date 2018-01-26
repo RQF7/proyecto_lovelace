@@ -14,13 +14,14 @@
 
   Una manera de clasificar es de acuerdo a las técnicas y métodos empleados
   para cifrar la información, esta clasificación se puede observar en la
-  siguiente figura.
+  figura \ref{clasificacion_cripto}.
 
   \begin{figure}[H]
     \begin{center}
       \includegraphics[width=0.75\linewidth]
         {contenidos/antecedentes/intro/img/clasificacion_cripto.png}
       \caption{Clasificación de la criptografía.}
+      \label{clasificacion_cripto}
     \end{center}
   \end{figure}
 
@@ -42,23 +43,32 @@
       \includegraphics[width=0.8\linewidth]
         {contenidos/antecedentes/intro/img/cripto_simetrica.png}
       \caption{Canal de comunicación con criptografía simétrica.}
+      \label{cripto_simetrica}
     \end{center}
   \end{figure}
 
-  En la figura anterior se puede observar el proceso para establecer una
-  comunicación segura por medio de la criptografía simétrica. Primero, tanto
-  Alice como Bob deben de establecer una llave única y compartida $k$, para
-  que después, Alice, actuando como el emisor, cifre un mensaje $m$ usando
-  la llave $k$ por medio del algoritmo de cifrado $E(k,m)$ para obtener el
-  mensaje cifrado $c$ y enviárselo a Bob. Posteriormente Bob, como receptor,
-  se encarga de descifrar $c$ con ayuda de la llave $k$ por medio del
-  algoritmo de descifrado $D(k,c)$ para obtener el mensaje original $m$.
+  En la figura \ref{cripto_simetrica} se puede observar el proceso para 
+  establecer una comunicación segura por medio de la criptografía simétrica. 
+  Primero, tanto Alice como Bob deben de establecer una llave única y 
+  compartida $k$, para que después, Alice, actuando como el emisor, cifre un 
+  mensaje $m$ usando la llave $k$ por medio del algoritmo de cifrado $E(k,m)$ 
+  para obtener el mensaje cifrado $c$ y enviárselo a Bob. Posteriormente Bob, 
+  como receptor, se encarga de descifrar $c$ con ayuda de la llave $k$ por 
+  medio del algoritmo de descifrado $D(k,c)$ para obtener el mensaje original 
+  $m$.
 
   Entre los beneficios de este tipo de criptografía está su utilidad para
   cifrar archivos personales, su relativa facilidad de uso y para garantizar
   la confidencialidad e integridad debido al uso de una llave, y su rapidez,
   pero en contraparte, su uso genera problemas para organizar y compartir
   las llaves secretas de una forma segura y eficiente.
+
+  Gran parte de los algoritmos de cifrado que caen en este tipo de criptografía 
+  esta basados en las redes Feistel, que son un método de cifrado propuesto por 
+  el criptógrafo Horst Feistel, mismo que desarrollo el Data Encryption Standard 
+  (\acrshort{gl:des}) a principios de la década de los 70, que fue el cifrado 
+  usado por el gobierno estadounidense hasta que 2002, año que el Advanced 
+  Encryption Standard (\acrshort{gl:aes}) lo sustituyo. 
 
   Ahora, adentrándose en la criptografía asimétrica, se tiene que su idea
   principal es el uso de 2 llaves distintas para cada persona, una llave
@@ -72,13 +82,14 @@
   cifrado $E(pk,m)$ para obtener $c$ y enviarlo. Después Bob como receptor,
   se encarga de descifrar $c$ por medio del algoritmo de descifrado
   $D(sk,c)$ haciendo uso de su llave privada $sk$. Este proceso se refleja
-  gráficamente el la siguiente figura.
+  gráficamente el la figura \ref{cripto_asimetrica}.
 
   \begin{figure}[H]
     \begin{center}
       \includegraphics[width=0.8\linewidth]
         {contenidos/antecedentes/intro/img/cripto_asimetrica.png}
       \caption{Canal de comunicación con criptografía asimétrica.}
+      \label{cripto_asimetrica}
     \end{center}
   \end{figure}
 
@@ -86,3 +97,60 @@
   distribución de llaves privada segura, y establecer métodos que garantizan
   la autenticación y el no repudio, como por ejemplo en las firmas y
   certificados digitales.
+
+  El principal precursor de la criptografía asimétrica fue el método de 
+  intercambio de llaves de Diffie-Hellman, desarrollado y publicado por 
+  Whitfield Diffie y Martin Hellman, en 1976 en el articulo \textit{New 
+  Directions in Cryptography}, siendo la primera forma practica para poder 
+  establecer llaves secretas entre dos partes sin contacto previo por medio 
+  de un canal inseguro.
+
+  Otro precursor fue el sistema criptográfico \acrshort{gl:rsa} (nombre 
+  obtenido por las siglas de los apellidos de sus desarrolladores, Ron Rivest, 
+  Adi Shamir y Leonard Adleman), publicado en 1978 y que fue el primer sistema 
+  criptográfico capaz de servir tanto para cifrar mensajes, cómo para la 
+  implementación de firmas digitales. A pesar de que sus orígenes son de ya 
+  hace casi cuatro décadas, este sistema aun es uno de los más ampliamente 
+  usados.
+
+  Entre los motivos del éxito de \acrshort{gl:rsa} está, que su funcionamiento 
+  se basa en la teoría elemental de números, ya que usa propiedades descritas 
+  en esta teoría; y su seguridad, ya que se basa en la incapacidad de poder 
+  factorizar números grandes de forma eficiente.
+
+  El algoritmo de \acrshort{gl:rsa} consta de 3 partes, la generación de llaves, 
+  el cifrado y el descifrado. El proceso para poder generar un par de llaves 
+  (pública y privada) con \acrshort{gl:rsa} se muestra en el pseudocódigo 
+  \ref{rsa:1}. 
+
+  % Me pase de 80 caracteres porque dentro del pseudocodigo me marca el salto 
+  % de linea en el pdf.
+  \begin{pseudocodigo}[caption={Proceso de generación de llaves de 
+    \acrshort{gl:rsa}.}, label={rsa:1}]
+    entrada: ninguna.
+    salida:  llave pública $(n,e)$ y privada $(n,d)$.
+    inicio
+      Elegir de forma aleatoria 2 números primos $p$ y $q$, que sean de gran 
+      magnitud y de una longitud parecida.
+      Calcular el módulo $n\: =\: p \:. \:q$
+      Calcular $\varphi(n) \:= \:(p-1) \:(q-1)$.
+      Elegir un exponente de cifrado $e$ tal que $e \:< \:\varphi(n)$ y $mcd(e,\varphi(n)) \:= \:1$.
+      Encontrar el exponente de descifrado $d$ tal que $e . d \:\mod \:\varphi(n) \:= \:1$.
+    fin
+  \end{pseudocodigo}
+
+  Las funciones de cifrado y descifrado, están definidas en la ecuación 
+  \ref{funcion_cifrado_rsa} y \ref{funcion_descifrado_rsa} respectivamente, 
+  y se aplican sobre mensajes convertidos números enteros, siendo funciones 
+  biyectivas e inversas entre sí.
+
+  \begin{equation}
+    \label{funcion_cifrado_rsa}
+    E: \mathbb{Z}_n \longrightarrow \mathbb{Z}_n, x \longmapsto x^e 
+  \end{equation}
+
+  \begin{equation}
+    \label{funcion_descifrado_rsa}
+    D: \mathbb{Z}_n \longrightarrow \mathbb{Z}_n, x \longmapsto x^d 
+  \end{equation}
+

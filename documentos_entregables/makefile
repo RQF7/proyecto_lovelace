@@ -5,7 +5,7 @@
 
 NOMBRE_DE_ARCHIVO := documento_final
 CARPETA_TEMPORAL := temporales_de_latex
-UBICACION_CONTENIDO := **/**/*.tex **/**/**/*.tex
+UBICACION_CONTENIDO := **/**/*.tex **/**/**/*.tex **/**/**/**/*.tex
 
 $(NOMBRE_DE_ARCHIVO): $(NOMBRE_DE_ARCHIVO).tex $(UBICACION_CONTENIDO)
 	mkdir -p $(CARPETA_TEMPORAL)
