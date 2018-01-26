@@ -41,6 +41,8 @@ Omisiones del diccionario
 *biyecciones
 *mapeos
 *autorreversible
+*factorizar
+*criptógrafo
 
 Tecnicismos y extranjerismos
 ===============================================================================
@@ -96,6 +98,10 @@ Otros idiomas
 @Message
 @Digest
 @Keccak
+@New
+@Directions
+@in
+@Cryptography
 
 Nombres propios y siglas
 ===============================================================================
@@ -149,7 +155,15 @@ Nombres propios y siglas
 @sha
 @nist
 @nsa
-
+@Horst
+@Diffie
+@Hellman
+@Whitfield
+@Martin
+@Adi
+@Shamir
+@Leonard
+@Adlman
 
 En etiquetas o variables
 ===============================================================================
