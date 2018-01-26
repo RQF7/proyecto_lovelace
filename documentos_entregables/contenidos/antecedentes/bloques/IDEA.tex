@@ -23,7 +23,7 @@ $Y = (Y_1, Y_2, Y_3, Y_4)$.
     para la transformación de salida.
     $(X_1, X_2, X_3, X_4) \leftarrow (m_1 \dots m_{16}, m_{17} \dots m_{32}, m_{33} \dots m_{48}, m_{49} \dots m_{64})$
         donde $X_i$ almacena 16 bits.
-    Para la ronda $r$ desde 1 hasta 8:
+    para_todo $r$ desde 1 hasta 8:
       a) $X_1 \leftarrow X_1 \times K_1^{(r)} \mod2^{16} + 1$
          $X_4 \leftarrow X_4 \times K_4^{(r)} \mod2^{16} + 1$
          $X_2 \leftarrow X_2 + K_2^{(r)} \mod2^{16}$

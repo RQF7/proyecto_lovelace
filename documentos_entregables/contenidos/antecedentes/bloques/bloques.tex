@@ -5,6 +5,10 @@
 
 \section{Cifrados por bloques}
 
+La información presentada a continuación puede consultarse con más profundidad
+en las siguientes referencias
+\cite{menezes, DBLP:series/isc/DelfsK07}
+
 Los cifrados por bloque son esquemas de cifrado que, como bien
 lo explica su nombre, operan mediante bloques de datos. Normalmente los
 bloques tienen una longitud de 64 o de 128 bits, mientras que las llaves
@@ -36,8 +40,10 @@ claro.
 
 \begin{equation}
   \label{cifrado_bloques_def}
-  E: \{0,1\}^r \times \{0,1\}^n \longrightarrow \{0,1\}^n
-  (k,m) \longmapsto  E(k,m)
+  \begin{aligned}
+    E: {}& \{0,1\}^r \times \{0,1\}^n \longrightarrow \{0,1\}^n \\
+         &(k,m) \longmapsto  E(k,m)
+  \end{aligned}
 \end{equation}
 
 
@@ -89,6 +95,7 @@ en cuenta para evaluar estos cifrados:
 
 A continuación se listan algunos algoritmos de cifrado por bloques.
 
+\input{contenidos/antecedentes/bloques/feistel.tex}
 \input{contenidos/antecedentes/bloques/DES.tex}
 \input{contenidos/antecedentes/bloques/AES.tex}
 \input{contenidos/antecedentes/bloques/FEAL.tex}

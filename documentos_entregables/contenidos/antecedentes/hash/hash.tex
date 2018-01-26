@@ -4,7 +4,9 @@
 %
 
 \section{Funciones hash}
-La información presentada a continuación puede consultarse con más profundidad en las siguientes referencias \cite{hash_hussein, menezes, DBLP:series/isc/DelfsK07}
+La información presentada a continuación puede consultarse con más profundidad
+en las siguientes referencias
+\cite{hash_hussein, menezes, DBLP:series/isc/DelfsK07, hash_gupta}
 
 Se refiere al conjunto de funciones computacionalmente eficientes que
 mapean cadenas binarias de una longitud arbitraria a cadenas binarias
@@ -14,8 +16,8 @@ Matemáticamente, una función hash es una función
 \begin{equation}
   \label{funcion_hash_def}
   \begin{split}
-      h: \{0, 1\}^* \longrightarrow \{0,1\}^n \\
-      m \longmapsto h(m)
+    h: \{0, 1\}^* \longrightarrow \{0,1\}^n \\
+    m \longmapsto h(m)
   \end{split}
 \end{equation}
 
@@ -94,23 +96,6 @@ basta con calcular su valor $h(m)$ y compararlo con el que se tiene
 guardado para detectar modificaciones. Por esta razón, las funciones
 hash también son llamadas códigos de detección de modificaciones (MDC,
 por sus siglas en inglés).
-
-\subsection{Autenticación de mensajes}
-Otra importante aplicación de las funciones hash es la autenticación
-del mensaje. Si una función hash es utilizada para la autenticación de
-mensajes, es llamada código de autenticación de mensajes (MAC, por sus
-siglas en inglés). MAC es una técnica simétrica estándar muy utilizada
-para autenticar y proteger la integridad de un mensaje. Dependen de
-una llave secreta que tienen las partes interesadas y, al contrario de
-las firmas electrónicas donde solo una persona conoce la llave privada
-y es capaz de generar la firma, cada uno de los participantes puede
-producir el MAC válido para un mensaje. La llave privada $k$ es
-utilizada para parametrizar la función hash.
-
-\begin{equation}
-  \label{funcion_hash_mac}
-  h_k: \{0, 1\}^* \longrightarrow \{0,1\}^n
-\end{equation}
 
 \subsection{Firmas}
 Sea $(n, e)$ la llave pública RSA y $d$ el exponente decodificador

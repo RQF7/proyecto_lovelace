@@ -4,13 +4,13 @@ Este es, probablemente, el cifrado simétrico por bloques más conocido;
 ya que en la década de los 70 estableció un precedente al ser el primer
 algoritmo a nivel comercial que publicó abiertamente sus
 especificaciones y detalles de implementación. Se encuentra definido
-en el estándar americano FIPS 46-2.
+en el estándar americano \acrshort{gl:fips} 46-2.
 
 \acrshort{gl:des} es un cifrado Feistel que procesa bloques de $n=64$ bits y
 produce bloques cifrados de la misma longitud. Aunque la llave es de 64 bits,
 8 son de paridad, por lo que el tamaño \textit{efectivo} de la llave es de
 56 bits. Las $2^{56}$ llaves implementan, máximo, $2^{56}$ de las
-$2^{64}!$ posibles biyecciones en bloques de 64 bits.
+$2^{64}!$ posibles \glspl{gl:biyeccion} en bloques de 64 bits.
 
 Con la llave $K$ se generan 16 subllaves $K_i$ de 48 bits; una para cada
 \gls{gl:ronda}. En cada \gls{gl:ronda} se utilizan 8 \textit{cajas-s}
@@ -20,18 +20,16 @@ $L_{i-1}$ y $R_{i-1}$ de la \gls{gl:ronda} anterior y produce salidas de 32
 bits $L_i$ y $R_i$ mientras $1 \leq i \leq 16$ de la siguiente manera:
 
 \begin{equation}
-  \label{cifrado_des_li}
-  L_i = R_{i-1}
-\end{equation}
-
-\begin{equation}
-  \label{cifrado_des_di}
-  R_i = L_{i-1} \oplus f(R_{i-1}, K_i)
-  f(R_{i-1}, K_i) = P(S(E(R_{i-1})\oplus K_i))
+  \label{cifrado_des}
+  \begin{aligned}
+    L_i = {} & R_{i-1} \\
+    R_i = {} & L_{i-1} \oplus f(R_{i-1}, K_i) \\
+    & donde \quad f(R_{i-1}, K_i) = P(S(E(R_{i-1})\oplus K_i))
+  \end{aligned}
 \end{equation}
 
 $E$ se encarga de expandir $R_{i-1}$ de 32 bits a 48, $P$ es una
-permutación de 32 bits y $S$ son las cajas-s.
+permutación de 32 bits y $S$ son las cajas-s. 
 
 \begin{pseudocodigo}[caption={DES, cifrado.}, label={des:1}]
   entrada:  64 bits de texto en claro $M = m_1 \dots m_{64}$;
@@ -39,16 +37,17 @@ permutación de 32 bits y $S$ son las cajas-s.
   salida:   bloque de texto cifrado de 64 bits $C = c_1 \dots c_{64}$.
   inicio
     Calcular 16 subllaves $K_i$ de 48 bits partiendo de $K$.
-    $(L_0, R_0) \leftarrow IP(m_1m_2\dots m_{64}$
-    Para $i$ desde 1 hasta 16: Calcular $L_i$ y $R_i$ mediante las ecuaciones
-    mostradas anteriormente.
-    Obtener $f(R_{i-1}, K_i)$ así:
-      a) Expandir $R_{i-1} = r_1r_2\dots r_{32}$ de 32 a 48 bits
-         usando $E$: $T \leftarrow E(R_{i-1})$.
-      b) $T^\prime \leftarrow T \oplus K_i$. Donde $T^\prime$ es representado
-         como ocho cadenas de 6 bits cada una $(B_1, \dots, B_8)$.
-      c) $T'' \leftarrow (S_1(B_1), S_2(B_2), \dots S_8(B_8))$
-      d) $T''' \leftarrow P(T'')$
+    Obtener $(L_0, R_0)$ de la tabla de permutaciones iniciales $IP(m_1m_2\dots m_{64})$
+    para_todo $i$ desde 1 hasta 16: 
+      L_i = R_{i-1}
+      Obtener $f(R_{i-1}, K_i)$:
+        a) Expandir $R_{i-1} = r_1r_2\dots r_{32}$ de 32 a 48 bits
+          usando $E$: $T \leftarrow E(R_{i-1})$.
+        b) $T^\prime \leftarrow T \oplus K_i$. Donde $T^\prime$ es representado
+          como ocho cadenas de 6 bits cada una $(B_1, \dots, B_8)$.
+        c) $T'' \leftarrow (S_1(B_1), S_2(B_2), \dots S_8(B_8))$
+        d) $T''' \leftarrow P(T'')$
+      R_i = L_{i-1} \oplus f(R_{i-1}, K_i)
     fin
     $b_1b_2 \dots b_{64} \leftarrow (R_{16}, L{16})$.
     $C \leftarrow IP^{-1}(b_1b_2 \dots b_{64})$

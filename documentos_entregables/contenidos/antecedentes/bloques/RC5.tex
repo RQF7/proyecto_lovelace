@@ -12,7 +12,7 @@ llave y el número de \glspl{gl:ronda} $r$ es variable; aunque se recomiendan 12
   inicio
     Calcular $2r + 2$ subllaves $K_0, \dots, K_{2r+1}$
     $A \leftarrow A + K_0 \mod2^w, B \leftarrow B + K_1 \mod2^w$
-    Para $i$ desde $1$ hasta $r$:
+    para_todo $i$ desde $1$ hasta $r$:
       $A \leftarrow ((A \oplus B) \hookleftarrow B) + K_{2i} \mod2^w$
       $B \leftarrow ((B \oplus A) \hookleftarrow A) + K_{2i+1} \mod2^w$
     fin

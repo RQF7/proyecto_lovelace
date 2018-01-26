@@ -2,7 +2,7 @@
 
 Dado que el tamaño de bloque y la longitud de la llave de \acrshort{gl:des}
 se volvieron muy pequeños para resistir los embates del progreso
-de la tecnología, el NIST comenzó la búsqueda de un nuevo cifrado
+de la tecnología, el \acrshort{gl:nist} comenzó la búsqueda de un nuevo cifrado
 estándar en 1997; este cifrado debía tener un tamaño de bloque de,
 al menos, 128 bits y soportar tres tamaños de llave: 128, 192 y 256 bits.
 
@@ -10,9 +10,9 @@ Después de pasar por un proceso de selección, la propuesta Rijndael fue
 seleccionada. Se le hicieron algunas modificaciones, pues Rijndael soporta
 combinaciones de llaves y bloques de longitud 128, 169, 192, 224 y 256;
 mientras que \acrshort{gl:aes} tiene fijo el tamaño de bloque y solo utiliza
-los tres tamaños mencionados anteriormente. Dependiendo del tamaño de la
-llave, se tiene el número de \glspl{gl:ronda}: 10 para las de 128 bits, 12 para
-las de 192 y 14 para las de 256.
+los tres tamaños de llave mencionados anteriormente. Dependiendo del tamaño 
+de la llave, se tiene el número de \glspl{gl:ronda}: 10 para las de 128 bits,
+12 para las de 192 y 14 para las de 256.
 
 El cifrado requiere de una matriz de $4 \times 4$ denominada matriz de
 estado.
@@ -21,21 +21,20 @@ estado.
   entrada:    128 bits de texto en claro $M$; llave de $n$ bits $K$.
   salida:     bloque de texto cifrado de 64 bits $C = c_1 \dots c_{64}$.
   inicio
-  Obtener las subllaves de 128 bits necesarias: una para
-    cada ronda y una extra.
-  Iniciar matriz de estado con el bloque en claro.
-  Realizar $AddRoundKey(matriz\_estado, k_0)$
-  Para $i$ desde 1 hasta $num\_rondas$:
+    Obtener las subllaves de 128 bits necesarias: una para cada ronda y una extra.
+    Iniciar matriz de estado con el bloque en claro.
+    Realizar $AddRoundKey(matriz\_estado, k_0)$
+    para_todo $i$ desde 1 hasta $num\_rondas-1$:
+      $SubBytes(matriz\_estado)$
+      $ShiftRows(matriz\_estado)$
+      $MixColumns(matriz\_estado)$
+      $AddRoundKey(matriz\_estado, k_i)$
+    fin
     $SubBytes(matriz\_estado)$
     $ShiftRows(matriz\_estado)$
     $MixColumns(matriz\_estado)$
-    $AddRoundKey(matriz\_estado, k_i)$
-  fin
-  $SubBytes(matriz\_estado)$
-  $ShiftRows(matriz\_estado)$
-  $MixColumns(matriz\_estado)$
-  $AddRoundKey(matriz\_estado, k_{num\_rondas})$
-  regresa $matriz\_estado$
+    $AddRoundKey(matriz\_estado, k_{num\_rondas})$
+    regresa $matriz\_estado$
   fin
 \end{pseudocodigo}
 
@@ -69,7 +68,7 @@ siguiente polinomio fijo:
 y se toma el residuo del producto módulo $X^4+1$:
 \begin{equation}
   \label{cifrado_aes_mix}
-  a(X) \mapsto a(X) \cdotp c(X) mod (X^4+1)
+  a(X) \mapsto a(X) \cdotp c(X) \mod (X^4+1)
 \end{equation}
 
 \subsubsection{AddRoundKey}

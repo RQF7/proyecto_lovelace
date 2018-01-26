@@ -1,0 +1,45 @@
+%
+% Sección de autenticación de mensajes, capítulo de antecedentes.
+% Proyecto Lovelace.
+%
+
+\section{Funciones hash con llave}
+La información presentada a continuación puede consultarse con más profundidad
+en las siguientes referencias
+\cite{DBLP:series/isc/DelfsK07, menezes, mac_patel}
+
+Las funciones hash con llave cuyo propósito específico es la
+\gls{gl:autenticacion_origen} y garantizar la \gls{gl:integridad_datos} del
+mensaje son llamadas \acrlong{gl:mac}. Estas funciones tienen como entrada
+una llave secreta $k$ y un mensaje de longitud arbitraria y dan como resultado
+un mensaje de longitud $n$.
+
+\begin{equation}
+  \label{funcion_hash_mac}
+  h_k: \{0, 1\}^* \longrightarrow \{0,1\}^n
+\end{equation}
+
+Las funciones \acrshort{gl:mac} son la técnica simétrica
+estándar utilizada tanto para la autenticación como para la protección de la
+integridad de los mensajes. Dependen de unas llaves secretas que son
+compartidas entre las partes que se van a comunicar; cada una de las
+partes puede producir el \acrshort{gl:mac} correspondiente para un mensaje
+dado. Como se explica a continuación, los \acrshort{gl:mac} pueden ser
+obtenidas mediante cifradores de bloque, cifradores de flujo o de funciones
+hash criptográficas.
+
+El algoritmo \acrshort{gl:mac} más usado basado en un cifrador de bloque
+utiliza el modo de operación \acrshort{gl:cbc}. Cuando \acrshort{gl:des}
+es utilizado como el cifrado de bloque $E$, el tamaño de bloque es de 64
+bits y la llave \acrshort{gl:mac} es de 56 bits.
+
+Otra manera de construir \acrshort{gl:mac} es mediante un algoritmo
+de \acrshort{gl:mdc} que incluya una llave secreta $k$ como parte de la
+entrada. Un ejemplo de esto es el algoritmo MD5-MAC; donde la función de
+compresión depende de la llave secreta $k$, que interviene en todas las
+iteraciones.
+
+El algoritmo \acrshort{gl:maa} fue diseñado en 1938 específicamente para
+obtener \acrshort{gl:mac} en máquinas de 32 bits. El tiempo de ejecución
+es directamente proporcional a la longitud del mensaje y alrededor de cuatro
+veces más largo que el \acrshort{gl:md4}

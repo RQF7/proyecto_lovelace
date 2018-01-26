@@ -26,17 +26,65 @@
   description = {
     Cadena de bits de tamaño fijo que sirve como entrada a muchas primitivas
     criptográficas (e. g. algunos modos de operación). Generalmente se requiere
-    que sea generado de forma aleatoria%
+    que sea generado de forma aleatoria.
   }
 }
 
 \newglossaryentry{gl:ronda}
 {
   name = ronda,
-  plural = rondas,
   description = {
     Bloque compuesto por un conjunto de operaciones que es ejecutado
     múltiples veces. Las rondas son definidas por el algoritmo de cifrado.
+  }
+}
+
+\newglossaryentry{gl:integridad_datos}
+{
+  name = integridad de datos,
+  description = {
+    Propiedad en la que los datos no han sido alterados sin autorización desde
+    que fueron creados, transmitidos o almacenados por una fuente autorizada.
+    Operaciones que insertan, eliminan, modifican o reordenan bits invalidan
+    la integridad de los datos. La integridad de los datos incluye que los
+    datos estén completos y, cuando los datos son divididos en bloques, cada
+    bloque cumplir con lo mencionado anteriormente.
+  }
+}
+
+\newglossaryentry{gl:autenticacion_origen}
+{
+  name = autenticación de origen,
+  description = {
+    Tipo de autenticación donde se corrobora que una entidad es la fuente
+    original de la creación de un conjunto de datos en un tiempo específico.
+    Por definición, la autenticación de origen incluye la integridad de datos,
+    pues cuando se modifican los datos, se tiene una nueva fuente.
+  }
+}
+
+\newglossaryentry{gl:biyeccion}
+{
+  name = biyección,
+  plural = biyecciones,
+  description = {
+    Dicho de las funciones que son inyectivas y sobreyectivas
+    al mismo tiempo; en otras palabras, que todos los elementos
+    del conjunto de salida tengan una imagen distinta en el conjunto
+    de llegada y a cada elemento del conjunto de llegada le corresponde
+    un elemento del conjunto de salida.
+  }
+}
+
+\newglossaryentry{gl:cifrado_iterativo}
+{
+  name = cifrado iterativo,
+  plural = cifrados iterativos,
+  description = {
+    Cifrado de bloque que involucra la repetición secuencial de
+    una función interna llamada función de \gls{gl:ronda}. Los
+    parámetros incluyen en número de rondas, el tamaño de bloque y
+    el tamaño de llave.
   }
 }
 
@@ -70,3 +118,13 @@
     \textit{National Institute of Standards and Technology}}
 
 \newacronym{gl:nsa}{NSA}{\textit{National Security Agency}}
+
+\newacronym{gl:mac}{MAC}{\textit{Message Authentication Code}}
+
+\newacronym{gl:hmac}{HMAC}{\textit{Keyed-Hashed Message Authentication Code}}
+
+\newacronym{gl:mdc}{MDC}{\textit{Message Digest Cipher}}
+
+\newacronym{gl:maa}{MAA}{\textit{Message Authenticator Algorithm}}
+
+\newacronym{gl:fips}{FIPS}{\textit{Federal Information Processing Standard}}

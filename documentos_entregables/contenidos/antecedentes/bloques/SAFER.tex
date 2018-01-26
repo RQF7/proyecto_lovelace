@@ -21,7 +21,7 @@ chips de tarjetas.
   inicio
     Calcular las subllaves $K_1, \dots, K_{2r+1}$
     $(X_1, X_2, \dots X_8) \leftarrow (m_1 \dots m_8, m_9 \dots m_{16}, \dots, m_{57} \dots m_{64})$
-    Para $i$ desde $1$ hasta $r$:
+    para_todo $i$ desde $1$ hasta $r$:
       a) Para $j = 1, 4, 5, 8: X_j \leftarrow X_j \oplus K_{2i-1}[j]$
         Para $j = 2, 3, 6, 7: X_j \leftarrow X_j + K_{2i-1}[j]$$mod$ $2^8$
       b) Para $j = 1, 4, 5, 8: X_j \leftarrow S$[$X_j$]
@@ -37,7 +37,7 @@ chips de tarjetas.
         Para $j$ desde 1 hasta 8: $X_j \leftarrow Y_j$.
     fin
     Para $j = 1, 4, 5, 8: Y_j \leftarrow X_j \oplus K_{2r+1}[j]$.
-      Para $j = 2, 3, 6, 7: Y_j \leftarrow X_j + K_{2r+1} [j] \mod 2^8$.
+    Para $j = 2, 3, 6, 7: Y_j \leftarrow X_j + K_{2r+1} [j] \mod 2^8$.
   fin
 \end{pseudocodigo}
 

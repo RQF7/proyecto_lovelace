@@ -28,7 +28,7 @@ consulta, resulta más complicado para \acrshort{gl:feal}.
     Definir $M_L = m_1 \dots m_{32}; M_R = m_{33} \dots m_{64}$.
     $(L_0, R_0) \leftarrow (M_L, M_R) \oplus ((K_8, K_9), (K_{10}, K_{11}))$
     $R_0 \leftarrow R_0 \oplus L_0$.
-    Para $i$ desde 1 hasta 8:
+    para_todo $i$ desde 1 hasta 8:
       $L_i \leftarrow R_{i-1}$
       $R_i \leftarrow L_{i-1} \oplus f(R_{i-1}, K_{i-1})$
     fin
