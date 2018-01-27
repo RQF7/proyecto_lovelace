@@ -1,0 +1,59 @@
+%
+% Proyecto eSTREAM, capítulo de antecedentes
+% Proyecto Lovelace.
+%
+
+\subsection{El proyecto eSTREAM}
+
+La información aquí expuesta puede ser consultada a mayor detalle en
+\cite{resultados_estream_1, resultados_estream_2} y \cite{estream_portafolio}.
+
+El proyecto eSTREAM fue un esfuerzo de la comunidad \acrshort{gl:ecrypt} para
+promover el diseño de cifrados de flujo eficientes y compactos. Como resultado,
+se publicó un portafolio en abril de 2008, el cuál ha estado bajo continuas
+actualizaciones desde entonces; actualmente cuenta con siete algoritmos, los
+cuales se presentan en la tabla \ref{portafolio_estream}.
+
+El portafolio se divide en dos perfiles: el primero contiene algoritmos
+adecuados para aplicaciones de software con requerimientos de rapidez de
+procesamiento muy altos; el segundo se enfoca en aplicaciones de hardware con
+pocos recursos disponibles.
+
+\begin{table}
+  \centering
+  \begin{tabular}{| m{0.85in} | m{0.85in} |}
+    \hline
+    \textbf{Perfil 1} & \textbf{Perfil 2} \\ [0.5ex]
+    \hline
+    \makecell{HC-128 \\ Rabbit \\ Salsa20/12 \\ Sosemanuk} &
+    \makecell{Grain v1 \\ MICKEY v2 \\ Trivium} \\
+    \hline
+  \end{tabular}
+  \caption{Finalistas del proyecto eSTREAM}
+  \label{portafolio_estream}
+\end{table}
+
+El proyecto se inició después de que Adi Shamir se preguntara si realmente
+había necesidad de los cifrados de flujo, en una conferencia de
+\acrshort{gl:rsa} en 2004. El principal argumento a favor fue que, para la gran
+mayoría de los casos, el uso de \acrshort{gl:aes} (sección \ref{sec:aes}) con
+una configuración de flujo es una solución adecuada. Este último punto de vista
+iba generalmente acompañado de la creencia de que era imposible diseñar cifrados
+de flujo seguros (un proyecto anterior similar, \acrshort{gl:nessie}, terminó
+sin resultados después de todos los criptoanálisis hechos). Por otra parte,
+como argumentos en contra, Shamir identificó dos áreas en las que los cifrados
+de flujo ofrecen ventajas respecto a los cifrados por bloques:
+
+\begin{enumerate}
+  \item Cuando se requieren tiempos de procesamiento excepcionalmente rápidos
+    (perfil 1).
+  \item Cuando los recursos disponibles son muy pocos (perfil 2).
+\end{enumerate}
+
+Las palabras de Shamir fueron ampliamente difundidas, y más tarde en ese mismo
+año, ECRYPT lanzó el proyecto eSTREAM, cuyo principal objetivo fue ampliar el
+conocimiento sobre el análisis y el diseño de cifrados de flujo. Después de un
+periodo de estudio, se lanzó una convocatoria que generó un interés
+considerable: antes del 29 de abril de 2005 (la fecha límite) se recibieron
+34 propuestas; algunas de las cuales intentaban cumplir con los dos perfiles a
+la vez (lamentablemente no sobrevivieron mucho tiempo).
