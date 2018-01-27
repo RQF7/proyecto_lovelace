@@ -6,7 +6,7 @@
 \section{Funciones hash}
 La información presentada a continuación puede consultarse con más profundidad
 en las siguientes referencias
-\cite{hash_hussein, menezes, DBLP:series/isc/DelfsK07, hash_gupta}
+\cite{hash_hussein, menezes, DBLP:series/isc/DelfsK07, hash_gupta}.
 
 Se refiere al conjunto de funciones computacionalmente eficientes que
 mapean cadenas binarias de una longitud arbitraria a cadenas binarias
@@ -39,12 +39,12 @@ Sea una función hash sin llave $h$ con entradas $x$, $x^\prime$ y
 salidas $y$ y $y^\prime$, respectivamente. A continuación se listan
 algunas de las propiedades que puede tener:
 \begin{enumerate}
-  \item Resistencia de preimagen: no es computacionalmente factible
+  \item Resistencia de \gls{gl:preimagen}: no es computacionalmente factible
     para una salida específica $y$ encontrar una entrada $x^\prime$ que
     dé como resultado el mismo valor hash $h(x^\prime) = y$ si no se
     conoce $x$. Esta propiedad también es llamada
     \textit{de un sentido}.
-  \item Resistencia de segunda preimagen: no es computacionalmente
+  \item Resistencia de segunda \gls{gl:preimagen}: no es computacionalmente
     factible encontrar una segunda entrada $x^\prime$  que tenga la
     misma salida que una entrada específica $x$: $x \neq x^\prime$
     tal que $h(x) = h(x^\prime)$. Esta propiedad también es conocida
@@ -58,24 +58,23 @@ algunas de las propiedades que puede tener:
 \end{enumerate}
 
 Una función hash $h$ que cumple con las propiedades de resistencia de
-preimagen y resistencia de segunda preimagen es conocida como una
-función hash de un solo sentido o OWHF (\textit{one-way hash function}
-). Las que cumplen con la resistencia de segunda preimagen y
+\gls{gl:preimagen} y resistencia de segunda \gls{gl:preimagen} es conocida como 
+una función hash de un solo sentido o \acrfull{gl:owhf}. 
+Las que cumplen con la resistencia de segunda \gls{gl:preimagen} y
 resistencia a las colisiones son conocidas como funciones hash
-resistentes a colisiones o CRHF
-(\textit{collision resistant hash function}). Aunque casi siempre las
-funciones CRHF cumplen con la resistencia de preimagen, no es
-obligatorio que lo hagan.
+resistentes a colisiones o \acrfull{gl:crhf}. Aunque casi siempre las
+funciones \acrshort{gl:crhf} cumplen con la resistencia de \gls{gl:preimagen}, 
+no es obligatorio que lo hagan.
 
-Algunos ejemplos de las funciones hash criptográficas son el SHA-1 y el
-MD5. En los esquemas de firma electrónica, se obtiene el valor hash del
-mensaje ($h(m)$) y se pone en el lugar de la firma. Los valores hash
-también son utilizados para revisar la integridad de las llaves
+Algunos ejemplos de las funciones \acrshort{gl:owhf} son el \acrshort{gl:sha}-1
+y el \acrshort{gl:md5}. En los esquemas de firma electrónica, se obtiene el 
+valor hash del mensaje ($h(m)$) y se pone en el lugar de la firma. Los valores
+hash también son utilizados para revisar la integridad de las llaves
 públicas y, al utilizarse con una llave secreta, las funciones
-criptográficas hash se convierten en códigos de autenticación de
-mensaje (MAC, por sus siglas en inglés), una de las herramientas más
-utilizadas en protocolos como SSL e IPSec para revisar la integridad de
-un mensaje y autenticar al remitente.
+criptográficas hash se convierten en códigos de autenticación de mensaje 
+(\acrshort{gl:mac}, por sus siglas en inglés), una de las herramientas más
+utilizadas en protocolos como \acrshort{gl:ssl} e IPSec para revisar la 
+integridad de un mensaje y autenticar al remitente.
 
 Una de las aplicaciones más conocidas de las funciones hash es la de
 cifrar las contraseñas: en un sistema, en vez de almacenar la contraseña
@@ -89,29 +88,28 @@ pueden ser los administradores.
 Las funciones criptográficas hash también son conocidas como funciones
 \textit{procesadoras de mensajes} y el valor hash $h(m)$ de un mensaje
 $m$ dado es llamado \textit{huella} de $m$; ya que es una representación
-compacta de m y, dada la resistencia a la segunda preimagen, la huella
+compacta de m y, dada la resistencia a la segunda \gls{gl:preimagen}, la huella
 es prácticamente única. Si el mensaje fuese modificado, el valor hash
 sería distinto; por lo que si se tienen almacenados los valores hash,
 basta con calcular su valor $h(m)$ y compararlo con el que se tiene
 guardado para detectar modificaciones. Por esta razón, las funciones
-hash también son llamadas códigos de detección de modificaciones (MDC,
-por sus siglas en inglés).
+hash también son llamadas códigos de detección de modificaciones (como el 
+\acrshort{gl:mdc2}).
 
 \subsection{Firmas}
-Sea $(n, e)$ la llave pública RSA y $d$ el exponente decodificador
-secreto de Alice. En el esquema básico de firma RSA, Alice puede firmar
-mensajes que estén codificados por números $ m \in \{0, \dots, n-1\}$.
+Sea $(n, e)$ la llave pública \acrshort{gl:rsa} y $d$ el exponente decodificador
+secreto de Alice. En el esquema básico de firma \acrshort{gl:rsa}, Alice puede 
+firmar mensajes que estén codificados por números $ m \in \{0, \dots, n-1\}$.
 Para firmar $m$, aplica el algoritmo de descifrado y obtiene la firma
 $\sigma = m^d$ $mod$ $n$ de $m$.
 Normalmente, $n$ es un número de 1024 bits y Alice puede firmar una
 cadena de bits $m$ tal que, cuando es interpretada como número, sea
-menor que $n$. Esto es una cadena de, máximo, 128 caracteres ASCII: la
-mayoría de los documentos que se desean firmar suelen ser mucho más
-grandes. Este problema existe en todos los esquemas de firma digital y
-usualmente es resuelto al aplicar una función hash resistente a
-colisiones $h$.
-De esta forma, primero se obtiene el valor hash del mensaje $h(m)$ y
-esto es lo que se firma en lugar del mensaje mismo ($m$):
+menor que $n$. Esto es una cadena de, máximo, 128 caracteres 
+\acrshort{gl:ascii}: la mayoría de los documentos que se desean firmar suelen 
+ser mucho más grandes. Este problema existe en todos los esquemas de firma 
+digital y usualmente es resuelto al aplicar una función hash resistente a
+colisiones $h$. De esta forma, primero se obtiene el valor hash del mensaje
+$h(m)$ y esto es lo que se firma en lugar del mensaje mismo ($m$):
 
 \begin{equation}
   \label{funcion_hash_sign}
@@ -128,7 +126,7 @@ un mensaje $m$ firmado por Alice, genere un mensaje nuevo $n$ y utilice
 $\sigma$ como una firma válida de Alice para $n$.
 
 \subsection{Message Digest-4 (MD4)}
-En la década de 1990 esta función hash fue diseñada Ronald Rivest.
+En la década de 1990 esta función hash fue diseñada por Ronald Rivest.
 Tiene entradas de longitud arbitraria y la longitud de la salida
 procesada es de 128 bits. El \acrshort{gl:md4} fue innovador y
 clave en el diseño para los algoritmos venideros de esta clase (como
@@ -139,7 +137,7 @@ Esta función hash, publicada en 1996, está basada en \acrshort{gl:md4} y fue
 diseñada por Hans Dobbertin y otros. Consiste en dos formas equivalentes de la
 función de compresión de \acrshort{gl:md4}. El algoritmo original (RIPEMD-160)
 devuelve bloques \textit{procesados} de 160 bits; cuando en 1996 Hans
-descubrió en 1996 una colisión en dos rondas, se desarrollaron nuevas versiones
+descubrió una colisión en dos rondas, se desarrollaron nuevas versiones
 mejoradas: RIPEMD-128, RIPE-256, RIPE-320; las cuales dan bloques procesados de
 128, 256 y 320 bits respectivamente.
 
