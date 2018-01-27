@@ -41,7 +41,14 @@ estado.
 Como todos los pasos realizados en las \glspl{gl:ronda} son invertibles, el
 proceso de descifrado consiste en aplicar las funciones inversas a
 $SubBytes$, $ShiftRows$, $MixColumns$ y $AddRoundKey$ en el orden
-opuesto.
+opuesto. Tanto el algoritmo como sus pasos están pensados con bytes. 
+En el algoritmo Rijndael los bytes son considerados como elementos del
+campo finito $\mathbb{F}_{2^8}$ con ${2^8}$ elementos; $\mathbb{F}_{2^8}$
+es construido como una extensión del campo  $\mathbb{F}_{2}$ con 2 elementos
+mediante el uso del polinomio irreducible $X^8+X^4+X^3+X+1$.
+Por lo tanto, las operaciones que se hagan a continuación de adición y el
+producto entre bytes significa sumarlos y multipilcarlos como elementos del 
+campo  $\mathbb{F}_{2^8}$.
 
 \subsubsection{SubBytes}
 Esta es la única transformación no lineal de Rijndael. Sustituye
