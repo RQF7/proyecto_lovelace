@@ -4,10 +4,10 @@
   La criptografía puede clasificarse de forma histórica en dos categorías,
   la criptografía clásica y la criptografía moderna. La criptografía clásica
   es aquella que se utilizó desde la antigüedad, teniéndose registro de su
-  usado desde hace más 4000 años por los egipcios, hasta la mitad del siglo
+  uso desde hace más 4000 años por los egipcios, hasta la mitad del siglo
   XX. En esta los métodos utilizados para cifrar eran variados, pero en su
   mayoría usaban la transposición y la sustitución, además de que la mayoría
-  se mantenían en secretos. Mientras que la criptografía moderna es la que
+  se mantenían en secreto. Mientras que la criptografía moderna es la que
   se inició después la publicación de la \textit{Teoría de la información}
   por Claude Elwood Shannon, dado que esta sentó las bases matemáticas para
   la criptología en general.
@@ -30,7 +30,7 @@
   de forma que los caracteres de la información en claro se reordenen
   mediante algoritmos específicos, y los cifrados por sustitución, que
   utilizan técnicas de modificación de los caracteres por otros
-  correspondiente a un alfabeto específico para el cifrado.
+  correspondientes a un alfabeto específico para el cifrado.
 
   En cuanto a la criptografía moderna, esta tiene dos vertientes, la
   criptografía simétrica o de llave secreta y la asimétrica o de llave
@@ -57,27 +57,27 @@
   medio del algoritmo de descifrado $D(k,c)$ para obtener el mensaje original 
   $m$.
 
-  Entre los beneficios de este tipo de criptografía está su utilidad para
-  cifrar archivos personales, su relativa facilidad de uso y para garantizar
-  la confidencialidad e integridad debido al uso de una llave, y su rapidez,
-  pero en contraparte, su uso genera problemas para organizar y compartir
-  las llaves secretas de una forma segura y eficiente.
+  %Entre los beneficios de este tipo de criptografía está su utilidad para
+  %cifrar archivos personales, su relativa facilidad de uso y para garantizar
+  %la confidencialidad e integridad debido al uso de una llave, y su rapidez,
+  %pero en contraparte, su uso genera problemas para organizar y compartir
+  %las llaves secretas de una forma segura y eficiente.
 
   Gran parte de los algoritmos de cifrado que caen en este tipo de criptografía 
-  esta basados en las redes Feistel, que son un método de cifrado propuesto por 
-  el criptógrafo Horst Feistel, mismo que desarrollo el \acrfull{gl:des} a 
+  están basados en las redes Feistel, que son un método de cifrado propuesto 
+  por el criptógrafo Horst Feistel, mismo que desarrolló el \acrfull{gl:des} a 
   principios de la década de los 70, que fue el cifrado usado por el gobierno 
-  estadounidense hasta que 2002, año que el \acrfull{gl:aes} lo sustituyo. 
+  estadounidense hasta 2002, año que el \acrfull{gl:aes} lo sustituyó. 
 
   Ahora, adentrándose en la criptografía asimétrica, se tiene que su idea
   principal es el uso de 2 llaves distintas para cada persona, una llave
-  pública para cifrar que esté disponible para cualquier otra persona, y una
+  pública para cifrar, que esté disponible para cualquier otra persona, y una
   llave privada para descifrar, que se mantiene disponible solo para su
   propietario.
 
   El proceso para establecer una comunicación segura por medio de este tipo
   de criptografía es el siguiente: primero, Alice nuevamente como el emisor,
-  cifra un mensaje $m$ con la llave pública de Bob $pk$ usa el algoritmo de
+  cifra un mensaje $m$ con la llave pública de Bob $pk$, y usa el algoritmo de
   cifrado $E(pk,m)$ para obtener $c$ y enviarlo. Después Bob como receptor,
   se encarga de descifrar $c$ por medio del algoritmo de descifrado
   $D(sk,c)$ haciendo uso de su llave privada $sk$. Este proceso se refleja
@@ -93,28 +93,28 @@
   \end{figure}
 
   Entre los uso que se le da a esta criptografía está el mantener la
-  distribución de llaves privada segura, y establecer métodos que garantizan
+  distribución de llaves privadas segura, y establecer métodos que garanticen
   la autenticación y el no repudio, como por ejemplo en las firmas y
   certificados digitales.
 
   El principal precursor de la criptografía asimétrica fue el método de 
   intercambio de llaves de Diffie-Hellman, desarrollado y publicado por 
-  Whitfield Diffie y Martin Hellman, en 1976 en el articulo \textit{New 
-  Directions in Cryptography}, siendo la primera forma practica para poder 
-  establecer llaves secretas entre dos partes sin contacto previo por medio 
-  de un canal inseguro.
+  Whitfield Diffie y Martin Hellman, en 1976 en el artículo \textit{New 
+  Directions in Cryptography}, siendo la primera forma práctica para poder 
+  establecer una llave secreta compartida entre dos partes sin contacto 
+  previo por medio de un canal publico para intercambiar mensajes.
 
   Otro precursor fue el sistema criptográfico \acrshort{gl:rsa} (nombre 
   obtenido por las siglas de los apellidos de sus desarrolladores, Ron Rivest, 
   Adi Shamir y Leonard Adleman), publicado en 1978 y que fue el primer sistema 
-  criptográfico capaz de servir tanto para cifrar mensajes, cómo para la 
+  criptográfico capaz de servir tanto para cifrar mensajes, como para la 
   implementación de firmas digitales. A pesar de que sus orígenes son de ya 
-  hace casi cuatro décadas, este sistema aun es uno de los más ampliamente 
+  hace casi cuatro décadas, este sistema aún es uno de los más ampliamente 
   usados.
 
-  Entre los motivos del éxito de \acrshort{gl:rsa} está, que su funcionamiento 
+  Entre los motivos del éxito de \acrshort{gl:rsa} está que su funcionamiento 
   se basa en la teoría elemental de números, ya que usa propiedades descritas 
-  en esta teoría; y su seguridad, ya que se basa en la incapacidad de poder 
+  en esta teoría; y en su seguridad, ya que se basa en la incapacidad de poder 
   factorizar números grandes de forma eficiente.
 
   El algoritmo de \acrshort{gl:rsa} consta de 3 partes, la generación de llaves, 
@@ -138,10 +138,10 @@
     fin
   \end{pseudocodigo}
 
-  Las funciones de cifrado y descifrado, están definidas en la ecuación 
+  Las funciones de cifrado y descifrado, están definidas en las ecuaciones 
   \ref{funcion_cifrado_rsa} y \ref{funcion_descifrado_rsa} respectivamente, 
-  y se aplican sobre mensajes convertidos números enteros, siendo funciones 
-  biyectivas e inversas entre sí.
+  y se aplican números enteros o bloques de bits, siendo funciones biyectivas 
+  e inversas entre sí.
 
   \begin{equation}
     \label{funcion_cifrado_rsa}
