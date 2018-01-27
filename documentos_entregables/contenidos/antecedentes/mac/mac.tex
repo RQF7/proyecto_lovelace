@@ -3,7 +3,7 @@
 % Proyecto Lovelace.
 %
 
-\section{Funciones hash con llave}
+\section{Códigos de Autenticación de Mensaje (MAC)}
 La información presentada a continuación puede consultarse con más profundidad
 en las siguientes referencias
 \cite{DBLP:series/isc/DelfsK07, menezes, mac_patel}
@@ -25,13 +25,13 @@ integridad de los mensajes. Dependen de unas llaves secretas que son
 compartidas entre las partes que se van a comunicar; cada una de las
 partes puede producir el \acrshort{gl:mac} correspondiente para un mensaje
 dado. Como se explica a continuación, los \acrshort{gl:mac} pueden ser
-obtenidas mediante cifradores de bloque, cifradores de flujo o de funciones
+obtenidos mediante cifradores de bloque, cifradores de flujo o de funciones
 hash criptográficas.
 
 El algoritmo \acrshort{gl:mac} más usado basado en un cifrador de bloque
-utiliza el modo de operación \acrshort{gl:cbc}. Cuando \acrshort{gl:des}
-es utilizado como el cifrado de bloque $E$, el tamaño de bloque es de 64
-bits y la llave \acrshort{gl:mac} es de 56 bits.
+utiliza el modo de operación \acrshort{gl:cbc} (véase sección \ref{sec:cbc}). 
+Cuando \acrshort{gl:des} es utilizado como el cifrado de bloque $E$, el tamaño 
+de bloque es de 64 bits y la llave \acrshort{gl:mac} es de 56 bits.
 
 Otra manera de construir \acrshort{gl:mac} es mediante un algoritmo
 de \acrshort{gl:mdc} que incluya una llave secreta $k$ como parte de la
