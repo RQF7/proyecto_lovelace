@@ -199,6 +199,7 @@ En teoría el modo LaTeX de hunspell tendría que ser lo suficientemente bueno
 para que esta lista esté vacía.
 La mayoría de los problemas vienen de los entornos propios (como el de los
 pseudocódigos), debe de haber alguna forma de introducirlos a las excepciones.
+@altlist
 @bibintoc
 @C
 @caption
@@ -207,8 +208,10 @@ pseudocódigos), debe de haber alguna forma de introducirlos a las excepciones.
 @H
 @heading
 @label
+@list
+@main
 @title
-@altlist
+@type
 
 Letras
 ===============================================================================
