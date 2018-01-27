@@ -38,7 +38,15 @@
   ]
 
   \glossarystyle{altlist}
-  \printglossaries
+  \printglossary[
+    type=main
+  ]
+
+  \glossarystyle{list}
+  \printglossary[
+    type=\acronymtype,
+    title={Siglas y acrónimos}
+  ]
 
   \newpage
   \addcontentsline{toc}{chapter}{\listfigurename}
