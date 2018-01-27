@@ -46,14 +46,14 @@ Omisiones del diccionario
 
 Tecnicismos y extranjerismos
 ===============================================================================
+@AddRoundKey
 @buffer
 @cifrador
 @cifradores
 @hash
-@mod
 @inv
+@mod
 @ShiftRows
-@AddRoundKey
 
 Otros idiomas
 ===============================================================================
@@ -70,6 +70,7 @@ Otros idiomas
 @chosen
 @Codebook
 @Electronic
+@ecrypt
 @Feedback
 @Graphos
 @Kriptos
@@ -77,6 +78,8 @@ Otros idiomas
 @Output
 @plaintext
 @Secure
+
+Desordenados:
 @Fast
 @Encryption
 @Routine
@@ -105,34 +108,45 @@ Otros idiomas
 
 Nombres propios y siglas
 ===============================================================================
+@AES
+@aes
 @Alice
 @Bob
 @CBC
 @CFB
 @Claude
 @ECB
+@ECRYPT
 @Elwood
-@hunspell
-@LaTeX
-@OFB
-@Shannon
-@XX
+@eSTREAM
+@Eve
 @Feistel
-@AES
-@aes
 @FEAL
 @feal
-@SAFER
+@Grain
+@HC
+@hunspell
+@IPSec
+@LaTeX
+@MACs
+@MAC
+@MDC
+@MICKEY
+@nessie
+@OFB
+@Rabbit
 @RC
 @Rijndael
-@MACs
-@SHA
-@MAC
-@SSL
-@IPSec
-@MDC
-@Eve
 @RSA
+@SAFER
+@SHA
+@SSL
+@Shannon
+@Sosemanuk
+@Trivium
+@XX
+
+Desordenados:
 @MD
 @FIPS
 @NIST
@@ -205,6 +219,7 @@ pseudocódigos), debe de haber alguna forma de introducirlos a las excepciones.
 @caption
 @cbc
 @cfb
+@ex
 @H
 @heading
 @label
@@ -237,3 +252,4 @@ Letras
 @h
 @f
 @R
+@v
