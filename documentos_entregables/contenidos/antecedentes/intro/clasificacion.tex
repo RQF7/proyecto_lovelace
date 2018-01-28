@@ -57,12 +57,6 @@
   medio del algoritmo de descifrado $D(k,c)$ para obtener el mensaje original 
   $m$.
 
-  %Entre los beneficios de este tipo de criptografía está su utilidad para
-  %cifrar archivos personales, su relativa facilidad de uso y para garantizar
-  %la confidencialidad e integridad debido al uso de una llave, y su rapidez,
-  %pero en contraparte, su uso genera problemas para organizar y compartir
-  %las llaves secretas de una forma segura y eficiente.
-
   Gran parte de los algoritmos de cifrado que caen en este tipo de criptografía 
   están basados en las redes Feistel, que son un método de cifrado propuesto 
   por el criptógrafo Horst Feistel, mismo que desarrolló el \acrfull{gl:des} a 
@@ -131,10 +125,10 @@
     inicio
       Elegir de forma aleatoria 2 números primos $p$ y $q$, que sean de gran 
       magnitud y de una longitud parecida.
-      Calcular el módulo $n\: =\: p \:. \:q$
+      Calcular $n\: =\: p \:\cdot \:q$
       Calcular $\varphi(n) \:= \:(p-1) \:(q-1)$.
       Elegir un exponente de cifrado $e$ tal que $e \:< \:\varphi(n)$ y $mcd(e,\varphi(n)) \:= \:1$.
-      Encontrar el exponente de descifrado $d$ tal que $e . d \:\mod \:\varphi(n) \:= \:1$.
+      Encontrar el exponente de descifrado $d$ tal que $e \cdot d \:\mod \:\varphi(n) \:= \:1$.
     fin
   \end{pseudocodigo}
 
