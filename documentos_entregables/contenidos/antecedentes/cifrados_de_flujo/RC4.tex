@@ -7,10 +7,11 @@
 
 RC4 es un cifrado de flujo diseñado por Ron L. Rivest en 1987 para la empresa
 \acrshort{gl:rsa}. Es usado en varios protocolos de seguridad comunes:
-\acrfull{gl:ssl-tls}, \acrfull{gl:wep} y \acrfull{gl:wpa}; los dos últimos son
-parte del estándar \acrshort{gl:ieee} 802.11 para comunicaciones
-\acrshort{gl:lan} inalámbricas. RC4 se mantenía como secreto de compañía hasta
-que, en septiembre de 1994, fue filtrado de forma anónima en Internet.
+\acrfull{gl:ssl}/\acrfull{gl:tls}, \acrfull{gl:wep} y \acrfull{gl:wpa}; los
+dos últimos son parte del estándar \acrshort{gl:ieee} 802.11 para
+comunicaciones \acrshort{gl:lan} inalámbricas. RC4 se mantenía como secreto de
+compañía hasta que, en septiembre de 1994, fue filtrado de forma anónima en
+Internet.
 
 En el pseudocódigo \ref{cod:rc4} se describe el proceso de cifrado del
 algoritmo. $ S $ es un vector de estado; $ T $ es un vector temporal.
@@ -48,7 +49,7 @@ algoritmo. $ S $ es un vector de estado; $ T $ es un vector temporal.
   fin
 \end{pseudocodigo}
 
-Ha habido varias publicaciones que analizan métodos para atacar RC4, ninguna
+Se han hecho varias publicaciones que analizan métodos para atacar RC4, ninguna
 de las cuales presenta algo práctico cuando se utiliza una llave mayor a
 128 bits. Sin embargo, en \cite{ataque_wep} se reporta un problema más serio
 sobre la implementación que se hace de RC4 en el protocolo \acrshort{gl:wep};
