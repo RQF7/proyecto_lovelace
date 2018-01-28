@@ -32,8 +32,8 @@
   utilizan técnicas de modificación de los caracteres por otros
   correspondientes a un alfabeto específico para el cifrado.
 
-  En cuanto a la criptografía moderna, esta tiene dos vertientes, la
-  criptografía simétrica o de llave secreta y la asimétrica o de llave
+  En cuanto a la criptografía moderna, esta tiene dos vertientes: la
+  criptografía simétrica o de llave secreta, y la asimétrica o de llave
   pública. Hablando de la primer vertiente, se puede decir que es aquella
   que utiliza un modelo matemático para cifrar y descifrar un mensaje
   utilizando únicamente una llave que permanece secreta.
@@ -56,12 +56,6 @@
   como receptor, se encarga de descifrar $c$ con ayuda de la llave $k$ por 
   medio del algoritmo de descifrado $D(k,c)$ para obtener el mensaje original 
   $m$.
-
-  %Entre los beneficios de este tipo de criptografía está su utilidad para
-  %cifrar archivos personales, su relativa facilidad de uso y para garantizar
-  %la confidencialidad e integridad debido al uso de una llave, y su rapidez,
-  %pero en contraparte, su uso genera problemas para organizar y compartir
-  %las llaves secretas de una forma segura y eficiente.
 
   Gran parte de los algoritmos de cifrado que caen en este tipo de criptografía 
   están basados en las redes Feistel, que son un método de cifrado propuesto 
@@ -93,8 +87,8 @@
   \end{figure}
 
   Entre los uso que se le da a esta criptografía está el mantener la
-  distribución de llaves privadas segura, y establecer métodos que garanticen
-  la autenticación y el no repudio, como por ejemplo en las firmas y
+  distribución de llaves privadas segura y establecer métodos que garanticen
+  la autenticación y el no repudio; por ejemplo, en las firmas y
   certificados digitales.
 
   El principal precursor de la criptografía asimétrica fue el método de 
@@ -102,10 +96,10 @@
   Whitfield Diffie y Martin Hellman, en 1976 en el artículo \textit{New 
   Directions in Cryptography}, siendo la primera forma práctica para poder 
   establecer una llave secreta compartida entre dos partes sin contacto 
-  previo por medio de un canal publico para intercambiar mensajes.
+  previo por medio de un canal público para intercambiar mensajes.
 
   Otro precursor fue el sistema criptográfico \acrshort{gl:rsa} (nombre 
-  obtenido por las siglas de los apellidos de sus desarrolladores, Ron Rivest, 
+  obtenido por las siglas de los apellidos de sus desarrolladores: Ron Rivest, 
   Adi Shamir y Leonard Adleman), publicado en 1978 y que fue el primer sistema 
   criptográfico capaz de servir tanto para cifrar mensajes, como para la 
   implementación de firmas digitales. A pesar de que sus orígenes son de ya 
@@ -131,10 +125,10 @@
     inicio
       Elegir de forma aleatoria 2 números primos $p$ y $q$, que sean de gran 
       magnitud y de una longitud parecida.
-      Calcular el módulo $n\: =\: p \:. \:q$
+      Calcular $n\: =\: p \:\cdot \:q$
       Calcular $\varphi(n) \:= \:(p-1) \:(q-1)$.
       Elegir un exponente de cifrado $e$ tal que $e \:< \:\varphi(n)$ y $mcd(e,\varphi(n)) \:= \:1$.
-      Encontrar el exponente de descifrado $d$ tal que $e . d \:\mod \:\varphi(n) \:= \:1$.
+      Encontrar el exponente de descifrado $d$ tal que $e \cdot d \:\mod \:\varphi(n) \:= \:1$.
     fin
   \end{pseudocodigo}
 
