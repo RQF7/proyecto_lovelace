@@ -52,6 +52,7 @@ Tecnicismos y extranjerismos
 @buffer
 @cifrador
 @cifradores
+@detokenización
 @hash
 @inv
 @mod

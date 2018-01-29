@@ -69,7 +69,12 @@ aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
   % de cualquier forma, es requerimiento de api web.
   % GT9 Integridad de ejecutables; fuera de alcance.
   % GT10 Autenticación de usuarios; requerimiento de api web.
-  % GT11 ...
+
+  % GT11 Mapeos de token a token prohibidos.
+  \item No se debe poder pasar de un primer \gls{gl:token} válido a un segundo,
+    también válido; forzosamente debe existir un estado intermedio: del primer
+    \gls{gl:token} se pasa al \gls{gl:pan} correspondiente (operación de
+    detokenización) y de este se pasa al segundo \gls{gl:token}.
 
   % GT12 Protección contra vulnerabilidades comunes.
   \item Se deben implementar medidas en contra de las vulnerabilidades de
