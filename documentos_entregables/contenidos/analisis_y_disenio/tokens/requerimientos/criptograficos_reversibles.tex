@@ -5,3 +5,69 @@
 %
 
 \subsubsection{Criptográficos reversibles}
+
+\begin{itemize}
+
+  % RC1A seguridad de la administración de llaves.
+  \item La administración de las llaves criptográficas debe ser segura.
+
+  \begin{itemize}
+
+    % RC1A-1 exportar llave en claro prohibido
+    \item Las llaves usadas para generar \glspl{gl:token} no se deben poder
+      exportar en claro desde el programa.
+
+    % RC1A-2 entropía de generación de llaves.
+    % ¿Cómo funciona la entropía de una fuente generadora?
+    \item La fuente generadora de llaves debe tener, al menos, 128 bits de
+      \gls{gl:entropia}.
+
+    % RC1A-3 llaves de uso único.
+    \item Las llaves criptográficas usadas para generar \glspl{gl:token} no
+      deben ser usadas para ningún otro fin.
+
+  \end{itemize}
+
+  % RC1B probabilidad de adivinar relaciones
+  % TODO: el documento explica porque esta cantidad; aún no lo entiendo.
+  \item La probabilidad de adivinar la relación entre un \glspl{gl:token} y un
+    \gls{gl:pan} debe de ser menor que $ 1 $ en $ 10^6 $.
+
+  \begin{itemize}
+
+    % RC1B-1 distribución uniforme (relacionado con RC1A-2, creo)
+    \item Para un \gls{gl:pan} dado, todos los \glspl{gl:token} deben ser
+      equiprobables. Esto es, el mecanismo tokenizador no debe exhibir
+      tendencias probabilísticas que lo expongan a ataques estadísticos.
+
+    % RC1B-2 permutación aleatoria
+    % ¿Cuál es la diferencia entre una «permutación aleatoria» y una
+    % «permutación aleatoria fuerte»?
+    % Si el mapeo es entre dos espacios distintos... ya no se llama
+    % permutación, ¿o sí?
+    \item El método de tokenización debe actuar como una familia de
+      \glspl{gl:permutacion} aleatoria desde el espacio de \gls{gl:pan} al
+      espacio de \glspl{gl:token}.
+
+    % RC1B-3 Cambio de llave
+    \item Un cambio en la llave se debe ver reflejado en un cambio en el
+      \gls{gl:token} resultado.
+
+    % RC1B-4 Cambio de PAN
+    \item Un cambio en el \gls{gl:pan} se debe ver reflejado en un cambio en el
+      \gls{gl:token} resultado.
+
+    % RC1B-5 Aleatoriedad de dígitos; esto aún no lo entiendo.
+
+  \end{itemize}
+
+  % RC1C almacenamiento duplicado
+  % ¿Que no se suponía que en los criptográficos NUNCA se almacenaban los
+  % tokens? ¿Qué hace este requerimiento aquí?
+  \item Los \glspl{gl:token} que se basan en el \gls{gl:pan} completo no se
+    deben almacenar si ya hay guardado un \gls{gl:token} equivalente del
+    \gls{gl:pan} truncado.
+
+  % Los del dominio 2 son requerimeintos para la api web.
+
+\end{itemize}

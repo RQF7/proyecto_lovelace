@@ -24,6 +24,7 @@ Omisiones del diccionario
 *criptógrafo
 *criptología
 *enlistan
+*equiprobables
 *factorizar
 *irrestricto
 *mapeos
@@ -31,6 +32,7 @@ Omisiones del diccionario
 *permutación
 *preimagen
 *preimágenes
+*probabilísticas
 *procesadoras
 *pseudoaleatorio
 *pseudocódigo
@@ -60,6 +62,7 @@ Tecnicismos y extranjerismos
 @token
 @tokens
 @tokenización
+@tokenizador
 
 Otros idiomas
 ===============================================================================
