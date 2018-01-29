@@ -57,6 +57,7 @@ Tecnicismos y extranjerismos
 @mod
 @ShiftRows
 @token
+@tokens
 
 Otros idiomas
 ===============================================================================
@@ -200,6 +201,8 @@ los está marcando como errores. Espero que no se nos pase una de a verdad:
 @cbc
 @cfb
 @cod
+@criptografia
+@dss
 @ecb
 @entropia
 @ieee
