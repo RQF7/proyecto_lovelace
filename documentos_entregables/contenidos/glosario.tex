@@ -70,7 +70,8 @@
     una función interna llamada función de \gls{gl:ronda}. Los
     parámetros incluyen en número de rondas, el tamaño de bloque y
     el tamaño de llave%
-  }
+  },
+  see=[véase también]{gl:ronda}
 }
 
 \newglossaryentry{gl:entropia}
@@ -79,8 +80,9 @@
   description = {
     Definida para una \gls{gl:funcion} de probabilidad de distribución discreta,
     mide cuánta información en promedio es requerida para identificar
-    muestras aleatorias de esa distribución.
-  }
+    muestras aleatorias de esa distribución%
+  },
+  see=[véase también]{gl:funcion}
 }
 
 \newglossaryentry{gl:preimagen}
@@ -89,9 +91,10 @@
   plural = preimágenes,
   description = {
     Suponga que se tiene $x \in X$ y $y \in Y$ tal que $f(x) = y$;
-    se dice entonces que $x$ es \gls{gl:preimagen} de $y$, o que
-    $y$ es la \gls{gl:imagen} de $x$ bajo $f$.
-  }
+    se dice entonces que $x$ es preimagen de $y$, o que
+    $y$ es la \gls{gl:imagen} de $x$ bajo $f$%
+  },
+  see=[véase también]{gl:imagen}
 }
 
 \newglossaryentry{gl:imagen}
@@ -100,9 +103,10 @@
   plural = imágenes,
   description = {
     Suponga que se tiene $x \in X$ y $y \in Y$ tal que $f(x) = y$;
-    se dice entonces que $y$ es la \gls{gl:imagen} de $x$ bajo $f$,
-    o que $x$ es \gls{gl:preimagen} de $y$.
-  }
+    se dice entonces que $y$ es la imagen de $x$ bajo $f$,
+    o que $x$ es \gls{gl:preimagen} de $y$%
+  },
+  see=[véase también]{gl:preimagen}
 }
 
 \newglossaryentry{gl:biyeccion}
@@ -115,7 +119,8 @@
     elementos del conjunto de salida tengan una imagen distinta en el conjunto
     de llegada y a cada elemento del conjunto de llegada le corresponde
     un elemento del conjunto de salida%
-  }
+  },
+  see=[véase también]{gl:funcion}
 }
 
 \newglossaryentry{gl:inyectiva}
@@ -126,8 +131,9 @@
     uno) si a diferentes elementos del \gls{gl:dominio} le corresponden
     diferentes elementos del codominio; se cumple para dos
     valores cualesquiera $x_1, x_2 \in D_f$ que
-    $x_1 \neq x_2 \implies f(x_1) \neq f(x_2)$.
-  }
+    $x_1 \neq x_2 \implies f(x_1) \neq f(x_2)$%
+  },
+  see=[véase también]{gl:funcion}
 }
 
 \newglossaryentry{gl:suprayectiva}
@@ -137,8 +143,9 @@
     Una \gls{gl:funcion} $f:D_f \rightarrow C_f$ es suprayectiva si
     todo elemento de su codominio $C_f$ es \gls{gl:imagen} de
     por lo menos un elemento de su \gls{gl:dominio} $D_f$: $\forall b \in C_f$
-    $\exists a \in D_f$ tal que $f(a)=b$.
-  }
+    $\exists a \in D_f$ tal que $f(a)=b$%
+  },
+  see=[véase también]{gl:funcion}
 }
 
 \newglossaryentry{gl:dominio}
@@ -146,8 +153,9 @@
   name = dominio,
   description = {
     El dominio de una \gls{gl:funcion} $f(x)$ es el conjunto de valores
-    para los cuales la \gls{gl:funcion} está definida.
-  }
+    para los cuales la \gls{gl:funcion} está definida%
+  },
+  see=[véase también]{gl:funcion}
 }
 
 \newglossaryentry{gl:funcion}
@@ -156,7 +164,15 @@
   plural = funciones,
   description = {
     Regla entre dos conjuntos $A$ y $B$ de manera que a cada elemento del
-    conjunto $A$ le corresponda un único elemento del conjunto $B$.
+    conjunto $A$ le corresponda un único elemento del conjunto $B$%
+  }
+}
+
+\newglossaryentry{gl:token}
+{
+  name = token,
+  description = {
+    Valor representativo que se usa en lugar de información valiosa%
   }
 }
 
