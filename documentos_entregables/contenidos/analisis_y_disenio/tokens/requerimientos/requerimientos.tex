@@ -34,7 +34,7 @@ aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
   % GT2 se lo chutaron.
   % GT3 Validación FIPS que debe cumplir el software; fuera de alcance.
 
-  % GT4 - Resistensia a texto claro conocido.
+  % GT4 - Resistencia a texto claro conocido.
   \item Un atacante con acceso a múltiples pares de \glspl{gl:token} y
     \gls{gl:pan} no debe de ser capaz de determinar otros \gls{gl:pan} a partir
     de solamente \glspl{gl:token}. En otras palabras, los \glspl{gl:token}
@@ -54,7 +54,7 @@ aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
 
   % GT6 Detección de anomalías.
   % ¿Requerimiento de API web?
-  \item Se deben de implementar monitoreos que permitan detectar
+  \item Se deben de implementar disparadores que permitan detectar
      irregularidades en el sistema (anomalías, funcionamientos erróneos,
      comportamientos sospechosos). El producto debe registrar dichos eventos y
      avisar al personal correspondiente.
@@ -103,7 +103,8 @@ identificables, no.
 % TODO: este párrafo me está dando problemas. No quiero copiar tal cuál la
 % clasificación del PCI sin manifestar disconformidad, pero tampoco quiero
 % entrar en demasiados detalles aún sobre las propias implementaciones
-% (las cuales, evidentemente, sí son criptográficas).
+% (las cuales, evidentemente, sí son criptográficas); PD: hay que citar más
+% publicaciones, a parte de la de Sandra.
 
 La clasificación del \gls{gl:pci} \gls{gl:ssc} con respecto a los reversibles
 resulta un poco confusa (esto ya ha sido señalado antes, \cite{doc_sandra}).
@@ -120,3 +121,4 @@ datos debe de estar cifrada \cite{pci_dss}.
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/irreversibles.tex}
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/criptograficos_reversibles.tex}
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/no_criptograficos_reversibles.tex}
+\input{contenidos/analisis_y_disenio/tokens/requerimientos/primitivas.tex}

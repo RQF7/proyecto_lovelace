@@ -4,6 +4,8 @@
 %
 
 \section{Funciones hash}
+\label{sec:hash}
+
 La información presentada a continuación puede consultarse con más profundidad
 en las siguientes referencias
 \cite{hash_hussein, menezes, DBLP:series/isc/DelfsK07, hash_gupta}.
@@ -58,22 +60,22 @@ algunas de las propiedades que puede tener:
 \end{enumerate}
 
 Una función hash $h$ que cumple con las propiedades de resistencia de
-\gls{gl:preimagen} y resistencia de segunda \gls{gl:preimagen} es conocida como 
-una función hash de un solo sentido o \gls{gl:owhf}. 
+\gls{gl:preimagen} y resistencia de segunda \gls{gl:preimagen} es conocida como
+una función hash de un solo sentido o \gls{gl:owhf}.
 Las que cumplen con la resistencia de segunda \gls{gl:preimagen} y
 resistencia a las colisiones son conocidas como funciones hash
 resistentes a colisiones o \gls{gl:crhf}. Aunque casi siempre las
-funciones \gls{gl:crhf} cumplen con la resistencia de \gls{gl:preimagen}, 
+funciones \gls{gl:crhf} cumplen con la resistencia de \gls{gl:preimagen},
 no es obligatorio que lo hagan.
 
 Algunos ejemplos de las funciones \gls{gl:owhf} son el \gls{gl:sha}-1
-y el \gls{gl:md5}. En los esquemas de firma electrónica, se obtiene el 
+y el \gls{gl:md5}. En los esquemas de firma electrónica, se obtiene el
 valor hash del mensaje ($h(m)$) y se pone en el lugar de la firma. Los valores
 hash también son utilizados para revisar la integridad de las llaves
 públicas y, al utilizarse con una llave secreta, las funciones
-criptográficas hash se convierten en códigos de autenticación de mensaje 
+criptográficas hash se convierten en códigos de autenticación de mensaje
 (\gls{gl:mac}, por sus siglas en inglés), una de las herramientas más
-utilizadas en protocolos como \gls{gl:ssl} e IPSec para revisar la 
+utilizadas en protocolos como \gls{gl:ssl} e IPSec para revisar la
 integridad de un mensaje y autenticar al remitente.
 
 Una de las aplicaciones más conocidas de las funciones hash es la de
@@ -93,20 +95,20 @@ es prácticamente única. Si el mensaje fuese modificado, el valor hash
 sería distinto; por lo que si se tienen almacenados los valores hash,
 basta con calcular su valor $h(m)$ y compararlo con el que se tiene
 guardado para detectar modificaciones. Por esta razón, las funciones
-hash también son llamadas códigos de detección de modificaciones (como el 
+hash también son llamadas códigos de detección de modificaciones (como el
 \gls{gl:mdc2}).
 
 \subsection{Firmas}
 Sea $(n, e)$ la llave pública \gls{gl:rsa} y $d$ el exponente decodificador
-secreto de Alice. En el esquema básico de firma \gls{gl:rsa}, Alice puede 
+secreto de Alice. En el esquema básico de firma \gls{gl:rsa}, Alice puede
 firmar mensajes que estén codificados por números $ m \in \{0, \dots, n-1\}$.
 Para firmar $m$, aplica el algoritmo de descifrado y obtiene la firma
 $\sigma = m^d$ $mod$ $n$ de $m$.
 Normalmente, $n$ es un número de 1024 bits y Alice puede firmar una
 cadena de bits $m$ tal que, cuando es interpretada como número, sea
-menor que $n$. Esto es una cadena de, máximo, 128 caracteres 
-\gls{gl:ascii}: la mayoría de los documentos que se desean firmar suelen 
-ser mucho más grandes. Este problema existe en todos los esquemas de firma 
+menor que $n$. Esto es una cadena de, máximo, 128 caracteres
+\gls{gl:ascii}: la mayoría de los documentos que se desean firmar suelen
+ser mucho más grandes. Este problema existe en todos los esquemas de firma
 digital y usualmente es resuelto al aplicar una función hash resistente a
 colisiones $h$. De esta forma, primero se obtiene el valor hash del mensaje
 $h(m)$ y esto es lo que se firma en lugar del mensaje mismo ($m$):
