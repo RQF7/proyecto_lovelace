@@ -5,9 +5,28 @@
 
 \subsection{Requerimientos}
 
+En \cite{pci_tokens}, el \gls{gl:pci} \gls{gl:ssc} divide a los
+\glspl{gl:token} en reversibles e irreversibles. A su vez, los reversibles se
+dividen en criptográficos y en no criptográficos; mientras que los
+irreversibles se dividen en autenticables y no autenticables (figura
+\ref{fig:division_tokens}).
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.75\linewidth]
+      {contenidos/analisis_y_disenio/tokens/requerimientos/diagramas/clasificacion.png}
+    \caption{Clasificación de los \glspl{gl:token}.}
+    \label{fig:division_tokens}
+  \end{center}
+\end{figure}
+
+En esta sección se explica cada una de las categorías y se analizan los
+requerimientos que deben tener. Para comenzar, se enlistan los requerimientos
+aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
+
 \begin{itemize}
   \item Todos los \glspl{gl:token} deben poder distinguirse de cualquier
-    \acrshort{gl:pan} válido.
+    \gls{gl:pan} válido.
 \end{itemize}
 
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/irreversibles.tex}

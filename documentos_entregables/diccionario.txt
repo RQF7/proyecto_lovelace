@@ -8,6 +8,8 @@
 Omisiones del diccionario
 ===============================================================================
 *autenticación
+@autenticable
+@autenticables
 *autorreversible
 *Autosincronizables
 *autosincronizables
@@ -166,6 +168,7 @@ Nombres propios y siglas
 @owhf
 @OWHF
 @Peeters
+@pci
 @Rabbit
 @RC
 @Rijndael
@@ -178,13 +181,13 @@ Nombres propios y siglas
 @sha
 @SHA
 @Shamir
+@ssc
 @SSL
 @Shannon
 @Sosemanuk
 @Trivium
 @Whitfield
 @XX
-
 
 
 En etiquetas o variables
