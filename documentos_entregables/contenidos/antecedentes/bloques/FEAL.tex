@@ -2,22 +2,22 @@
 
 Es una familia de algoritmos que ha tenido una participación crítica
 en el desarrollo y refinamiento de varias técnicas del criptoanálisis,
-tales como el criptoanálisis lineal y diferencial. \acrshort{gl:feal}-N mapea
+tales como el criptoanálisis lineal y diferencial. \gls{gl:feal}-N mapea
 bloques de texto en claro de 64 bits a bloques de 64 bits de texto
 cifrado mediante una llave secreta de 64 bits. Es un cifrado Feistel de
-$n-$\glspl{gl:ronda} parecido a \acrshort{gl:des}, pero con una función $f$ más
+$n-$\glspl{gl:ronda} parecido a \gls{gl:des}, pero con una función $f$ más
 simple.
 
-\acrshort{gl:feal} fue diseñado para ser veloz y simple, especialmente para
+\gls{gl:feal} fue diseñado para ser veloz y simple, especialmente para
 microprocesadores de 8 bits: usa operaciones orientadas a bytes, evita
 el uso de permutaciones de bit y tablas de consulta. La versión inicial
 de cuatro \glspl{gl:ronda} (FEAL-4), propuesto como una alternativa rápida a
-\acrshort{gl:des}, fue encontrado mucho más inseguro de lo planeado; por lo
+\gls{gl:des}, fue encontrado mucho más inseguro de lo planeado; por lo
 que se propuso realizar más \glspl{gl:ronda} (FEAL-16 y FEAL-32) para compensar
-y ofrecer un nivel de seguridad parecido a \acrshort{gl:des}; sin embargo, el
+y ofrecer un nivel de seguridad parecido a \gls{gl:des}; sin embargo, el
 rendimiento se ve fuertemente afectado mientras el número de \glspl{gl:ronda}
-aumenta; y, mientras \acrshort{gl:des} puede mejorar su velocidad con tablas de
-consulta, resulta más complicado para \acrshort{gl:feal}.
+aumenta; y, mientras \gls{gl:des} puede mejorar su velocidad con tablas de
+consulta, resulta más complicado para \gls{gl:feal}.
 
 \begin{pseudocodigo}[caption={FEAL-8, cifrado.}, label={feal8:1}]
   entrada:    64 bits de texto en claro $M = m_1 \dots m_{64}$;
@@ -47,5 +47,5 @@ $((K_{12}, K_{13}), (K_{14}, K_{15}))$ se utilizan para la $\oplus$ inicial,
 las $((K_8, K_9), (K_{10}, K_{11}))$ para la $\oplus$ final y en las
 \glspl{gl:ronda} se utiliza de la subllave $K_7$ a la $K_0$.
 
-\acrshort{gl:feal} con una llave de 64 bits puede ser generalizado a un número
+\gls{gl:feal} con una llave de 64 bits puede ser generalizado a un número
 $n$ de rondas \glspl{gl:ronda} con $n$ par, aunque se recomienda $n = 2^x$.

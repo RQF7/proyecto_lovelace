@@ -5,14 +5,14 @@
 
 \subsubsection{\textit{Cipher Feedback} (CFB)}
 
-Al igual que la operación de cifrado de \acrshort{gl:cbc}, ambas operaciones
-de \acrshort{gl:cfb} (cifrado y descifrado) están encadenadas bloque a bloque,
+Al igual que la operación de cifrado de \gls{gl:cbc}, ambas operaciones
+de \gls{gl:cfb} (cifrado y descifrado) están encadenadas bloque a bloque,
 por lo que son de naturaleza secuencial. En este caso, lo que se cifra en el
 primer paso es el \gls{gl:vector_de_inicializacion}; la salida de esto se opera
 con un \verb|xor| sobre el primer bloque de texto en claro, para obtener el
 primer bloque cifrado (figura \ref{fig:cfb}).
 
-Esta distribución presenta varias ventajas con respecto a \acrshort{gl:cbc}:
+Esta distribución presenta varias ventajas con respecto a \gls{gl:cbc}:
 las operaciones de cifrado y descifrado son sumamente similares, lo que permite
 ser implementadas por un solo algoritmo (pseudocódigo \ref{cfb:1}); tanto para
 cifrar como para descifrar solamente se ocupa la operación de cifrado del
@@ -40,12 +40,12 @@ propiedades de la operación \verb|xor| (ecuación \ref{xor:inverso_igual}).
       \caption{Descifrado.}
     \end{center}
   \end{subfigure}
-  \caption{\Gls{gl:modo_de_operacion} \acrshort{gl:cfb}.}
+  \caption{\Gls{gl:modo_de_operacion} \gls{gl:cfb}.}
   \label{fig:cfb}
 \end{figure}
 
 \begin{pseudocodigo}[%
-    caption={\Gls{gl:modo_de_operacion} \acrshort{gl:cfb}%
+    caption={\Gls{gl:modo_de_operacion} \gls{gl:cfb}%
       (cifrado y descifrado).},
     label={cfb:1}%
   ]

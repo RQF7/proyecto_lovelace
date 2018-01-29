@@ -59,9 +59,9 @@
 
   Gran parte de los algoritmos de cifrado que caen en este tipo de criptografía 
   están basados en las redes Feistel, que son un método de cifrado propuesto 
-  por el criptógrafo Horst Feistel, mismo que desarrolló el \acrfull{gl:des} a 
+  por el criptógrafo Horst Feistel, mismo que desarrolló el \gls{gl:des} a 
   principios de la década de los 70, que fue el cifrado usado por el gobierno 
-  estadounidense hasta 2002, año que el \acrfull{gl:aes} lo sustituyó. 
+  estadounidense hasta 2002, año que el \gls{gl:aes} lo sustituyó. 
 
   Ahora, adentrándose en la criptografía asimétrica, se tiene que su idea
   principal es el uso de 2 llaves distintas para cada persona, una llave
@@ -98,7 +98,7 @@
   establecer una llave secreta compartida entre dos partes sin contacto 
   previo por medio de un canal público para intercambiar mensajes.
 
-  Otro precursor fue el sistema criptográfico \acrshort{gl:rsa} (nombre 
+  Otro precursor fue el sistema criptográfico \gls{gl:rsa} (nombre 
   obtenido por las siglas de los apellidos de sus desarrolladores: Ron Rivest, 
   Adi Shamir y Leonard Adleman), publicado en 1978 y que fue el primer sistema 
   criptográfico capaz de servir tanto para cifrar mensajes, como para la 
@@ -106,20 +106,20 @@
   hace casi cuatro décadas, este sistema aún es uno de los más ampliamente 
   usados.
 
-  Entre los motivos del éxito de \acrshort{gl:rsa} está que su funcionamiento 
+  Entre los motivos del éxito de \gls{gl:rsa} está que su funcionamiento 
   se basa en la teoría elemental de números, ya que usa propiedades descritas 
   en esta teoría; y en su seguridad, ya que se basa en la incapacidad de poder 
   factorizar números grandes de forma eficiente.
 
-  El algoritmo de \acrshort{gl:rsa} consta de 3 partes, la generación de llaves, 
+  El algoritmo de \gls{gl:rsa} consta de 3 partes, la generación de llaves, 
   el cifrado y el descifrado. El proceso para poder generar un par de llaves 
-  (pública y privada) con \acrshort{gl:rsa} se muestra en el pseudocódigo 
+  (pública y privada) con \gls{gl:rsa} se muestra en el pseudocódigo 
   \ref{rsa:1}. 
 
   % Me pase de 80 caracteres porque dentro del pseudocodigo me marca el salto 
   % de linea en el pdf.
   \begin{pseudocodigo}[caption={Proceso de generación de llaves de 
-    \acrshort{gl:rsa}.}, label={rsa:1}]
+    \gls{gl:rsa}.}, label={rsa:1}]
     entrada: ninguna.
     salida:  llave pública $(n,e)$ y privada $(n,d)$.
     inicio

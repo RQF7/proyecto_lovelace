@@ -4,9 +4,9 @@ Este es, probablemente, el cifrado simétrico por bloques más conocido;
 ya que en la década de los 70 estableció un precedente al ser el primer
 algoritmo a nivel comercial que publicó abiertamente sus
 especificaciones y detalles de implementación. Se encuentra definido
-en el estándar americano \acrshort{gl:fips} 46-2.
+en el estándar americano \gls{gl:fips} 46-2.
 
-\acrshort{gl:des} es un cifrado Feistel que procesa bloques de $n=64$ bits y
+\gls{gl:des} es un cifrado Feistel que procesa bloques de $n=64$ bits y
 produce bloques cifrados de la misma longitud. Aunque la llave es de 64 bits,
 8 son de paridad, por lo que el tamaño \textit{efectivo} de la llave es de
 56 bits. Las $2^{56}$ llaves implementan, máximo, $2^{56}$ de las
@@ -54,7 +54,7 @@ permutación de 32 bits y $S$ son las cajas-s.
   fin
 \end{pseudocodigo}
 
-El descifrado \acrshort{gl:des} consiste en el mismo algoritmo de cifrado,
+El descifrado \gls{gl:des} consiste en el mismo algoritmo de cifrado,
 con la misma llave $K$, pero utilizando las subllaves en orden inverso:
 $K_{16}, K_{15}, \dots, K_1$.
 
@@ -69,9 +69,9 @@ Tomando en cuenta las siguientes definiciones
     $E_{K_1}(E_{K_2}(x)) = x$.
 \end{itemize}
 
-\acrshort{gl:des} tiene cuatro llaves débiles y seis pares de llaves
+\gls{gl:des} tiene cuatro llaves débiles y seis pares de llaves
 semidébiles. Las cuatro llaves débiles generan subllaves $K_i$ iguales y,
-debido a que \acrshort{gl:des} es un cifrado Feistel, el cifrado es
+debido a que \gls{gl:des} es un cifrado Feistel, el cifrado es
 autorreversible. O sea que al final se obtiene de nuevo el texto en claro,
 pues cifrar dos veces con la misma llave regresa la entrada original.
 Respecto a los pares semidébiles, el cifrado con una de las llaves del
