@@ -29,7 +29,7 @@ bits $L_i$ y $R_i$ mientras $1 \leq i \leq 16$ de la siguiente manera:
 \end{equation}
 
 $E$ se encarga de expandir $R_{i-1}$ de 32 bits a 48, $P$ es una
-permutación de 32 bits y $S$ son las cajas-s. 
+permutación de 32 bits y $S$ son las cajas-s.
 
 \begin{pseudocodigo}[caption={DES, cifrado.}, label={des:1}]
   entrada:  64 bits de texto en claro $M = m_1 \dots m_{64}$;
@@ -38,7 +38,7 @@ permutación de 32 bits y $S$ son las cajas-s.
   inicio
     Calcular 16 subllaves $K_i$ de 48 bits partiendo de $K$.
     Obtener $(L_0, R_0)$ de la tabla de permutaciones iniciales $IP(m_1m_2\dots m_{64})$
-    para_todo $i$ desde 1 hasta 16: 
+    para_todo $i$ desde 1 hasta 16:
       L_i = R_{i-1}
       Obtener $f(R_{i-1}, K_i)$:
         a) Expandir $R_{i-1} = r_1r_2\dots r_{32}$ de 32 a 48 bits
@@ -49,7 +49,7 @@ permutación de 32 bits y $S$ son las cajas-s.
         d) $T''' \leftarrow P(T'')$
       R_i = L_{i-1} \oplus f(R_{i-1}, K_i)
     fin
-    $b_1b_2 \dots b_{64} \leftarrow (R_{16}, L{16})$.
+    $b_1b_2 \dots b_{64} \leftarrow (R_{16}, L_{16})$.
     $C \leftarrow IP^{-1}(b_1b_2 \dots b_{64})$
   fin
 \end{pseudocodigo}

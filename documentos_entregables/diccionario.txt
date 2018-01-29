@@ -54,6 +54,7 @@ Tecnicismos y extranjerismos
 @inv
 @mod
 @ShiftRows
+@token
 
 Otros idiomas
 ===============================================================================
@@ -111,6 +112,7 @@ Nombres propios y siglas
 @aes
 @AES
 @Alice
+@API
 @ascii
 @Assche
 @Bertoni
