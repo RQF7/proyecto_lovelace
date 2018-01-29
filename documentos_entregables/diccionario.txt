@@ -58,6 +58,7 @@ Tecnicismos y extranjerismos
 @ShiftRows
 @token
 @tokens
+@tokenización
 
 Otros idiomas
 ===============================================================================
@@ -202,6 +203,7 @@ los está marcando como errores. Espero que no se nos pase una de a verdad:
 @cfb
 @cod
 @criptografia
+@criptologia
 @dss
 @ecb
 @entropia
@@ -210,6 +212,7 @@ los está marcando como errores. Espero que no se nos pase una de a verdad:
 @lan
 @operacion
 @ofb
+@permutacion
 @rsa
 @ssl
 @tls

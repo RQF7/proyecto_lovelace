@@ -23,8 +23,8 @@
   plural = vectores de inicialización,
   description = {
     Cadena de bits de tamaño fijo que sirve como entrada a muchas primitivas
-    criptográficas (e. g. algunos modos de operación). Generalmente se requiere
-    que sea generado de forma aleatoria%
+    criptográficas (e. g. algunos \glspl{gl:modo_de_operacion}). Generalmente
+    se requiere que sea generado de forma aleatoria%
   }
 }
 
@@ -33,7 +33,8 @@
   name = ronda,
   description = {
     Bloque compuesto por un conjunto de operaciones que es ejecutado
-    múltiples veces. Las rondas son definidas por el algoritmo de cifrado%
+    múltiples veces. Las \textit{rondas} son definidas por el algoritmo de
+    cifrado%
   }
 }
 
@@ -44,9 +45,9 @@
     Propiedad en la que los datos no han sido alterados sin autorización desde
     que fueron creados, transmitidos o almacenados por una fuente autorizada.
     Operaciones que insertan, eliminan, modifican o reordenan bits invalidan
-    la integridad de los datos. La integridad de los datos incluye que los
-    datos estén completos y, cuando los datos son divididos en bloques, cada
-    bloque cumplir con lo mencionado anteriormente%
+    la \textit{integridad de los datos}. La \textit{integridad de los datos}
+    incluye que los datos estén completos y, cuando los datos son divididos en
+    bloques, cada bloque cumplir con lo mencionado anteriormente%
   }
 }
 
@@ -56,8 +57,8 @@
   description = {
     Tipo de autenticación donde se corrobora que una entidad es la fuente
     original de la creación de un conjunto de datos en un tiempo específico.
-    Por definición, la autenticación de origen incluye la integridad de datos,
-    pues cuando se modifican los datos, se tiene una nueva fuente%
+    Por definición, la \textit{autenticación de origen} incluye la integridad
+    de datos, pues cuando se modifican los datos, se tiene una nueva fuente%
   }
 }
 
@@ -91,7 +92,7 @@
   plural = preimágenes,
   description = {
     Suponga que se tiene $x \in X$ y $y \in Y$ tal que $f(x) = y$;
-    se dice entonces que $x$ es preimagen de $y$, o que
+    se dice entonces que $x$ es \textit{preimagen} de $y$, o que
     $y$ es la \gls{gl:imagen} de $x$ bajo $f$%
   },
   see=[véase también]{gl:imagen}
@@ -103,7 +104,7 @@
   plural = imágenes,
   description = {
     Suponga que se tiene $x \in X$ y $y \in Y$ tal que $f(x) = y$;
-    se dice entonces que $y$ es la imagen de $x$ bajo $f$,
+    se dice entonces que $y$ es la \textit{imagen} de $x$ bajo $f$,
     o que $x$ es \gls{gl:preimagen} de $y$%
   },
   see=[véase también]{gl:preimagen}
@@ -123,13 +124,11 @@
   see=[véase también]{gl:funcion}
 }
 
-% TODO: Agregar codominio
-
 \newglossaryentry{gl:inyectiva}
 {
   name = inyectiva,
   description = {
-    Una \gls{gl:funcion} $f:D_f \rightarrow C_f$ es inyectiva (o uno a
+    Una \gls{gl:funcion} $f:D_f \rightarrow C_f$ es \textit{inyectiva} (o uno a
     uno) si a diferentes elementos del \gls{gl:dominio} le corresponden
     diferentes elementos del codominio; se cumple para dos
     valores cualesquiera $x_1, x_2 \in D_f$ que
@@ -142,7 +141,7 @@
 {
   name = suprayectiva,
   description = {
-    Una \gls{gl:funcion} $f:D_f \rightarrow C_f$ es suprayectiva si
+    Una \gls{gl:funcion} $f:D_f \rightarrow C_f$ es \textit{suprayectiva} si
     todo elemento de su codominio $C_f$ es \gls{gl:imagen} de
     por lo menos un elemento de su \gls{gl:dominio} $D_f$: $\forall b \in C_f$
     $\exists a \in D_f$ tal que $f(a)=b$%
@@ -154,8 +153,19 @@
 {
   name = dominio,
   description = {
-    El dominio de una \gls{gl:funcion} $f(x)$ es el conjunto de valores
-    para los cuales la \gls{gl:funcion} está definida%
+    El \textit{dominio} de una \gls{gl:funcion} $f(x)$ es el conjunto de
+    valores para los cuales la \gls{gl:funcion} está definida%
+  },
+  see=[véase también]{gl:funcion}
+}
+
+\newglossaryentry{gl:codominio}
+{
+  name = codominio,
+  description = {
+    Una \gls{gl:funcion} mapea a los elementos de un conjunto $A$ con elementos
+    de un conjunto $B$; $A$ es el \gls{gl:dominio} y $B$ es el
+    \textit{codominio}%
   },
   see=[véase también]{gl:funcion}
 }
@@ -206,6 +216,16 @@
     $ p: S \rightarrow S $)%
   },
   see=[véase también]{gl:biyeccion}
+}
+
+\newglossaryentry{gl:computacionalmente_no_factible}
+{
+  name = computacionalmente no factible,
+  description = {
+    Se dice que una tarea es \textit{computacionalmente no factible} si su
+    costo (medido en términos de espacio o de tiempo) es finito pero
+    ridículamente grande%
+  }
 }
 
 \glsaddall
