@@ -1,0 +1,13 @@
+%
+% Comando para mostrar números con ceros a la izquierda.
+% Proyecto Lovelace.
+%
+
+% #1 -> Número a formatear.
+\newcommand{\formatearnumero}[1]
+{%
+  \ifnum\value{#1}<10
+    0%
+  \fi%
+  \arabic{#1}%
+}

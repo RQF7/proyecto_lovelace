@@ -1,0 +1,18 @@
+%
+% Plantilla para definición de requerimientos.
+% Proyecto Lovelace.
+%
+
+% Contadores de requerimientos
+\newcounter{contador_requerimientos_tokens}[chapter]
+
+% Comando para requerimientos.
+% #1 -> Título del requerimiento.
+% #2 -> Descripción.
+
+\newcommand{\requerimiento}[2]
+{
+  \refstepcounter{contador_requerimientos_tokens}
+  \hangpara{2em}{1}
+  \textbf{REQUTO-\formatearnumero{contador_requerimientos_tokens} #1:} #2
+}

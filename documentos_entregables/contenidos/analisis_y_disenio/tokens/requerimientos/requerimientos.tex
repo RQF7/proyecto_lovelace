@@ -24,71 +24,85 @@ En esta sección se explica cada una de las categorías y se analizan los
 requerimientos que deben tener. Para comenzar, se enlistan los requerimientos
 aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
 
-%\requerimiento{tokens}{seguridad}{
-%  Un adversario con acceso a los \glspl{gl:token} no debe de ser capaz de
-%  obtener los \gls{gl:pan} asociados.
-%}
+% GT1 Es específico a productos de hardware.
+% GT2 se lo chutaron.
+% GT3 Validación FIPS que debe cumplir el software; fuera de alcance.
 
-\begin{itemize}
-  % GT1 Es específico a productos de hardware.
-  % GT2 se lo chutaron.
-  % GT3 Validación FIPS que debe cumplir el software; fuera de alcance.
+% GT4
+\requerimiento{Resistencia a texto claro conocido}
+{
+  Un atacante con acceso a múltiples pares de \glspl{gl:token} y
+  \gls{gl:pan} no debe de ser capaz de determinar otros \gls{gl:pan} a partir
+  de solamente \glspl{gl:token}. En otras palabras, los \glspl{gl:token}
+  deben ser resistentes a ataques con texto en claro conocido (sección
+  \ref{sec:criptoanalisis}).
+}
 
-  % GT4 - Resistencia a texto claro conocido.
-  \item Un atacante con acceso a múltiples pares de \glspl{gl:token} y
-    \gls{gl:pan} no debe de ser capaz de determinar otros \gls{gl:pan} a partir
-    de solamente \glspl{gl:token}. En otras palabras, los \glspl{gl:token}
-    deben ser resistentes a ataques con texto en claro conocido (sección
-    \ref{sec:criptoanalisis}).
+% GT5
+% Me parece que esto es reduntante: si GT4 ya estableció la necesidad de
+% resistencia a texto claro conocido, la resistencia a sólo texto cifrado
+% ya va incluida. De hecho, en la misma redacción de GT5 incluyen claramente
+% a GT4 con una disyunción.
+% Creo que ya había leído esto mismo en alguno de los artículos que nos pasó
+% Sandra.
+\requerimiento{Resistencia a sólo texto cifrado}
+{
+  Recuperar un \gls{gl:pan} a partir de un \gls{gl:token} debe de ser
+  \gls{gl:computacionalmente_no_factible} (resistencia a ataques con sólo
+  texto cifrado, sección \ref{sec:criptoanalisis}).
+}
 
-  % GT5 - Resistencia a sólo texto cifrado.
-  % Me parece que esto es reduntante: si GT4 ya estableció la necesidad de
-  % resistencia a texto claro conocido, la resistencia a sólo texto cifrado
-  % ya va incluida. De hecho, en la misma redacción de GT5 incluyen claramente
-  % a GT4 con una disyunción.
-  % Creo que ya había leído esto mismo en alguno de los artículos que nos pasó
-  % Sandra.
-  \item Recuperar un \gls{gl:pan} a partir de un \gls{gl:token} debe de ser
-    \gls{gl:computacionalmente_no_factible} (resistencia a ataques con sólo
-    texto cifrado, sección \ref{sec:criptoanalisis}).
+% GT6
+% ¿Requerimiento de API web?
+\requerimiento{Detección de anomalías}
+{
+  Se deben de implementar disparadores que permitan detectar
+  irregularidades en el sistema (anomalías, funcionamientos erróneos,
+  comportamientos sospechosos). El producto debe registrar dichos eventos y
+  avisar al personal correspondiente.
+}
 
-  % GT6 Detección de anomalías.
-  % ¿Requerimiento de API web?
-  \item Se deben de implementar disparadores que permitan detectar
-     irregularidades en el sistema (anomalías, funcionamientos erróneos,
-     comportamientos sospechosos). El producto debe registrar dichos eventos y
-     avisar al personal correspondiente.
+% GT7
+\requerimiento{Distinción entre \glspl{gl:token} y \gls{gl:pan}}
+{
+  Se debe contar con un mecanismo para distinguir entre \glspl{gl:token}
+  y \gls{gl:pan}. Los proveedores del servicio de tokenización deben
+  compartir este mecanismo con la entidad (o entidades) que usa los
+  \glspl{gl:token}.
+}
 
-  % GT7 Distinción entre tokens y PAN.
-  \item Se debe contar con un mecanismo para distinguir entre \glspl{gl:token}
-    y \gls{gl:pan}. Los proveedores del servicio de tokenización deben
-    compartir este mecanismo con la entidad (o entidades) que usa los
-    \glspl{gl:token}.
+% GT8 Guía de instalación; fuera de alcance. ¿Documentación de API web?
+% de cualquier forma, es requerimiento de api web.
+% GT9 Integridad de ejecutables; fuera de alcance.
+% GT10 Autenticación de usuarios; requerimiento de api web.
 
-  % GT8 Guía de instalación; fuera de alcance. ¿Documentación de API web?
-  % de cualquier forma, es requerimiento de api web.
-  % GT9 Integridad de ejecutables; fuera de alcance.
-  % GT10 Autenticación de usuarios; requerimiento de api web.
+% GT11
+\requerimiento{Mapeos de \gls{gl:token} a \gls{gl:token} prohibidos}
+{
+  No se debe poder pasar de un primer \gls{gl:token} válido a un segundo,
+  también válido; forzosamente debe existir un estado intermedio: del primer
+  \gls{gl:token} se pasa al \gls{gl:pan} correspondiente (operación de
+  detokenización) y de este se pasa al segundo \gls{gl:token}.
+}
 
-  % GT11 Mapeos de token a token prohibidos.
-  \item No se debe poder pasar de un primer \gls{gl:token} válido a un segundo,
-    también válido; forzosamente debe existir un estado intermedio: del primer
-    \gls{gl:token} se pasa al \gls{gl:pan} correspondiente (operación de
-    detokenización) y de este se pasa al segundo \gls{gl:token}.
+% GT12
+\requerimiento{Protección contra vulnerabilidades comunes}
+{
+  Se deben implementar medidas en contra de las vulnerabilidades de
+  seguridad más comunes (\cite{dss_pa}, requerimiento 5.2). Algunas de estas
+  medidas pueden ser el uso de herramientas de análisis de código estático,
+  o el uso de lenguajes de programación especializados.
+}
 
-  % GT12 Protección contra vulnerabilidades comunes.
-  \item Se deben implementar medidas en contra de las vulnerabilidades de
-    seguridad más comunes (\cite{dss_pa}, requerimiento 5.2). Algunas de estas
-    medidas pueden ser el uso de herramientas de análisis de código estático,
-    o el uso de lenguajes de programación especializados.
-
-  % GT13 Primitivas criptográficas usadas
-  % También se habla sobre un documento de validación estadísitca; fuera de
-  % alcance.
-  \item Las primitivas criptográficas que se usen deben estar basadas en
-    estándares nacionales (Estados Unidos) o internacionales (e. g.
-    \gls{gl:aes}).
-\end{itemize}
+% GT13 Primitivas criptográficas usadas
+% También se habla sobre un documento de validación estadísitca; fuera de
+% alcance.
+\requerimiento{Primitivas criptográficas usadas}
+{
+  Las primitivas criptográficas que se usen deben estar basadas en
+  estándares nacionales (Estados Unidos) o internacionales (e. g.
+  \gls{gl:aes}).
+}
 
 Los \glspl{gl:token} irreversibles no pueden, bajo ninguna circunstancia, ser
 reconvertidos al \gls{gl:pan} original. Esta restricción aplica tanto para
