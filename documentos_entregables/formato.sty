@@ -7,29 +7,84 @@
 \ProvidesPackage{formato}[2017/10/13 Paquete para formato de documento de TT]
 
 % Dependencias de librerías.
-\RequirePackage{graphicx}                   % Gestión de imágenes
-\RequirePackage{float}                      % Para configuración de portada
-\RequirePackage{fancyhdr}                   % Encabezado y pie de página
-\RequirePackage{xcolor}                     % Gestión de colores
-\RequirePackage{titlesec}                   % Formato de títulos y subtítulos
-\RequirePackage{amsmath}                    % Símbolos matemáticos
-\RequirePackage{lastpage}                   % Conteo de páginas
-\RequirePackage{caption}                    % Pies de imágenes y tablas
-\RequirePackage{subcaption}                 % Pies en figuras anidadas
-\RequirePackage[]{hyperref}                 % Opciones del pdf producto
-\RequirePackage{bookmark}                   % Opciones del pdf producto
-\RequirePackage{listings}                   % Listas de algoritmos
-\RequirePackage[acronym, toc]{glossaries}   % Gestión de glosario
-\RequirePackage{amsfonts}                   % Carga de Letras en modo matemático
-\RequirePackage{array}                      % Ancho de celdas en tablas
-\RequirePackage{makecell}                   % Celdas con saltos de líneas
-\RequirePackage{changepage}                 % Ancho de párrafo personalizado
+
+% http://mirrors.ctan.org/macros/latex/required/graphics/grfguide.pdf
+\RequirePackage{graphicx}
+
+% http://mirrors.ctan.org/macros/latex/contrib/float/float.pdf
+\RequirePackage{float}
+
+% http://mirrors.ctan.org/macros/latex/contrib/fancyhdr/fancyhdr.pdf
+\RequirePackage{fancyhdr}
+
+% http://mirrors.ctan.org/macros/latex/contrib/xcolor/xcolor.pdf
+\RequirePackage{xcolor}
+
+% http://mirrors.ctan.org/macros/latex/contrib/titlesec/titlesec.pdf
+\RequirePackage{titlesec}
+
+% http://mirrors.ctan.org/macros/latex/required/amsmath/amsmath.pdf
+\RequirePackage{amsmath}
+
+% http://mirrors.ctan.org/macros/latex/contrib/lastpage/lastpage.pdf
+\RequirePackage{lastpage}
+
+% http://mirrors.ctan.org/macros/latex/contrib/caption/caption-eng.pdf
+\RequirePackage{caption}
+
+% http://mirrors.ctan.org/macros/latex/contrib/caption/subcaption.pdf
+\RequirePackage{subcaption}
+
+% http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/manual.pdf
+\RequirePackage{hyperref}
+\hypersetup
+{
+  pdftitle={\Titulo},
+  pdfsubject={\Subtitulo},
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=1,
+  pdfstartview=Fit,
+  pdfpagemode=UseOutlines,
+  colorlinks,
+  linkcolor={black},
+  citecolor={black},
+  urlcolor={black},
+  pagebackref=true
+}
+
+% http://mirrors.ctan.org/macros/latex/contrib/oberdiek/bookmark.pdf
+\RequirePackage{bookmark}
+
+% http://mirrors.ctan.org/macros/latex/contrib/listings/listings.pdf
+\RequirePackage{listings}
+
+% http://mirrors.ctan.org/macros/latex/contrib/glossaries/glossariesbegin.pdf
+\RequirePackage[acronym, toc]{glossaries}
+
+% http://mirrors.ctan.org/fonts/amsfonts/doc/amsfndoc.pdf
+\RequirePackage{amsfonts}
+
+% http://mirrors.ctan.org/fonts/amsfonts/doc/amsfndoc.pdf
+\RequirePackage{array}
+
+% http://mirrors.ctan.org/macros/latex/contrib/makecell/makecell.pdf
+\RequirePackage{makecell}
+
+% http://mirrors.ctan.org/macros/latex/contrib/changepage/changepage.pdf
+\RequirePackage{changepage}
+
+% http://mirrors.ctan.org/macros/latex/contrib/hanging/hanging.pdf
 \RequirePackage{hanging}                    % Indentación personalizada.
+
+% http://mirrors.ctan.org/biblio/bibtex/base/btxdoc.pdf
 \RequirePackage[backend=biber,              % Estilo Biblatex
                 style=numeric,              % Etiquetas numéricas
                 sorting=none,               % Ordenado según aparición
                 citestyle=ieee              % Tipo ieee
                 ]{biblatex}                 % Referencias
+
+% http://mirrors.ctan.org/macros/latex/contrib/geometry/geometry.pdf
 \RequirePackage[letterpaper,                % Tamaño
                 textwidth=7in,              % Ancho
                 textheight=9.0in,           % Alto
@@ -95,29 +150,13 @@
 }
 
 % Cambios en las traducciones de babel
-\addto\captionsspanish {
+\addto\captionsspanish
+{
   \renewcommand*\contentsname{Contenido}
   \renewcommand*\listfigurename{Lista de figuras}
   \renewcommand*\tablename{Tabla}
   \renewcommand*\listtablename{Lista de tablas}
   \renewcommand*{\lstlistlistingname}{Lista de pseudocódigos}
-}
-
-
-% Configuración de PDF producto
-\hypersetup{
-  pdftitle={\Titulo},                       % Título
-  pdfsubject={\Subtitulo},                  % Subtítulo
-  pdfauthor={yo},
-  bookmarksnumbered=true,                   % Numeración de marcadores
-  bookmarksopen=true,                       % Marcadores anidados
-  bookmarksopenlevel=1,                     % Profundidad de anidación
-  pdfstartview=Fit,                         % Vista inicial
-  pdfpagemode=UseOutlines,                  % Modo de página
-  colorlinks,                               % Modificar color por default
-  linkcolor={black!255!black},              % Color de vínculos
-  citecolor={black!50!black},               % Color de citas
-  urlcolor={black!80!black}                 % Color de URLs
 }
 
 % Información de latex
