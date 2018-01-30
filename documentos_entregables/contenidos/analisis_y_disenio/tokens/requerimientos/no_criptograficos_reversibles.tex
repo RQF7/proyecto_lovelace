@@ -5,3 +5,90 @@
 %
 
 \subsubsection{No criptográficos reversibles}
+
+\begin{itemize}
+
+  % RN 1A: The generation of a token should...
+  \item La generación de un \gls{gl:token} debe realizarse independientemente 
+  de su \gls{gl:pan}, y la relación entre un \gls{gl:pan} y su \gls{gl:token} 
+  sólo tiene que estar almacenado en la base de datos (\acrlong{gl:cdv}) 
+  establecida.
+
+  % RN 1B: The probability of guessing a PAN...
+  \item La probabilidad de encontrar un \gls{gl:pan} a partir de su respectivo 
+  \gls{gl:token} debe de ser menor que $1$ en $10^6$.
+
+    \begin{itemize}
+      
+      % RN 1B-1: For a given PAN, all matching token...
+      \item Para un \gls{gl:pan} dado, todos sus \glspl{gl:token} respectivos 
+      deben ser equiprobables, esto es que el sistema \textit{tokenizador} no 
+      debe exhibir patrones probabilísticos que lo vulneren a un ataque 
+      estadístico.
+
+      % RN 1B-2: The tokenization method should be...
+      \item El método de tokenización debe actuar como una familia de 
+      \glspl{gl:permutacion} aleatoria en el espacio efectivo de los 
+      \glspl{gl:pan} al espacio de \glspl{gl:token}.
+
+      % RN 1B-3: The tokenization method should...
+      \item El método de tokenización debe incluir parámetros tales que, un 
+      cambio en estos parámetros resulte en un \gls{gl:token} diferente; por 
+      ejemplo, un cambio en la instancia del proceso debe derivar en una 
+      secuencia de \glspl{gl:token} distintos, incluso cuando es usada la 
+      misma secuencia de \glspl{gl:token}.
+
+      % RN 1B-4: Changing the clear digits of the PAN...
+      \item Al cambiar parte de un \gls{gl:pan}, debe cambiar su \gls{gl:token} 
+      resultante.
+
+    \end{itemize}
+
+  % RN 1C: The token-generation process...
+  \item El proceso de generación de \glspl{gl:token} debe garantizar una 
+  distribución de \glspl{gl:token} imparcial, esto significa que la 
+  probabilidad de cualquier par \gls{gl:pan}/\gls{gl:token} debe ser igual.
+
+  % RN 1D: If multiple, different PAN/token...
+  \item Si varios o diferentes bases de datos (\acrlong{gl:cdv}) son usadas, 
+  cada instancia debe ser estadísticamente independiente (esta es una analogía 
+  del concepto de usar diferentes llaves en el modelo de tokenización 
+  criptográfica).
+
+  % RN 2A: The mapping of a token to its PAN...
+  \item La asignación de un \gls{gl:token} a un \gls{gl:pan} debe realizarse 
+  por medio de una búsqueda de datos o un índice dentro de la base de datos 
+  (\acrlong{gl:cdv}), y no por medio de métodos criptográficos.
+
+    \begin{itemize}
+      
+      % RN 2A-1: The PAN and the token value should...
+      \item El \gls{gl:pan} y el \gls{gl:token} debe ser probabilísticamente 
+      independientes. Cualquier método lógico o matemático no debe ser usado 
+      para \textit{tokenizar} el \gls{gl:pan} o \textit{detokenizar} el 
+      \gls{gl:token}.
+
+    \end{itemize}
+
+  % RN 2B: Role-Based Access Controls...
+  % RN 3B: Role-Based Access Controls...
+  \item Para obtener el \gls{gl:pan} de su \gls{gl:token} asociado, o acceder 
+  a la base de datos (Data Card Vault), se deben de requerir controles de 
+  acceso basados en roles o Role-Based Access Controls (RBACs) por sus 
+  siglas en inglés.
+
+  % RN 3A: The PAN should be encrypted...
+  \item Dentro de la base de datos (\acrlong{gl:cdv}), los \gls{gl:pan} debe 
+  ser cifrado con una llave de mínimo 128 bits de fuerza efectiva.
+
+  % RN 4A: All cryptographic key...
+  \item Todas la operaciones sobre la administración de las llaves 
+  criptográficas deben realizarse en un dispositivo criptográfico seguro 
+  y aprobado.
+
+  % RN 4B: All CKM should be performed in...
+  \item La administración de las llaves criptográficas debe realizarse de 
+  acuerdo con el estándar \gls{gl:nist}/\acrshort{gl:iso}. 
+
+\end{itemize}
+
