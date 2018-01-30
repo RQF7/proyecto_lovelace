@@ -5,14 +5,55 @@
 
 % Contadores de requerimientos
 \newcounter{contador_requerimientos_tokens}[chapter]
+\newcounter{contador_subrequerimientos}[chapter]
 
 % Comando para requerimientos.
 % #1 -> Título del requerimiento.
 % #2 -> Descripción.
+% TODO:
+%   - guardar en variable temporal separación inicial entre párrafos.
+%   - Colocar etiquetas para referencias.
+%   - Prefijo según el módulo (tokens, api, tienda).
+%   - Los tamaños de indentación deben tomar como base la identación de
+%     todo el documento.
 
 \newcommand{\requerimiento}[2]
 {
+  % Configuración
   \refstepcounter{contador_requerimientos_tokens}
-  \hangpara{2em}{1}
-  \textbf{REQUTO-\formatearnumero{contador_requerimientos_tokens} #1:} #2
+  \setcounter{contador_subrequerimientos}{0}
+  \setlength{\parskip}{0em}
+
+  % Código efectivo
+  \vspace{1.0em}
+  \noindent
+  \textbf{REQUTO-\formatearnumero{contador_requerimientos_tokens} #1.}
+  \par
+  \begin{hangparas}{2em}{0}
+    #2
+  \end{hangparas}
+
+  % Regresar a estado previo
+  \setlength{\parskip}{1.0em}
+}
+
+% Comando para subrequerimientos.
+% #1 -> Título del subrequerimiento.
+% #2 -> Descripción.
+% ATENCIÓN:  Los subrequerimientos siempre deben estar dentro de la
+% descripción de un requerimiento.
+
+\newcommand{\subrequerimiento}[2]
+{
+  % Configuración
+  \refstepcounter{contador_subrequerimientos}
+
+  % Código efectivo
+  \vspace{1.0em}
+  \textbf{SUBREQUTO-\formatearnumero{contador_requerimientos_tokens}%
+    /\arabic{contador_subrequerimientos} #1.}
+  \par
+  \begin{hangparas}{4em}{0}
+    #2
+  \end{hangparas}
 }

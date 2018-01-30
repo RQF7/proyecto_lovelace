@@ -7,8 +7,6 @@
 \ProvidesPackage{formato}[2017/10/13 Paquete para formato de documento de TT]
 
 % Dependencias de librerías.
-\RequirePackage[utf8]{inputenc}             % Codificación de texto fuente
-\RequirePackage[spanish]{babel}             % Idioma del documento
 \RequirePackage{graphicx}                   % Gestión de imágenes
 \RequirePackage{float}                      % Para configuración de portada
 \RequirePackage{fancyhdr}                   % Encabezado y pie de página
@@ -25,7 +23,8 @@
 \RequirePackage{amsfonts}                   % Carga de Letras en modo matemático
 \RequirePackage{array}                      % Ancho de celdas en tablas
 \RequirePackage{makecell}                   % Celdas con saltos de líneas
-\RequirePackage{hanging}                    % Indentación negativa
+\RequirePackage{changepage}                 % Ancho de párrafo personalizado
+\RequirePackage{hanging}                    % Indentación personalizada.
 \RequirePackage[backend=biber,              % Estilo Biblatex
                 style=numeric,              % Etiquetas numéricas
                 sorting=none,               % Ordenado según aparición
@@ -59,9 +58,9 @@
 [\newpage]                                  % Después de
 
 % izquierda, arriba, abajo
-\titlespacing{\section}{0pc}{0pc}{0pc}
-\titlespacing{\subsection}{0pc}{1pc}{0pc}
-\titlespacing{\subsubsection}{0pc}{1pc}{0pc}
+\titlespacing*{\section}{0pc}{0pc}{0pc}
+\titlespacing*{\subsection}{0pc}{1pc}{0pc}
+\titlespacing*{\subsubsection}{0pc}{1pc}{0pc}
 
 % Secciones en nueva página
 \newcommand{\sectionbreak}{\clearpage}

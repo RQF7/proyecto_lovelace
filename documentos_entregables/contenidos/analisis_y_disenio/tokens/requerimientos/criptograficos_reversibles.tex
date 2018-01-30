@@ -6,118 +6,147 @@
 
 \subsubsection{Criptográficos reversibles}
 
-\begin{itemize}
+% RC1A
+\requerimiento{Seguridad de la administración de llaves}
+{
+  la administración de las llaves criptográficas debe ser segura.
 
-  % RC1A seguridad de la administración de llaves.
-  \item La administración de las llaves criptográficas debe ser segura.
+  % RC1A-1
+  \subrequerimiento{Exportar llave en claro prohibido}
+  {
+    Las llaves usadas para generar \glspl{gl:token} no se deben poder
+    exportar en claro desde el programa.
+  }
 
-  \begin{itemize}
+  % RC1A-2
+  % TODO: ¿Cómo funciona la entropía de una fuente generadora?
+  \subrequerimiento{Entropía de generación de llaves}
+  {
+    La fuente generadora de llaves debe tener, al menos, 128 bits de
+    \gls{gl:entropia}.
+  }
 
-    % RC1A-1 exportar llave en claro prohibido
-    \item Las llaves usadas para generar \glspl{gl:token} no se deben poder
-      exportar en claro desde el programa.
+  % RC1A-3
+  \subrequerimiento{Llaves de uso único}
+  {
+    Las llaves criptográficas usadas para generar \glspl{gl:token} no
+    deben ser usadas para ningún otro fin.
+  }
+}
 
-    % RC1A-2 entropía de generación de llaves.
-    % TODO: ¿Cómo funciona la entropía de una fuente generadora?
-    \item La fuente generadora de llaves debe tener, al menos, 128 bits de
-      \gls{gl:entropia}.
+% RC1B
+% TODO: el documento explica porque esta cantidad; aún no lo entiendo.
+\requerimiento{Probabilidad de adivinar relaciones}
+{
+  La probabilidad de adivinar la relación entre un \gls{gl:token} y un
+  \gls{gl:pan} debe de ser menor que $ 1 $ en $ 10^6 $.
 
-    % RC1A-3 llaves de uso único.
-    \item Las llaves criptográficas usadas para generar \glspl{gl:token} no
-      deben ser usadas para ningún otro fin.
+  % RC1B-1 (relacionado con RC1A-2, creo)
+  \subrequerimiento{Distribución uniforme}
+  {
+    Para un \gls{gl:pan} dado, todos los \glspl{gl:token} deben ser
+    equiprobables; esto es, el mecanismo tokenizador no debe exhibir
+    tendencias probabilísticas que lo expongan a ataques estadísticos.
+  }
 
-  \end{itemize}
+  % RC1B-2 permutación aleatoria
+  % TODO: ¿Cuál es la diferencia entre una «permutación aleatoria» y una
+  % «permutación aleatoria fuerte»?
+  % Si el mapeo es entre dos espacios distintos... ya no se llama
+  % permutación, ¿o sí?
+  \subrequerimiento{Permutación aleatoria}
+  {
+    El método de tokenización debe actuar como una familia de
+    \glspl{gl:permutacion} aleatoria desde el espacio de \gls{gl:pan} al
+    espacio de \glspl{gl:token}.
+  }
 
-  % RC1B probabilidad de adivinar relaciones
-  % TODO: el documento explica porque esta cantidad; aún no lo entiendo.
-  \item La probabilidad de adivinar la relación entre un \glspl{gl:token} y un
-    \gls{gl:pan} debe de ser menor que $ 1 $ en $ 10^6 $.
+  % RC1B-3
+  \subrequerimiento{Cambio de llave}
+  {
+    Un cambio en la llave se debe ver reflejado en un cambio en el
+    \gls{gl:token} resultado.
+  }
 
-  \begin{itemize}
+  % RC1B-4
+  \subrequerimiento{Cambio de \gls{gl:pan}}
+  {
+    Un cambio en el \gls{gl:pan} se debe ver reflejado en un cambio en el
+    \gls{gl:token} resultado.
+  }
 
-    % RC1B-1 distribución uniforme (relacionado con RC1A-2, creo)
-    \item Para un \gls{gl:pan} dado, todos los \glspl{gl:token} deben ser
-      equiprobables; esto es, el mecanismo tokenizador no debe exhibir
-      tendencias probabilísticas que lo expongan a ataques estadísticos.
+  % RC1B-5 Aleatoriedad de dígitos, se debe validar que se sigue la
+  % recomendación del NIST para los generadores de números pseudoaleatorios;
+  % fuera de alcance.
+}
 
-    % RC1B-2 permutación aleatoria
-    % TODO: ¿Cuál es la diferencia entre una «permutación aleatoria» y una
-    % «permutación aleatoria fuerte»?
-    % Si el mapeo es entre dos espacios distintos... ya no se llama
-    % permutación, ¿o sí?
-    \item El método de tokenización debe actuar como una familia de
-      \glspl{gl:permutacion} aleatoria desde el espacio de \gls{gl:pan} al
-      espacio de \glspl{gl:token}.
+% RC1C almacenamiento duplicado
+% Este no lo entiendo: primero, ¿qué no se suponía que en los criptográficos
+% nunca se almacenaba el token?; segundo, aún suponiendo que este
+% requerimiento fuera en realidad para los no criptográficos, ¿Cuál es la
+% diferencia entre guardar el PAN completo y guardar el PAN truncado?
 
-    % RC1B-3 Cambio de llave
-    \item Un cambio en la llave se debe ver reflejado en un cambio en el
-      \gls{gl:token} resultado.
+%\item Los \glspl{gl:token} que se basan en el \gls{gl:pan} completo no se
+%  deben almacenar si ya hay guardado un \gls{gl:token} equivalente del
+%  \gls{gl:pan} truncado.
 
-    % RC1B-4 Cambio de PAN
-    \item Un cambio en el \gls{gl:pan} se debe ver reflejado en un cambio en el
-      \gls{gl:token} resultado.
+% Los del dominio 2 son requerimeintos para la api web.
 
-    % RC1B-5 Aleatoriedad de dígitos, se debe validar que se sigue la
-    % recomendación del NIST para los generadores de números pseudoaleatorios;
-    % fuera de alcance.
+% RC4A Protección de llaves
+% Se debe ocupar un SCD (secure cryptographyc device) para administrar
+% llaves; puro capitalismo: puedes comprar los del PCI o hacer que el NIST
+% valide los tuyos; fuera de alcance, evidentemente.
+% De cualquier forma, sería requerimiento de la api web.
 
-  \end{itemize}
+% RC4B
+% Claros y concisos: el primer documento son unas recomendaciones 160 hojas
+% y la ISO ni siquiera la puedo ver (más capitalismo); puedo «comprar» el
+% estándar, ¿qué clase de estándar se vende?
+\requerimiento{Prácticas para la administración de llaves}
+{
+  La administración de llaves criptográficas debe llevarse a cabo de
+  acuerdo al estándar del \gls{gl:nist} \cite{nist_llaves} y a
+  \acrshort{gl:iso}/\acrshort{gl:iec} 11770.
 
-  % RC1C almacenamiento duplicado
-  % Este no lo entiendo: primero, ¿qué no se suponía que en los criptográficos
-  % nunca se almacenaba el token?; segundo, aún suponiendo que este
-  % requerimiento fuera en realidad para los no criptográficos, ¿Cuál es la
-  % diferencia entre guardar el PAN completo y guardar el PAN truncado?
+  % RC4B1 Ciclo de vida de las llaves.
+  % Un ISO más... empiezo a extrañar los RFC de la IETF.
+  % TODO: incluir sección con resumen del contenido del anexo D.
+  \subrequerimiento{Ciclo de vida de las llaves}
+  {
+    Las llaves para \textit{tokenizar} deben seguir una política de
+    ciclo de vida como la descrita en  \acrshort{gl:iso}/\acrshort{gl:iec}
+    11568-1.
+  }
 
-  %\item Los \glspl{gl:token} que se basan en el \gls{gl:pan} completo no se
-  %  deben almacenar si ya hay guardado un \gls{gl:token} equivalente del
-  %  \gls{gl:pan} truncado.
+  % RC4B2
+  \subrequerimiento{Descripción de periodos para cada llave}
+  {
+    La política de la vida útil de cada llave debe incluir una
+    descripción del periodo activo.
+  }
 
-  % Los del dominio 2 son requerimeintos para la api web.
+  % RC4B3
+  \subrequerimiento{Permitir la destrucción de todas las llaves}
+  {
+    El sistema debe permitir la destrucción de las llaves sin necesidad
+    de una manipulación externa.
+  }
+}
 
-  % RC4A Protección de llaves
-  % Se debe ocupar un SCD (secure cryptographyc device) para administrar
-  % llaves; puro capitalismo: puedes comprar los del PCI o hacer que el NIST
-  % valide los tuyos; fuera de alcance, evidentemente.
-  % De cualquier forma, sería requerimiento de la api web.
+% RC4C-1 y -2 Longitud de llaves
+% (esto se repite con la sección de primitivas).
+\requerimiento{Sobre la longitud de las llaves}
+{
+  Las llaves para \textit{tokenizar} deben tener una
+  \gls{gl:fuerza_efectiva} de, al menos, 128 bits. Cualquier llave utilizada
+  para proteger o para derivar la llave del token debe de ser de igual o
+  mayor \gls{gl:fuerza_efectiva}.
+}
 
-  % RC4B Prácticas para la administración de llaves
-  % Claros y concisos: el primer documento son unas recomendaciones 160 hojas
-  % y la ISO ni siquiera la puedo ver (más capitalismo); puedo «comprar» el
-  % estándar, ¿qué clase de estándar se vende?
-  \item La administración de llaves criptográficas debe llevarse a cabo de
-    acuerdo al estándar del \gls{gl:nist} \cite{nist_llaves} y a
-    \acrshort{gl:iso}/\acrshort{gl:iec} 11770.
-
-  \begin{itemize}
-
-    % RC4B1 Ciclo de vida de las llaves.
-    % Un ISO más... empiezo a extrañar los RFC de la IETF.
-    % TODO: incluir sección con resumen del contenido del anexo D.
-    \item Las llaves para \textit{tokenizar} deben seguir una política de
-      ciclo de vida como la descrita en  \acrshort{gl:iso}/\acrshort{gl:iec}
-      11568-1.
-
-    % RC4B2 Descripción de periodos para cada llave.
-    \item La política de la vida útil de cada llave debe incluir una
-      descripción del periodo activo.
-
-    % RC4B3 Permitir la destrucción de todas las llaves.
-    \item El sistema debe permitir la destrucción de las llaves sin necesidad
-      de una manipulación externa.
-
-  \end{itemize}
-
-  % RC4C-1 y -2 Longitud de llaves
-  % (esto se repite con la sección de primitivas).
-  \item Las llaves para \textit{tokenizar} deben tener una
-    \gls{gl:fuerza_efectiva} de, al menos, 128 bits. Cualquier llave utilizada
-    para proteger o para derivar la llave del token debe de ser de igual o
-    mayor \gls{gl:fuerza_efectiva}.
-
-  % RC4D Independencia estadística.
-  \item Si el espacio de llaves es usado para producir \glspl{gl:token} es dos
-    contextos distintos (e. g. para distintos comerciantes), estas deben ser
-    \glspl{gl:estidisticamente_independiente}.
-
-\end{itemize}
+% RC4D
+\requerimiento{Independencia estadística}
+{
+  Si el espacio de llaves es usado para producir \glspl{gl:token} es dos
+  contextos distintos (e. g. para distintos comerciantes), estas deben ser
+  \glspl{gl:estidisticamente_independiente}.
+}
