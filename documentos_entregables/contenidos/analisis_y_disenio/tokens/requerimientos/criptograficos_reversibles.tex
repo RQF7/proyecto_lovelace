@@ -57,17 +57,67 @@
     \item Un cambio en el \gls{gl:pan} se debe ver reflejado en un cambio en el
       \gls{gl:token} resultado.
 
-    % RC1B-5 Aleatoriedad de dígitos; esto aún no lo entiendo.
+    % RC1B-5 Aleatoriedad de dígitos, se debe validar que se sigue la
+    % recomendación del NIST para los generadores de números pseudoaleatorios;
+    % fuera de alcance.
 
   \end{itemize}
 
   % RC1C almacenamiento duplicado
-  % ¿Que no se suponía que en los criptográficos NUNCA se almacenaban los
-  % tokens? ¿Qué hace este requerimiento aquí?
-  \item Los \glspl{gl:token} que se basan en el \gls{gl:pan} completo no se
-    deben almacenar si ya hay guardado un \gls{gl:token} equivalente del
-    \gls{gl:pan} truncado.
+  % Este no lo entiendo: primero, ¿qué no se suponía que en los criptográficos
+  % nunca se almacenaba el token?; segundo, aún suponiendo que este
+  % requerimiento fuera en realidad para los no criptográficos, ¿Cuál es la
+  % diferencia entre guardar el PAN completo y guardar el PAN truncado?
+
+  %\item Los \glspl{gl:token} que se basan en el \gls{gl:pan} completo no se
+  %  deben almacenar si ya hay guardado un \gls{gl:token} equivalente del
+  %  \gls{gl:pan} truncado.
 
   % Los del dominio 2 son requerimeintos para la api web.
+
+  % RC4A Protección de llaves
+  % Se debe ocupar un SCD (secure cryptographyc device) para administrar
+  % llaves; puro capitalismo: puedes comprar los del PCI o hacer que el NIST
+  % valide los tuyos; fuera de alcance, evidentemente.
+  % De cualquier forma, sería requerimiento de la api web.
+
+  % RC4B Prácticas para la administración de llaves
+  % Claros y concisos: el primer documento son unas recomendaciones 160 hojas
+  % y la ISO ni siquiera la puedo ver (más capitalismo); puedo «comprar» el
+  % estándar, ¿qué clase de estándar se vende?
+  \item La administración de llaves criptográficas debe llevarse a cabo de
+    acuerdo al estándar del \gls{gl:nist} \cite{nist_llaves} y a
+    \acrshort{gl:iso}/\acrshort{gl:iec} 11770.
+
+  \begin{itemize}
+
+    % RC4B1 Ciclo de vida de las llaves.
+    % Un ISO más... empiezo a extrañar los RFC de la IETF.
+    % TODO: incluir sección con resumen del contenido del anexo D.
+    \item Las llaves para \textit{tokenizar} deben seguir una política de
+      ciclo de vida como la descrita en  \acrshort{gl:iso}/\acrshort{gl:iec}
+      11568-1.
+
+    % RC4B2 Descripción de periodos para cada llave.
+    \item La política de la vida útil de cada llave debe incluir una
+      descripción del periodo activo.
+
+    % RC4B3 Permitir la destrucción de todas las llaves.
+    \item El sistema debe permitir la destrucción de las llaves sin necesidad
+      de una manipulación externa.
+
+  \end{itemize}
+
+  % RC4C-1 y -2 Longitud de llaves
+  % (esto se repite con la sección de primitivas).
+  \item Las llaves para \textit{tokenizar} deben tener una
+    \gls{gl:fuerza_efectiva} de, al menos, 128 bits. Cualquier llave utilizada
+    para proteger o para derivar la llave del token debe de ser de igual o
+    mayor \gls{gl:fuerza_efectiva}.
+
+  % RC4D Independencia estadística.
+  \item Si el espacio de llaves es usado para producir \glspl{gl:token} es dos
+    contextos distintos (e. g. para distintos comerciantes), estas deben ser
+    \glspl{gl:estidisticamente_independiente}.
 
 \end{itemize}

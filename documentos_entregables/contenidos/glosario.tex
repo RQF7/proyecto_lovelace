@@ -241,4 +241,41 @@
   }
 }
 
+\newglossaryentry{gl:fuerza_efectiva}
+{
+  name = fuerza efectiva,
+  plural = fuerzas efectivas,
+  description = {
+    Para un espacio de llaves $ K $, su \textit{fuerza efectiva} es
+    $ \log_2 | K | $ (el logaritmo base dos de su cardinalidad)%
+  }
+}
+
+\longnewglossaryentry{gl:probabilidad_condicional}
+{
+  name = probabilidad condicional
+}
+{%
+  Sean $ E_1 $ y $ E_2 $ dos eventos, con $ P(E_2) \ge 0 $. La
+  \textit{probabilidad condicional} se denota por $ P(E_1 | E_2) $, y es
+  igual a
+  $$ P(E_1 | E_2) = \frac{P(E_1 \cap E_2)}{P(E_2)} $$
+  Esto mide la probabilidad de que ocurra $ E_1 $ sabiendo que ya ocurrió
+  $ E_2 $.
+}
+
+\newglossaryentry{gl:estidisticamente_independiente}
+{
+  name = estadísticamente independiente,
+  description = {
+    Dicho de la ocurrencia de dos eventos $ E_1 $ y $ E_2 $: si
+    $ P(E_1 \cap E_2) = P(E_1) P(E_2) $ entonces $ E_1 $ y $ E_2 $ son
+    \textit{estadísticamente independientes} entre sí. Es importante notar
+    que si esto ocurre, entonces $ P(E_1 | E_2) = P(E_1) $ y
+    $ P(E_2 | E_1) = P(E_2) $, es decir, la ocurrencia de uno no tiene ninguna
+    influencia en las probabilidades de ocurrencia del otro%
+  },
+  see=[véase también]{gl:probabilidad_condicional}
+}
+
 \glsaddall
