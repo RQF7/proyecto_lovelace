@@ -31,28 +31,28 @@ bits $L_i$ y $R_i$ mientras $1 \leq i \leq 16$ de la siguiente manera:
 $E$ se encarga de expandir $R_{i-1}$ de 32 bits a 48, $P$ es una
 permutación de 32 bits y $S$ son las cajas-s.
 
-%\begin{pseudocodigo}[caption={DES, cifrado.}, label={des:1}]
-%  entrada:  64 bits de texto en claro $M = m_1 \dots m_{64}$;
-%            llave de 64 bits $K = k_1 \dots k_{64}$.
-%  salida:   bloque de texto cifrado de 64 bits $C = c_1 \dots c_{64}$.
-%  inicio
-%    Calcular 16 subllaves $K_i$ de 48 bits partiendo de $K$.
-%    Obtener $(L_0, R_0)$ de la tabla de permutaciones iniciales $IP(m_1m_2\dots m_{64})$
-%    para_todo $i$ desde 1 hasta 16:
-%      L_i = R_{i-1}
-%      Obtener $f(R_{i-1}, K_i)$:
-%        a) Expandir $R_{i-1} = r_1r_2\dots r_{32}$ de 32 a 48 bits
-%          usando $E$: $T \leftarrow E(R_{i-1})$.
-%        b) $T^\prime \leftarrow T \oplus K_i$. Donde $T^\prime$ es representado
-%          como ocho cadenas de 6 bits cada una $(B_1, \dots, B_8)$.
-%        c) $T'' \leftarrow (S_1(B_1), S_2(B_2), \dots S_8(B_8))$
-%        d) $T''' \leftarrow P(T'')$
-%      R_i = L_{i-1} \oplus f(R_{i-1}, K_i)
-%    fin
-%    $b_1b_2 \dots b_{64} \leftarrow (R_{16}, L_{16})$.
-%    $C \leftarrow IP^{-1}(b_1b_2 \dots b_{64})$
-%  fin
-%\end{pseudocodigo}
+\begin{pseudocodigo}[caption={DES, cifrado.}, label={des:1}]
+  entrada:  64 bits de texto en claro $M = m_1 \dots m_{64}$;
+            llave de 64 bits $K = k_1 \dots k_{64}$.
+  salida:   bloque de texto cifrado de 64 bits $C = c_1 \dots c_{64}$.
+  inicio
+    Calcular 16 subllaves $K_i$ de 48 bits partiendo de $K$.
+    Obtener $(L_0, R_0)$ de la tabla de permutaciones iniciales $IP(m_1m_2\dots m_{64})$
+    para_todo $i$ desde 1 hasta 16:
+      L_i = R_{i-1}
+      Obtener $f(R_{i-1}, K_i)$:
+        a) Expandir $R_{i-1} = r_1r_2\dots r_{32}$ de 32 a 48 bits
+          usando $E$: $T \leftarrow E(R_{i-1})$.
+        b) $T^\prime \leftarrow T \oplus K_i$. Donde $T^\prime$ es representado
+          como ocho cadenas de 6 bits cada una $(B_1, \dots, B_8)$.
+        c) $T^{\prime\prime} \leftarrow (S_1(B_1), S_2(B_2), \dots S_8(B_8))$
+        d) $T^{\prime\prime\prime} \leftarrow P(T^{\prime\prime})$
+      R_i = L_{i-1} \oplus f(R_{i-1}, K_i)
+    fin
+    $b_1b_2 \dots b_{64} \leftarrow (R_{16}, L_{16})$.
+    $C \leftarrow IP^{-1}(b_1b_2 \dots b_{64})$
+  fin
+\end{pseudocodigo}
 
 El descifrado \gls{gl:des} consiste en el mismo algoritmo de cifrado,
 con la misma llave $K$, pero utilizando las subllaves en orden inverso:
