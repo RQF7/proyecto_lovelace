@@ -1,0 +1,35 @@
+%
+% Modo de operación CTR, capítulo de antecedentes.
+% Proyecto Lovelace.
+%
+
+\subsubsection{\textit{Counter Mode} (CTR)}
+\label{sec:ctr}
+
+Este opera de manera un tanto distinta con respecto a los anteriores: toma a
+la entrada un \gls{gl:vector_de_inicializacion} y en cada iteración lo
+incrementa y lo cifra. El resultado se obtiene combinando el $ VI $ cifrado
+con el bloque de texto cifrado (mediante una operación \verb|xor|). El proceso
+de cifrado y descifrado se detallan en el pseudocódigo \ref{ctr:1}.
+
+\begin{pseudocodigo}[%
+    caption={\Gls{gl:modo_de_operacion} \gls{gl:ctr}%
+      (cifrado y descifrado).},
+    label={ctr:1}%
+  ]
+  entrada: llave $ k $; vector de inicialización $ VI $;
+           bloques de mensaje (cifrado o descifrado) $ Bm_1, Bm_2 \dots Bm_n $.
+  salida:  bloques de mensaje (cifrado o descifrado) $ Bc_1, Bc_2 \dots Bc_n $.
+  inicio
+    para_todo $Bm$
+      $Bc_i$ $\gets$ E_k($ (VI + i) \mod 2^n $) $\oplus$ $Bm_i$
+    fin
+    regresar $Bc$
+  fin
+\end{pseudocodigo}
+
+En términos de eficiencia, el \gls{gl:ctr} es mejor que \gls{gl:cbc},
+\gls{gl:cfb} o \gls{gl:ofb}, ya que sus operaciones (ambas) se pueden hacer
+en paralelo. La implementación es prácticamente la misma para el cifrado y
+descifrado (solamente se ocupa el cifrado del algoritmo por bloques
+subyacente).
