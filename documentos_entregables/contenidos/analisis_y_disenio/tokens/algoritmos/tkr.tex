@@ -1,0 +1,64 @@
+%
+% Construcción de tkr2 (y tkr2a) de
+% «A Cryptographic Study of Tokenization Systems»
+% Proyecto Lovelace.
+%
+
+\subsubsection{\textit{A Cryptographic Study of Tokenization Systems}}
+
+Por claridad de contenidos, se establecen las siglas \textit{ACSTS} para
+referirse a este algoritmo en futuras referencias.
+
+En \cite{doc_sandra} se analiza formalmente el problema de la generación de
+\glspl{gl:token} y se propone un algoritmo que no está basado en \gls{gl:fpe}.
+Hasta antes de la publicación de este documento, los únicos métodos para
+generar \glspl{gl:token} cuya seguridad estaba formalmente demostrada eran los
+basados en \gls{gl:fpe}.
+
+El algoritmo propuesto usa \glspl{gl:primitiva_criptografica} para generar
+\glspl{gl:token} aleatorios y almacena en una base de datos (\gls{gl:cdv}) la
+relación original de estos con los \gls{gl:pan}. Es, por tanto, un algoritmo
+tokenizador reversible, y también, pese a la contradiccón con el nombre, no
+criptográfico.  En el pseudocódigo \ref{tkr2_cifrado} se muestra el proceso
+de tokenización, mientras que en \ref{tkr2_descifrado} está la detokenización.
+
+\begin{pseudocodigo}[%
+    caption={\textit{ACSTS}, método de tokenización},
+    label={tkr2_cifrado}%
+  ]
+  entrada: PAN p; información asociada d; llave k
+  salida:  token
+  inicio
+    $ S_1 $ $ \gets $ buscarPAN(p)
+    $ S_2 $ $ \gets $ buscarInfoAsociada(d)
+    si $ S_1 $ y $ S_2 $ = 0:
+      t $ \gets $ RN(k)
+      insertar(t, p, d)
+    sino:
+      t $ \gets $ $ S_1 $
+    fin
+    regresar t
+  fin
+\end{pseudocodigo}
+
+\begin{pseudocodigo}[%
+    caption={\textit{ACSTS}, método de detokenización},
+    label={tkr2_descifrado}%
+  ]
+  entrada: token t; información asociada d; llave k
+  salida:  PAN
+  inicio
+    $ S_1 $ $ \gets $ buscarToken(t)
+    $ S_2 $ $ \gets $ buscarInfoAsociada(d)
+    si $ S_1 $ y $ S_2 $ = 0:
+      regresar error
+    sino:
+      p $ \gets $ $ S_1 $
+    fin
+    regresar p
+  fin
+\end{pseudocodigo}
+
+La mayor parte del proceso de tokenización y toda la detokenización son
+bastante fáciles de comprender; lo único que queda por esclarecer el la
+función generadora de \glspl{gl:token} aleatorios $ RN_k $.
