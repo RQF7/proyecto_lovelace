@@ -17,10 +17,11 @@
   {
     El proceso para crear \glspl{gl:token} clasificado como irreversible
     debe asegurar que el mecanismo, proceso o algoritmo utilizado para 
-    crear el \gls{gl:token} no sea reversible. Si una función hash es 
-    utilizada, esta debe ser una primitiva criptográfica y utilizar una 
-    llave secreta $k$ tal que el mero conocimiento de la función hash 
-    no permita la creación de un oráculo.
+    crear el \gls{gl:token} no sea reversible. Si una función hash (véase
+    sección \ref{sec:hash}) es utilizada, esta debe ser una 
+    \gls{gl:primitiva_criptografica} y utilizar una llave secreta $k$ tal que
+    el mero conocimiento de la función hash no permita la creación de un
+    \gls{gl:oraculo}.
   }
 
   % IT1A-2
@@ -71,12 +72,11 @@
     tokenizadora en cuestión.
   }
 
-% Creo que este subrequerimiento no aplica para nosotros.
-%  % IT4A-3
-%  \subrequerimiento{Sobre la destrucción de las llaves}
-%  {
-%   	El proveeddor debe incorporar una función que permita la destrucción
-%   	de sus llaves criptográficas sin tener que alterar o abrir el
-%   	dispositivo.  
-%  }
+  % IT4A-3
+  \subrequerimiento{Sobre la destrucción de las llaves}
+  {
+   	El proveeddor debe incorporar una función que permita la destrucción
+   	de sus llaves criptográficas sin tener que alterar o abrir el
+   	dispositivo.  
+  }
 }
