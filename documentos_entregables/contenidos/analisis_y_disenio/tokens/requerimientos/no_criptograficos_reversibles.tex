@@ -10,7 +10,7 @@
   \requerimiento{Generación y almacenamiento de tokens}{}{
     La generación de un \gls{gl:token} debe realizarse independientemente de 
     su \gls{gl:pan}, y la relación entre un \gls{gl:pan} y su \gls{gl:token} 
-    sólo tiene que estar almacenado en la base de datos (\gls{gl:cdv}) 
+    sólo tiene que estar almacenada en la base de datos (\gls{gl:cdv}) 
     establecida.
   }
 
@@ -44,6 +44,8 @@
       }
 
       % RN 1B-4
+      % Contradoctoria con RN 1A, si el token es independiete, no debe 
+      % reflejar cambios.
       \subrequerimiento{Reflejo de cambios}{
         Al cambiar parte de un \gls{gl:pan}, debe cambiar su \gls{gl:token} 
         resultante.
@@ -70,6 +72,7 @@
     datos (\gls{gl:cdv}), y no por medio de métodos criptográficos.
       
       % RN 2A-1
+      % No se entiende como no usar métodos logicos en la asignación.
       \subrequerimiento{Asignación probabilísticamente independiente}{
         El \gls{gl:pan} y el \gls{gl:token} debe ser probabilísticamente 
         independientes. Cualquier método lógico o matemático no debe ser 
@@ -92,14 +95,17 @@
   }
 
   % RN 4A
-  % \requerimiento{Seguridad de la administración de llaves}{
-  %   Todas la operaciones sobre la administración de las llaves criptográficas 
-  %   deben realizarse en un dispositivo criptográfico seguro y aprobado.
-  % }
+  % Fuera de alcance.
+  \requerimiento{Seguridad de la administración de llaves}{
+    Todas la operaciones sobre la administración de las llaves criptográficas 
+    deben realizarse en un dispositivo criptográfico seguro y aprobado.
+  }
 
   % RN 4B
   \requerimiento{Administración de llaves de acuerdo al estándar}{
     La administración de las llaves criptográficas debe realizarse de 
-    acuerdo con el estándar \gls{gl:nist}/\acrshort{gl:iso}.
+    acuerdo con el estándar \gls{gl:nist}/\acrshort{gl:iso}; por ejemplo 
+    el \gls{gl:nist} SP 800-57, el \acrshort{gl:iso}/\acrshort{gl:iec} 
+    11770 o el \gls{gl:nist} SP 800-130.
   }
 
