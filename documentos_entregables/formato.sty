@@ -47,10 +47,9 @@
   pdfstartview=Fit,
   pdfpagemode=UseOutlines,
   colorlinks,
-  linkcolor={black},
-  citecolor={black},
-  urlcolor={black},
-  pagebackref=true
+  linkcolor={darkgray!50!black},
+  citecolor={darkgray!50!black},
+  urlcolor={darkgray!50!black}
 }
 
 % http://mirrors.ctan.org/macros/latex/contrib/oberdiek/bookmark.pdf
@@ -76,6 +75,17 @@
 
 % http://mirrors.ctan.org/macros/latex/contrib/hanging/hanging.pdf
 \RequirePackage{hanging}                    % Indentación personalizada.
+
+% http://mirrors.ctan.org/macros/latex/contrib/enumitem/enumitem.pdf
+% Controla el aspecto de las listas, las enumeraciones y las descripciones
+\RequirePackage{enumitem}
+\setenumerate
+{
+  topsep=0pt,
+%  parsep=0pt,
+%  partopsep=0pt,
+  leftmargin=2em
+}
 
 % http://mirrors.ctan.org/biblio/bibtex/base/btxdoc.pdf
 \RequirePackage[backend=biber,              % Estilo Biblatex
@@ -103,6 +113,9 @@
 \setlength{\parindent}{2em}                 % Sangría
 \setlength{\parskip}{1em}                   % Espacio entre párrafos
 \renewcommand{\baselinestretch}{1.25}       % Interlineado
+
+% Formato de listas
+\setlength\itemsep{0em}
 
 % Formato de títulos
 \titleformat{\chapter}[display]

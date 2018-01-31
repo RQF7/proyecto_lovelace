@@ -102,9 +102,6 @@ aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
   Las primitivas criptográficas que se usen deben estar basadas en
   estándares nacionales (Estados Unidos) o internacionales (e. g.
   \gls{gl:aes}).
-
-  Esta es una prueba de un segundo párrafo agrgado a la definición de un requerimiento;
-  la idea es que conserve la identación de las líneas anteriores.
 }
 
 Los \glspl{gl:token} irreversibles no pueden, bajo ninguna circunstancia, ser
@@ -137,24 +134,30 @@ datos debe de estar cifrada \cite{pci_dss}.
 
 \gls{gl:pci} \gls{gl:dss} define cuatro \textit{dominios} de seguridad para el
 proceso de tokenización:
+
 \begin{enumerate}
-  \item \textbf{Generación de \glspl{gl:token}.} 
-    Para cada clase tokenizadora, este dominio se encarga de definir 
+
+  \item \textbf{Generación de \glspl{gl:token}.}
+    Para cada clase tokenizadora, este dominio se encarga de definir
     consideraciones para generación segura de \glspl{gl:token}. Cubre los
     dispositivos, procesos, mecanismos y algoritmos que son utilizados para
     crear los \glspl{gl:token}.
+
   \item \textbf{Mapeo de \glspl{gl:token}.}
-    Este dominio, que se refiere al mapeo de los \glspl{gl:token} con su 
-    \gls{gl:pan} origen, aplica solamente a los procesos de tokenización 
+    Este dominio, que se refiere al mapeo de los \glspl{gl:token} con su
+    \gls{gl:pan} origen, aplica solamente a los procesos de tokenización
     reversibles. Entre otras cosas, provee guías respecto a control de acceso
     necesarios para las peticiones de tokenización.
+
   \item \textbf{Bóveda de datos de tarjeta.}
-    Como el dominio pasado, solo aplica a las implementaciones de tokenización 
-    reversibles. Cubre el cifrado obligado del \gls{gl:pan} y los controles de 
-    acceso necesarios para entrar a la \gls{gl:cdv}
+    Como el dominio pasado, solo aplica a las implementaciones de tokenización
+    reversibles. Cubre el cifrado obligado del \gls{gl:pan} y los controles de
+    acceso necesarios para entrar a la \gls{gl:cdv}.
+
   \item \textbf{Manejo criptográfico de llaves.}
-    Define las buenas prácticas para el manejo criptográfico de las llaves y 
+    Define las buenas prácticas para el manejo criptográfico de las llaves y
     las operaciones realizadas con ellas por el producto tokenizador.
+
 \end{enumerate}
 
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/irreversibles.tex}
