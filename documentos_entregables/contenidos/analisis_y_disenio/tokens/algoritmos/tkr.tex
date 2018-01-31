@@ -60,5 +60,63 @@ de tokenización, mientras que en \ref{tkr2_descifrado} está la detokenización
 \end{pseudocodigo}
 
 La mayor parte del proceso de tokenización y toda la detokenización son
-bastante fáciles de comprender; lo único que queda por esclarecer el la
-función generadora de \glspl{gl:token} aleatorios $ RN_k $.
+bastante fáciles de comprender; lo único que queda por esclarecer es la
+función generadora de \glspl{gl:token} aleatorios $ RN_k $. Idealmente,
+esta función debe regresar un elemento uniformemente aleatorio del espacio
+de \glspl{gl:token}. La propuesta que se hace en \cite{doc_sandra} para
+instanciar esta función se presenta en el pseudocódigo \ref{tkr2_rn}.
+Aquí, la variable \textit{contador} mantiene un estado del algoritmo (mantiene
+su valor a lo largo de las distintas llamadas); el espacio de \glspl{gl:token}
+contiene cadenas de longitud fija $ \mu $ de un alfabeto $ AL $ cuya
+cardinalidad es $ l $; el número de bits necesarios para enumerar a todo el
+alfabeto se guardan en $ \lambda = \lceil \log_2 l \rceil$.
+
+\begin{pseudocodigo}[%
+    caption={\textit{ACSTS}, generación de \glspl{gl:token} aleatorios},
+    label={tkr2_rn}%
+  ]
+  entrada: llave k
+  salida:  token
+  inicio
+    $X$ $\gets$ f(k, contador)
+    $X_1, X_2, \dots, X_m$ $\gets$ cortar($X$, $\lambda$)
+    t $\gets$ ""
+    i $\gets$ 0
+    mientras $|t| \neq \mu$:
+      si entero(X_i) $\le$ $l$:
+        t $\gets$ t + entero(X_i)
+      fin
+      i $\gets$ i  + 1
+    fin
+    contador $\gets$ contador + 1
+    regresar t
+  fin
+\end{pseudocodigo}
+
+En el pseudocódigo \ref{tkr2_rn} lo primero que se hace es utilizar una
+\gls{gl:primitiva_criptografica} $ f $ para generar una cadena binaria
+(hablaremos sobre este punto más adelante); esta cadena (nombrada $ X $) se
+parte en subcadenas de $ \lambda $ bits; después se itera de manera
+consecutiva sobre estas subcadenas binarias, si la representación entera de la
+i-ésima está en el rango del alfabeto de los \glspl{gl:token}, entonces se
+concatena al token resultado, sino, se pasa a la siguiente subcadena.
+La longitud de la cadena regresada por $ f $ debe ser, aproximadamente,
+$ 3 \mu \lambda $: dado que se espera que el comportamiento de $ f $ sea
+\gls{gl:equiprobable}, entonces el ciclo correrá un promedio de $ 2 \mu $
+veces.
+
+% TODO: agregar el modo de contador a los antecedentes de los modos de
+% operación.
+
+Existen varios candidatos viables para $ f $: un cifrado de flujo (sección
+\ref{sec:flujo}), pues el flujo de llave de estos produce cadenas de aspecto
+aleatorio; un cifrado por bloques (sección \ref{sec:bloques}), utilizando un
+modo de operación de contador (sección); un \gls{gl:trng} para obtener
+secuencias de bits verdaderamente aleatorias.
+
+Por último hay que aclarar que el algoritmo presentado en el pseudocódigo
+\ref{tkr2_cifrado} debe recibir un par de modificaciones más: al momento de
+generar un \gls{gl:token} debe existir una validación que verifique que este
+sea único (para evitar que dos \gls{gl:pan} tengan un mismo \gls{gl:token});
+la base de datos debe estar cifrada, por lo que, antes de hacer inserciones y
+después de hacer consultas, deben existir las operaciones correspondientes.
