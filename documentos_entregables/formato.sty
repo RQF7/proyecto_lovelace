@@ -109,6 +109,10 @@
 % leer la documentación
 % http://texdoc.net/texmf-dist/doc/latex/geometry/geometry.pdf
 
+% http://ctan.mirrors.hoobly.com/macros/latex/contrib/showlabels/showlabels.pdf
+% Mustra \labels en el pdf.
+%\usepackage[inline]{showlabels}
+
 % Formato de párrafos
 \setlength{\parindent}{2em}                 % Sangría
 \setlength{\parskip}{1em}                   % Espacio entre párrafos
@@ -178,6 +182,7 @@
 \date{\today}
 
 % Archivos de plantillas
+\input{plantillas/hipervinculo.sty}
 \input{plantillas/formato_numeros.sty}
 \input{plantillas/portada.sty}
 \input{plantillas/pseudocodigo.sty}
@@ -192,32 +197,47 @@
 % Archivo con referencias
 \addbibresource{contenidos/referencias.bib}
 
-% Redefinición de listas y de bibliografía.
-% Se hacen secciones en lugar de capítulos.
-
 \makeatletter
-\renewcommand\listoffigures{
-  \section*{\listfigurename}
-    \@mkboth{\MakeUppercase\listfigurename}
-            {\MakeUppercase\listfigurename}
-  \@starttoc{lof}
-}
-\renewcommand\listoftables{
-  \section*{\listtablename}
-    \@mkboth{\MakeUppercase\listtablename}
-            {\MakeUppercase\listtablename}
-  \@starttoc{lot}
-}
-\renewcommand\lstlistoflistings{
-  \section*{\lstlistlistingname}
-    \@mkboth{\MakeUppercase\lstlistlistingname}
-            {\MakeUppercase\lstlistlistingname}
-  \@starttoc{lol}
-}
-\renewcommand\tableofcontents{
-  \section*{\contentsname}
-    \@mkboth{\MakeUppercase\contentsname}
-            {\MakeUppercase\contentsname}
-  \@starttoc{toc}
-}
+
+  % Redefinición de listas y de bibliografía.
+  % Se hacen secciones en lugar de capítulos.
+
+  \renewcommand\listoffigures{
+    \section*{\listfigurename}
+      \@mkboth{\MakeUppercase\listfigurename}
+              {\MakeUppercase\listfigurename}
+    \@starttoc{lof}
+  }
+
+  \renewcommand\listoftables{
+    \section*{\listtablename}
+      \@mkboth{\MakeUppercase\listtablename}
+              {\MakeUppercase\listtablename}
+    \@starttoc{lot}
+  }
+
+  \renewcommand\lstlistoflistings{
+    \section*{\lstlistlistingname}
+      \@mkboth{\MakeUppercase\lstlistlistingname}
+              {\MakeUppercase\lstlistlistingname}
+    \@starttoc{lol}
+  }
+
+  \renewcommand\tableofcontents{
+    \section*{\contentsname}
+      \@mkboth{\MakeUppercase\contentsname}
+              {\MakeUppercase\contentsname}
+    \@starttoc{toc}
+  }
+
+  % Redefinir hypertarget para guardar referencia en .aux
+  \let\hypertargetanterior\hypertarget
+  \renewcommand{\hypertarget}[2]{%
+    \hypertargetanterior{#1}{#2}%
+    \protected@write\@mainaux{}{%
+      \string\expandafter\string\gdef
+      \string\csname\string\detokenize{#1}\string\endcsname{#2}%
+    }%
+  }
+
 \makeatother
