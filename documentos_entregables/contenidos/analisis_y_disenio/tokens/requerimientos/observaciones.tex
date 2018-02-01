@@ -1,0 +1,201 @@
+%
+% Observaciones a los requerimientos.
+% análisis y diseño de generación de tokens.
+% Proyecto Lovelace.
+%
+
+\subsubsection{Observaciones}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{| p{5.5cm} | p{2cm} | p{4cm} | p{4cm} |}
+
+    \hline
+      \textbf{Requerimiento}    &
+      \textbf{PCI}              &
+      \textbf{Clasificación}    &
+      \textbf{Observación}     \\ [0.8ex]
+    \hline
+
+    REQUTO-01 Productos de hardware.  
+    &  GT1   &  General  &  Innecesario           \\ \hline
+    REQUTO-02 Productos de software.  
+    &  GT3   &  General  &  Fuera de alcance      \\ \hline
+    REQUTO-03 Resistencia a texto claro conocido.  
+    &  GT4   &  General  &  Redundante            \\ \hline
+    REQUTO-04 Resistencia a sólo texto cifrado.  
+    &  GT5   &  General  &  Aplicable             \\ \hline
+    REQUTO-05 Detección de anomalías.  
+    &  GT6   &  General  &  Aplicable (API web)   \\ \hline
+    REQUTO-06 Distinción entre tokens y PAN.  
+    &  GT7   &  General  &  Aplicable             \\ \hline
+    REQUTO-07 Guía de instalación.  
+    &  GT8   &  General  &  Aplicable             \\ \hline
+    REQUTO-08 Integridad del proceso de tokenización.  
+    &  GT9   &  General  &  Fuera de alcance      \\ \hline
+    REQUTO-09 Acceso al proceso de tokenización.  
+    &  GT10  &  General  &  Aplicable (API web)   \\ \hline
+    REQUTO-10 Mapeos de token a token prohibidos.  
+    &  GT11  &  General  &  Aplicable             \\ \hline
+    REQUTO-11 Protección contra vulnerabilidades comunes.  
+    &  GT12  &  General  &  Aplicable             \\ \hline
+    REQUTO-12 Primitivas criptográficas usadas.  
+    &  GT13  &  General  &  Fuera de alcance      \\ \hline
+
+  \end{tabular}
+  \caption{Requerimientos Generales.}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{| p{5.5cm} | p{2cm} | p{4cm} | p{4cm} |}
+
+    \hline
+      \textbf{Requerimiento}    &
+      \textbf{PCI}              &
+      \textbf{Clasificación}    &
+      \textbf{Observación}     \\ [0.8ex]
+    \hline
+
+    REQUTO-13 Sobre la generación de tokens.  
+    &  IT 1A    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  -                \\ \hline
+    SUBREQUTO-13/1 Sobre el mecanismo generador.  
+    &  IT 1A-1  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-13/2 Contenido en claro.  
+    &  IT 1A-2  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-13/3 Creación de un diccionario.  
+    &  IT 1A-3  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-13/4 Sobre el proceso de autenticación.  
+    &  IT 1A-4  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    REQUTO-14 Sobre el manejo adecuado de llaves.  
+    &  IT 4A    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  -                \\ \hline
+    SUBREQUTO-14/1 Sobre el ciclo de vida.  
+    &  IT 4A-1  &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
+    SUBREQUTO-14/2 Descripción del periodo criptográfico activo.  
+    &  IT 4A-2  &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
+    SUBREQUTO-14/3 Sobre la destrucción de las llaves.  
+    &  IT 4A-3  &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Aplicable        \\ \hline
+
+  \end{tabular}
+  \caption{Requerimientos para tokens irreversibles.}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{| p{5.5cm} | p{2cm} | p{4cm} | p{4cm} |}
+
+    \hline
+      \textbf{Requerimiento}    &
+      \textbf{PCI}              &
+      \textbf{Clasificación}    &
+      \textbf{Observación}     \\ [0.8ex]
+    \hline
+
+    REQUTO-15 Seguridad de la administración de llaves.  
+    &  RC 1A    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  -                \\ \hline
+    SUBREQUTO-15/1 Exportar llave en claro prohibido.  
+    &  RC 1A-1  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-15/2 Entropía de generación de llaves.  
+    &  RC 1A-2  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Confuso, ver problema \ref{pbl1}  \\ \hline
+    SUBREQUTO-15/3 Llaves de uso único.  
+    &  RC 1A-3  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    REQUTO-16 Probabilidad de adivinar relaciones.  
+    &  RC 1B    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  -                \\ \hline
+    SUBREQUTO-16/1 Distribución uniforme.  
+    &  RC 1B-1  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-16/2 Permutación aleatoria.  
+    &  RC 1B-2  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-16/3 Cambio de llave.  
+    &  RC 1B-3  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-16/4 Cambio de PAN.  
+    &  RC 1B-4  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-16/5 Verificación de la aleatoriedad.  
+    &  RC 1B-5  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Fuera de alcance \\ \hline
+    REQUTO-17 Almacenamiento de tokens.  
+    &  RC 1C    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Confuso, ver problema \ref{pbl2}  \\ \hline
+    REQUTO-18 Seguridad de la administración de llaves.  
+    &  RC 4A    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
+    REQUTO-19 Prácticas para la administración de llaves.  
+    &  RC 4B    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  -                \\ \hline
+    SUBREQUTO-19/1 Ciclo de vida de las llaves.  
+    &  RC 4B-1  &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
+    SUBREQUTO-19/2 Descripción de periodos para cada llave.  
+    &  RC 4B-2  &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
+    SUBREQUTO-19/3 Permitir la destrucción de todas las llaves.  
+    &  RC 4B-3  &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Aplicable        \\ \hline
+    REQUTO-20 Sobre la longitud de las llaves.  
+    &  RC 4C    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Aplicable        \\ \hline
+    REQUTO-21 Independencia estadística.  
+    &  RC 4D    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Aplicable        \\ \hline
+
+  \end{tabular}
+  \caption{Requerimientos para tokens criptográficos reversibles.}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{| p{5.5cm} | p{2cm} | p{4cm} | p{4cm} |}
+
+    \hline
+      \textbf{Requerimiento}    &
+      \textbf{PCI}              &
+      \textbf{Clasificación}    &
+      \textbf{Observación}     \\ [0.8ex]
+    \hline
+
+    REQUTO-22 Generación y almacenamiento de tokens.  
+    &  RN 1A    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    REQUTO-23 Probabilidad de encontrar un PAN.  
+    &  RN 1B    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  -                \\ \hline
+    SUBREQUTO-23/1 Distribución equiprobable.  
+    &  RN 1B-1  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-23/2 Permutaciones aleatorias.  
+    &  RN 1B-2  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-23/3 Parámetros de tokenización.  
+    &  RN 1B-3  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-23/4 Reflejo de cambios.  
+    &  RN 1B-4  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Confuso, ver problema \ref{pbl3}  \\ \hline
+    REQUTO-24 Distribución imparcial.  
+    &  RN 1C    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    REQUTO-25 Instancias probabilísticamente independientes.  
+    &  RN 1D    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    REQUTO-26 Asignación de tokens.  
+    &  RN 2A    &  \hyperref[dm:mapeo_tokens]{Mapeo de tokens}                 &  -                \\ \hline
+    SUBREQUTO-26/1 Asignación probabilísticamente independiente.  
+    &  RN 2A-1  &  \hyperref[dm:mapeo_tokens]{Mapeo de tokens}                 &  Confuso, ver problema \ref{pbl4}  \\ \hline
+    REQUTO-27 Controles de acceso basados en roles.  
+    &  RN 2B    &  \hyperref[dm:card_data]{Bóveda de datos de tarjeta}         &  Fuera de alcance \\ \hline
+    REQUTO-28 Cifrado de la base de datos.  
+    &  RN 3A    &  \hyperref[dm:card_data]{Bóveda de datos de tarjeta}         &  Aplicable        \\ \hline
+    REQUTO-29 Seguridad de la administración de llaves.  
+    &  RN 4A    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
+    REQUTO-30 Administración de llaves de acuerdo al estándar.  
+    &  RN 4B    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
+
+  \end{tabular}
+  \caption{Requerimientos para tokens no criptográficos reversibles.}
+\end{table}
+
+\textbf{Problemas encontrados:}
+
+\begin{enumerate}
+  
+  \item \label{pbl1} 
+  No queda claro como es que funciona la \gls{gl:entropia} como fuente 
+  generadora.
+  
+  \item \label{pbl2} 
+  No se entiende cual es la diferencia entre guardar un \gls{gl:pan} 
+  completo o truncado, ni si es necesario el almacenamiento de 
+  \glspl{gl:token} criptográficos.
+  
+  \item \label{pbl3} 
+  No se explica como es posible que la generación de un \gls{gl:token} 
+  sea independiente de su \gls{gl:pan} y a su ves al cambiar parte del 
+  \gls{gl:pan} su \gls{gl:token} correspondiente también cambie.
+  
+  \item \label{pbl4} 
+  No se sabe que clase de métodos (que no entren dentro de los lógicos y 
+  matemáticos) usar para la asignación de tokens. 
+
+\end{enumerate}

@@ -166,34 +166,35 @@ proceso de tokenización:
 
 \begin{enumerate}
 
-  \item \textbf{Generación de \glspl{gl:token}.}
+  \item \label{dm:gen_tokens} \textbf{Generación de \glspl{gl:token}.}
     Para cada clase tokenizadora, este dominio se encarga de definir
     consideraciones para generación segura de \glspl{gl:token}. Cubre los
     dispositivos, procesos, mecanismos y algoritmos que son utilizados para
     crear los \glspl{gl:token}.
 
-  \item \textbf{Mapeo de \glspl{gl:token}.}
+  \item \label{dm:mapeo_tokens} \textbf{Mapeo de \glspl{gl:token}.}
     Este dominio, que se refiere al mapeo de los \glspl{gl:token} con su
     \gls{gl:pan} origen, aplica solamente a los procesos de tokenización
     reversibles. Entre otras cosas, provee guías respecto a control de acceso
     necesarios para las peticiones de tokenización.
 
-  \item \textbf{Bóveda de datos de tarjeta.}
+  \item \label{dm:card_data} \textbf{Bóveda de datos de tarjeta.}
     Como el dominio pasado, solo aplica a las implementaciones de tokenización
     reversibles. Cubre el cifrado obligado del \gls{gl:pan} y los controles de
     acceso necesarios para entrar a la \gls{gl:cdv}.
 
-  \item \textbf{Manejo criptográfico de llaves.}
+  \item \label{dm:man_llaves} \textbf{Manejo criptográfico de llaves.}
     Define las buenas prácticas para el manejo criptográfico de las llaves y
     las operaciones realizadas con ellas por el producto tokenizador.
 
 \end{enumerate}
 
-Ver requerimeintos \hipervinculo{rq:productos} y \hipervinculo{rq:02}; y
-subrequerimientos \hipervinculo{rq:cripto:ciclo_de_vida} y
-\hipervinculo{rq:15_3}
+% Ver requerimeintos \hipervinculo{rq:productos} y \hipervinculo{rq:02}; y
+% subrequerimientos \hipervinculo{rq:cripto:ciclo_de_vida} y
+% \hipervinculo{rq:15_3}
 
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/irreversibles.tex}
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/criptograficos_reversibles.tex}
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/no_criptograficos_reversibles.tex}
+\input{contenidos/analisis_y_disenio/tokens/requerimientos/observaciones.tex}
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/primitivas.tex}
