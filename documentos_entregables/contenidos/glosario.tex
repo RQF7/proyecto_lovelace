@@ -235,7 +235,7 @@
   plural = primitivas criptográficas,
   description = {
     Algoritmos criptográficos que son usados con frecuencia para la
-    construcción de protocolos de seguridad. En \cite{menezes} (figura 1.1)
+    construcción de protocolos de seguridad. En~\cite{menezes} (figura 1.1)
     se clasifican en tres categorías principales: de llave simétrica, de
     llave pública y sin llave%
   }
@@ -325,6 +325,32 @@
     ocurrencia%
   },
   see=[véase también]{gl:distribucion_probabilidad}
+}
+
+\newglossaryentry{gl:funcion_booleana}
+{
+  name = función booleana,
+  plural = funciones booleanas,
+  description = {
+    Son las funciones que mapean $f$ a un valor del conjunto booleano ${0,1}$ o \textit{verdadero} y \textit{falso}.
+    Formalmente, se define como $f: B^n \rightarrow B$, donde $B={0,1}$
+    y $n$ un entero no negativo que corresponde al número de argumentos,
+    o variables, que necesita la función%
+  },
+  see=[véase también]{gl:funcion}
+}
+
+\newglossaryentry{gl:cifrado_caminata_ciclica}
+{
+  name = cifrado de caminata cíclica,
+  plural = cifrados de caminata cíclica,
+  description = {
+    Método diseñado para cifrar mensajes de un espacio $M$ utilizando un
+    algoritmo de cifrado por bloques que actúa en un espacio
+    $M^\prime \supset M$ y obtener textos cifrados que están en $M$ al cifrar
+    iterativamente hasta que el mensaje cifrado se encuentra en el dominio
+    deseado%
+  }
 }
 
 \glsaddall
