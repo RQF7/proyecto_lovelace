@@ -80,7 +80,7 @@
   % fuera de alcance.
   \subrequerimiento{Verificación de la aleatoriedad}
   {
-    Se debe tener un medio para verificar de forma práctica la aleatorización 
+    Se debe tener un medio para verificar de forma práctica la aleatorización
     de dígitos.
   }
 
@@ -93,8 +93,8 @@
 % diferencia entre guardar el PAN completo y guardar el PAN truncado?
 \requerimiento{Almacenamiento de tokens}
 {
-  Los \glspl{gl:token} generados a partir de un \gls{gl:pan} completo no 
-  deben se ser almacenados en el producto de tokenización ni sistemas 
+  Los \glspl{gl:token} generados a partir de un \gls{gl:pan} completo no
+  deben se ser almacenados en el producto de tokenización ni sistemas
   dependientes.
 }
 
@@ -129,7 +129,7 @@
   % RC4B1 Ciclo de vida de las llaves.
   % Un ISO más... empiezo a extrañar los RFC de la IETF.
   % TODO: incluir sección con resumen del contenido del anexo D.
-  \subrequerimiento{Ciclo de vida de las llaves}
+  \subrequerimiento[rq:cripto:ciclo_de_vida]{Ciclo de vida de las llaves}
   {
     Las llaves para \textit{tokenizar} deben seguir una política de
     ciclo de vida como la descrita en  \acrshort{gl:iso}/\acrshort{gl:iec}

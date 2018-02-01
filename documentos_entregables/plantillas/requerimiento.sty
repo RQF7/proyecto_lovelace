@@ -8,16 +8,17 @@
 \newcounter{contador_subrequerimientos}[chapter]
 
 % Comando para requerimientos.
-% #1 -> Título del requerimiento.
-% #2 -> Descripción.
+% #1 -> etiqueta (opcional).
+% #2 -> Título del requerimiento.
+% #3 -> Descripción.
 % TODO:
 %   - guardar en variable temporal separación inicial entre párrafos.
-%   - Colocar etiquetas para referencias.
 %   - Prefijo según el módulo (tokens, api, tienda).
 %   - Los tamaños de indentación deben tomar como base la identación de
 %     todo el documento.
 
-\newcommand{\requerimiento}[2]
+\newcommand{\requerimiento}[3]
+[rq:\formatearnumero{contador_requerimientos_tokens}]
 {
   % Configuración
   \refstepcounter{contador_requerimientos_tokens}
@@ -27,10 +28,11 @@
   % Código efectivo
   \vspace{1.0em}
   \noindent
-  \textbf{REQUTO-\formatearnumero{contador_requerimientos_tokens} #1.}
+  \textbf{\hypertarget{#1}
+    {REQUTO-\formatearnumero{contador_requerimientos_tokens} #2}.}
   \par
   \begin{hangparas}{2em}{0}
-    #2
+    #3
   \end{hangparas}
 
   % Regresar a estado previo
@@ -38,22 +40,26 @@
 }
 
 % Comando para subrequerimientos.
-% #1 -> Título del subrequerimiento.
-% #2 -> Descripción.
+% #1 -> etiqueta (opcional).
+% #2 -> Título del subrequerimiento.
+% #3 -> Descripción.
 % ATENCIÓN:  Los subrequerimientos siempre deben estar dentro de la
 % descripción de un requerimiento.
 
-\newcommand{\subrequerimiento}[2]
+\newcommand{\subrequerimiento}[3]
+[rq:\formatearnumero{contador_requerimientos_tokens}_%
+  \arabic{contador_subrequerimientos}]
 {
   % Configuración
   \refstepcounter{contador_subrequerimientos}
 
   % Código efectivo
   \vspace{1.0em}
-  \textbf{SUBREQUTO-\formatearnumero{contador_requerimientos_tokens}%
-    /\arabic{contador_subrequerimientos} #1.}
+  \textbf{\hypertarget{#1}
+    {SUBREQUTO-\formatearnumero{contador_requerimientos_tokens}%
+      /\arabic{contador_subrequerimientos} #2}.}
   \par
   \begin{hangparas}{4em}{0}
-    #2
+    #3
   \end{hangparas}
 }

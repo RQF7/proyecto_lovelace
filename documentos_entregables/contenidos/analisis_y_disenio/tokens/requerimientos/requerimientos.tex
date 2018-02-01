@@ -25,9 +25,9 @@ requerimientos que deben tener. Para comenzar, se enlistan los requerimientos
 aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
 
 % GT1 Es específico a productos de hardware.
-\requerimiento{Productos de hardware}
+\requerimiento[rq:productos]{Productos de hardware}
 {
-  Si se usa un producto de hardware para la tokenización, este debe de ser 
+  Si se usa un producto de hardware para la tokenización, este debe de ser
   validado por \gls{gl:fips} 140-2 nivel 3 o superior.
 }
 
@@ -36,7 +36,7 @@ aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
 % GT3 Validación FIPS que debe cumplir el software; fuera de alcance.
 \requerimiento{Productos de software}
 {
-  Si se usa un producto de software para la tokenización, este debe de ser 
+  Si se usa un producto de software para la tokenización, este debe de ser
   validado por \gls{gl:fips} 140-2 nivel 2 o superior.
 }
 
@@ -87,21 +87,21 @@ aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
 % de cualquier forma, es requerimiento de api web.
 \requerimiento{Guía de instalación}
 {
-  Se debe de contar con una guía de instalación y uso, para el correcto 
+  Se debe de contar con una guía de instalación y uso, para el correcto
   funcionamiento de el producto de tokenización.
 }
 
 % GT9 Integridad de ejecutables; fuera de alcance.
 \requerimiento{Integridad del proceso de tokenización}
 {
-  Deben de implementarse mecanismos que garanticen la integridad del proceso 
+  Deben de implementarse mecanismos que garanticen la integridad del proceso
   de generación de \glspl{gl:token}.
 }
 
 % GT10 Autenticación de usuarios; requerimiento de api web.
 \requerimiento{Acceso al proceso de tokenización}
 {
-  Solo los usuarios autenticados y componentes del sistema tienen permitido 
+  Solo los usuarios autenticados y componentes del sistema tienen permitido
   acceder al proceso de tokenización y de-tokenización.
 }
 
@@ -188,6 +188,10 @@ proceso de tokenización:
     las operaciones realizadas con ellas por el producto tokenizador.
 
 \end{enumerate}
+
+Ver requerimeintos \hipervinculo{rq:productos} y \hipervinculo{rq:02}; y
+subrequerimientos \hipervinculo{rq:cripto:ciclo_de_vida} y
+\hipervinculo{rq:15_3}
 
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/irreversibles.tex}
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/criptograficos_reversibles.tex}
