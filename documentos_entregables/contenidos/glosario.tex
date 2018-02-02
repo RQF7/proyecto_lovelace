@@ -32,9 +32,9 @@
 {
   name = ronda,
   description = {
-    Bloque compuesto por un conjunto de operaciones que es ejecutado
-    múltiples veces. Las \textit{rondas} son definidas por el algoritmo de
-    cifrado%
+    (\textit{Round}) Bloque compuesto por un conjunto de operaciones que es
+    ejecutado múltiples veces. Las \textit{rondas} son definidas por el
+    algoritmo de cifrado%
   }
 }
 
@@ -67,10 +67,10 @@
   name = cifrado iterativo,
   plural = cifrados iterativos,
   description = {
-    Cifrado de bloque que involucra la repetición secuencial de
-    una función interna llamada función de \gls{gl:ronda}. Los
-    parámetros incluyen en número de rondas, el tamaño de bloque y
-    el tamaño de llave%
+    (\textit{Iterated block cipher}) Cifrado de bloque que involucra la
+    repetición secuencial de una función interna llamada función de
+    \gls{gl:ronda}. Los parámetros incluyen en número de rondas, el tamaño de
+    bloque y el tamaño de llave%
   },
   see=[véase también]{gl:ronda}
 }
@@ -192,10 +192,10 @@
 {
   name = criptografía fuerte,
   description = {
-    De acuerdo al \gls{gl:pci} \gls{gl:ssc} (en \cite{dss_glosario}), es la
-    criptografía basada en algorítmos probados y aceptados en la industria,
-    junto con longitudes de llaves fuertes y buenas prácticas de
-    administración de llaves%
+    (\textit{Strong cryptography}) De acuerdo al \gls{gl:pci} \gls{gl:ssc}
+    (en~\cite{dss_glosario}), es la criptografía basada en algorítmos probados
+    y aceptados en la industria, junto con longitudes de llaves fuertes y
+    buenas prácticas de administración de llaves%
   }
 }
 
@@ -223,9 +223,9 @@
 {
   name = computacionalmente no factible,
   description = {
-    Se dice que una tarea es \textit{computacionalmente no factible} si su
-    costo (medido en términos de espacio o de tiempo) es finito pero
-    ridículamente grande%
+    (\textit{Computationally infeasible}) Se dice que una tarea es
+    \textit{computacionalmente no factible} si su costo (medido en términos de
+    espacio o de tiempo) es finito pero ridículamente grande%
   }
 }
 
@@ -234,10 +234,10 @@
   name = primitiva criptográfica,
   plural = primitivas criptográficas,
   description = {
-    Algoritmos criptográficos que son usados con frecuencia para la
-    construcción de protocolos de seguridad. En~\cite{menezes} (figura 1.1)
-    se clasifican en tres categorías principales: de llave simétrica, de
-    llave pública y sin llave%
+    (\textit{Cryptographic primitive}) Algoritmos criptográficos que son usados
+    con frecuencia para la construcción de protocolos de seguridad.
+    En~\cite{menezes} se clasifican en tres categorías principales: de llave
+    simétrica, de llave pública y sin llave%
   }
 }
 
@@ -261,7 +261,7 @@
   igual a
   $$ P(E_1 | E_2) = \frac{P(E_1 \cap E_2)}{P(E_2)} $$
   Esto mide la probabilidad de que ocurra $ E_1 $ sabiendo que ya ocurrió
-  $ E_2 $.
+  $ E_2 $%
 }
 
 \newglossaryentry{gl:estidisticamente_independiente}
@@ -282,10 +282,10 @@
 {
   name = oráculo,
   description = {
-    Se refiere a una máquina abstracta utilizada para estudiar problemas de
-    decisión. Puede verse como una máquina de Turing con una caja negra
-    (llamada oráculo) que puede resolver ciertos problemas de decisión u
-    obtener el valor de una función en una sola operación%
+    \textit{Oracle machine} Se refiere a una máquina abstracta utilizada para
+    estudiar problemas de decisión. Puede verse como una máquina de Turing con
+    una caja negra (llamada oráculo) que puede resolver ciertos problemas de
+    decisión u obtener el valor de una función en una sola operación%
   },
   see=[véase también]{gl:maquina_turing}
 }
@@ -295,14 +295,14 @@
   name = máquina de Turing,
   plural = máquinas de Turing,
   description = {
-    Se considera como una cinta infinita dividida en casillas, cada una de las
-    cuales contiene un símbolo. Sobre dicha cinta actúa un dispositivo que
-    puede adoptar distintos estados y que, en cada instante, lee un símbolo de
-    la casilla sobre la que está situado; dependiendo del símbolo leído y del
-    estado en el que se encuentra, la máquina realiza las siguientes tres
-    acciones: primero, pasa a un nuevo estado; segundo, imprime un símbolo en
-    el lugar del que acaba de leer; y, tercero, se desplaza hacia la derecha,
-    hacia la izquierda o se detiene%
+    (\textit{Turing machine}) Se considera como una cinta infinita dividida
+    en casillas, cada una de las cuales contiene un símbolo. Sobre dicha cinta
+    actúa un dispositivo que puede adoptar distintos estados y que, en cada
+    instante, lee un símbolo de la casilla sobre la que está situado;
+    dependiendo del símbolo leído y del estado en el que se encuentra, la
+    máquina realiza las siguientes tres acciones: primero, pasa a un nuevo
+    estado; segundo, imprime un símbolo en el lugar del que acaba de leer;
+    y, tercero, se desplaza hacia la derecha, hacia la izquierda o se detiene%
   }
 }
 
@@ -332,7 +332,8 @@
   name = función booleana,
   plural = funciones booleanas,
   description = {
-    Son las funciones que mapean $f$ a un valor del conjunto booleano ${0,1}$ o \textit{verdadero} y \textit{falso}.
+    Son las funciones que mapean $f$ a un valor del conjunto booleano ${0,1}$ o
+    \textit{verdadero} y \textit{falso}.
     Formalmente, se define como $f: B^n \rightarrow B$, donde $B={0,1}$
     y $n$ un entero no negativo que corresponde al número de argumentos,
     o variables, que necesita la función%
@@ -345,11 +346,11 @@
   name = cifrado de caminata cíclica,
   plural = cifrados de caminata cíclica,
   description = {
-    Método diseñado para cifrar mensajes de un espacio $M$ utilizando un
-    algoritmo de cifrado por bloques que actúa en un espacio
-    $M^\prime \supset M$ y obtener textos cifrados que están en $M$ al cifrar
-    iterativamente hasta que el mensaje cifrado se encuentra en el dominio
-    deseado%
+    (\textit{Cycle-walking cipher}) Método diseñado para cifrar mensajes de un
+    espacio $M$ utilizando un algoritmo de cifrado por bloques que actúa en un
+    espacio $M^\prime \supset M$ y obtener textos cifrados que están en $M$ al
+    cifrar iterativamente hasta que el mensaje cifrado se encuentra en el
+    dominio deseado%
   }
 }
 
