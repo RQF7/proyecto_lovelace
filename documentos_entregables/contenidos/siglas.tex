@@ -3,29 +3,42 @@
 % Proyecto Lovelace.
 %
 
-\newacronym{gl:ecb}{ECB}{Electronic Codebook}
+\setglossarypreamble[siglas_cripto]
+{%
+  \addcontentsline{toc}{section}{Criptográficos}
+}
 
-\newacronym{gl:cbc}{CBC}{Cipher-block Chaining}
+\setglossarypreamble[acronym]
+{%
+  \addcontentsline{toc}{section}{Comunes}
+}
 
-\newacronym{gl:cfb}{CFB}{Cipher Feedback}
+\newacronym[type=siglas_cripto]{gl:ecb}{ECB}{Electronic Codebook}
 
-\newacronym{gl:ofb}{OFB}{Output Feedback}
+\newacronym[type=siglas_cripto]{gl:cbc}{CBC}{Cipher-block Chaining}
 
-\newacronym{gl:des}{DES}{Data Encryption Standard}
+\newacronym[type=siglas_cripto]{gl:cfb}{CFB}{Cipher Feedback}
 
-\newacronym{gl:aes}{AES}{Advanced Encryption Standard}
+\newacronym[type=siglas_cripto]{gl:ofb}{OFB}{Output Feedback}
 
-\newacronym{gl:feal}{FEAL}{Fast Data Encipherment Algorithm}
+\newacronym[type=siglas_cripto]{gl:des}{DES}{Data Encryption Standard}
 
-\newacronym{gl:idea}{IDEA}{International Data Encryption Algorithm}
+\newacronym[type=siglas_cripto]{gl:aes}{AES}{Advanced Encryption Standard}
 
-\newacronym{gl:safer}{SAFER}{Secure And Fast Encryption Routine}
+\newacronym[type=siglas_cripto]{gl:feal}{FEAL}
+  {Fast Data Encipherment Algorithm}
 
-\newacronym{gl:md4}{MD4}{Message Digest 4}
+\newacronym[type=siglas_cripto]{gl:idea}{IDEA}
+  {International Data Encryption Algorithm}
 
-\newacronym{gl:md5}{MD5}{Message Digest 5}
+\newacronym[type=siglas_cripto]{gl:safer}{SAFER}
+  {Secure And Fast Encryption Routine}
 
-\newacronym{gl:sha}{SHA}{Secure Hash Algorithm}
+\newacronym[type=siglas_cripto]{gl:md4}{MD4}{Message Digest 4}
+
+\newacronym[type=siglas_cripto]{gl:md5}{MD5}{Message Digest 5}
+
+\newacronym[type=siglas_cripto]{gl:sha}{SHA}{Secure Hash Algorithm}
 
 \newacronym{gl:nist}{NIST}{
     National Institute of Standards and Technology}
@@ -34,7 +47,8 @@
 
 % Compañía o algoritmo ¿?
 % Por eso no funden compañías con sus nombres...
-\newacronym{gl:rsa}{RSA}{Ron Rivest, Adi Shamir, Leonard Adleman}
+\newacronym[type=siglas_cripto]{gl:rsa}{RSA}
+  {Ron Rivest, Adi Shamir, Leonard Adleman}
 
 \newacronym{gl:tls}{TLS}{Transport Layer Security}
 
@@ -47,13 +61,14 @@
 
 \newacronym{gl:lan}{LAN}{Local Area Network}
 
-\newacronym{gl:mac}{MAC}{Message Authentication Code}
+\newacronym[type=siglas_cripto]{gl:mac}{MAC}{Message Authentication Code}
 
-\newacronym{gl:hmac}{HMAC}{Keyed-Hashed Message Authentication Code}
+\newacronym[type=siglas_cripto]{gl:hmac}{HMAC}
+  {Keyed-Hashed Message Authentication Code}
 
-\newacronym{gl:mdc}{MDC}{Message Digest Cipher}
+\newacronym[type=siglas_cripto]{gl:mdc}{MDC}{Message Digest Cipher}
 
-\newacronym{gl:maa}{MAA}{Message Authenticator Algorithm}
+\newacronym[type=siglas_cripto]{gl:maa}{MAA}{Message Authenticator Algorithm}
 
 \newacronym{gl:fips}{FIPS}{Federal Information Processing Standard}
 
@@ -63,13 +78,14 @@
 \newacronym{gl:nessie}{NESSIE}{
     New European Schemes for Signatures, Integrity and Encryption}
 
-\newacronym{gl:owhf}{OWHF}{One-Way Hash Function}
+\newacronym[type=siglas_cripto]{gl:owhf}{OWHF}{One-Way Hash Function}
 
-\newacronym{gl:crhf}{CRHF}{Collision-Resistant Hash Function}
+\newacronym[type=siglas_cripto]{gl:crhf}{CRHF}
+  {Collision-Resistant Hash Function}
 
 \newacronym{gl:ssl}{SSL}{Secure Sockets Layer}
 
-\newacronym{gl:mdc2}{MDC-2}{Modification Detection Code 2}
+\newacronym[type=siglas_cripto]{gl:mdc2}{MDC-2}{Modification Detection Code 2}
 
 \newacronym{gl:ascii}{ASCII}{
     American Standard Code for Information Interchange}
@@ -85,17 +101,17 @@
 % ... Nuestro único acrónimo en español es el de la RAE.
 \newacronym{gl:rae}{RAE}{Real Academia Española}
 
-\newacronym{gl:ecc}{ECC}{Elliptic Curve Crypthosystem}
+\newacronym[type=siglas_cripto]{gl:ecc}{ECC}{Elliptic Curve Crypthosystem}
 
-\newacronym{gl:dh}{DH}{Diffie-Hellman}
+\newacronym[type=siglas_cripto]{gl:dh}{DH}{Diffie-Hellman}
 
-\newacronym{gl:dsa}{DSA}{Digital Signature Algorithm}
+\newacronym[type=siglas_cripto]{gl:dsa}{DSA}{Digital Signature Algorithm}
 
-\newacronym{gl:tdes}{TDES}{Triple \gls{gl:des}}
+\newacronym[type=siglas_cripto]{gl:tdes}{TDES}{Triple \gls{gl:des}}
 
-\newacronym{gl:ctr}{CTR}{Counter Mode}
+\newacronym[type=siglas_cripto]{gl:ctr}{CTR}{Counter Mode}
 
-\newacronym{gl:ocb}{OCB}{Offset Codebook}
+\newacronym[type=siglas_cripto]{gl:ocb}{OCB}{Offset Codebook}
 
 % ¿FFn? No lo encuentro (búsqueda superficial en duck duck go)
 % \newacronym{gl:ffn}{FFn}{Counther Mode}
@@ -103,20 +119,23 @@
 % No estoy seguro de que la ES realmente sea eso; no lo dicen claramente
 % en ningún lado:
 % http://www.inf.pucrs.br/~calazans/graduate/TPVLSI_I/RSA-oaep_spec.pdf
-\newacronym{gl:rsaes}{RSAES}{\gls{gl:rsa} Encryption Scheme}
+\newacronym[type=siglas_cripto]{gl:rsaes}{RSAES}
+  {\gls{gl:rsa} Encryption Scheme}
 
-\newacronym{gl:oaep}{OAEP}{Optimal Asymmetric Encryption Padding}
+\newacronym[type=siglas_cripto]{gl:oaep}{OAEP}
+  {Optimal Asymmetric Encryption Padding}
 
-\newacronym{gl:ecdh}{ECDH}{Elliptic Curve \gls{gl:dh}}
+\newacronym[type=siglas_cripto]{gl:ecdh}{ECDH}{Elliptic Curve \gls{gl:dh}}
 
-\newacronym{gl:ecmqv}{ECMQV}{Elliptic Curve Menezes-Qu-Vanstone}
+\newacronym[type=siglas_cripto]{gl:ecmqv}{ECMQV}
+  {Elliptic Curve Menezes-Qu-Vanstone}
 
-\newacronym{gl:ecdsa}{ECDSA}{Elliptic Curve \gls{gl:dsa}}
+\newacronym[type=siglas_cripto]{gl:ecdsa}{ECDSA}{Elliptic Curve \gls{gl:dsa}}
 
-\newacronym{gl:ecies}{ECIES}{
+\newacronym[type=siglas_cripto]{gl:ecies}{ECIES}{
   Elliptic Curve Integrated Encryption Scheme}
 
-\newacronym{gl:dhe}{DHE}{\gls{gl:dh} Ephemeral}
+\newacronym[type=siglas_cripto]{gl:dhe}{DHE}{\gls{gl:dh} Ephemeral}
 
 \newacronym{gl:iso}{ISO}{
   International Organization for Standaridization}
@@ -128,6 +147,6 @@
 
 \newacronym{gl:rbacs}{RBACs}{Role-Based Access Controls}
 
-\newacronym{gl:fpe}{FPE}{Format Preserving Encryption}
+\newacronym[type=siglas_cripto]{gl:fpe}{FPE}{Format Preserving Encryption}
 
-\newacronym{gl:trng}{TRNG}{True Random Number Generator}
+\newacronym[type=siglas_cripto]{gl:trng}{TRNG}{True Random Number Generator}

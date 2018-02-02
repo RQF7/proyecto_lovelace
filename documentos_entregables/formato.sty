@@ -63,7 +63,9 @@
 \RequirePackage{listings}
 
 % http://mirrors.ctan.org/macros/latex/contrib/glossaries/glossariesbegin.pdf
-\RequirePackage[acronym, toc]{glossaries}
+\RequirePackage[acronym,
+                section=section
+                ]{glossaries}
 
 % http://mirrors.ctan.org/fonts/amsfonts/doc/amsfndoc.pdf
 \RequirePackage{amsfonts}
@@ -91,12 +93,13 @@
   leftmargin=2em
 }
 
-% http://mirrors.ctan.org/biblio/bibtex/base/btxdoc.pdf
-\RequirePackage[backend=biber,              % Estilo Biblatex
-                style=numeric,              % Etiquetas numéricas
-                sorting=none,               % Ordenado según aparición
-                citestyle=ieee              % Tipo ieee
-                ]{biblatex}                 % Referencias
+% http://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/biblatex.pdf
+\RequirePackage[backend=biber,
+                style=numeric,
+                sorting=none,
+                citestyle=ieee,
+                backref=true
+                ]{biblatex}
 
 % http://mirrors.ctan.org/macros/latex/contrib/geometry/geometry.pdf
 \RequirePackage[letterpaper,                % Tamaño
@@ -178,6 +181,8 @@
   \renewcommand*\tablename{Tabla}
   \renewcommand*\listtablename{Lista de tablas}
   \renewcommand*{\lstlistlistingname}{Lista de pseudocódigos}
+  \renewcommand*{\seename}{véase también}   % En entradas de glosario
+  \renewcommand*{\andname}{y}               % En listas de referencias cruzadas.
 }
 
 % Información de latex
@@ -186,6 +191,7 @@
 \date{\today}
 
 % Archivos de plantillas
+\input{plantillas/unidad_irrompible.sty}
 \input{plantillas/hipervinculo.sty}
 \input{plantillas/formato_numeros.sty}
 \input{plantillas/portada.sty}
@@ -243,5 +249,12 @@
       \string\csname\string\detokenize{#1}\string\endcsname{#2}%
     }%
   }
+
+  % Redefinición de lista de referencias cruzadas para el glosario:
+  % solamente se agrega el punto final.
+  \renewcommand*{\glsseeformat}[3][\seename]{\emph{#1 }\glsseelist{#2}.}
+
+  % Nombres de entradas en glosario con primera letra en mayúscula.
+  \renewcommand{\glsnamefont}[1]{\makefirstuc{#1}}
 
 \makeatother

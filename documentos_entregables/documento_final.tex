@@ -33,31 +33,48 @@
   \input{contenidos/antecedentes/antecedentes.tex}
   \input{contenidos/analisis_y_disenio/analisis_y_disenio.tex}
 
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{Bibliografía}
   \printbibliography[
-    heading=bibintoc,
+    heading=subbibliography,
     title={Bibliografía}
   ]
 
   \glossarystyle{altlist}
   \printglossary[
-    type=main
+    type=main,
+    entrycounter=true
   ]
 
+  \section*{Siglas y acrónimos}
+  \phantomsection
+  \addcontentsline{toc}{chapter}{Siglas y acrónimos}
   \glossarystyle{list}
+  \setglossarysection{subsection}
+
+  \printglossary[
+    type=siglas_cripto,
+    title={Criptográficos}
+  ]
+
   \printglossary[
     type=\acronymtype,
-    title={Siglas y acrónimos}
+    title={Comunes}
   ]
 
   \newpage
+  \phantomsection
   \addcontentsline{toc}{chapter}{\listfigurename}
   \listoffigures
 
   \newpage
+  \phantomsection
   \addcontentsline{toc}{chapter}{\listtablename}
   \listoftables
 
   \newpage
+  \phantomsection
   \addcontentsline{toc}{chapter}{\lstlistlistingname}
   \lstlistoflistings
 

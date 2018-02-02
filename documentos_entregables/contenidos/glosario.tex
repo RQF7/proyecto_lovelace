@@ -5,7 +5,18 @@
 % Más información en https://www.sharelatex.com/learn/Glossaries
 %
 
+\newglossary*{siglas_cripto}{Criptográficos}
+
 \makeglossaries
+
+\setglossarypreamble
+{%
+  \phantomsection%
+  \addcontentsline{toc}{chapter}{Glosario}%
+  Glosario de términos criptográficos y matemáticos. Las principales fuentes
+  bibliográficas usadas son \cite{menezes} y \cite{stallings}; en caso de
+  tratarse de una fuente distinta, se indica en la entrada en particular.
+}
 
 \newglossaryentry{gl:modo_de_operacion}
 {
@@ -23,9 +34,10 @@
   plural = vectores de inicialización,
   description = {
     Cadena de bits de tamaño fijo que sirve como entrada a muchas primitivas
-    criptográficas (e. g. algunos \glspl{gl:modo_de_operacion}). Generalmente
+    criptográficas (e. g. algunos modos de operación). Generalmente
     se requiere que sea generado de forma aleatoria%
-  }
+  },
+  see={gl:modo_de_operacion,gl:primitiva_criptografica}
 }
 
 \newglossaryentry{gl:ronda}
@@ -59,7 +71,8 @@
     original de la creación de un conjunto de datos en un tiempo específico.
     Por definición, la \textit{autenticación de origen} incluye la integridad
     de datos, pues cuando se modifican los datos, se tiene una nueva fuente%
-  }
+  },
+  see={gl:integridad_datos}
 }
 
 \newglossaryentry{gl:cifrado_iterativo}
@@ -68,22 +81,22 @@
   plural = cifrados iterativos,
   description = {
     Cifrado de bloque que involucra la repetición secuencial de
-    una función interna llamada función de \gls{gl:ronda}. Los
+    una función interna llamada función de ronda. Los
     parámetros incluyen en número de rondas, el tamaño de bloque y
     el tamaño de llave%
   },
-  see=[véase también]{gl:ronda}
+  see={gl:ronda}
 }
 
 \newglossaryentry{gl:entropia}
 {
   name = entropía,
   description = {
-    Definida para una \gls{gl:funcion} de probabilidad de distribución discreta,
+    Definida para una funión de probabilidad de distribución discreta,
     mide cuánta información en promedio es requerida para identificar
     muestras aleatorias de esa distribución%
   },
-  see=[véase también]{gl:funcion}
+  see={gl:funcion,gl:distribucion_probabilidad}
 }
 
 \newglossaryentry{gl:preimagen}
@@ -93,9 +106,9 @@
   description = {
     Suponga que se tiene $x \in X$ y $y \in Y$ tal que $f(x) = y$;
     se dice entonces que $x$ es \textit{preimagen} de $y$, o que
-    $y$ es la \gls{gl:imagen} de $x$ bajo $f$%
+    $y$ es la imagen de $x$ bajo $f$%
   },
-  see=[véase también]{gl:imagen}
+  see={gl:imagen,gl:funcion,gl:dominio,gl:codominio}
 }
 
 \newglossaryentry{gl:imagen}
@@ -105,9 +118,9 @@
   description = {
     Suponga que se tiene $x \in X$ y $y \in Y$ tal que $f(x) = y$;
     se dice entonces que $y$ es la \textit{imagen} de $x$ bajo $f$,
-    o que $x$ es \gls{gl:preimagen} de $y$%
+    o que $x$ es preimagen de $y$%
   },
-  see=[véase también]{gl:preimagen}
+  see={gl:preimagen,gl:funcion,gl:dominio,gl:codominio}
 }
 
 \newglossaryentry{gl:biyeccion}
@@ -115,59 +128,59 @@
   name = biyección,
   plural = biyecciones,
   description = {
-    Dicho de las funciones que son \glspl{gl:inyectiva} y
-    \glspl{gl:suprayectiva} al mismo tiempo; en otras palabras, que todos los
+    Dicho de las funciones que son inyectivas y
+    suprayectivas al mismo tiempo; en otras palabras, que todos los
     elementos del conjunto de salida tengan una imagen distinta en el conjunto
     de llegada y a cada elemento del conjunto de llegada le corresponde
     un elemento del conjunto de salida%
   },
-  see=[véase también]{gl:funcion}
+  see={gl:inyectiva,gl:suprayectiva,gl:funcion,gl:imagen}
 }
 
 \newglossaryentry{gl:inyectiva}
 {
   name = inyectiva,
   description = {
-    Una \gls{gl:funcion} $f:D_f \rightarrow C_f$ es \textit{inyectiva} (o uno a
-    uno) si a diferentes elementos del \gls{gl:dominio} le corresponden
+    Una función $f:D_f \rightarrow C_f$ es \textit{inyectiva} (o uno a
+    uno) si a diferentes elementos del dominio le corresponden
     diferentes elementos del codominio; se cumple para dos
     valores cualesquiera $x_1, x_2 \in D_f$ que
     $x_1 \neq x_2 \implies f(x_1) \neq f(x_2)$%
   },
-  see=[véase también]{gl:funcion}
+  see={gl:funcion,gl:dominio,gl:codominio,gl:biyeccion,gl:suprayectiva}
 }
 
 \newglossaryentry{gl:suprayectiva}
 {
   name = suprayectiva,
   description = {
-    Una \gls{gl:funcion} $f:D_f \rightarrow C_f$ es \textit{suprayectiva} si
-    todo elemento de su codominio $C_f$ es \gls{gl:imagen} de
-    por lo menos un elemento de su \gls{gl:dominio} $D_f$: $\forall b \in C_f$
+    Una función $f:D_f \rightarrow C_f$ es \textit{suprayectiva} si
+    todo elemento de su codominio $C_f$ es imagen de
+    por lo menos un elemento de su dominio $D_f$: $\forall b \in C_f$
     $\exists a \in D_f$ tal que $f(a)=b$%
   },
-  see=[véase también]{gl:funcion}
+  see={gl:funcion,gl:dominio,gl:codominio,gl:imagen,gl:biyeccion,gl:inyectiva}
 }
 
 \newglossaryentry{gl:dominio}
 {
   name = dominio,
   description = {
-    El \textit{dominio} de una \gls{gl:funcion} $f(x)$ es el conjunto de
-    valores para los cuales la \gls{gl:funcion} está definida%
+    El \textit{dominio} de una función $f(x)$ es el conjunto de
+    valores para los cuales la función está definida%
   },
-  see=[véase también]{gl:funcion}
+  see={gl:funcion,gl:codominio}
 }
 
 \newglossaryentry{gl:codominio}
 {
   name = codominio,
   description = {
-    Una \gls{gl:funcion} mapea a los elementos de un conjunto $A$ con elementos
-    de un conjunto $B$; $A$ es el \gls{gl:dominio} y $B$ es el
+    Una función mapea a los elementos de un conjunto $A$ con elementos
+    de un conjunto $B$; $A$ es el dominio y $B$ es el
     \textit{codominio}%
   },
-  see=[véase también]{gl:funcion}
+  see={gl:funcion,gl:dominio}
 }
 
 \newglossaryentry{gl:funcion}
@@ -177,7 +190,8 @@
   description = {
     Regla entre dos conjuntos $A$ y $B$ de manera que a cada elemento del
     conjunto $A$ le corresponda un único elemento del conjunto $B$%
-  }
+  },
+  see={gl:codominio,gl:dominio}
 }
 
 \newglossaryentry{gl:token}
@@ -213,10 +227,10 @@
   plural = permutaciones,
   description = {
     Sea $ S $ un conjunto finito de elementos. Una \textit{permutación} $ p $
-    en $ S $ es una \gls{gl:biyeccion} de $ S $ a sí misma (i. e.
+    en $ S $ es una biyección de $ S $ a sí misma (i. e.
     $ p: S \rightarrow S $)%
   },
-  see=[véase también]{gl:biyeccion}
+  see={gl:biyeccion}
 }
 
 \newglossaryentry{gl:computacionalmente_no_factible}
@@ -235,7 +249,7 @@
   plural = primitivas criptográficas,
   description = {
     Algoritmos criptográficos que son usados con frecuencia para la
-    construcción de protocolos de seguridad. En~\cite{menezes} (figura 1.1)
+    construcción de protocolos de seguridad. En \cite{menezes}
     se clasifican en tres categorías principales: de llave simétrica, de
     llave pública y sin llave%
   }
@@ -275,7 +289,7 @@
     $ P(E_2 | E_1) = P(E_2) $, es decir, la ocurrencia de uno no tiene ninguna
     influencia en las probabilidades de ocurrencia del otro%
   },
-  see=[véase también]{gl:probabilidad_condicional}
+  see={gl:probabilidad_condicional}
 }
 
 \newglossaryentry{gl:oraculo}
@@ -284,10 +298,10 @@
   description = {
     Se refiere a una máquina abstracta utilizada para estudiar problemas de
     decisión. Puede verse como una máquina de Turing con una caja negra
-    (llamada oráculo) que puede resolver ciertos problemas de decisión u
-    obtener el valor de una función en una sola operación%
+    (llamada \textit{oráculo}) que puede resolver ciertos problemas de
+    decisión u obtener el valor de una función en una sola operación%
   },
-  see=[véase también]{gl:maquina_turing}
+  see={gl:maquina_turing}
 }
 
 \newglossaryentry{gl:maquina_turing}
@@ -324,7 +338,7 @@
     Distribución de probabilidad en la que todos los elementos tienen la misma
     ocurrencia%
   },
-  see=[véase también]{gl:distribucion_probabilidad}
+  see={gl:distribucion_probabilidad}
 }
 
 \newglossaryentry{gl:funcion_booleana}
@@ -337,7 +351,7 @@
     y $n$ un entero no negativo que corresponde al número de argumentos,
     o variables, que necesita la función%
   },
-  see=[véase también]{gl:funcion}
+  see={gl:funcion}
 }
 
 \newglossaryentry{gl:cifrado_caminata_ciclica}

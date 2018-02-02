@@ -27,13 +27,15 @@
 
   % Código efectivo
   \vspace{1.0em}
-  \noindent
-  \textbf{\hypertarget{#1}
-    {REQUTO-\formatearnumero{contador_requerimientos_tokens} #2}.}
-  \par
-  \begin{hangparas}{2em}{0}
-    #3
-  \end{hangparas}
+  \begin{unidadirrompible}
+    \noindent
+    \textbf{\hypertarget{#1}
+      {REQUTO-\formatearnumero{contador_requerimientos_tokens} #2}.}
+    \par
+    \begin{hangparas}{2em}{0}
+      #3
+    \end{hangparas}
+  \end{unidadirrompible}
 
   % Regresar a estado previo
   \setlength{\parskip}{1.0em}
