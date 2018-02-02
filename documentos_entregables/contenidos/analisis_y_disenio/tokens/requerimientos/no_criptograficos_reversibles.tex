@@ -122,3 +122,44 @@
   el \gls{gl:nist} SP 800-57, el \acrshort{gl:iso}/\acrshort{gl:iec}
   11770 o el \gls{gl:nist} SP 800-130.
 }
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{| p{5.5cm} | p{2cm} | p{4cm} | p{4cm} |}
+
+    \hline
+      \textbf{Requerimiento}    &
+      \textbf{PCI}              &
+      \textbf{Clasificación}    &
+      \textbf{Observación}     \\ [0.8ex]
+    \hline
+
+    REQUTO-22 Generación y almacenamiento de tokens.  
+    &  RN 1A    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-23/1 Distribución equiprobable.  
+    &  RN 1B-1  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-23/2 Permutaciones aleatorias.  
+    &  RN 1B-2  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-23/3 Parámetros de tokenización.  
+    &  RN 1B-3  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-23/4 Reflejo de cambios.  
+    &  RN 1B-4  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  -                \\ \hline
+    REQUTO-24 Distribución imparcial.  
+    &  RN 1C    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    REQUTO-25 Instancias probabilísticamente independientes.  
+    &  RN 1D    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
+    SUBREQUTO-26/1 Asignación probabilísticamente independiente.  
+    &  RN 2A-1  &  \hyperref[dm:mapeo_tokens]{Mapeo de tokens}                 &  -                \\ \hline
+    REQUTO-27 Controles de acceso basados en roles.  
+    &  RN 2B    &  \hyperref[dm:card_data]{Bóveda de datos de tarjeta}         &  Fuera de alcance \\ \hline
+    REQUTO-28 Cifrado de la base de datos.  
+    &  RN 3A    &  \hyperref[dm:card_data]{Bóveda de datos de tarjeta}         &  Aplicable        \\ \hline
+    REQUTO-29 Seguridad de la administración de llaves.  
+    &  RN 4A    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
+    REQUTO-30 Administración de llaves de acuerdo al estándar.  
+    &  RN 4B    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
+
+  \end{tabular}
+  \caption{Requerimientos para tokens no criptográficos reversibles.}
+\end{table}
+
