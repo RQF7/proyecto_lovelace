@@ -193,8 +193,50 @@ proceso de tokenización:
 % subrequerimientos \hipervinculo{rq:cripto:ciclo_de_vida} y
 % \hipervinculo{rq:15_3}
 
+\subsubsection{Observaciones}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{| p{5.5cm} | p{2cm} | p{4cm} | p{4cm} |}
+
+    \hline
+      \textbf{Requerimiento}    &
+      \textbf{PCI}              &
+      \textbf{Clasificación}    &
+      \textbf{Observación}     \\ [0.8ex]
+    \hline
+
+    REQUTO-01 Productos de hardware.  
+    &  GT1   &  General  &  Fuera de alcance      \\ \hline
+    REQUTO-02 Productos de software.  
+    &  GT3   &  General  &  Fuera de alcance      \\ \hline
+    REQUTO-03 Resistencia a texto claro conocido.  
+    &  GT4   &  General  &  Aplicable             \\ \hline
+    REQUTO-04 Resistencia a sólo texto cifrado.  
+    &  GT5   &  General  &  -                     \\ \hline
+    REQUTO-05 Detección de anomalías.  
+    &  GT6   &  General  &  Aplicable             \\ \hline
+    REQUTO-06 Distinción entre tokens y PAN.  
+    &  GT7   &  General  &  Aplicable             \\ \hline
+    REQUTO-07 Guía de instalación.  
+    &  GT8   &  General  &  Aplicable             \\ \hline
+    REQUTO-08 Integridad del proceso de tokenización.  
+    &  GT9   &  General  &  Fuera de alcance      \\ \hline
+    REQUTO-09 Acceso al proceso de tokenización.  
+    &  GT10  &  General  &  Aplicable             \\ \hline
+    REQUTO-10 Mapeos de token a token prohibidos.  
+    &  GT11  &  General  &  -                     \\ \hline
+    REQUTO-11 Protección contra vulnerabilidades comunes.  
+    &  GT12  &  General  &  Aplicable             \\ \hline
+    REQUTO-12 Primitivas criptográficas usadas.  
+    &  GT13  &  General  &  Aplicable             \\ \hline
+
+  \end{tabular}
+  \caption{Requerimientos Generales.}
+\end{table}
+
+
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/irreversibles.tex}
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/criptograficos_reversibles.tex}
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/no_criptograficos_reversibles.tex}
-\input{contenidos/analisis_y_disenio/tokens/requerimientos/observaciones.tex}
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/primitivas.tex}
