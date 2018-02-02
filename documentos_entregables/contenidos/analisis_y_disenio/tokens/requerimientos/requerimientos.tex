@@ -23,26 +23,30 @@ irreversibles se dividen en autenticables y no autenticables (figura
 
 En esta sección se explica cada una de las categorías y se analizan los
 requerimientos que deben tener. Para comenzar, se enlistan los requerimientos
-aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
+aplicables a todos los \glspl{gl:token}, sin importar su categoría:
 
-% GT1 Es específico a productos de hardware.
-\requerimiento[rq:productos]{Productos de hardware}
+% GT1
+\requerimiento[rq_pci:productos_de_hardware]
+{Validación de productos de hardware}
 {
   Si se usa un producto de hardware para la tokenización, este debe de ser
-  validado por \gls{gl:fips} 140-2 nivel 3 o superior.
+  validado por \gls{gl:fips} 140-2 nivel 3 o superior (descrito en
+  \cite{nist_modulos_criptograficos}).
 }
 
 % GT2 se lo chutaron.
-
-% GT3 Validación FIPS que debe cumplir el software; fuera de alcance.
-\requerimiento{Productos de software}
+% GT3
+\requerimiento[rq_pci:productos_de_software]
+{Validación de productos de software}
 {
   Si se usa un producto de software para la tokenización, este debe de ser
-  validado por \gls{gl:fips} 140-2 nivel 2 o superior.
+  validado por \gls{gl:fips} 140-2 nivel 2 o superior (descrito en
+  \cite{nist_modulos_criptograficos}).
 }
 
 % GT4
-\requerimiento{Resistencia a texto claro conocido}
+\requerimiento[rq_pci:resistencia_texto_claro_conocido]
+{Resistencia a texto claro conocido}
 {
   Un atacante con acceso a múltiples pares de \glspl{gl:token} y
   \gls{gl:pan} no debe de ser capaz de determinar otros \gls{gl:pan} a partir
@@ -58,7 +62,8 @@ aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
 % a GT4 con una disyunción.
 % Creo que ya había leído esto mismo en alguno de los artículos que nos pasó
 % Sandra.
-\requerimiento{Resistencia a sólo texto cifrado}
+\requerimiento[rq_pci:resistencia_solo_texto_cifrado]
+{Resistencia a sólo texto cifrado}
 {
   Recuperar un \gls{gl:pan} a partir de un \gls{gl:token} debe de ser
   \gls{gl:computacionalmente_no_factible} (resistencia a ataques con sólo
@@ -66,8 +71,8 @@ aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
 }
 
 % GT6
-% ¿Requerimiento de API web?
-\requerimiento{Detección de anomalías}
+\requerimiento[rq_pci:deteccion_anomalias]
+{Detección de anomalías}
 {
   Se deben de implementar disparadores que permitan detectar
   irregularidades en el sistema (anomalías, funcionamientos erróneos,
@@ -76,7 +81,8 @@ aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
 }
 
 % GT7
-\requerimiento{Distinción entre \glspl{gl:token} y \gls{gl:pan}}
+\requerimiento[rq_pci:distincion_token_pan]
+{Distinción entre \glspl{gl:token} y \gls{gl:pan}}
 {
   Se debe contar con un mecanismo para distinguir entre \glspl{gl:token}
   y \gls{gl:pan}. Los proveedores del servicio de tokenización deben
@@ -84,30 +90,80 @@ aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
   \glspl{gl:token}.
 }
 
-% GT8 Guía de instalación; fuera de alcance. ¿Documentación de API web?
-% de cualquier forma, es requerimiento de api web.
-\requerimiento{Guía de instalación}
+% GT8
+\requerimiento[rq_pci:guia_de_instalacion]
+{Guía de instalación}
 {
   Se debe de contar con una guía de instalación y uso para el correcto
-  funcionamiento de el producto de tokenización.
+  funcionamiento del producto de tokenización.
 }
 
-% GT9 Integridad de ejecutables; fuera de alcance.
-\requerimiento{Integridad del proceso de tokenización}
+% GT9
+\requerimiento[rq_pci:integridad_ejecutables]
+{Integridad del proceso de tokenización}
 {
   Deben de implementarse mecanismos que garanticen la integridad del proceso
   de generación de \glspl{gl:token}.
 }
 
-% GT10 Autenticación de usuarios; requerimiento de api web.
-\requerimiento{Acceso al proceso de tokenización}
+% GT10
+\requerimiento[rq_pci:acceso_a_producto]
+{Acceso al proceso de tokenización}
 {
   Solo los usuarios autenticados y componentes del sistema tienen permitido
-  acceder al proceso de tokenización y de-tokenización.
+  acceder al proceso de tokenización y de-tokenización. Los métodos utilizados
+  deben ser al menos tan rigurosos como lo indicado en el requerimiento 8 del
+  \gls{gl:pci} \gls{gl:dss} \cite{pci_dss}.
+
+  % GT10.1
+  \subrequerimiento[rq_pci:control_de_peticiones]
+  {Control de peticiones}
+  {
+    Todas las peticiones deben pasar a través de una \gls{gl:api} que controle
+    todos los intentos de acceso y aplique de manera uniforma reglas de
+    control de acceso.
+  }
+
+  % GT10.2
+  \subrequerimiento[rq_pci:registros_de_acceso]
+  {Registros de acceso}
+  {
+    Se deben registrar todos los eventos de acceso, de tokenización y
+    de detokenización. Esta funcionalidad debe ser configurable de manera
+    segura. Para esto se debe seguir el requerimiento 4 del
+    \gls{gl:pa}-\gls{gl:dss} \cite{dss_pa}.
+  }
+
+  % GT10.3
+  \subrequerimiento[rq_pci:autenticacion_multifactor]
+  {\gls{gl:autenticacion_multifactor}}
+  {
+    El sistema debe soportar \gls{gl:autenticacion_multifactor} para todos
+    los tipos de usuario: accesos administrativos, operaciones de tokenización
+    y detokenización, mantenimiento, etcétera.
+  }
+
+  % GT10.4
+  \subrequerimiento[rq_pci:acceso_de_sistema]
+  {Accesos a nivel de sistema}
+  {
+    Todos los accesos a nivel de sistema deben soportar
+    \gls{gl:autenticacion_mutua}, incluyendo a las peticiones de tokenización
+    y detokenización.
+  }
+
+  % GT10.5
+  \subrequerimiento[rq_pci:acceso_administrativo]
+  {Accesos administrativos}
+  {
+    Se debe utilizar \gls{gl:criptografia_fuerte} para todos los accesos
+    administrativos que no se hagan desde consola.
+  }
 }
 
 % GT11
-\requerimiento{Mapeos de \gls{gl:token} a \gls{gl:token} prohibidos}
+\requerimiento[rq_pci:token_a_token_prohibido]
+{Mapeos de \gls{gl:token} a \gls{gl:token} prohibidos}
 {
   No se debe poder pasar de un primer \gls{gl:token} válido a un segundo,
   también válido; forzosamente debe existir un estado intermedio: del primer
@@ -116,7 +172,8 @@ aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
 }
 
 % GT12
-\requerimiento{Protección contra vulnerabilidades comunes}
+\requerimiento[rq_pci:vulnerabilidades_comunes]
+{Protección contra vulnerabilidades comunes}
 {
   Se deben implementar medidas en contra de las vulnerabilidades de
   seguridad más comunes (\cite{dss_pa}, requerimiento 5.2). Algunas de estas
@@ -124,15 +181,107 @@ aplicables a todos los \glspl{gl:token}, sin importar en qué categoría estén:
   o el uso de lenguajes de programación especializados.
 }
 
-% GT13 Primitivas criptográficas usadas
-% También se habla sobre un documento de validación estadísitca; fuera de
-% alcance.
-\requerimiento{Primitivas criptográficas usadas}
+% GT13 Primitivas criptográficas usadas.
+\requerimiento[rq_pci:primitivas_usadas]
+{Primitivas criptográficas usadas}
 {
   Las primitivas criptográficas que se usen deben estar basadas en
-  estándares nacionales (Estados Unidos) o internacionales (e. g.
-  \gls{gl:aes}).
+  estándares nacionales (referentes a Estados Unidos) o internacionales (e. g.
+  \gls{gl:aes}). Ver sección \ref{sec:primitivas}.
 }
+
+En la tabla \ref{resumen_general} se clasifican los requerimientos presentados
+hasta ahora. Las categorías posibles son: \textit{aplicables}, \textit{no
+aplicables} y \textit{fuera de alcance}. Los \textit{aplicables} son aquellos
+que  se  encuentran dentro del alcance de este trabajo y que, por lo tanto, son
+adoptados como requerimientos propios. Los \textit{fuera de alcance} se dejan
+fuera por están más allá de las posibilidades de este trabajo.
+
+Los requerimientos, \hipervinculo{rq_pci:productos_de_hardware},
+\hipervinculo{rq_pci:productos_de_software},
+\hipervinculo{rq_pci:acceso_a_producto} son referentes al cumplimiento
+de distintos estándares y recomendaciones (principalmente del \gls{gl:nist});
+en la sección \ref{sec:estandares} se resume el contenido de cada uno de
+estos.
+
+\begin{table}
+  \centering
+  \begin{tabular}{| c | c | c |}
+
+    \hline
+      \textbf{Requerimiento} &
+      \textbf{\gls{gl:pci}} &
+      \textbf{Clasificación} \\
+    \hline
+
+    \hipervinculo{rq_pci:productos_de_hardware} &
+    GT1 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:productos_de_software} &
+    GT3 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:resistencia_texto_claro_conocido} &
+    GT4 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:resistencia_solo_texto_cifrado} &
+    GT5 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:deteccion_anomalias} &
+    GT6 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:distincion_token_pan} &
+    GT7 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:guia_de_instalacion} &
+    GT8 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:integridad_ejecutables} &
+    GT9 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:control_de_peticiones} &
+    GT10.1 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:registros_de_acceso} &
+    GT10.2 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:autenticacion_multifactor} &
+    GT10.3 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:acceso_de_sistema} &
+    GT10.4 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:acceso_administrativo} &
+    GT10.5 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:token_a_token_prohibido} &
+    GT11 &
+    - \\\hline
+
+    \hipervinculo{rq_pci:vulnerabilidades_comunes} &
+    GT12 &
+    Aplicable \\\hline
+
+    \hipervinculo{rq_pci:primitivas_usadas} &
+    GT13 &
+    Aplicable \\\hline
+
+  \end{tabular}
+  \caption{Resumen de requerimientos generales.}
+  \label{resumen_general}
+\end{table}
 
 Los \glspl{gl:token} irreversibles no pueden, bajo ninguna circunstancia, ser
 reconvertidos al \gls{gl:pan} original. Esta restricción aplica tanto para
@@ -189,52 +338,6 @@ proceso de tokenización:
     las operaciones realizadas con ellas por el producto tokenizador.
 
 \end{enumerate}
-
-% Ver requerimeintos \hipervinculo{rq:productos} y \hipervinculo{rq:02}; y
-% subrequerimientos \hipervinculo{rq:cripto:ciclo_de_vida} y
-% \hipervinculo{rq:15_3}
-
-\subsubsection{Observaciones}
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{| p{5.5cm} | p{2cm} | p{4cm} | p{4cm} |}
-
-    \hline
-      \textbf{Requerimiento}    &
-      \textbf{PCI}              &
-      \textbf{Clasificación}    &
-      \textbf{Observación}     \\ [0.8ex]
-    \hline
-
-    REQUTO-01 Productos de hardware.
-    &  GT1   &  General  &  Fuera de alcance      \\ \hline
-    REQUTO-02 Productos de software.
-    &  GT3   &  General  &  Fuera de alcance      \\ \hline
-    REQUTO-03 Resistencia a texto claro conocido.
-    &  GT4   &  General  &  Aplicable             \\ \hline
-    REQUTO-04 Resistencia a sólo texto cifrado.
-    &  GT5   &  General  &  -                     \\ \hline
-    REQUTO-05 Detección de anomalías.
-    &  GT6   &  General  &  Aplicable             \\ \hline
-    REQUTO-06 Distinción entre tokens y PAN.
-    &  GT7   &  General  &  Aplicable             \\ \hline
-    REQUTO-07 Guía de instalación.
-    &  GT8   &  General  &  Aplicable             \\ \hline
-    REQUTO-08 Integridad del proceso de tokenización.
-    &  GT9   &  General  &  Fuera de alcance      \\ \hline
-    REQUTO-09 Acceso al proceso de tokenización.
-    &  GT10  &  General  &  Aplicable             \\ \hline
-    REQUTO-10 Mapeos de token a token prohibidos.
-    &  GT11  &  General  &  -                     \\ \hline
-    REQUTO-11 Protección contra vulnerabilidades comunes.
-    &  GT12  &  General  &  Aplicable             \\ \hline
-    REQUTO-12 Primitivas criptográficas usadas.
-    &  GT13  &  General  &  Aplicable             \\ \hline
-
-  \end{tabular}
-  \caption{Requerimientos Generales.}
-\end{table}
 
 
 \input{contenidos/analisis_y_disenio/tokens/requerimientos/irreversibles.tex}
