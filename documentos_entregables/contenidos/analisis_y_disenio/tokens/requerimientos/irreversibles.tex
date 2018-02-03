@@ -7,107 +7,60 @@
 \subsubsection{Irreversibles}
 
 % IT1A
-\requerimiento{Sobre la generación de \glspl{gl:token}}
+\requerimiento{Sobre la generación de \glspl{gl:token} (irreversibles)}
 {
   El mecanismo utilizado para la generación de los \glspl{gl:token}
   no es reversible (o improbable).
 
   % IT1A-1
-  \subrequerimiento{Sobre el mecanismo generador}
+  \subrequerimiento[rq_pci:ir_mecanismo_generador]
+  {Sobre el mecanismo generador (irreversibles)}
   {
     El proceso para crear \glspl{gl:token} clasificado como irreversible
-    debe asegurar que el mecanismo, proceso o algoritmo utilizado para 
+    debe asegurar que el mecanismo, proceso o algoritmo utilizado para
     crear el \gls{gl:token} no sea reversible. Si una función hash (véase
-    sección \ref{sec:hash}) es utilizada, esta debe ser una 
+    sección \ref{sec:hash}) es utilizada, esta debe ser una
     \gls{gl:primitiva_criptografica} y utilizar una llave secreta $k$ tal que
     el mero conocimiento de la función hash no permita la creación de un
     \gls{gl:oraculo}.
   }
 
   % IT1A-2
-  \subrequerimiento{Contenido en claro}
+  \subrequerimiento[rq_pci:ir_contenido_en_claro]
+  {Contenido en claro (irreversibles)}
   {
-    Los \glspl{gl:token} no deben contener dígitos en claro del \gls{gl:pan}
-    original, excepto que estos dígitos sean una coincidencia.
+    Los \glspl{gl:token} irreversibles no deben contener dígitos en claro del
+    \gls{gl:pan} original, excepto que estos dígitos sean una coincidencia.
   }
 
   % IT1A-3
-  \subrequerimiento{Creación de un diccionario}
+  \subrequerimiento[rq_pci:ir_diccionario_imposible]
+  {Creación de un diccionario (irreversibles)}
   {
     La creación de una tabla o \textit{diccionario} de \glspl{gl:token}
-    estáticos debería ser imposible, o, al menos, al punto de satisfacer
-    que la probabilidad de predecir correctamente el \gls{gl:pan} debería ser 
-    menor que $\frac{1}{10^6}$.
+    estáticos debería ser imposible, o, al menos, al punto de satisfacer que
+    la probabilidad de predecir correctamente el \gls{gl:pan} sea menor que
+    $\frac{1}{10^6}$.
   }
 
   % IT1A-4
-  \subrequerimiento{Sobre el proceso de autenticación}
+  \subrequerimiento[rq_pci:ir_busqueda_exhaustiva]
+  {Sobre el proceso de autenticación (irreversibles)}
   {
-    Si un \gls{gl:token} autenticable no reversible es utilizado, el
-    proceso de autenticación no debe revelar información suficiente para
-    realizar búsquedas, excepto una exhaustiva (\gls{gl:pan} por 
-    \gls{gl:pan}) y se deben implementar controles para detectar estas
-    últimas.
+    En el caso de los \glspl{gl:token} autenticables, el proceso de
+    autenticación no debe revelar información suficiente para realizar
+    búsquedas, excepto una exhaustiva (\gls{gl:pan} por \gls{gl:pan}) y se
+    deben implementar controles para detectar estas últimas.
   }
 }
 
-% IT4A
-\requerimiento{Sobre el manejo adecuado de llaves}
-{
-  Se deben seguir las buenas prácticas criptográficas respecto a la
-  administración de llaves.
-  
-  % IT4A-1
-  \subrequerimiento{Sobre el ciclo de vida}
-  {
-    La llave tokenizadora debe seguir la política de los ciclos de llaves
-    descritos en el \acrshort{gl:iso}/\acrshort{gl:iec} 115681.
-  }
-
-  % IT4A-2
-  \subrequerimiento{Descripción del periodo criptográfico activo}
-  {
-    La política sobre el tiempo de vida de la llave debe incluir una 
-    descripción sobre el periodo criptográfico activo de la llave 
-    tokenizadora en cuestión.
-  }
-
-  % IT4A-3
-  \subrequerimiento{Sobre la destrucción de las llaves}
-  {
-   	El proveeddor debe incorporar una función que permita la destrucción
-   	de sus llaves criptográficas sin tener que alterar o abrir el
-   	dispositivo.  
-  }
-}
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{| p{5.5cm} | p{2cm} | p{4cm} | p{4cm} |}
-
-    \hline
-      \textbf{Requerimiento}    &
-      \textbf{PCI}              &
-      \textbf{Clasificación}    &
-      \textbf{Observación}     \\ [0.8ex]
-    \hline
-
-    SUBREQUTO-13/1 Sobre el mecanismo generador.  
-    &  IT 1A-1  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-13/2 Contenido en claro.  
-    &  IT 1A-2  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-13/3 Creación de un diccionario.  
-    &  IT 1A-3  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-13/4 Sobre el proceso de autenticación.  
-    &  IT 1A-4  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-14/1 Sobre el ciclo de vida.  
-    &  IT 4A-1  &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
-    SUBREQUTO-14/2 Descripción del periodo criptográfico activo.  
-    &  IT 4A-2  &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
-    SUBREQUTO-14/3 Sobre la destrucción de las llaves.  
-    &  IT 4A-3  &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  -                \\ \hline
-
-  \end{tabular}
-  \caption{Requerimientos para tokens irreversibles.}
-\end{table}
-
+%En la tabla \ref{resumen_irreversibles} se clasifican los requerimientos
+%que en el documento del \gls{gl:pci} \gls{gl:ssc} \cite{pci_tokens} están
+%catalogados como irreversibles. En la lista de este documento se procura no
+%hacer tal división, para evitar las repeticiones en exceso que \cite{pci_tokens}
+%manifiesta en algunas ocasiones. Por ejemplo, el requerimiento
+%\cite{rq_pci:manejo_de_llaves} es aplicable tanto a los irreversibles como a
+%los reversibles criptográficos (y de hecho también a los no criptográficos, dado
+%que ahí también se ocupan llaves en la mayoría de los casos), sin embargo,
+%en las recomendaciones de \gls{gl:pci} \gls{gl:ssc} se manejan dos versiones
+%de lo mismo.

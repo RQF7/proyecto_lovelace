@@ -6,43 +6,16 @@
 
 \subsubsection{Criptográficos reversibles}
 
-% RC1A
-\requerimiento{Seguridad de la administración de llaves}
-{
-  la administración de las llaves criptográficas debe ser segura.
-
-  % RC1A-1
-  \subrequerimiento{Exportar llave en claro prohibido}
-  {
-    Las llaves usadas para generar \glspl{gl:token} no se deben poder
-    exportar en claro desde el programa.
-  }
-
-  % RC1A-2
-  % TODO: ¿Cómo funciona la entropía de una fuente generadora?
-  \subrequerimiento{Entropía de generación de llaves}
-  {
-    La fuente generadora de llaves debe tener, al menos, 128 bits de
-    \gls{gl:entropia}.
-  }
-
-  % RC1A-3
-  \subrequerimiento{Llaves de uso único}
-  {
-    Las llaves criptográficas usadas para generar \glspl{gl:token} no
-    deben ser usadas para ningún otro fin.
-  }
-}
-
 % RC1B
-% TODO: el documento explica porque esta cantidad; aún no lo entiendo.
-\requerimiento{Probabilidad de adivinar relaciones}
+% TODO: el documento explica por qué esta cantidad; aún no lo entiendo.
+\requerimiento{Probabilidad de adivinar relaciones (criptográficos)}
 {
   La probabilidad de adivinar la relación entre un \gls{gl:token} y un
   \gls{gl:pan} debe de ser menor que $ 1 $ en $ 10^6 $.
 
-  % RC1B-1 (relacionado con RC1A-2, creo)
-  \subrequerimiento{Distribución uniforme}
+  % RC1B-1
+  \subrequerimiento[rq_pci:cr_distribucion_uniforme]
+  {Distribución uniforme (criptográficos)}
   {
     Para un \gls{gl:pan} dado, todos los \glspl{gl:token} deben ser
     equiprobables; esto es, el mecanismo tokenizador no debe exhibir
@@ -54,7 +27,8 @@
   % «permutación aleatoria fuerte»?
   % Si el mapeo es entre dos espacios distintos... ya no se llama
   % permutación, ¿o sí?
-  \subrequerimiento{Permutación aleatoria}
+  \subrequerimiento[rq_pci:cr_permutacion_aleatoria]
+  {Permutación aleatoria (criptográficos)}
   {
     El método de tokenización debe actuar como una familia de
     \glspl{gl:permutacion} aleatoria desde el espacio de \gls{gl:pan} al
@@ -62,26 +36,28 @@
   }
 
   % RC1B-3
-  \subrequerimiento{Cambio de llave}
+  \subrequerimiento[rq_pci:cr_cambio_de_llave]
+  {Cambio de llave (criptográficos)}
   {
     Un cambio en la llave se debe ver reflejado en un cambio en el
     \gls{gl:token} resultado.
   }
 
   % RC1B-4
-  \subrequerimiento{Cambio de \gls{gl:pan}}
+  \subrequerimiento[rq_pci:cr_cambio_de_pan]
+  {Cambio de \gls{gl:pan} (criptográficos)}
   {
     Un cambio en el \gls{gl:pan} se debe ver reflejado en un cambio en el
     \gls{gl:token} resultado.
   }
 
-  % RC1B-5 Aleatoriedad de dígitos, se debe validar que se sigue la
-  % recomendación del NIST para los generadores de números pseudoaleatorios;
-  % fuera de alcance.
-  \subrequerimiento{Verificación de la aleatoriedad}
+  % RC1B-5
+  \subrequerimiento[rq_pci:cr_aleatoriedad_digitos]
+  {Verificación de la aleatoriedad (criptográficos)}
   {
     Se debe tener un medio para verificar de forma práctica la aleatorización
-    de dígitos.
+    de dígitos, de acuerdo a lo establecido en \gls{gl:nist} 800-90A
+    \cite{nist_aleatorios}.
   }
 
 }
@@ -91,127 +67,49 @@
 % nunca se almacenaba el token?; segundo, aún suponiendo que este
 % requerimiento fuera en realidad para los no criptográficos, ¿Cuál es la
 % diferencia entre guardar el PAN completo y guardar el PAN truncado?
-\requerimiento{Almacenamiento de tokens}
+\requerimiento[rq_pci:cr_almacenamiento_tokens]
+{Almacenamiento de tokens (criptográficos)}
 {
-  Los \glspl{gl:token} generados a partir de un \gls{gl:pan} completo no
-  deben se ser almacenados en el producto de tokenización ni sistemas
-  dependientes.
+  Los \glspl{gl:token} generados no se deben almacenar en ningún punto del
+  sistema.
 }
 
-%\item Los \glspl{gl:token} que se basan en el \gls{gl:pan} completo no se
-%  deben almacenar si ya hay guardado un \gls{gl:token} equivalente del
-%  \gls{gl:pan} truncado.
+El requerimiento anterior (\hipervinculo{rq_pci:cr_almacenamiento_tokens},
+RC1C en \cite{pci_tokens}) es un tanto difícil de interpretar; la versión
+original establece: \textit{los \glspl{gl:token} basados en el \gls{gl:pan}
+completo no se deben almacenar si el producto tokenizador también almacena
+su \gls{gl:pan} truncado correspondiente}. Es un requerimiento de los
+criptográficos reversibles, por lo que el \gls{gl:token} no se debería
+almacenar bajo ninguna circunstancia (según la propia clasificación del
+\gls{gl:pci} \gls{gl:ssc}); la redacción del requerimiento se cambió para
+reflejar este hecho.
 
-% Los del dominio 2 son requerimeintos para la api web.
-
-% RC4A Protección de llaves
-% Se debe ocupar un SCD (secure cryptographyc device) para administrar
-% llaves; puro capitalismo: puedes comprar los del PCI o hacer que el NIST
-% valide los tuyos; fuera de alcance, evidentemente.
-% De cualquier forma, sería requerimiento de la api web.
-\requerimiento{Seguridad de la administración de llaves}
+% RC4A
+\requerimiento[rq_pci:cr_administracion_llaves]
+{Seguridad de la administración de llaves (criptográficos)}
 {
   Todas la operaciones sobre la administración de las llaves criptográficas
-  deben realizarse en un dispositivo criptográfico seguro y aprobado.
+  deben realizarse en un dispositivo criptográfico seguro y aprobado: el
+  \gls{gl:pci} \gls{gl:ssc} se encarga de hacer validaciones; también puede ser
+  cualquier dispositivo validado por \gls{gl:fips} 140-2 nivel 3 o superior
+  \cite{nist_modulos_criptograficos} o por la \gls{gl:iso} 13491-1.
 }
 
-
-% RC4B
-% Claros y concisos: el primer documento son unas recomendaciones 160 hojas
-% y la ISO ni siquiera la puedo ver (más capitalismo); puedo «comprar» el
-% estándar, ¿qué clase de estándar se vende?
-\requerimiento{Prácticas para la administración de llaves}
-{
-  La administración de llaves criptográficas debe llevarse a cabo de
-  acuerdo al estándar del \gls{gl:nist} \cite{nist_llaves} y a
-  \acrshort{gl:iso}/\acrshort{gl:iec} 11770.
-
-  % RC4B1 Ciclo de vida de las llaves.
-  % Un ISO más... empiezo a extrañar los RFC de la IETF.
-  % TODO: incluir sección con resumen del contenido del anexo D.
-  \subrequerimiento[rq:cripto:ciclo_de_vida]{Ciclo de vida de las llaves}
-  {
-    Las llaves para \textit{tokenizar} deben seguir una política de
-    ciclo de vida como la descrita en  \acrshort{gl:iso}/\acrshort{gl:iec}
-    11568-1.
-  }
-
-  % RC4B2
-  \subrequerimiento{Descripción de periodos para cada llave}
-  {
-    La política de la vida útil de cada llave debe incluir una
-    descripción del periodo activo.
-  }
-
-  % RC4B3
-  \subrequerimiento{Permitir la destrucción de todas las llaves}
-  {
-    El sistema debe permitir la destrucción de las llaves sin necesidad
-    de una manipulación externa.
-  }
-}
-
-% RC4C-1 y -2 Longitud de llaves
-% (esto se repite con la sección de primitivas).
-\requerimiento{Sobre la longitud de las llaves}
+% RC4C-1 y 2
+\requerimiento[rq_pci:cr_longitud_llaves]
+{Sobre la longitud de las llaves (criptográficos)}
 {
   Las llaves para \textit{tokenizar} deben tener una
   \gls{gl:fuerza_efectiva} de, al menos, 128 bits. Cualquier llave utilizada
-  para proteger o para derivar la llave del token debe de ser de igual o
-  mayor \gls{gl:fuerza_efectiva}.
+  para proteger o para derivar la llave del \gls{gl:token} debe de ser de igual
+  o mayor \gls{gl:fuerza_efectiva}.
 }
 
 % RC4D
-\requerimiento{Independencia estadística}
+\requerimiento[rq_pci:cr_independencia_estadistica]
+{Independencia estadística (criptográficos)}
 {
   Si el espacio de llaves es usado para producir \glspl{gl:token} es dos
   contextos distintos (e. g. para distintos comerciantes), estas deben ser
   \glspl{gl:estidisticamente_independiente}.
 }
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{| p{5.5cm} | p{2cm} | p{4cm} | p{4cm} |}
-
-    \hline
-      \textbf{Requerimiento}    &
-      \textbf{PCI}              &
-      \textbf{Clasificación}    &
-      \textbf{Observación}     \\ [0.8ex]
-    \hline
-
-    SUBREQUTO-15/1 Exportar llave en claro prohibido.  
-    &  RC 1A-1  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-15/2 Entropía de generación de llaves.  
-    &  RC 1A-2  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  -                \\ \hline
-    SUBREQUTO-15/3 Llaves de uso único.  
-    &  RC 1A-3  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-16/1 Distribución uniforme.  
-    &  RC 1B-1  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-16/2 Permutación aleatoria.  
-    &  RC 1B-2  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-16/3 Cambio de llave.  
-    &  RC 1B-3  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-16/4 Cambio de PAN.  
-    &  RC 1B-4  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-16/5 Verificación de la aleatoriedad.  
-    &  RC 1B-5  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Fuera de alcance \\ \hline
-    REQUTO-17 Almacenamiento de tokens.  
-    &  RC 1C    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  -                \\ \hline
-    REQUTO-18 Seguridad de la administración de llaves.  
-    &  RC 4A    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
-    SUBREQUTO-19/1 Ciclo de vida de las llaves.  
-    &  RC 4B-1  &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
-    SUBREQUTO-19/2 Descripción de periodos para cada llave.  
-    &  RC 4B-2  &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
-    SUBREQUTO-19/3 Permitir la destrucción de todas las llaves.  
-    &  RC 4B-3  &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Aplicable        \\ \hline
-    REQUTO-20 Sobre la longitud de las llaves.  
-    &  RC 4C    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Aplicable        \\ \hline
-    REQUTO-21 Independencia estadística.  
-    &  RC 4D    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Aplicable        \\ \hline
-
-  \end{tabular}
-  \caption{Requerimientos para tokens criptográficos reversibles.}
-\end{table}
-

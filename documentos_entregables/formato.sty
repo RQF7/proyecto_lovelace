@@ -93,6 +93,10 @@
   leftmargin=2em
 }
 
+% http://mirrors.ctan.org/macros/latex/required/tools/longtable.pdf
+% Permite que haya tablas distribuidas en varias páginas
+\RequirePackage{longtable}
+
 % http://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/biblatex.pdf
 \RequirePackage[backend=biber,
                 style=numeric,
@@ -176,6 +180,9 @@
   \renewcommand{\headrulewidth}{0.0pt}
   \renewcommand{\footrulewidth}{0.0pt}
 }
+
+% Alto de celdas de tablas
+%\renewcommand{\arraystretch}{1.8}
 
 % Cambios en las traducciones de babel
 \addto\captionsspanish

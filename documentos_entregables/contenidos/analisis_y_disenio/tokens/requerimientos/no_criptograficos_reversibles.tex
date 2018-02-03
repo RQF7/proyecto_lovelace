@@ -7,7 +7,8 @@
 \subsubsection{No criptográficos reversibles}
 
 % RN 1A
-\requerimiento{Generación y almacenamiento de tokens}
+\requerimiento[rq_pci:nc_generacion_y_almacenamiento]
+{Generación y almacenamiento de tokens (no criptográficos)}
 {
   La generación de un \gls{gl:token} debe realizarse independientemente de
   su \gls{gl:pan}, y la relación entre un \gls{gl:pan} y su \gls{gl:token}
@@ -16,13 +17,15 @@
 }
 
 % RN 1B
-\requerimiento{Probabilidad de encontrar un PAN}
+\requerimiento[rq_pci:nc_seguridad]
+{Probabilidad de encontrar un PAN (no criptográficos)}
 {
   La probabilidad de encontrar un \gls{gl:pan} a partir de su respectivo
   \gls{gl:token} debe de ser menor que $1$ en $10^6$.
 
   % RN 1B-1
-  \subrequerimiento{Distribución equiprobable}
+  \subrequerimiento[rq_pci:nc_distribucion_equiprobable]
+  {Distribución equiprobable (no criptográficos)}
   {
     Para un \gls{gl:pan} dado, todos sus \glspl{gl:token} respectivos
     deben ser \glspl{gl:equiprobable}, esto es que el sistema
@@ -31,7 +34,8 @@
   }
 
   % RN 1B-2
-  \subrequerimiento{Permutaciones aleatorias}
+  \subrequerimiento[rq_pci:nc_permutaciones_aleatorias]
+  {Permutaciones aleatorias (no criptográficos)}
   {
     El método de tokenización debe actuar como una familia de
     \glspl{gl:permutacion} aleatoria en el espacio efectivo de los
@@ -39,7 +43,8 @@
   }
 
   % RN 1B-3
-  \subrequerimiento{Parámetros de tokenización}
+  \subrequerimiento[rq_pci:nc_parametros_de_tokenizacion]
+  {Parámetros de tokenización (no criptográficos)}
   {
     El método de tokenización debe incluir parámetros tales que, un
     cambio en estos parámetros resulte en un \gls{gl:token} diferente;
@@ -51,15 +56,34 @@
   % RN 1B-4
   % Contradoctoria con RN 1A, si el token es independiete, no debe
   % reflejar cambios.
-  \subrequerimiento{Reflejo de cambios}
+  %\subrequerimiento{Reflejo de cambios}
+  %{
+  %  Al cambiar parte de un \gls{gl:pan}, debe cambiar su \gls{gl:token}
+  %  resultante.
+  %}
+
+  % RN 1B-5
+  \subrequerimiento[rq_pci:nr_aleatoriedad_digitos]
+  {Verificación de la aleatoriedad (no criptográficos)}
   {
-    Al cambiar parte de un \gls{gl:pan}, debe cambiar su \gls{gl:token}
-    resultante.
+    Se debe tener un medio para verificar de forma práctica la aleatorización
+    de dígitos, de acuerdo a lo establecido en \gls{gl:nist} 800-90A
+    \cite{nist_aleatorios}.
   }
 }
 
+En \cite{pci_tokens} se establece un subrequerimiento más de
+\hipervinculo{rq_pci:nc_seguridad}: \textit{Al cambiar parte de un
+\gls{gl:pan}, debe cambiar su \gls{gl:token} resultante}. Es un requerimiento
+análogo a \hipervinculo{rq_pci:cr_cambio_de_pan}, sin embargo en el contexto
+de los  no criptográficos reversibles, tal restricción no tiene sentido, dado
+que  la generación del \gls{gl:token} es independiente del \gls{gl:pan}
+(requerimiento \hipervinculo{rq_pci:nc_generacion_y_almacenamiento}).
+
 % RN 1C
-\requerimiento{Distribución imparcial}
+% TODO: ¿Diferencias con RB1B-1?
+\requerimiento[rq_pci:nc_distribucion_imparcial]
+{Distribución imparcial (no criptográficos)}
 {
   El proceso de generación de \glspl{gl:token} debe garantizar una
   distribución de \glspl{gl:token} imparcial, esto significa que la
@@ -67,99 +91,56 @@
 }
 
 % RN 1D
-\requerimiento{Instancias estadísticamente independientes}
+\requerimiento[rq_pci:nc_independencia_estadistica]
+{Instancias estadísticamente independientes (no criptográficos)}
 {
   Si varias o diferentes instancias de la bases de datos (\gls{gl:cdv}) son
   usadas, cada una de estas debe ser \glspl{gl:estidisticamente_independiente}.
 }
 
 % RN 2A
-\requerimiento{Asignación de tokens}
+\requerimiento[rq_pci:nc_proceso_detokenizacion]
+{Proceso de detokenización (no criptográficos)}
 {
-  La asignación de un \gls{gl:token} a un \gls{gl:pan} debe realizarse
-  por medio de una búsqueda de datos o un índice dentro de la base de
-  datos (\gls{gl:cdv}), y no por medio de métodos criptográficos.
+  El proceso de detokenización debe realizarse por medio de una búsqueda de
+  datos o un índice dentro de la base de datos (\gls{gl:cdv}), y no por medio
+  de métodos criptográficos.
 
   % RN 2A-1
-  % No se entiende como no usar métodos logicos en la asignación.
-  \subrequerimiento{Asignación probabilísticamente independiente}
-  {
-    El \gls{gl:pan} y el \gls{gl:token} debe ser probabilísticamente
-    independientes. Cualquier método lógico o matemático no debe ser
-    usado para \textit{tokenizar} el \gls{gl:pan} o \textit{detokenizar}
-    el \gls{gl:token}.
-  }
+  %\subrequerimiento{Asignación probabilísticamente independiente}
+  %{
+  %  El \gls{gl:pan} y el \gls{gl:token} debe ser probabilísticamente
+  %  independientes. Cualquier método lógico o matemático no debe ser
+  %  usado para \textit{tokenizar} el \gls{gl:pan} o \textit{detokenizar}
+  %  el \gls{gl:token}.
+  %}
 }
 
-% RN 2B y RN 3B
-\requerimiento{Controles de acceso basados en roles}
-{
-  Para obtener el \gls{gl:pan} de su \gls{gl:token} asociado, o acceder
-  a la base de datos (\gls{gl:cdv}), se deben de requerir controles de
-  acceso basados en roles o \gls{gl:rbacs} por sus siglas en inglés.
-}
+Un subrequerimiento de \hipervinculo{rq_pci:nc_proceso_detokenizacion} que
+aquí se omite establece: «\textit{El \gls{gl:pan} y el \gls{gl:token} debe ser
+probabilísticamente independientes. Cualquier método lógico o matemático no
+debe ser usado para \textit{tokenizar} el \gls{gl:pan} o \textit{detokenizar}
+el \gls{gl:token}}». La independencia entre \gls{gl:pan} y \gls{gl:token} ya
+se establece en \hipervinculo{rq_pci:nc_generacion_y_almacenamiento}. No es
+clara la ascepción de \textit{método lógico matemático}; una solución
+común para generar \glspl{gl:token} no criptográficos es usar \gls{gl:prng},
+los cuales son métodos matemáticos.
 
-% RN 3A
-\requerimiento{Cifrado de la base de datos}
+% RN3A
+\requerimiento[rq_pci:nc_cifrado_de_base]
+{Cifrado de la base de datos (no criptográficos)}
 {
   Dentro de la base de datos (\gls{gl:cdv}), los \gls{gl:pan} deben ser
   cifrados con una llave de mínimo 128 bits de \gls{gl:fuerza_efectiva}.
 }
 
-% RN 4A
-% Fuera de alcance.
-\requerimiento{Seguridad de la administración de llaves}
+% RN4A
+\requerimiento[rq_pci:nc_administracion_llaves]
+{Seguridad de la administración de llaves (no criptográficos)}
 {
   Todas la operaciones sobre la administración de las llaves criptográficas
-  deben realizarse en un dispositivo criptográfico seguro y aprobado.
+  deben realizarse en un dispositivo criptográfico seguro y aprobado: el
+  \gls{gl:pci} \gls{gl:ssc} se encarga de hacer validaciones; también puede ser
+  cualquier dispositivo validado por \gls{gl:fips} 140-2 nivel 3 o superior
+  \cite{nist_modulos_criptograficos} o por la \gls{gl:iso} 13491-1.
 }
-
-% RN 4B
-\requerimiento{Administración de llaves de acuerdo al estándar}
-{
-  La administración de las llaves criptográficas debe realizarse de
-  acuerdo con el estándar \gls{gl:nist}/\acrshort{gl:iso}; por ejemplo
-  el \gls{gl:nist} SP 800-57, el \acrshort{gl:iso}/\acrshort{gl:iec}
-  11770 o el \gls{gl:nist} SP 800-130.
-}
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{| p{5.5cm} | p{2cm} | p{4cm} | p{4cm} |}
-
-    \hline
-      \textbf{Requerimiento}    &
-      \textbf{PCI}              &
-      \textbf{Clasificación}    &
-      \textbf{Observación}     \\ [0.8ex]
-    \hline
-
-    REQUTO-22 Generación y almacenamiento de tokens.  
-    &  RN 1A    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-23/1 Distribución equiprobable.  
-    &  RN 1B-1  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-23/2 Permutaciones aleatorias.  
-    &  RN 1B-2  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-23/3 Parámetros de tokenización.  
-    &  RN 1B-3  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-23/4 Reflejo de cambios.  
-    &  RN 1B-4  &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  -                \\ \hline
-    REQUTO-24 Distribución imparcial.  
-    &  RN 1C    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    REQUTO-25 Instancias probabilísticamente independientes.  
-    &  RN 1D    &  \hyperref[dm:gen_tokens]{Generación de tokens}              &  Aplicable        \\ \hline
-    SUBREQUTO-26/1 Asignación probabilísticamente independiente.  
-    &  RN 2A-1  &  \hyperref[dm:mapeo_tokens]{Mapeo de tokens}                 &  -                \\ \hline
-    REQUTO-27 Controles de acceso basados en roles.  
-    &  RN 2B    &  \hyperref[dm:card_data]{Bóveda de datos de tarjeta}         &  Fuera de alcance \\ \hline
-    REQUTO-28 Cifrado de la base de datos.  
-    &  RN 3A    &  \hyperref[dm:card_data]{Bóveda de datos de tarjeta}         &  Aplicable        \\ \hline
-    REQUTO-29 Seguridad de la administración de llaves.  
-    &  RN 4A    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
-    REQUTO-30 Administración de llaves de acuerdo al estándar.  
-    &  RN 4B    &  \hyperref[dm:man_llaves]{Manejo criptográfico de llaves}    &  Fuera de alcance \\ \hline
-
-  \end{tabular}
-  \caption{Requerimientos para tokens no criptográficos reversibles.}
-\end{table}
-
