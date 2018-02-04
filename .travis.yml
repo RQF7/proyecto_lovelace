@@ -26,12 +26,14 @@ install:
   - unzip -d ~/texmf tracklang.tds.zip
   # bibtex
   - wget https://sourceforge.net/projects/biblatex/files/biblatex-3.9/biblatex-3.9.tds.tgz
-  - tar -xvf -C ~/texmf
+  - tar -xvf biblatex-3.9.tds.tgz -C ~/texmf
+  # babel
+  - wget http://mirrors.ctan.org/install/macros/latex/required/babel-base.tds.zip
+  - unzip -d ~/texmf babel-base.tds.zip
   # biber
   - wget https://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/current/binaries/Linux/biber-linux_x86_64.tar.gz
-  - tar -xvf biber-linux_x86_64.tar.gz
   - mkdir ~/ejecutable_biber
-  - mv biber ~/ejecutable_biber/
+  - tar -xvf biber-linux_x86_64.tar.gz -C ~/ejecutable_biber
   - export PATH=~/ejecutable_biber/:$PATH
 
 # No pues sí... lo único que tienen que hacer los gestores de paquetes de las
@@ -42,8 +44,11 @@ install:
 script:
 
   # Compilación de archivos de LaTeX
+  # Esto debería dejar el pdf completo
   - make -C documentos_entregables
+  - make -C documentos_entregables glosarios
   - make -C documentos_entregables referencias
+  - make -C documentos_entregables
   - make -C documentos_entregables
 
   # Revisión de ortografía
