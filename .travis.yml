@@ -13,11 +13,10 @@ install:
     texlive-lang-spanish
     texlive-bibtex-extra
     texlive-generic-extra
-#    biber
 #    hunspell
 #    myspell-es
 
-# Instalación de paquetes directo desde el CTAN y sourceforge
+  # Instalación de paquetes directo desde el CTAN y sourceforge
   # glossaries
   - wget http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
   - unzip -d ~/texmf glossaries.tds.zip
@@ -36,9 +35,9 @@ install:
   - tar -xvf biber-linux_x86_64.tar.gz -C ~/ejecutable_biber
   - export PATH=~/ejecutable_biber/:$PATH
 
-# No pues sí... lo único que tienen que hacer los gestores de paquetes de las
-# distribuciones es descomprimir un zip en la carpeta de latex.
-# ¿Para qué tantos intermediarios?
+  # No pues sí... lo único que tienen que hacer los gestores de paquetes de las
+  # distribuciones es descomprimir un zip en la carpeta de latex.
+  # ¿Para qué tantos intermediarios?
 
 # Fase de construcción
 script:
