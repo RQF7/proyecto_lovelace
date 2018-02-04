@@ -15,6 +15,7 @@ mapean cadenas binarias de una longitud arbitraria a cadenas binarias
 de una longitud fija, llamadas valores hash.
 
 Matemáticamente, una función hash es una función
+
 \begin{equation}
   \label{funcion_hash_def}
   \begin{split}
@@ -25,6 +26,7 @@ Matemáticamente, una función hash es una función
 
 La longitud de $n$ suele ser entre 128 y 512 bits. Las funciones hash
 $h$ tienen las siguientes propiedades:
+
 \begin{enumerate}
   \item Compresión: $h$ mapea una entrada $x$ (cuya longitud
     finita es arbitraria) a una salida $h(x)$ de longitud fija $n$.
@@ -40,7 +42,9 @@ $x$, y las que necesitan una llave secreta $k$ y la entrada $x$.
 Sea una función hash sin llave $h$ con entradas $x$, $x^\prime$ y
 salidas $y$ y $y^\prime$, respectivamente. A continuación se listan
 algunas de las propiedades que puede tener:
+
 \begin{enumerate}
+
   \item Resistencia de \gls{gl:preimagen}: no es computacionalmente factible
     para una salida específica $y$ encontrar una entrada $x^\prime$ que
     dé como resultado el mismo valor hash $h(x^\prime) = y$ si no se
@@ -87,6 +91,7 @@ contraseñas sean conocidas para los usuarios con privilegios, como
 pueden ser los administradores.
 
 \subsection{Integridad de datos}
+
 Las funciones criptográficas hash también son conocidas como funciones
 \textit{procesadoras de mensajes} y el valor hash $h(m)$ de un mensaje
 $m$ dado es llamado \textit{huella} de $m$; ya que es una representación
@@ -99,6 +104,7 @@ hash también son llamadas códigos de detección de modificaciones (como el
 \gls{gl:mdc2}).
 
 \subsection{Firmas}
+
 Sea $(n, e)$ la llave pública \gls{gl:rsa} y $d$ el exponente decodificador
 secreto de Alice. En el esquema básico de firma \gls{gl:rsa}, Alice puede
 firmar mensajes que estén codificados por números $ m \in \{0, \dots, n-1\}$.
@@ -128,6 +134,7 @@ un mensaje $m$ firmado por Alice, genere un mensaje nuevo $n$ y utilice
 $\sigma$ como una firma válida de Alice para $n$.
 
 \subsection{Message Digest-4 (MD4)}
+
 En la década de 1990 esta función hash fue diseñada por Ronald Rivest.
 Tiene entradas de longitud arbitraria y la longitud de la salida
 procesada es de 128 bits. El \gls{gl:md4} fue innovador y
@@ -135,6 +142,7 @@ clave en el diseño para los algoritmos venideros de esta clase (como
 el \gls{gl:md5}).
 
 \subsection{RIPEMD}
+
 Esta función hash, publicada en 1996, está basada en \gls{gl:md4} y fue
 diseñada por Hans Dobbertin y otros. Consiste en dos formas equivalentes de la
 función de compresión de \gls{gl:md4}. El algoritmo original (RIPEMD-160)
@@ -144,6 +152,7 @@ mejoradas: RIPEMD-128, RIPE-256, RIPE-320; las cuales dan bloques procesados de
 128, 256 y 320 bits respectivamente.
 
 \subsection{\textit{Secure Hash Algorithm (SHA)}}
+
 El algoritmo \gls{gl:sha} fue publicado por \gls{gl:nist} y
 \gls{gl:nsa} en 1993; este algoritmo produce bloques de 160 bits y
 fue desarrollado para reemplazar al \gls{gl:md4}; sin embargo, poco

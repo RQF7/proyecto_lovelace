@@ -14,8 +14,7 @@ irreversibles se dividen en autenticables y no autenticables (figura
 
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[width=0.75\linewidth]
-      {contenidos/analisis_y_disenio/tokens/requerimientos/diagramas/clasificacion.png}
+    \includegraphics[width=0.75\linewidth]{diagramas/clasificacion.png}
     \caption{Clasificación de los \glspl{gl:token}.}
     \label{fig:division_tokens}
   \end{center}
@@ -314,10 +313,10 @@ aplicables a todos los \glspl{gl:token}, sin importar su categoría:
   }
 }
 
-\input{contenidos/analisis_y_disenio/tokens/requerimientos/irreversibles.tex}
-\input{contenidos/analisis_y_disenio/tokens/requerimientos/criptograficos_reversibles.tex}
-\input{contenidos/analisis_y_disenio/tokens/requerimientos/no_criptograficos_reversibles.tex}
-\input{contenidos/analisis_y_disenio/tokens/requerimientos/primitivas.tex}
+\subimport{/}{irreversibles}
+\subimport{/}{criptograficos_reversibles}
+\subimport{/}{no_criptograficos_reversibles}
+\subimport{/}{primitivas}
 
 %En la tabla \ref{resumen_general} se clasifican los requerimientos presentados
 %hasta ahora. Las categorías posibles son: \textit{aplicables}, \textit{no

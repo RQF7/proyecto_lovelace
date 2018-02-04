@@ -1,4 +1,10 @@
+%
+% Explicación de RC5, capítulo de antecedentes.
+% Proyecto Lovelace.
+%
+
 \subsection{RC5}
+
 Este cifrado por bloques tiene una arquitectura orientada a palabras (ya
 sea $w = 16, 32, 64$bits) y tiene una descripción muy compacta adecuada
 tanto para hardware como para software. Tanto la longitud $b$ de la
@@ -21,6 +27,7 @@ llave y el número de \glspl{gl:ronda} $r$ es variable; aunque se recomiendan 12
 \end{pseudocodigo}
 
 Para descifrar, RC5 utiliza el siguiente algoritmo.
+
 \begin{pseudocodigo}[caption={RC5, descifrado.}, label={rc5:2}]
   entrada:  $2w-$bits de datos cifrados $C = (A, B)$; $r$;
       llave $K$ = $K$[0]$\dots K$[$b-1$]

@@ -1,52 +1,51 @@
+%
+% Sección de criptoanálisis, capítulo de antecedentes.
+% Proyecto Lovelace.
+%
 
 \subsection{Criptoanálisis y ataques}
 \label{sec:criptoanalisis}
 
-  La criptografía forma parte de una ciencia más general llamada
-  \gls{gl:criptologia}, la cual tiene otras ramas de estudio, como es el
-  criptoanálisis que es la ciencia encargada de estudiar los posibles ataques a
-  sistemas criptográficos, que son capaces de contrariar sus servicios
-  ofrecidos. Entre los principales objetivos del criptoanálisis están
-  interceptar la información que circula en un canal de comunicación, alterar
-  dicha información y suplantar la identidad, rompiendo con los servicios de
-  confidencialidad, integridad y autenticación respectivamente.
+La criptografía forma parte de una ciencia más general llamada
+\gls{gl:criptologia}, la cual tiene otras ramas de estudio, como es el
+criptoanálisis que es la ciencia encargada de estudiar los posibles ataques a
+sistemas criptográficos, que son capaces de contrariar sus servicios
+ofrecidos. Entre los principales objetivos del criptoanálisis están
+interceptar la información que circula en un canal de comunicación, alterar
+dicha información y suplantar la identidad, rompiendo con los servicios de
+confidencialidad, integridad y autenticación respectivamente.
 
-  Los ataques que se realizan a sistemas criptográficos dependen de la cantidad
-  de recursos o conocimientos con los que cuenta el adversario que realiza dicho
-  ataque, dando como resultado la siguiente clasificación.
+Los ataques que se realizan a sistemas criptográficos dependen de la cantidad
+de recursos o conocimientos con los que cuenta el adversario que realiza dicho
+ataque, dando como resultado la siguiente clasificación.
 
-  \begin{enumerate}
+\begin{description}
 
-    \item \textbf{Ataque con sólo texto cifrado}
+  \item[Ataque con sólo texto cifrado]
+    En este ataque el adversario solamente es capaz de obtener la información
+    cifrada, y tratará de conocer su contenido en claro a partir de ella.
+    Esta forma de atacar es la más básica, y todos los métodos
+    criptográficos deben poder soportarla.
 
-      En este ataque el adversario solamente es capaz de obtener la información
-      cifrada, y tratará de conocer su contenido en claro a partir de ella.
-      Esta forma de atacar es la más básica, y todos los métodos
-      criptográficos deben poder soportarla.
+  \item[Ataque con texto en claro conocido]
+    Esta clase de ataques ocurren cuando el adversario puede obtener pares
+    de información cifrada y su correspondiente información en claro, y
+    por medio de su estudio, trata de descifrar otra información cifrada
+    para la cual no conoce su contenido.
 
-    \item \textbf{Ataque con texto en claro conocido}
+  \item[Ataque con texto en claro elegido]
+    Este ataque es muy parecido al anterior, con la diferencia de que en
+    este el adversario es capaz de obtener los pares de información
+    cifrada y en claro con el contenido que desee.
 
-      Esta clase de ataques ocurren cuando el adversario puede obtener pares
-      de información cifrada y su correspondiente información en claro, y
-      por medio de su estudio, trata de descifrar otra información cifrada
-      para la cual no conoce su contenido.
+  \item[Ataque con texto en claro conocido adaptativo]
+    En este ataque el adversario es capaz de obtener los pares de
+    información cifrada y en claro con el contenido que desee, además
+    tiene amplio acceso o puede usar de forma repetitiva el mecanismo de
+    cifrado.
 
-    \item \textbf{Ataque con texto en claro elegido}
+  \item[Ataque con texto en claro elegido adaptativo]
+    En este caso el adversario puede elegir información cifrada y conocer
+    su contenido, dado que tiene acceso a los mecanismos de descifrado.
 
-      Este ataque es muy parecido al anterior, con la diferencia de que en
-      este el adversario es capaz de obtener los pares de información
-      cifrada y en claro con el contenido que desee.
-
-    \item \textbf{Ataque con texto en claro conocido adaptativo}
-
-      En este ataque el adversario es capaz de obtener los pares de
-      información cifrada y en claro con el contenido que desee, además
-      tiene amplio acceso o puede usar de forma repetitiva el mecanismo de
-      cifrado.
-
-    \item \textbf{Ataque con texto en claro elegido adaptativo}
-
-      En este caso el adversario puede elegir información cifrada y conocer
-      su contenido, dado que tiene acceso a los mecanismos de descifrado.
-
-  \end{enumerate}
+\end{description}

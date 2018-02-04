@@ -47,16 +47,18 @@ estado.
 Como todos los pasos realizados en las \glspl{gl:ronda} son invertibles, el
 proceso de descifrado consiste en aplicar las funciones inversas a
 $SubBytes$, $ShiftRows$, $MixColumns$ y $AddRoundKey$ en el orden
-opuesto. Tanto el algoritmo como sus pasos están pensados con bytes. 
+opuesto. Tanto el algoritmo como sus pasos están pensados con bytes.
 En el algoritmo Rijndael los bytes son considerados como elementos del
 campo finito $\mathbb{F}_{2^8}$ con ${2^8}$ elementos; $\mathbb{F}_{2^8}$
 es construido como una extensión del campo  $\mathbb{F}_{2}$ con 2 elementos
 mediante el uso del polinomio irreducible $X^8+X^4+X^3+X+1$.
 Por lo tanto, las operaciones que se hagan a continuación de adición y el
-producto entre bytes significa sumarlos y multiplicarlos como elementos del 
+producto entre bytes significa sumarlos y multiplicarlos como elementos del
 campo  $\mathbb{F}_{2^8}$.
 
+
 \subsubsection{SubBytes}
+
 Esta es la única transformación no lineal de Rijndael. Sustituye
 los bytes de la matriz de estado byte a byte al aplicar la función
 $S_{RD}$ a cada elemento de la matriz. La función $S_{RD}$ es también
@@ -65,36 +67,41 @@ para los bytes en todas las posiciones.
 
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[width=0.6\linewidth]
-      {contenidos/antecedentes/bloques/diagramas/subBytes}
-     \caption{Diagrama de la operación $SubBytes$.}
+    \includegraphics[width=0.6\linewidth]{diagramas/subBytes}
+    \caption{Diagrama de la operación $SubBytes$.}
    \end{center}
 \end{figure}
 
+
 \subsubsection{ShiftRows}
+
 Esta transformación hace un corrimiento cíclico hacia la izquierda de las
 filas de la matriz de estado. Los desplazamientos son distintos para cada
 fila y dependen de la longitud del bloque ($N_b$).
 
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[width=0.6\linewidth]
-      {contenidos/antecedentes/bloques/diagramas/shiftRows}
-     \caption{Diagrama de la operación $ShiftRows$.}
+    \includegraphics[width=0.6\linewidth]{diagramas/shiftRows}
+    \caption{Diagrama de la operación $ShiftRows$.}
    \end{center}
 \end{figure}
 
+
 \subsubsection{MixColumns}
+
 Esta transformación opera en cada columna de la matriz de estado
 independientemente. Se considera una columna $a = (a_0, a_1, a_2, a_3)$
 como el polinomio $a(X) = a_3X^3 + a_2X^2 + a_1X + a_0$.
 Entonces este paso transforma una columna $a$ al multiplicarla con el
 siguiente polinomio fijo:
+
 \begin{equation}
   \label{cifrado_aes_poli}
   c(X) = 03X^3 + 01X^2 + 01X+ 02
 \end{equation}
+
 y se toma el residuo del producto módulo $X^4+1$:
+
 \begin{equation}
   \label{cifrado_aes_mix}
   a(X) \mapsto a(X) \cdotp c(X) \mod (X^4+1)
@@ -102,13 +109,14 @@ y se toma el residuo del producto módulo $X^4+1$:
 
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[width=0.6\linewidth]
-      {contenidos/antecedentes/bloques/diagramas/mixColumns}
-     \caption{Diagrama de la operación $MixColumns$.}
+    \includegraphics[width=0.6\linewidth]{diagramas/mixColumns}
+    \caption{Diagrama de la operación $MixColumns$.}
    \end{center}
 \end{figure}
 
+
 \subsubsection{AddRoundKey}
+
 Esta es la única operación que depende de la llave secreta $k$. Añade una
 llave de ronda para intervenir en el resultado de la matriz de estado.
 Las llaves de ronda son derivadas de la llave secreta $k$ al aplicar el
@@ -117,6 +125,7 @@ longitud que los bloques. Esta operación es simplemente una operación
 $XOR$ bit a bit de la matriz de estado con la llave de ronda en turno.
 Para obtener el nuevo valor de la matriz de estado se realiza lo
 siguiente:
+
 \begin{equation}
   \label{cifrado_aes_addkey}
   (matriz\_estado, k_i) \mapsto matriz\_estado \oplus k_i
@@ -131,9 +140,8 @@ de ronda.
 
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[width=0.6\linewidth]
-      {contenidos/antecedentes/bloques/diagramas/addRoundKey}
-     \caption{Diagrama de la operación $AddRoundKey$.}
+    \includegraphics[width=0.6\linewidth]{diagramas/addRoundKey}
+    \caption{Diagrama de la operación $AddRoundKey$.}
    \end{center}
 \end{figure}
 
