@@ -3,26 +3,43 @@
 # Proyecto Lovelace.
 #
 
+language: perl
+perl:
+  - "5.24"
+
 # Instalación de dependencias
 install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq
+  - sudo apt-get update
+  - sudo apt-get install
     texlive
     texlive-latex-recommended
     texlive-latex-extra
     texlive-lang-spanish
     texlive-bibtex-extra
-    biber
-    hunspell
-    myspell-es
+    texlive-generic-extra
+#    biber
+#    hunspell
+#    myspell-es
+
+# Instalación de paquetes directo desde el CTAN y github
+  - wget http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
+  - wget http://mirrors.ctan.org/install/macros/generic/tracklang.tds.zip
+  - git clone https://github.com/plk/biber.git ~/biber
+  - unzip -d ~/texmf glossaries.tds.zip
+  - unzip -d ~/texmf tracklang.tds.zip
+  - export PATH=~/biber/bin:$PATH
+
+# No pues sí... lo único que tienen que hacer los gestores de paquetes de las
+# distribuciones es descomprimir un zip en la carpeta de latex.
+# ¿Para qué tantos intermediarios?
 
 # Fase de construcción
 script:
 
   # Compilación de archivos de LaTeX
   - make -C documentos_entregables
-#  - make -C documentos_entregables referencias
-#  - make -C documentos_entregables
+  # - make -C documentos_entregables referencias
+  # - make -C documentos_entregables
 
   # Revisión de ortografía
 #  - make -C documentos_entregables ortografía
