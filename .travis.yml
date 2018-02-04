@@ -3,10 +3,6 @@
 # Proyecto Lovelace.
 #
 
-language: perl
-perl:
-  - "5.24"
-
 # Instalación de dependencias
 install:
   - sudo apt-get update
@@ -21,13 +17,22 @@ install:
 #    hunspell
 #    myspell-es
 
-# Instalación de paquetes directo desde el CTAN y github
+# Instalación de paquetes directo desde el CTAN y sourceforge
+  # glossaries
   - wget http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
-  - wget http://mirrors.ctan.org/install/macros/generic/tracklang.tds.zip
-  - git clone https://github.com/plk/biber.git ~/biber
   - unzip -d ~/texmf glossaries.tds.zip
+  # tracklang
+  - wget http://mirrors.ctan.org/install/macros/generic/tracklang.tds.zip
   - unzip -d ~/texmf tracklang.tds.zip
-  - export PATH=~/biber/bin:$PATH
+  # bibtex
+  - wget https://sourceforge.net/projects/biblatex/files/biblatex-3.9/biblatex-3.9.tds.tgz
+  - tar -xvf -C ~/texmf
+  # biber
+  - wget https://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/current/binaries/Linux/biber-linux_x86_64.tar.gz
+  - tar -xvf biber-linux_x86_64.tar.gz
+  - mkdir ~/ejecutable_biber
+  - mv biber ~/ejecutable_biber/
+  - export PATH=~/ejecutable_biber/:$PATH
 
 # No pues sí... lo único que tienen que hacer los gestores de paquetes de las
 # distribuciones es descomprimir un zip en la carpeta de latex.
@@ -38,8 +43,8 @@ script:
 
   # Compilación de archivos de LaTeX
   - make -C documentos_entregables
-  # - make -C documentos_entregables referencias
-  # - make -C documentos_entregables
+  - make -C documentos_entregables referencias
+  - make -C documentos_entregables
 
   # Revisión de ortografía
 #  - make -C documentos_entregables ortografía
