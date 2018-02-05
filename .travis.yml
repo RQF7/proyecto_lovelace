@@ -51,4 +51,4 @@ script:
   - make -C documentos_entregables
 
   # Revisión de ortografía
-#  - make -C documentos_entregables ortografía
+  #  - make -C documentos_entregables ortografía
