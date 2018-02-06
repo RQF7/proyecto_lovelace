@@ -387,4 +387,25 @@
   }
 }
 
+% No se me ocurre cómo traducir esto... es como ¿valor de un solo uso?
+\newglossaryentry{gl:nonce}
+{
+  name = nonce,
+  description = {
+    Valor que varía con el tiempo que es improbable que se repita. Por ejemplo,
+    puede ser un valor aleatorio generado para cada uso, una etiqueta de tiempo,
+    un número de secuencia o una combinación de los tres%
+  }
+}
+
+\newglossaryentry{gl:semilla}
+{
+  name = semilla,
+  description = {
+    (\textit{Seed}) Cadena de bits que es utilizada como entrada para los
+    los mecanismos \gls{gl:drbg}. Determina una parte del estado interno
+    del \gls{gl:drbg}%
+  }
+}
+
 \glsaddall
