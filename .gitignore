@@ -4,3 +4,12 @@ temporales_de_latex
 
 # Archivos temporales de vim
 *.swp
+
+# Carpetas de binarios y archivos objeto
+binarios
+objetos
+
+# Visual paradigm
+*.svg
+*.bak_*
+*.lck
