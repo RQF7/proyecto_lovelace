@@ -13,6 +13,7 @@ install:
     texlive-lang-spanish
     texlive-bibtex-extra
     texlive-generic-extra
+    libcrypto++-dev
 #    hunspell
 #    myspell-es
 
@@ -52,3 +53,6 @@ script:
 
   # Revisión de ortografía
   #  - make -C documentos_entregables ortografía
+
+  - make -C pruebas_librerias
+  - make -C pruebas_librerias correr

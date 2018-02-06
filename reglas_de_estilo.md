@@ -76,14 +76,17 @@ puntos:
 
 ### C++
 
+Todo el código en c++ debe cumplir con los siguientes puntos:
+
 * Nombres de identificadores:
   * Clases y espacios de nombres: **NombreDeClase**.
   * Funciones y variables: **nombreDeVariable**.
+  * Prefijo para variables miembro de clase: «m».
 * Posición de llaves:
-  * En declaraciones (espacios de nombres, clases, funciones) ambas llaves
-    se colocan en un renglón propio.
-  * En controles de flujo (ciclos, condicionales) la llave de apertura se
-    coloca en el mismo renglón que la palabra reservada.
+  * Tanto en declaraciones (espacios de nombres, clases, funciones) como
+    en controles de flujo (ciclos, condicionales) ambas llaves se colocan en
+    un renglón propio. Para los controles de flujo, no se colocan llaves si
+    el bloque solamente contiene una línea.
 * Terminación de archivos:
   * Código fuente: **.cpp**.
   * Archivos de cabeceras: **.hh**.
