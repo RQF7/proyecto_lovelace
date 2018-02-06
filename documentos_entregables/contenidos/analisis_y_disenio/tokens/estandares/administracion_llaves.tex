@@ -179,18 +179,18 @@ Algunas de las funciones de los criptoperiodos son:
 
 \begin{itemize}
 
-  \item Limita el total de daños si una sola llave se ve comprometida.
+  \item Limitar el total de daños si una sola llave se ve comprometida.
 
-  \item Limita el uso de un algoritmo en particular (\textit{particular}
+  \item Limitar el uso de un algoritmo en particular (\textit{particular}
     en el sentido de la instancia misma del algoritmo).
 
-  \item Limita el tiempo disponible para intentos de ataques sobre los
+  \item Limitar el tiempo disponible para intentos de ataques sobre los
     mecanismos que protegen a la llave del acceso sin autorización.
 
-  \item Limita el periodo en el cual la información puede verse comprometida
+  \item Limitar el periodo en el cual la información puede verse comprometida
     por revelaciones inadvertidas de llaves a entidades sin autorización.
 
-  \item Limita el tiempo disponible para ataque criptoanalíticos.
+  \item Limitar el tiempo disponible para ataque criptoanalíticos.
 
 \end{itemize}
 
@@ -360,36 +360,77 @@ criptoperiodos según cada tipo de llave.
   \label{criptoperiodos_sugeridos}
 \end{table}
 
-\paragraph{Garantías}
+% Demasiado abstracto:
+%
+%\paragraph{Garantías}
+%
+%Cuando una llave es almacenada o distribuida podría pasar por entornos
+%inseguros; es por esto por lo que antes de usarse para sus operaciones
+%criptográficas normales, una llave debe cumplir con las siguientes garantías.
+%
+%\begin{description}
+%
+%  \item[Garantía de integridad:] como mínimo, la integridad se debe obtener
+%    verificando que el material de la llave tiene el formato correcto y
+%    proviene de fuentes autorizadas. De manera adicional se pueden usar
+%    códigos de detección de error, códigos de autenticación de mensaje y
+%    firmas digitales.
+%
+%  \item[Garantía de validez de parámetros de dominio:] los parámetros de
+%    dominio son usado por los algoritmos de llave pública al momento de la
+%    generación de llaves y firmas digitales, y durante la generación de
+%    secretos compartidos. Esta garantía es muy importante, y se debe obtener
+%    antes de usar el algoritmo.
+%
+%  \item[Garantía de validez de llave pública:] esta validación permite al
+%    usuario estar seguro de que la llave pública es aritméticamente correcta.
+%    Esto reduce las posibilidades de usar llaves débiles o corruptas. Una de
+%    varias maneras de obtener esta garantía es mediante la verificación de
+%    algunas propiedades matemáticas que la llave pública debe tener (estas
+%    dependen según el algoritmo).
+%
+%  \item[Garantía de posesión de llave privada:] esta garantía debe ser obtenida
+%    por ambas partes: el dueño de los pares y las demás entidades que
+%    reciben la llave pública. Los métodos para obtener la garantía son
+%    específicos a cada algoritmo.
+%
+%\end{description}
 
-Cuando una llave es almacenada o distribuida podría pasar por entornos
-inseguros; es por esto por lo que antes de usarse para sus operaciones
-criptográficas normales, una llave debe cumplir con las siguientes garantías.
+\paragraph{Estados de llaves y transiciones}
 
-\begin{description}
+En la figura \ref{estados_de_llaves} se muestra un diagrama de estados con
+los posibles comportamientos de una llave criptográfica. Un criptoperiodo
+inicia al entrar en el estado «activo» (transición 4) y termina al llegar al
+estado «destruido». En el caso de esquemas asimétricos, las transiciones se
+aplican a ambos pares de llaves. Se debe llevar un registro de la fecha y hora
+(y en algunos casos de las razones) de cualquier cambio de estado.
 
-  \item[Garantía de integridad:] como mínimo, la integridad se debe obtener
-    verificando que el material de la llave tiene el formato correcto y
-    proviene de fuentes autorizadas. De manera adicional se pueden usar
-    códigos de detección de error, códigos de autenticación de mensaje y
-    firmas digitales.
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.8\linewidth]{diagramas/estados_de_llaves.png}
+    \caption{Diagrama de estado de llaves criptográficas.}
+    \label{estados_de_llaves}
+  \end{center}
+\end{figure}
 
-  \item[Garantía de validez de parámetros de dominio:] los parámetros de
-    dominio son usado por los algoritmos de llave pública al momento de la
-    generación de llaves y firmas digitales, y durante la generación de
-    secretos compartidos. Esta garantía es muy importante, y se debe obtener
-    antes de usar el algoritmo.
+Hay varias posibles razones por las que se puede llegar a un estado
+«suspendido»: la entidad dueña de una firma digital no se encuentra disponible;
+se sospecha que la integridad de la llave está comprometida, por lo que se pasa
+a este estado en lo que se investiga más en profundidad; entre otros. Una
+llave que está en este estado («suspendido») no debe ser usada bajo ninguna
+circunstancia.
 
-  \item[Garantía de validez de llave pública:] esta validación permite al
-    usuario estar seguro de que la llave pública es aritméticamente correcta.
-    Esto reduce las posibilidades de usar llaves débiles o corruptas. Una de
-    varias maneras de obtener esta garantía es mediante la verificación de
-    algunas propiedades matemáticas que la llave pública debe tener (estas
-    dependen según el algoritmo).
+Las llaves que se encuentran en el estado «inactivo» no deben ser usadas para
+aplicar protección criptográfica, pero en algunos casos, pueden ser usadas
+para procesar información protegida con criptografía. Por ejemplo, las llaves
+simétricas usadas para autenticación, cifrado de datos o envoltura de llaves,
+pueden ser usadas para procesar información hasta que acabe el periodo del
+emisor de la llave emisora.
 
-  \item[Garantía de posesión de llave privada:] esta garantía debe ser obtenida
-    por ambas partes: el dueño de los pares y las demás entidades que
-    reciben la llave pública. Los métodos para obtener la garantía son
-    específicos a cada algoritmo.
-
-\end{description}
+El estado «comprometido» representa a las llaves a las que una entidad sin
+autorización tiene o ha tenido acceso. Las llaves comprometidas no deben ser
+usadas para aplicar protección criptográfica, sin embargo, en algunos casos
+es posible que sean usadas para procesar información (en condiciones
+sumamente controladas); por ejemplo, si la cierta información fue firmada
+antes de que se produjera la brecha de seguridad, las llaves pueden ser
+usadas para valida esta firma.

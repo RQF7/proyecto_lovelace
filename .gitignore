@@ -8,3 +8,8 @@ temporales_de_latex
 # Carpetas de binarios y archivos objeto
 binarios
 objetos
+
+# Visual paradigm
+*.svg
+*.bak_*
+*.lck
