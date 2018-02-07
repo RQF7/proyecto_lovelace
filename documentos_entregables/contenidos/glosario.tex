@@ -92,7 +92,7 @@
 {
   name = entropía,
   description = {
-    Definida para una funión de probabilidad de distribución discreta,
+    Definida para una función de probabilidad de distribución discreta,
     mide cuánta información en promedio es requerida para identificar
     muestras aleatorias de esa distribución%
   },
@@ -336,10 +336,9 @@
   name = equiprobable,
   plural = equiprobables,
   description = {
-    Distribución de probabilidad en la que todos los elementos tienen la misma
-    ocurrencia%
-  },
-  see={gl:distribucion_probabilidad}
+    Se dice que un conjunto de eventos es equiprobable cuando cada uno tiene 
+    la misma probabilidad de ocurrencia%
+  }
 }
 
 \newglossaryentry{gl:funcion_booleana}
@@ -408,11 +407,41 @@
   }
 }
 
-\newglossaryentry{gl:material_llaves}
+\newglossaryentry{gl:material_de_llaves}
 {
   name = material de llaves,
   description = {(\textit{keying material})
-    Llaves criptográficas sin un formato especifico%
+    Conjunto de llaves criptográficas sin un formato específico%
+  }
+}
+
+\newglossaryentry{gl:tiempo_polinomial}
+{
+  name = tiempo polinomial,
+  description = {
+    Se dice que una función computable o algoritmo es de tiempo polinomial 
+    cuando su complejidad esta, en el peor de los casos, acotada por arriba 
+    por un polinomio sobre el tamaño de sus variables de entrada.
+    Si se toma a $f$ como una función computable, esta es de tiempo 
+    polinomial si $f\: \in\: O(n^k)$ donde $k$ $>$ 1%
+  }
+}
+
+\newglossaryentry{gl:distribucion_uniforme}
+{
+  name = distribución uniforme,
+  description = {
+    Distribución de probabilidad en la que todos los elementos tienen la misma
+    probabilidad ocurrencia% 
+  },
+  see={gl:distribucion_probabilidad}
+}
+
+\newglossaryentry{gl:computacionalmente_indistinguible}
+{
+  name = computacionalmente indistinguible,
+  % esto se puso para ya tener la liga al glosario.
+  description = {En investigación% no entiendo bien las definiciones 
   }
 }
 
