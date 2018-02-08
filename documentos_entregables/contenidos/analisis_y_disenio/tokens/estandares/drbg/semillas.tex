@@ -69,10 +69,10 @@ inicializar o cambiar la semilla de otra instancia del \gls{gl:drbg} o la suya.
 La cadena de personalización (que es opcional pero recomendada) es utilizada
 para derivar la \gls{gl:semilla}, puede ser obtenida dentro o fuera del
 módulo criptográfico y hasta puede ser una cadena vacía, pues el \gls{gl:drbg}
-no depende de esta cadena para obtener \gls{gl:entropia}. De hecho, el que
-el adversario conozco la cadena de personalización no disminuye el nivel de
+no depende de esta cadena para obtener \gls{gl:entropia}. De hecho, que
+el adversario conozca la cadena de personalización no disminuye el nivel de
 seguridad de una instancia de \gls{gl:drbg} siempre y cuando la entrada de
 \gls{gl:entropia} se mantenga desconocida. Esta cadena no es considerada un
 \gls{gl:csp}; puede introducir datos adicionales al \gls{gl:drbg}, tales como
 identificadores de usuario, aplicación, versiones, protocolos, marcas de tiempo,
-direcciones de red, números de serie, etćetera.
+direcciones de red, números de serie, etcétera.
