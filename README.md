@@ -11,6 +11,9 @@ recomendaciones a seguir en el proyecto.
    TT1 y TT2.
 * **pruebas_librerias:** clases de prueba para experimentar con las distintas
   posibilidades de librerías criptográficas.
+* **fuentes_bibliograficas:** registro de publicaciones consultadas. 
+  * **iacr:** artículos de la IACR y parecidos.
+  * **pci_y_nist** recomendaciones y estándares del PCI SSC y del NIST.
 
 ## Flujos de trabajo
 
