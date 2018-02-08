@@ -5,6 +5,8 @@
 % Proyecto Lovelace.
 %
 
+\paragraph{Funciones}
+
 Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
 \begin{description}
   \item [Instanciación] Antes de generar bits pseudoaleatorios, el \gls{gl:drbg}
@@ -31,37 +33,37 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
         de esta instancia para generar, cambiar la \gls{gl:semilla} y demás
         funciones.
     \end{enumerate}
-    El algoritmo de la función de instanciación se puede observar en
-    \ref{drbg:1}.
+    El algoritmo de la función de instanciación se puede observar en el
+    pseudocódigo \ref{drbg:1}.
 
-    \begin{pseudocodigo}[caption={DRBG, instanciación.}, label={drbg:1}]
-      entrada:  $nivel\_seguridad\_requerido$, $bandera\_prediccion$, $cadena\_personalizacion$
-                $entrada\_entropia$, $nonce$
-      salida:   $estado$, $manejador\_estado$
-      inicio
-        si $nivel\_seguridad\_requerido$ > $mayor\_nivel\_seguridad\_soportado$:
-          regresar $BANDERA\_ERROR, invalido$
-        si $bandera\_prediccion = $verdadero Y $resistencia\_prediccion$ no es soportado:
-          regresar $BANDERA\_ERROR, invalido$
-        si $longitud(cadena\_personalizacion) > longitud\_maxima$:
-          regresar $BANDERA\_ERROR, invalido$
-        Asignar a $nivel\_seguridad$ el nivel más bajo de seguridad mayor o igual
-          a $nivel\_seguridad\_requerido$ del conjunto $\{112, 128, 192, 256\}$
-        ($estado, entrada\_entropia$) = $obtener\_entropia(nivel\_seguridad,$...
-          ... $longitud\_min, longitud\_max, bandera\_prediccion)$
-        si $(estado \neq EXITOSO)$:
-          regresar $estado, invalido$
-        Obtener nonce
-        $estado\_trabajo\_inicial = INSTANCIAR\_ALGORITMO(entrada\_entropia,$...
-          ... $nonce, cadena\_personalizacion, nivel\_seguridad)$
-        Obtener $manejador\_estado$ para el estado interno vacío. 
-        si no se encuentra un estado interno vacío:
-          regresar $BANDERA\_ERROR, invalido$
-        Configurar el estado interno de la nueva instancia con los valores iniciales
-          y la información administrativa.
-        regresar $(EXITOSO, manejador\_estado)$
-      fin
-    \end{pseudocodigo}
+\begin{pseudocodigo}[caption={DRBG, instanciación.}, label={drbg:1}]
+  entrada:  $nivel\_seguridad\_requerido$, $bandera\_prediccion$, $cadena\_personalizacion$
+            $entrada\_entropia$, $nonce$
+  salida:   $estado$, $manejador\_estado$
+  inicio
+    si $nivel\_seguridad\_requerido > mayor\_nivel\_seguridad\_soportado$:
+      regresar $BANDERA\_ERROR, invalido$
+    si $bandera\_prediccion = $verdadero Y $resistencia\_prediccion$ no es soportado:
+      regresar $BANDERA\_ERROR, invalido$
+    si $longitud(cadena\_personalizacion) > longitud\_maxima$:
+      regresar $BANDERA\_ERROR, invalido$
+    Asignar a $nivel\_seguridad$ el nivel más bajo de seguridad mayor o igual
+      a $nivel\_seguridad\_requerido$ del conjunto $\{112, 128, 192, 256\}$
+    ($estado, entrada\_entropia$) = $obtener\_entropia(nivel\_seguridad,$...
+      ... $longitud\_min, longitud\_max, bandera\_prediccion)$
+    si $(estado \neq EXITOSO)$:
+      regresar $estado, invalido$
+    Obtener nonce
+    $estado\_trabajo\_inicial = INSTANCIAR\_ALGORITMO(entrada\_entropia,$...
+      ... $nonce, cadena\_personalizacion, nivel\_seguridad)$
+    Obtener $manejador\_estado$ para el estado interno vacío. 
+    si no se encuentra un estado interno vacío:
+      regresar $BANDERA\_ERROR, invalido$
+    Configurar el estado interno de la nueva instancia con los valores iniciales
+      y la información administrativa.
+    regresar $(EXITOSO, manejador\_estado)$
+  fin
+\end{pseudocodigo}
 
   \item [Cambio de \gls{gl:semilla}] Cambiar la \gls{gl:semilla} de una
     instancia no es requerido, pero es recomendado que se realice este proceso
@@ -93,29 +95,29 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
       \item Estado que regresa la función.
       \item Nuevo estado de trabajo interno.
     \end{enumerate}
-    El proceso para cambiar la \gls{gl:semilla} se observa en el algoritmo
+    El proceso para cambiar la \gls{gl:semilla} se observa en el pseudocódigo
     \ref{drbg:2}.
-    \begin{pseudocodigo}[caption={DRBG, cambio de semilla.}, label={drbg:2}]
-      entrada:  $bandera\_prediccion$, $manejador\_estado$, $entrada\_adicional$
-                $entrada\_entropia$, $estado\_interno$
-      salida:   $estado$, $estado\_trabajo\_interno$
-      inicio
-        si $manejador\_estado$ indica un estado inválido o sin uso:
-          regresar $BANDERA\_ERROR$
-        si se requiere resistencia de predicción y $bandera\_prediccion=$falso:
-          regresar $BANDERA\_ERROR$
-        si $longitud(entrada_adicional) > longitud\_max\_entrada\_adicional$:
-          regresar $BANDERA\_ERROR$
-        ($estado, entrada\_entropia$) = $obtener\_entropia(nivel\_seguridad,$...
-          ... $longitud\_min, longitud\_max, bandera\_prediccion)$
-        si $(estado \neq EXITOSO)$:
-          regresar $estado$
-        $estado\_trabajo\_nuevo= ALGORITMO\_CAMBIAR\_SEMILLA(estado\_trabajo,$...
-          ...$entrada\_entropia, entrada\_adicional)$
-        Reemplazar el valor de $estado\_trabajo$ con $estado\_trabajo\_nuevo$
-        regresar $(EXITOSO)$
-      fin
-    \end{pseudocodigo}
+\begin{pseudocodigo}[caption={DRBG, cambio de semilla.}, label={drbg:2}]
+  entrada:  $bandera\_prediccion$, $manejador\_estado$, $entrada\_adicional$
+            $entrada\_entropia$, $estado\_interno$
+  salida:   $estado$, $estado\_trabajo\_interno$
+  inicio
+    si $manejador\_estado$ indica un estado inválido o sin uso:
+      regresar $BANDERA\_ERROR$
+    si se requiere resistencia de predicción y $bandera\_prediccion=$falso:
+      regresar $BANDERA\_ERROR$
+    si $longitud(entrada_adicional) > longitud\_max\_entrada\_adicional$:
+      regresar $BANDERA\_ERROR$
+    ($estado, entrada\_entropia$) = $obtener\_entropia(nivel\_seguridad,$...
+      ... $longitud\_min, longitud\_max, bandera\_prediccion)$
+    si $(estado \neq EXITOSO)$:
+      regresar $estado$
+    $estado\_trabajo\_nuevo= ALGORITMO\_CAMBIAR\_SEMILLA(estado\_trabajo,$...
+      ...$entrada\_entropia, entrada\_adicional)$
+    Reemplazar el valor de $estado\_trabajo$ con $estado\_trabajo\_nuevo$
+    regresar $(EXITOSO)$
+  fin
+\end{pseudocodigo}
 
   \item [Generación] Esta función es utilizada para generar bits
     pseudoaleatorios después de haber utilizado la función de instanciación o
@@ -126,8 +128,8 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
     consumidora que los pidió. La función tiene las siguientes entradas:
     \begin{enumerate}
       \item Manejador de estado.
-      \item El número de bits que se requieren
-      \item El nivel de seguridad que se necesita
+      \item El número de bits que se requieren.
+      \item El nivel de seguridad que se necesita.
       \item Si debe ser resistente a predicción o no.
       \item Entradas adicionales.
       \item El estado de trabajo actual e información administrativa.
@@ -138,66 +140,67 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
       \item Bits pseudoaleatorios.
       \item Nuevo estado de trabajo.
     \end{enumerate}
-    El proceso para generar bits se puede observar en el algoritmo \ref{drbg:3}.
-    \begin{pseudocodigo}[caption={DRBG, generación.}, label={drbg:3}]
-      entrada:  $bandera\_prediccion$, $manejador\_estado$, $entrada\_adicional$
-                $nivel\_seguridad\_requerido$, $no\_bits\_requeridos$, $estado\_interno$
-      salida:   $estado$, $estado\_trabajo$, $bits\_pseudoaleatorios$
-      inicio
-        si $manejador\_estado$ indica un estado inválido o sin uso:
-          regresar $(BANDERA\_ERROR, NULL)$
-        si $no\_bits > no\_bits\_maximo$
-          regresar $(BANDERA\_ERROR, NULL)$
-        si $nivel\_seguridad\_requerido$ > $nivel\_seguridad$ indicado en el estado interno:
-          regresar $(BANDERA\_ERROR, NULL)$
-        si $longitud(entrada_adicional) > longitud\_max\_entrada\_adicional$:
-          regresar $(BANDERA\_ERROR, NULL)$
-        si se requiere resistencia de predicción y $bandera\_prediccion=$falso:
-          regresar $(BANDERA\_ERROR, NULL)$
-        Limpiar $bandera\_cambio\_semilla\_necesario$
-        si $bandera\_cambio\_semilla\_necesario$ o $bandera\_prediccion$ están puestas:
-          $estado = CAMBIO\_SEMILLA(manejador\_estado, prediccion\_resistencia, entrada\_adicional)$
-          si $estado \neq EXITOSO$:
-            regresar $(estado, NULL)$
-          Obtener el nuevo estado interno
-          $entrada\_adicional = NULL$
-          Poner en cero $bandera\_cambio\_semilla\_necesario$
-        ($estado, bits\_pseudoaleatorios, nuevo\_estado\_trabajo$) = $ALGORITMO\_GENERAR(estado\_trabajo,$...
-          ...$no\_bits\_requeridos, entrada\_adicional)$
-        si $estado$ indica que se requiere cambiar la semilla antes de poder generar bits:
-          Activar $bandera\_cambio\_semilla\_necesario$
-          si se requiere resistencia de predicción:
-            Activar $bandera\_prediccion$
-          Regresar al paso 7.
-        Reemplazar el $estado\_trabajo$ con $nuevo\_estado\_trabajo$.
-        regresar $(EXITOSO, bits\_pseudoaleatorios)$
-      fin
-    \end{pseudocodigo}
-    Hay que tomar en cuenta cuando no se tiene la capacidad de hacer el cambio
-    de \gls{gl:semilla} en el algoritmo. Se quitan los pasos 6 y 7, y, si el
-    estado indica que se necesita hacer el cambio, se regresa un error que
-    indique que el \gls{gl:drbg} no puede seguir siendo utilizado y hay que
-    eliminar la instancia. También se debe tener en mente cuando se termina
-    el ciclo de vida de la \gls{gl:semilla}: cada que se llama al algoritmo
-    generador, se revisa si el contador ha alcanzado el valor máximo que se
-    encuentra en el estado interno; en caso de ser así, la función debe avisar
-    que se requiere un cambio de \gls{gl:semilla}.
+    El proceso para generar bits se puede observar en el pseudocódigo
+    \ref{drbg:3}.
+\begin{pseudocodigo}[caption={DRBG, generación.}, label={drbg:3}]
+  entrada:  $bandera\_prediccion$, $manejador\_estado$, $entrada\_adicional$
+            $nivel\_seguridad\_requerido$, $no\_bits\_requeridos$, $estado\_interno$
+  salida:   $estado$, $estado\_trabajo$, $bits\_pseudoaleatorios$
+  inicio
+    si $manejador\_estado$ indica un estado inválido o sin uso:
+      regresar $(BANDERA\_ERROR, NULL)$
+    si $no\_bits > no\_bits\_maximo$
+      regresar $(BANDERA\_ERROR, NULL)$
+    si $nivel\_seguridad\_requerido > nivel\_seguridad$ indicado en el estado interno:
+      regresar $(BANDERA\_ERROR, NULL)$
+    si $longitud(entrada_adicional) > longitud\_max\_entrada\_adicional$:
+      regresar $(BANDERA\_ERROR, NULL)$
+    si se requiere resistencia de predicción y $bandera\_prediccion=$falso:
+      regresar $(BANDERA\_ERROR, NULL)$
+    Limpiar $bandera\_cambio\_semilla\_necesario$
+    si $bandera\_cambio\_semilla\_necesario$ o $bandera\_prediccion$ están puestas:
+      $estado = CAMBIO\_SEMILLA(manejador\_estado, prediccion\_resistencia, entrada\_adicional)$
+      si $estado \neq EXITOSO$:
+        regresar $(estado, NULL)$
+      Obtener el nuevo estado interno
+      $entrada\_adicional = NULL$
+      Poner en cero $bandera\_cambio\_semilla\_necesario$
+    ($estado, bits\_pseudoaleatorios, nuevo\_estado\_trabajo$) = $ALGORITMO\_GENERAR(estado\_trabajo,$...
+      ...$no\_bits\_requeridos, entrada\_adicional)$
+    si $estado$ indica que se requiere cambiar la semilla antes de poder generar bits:
+      Activar $bandera\_cambio\_semilla\_necesario$
+      si se requiere resistencia de predicción:
+        Activar $bandera\_prediccion$
+      Regresar al paso 7.
+    Reemplazar el $estado\_trabajo$ con $nuevo\_estado\_trabajo$.
+    regresar $(EXITOSO, bits\_pseudoaleatorios)$
+  fin
+\end{pseudocodigo}
+    Hay que tomar en cuenta cuando la implementación no tiene la capacidad de
+    hacer el cambio de \gls{gl:semilla} en el algoritmo: se quitan los pasos 6 y
+    7, y, si el estado indica que se necesita hacer el cambio, se regresa un
+    error que indique que el \gls{gl:drbg} no puede seguir siendo utilizado y
+    hay que eliminar la instancia. También se debe tener en mente cuando se
+    termina el ciclo de vida de la \gls{gl:semilla}: cada que se llama al
+    algoritmo generador, se revisa si el contador ha alcanzado el valor máximo
+    que se encuentra en el estado interno; en caso de ser así, la función debe
+    avisar que se requiere un cambio de \gls{gl:semilla}.
 
   \item [Desinstanciación] Esta función se encarga de liberar el estado interno
     de una instancia al borrar el contenido de su estado interno. La función
     requiere del manejador de estado de la instancia que se va a eliminar y
     regresa el estado de la función. El proceso para eliminar una instancia se
-    puede observar en el algoritmo \ref{drbg:4}.
+    puede observar en el pseudocódigo \ref{drbg:4}.
 
-    \begin{pseudocodigo}[caption={DRBG, desinstanciación.}, label={drbg:4}]
-      entrada:  $manejador\_estado$
-      salida:   $estado$
-      inicio
-        si $manejador\_estado$ indica un estado inválido:
-          regresar $(BANDERA\_ERROR)$
-        Eliminar los contenidos del estado interno indicados por $manejador\_estado$
-        regresar $(EXITOSO)$
-      fin
-    \end{pseudocodigo}
+\begin{pseudocodigo}[caption={DRBG, desinstanciación.}, label={drbg:4}]
+  entrada:  $manejador\_estado$
+  salida:   $estado$
+  inicio
+    si $manejador\_estado$ indica un estado inválido:
+      regresar $(BANDERA\_ERROR)$
+    Eliminar los contenidos del estado interno indicados por $manejador\_estado$
+    regresar $(EXITOSO)$
+  fin
+\end{pseudocodigo}
 
 \end{description}

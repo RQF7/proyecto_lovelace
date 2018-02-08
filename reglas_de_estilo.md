@@ -102,10 +102,10 @@ Todo el código en c++ debe cumplir con los siguientes puntos:
   * Los comentarios de doxygen (`/** */`) pueden ser todo un bloque:
     ```
     /**
-     * Contido del bloque
+     * Contenido del bloque
      */
     ```
-    O de sólo una línea: `/** Contenido de línea. */`. Los de bloque deben
+    O de solo una línea: `/** Contenido de línea. */`. Los de bloque deben
     tener una línea en blanco tanto arriba como abajo; mientras que los de
     línea solamente tienen una línea en blanco antes.
 * Documentación:

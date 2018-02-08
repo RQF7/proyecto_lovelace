@@ -4,6 +4,7 @@
 % Mecanismos con bloques
 % Proyecto Lovelace.
 %
+\paragraph{Mecanismos basados en cifradores por bloque}
 
 Un cifrado por bloques \gls{gl:drbg} está basado en un algoritmo de cifrado por
 bloques. La seguridad que puede alcanzar el \gls{gl:drbg} depende del cifrado
@@ -13,6 +14,6 @@ contador (véase sección \ref{sec:modos}); debe utilizarse el mismo algoritmo
 de cifrado y tamaño de llave para todas las operaciones de cifrado por bloques
 en el \gls{gl:drbg}. El CTR\_DRBG tiene una función actualizadora que es llamada
 por los algoritmos de instanciación, generación y cambio de semilla para ajustar
-el estado interno cando hay nueva \gls{gl:entropia}, se le dan entradas
+el estado interno cuando hay nueva \gls{gl:entropia}, se le dan entradas
 adicionales o cuando se actualiza el estado interno después de generar bits
 pseudoaleatorios.
