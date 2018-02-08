@@ -31,6 +31,9 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
         de esta instancia para generar, cambiar la \gls{gl:semilla} y demás
         funciones.
     \end{enumerate}
+    El algoritmo de la función de instanciación se puede observar en 
+    \ref{drbg:1}.
+
     \begin{pseudocodigo}[caption={DRBG, instanciación.}, label={drbg:1}]
       entrada:  $nivel\_seguridad\_requerido$, $bandera\_prediccion$, $cadena\_personalizacion$
                 $entrada\_entropia$, $nonce$ 
@@ -57,6 +60,60 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
         Configurar el estado interno de la nueva instancia con los valores iniciales
           y la información administrativa.
         regresar $(EXITOSO, manejador\_estado)$
+      fin
+    \end{pseudocodigo}
+  
+  \item [Cambio de \gls{gl:semilla}] Cambiar la \gls{gl:semilla} de una
+    instancia no es requerido, pero es recomendado que se realice este proceso
+    cada que sea posible. Cambiar la \gls{gl:semilla} puede:
+    \begin{itemize}
+      \item Ser solicitado expresamente por la aplicación consumidora.
+      \item Realizado cuando la aplicación consumidora requiere resistencia de
+        predicción.
+      \item Disparada por la función generadora cuando se alcanza un número
+        predeterminado de salidas generadas. 
+      \item Disparada por eventos externos.
+    \end{itemize}
+    La función se encarga de revisar la validez de los parámetros de entrada,
+    obtiene la entrada de \gls{gl:entropia} de una fuente de aleatoriedad y,
+    mediante el algoritmo de cambio de \gls{gl:semilla}, combina el estado de
+    trabajo actual con la nueva entrada de \gls{gl:entropia} y valores
+    adicionales para determinar el nuevo estado de trabajo actual. Las entradas
+    para la función de cambio de \gls{gl:semilla} son las siguientes:
+    \begin{enumerate}
+      \item El manejador de estado.
+      \item Bandera que indica si se requiere o no la resistencia de predicción.
+      \item Entradas adicionales (opcionales).
+      \item Entrada de \gls{gl:entropia}.
+      \item Valores del estado interno e información administrativa.
+    \end{enumerate}  
+    Las primeras tres entradas deben ser provistas por la aplicación
+    consumidora. La salida consiste en lo siguiente:
+    \begin{enumerate}
+      \item Estado que regresa la función.
+      \item Nuevo estado de trabajo interno.
+    \end{enumerate}
+    El proceso para cambiar la \gls{gl:semilla} se observa en el algoritmo 
+    \ref{drbg:2}.
+    \begin{pseudocodigo}[caption={DRBG, cambio de semilla.}, label={drbg:2}]
+      entrada:  $bandera\_prediccion$, $manejador\_estado$, $entrada\_adicional$
+                $entrada\_entropia$, $estado\_interno$ 
+      salida:   $estado$, $estado\_trabajo\_interno$
+      inicio
+        si $manejador\_estado$ indica un estado inválido o sin uso:
+          regresar $BANDERA\_ERROR$
+        si se requiere resistencia de predicción y $bandera\_prediccion=$falso:
+          regresar $BANDERA\_ERROR$
+        si $longitud(entrada_adicional) > longitud\_max\_entrada\_adicional$:
+          regresar $BANDERA\_ERROR$
+        ($estado, entrada\_entropia$) = $obtener\_entropia(nivel\_seguridad,$...
+          ... $longitud\_min, longitud\_max, bandera\_prediccion)$
+        si $(estado \neq EXITOSO)$:
+          regresar $estado$ 
+        $estado\_trabajo\_nuevo= ALGORITMO\_CAMBIAR\_SEMILLA(estado\_trabajo,$...
+          ...$entrada\_entropia, entrada\_adicional)$
+        Reemplazar el valor de $estado\_trabajo$ con $estado\_trabajo\_nuevo$
+        regresar $(EXITOSO)$
       fin
     \end{pseudocodigo}
 \end{description}
