@@ -95,79 +95,10 @@ instanciados (por ejemplo, dos cadenas concatenadas de 128 bits no dan como
 resultado una cadena de 256 bits con el nivel de seguridad de 256 bits).
 
 \paragraph{Semillas}
-Las \glspl{gl:semilla} deben ser obtenidas antes de generar bits
-pseudoaleatorios en el \gls{gl:drbg}, pues esta es utilizada para instanciar al
-\gls{gl:drbg} y determinar el estado inicial interno del mecanismo.
-
-Cambiar la \gls{gl:semilla} restaura el secreto de la salida del \gls{gl:drbg}
-si el estado interno o la \gls{gl:semilla} son conocidos. Hacer este cambio
-periódicamente es una buena manera de mantener a raya el peligro de que valores
-como la entrada de \gls{gl:entropia}, la \gls{gl:semilla} o el estado interno
-de trabajo; hayan sido comprometidos.
-
-Los ingredientes para determinar una nueva \gls{gl:semilla} para la función de
-instanciación son la entrada de entropía de una fuente aleatoria, un
-\gls{gl:nonce} y una cadena de personalización (recomendada, pero no
-obligatoria). Para hacer un cambio de semilla, se necesita el estado interno
-actual, la entrada de \gls{gl:entropia} y una entrada adicional opcional.
-
-La longitud de la \gls{gl:semilla} depende del mecanismo \gls{gl:drbg} y el
-nivel de seguridad requerido; sin embargo, siempre debe ser de, al menos, el
-mismo número de bits de \gls{gl:entropia} requerida.
-
-La entrada de \gls{gl:entropia} y la \gls{gl:semilla} resultante deben de ser
-protegidas con el mismo cuidado con el que se protege la salida del
-\gls{gl:drbg}; por ejemplo, si el mecanismo es utilizado para generar llaves,
-estos valores deben protegerse con la misma seguridad como son protegidas las
-llaves generadas. Además, la seguridad del \gls{gl:drbg} depende de mantener
-en secreto la entrada de \gls{gl:entropia}, por lo que esa entrada debe ser
-tratada como un parámetro crítico de seguridad (\gls{gl:csp}) y ser obtenido
-desde un módulo criptográfico que contenga la función necesaria o ser
-transmitido desde un canal seguro.
-
-Cuando se requiera un \gls{gl:nonce} para la construcción de la
-\gls{gl:semilla}, esta debe cumplir con una de las siguientes dos condiciones:
-tener $nivel\_seguridad/2$ bits de \gls{gl:entropia} o un valor que se espera
-no se repita más de lo que se repetiría una cadena aleatoria de
-$nivel\_seguridad/2$ bits. Aunque no debe ser mantenido en secreto, cada
-\gls{gl:nonce} debe ser considerado como un \gls{gl:csp} y debe ser único en
-el módulo criptográfico en donde se realiza la instanciación. El \gls{gl:nonce}
-puede estar compuesto por uno o más de los siguientes valores:
-\begin{enumerate}
-    \item Valor aleatorio generado para cada \gls{gl:nonce} por un generador
-        de bits aleatorios aprobado.
-    \item Una marca de tiempo con la resolución suficiente para que sea distinto
-        cada vez que sea utilizado.
-    \item Un número de secuencia que se incremente constantemente.
-    \item Una combinación de una marca de tiempo y un número de secuencia que se
-        incremente constantemente; tal que el número de secuencia regrese a su
-        valor inicial solo cuando la marca de tiempo cambie.
-\end{enumerate}
-
-Generar demasiadas salidas partiendo de una misma \gls{gl:semilla} puede proveer
-suficiente información para ser capaz de predecir las salidas futuras; por lo
-que el cambio de \glspl{gl:semilla} reduce riesgos de seguridad. Las
-\glspl{gl:semilla} tienen una vida finita que depende el mecanismo \gls{gl:drbg}
-utilizado. Es imperativo que las implementaciones respeten el límite de la vida
-de las \glspl{gl:semilla} especificado para el mecanismo; y, cuando se alcance
-el límite de la vida de una \gls{gl:semilla}, el \gls{gl:drbg} no debe generar
-salidas hasta que se haya cambiado la \gls{gl:semilla} o se cree una nueva
-instancia del \gls{gl:drbg} (aunque se prefiere que se cambie la
-\gls{gl:semilla}). Una \gls{gl:semilla} jamás debe ser utilizada para
-inicializar o cambiar la semilla de otra instancia del \gls{gl:drbg} o la suya.
-
-La cadena de personalización (que es opcional pero recomendada) es utilizada
-para derivar la \gls{gl:semilla}, puede ser obtenida dentro o fuera del
-módulo criptográfico y hasta puede ser una cadena vacía, pues el \gls{gl:drbg}
-no depende de esta cadena para obtener \gls{gl:entropia}. De hecho, el que
-el adversario conozco la cadena de personalización no disminuye el nivel de
-seguridad de una instancia de \gls{gl:drbg} siempre y cuando la entrada de
-\gls{gl:entropia} se mantenga desconocida. Esta cadena no es considerada un
-\gls{gl:csp}; puede introducir datos adicionales al \gls{gl:drbg}, tales como
-identificadores de usuario, aplicación, versiones, protocolos, marcas de tiempo,
-direcciones de red, números de serie, etćetera.
+\subimport{drbg/}{semillas}
 
 \paragraph{Funciones}
+\subimport{drbg/}{funciones}
 
 \paragraph{Mecanismos basados en funciones hash}
 
