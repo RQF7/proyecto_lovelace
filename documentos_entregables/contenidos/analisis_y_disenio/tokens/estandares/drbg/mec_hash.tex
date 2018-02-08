@@ -1,0 +1,20 @@
+%
+% Recomendaciones del NIST para la generación de bits pseudoaleatorios,
+% capítulo de análisis y diseño para la generación de tokens,
+% Mecanismos con hash
+% Proyecto Lovelace.
+%
+
+Los mecanismos \gls{gl:drbg} pueden estar basados en funciones hash de un
+solo sentido; dos mecanismos basados en estas funciones son los HASH\_DRBG 
+y HMAC\_DRBG. El nivel de seguridad que puede soportar cada uno es el nivel de
+resistencia a la preimagen que tiene la función hash.
+El mecanismo HASH\_DRBG requiere el uso de una misma función hash en las 
+funciones de instanciación, cambio de \gls{gl:semilla} y generación. El nivel
+de seguridad de la función hash a utilizar debe igualar o ser mayor al que
+nivel que se requiere por la aplicación consumidora del \gls{gl:drbg}. En
+cambio, el mecanismo HMAC\_DRBG utiliza múltiples ocurrencias de una función
+hash con llave; la misma función hash debe ser utilizada a lo largo del proceso
+de instanciación. Al igual que HASH\_DRBG, la función hash debe tener, al menos,
+el mismo nivel de seguridad que la aplicación consumidora requiere para la 
+salida del \gls{gl:drbg}.

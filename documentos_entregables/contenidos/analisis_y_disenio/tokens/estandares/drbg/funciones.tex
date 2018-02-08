@@ -183,4 +183,21 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
     encuentra en el estado interno; en caso de ser así, la función debe avisar
     que se requiere un cambio de \gls{gl:semilla}.
 
+  \item [Desinstanciación] Esta función se encarga de liberar el estado interno
+    de una instancia al borrar el contenido de su estado interno. La función
+    requiere del manejador de estado de la instancia que se va a eliminar y
+    regresa el estado de la función. El proceso para eliminar una instancia se
+    puede observar en el algoritmo \ref{drbg:4}.
+
+    \begin{pseudocodigo}[caption={DRBG, desinstanciación.}, label={drbg:4}]
+      entrada:  $manejador\_estado$
+      salida:   $estado$
+      inicio
+        si $manejador\_estado$ indica un estado inválido:
+          regresar $(BANDERA\_ERROR)$
+        Eliminar los contenidos del estado interno indicados por $manejador\_estado$
+        regresar $(EXITOSO)$
+      fin
+    \end{pseudocodigo}
+
 \end{description}
