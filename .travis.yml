@@ -14,6 +14,7 @@ install:
     texlive-bibtex-extra
     texlive-generic-extra
     libcrypto++-dev
+    doxygen
 #    hunspell
 #    myspell-es
 
@@ -54,5 +55,9 @@ script:
   # Revisión de ortografía
   #  - make -C documentos_entregables ortografía
 
+  # Ejecución de funciones de prueba
   - make -C pruebas_librerias
   - make -C pruebas_librerias correr
+
+  # Documentación.
+  - doxygen .doxygen

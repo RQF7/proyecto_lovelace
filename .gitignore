@@ -13,3 +13,7 @@ objetos
 *.svg
 *.bak_*
 *.lck
+
+# Archivos de doxygen
+.doxygen_documentacion
+documentacion_doxygen

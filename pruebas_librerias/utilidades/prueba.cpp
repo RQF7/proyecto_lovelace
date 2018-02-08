@@ -8,6 +8,14 @@
 
 using namespace std;
 
+/**
+ * Ejecuta cada una de las funciones definidas en mListaDePruebas. Imprime
+ * en la salida estándar el resultado de cada una.
+ *
+ * \return Verdadero en caso de que todas las pruebas se aprueben, falso si
+ * al menos una falla.
+ */
+
 bool Prueba::probar()
 {
   int contador = 1;
@@ -19,7 +27,7 @@ bool Prueba::probar()
          << "================================================================="
          << endl;
     bool resultadoLocal = (prueba.obtenerFuncion())();
-    cout 
+    cout
          << "================================================================="
          << endl
          << "==> Resultado: " << (resultadoLocal ? "aceptado" : "rechazado")

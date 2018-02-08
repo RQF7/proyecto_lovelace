@@ -9,7 +9,7 @@ recomendaciones a seguir en el proyecto.
 
 * **documentos_entregables:** documentación del proyecto y presentaciones de
    TT1 y TT2.
-* **pruebas_librerias** clases de prueba para experimentar con las distintas
+* **pruebas_librerias:** clases de prueba para experimentar con las distintas
   posibilidades de librerías criptográficas.
 
 ## Flujos de trabajo

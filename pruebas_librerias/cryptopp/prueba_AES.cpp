@@ -12,6 +12,23 @@
 using namespace std;
 using namespace CryptoPP;
 
+/**
+ * \brief Prueba el funcionamiento de constantes de AES.
+ *
+ * No es algo específico de AES, sino de todas las constantes de toda
+ * la biblioteca. Las constantes siempre se especifícan con mayúsculas, y
+ * son valores o enums estáticos de cada algoritmo; tiene sentido, dado que
+ * no son valores que se espera que cambien mucho.
+ *
+ * En particular para las constantes de AES, solamente está implementado para
+ * un solo tamaño de bloque (como el propio AES, no como Rijandael). Para
+ * los tamaños de llave, en los que sí hay variaciones, se especifíca un
+ * mínimo, un máximo, un valor por defecto y el tamaño del múltiplo (i. e.
+ * el tamaño del intervalo entre un tamaño y el siguiente). Este formato
+ * se utiliza para todas las demás constantes con variaciones en los demás
+ * algoritmos.
+ */
+
 bool probarConstantes()
 {
   cout << "Tamaño de bloque: "              << AES::BLOCKSIZE           << endl
@@ -23,6 +40,23 @@ bool probarConstantes()
        << "Longitud de VI: "                << AES::IV_LENGTH           << endl;
   return true;
 }
+
+/**
+ * \brief Prueba el proceso de cifrado y descifrado de AES.
+ *
+ * Genera una llave y un vector de inicialización de prueba (vacíos) y los
+ * utiliza para cifrar y descifrar una cadena de prueba. Se utiliza el
+ * modo de operación CBC.
+ *
+ * La construcción de una maquinaria de cifrado se realiza envolviendo
+ * primitivas de bajo nivel en primitivas de alto nivel. Por ejemplo, para
+ * construir el cifrador, primero se crea una instancia de AES::Encryption
+ * que recibe la llave; esta instancia se le pasa al constructor de un
+ * CBC_Mode_ExternalCipher, que también recibe el vector de inicialización.
+ * Por último, el modo de operación se le pasa al constructor de un
+ * StreamTransformationFilter que también recibe la cadena destino.
+ * El proceso para el descifrado es análogo.
+ */
 
 bool probarCifradoDescifrado()
 {
@@ -83,6 +117,11 @@ bool probarCifradoDescifrado()
        << "  " << textoDescifrado << endl;
   return true;
 }
+
+/**
+ * Registra las funciones de prueba de AES en la lista de funciones a probar
+ * que mantiene la clase de Prueba.
+ */
 
 PruebaAES::PruebaAES()
 {

@@ -60,15 +60,15 @@ puntos:
 
 * Ligas entre archivos relativas (paquete *import*).
 * Los únicos elementos que introducen niveles de indentación son los entornos
-  (i. e. `\begin{} ... \end{}`) y los contenidos extensos entre llaves:
+  (i. e. `\begin{} ... \end{}`), los contenidos extensos entre llaves:
   ```
   \comando[argumentos_opcionales]{contenidos_cortos}
   {
     contenidos_extensos
   }
   ```
-  En caso de ocupar un contenido extenso, las llaves de apertura y cierre
-  deben de estar en su propio renglón.
+  y las líneas secundarias de los `\item`. En caso de ocupar un contenido
+  extenso, las llaves de apertura y cierre deben de estar en su propio renglón.
 * Todas las imágenes se colocan dentro de una carpeta *diagramas* hermana al
   archivo desde el cual se importan. Dentro de esta carpeta se debe de colocar
   una versión binaria del archivo del programa desde el cual se generó (e. g.
@@ -97,3 +97,18 @@ Todo el código en c++ debe cumplir con los siguientes puntos:
     para cada uno). Por ejemplo, una distribución común para una clase
     `ClaseDeEjemplo` es poner la declaración en
     `cabeceras/clase_de_ejemplo.hh` y la definición en `clase_de_ejemplo.cpp`.
+* Comentarios:
+  * El estilo de los comentarios es tipo C: `/* */`.
+  * Los comentarios de doxygen (`/** */`) pueden ser todo un bloque:
+    ```
+    /**
+     * Contido del bloque
+     */
+    ```
+    O de sólo una línea: `/** Contenido de línea. */`. Los de bloque deben
+    tener una línea en blanco tanto arriba como abajo; mientras que los de
+    línea solamente tienen una línea en blanco antes.
+* Documentación:
+  * El modelo de documentación del código es estricto: todo debe llevar
+    comentarios de documentación (clases, miembros de clase tanto privados
+    como públicos, funciones autónomas, argumentos, valores de retorno, etc.).
