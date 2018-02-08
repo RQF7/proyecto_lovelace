@@ -325,9 +325,9 @@
 {
   name = distribución de probabilidad,
   description = {
-    Una distribución de probabilidad $P$ en el conjunto de eventos $S$ es 
-    una secuencia de números positivos $p_1,\: p_2,\: \dots\, p_n$ que 
-    sumados dan 1. Donde $p_i$ se interpreta como la probabilidad de 
+    Una distribución de probabilidad $P$ en el conjunto de eventos $S$ es
+    una secuencia de números positivos $p_1,\: p_2,\: \dots\, p_n$ que
+    sumados dan 1. Donde $p_i$ se interpreta como la probabilidad de
     que el evento $s_i$ ocurra%
   }
 }
@@ -337,7 +337,7 @@
   name = equiprobable,
   plural = equiprobables,
   description = {
-    Se dice que un conjunto de eventos es equiprobable cuando cada uno tiene 
+    Se dice que un conjunto de eventos es equiprobable cuando cada uno tiene
     la misma probabilidad de ocurrencia%
   }
 }
@@ -420,10 +420,10 @@
 {
   name = tiempo polinomial,
   description = {
-    Se dice que una función computable o algoritmo es de tiempo polinomial 
-    cuando su complejidad esta, en el peor de los casos, acotada por arriba 
+    Se dice que una función computable o algoritmo es de tiempo polinomial
+    cuando su complejidad esta, en el peor de los casos, acotada por arriba
     por un polinomio sobre el tamaño de sus variables de entrada.
-    Si se toma a $f$ como una función computable, esta es de tiempo 
+    Si se toma a $f$ como una función computable, esta es de tiempo
     polinomial si $f\: \in\: O(n^k)$ donde $k$ $>$ 1%
   }
 }
@@ -433,7 +433,7 @@
   name = distribución uniforme,
   description = {
     Distribución de probabilidad en la que todos los elementos tienen la misma
-    probabilidad ocurrencia% 
+    probabilidad ocurrencia%
   },
   see={gl:distribucion_probabilidad}
 }
@@ -441,8 +441,53 @@
 \newglossaryentry{gl:computacionalmente_indistinguible}
 {
   name = computacionalmente indistinguible,
-  % esto se puso para ya tener la liga al glosario.
-  description = {En investigación% no entiendo bien las definiciones 
+  plural = computacionalmente indistinguibles,
+  description = {
+    (\textit{Computational indistinguishability}) Para un $ A $ tomado de
+    algún conjunto de distribución y un circuito booleano $ C $ (con las
+    suficientes entradas), $ p_C^A $ es la probabilidad de que la salida
+    del circuito booleano $ C $ sea 1 para una entrada de $ A $. Se dice
+    que los conjuntos de distribución $ \{ A_k \} $ y $ \{ B_k \} $ son
+    \textit{computacionalmente indistinguibles} si para cualquier familia
+    de circuitos de tamaño polinomial $ C = \{ C_k \} $, la función
+    $ e(k) = | p_{A_k}^{C_k} - p_{B_k}^{C_k} |$ es
+    despreciable~\cite{DBLP:conf/stoc/BeaverMR90}%
+  },
+  see={gl:funcion,gl:funcion_despreciable,gl:conjunto_de_distribucion,gl:circuito_booleano}
+}
+
+\newglossaryentry{gl:funcion_despreciable}
+{
+  name = función despreciable,
+  description = {
+    (\textit{Negligible function}) Una función $ e: N \rightarrow R $ es
+    \textit{despreciable} si, para todos los enteros positivos $ c $,
+    existe un entero $ N_c $ tal que para todo $ x \ge N_c $,
+    $ |e(x)| \le \frac{1}{x^c} $. Esto significa que $ e(x) $ se desvanece
+    más rápido que el inverso de cualquier
+    polinomio~\cite{DBLP:conf/stoc/BeaverMR90}%
+  },
+  see={gl:funcion}
+}
+
+\newglossaryentry{gl:conjunto_de_distribucion}
+{
+  name = conjunto de distribución,
+  description = {
+    (\textit{Distribution ensemble}) Un \textit{conjunto de distribución}
+    $ \{ A_k \} $ es una familia de medidas de probabilidad en $ \{0, 1\}^* $
+    para la cual hay un polinomio $ q $ tal que las únicas cadenas de longitud
+    mayor a $ q(k) $ tienen una probabilidad distinta de cero en
+    $ \{ A_k \} $~\cite{DBLP:conf/stoc/BeaverMR90}%
+  }
+}
+
+\newglossaryentry{gl:circuito_booleano}
+{
+  name = circuito booleano,
+  description = {
+    (\textit{Boolean circuit}) Modelo matemático definido en términos de
+    compuertas lógicas digitales (AND, OR, NOT, etc.)%
   }
 }
 

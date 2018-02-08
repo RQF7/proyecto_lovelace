@@ -19,7 +19,7 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
       \item Nivel de seguridad requerido.
       \item Bandera que indica si se necesita o no la resistencia de predicción.
       \item Cadena de personalización.
-      \item Entrada de \gls{gl:entropia}. 
+      \item Entrada de \gls{gl:entropia}.
       \item \gls{gl:nonce}
     \end{enumerate}
     Las primeras entradas deben ser provistas por la aplicación consumidora. La
@@ -31,12 +31,12 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
         de esta instancia para generar, cambiar la \gls{gl:semilla} y demás
         funciones.
     \end{enumerate}
-    El algoritmo de la función de instanciación se puede observar en 
+    El algoritmo de la función de instanciación se puede observar en
     \ref{drbg:1}.
 
     \begin{pseudocodigo}[caption={DRBG, instanciación.}, label={drbg:1}]
       entrada:  $nivel\_seguridad\_requerido$, $bandera\_prediccion$, $cadena\_personalizacion$
-                $entrada\_entropia$, $nonce$ 
+                $entrada\_entropia$, $nonce$
       salida:   $estado$, $manejador\_estado$
       inicio
         si $nivel\_seguridad\_requerido$ > $mayor\_nivel\_seguridad\_soportado$:
@@ -50,7 +50,7 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
         ($estado, entrada\_entropia$) = $obtener\_entropia(nivel\_seguridad,$...
           ... $longitud\_min, longitud\_max, bandera\_prediccion)$
         si $(estado \neq EXITOSO)$:
-          regresar $estado, invalido$ 
+          regresar $estado, invalido$
         Obtener nonce
         $estado\_trabajo\_inicial = INSTANCIAR\_ALGORITMO(entrada\_entropia,$...
           ... $nonce, cadena\_personalizacion, nivel\_seguridad)$
@@ -62,7 +62,7 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
         regresar $(EXITOSO, manejador\_estado)$
       fin
     \end{pseudocodigo}
-  
+
   \item [Cambio de \gls{gl:semilla}] Cambiar la \gls{gl:semilla} de una
     instancia no es requerido, pero es recomendado que se realice este proceso
     cada que sea posible. Cambiar la \gls{gl:semilla} puede:
@@ -71,7 +71,7 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
       \item Realizado cuando la aplicación consumidora requiere resistencia de
         predicción.
       \item Disparada por la función generadora cuando se alcanza un número
-        predeterminado de salidas generadas. 
+        predeterminado de salidas generadas.
       \item Disparada por eventos externos.
     \end{itemize}
     La función se encarga de revisar la validez de los parámetros de entrada,
@@ -86,18 +86,18 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
       \item Entradas adicionales (opcionales).
       \item Entrada de \gls{gl:entropia}.
       \item Valores del estado interno e información administrativa.
-    \end{enumerate}  
+    \end{enumerate}
     Las primeras tres entradas deben ser provistas por la aplicación
     consumidora. La salida consiste en lo siguiente:
     \begin{enumerate}
       \item Estado que regresa la función.
       \item Nuevo estado de trabajo interno.
     \end{enumerate}
-    El proceso para cambiar la \gls{gl:semilla} se observa en el algoritmo 
+    El proceso para cambiar la \gls{gl:semilla} se observa en el algoritmo
     \ref{drbg:2}.
     \begin{pseudocodigo}[caption={DRBG, cambio de semilla.}, label={drbg:2}]
       entrada:  $bandera\_prediccion$, $manejador\_estado$, $entrada\_adicional$
-                $entrada\_entropia$, $estado\_interno$ 
+                $entrada\_entropia$, $estado\_interno$
       salida:   $estado$, $estado\_trabajo\_interno$
       inicio
         si $manejador\_estado$ indica un estado inválido o sin uso:
@@ -109,7 +109,7 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
         ($estado, entrada\_entropia$) = $obtener\_entropia(nivel\_seguridad,$...
           ... $longitud\_min, longitud\_max, bandera\_prediccion)$
         si $(estado \neq EXITOSO)$:
-          regresar $estado$ 
+          regresar $estado$
         $estado\_trabajo\_nuevo= ALGORITMO\_CAMBIAR\_SEMILLA(estado\_trabajo,$...
           ...$entrada\_entropia, entrada\_adicional)$
         Reemplazar el valor de $estado\_trabajo$ con $estado\_trabajo\_nuevo$
@@ -118,14 +118,14 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
     \end{pseudocodigo}
 
   \item [Generación] Esta función es utilizada para generar bits
-    pseudoaleatorios después de haber utilizado la función de instanciación o 
+    pseudoaleatorios después de haber utilizado la función de instanciación o
     de cambio de \gls{gl:semilla}. Se encarga de validar los parámetros de
     entrada, llamar a la función de cambio de \gls{gl:semilla} cuando sea
     requerida \gls{gl:entropia} extra, generar los bits pseudoaleatorios,
     actualizar el estado de trabajo y regresar los bits a la aplicación
     consumidora que los pidió. La función tiene las siguientes entradas:
     \begin{enumerate}
-      \item Manejador de estado. 
+      \item Manejador de estado.
       \item El número de bits que se requieren
       \item El nivel de seguridad que se necesita
       \item Si debe ser resistente a predicción o no.
@@ -141,7 +141,7 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
     El proceso para generar bits se puede observar en el algoritmo \ref{drbg:3}.
     \begin{pseudocodigo}[caption={DRBG, generación.}, label={drbg:3}]
       entrada:  $bandera\_prediccion$, $manejador\_estado$, $entrada\_adicional$
-                $nivel\_seguridad\_requerido$, $no\_bits\_requeridos$, $estado\_interno$ 
+                $nivel\_seguridad\_requerido$, $no\_bits\_requeridos$, $estado\_interno$
       salida:   $estado$, $estado\_trabajo$, $bits\_pseudoaleatorios$
       inicio
         si $manejador\_estado$ indica un estado inválido o sin uso:
@@ -161,7 +161,7 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
             regresar $(estado, NULL)$
           Obtener el nuevo estado interno
           $entrada\_adicional = NULL$
-          Poner en cero $bandera\_cambio\_semilla\_necesario$ 
+          Poner en cero $bandera\_cambio\_semilla\_necesario$
         ($estado, bits\_pseudoaleatorios, nuevo\_estado\_trabajo$) = $ALGORITMO\_GENERAR(estado\_trabajo,$...
           ...$no\_bits\_requeridos, entrada\_adicional)$
         si $estado$ indica que se requiere cambiar la semilla antes de poder generar bits:
