@@ -438,22 +438,29 @@
   see={gl:distribucion_probabilidad}
 }
 
-\newglossaryentry{gl:computacionalmente_indistinguible}
+\longnewglossaryentry{gl:computacionalmente_indistinguible}
 {
   name = computacionalmente indistinguible,
   plural = computacionalmente indistinguibles,
-  description = {
-    (\textit{Computational indistinguishability}) Para un $ A $ tomado de
-    algún conjunto de distribución y un circuito booleano $ C $ (con las
-    suficientes entradas), $ p_C^A $ es la probabilidad de que la salida
-    del circuito booleano $ C $ sea 1 para una entrada de $ A $. Se dice
-    que los conjuntos de distribución $ \{ A_k \} $ y $ \{ B_k \} $ son
-    \textit{computacionalmente indistinguibles} si para cualquier familia
-    de circuitos de tamaño polinomial $ C = \{ C_k \} $, la función
-    $ e(k) = | p_{A_k}^{C_k} - p_{B_k}^{C_k} |$ es
-    despreciable~\cite{DBLP:conf/stoc/BeaverMR90}%
-  },
   see={gl:funcion,gl:funcion_despreciable,gl:conjunto_de_distribucion,gl:circuito_booleano}
+}
+{%
+  (\textit{Computational indistinguishability}) Para un $ A $ tomado de
+  algún conjunto de distribución y un circuito booleano $ C $ (con las
+  suficientes entradas), $ p_C^A $ es la probabilidad de que la salida
+  del circuito booleano $ C $ sea 1 para una entrada de $ A $. Se dice
+  que los conjuntos de distribución $ \{ A_k \} $ y $ \{ B_k \} $ son
+  \textit{computacionalmente indistinguibles} si para cualquier familia
+  de circuitos de tamaño polinomial $ C = \{ C_k \} $, la función
+  $ e(k) = | p_{A_k}^{C_k} - p_{B_k}^{C_k} |$ es
+  despreciable~\cite{DBLP:conf/stoc/BeaverMR90}.
+  \\*
+  Otra forma de expresarlo, en un contexto más criptográfico, es como la
+  incapacidad de un adversario de distingir si la salida de una primitiva
+  criptográfica es una permutación aleatoria o una permutación pseudoaleatoria:
+  una permutación $ P $ es segura (en términos de un ataque de texto cifrado
+  conocido) cuando es \textit{computacionalmente indistingible} de una
+  permutación aleatoria.%
 }
 
 \newglossaryentry{gl:funcion_despreciable}
