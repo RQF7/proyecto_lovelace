@@ -14,7 +14,7 @@ install:
     texlive-bibtex-extra
     texlive-generic-extra
     doxygen
-    dot
+    graphviz
   # Instalación de paquetes directo desde el CTAN y sourceforge
   # glossaries
   - wget http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
