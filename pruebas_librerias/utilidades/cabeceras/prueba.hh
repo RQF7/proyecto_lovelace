@@ -3,6 +3,9 @@
  * Proyecto Lovelace.
  */
 
+#ifndef __PRUEBA__
+#define __PRUEBA__
+
 #include <vector>
 #include "funcion_de_prueba.hh"
 
@@ -25,3 +28,5 @@ class Prueba
     /** \brief Lista de funciones de prueba. */
     std::vector<FuncionDePrueba> mListaDePruebas;
 };
+
+#endif

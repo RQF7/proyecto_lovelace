@@ -13,8 +13,23 @@ using namespace std;
 using namespace CryptoPP;
 
 /**
- * \brief Prueba el funcionamiento de constantes de AES.
- *
+ * Registra las funciones de prueba de AES en la lista de funciones a probar
+ * que mantiene la clase de Prueba.
+ */
+
+PruebaAES::PruebaAES()
+{
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "Uso de constantes",
+    PruebaAES::probarConstantes
+  });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "Proceso de cifrado y descifrado",
+    PruebaAES::probarCifradoDescifrado
+  });
+}
+
+/**
  * No es algo específico de AES, sino de todas las constantes de toda
  * la biblioteca. Las constantes siempre se especifícan con mayúsculas, y
  * son valores o enums estáticos de cada algoritmo; tiene sentido, dado que
@@ -29,7 +44,7 @@ using namespace CryptoPP;
  * algoritmos.
  */
 
-bool probarConstantes()
+bool PruebaAES::probarConstantes()
 {
   cout << "Tamaño de bloque: "              << AES::BLOCKSIZE           << endl
        << "Mínimo tamaño de llave: "        << AES::MIN_KEYLENGTH       << endl
@@ -42,8 +57,6 @@ bool probarConstantes()
 }
 
 /**
- * \brief Prueba el proceso de cifrado y descifrado de AES.
- *
  * Genera una llave y un vector de inicialización de prueba (vacíos) y los
  * utiliza para cifrar y descifrar una cadena de prueba. Se utiliza el
  * modo de operación CBC.
@@ -58,7 +71,7 @@ bool probarConstantes()
  * El proceso para el descifrado es análogo.
  */
 
-bool probarCifradoDescifrado()
+bool PruebaAES::probarCifradoDescifrado()
 {
   /* Obtener arreglos limpios para la llave y el vector de incialización. */
   byte llave[AES::DEFAULT_KEYLENGTH],
@@ -73,12 +86,12 @@ bool probarCifradoDescifrado()
        << "  " << textoEnClaro << endl;
 
   /* Proceso de cifrado. */
-  AES::Encryption cifradoAES(llave, AES::DEFAULT_KEYLENGTH);
-  CBC_Mode_ExternalCipher::Encryption cifradoCBC(cifradoAES, vi);
-  StreamTransformationFilter cifradoFiltro(
+  AES::Encryption cifradoAES{llave, AES::DEFAULT_KEYLENGTH};
+  CBC_Mode_ExternalCipher::Encryption cifradoCBC{cifradoAES, vi};
+  StreamTransformationFilter cifradoFiltro{
     cifradoCBC,
     new StringSink(textoCifrado)
-  );
+  };
   cifradoFiltro.Put(
     reinterpret_cast<const unsigned char*>(textoEnClaro.c_str()),
     textoEnClaro.length() + 1
@@ -100,12 +113,12 @@ bool probarCifradoDescifrado()
   cout << endl;
 
   /* Proceso de descifrado. */
-  AES::Decryption descifradoAES(llave, AES::DEFAULT_KEYLENGTH);
-  CBC_Mode_ExternalCipher::Decryption descifradoCBC(descifradoAES, vi);
-  StreamTransformationFilter descifradoFiltro(
+  AES::Decryption descifradoAES{llave, AES::DEFAULT_KEYLENGTH};
+  CBC_Mode_ExternalCipher::Decryption descifradoCBC{descifradoAES, vi};
+  StreamTransformationFilter descifradoFiltro{
     descifradoCBC,
     new CryptoPP::StringSink(textoDescifrado)
-  );
+  };
   descifradoFiltro.Put(
     reinterpret_cast<const unsigned char*>(textoCifrado.c_str()),
     textoCifrado.size()
@@ -116,21 +129,4 @@ bool probarCifradoDescifrado()
   cout << "Texto en claro (" << textoDescifrado.size() << " bytes):" << endl
        << "  " << textoDescifrado << endl;
   return true;
-}
-
-/**
- * Registra las funciones de prueba de AES en la lista de funciones a probar
- * que mantiene la clase de Prueba.
- */
-
-PruebaAES::PruebaAES()
-{
-  mListaDePruebas.push_back(FuncionDePrueba{
-    "Uso de constantes",
-    probarConstantes
-  });
-  mListaDePruebas.push_back(FuncionDePrueba{
-    "Proceso de cifrado y descifrado",
-    probarCifradoDescifrado
-  });
 }

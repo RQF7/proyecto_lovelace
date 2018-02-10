@@ -18,9 +18,14 @@
 class PruebaAES : public Prueba
 {
   public:
-
     /** \brief Regitro de pruebas en vector de funciones. */
     PruebaAES();
+
+    /** \brief Prueba el funcionamiento de constantes de AES. */
+    static bool probarCifradoDescifrado();
+
+    /** \brief Prueba el proceso de cifrado y descifrado de AES. */
+    static bool probarConstantes();
 };
 
 #endif
