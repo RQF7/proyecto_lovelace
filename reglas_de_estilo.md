@@ -112,3 +112,7 @@ Todo el código en c++ debe cumplir con los siguientes puntos:
   * El modelo de documentación del código es estricto: todo debe llevar
     comentarios de documentación (clases, miembros de clase tanto privados
     como públicos, funciones autónomas, argumentos, valores de retorno, etc.).
+* Notación para constructores: las llamadas a constructores se deben hacer con
+  la notación de llaves, a no ser que el contructor en cuestión reciba a la
+  entrada una lista de inicialización (en cuyo caso, dada la ambigüedad, se
+  debe regresar a la notación de paréntesis).

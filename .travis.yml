@@ -13,8 +13,9 @@ install:
     texlive-lang-spanish
     texlive-bibtex-extra
     texlive-generic-extra
-    libcrypto++-dev
+#   libcrypto++-dev
     doxygen
+    dot
 #    hunspell
 #    myspell-es
 
@@ -40,6 +41,14 @@ install:
   # No pues sí... lo único que tienen que hacer los gestores de paquetes de las
   # distribuciones es descomprimir un zip en la carpeta de latex.
   # ¿Para qué tantos intermediarios?
+
+  # Instalación de cryptopp
+  wget https://cryptopp.com/cryptopp600.zip
+  unzip -a -d cryptopp cryptopp600.zip
+  make -C cryptopp
+  sudo mkdir /usr/include/cryptopp
+  sudo mv cryptopp/*.h /usr/include/cryptopp/
+  sudo mv cryptopp/libcryptopp.a /usr/lib/
 
 # Fase de construcción
 script:
