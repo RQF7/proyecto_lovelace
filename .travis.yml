@@ -43,12 +43,12 @@ install:
   # ¿Para qué tantos intermediarios?
 
   # Instalación de cryptopp
-  wget https://cryptopp.com/cryptopp600.zip
-  unzip -a -d cryptopp cryptopp600.zip
-  make -C cryptopp
-  sudo mkdir /usr/include/cryptopp
-  sudo mv cryptopp/*.h /usr/include/cryptopp/
-  sudo mv cryptopp/libcryptopp.a /usr/lib/
+  - wget https://cryptopp.com/cryptopp600.zip
+  - unzip -a -d cryptopp cryptopp600.zip
+  - make -C cryptopp
+  - sudo mkdir /usr/include/cryptopp
+  - sudo mv cryptopp/*.h /usr/include/cryptopp/
+  - sudo mv cryptopp/libcryptopp.a /usr/lib/
 
 # Fase de construcción
 script:
