@@ -18,17 +18,17 @@
 
 \begin{document}
 
+  \frontmatter
   \Portada
 
-  % TODO: crear dos índices, el primero general (sólo dos niveles) y el
-  % segundo a detalle (todos los niveles).
   \pdfbookmark[1]{\contentsname}{Contenido}
-  \setcounter{page}{2}
-  \setcounter{tocdepth}{4}
+  \setcounter{page}{3}
+  \setcounter{tocdepth}{5}
   \tableofcontents
   \newpage
-
   \import{contenidos/}{simbologia.tex}
+
+  \mainmatter
   \import{contenidos/intro/}{intro.tex}
   \import{contenidos/antecedentes/}{antecedentes.tex}
   \import{contenidos/analisis_y_disenio/}{analisis_y_disenio.tex}

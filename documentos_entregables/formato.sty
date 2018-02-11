@@ -178,14 +178,26 @@
 % Parámetros de fancyhead y fancyfoot:
 % C (center), L (left), R (right)
 % E (even), O (odd)
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[CE,CO]{\Titulo}                  % Centro arriba
-\fancyfoot[RE, LO]{Página \thepage \
-   de \pageref{LastPage}}                   % Derecha abajo
-\fancyfoot[LE, RO]{\nouppercase\leftmark}   % Izquierda abajo
-\renewcommand{\headrulewidth}{0.5pt}        % Línea encabezado
-\renewcommand{\footrulewidth}{0.5pt}        % Línea pie
+\fancypagestyle{contenido} {
+  \fancyhf{}
+  \fancyhead[CE]{\Titulo}                   % Centro arriba par
+  \fancyhead[CO]{\nouppercase\leftmark}     % Centro arriba impar
+  \fancyfoot[LE, RO]{Página \thepage \
+     de \pageref{LastPage}}                 % Derecha abajo
+  \fancyfoot[RE, LO]{\Subtitulo}            % Izquierda abajo
+  \renewcommand{\headrulewidth}{0.5pt}      % Línea encabezado
+  \renewcommand{\footrulewidth}{0.5pt}      % Línea pie
+}
+
+% Estilo de páginas previas al primer capítulo
+\fancypagestyle{intro} {
+  \fancyhf{}
+  \fancyhead[CE, CO]{\Titulo}
+  \fancyfoot[LE, RO]{Página \thepage}
+  \fancyfoot[RE, LO]{\Subtitulo}
+  \renewcommand{\headrulewidth}{0.5pt}
+  \renewcommand{\footrulewidth}{0.5pt}
+}
 
 % El entorno «plain» es el que utilizan las página de los capítulos
 % Se redefine para que no tengan ni pie ni encabezado.
@@ -283,5 +295,26 @@
 
   % Nombres de entradas en glosario con primera letra en mayúscula.
   \renewcommand{\glsnamefont}[1]{\makefirstuc{#1}}
+
+  % Redefinición de «claerdoublepage» para que las páginas en blanco no
+  % tengan encabezado ni pie.
+  \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+   \hbox{}\thispagestyle{empty}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+
+  % Redefinición de frontmatter y mainmatter
+  \renewcommand{\frontmatter}{
+    \cleardoublepage
+    \@mainmatterfalse
+    \pagenumbering{Roman}
+    \pagestyle{intro}
+  }
+
+  \renewcommand{\mainmatter}{
+    \cleardoublepage
+    \@mainmattertrue
+    \pagenumbering{arabic}
+    \pagestyle{contenido}
+    %\setcounter{page}{2}
+  }
 
 \makeatother
