@@ -1,0 +1,24 @@
+%
+% Redes Feistel desbalanceadas, capítulo de antecedentes.
+% Proyecto Lovelace.
+%
+
+\subsubsection{Redes Feistel desbalanceadas}
+
+Este tipo de redes (presentadas en \cite{DBLP:conf/fse/SchneierK96}) permite
+que los bloques izquierdos y derechos sean de distintas longitudes ($ m $ y
+$ n $, respectivamente). En la figura \ref{feistel:desbalanceadas} se muestra
+un esquema del proceso, el cual es bastante similar al de la figura
+\ref{feistel} con la única diferencia de que la función $ f $ debe cambiar la
+longitud de su entrada: de $ n $ a $ m $. Si $ m \le n $, la red es pesada del
+lado de la fuente, y la función actúa como contracción (la entrada es más
+grande que la salida). Por otra parte, si $ m \ge n $, la red es pesada del
+lado del objetivo, y la función actúa como una expansión (la entrada es más
+pequeña que la salida). El caso especial en el que $ m = n $ es en el que la
+red está balanceada y corresponde al presentado originalmente (figura
+\ref{feistel}); es por esto que las redes Feistel desbalanceadas son
+consideradas una generalización del esquema inicial.
+
+Para los esquemas pesados del lado de la fuente, la seguridad aumenta
+proporcionalmente al grado de desbalanceo. Por el lado contrario, en los
+esquemas pesados del lado del objetivo, entre más balanceada la red, mejor.
