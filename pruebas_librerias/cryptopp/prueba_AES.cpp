@@ -11,6 +11,7 @@
 
 using namespace std;
 using namespace CryptoPP;
+using namespace PruebasCryptopp;
 
 /**
  * Registra las funciones de prueba de AES en la lista de funciones a probar
@@ -80,7 +81,7 @@ bool PruebaAES::probarCifradoDescifrado()
   memset(vi, 0, AES::BLOCKSIZE);
 
   /* Registro previo. */
-  string textoEnClaro = "Esta es un prueba de cifrado con AES",
+  string textoEnClaro {"Esta es un prueba de cifrado con AES"},
          textoCifrado, textoDescifrado;
   cout << "Texto en claro (" << textoEnClaro.size() << " bytes):" << endl
        << "  " << textoEnClaro << endl;

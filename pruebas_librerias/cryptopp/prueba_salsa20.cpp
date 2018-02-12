@@ -12,6 +12,7 @@
 
 using namespace std;
 using namespace CryptoPP;
+using namespace PruebasCryptopp;
 
 /**
  * Registra las funciones de prueba de Salsa20 en la lista de funciones a

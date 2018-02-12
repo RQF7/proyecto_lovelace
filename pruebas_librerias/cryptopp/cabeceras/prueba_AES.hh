@@ -3,29 +3,39 @@
  * Proyecto Lovelace.
  */
 
-#ifndef __PRUEBA_AES__
-#define __PRUEBA_AES__
+#ifndef __PRUEBA_AES_CRYPTOPP__
+#define __PRUEBA_AES_CRYPTOPP__
 
 #include "../../utilidades/cabeceras/prueba.hh"
 
 /**
- * \brief Prueba de la impementación de AES de cryptopp.
+ * \brief Conjunto de pruebas de la librería cryptopp.
  *
- * Agrupa las funciones de prueba que interactúan con la implementación
- * de AES de cryptopp.
+ * Clases y funciones de prueba de algunas primitivas criptográficas con
+ * cryptopp.
  */
 
-class PruebaAES : public Prueba
+namespace PruebasCryptopp
 {
-  public:
-    /** \brief Regitro de pruebas en vector de funciones. */
-    PruebaAES();
+  /**
+   * \brief Prueba de la impementación de AES de cryptopp.
+   *
+   * Agrupa las funciones de prueba que interactúan con la implementación
+   * de AES de cryptopp.
+   */
 
-    /** \brief Prueba el funcionamiento de constantes de AES. */
-    static bool probarCifradoDescifrado();
+  class PruebaAES : public Prueba
+  {
+    public:
+      /** \brief Regitro de pruebas en vector de funciones. */
+      PruebaAES();
 
-    /** \brief Prueba el proceso de cifrado y descifrado de AES. */
-    static bool probarConstantes();
-};
+      /** \brief Prueba el funcionamiento de constantes de AES. */
+      static bool probarCifradoDescifrado();
+
+      /** \brief Prueba el proceso de cifrado y descifrado de AES. */
+      static bool probarConstantes();
+  };
+}
 
 #endif

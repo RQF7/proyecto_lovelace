@@ -3,26 +3,29 @@
  * Proyecto Lovelace.
  */
 
-#ifndef __PRUEBA_SALSA20__
-#define __PRUEBA_SALSA20__
+#ifndef __PRUEBA_SALSA20_CRYPTOPP__
+#define __PRUEBA_SALSA20_CRYPTOPP__
 
 #include "../../utilidades/cabeceras/prueba.hh"
 
-/**
- * \brief Prueba de la impementación de Salsa20 de cryptopp.
- *
- * Agrupa las funciones de prueba que interactúan con la implementación
- * de Salsa20 de cryptopp.
- */
-
-class PruebaSalsa20 : public Prueba
+namespace PruebasCryptopp
 {
-  public:
-    /** \brief Regitro de pruebas en vector de funciones. */
-    PruebaSalsa20();
+  /**
+   * \brief Prueba de la impementación de Salsa20 de cryptopp.
+   *
+   * Agrupa las funciones de prueba que interactúan con la implementación
+   * de Salsa20 de cryptopp.
+   */
 
-    /** \brief Prueba el proceso de cifrado y descifrado de Salsa20. */
-    static bool probarCifradoDescifrado();
-};
+  class PruebaSalsa20 : public Prueba
+  {
+    public:
+      /** \brief Regitro de pruebas en vector de funciones. */
+      PruebaSalsa20();
+
+      /** \brief Prueba el proceso de cifrado y descifrado de Salsa20. */
+      static bool probarCifradoDescifrado();
+  };
+}
 
 #endif
