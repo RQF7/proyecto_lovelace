@@ -36,13 +36,17 @@ install:
   # No pues sí... lo único que tienen que hacer los gestores de paquetes de las
   # distribuciones es descomprimir un zip en la carpeta de latex.
   # ¿Para qué tantos intermediarios?
-  # Instalación de cryptopp
-  - wget https://cryptopp.com/cryptopp600.zip
-  - unzip -a -d cryptopp cryptopp600.zip
-  - make -C cryptopp
-  - sudo mkdir /usr/include/cryptopp
-  - sudo mv cryptopp/*.h /usr/include/cryptopp/
-  - sudo mv cryptopp/libcryptopp.a /usr/lib/
+  # # Instalación de cryptopp
+  # - wget https://cryptopp.com/cryptopp600.zip
+  # - unzip -a -d cryptopp cryptopp600.zip
+  # - make -C cryptopp
+  # - sudo mkdir /usr/include/cryptopp
+  # - sudo mv cryptopp/*.h /usr/include/cryptopp/
+  # - sudo mv cryptopp/libcryptopp.a /usr/lib/
+  # # Instlación de openssl
+  # - wget https://www.openssl.org/source/openssl-1.1.1-pre1.tar.gz
+  # - tar -xvf openssl-1.1.1-pre1.tar.gz
+  # - cd openssl-1.1.1-pre1 && ./config && make && make install && cd ..
 
 # Fase de construcción
 script:
@@ -59,8 +63,8 @@ script:
   #  - make -C documentos_entregables ortografía
 
   # Ejecución de funciones de prueba
-  - make -C pruebas_librerias
-  - make -C pruebas_librerias correr
+  # - make -C pruebas_librerias
+  # - make -C pruebas_librerias correr
 
   # Documentación.
   - doxygen .doxygen
