@@ -41,7 +41,7 @@
     title={Bibliografía}
   ]
 
-  \glossarystyle{altlist}
+  \setglossarystyle{altlist}
   \printglossary[
     type=main,
     entrycounter=true
@@ -50,7 +50,8 @@
   \section*{Siglas y acrónimos}
   \phantomsection
   \addcontentsline{toc}{chapter}{Siglas y acrónimos}
-  \glossarystyle{list}
+  \setglossarystyle{list}
+  \renewcommand*{\glsgroupskip}{}
   \setglossarysection{subsection}
 
   \printglossary[

@@ -48,9 +48,9 @@ consulta, resulta más complicado para \gls{gl:feal}.
 Para descifrar se utiliza el mismo algoritmo, con la misma llave $K$ y el
 texto cifrado $C = (R_8, L_8)$ se utiliza como la entrada $M$; sin
 embargo, la generación de llaves se hace al revés: las subllaves
-$ ((K_{12}, K_{13}), (K_{14}, K_{15})) $ se utilizan para la $\oplus$ inicial,
-las $ ((K_8, K_9), (K_{10}, K_{11})) $ para la $\oplus$ final y en las
-\glspl{gl:ronda} se utiliza de la subllave $K_7$ a la $K_0$.
+$ ((K_{12}, K_{13}), \allowbreak (K_{14}, K_{15})) $ se utilizan para la
+$\oplus$ inicial, las $ ((K_8, K_9), (K_{10}, K_{11})) $ para la $\oplus$
+final y en las \glspl{gl:ronda} se utiliza de la subllave $K_7$ a la $K_0$.
 
 \gls{gl:feal} con una llave de 64 bits puede ser generalizado a un número
 $n$ de rondas \glspl{gl:ronda} con $n$ par, aunque se recomienda $n = 2^x$.
