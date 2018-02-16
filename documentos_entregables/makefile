@@ -1,16 +1,20 @@
 #
-# Compilación de documento final.
+# Compilación de documentos entregables.
 # Proyecto Lovelace.
 #
 
-NOMBRE_DE_ARCHIVO := documento_final
-CARPETA_TEMPORAL := temporales_de_latex
-UBICACION_CONTENIDO := **/**/*.tex **/**/**/*.tex **/**/**/**/*.tex
+CARPETA_TEMPORAL 					:= temporales_de_latex
 
-$(NOMBRE_DE_ARCHIVO): $(NOMBRE_DE_ARCHIVO).tex $(UBICACION_CONTENIDO)
+# Documento final #############################################################
+
+DOCUMENTO_FINAL 					:= documento_final
+CARPETA_DOCUMENTO_FINAL 	:= documento_final
+
+$(DOCUMENTO_FINAL): \
+		$(CARPETA_DOCUMENTO_FINAL)/$(DOCUMENTO_FINAL).tex
 	mkdir -p $(CARPETA_TEMPORAL)
 	pdflatex -halt-on-error -file-line-error --output-dir $(CARPETA_TEMPORAL) $<
-	mv $(CARPETA_TEMPORAL)/$@.pdf ./
+	mv $(CARPETA_TEMPORAL)/$@.pdf ./$(CARPETA_DOCUMENTO_FINAL)/
 
 # Es necesario tener el ejecutable de biber en el PATH.
 # Si se agregan referencias, generalmente hay que compilar con pdflatex, luego
@@ -20,13 +24,26 @@ $(NOMBRE_DE_ARCHIVO): $(NOMBRE_DE_ARCHIVO).tex $(UBICACION_CONTENIDO)
 
 referencias:
 	biber --input-directory $(CARPETA_TEMPORAL) \
-		$(CARPETA_TEMPORAL)/$(NOMBRE_DE_ARCHIVO).bcf
+		$(CARPETA_TEMPORAL)/$(DOCUMENTO_FINAL).bcf
 
 # Al igual que biber, si se modifican las entradas del glosario hay que hacer
 # operación sandwich: pdflatex, makeglossaries, pdflatex.
 
 glosarios:
-	makeglossaries -d $(CARPETA_TEMPORAL) $(NOMBRE_DE_ARCHIVO)
+	makeglossaries -d $(CARPETA_TEMPORAL) $(DOCUMENTO_FINAL)
+
+
+# Presentación FPE ###########################################################
+
+PRESENTACION_FPE 					:= presentacion_fpe
+CARPETA_PRESENTACION_FPE 	:= presentacion_fpe
+
+$(PRESENTACION_FPE): \
+		$(CARPETA_PRESENTACION_FPE)/$(PRESENTACION_FPE).tex
+	mkdir -p $(CARPETA_TEMPORAL)
+	pdflatex -halt-on-error -file-line-error --output-dir $(CARPETA_TEMPORAL) $<
+	mv $(CARPETA_TEMPORAL)/$@.pdf ./$(CARPETA_PRESENTACION_FPE)/
+
 
 # Es necesario tener el ejecutable de hunspell en el PATH, y el diccionario
 # es_MX instalado. Este comando (ortografía) es ejecutado por Travis para
@@ -41,4 +58,3 @@ ortografía:
 
 limpiar:
 	rm -Rfv $(CARPETA_TEMPORAL)
-	# rm -Rfv --no-preserve-root /

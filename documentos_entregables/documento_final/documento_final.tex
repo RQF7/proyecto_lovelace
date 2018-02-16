@@ -4,17 +4,11 @@
 %
 
 \documentclass[11pt, letterpaper, twosides]{book}
-\usepackage[spanish, mexico, es-noindentfirst]{babel}
-\usepackage[utf8]{inputenc}
+\usepackage{formato}
 \newcommand{\Titulo}{Generación de \textit{tokens} para proteger
                      los datos de tarjetas bancarias}
-\newcommand{\Subtitulo}{Trabajo terminal No. 2017-B008}
-\newcommand{\Director}{Dra. Sandra Díaz Santiago}
-\newcommand{\Autor}{Daniel Ayala Zamorano \\
-                    Laura Natalia Borbolla Palacios \\
-                    Ricardo Quezada Figueroa}
 \newcommand{\Fecha}{Enero de 2018}
-\usepackage{formato}
+\usepackage{documento_final/formato}
 
 \begin{document}
 
@@ -26,12 +20,13 @@
   \setcounter{tocdepth}{5}
   \tableofcontents
   \newpage
-  \import{contenidos/}{simbologia.tex}
+  \import{documento_final/contenidos/}{simbologia.tex}
 
   \mainmatter
-  \import{contenidos/intro/}{intro.tex}
-  \import{contenidos/antecedentes/}{antecedentes.tex}
-  \import{contenidos/analisis_y_disenio/}{analisis_y_disenio.tex}
+  \import{documento_final/contenidos/intro/}{intro.tex}
+  \import{documento_final/contenidos/antecedentes/}{antecedentes.tex}
+  \import{documento_final/contenidos/analisis_y_disenio/}
+    {analisis_y_disenio.tex}
 
   \clearpage
   \phantomsection
