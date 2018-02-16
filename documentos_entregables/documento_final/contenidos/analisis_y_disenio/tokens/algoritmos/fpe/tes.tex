@@ -53,11 +53,18 @@ En las siguientes ecuaciones se muestran algunas de las construcciones para
   \tilde{E}_{k}(T, M) &= E_k(M \oplus E_k(T)) \oplus E_k(T)
 \end{align}
 
+% TODO: ¿Qué es h()?
+% Hmmm... ya sé que es (cuando menos sé cómo se define); sin embargo es
+% más que nada cuestión matemática; creo que si se pone, obscurece
+% inecesariamente el texto.
+% h \in H
+% En donde H es una familia de funciones e-AXU (allmost xor universal).
+% Para que una función sea e-AXU se debe de cumplir que la probabilidad
+% de que h(k, x) xor h(k, y) = z sea menor a e (para una llave aleatoria k).
+
 Con los \gls{gl:tbc} se pueden crear modos de operación análogos a los que se
-usan con los cifrados por bloques estándares. De hecho, estos nuevos modos de
-operación pueden ser vistos como la justificación o recompensa de la
-creación de los \gls{gl:tbc}. En la figura \ref{figura:tbc} el
-\gls{gl:tbc_modo}, que es análogo a \gls{gl:cbc} (sección \ref{sec:cbc}).
+usan con los cifrados por bloques estándares. En la figura \ref{figura:tbc}
+el \gls{gl:tbc_modo}, que es análogo a \gls{gl:cbc} (sección \ref{sec:cbc}).
 
 \begin{figure}[H]
   \centering
@@ -77,6 +84,15 @@ creación de los \gls{gl:tbc}. En la figura \ref{figura:tbc} el
   \label{figura:tbc}
 \end{figure}
 
+Los \gls{gl:tbc} son usados para la construcción de \gls{gl:tes}. Para estos
+existen dos clasificaciones: \textit{encrypt-mask-encrypt} y
+\textit{hash-counter-hash}. En la primera clasificación se encuentran aquellos
+que cuentan con dos capas de cifrado y una de enmascaramiento; algunos ejemplos
+de esta son \gls{gl:cmc}, \gls{gl:eme} y \gls{gl:abl}. La segunda consiste en
+dos funciones hash con un cifrado por bloques en modo de operación de contador
+(sección \ref{sec:ctr}); algunos ejemplos son \gls{gl:xcb}, \gls{gl:hctr}
+y HCH.
+
 % ATENCIÓN, La pregunta de Sandra fué: ¿Cuál es la diferencia entre el
 % tweak y un VI?
 % Por si solos, son lo mismo: ambos son valores aleatorios públicos que
@@ -94,12 +110,14 @@ Una primera impresión es que se trata de lo mismo: ambos, el \textit{tweak} y
 el \gls{gl:vector_de_inicializacion}, son entradas extras que permiten
 introducir variabilidad en los cifrados por bloques.
 
-El punto clave es que los \textit{tweaks} introducen una división semántica
-más en el análisis y diseño de modos de operación. En el esquema tradicional
-solo existen dos divisiónes: el nivel bajo, referente a los cifrados por
-bloques; y el nivel alto, referente a los modos de operación. Con los
-\textit{tweaks}, el problema de los modos de operación se divide en dos:
+El primer punto clave es que los \textit{tweaks} introducen una división
+semántica más en el análisis y diseño de modos de operación. En el esquema
+tradicional solo existen dos divisiónes: el nivel bajo, referente a los
+cifrados por bloques; y el nivel alto, referente a los modos de operación. Con
+los \textit{tweaks}, el problema de los modos de operación se divide en dos:
 cómo diseñar buenos \gls{gl:tbc}, y cómo diseñar buenos modos de operación
 basados en \gls{gl:tbc}. Este nuevo enfoque permite filtrar nuevos problemas
 en un nivel en particular sin que se afecten a las construcciones de los otros
-niveles.
+niveles. El segundo punto clave es que los \gls{gl:tes} pueden ser diseñados
+para recibir mensajesde longitud arbitraria y regresar cifrados de su misma
+longitud.
