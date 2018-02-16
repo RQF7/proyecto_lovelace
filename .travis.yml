@@ -31,7 +31,7 @@ install:
   # biber
   - wget https://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/2.10/biblatex-biber.tar.gz
   - mkdir ~/ejecutable_biber
-  - tar -xvf biber-linux_x86_64.tar.gz -C ~/ejecutable_biber
+  - tar -xvf biblatex-biber.tar.gz -C ~/ejecutable_biber
   - export PATH=~/ejecutable_biber/:$PATH
   # No pues sí... lo único que tienen que hacer los gestores de paquetes de las
   # distribuciones es descomprimir un zip en la carpeta de latex.
