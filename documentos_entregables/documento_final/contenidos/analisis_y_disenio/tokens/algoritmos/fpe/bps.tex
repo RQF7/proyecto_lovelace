@@ -12,7 +12,7 @@ La información que aquí se presenta puede ser consultada con mayor detalle en
 existentes, y es capaz de cifrar cadenas de longitudes casi arbitrarias que 
 estén formadas por cualquier conjunto de caracteres.
 
-\textit{BPS} esta conformado por 2 partes fundamentales, un cifrado interno 
+\textit{BPS} está conformado por 2 partes fundamentales, un cifrado interno 
 $BC$, encargado de cifrar bloques de longitud fija; y un modo de operación, 
 encargado de extender la funcionalidad de el cifrador $BC$ y permitir que 
 \textit{BPS} cifre cadenas de varias longitudes.
@@ -67,40 +67,31 @@ Para poder cifrar la cadena $X$:
     Feistel, se define $L_i$ y $R_i$ (parte izquierda y parte derecha de la 
     red en la i-ésima ronda), y se inicializan en:
 
-    \begin{equation}
-      L_0\: =\: \sum_{j=0}^{l-1} X_L[j] \cdot s^j
-    \end{equation}
-
-    \begin{equation}
-      R_0\: =\: \sum_{j=0}^{r-1} X_R[j] \cdot s^j
-    \end{equation}
+    \begin{align}
+      L_0\: &=\: \sum_{j=0}^{l-1} X_L[j] \cdot s^j \\
+      R_0\: &=\: \sum_{j=0}^{r-1} X_R[j] \cdot s^j
+    \end{align}
   
   \item Ahora por cada ronda $i\: <\: w$ y cifrando con el cifrador por 
     bloques $E$.
 
     Si $i$ es par:
 
-    \begin{equation}
-      L_{i+1}\: =\: L_i\: \boxplus\: 
+    \begin{align}
+      L_{i+1}\: &=\: L_i\: \boxplus\: 
                     E_K((T_R \oplus i) \cdot 2^{f-32}\: +\: R_i)\qquad 
-                    (mod\ s^l)
-    \end{equation}
-
-    \begin{equation}
-      R_{i+1}\: =\: R_i
-    \end{equation}
+                    (mod\ s^l) \\
+      R_{i+1}\: &=\: R_i
+    \end{align}
 
     Si $i$ es impar:
 
-    \begin{equation}
-      R_{i+1}\: =\: R_i\: \boxplus\: 
+    \begin{align}
+      R_{i+1}\: &=\: R_i\: \boxplus\: 
                     E_K((T_L \oplus i) \cdot 2^{f-32}\: +\: L_i)\qquad 
-                    (mod\ s^r)
-    \end{equation}
-
-    \begin{equation}
-      L_{i+1}\: =\: L_i
-    \end{equation}
+                    (mod\ s^r) \\
+      L_{i+1}\: &=\: L_i
+    \end{align}
   
   \item Por último se tiene que descomponer tanto a $L_w$ como a $R_w$ para 
     obtener a $Y_L$ y a $Y_R$ respectivamente, las cuales concatenadas 
@@ -169,39 +160,30 @@ Para poder descifrar la cadena $Y$:
   \item Partiendo de que el proceso de descifrado se compone de $w$ rondas, 
     se define $L_i$ y $R_i$ y se inicializan en:
 
-    \begin{equation}
-      L_w\: =\: \sum_{j=0}^{l-1} Y_L[j] \cdot s^j
-    \end{equation}
-
-    \begin{equation}
-      R_w\: =\: \sum_{j=0}^{r-1} Y_R[j] \cdot s^j
-    \end{equation}
+    \begin{align}
+      L_w\: &=\: \sum_{j=0}^{l-1} Y_L[j] \cdot s^j \\
+      R_w\: &=\: \sum_{j=0}^{r-1} Y_R[j] \cdot s^j
+    \end{align}
   
   \item Ahora, comenzando con $i=w-1$, para cada ronda $i\: \geq\: 0$.
 
     Si $i$ es par:
 
-    \begin{equation}
-      L_i\: =\: L_{i+1}\: \boxminus\: 
+    \begin{align}
+      L_i\: &=\: L_{i+1}\: \boxminus\: 
                 E_K((T_R \oplus i) \cdot 2^{f-32}\: +\: R_{i+1})\qquad 
-                (mod\ s^l)
-    \end{equation}
-
-    \begin{equation}
-      R_i\: =\: R_{i+1}
-    \end{equation}
+                (mod\ s^l) \\
+      R_i\: &=\: R_{i+1}
+    \end{align}
 
     Si $i$ es impar:
 
-    \begin{equation}
-      R_i\: =\: R_{i+1}\: \boxminus\: 
+    \begin{align}
+      R_i\: &=\: R_{i+1}\: \boxminus\: 
                 E_K((T_L \oplus i) \cdot 2^{f-32}\: +\: L_{i+1})\qquad 
-                (mod\ s^r)
-    \end{equation}
-
-    \begin{equation}
-      L_i\: =\: L_{i+1}
-    \end{equation}
+                (mod\ s^r) \\
+      L_i\: &=\: L_{i+1}
+    \end{align}
   
   \item Finalmente se tienen que descomponer $L_0$ y $R_0$ (con el mismo 
     proceso de descomposición descrito en el cifrado) para obtener a $X_L$ y 
@@ -314,7 +296,7 @@ de la cadena a cifrar es muy pequeño.
 \subparagraph{Recomendaciones}
 
 Se recomienda que el número de rondas $w$ de la red Feistel sea $8$, dado 
-que es una numero de rondas eficiente, y se ha estudiado la seguridad de 
+que es una número de rondas eficiente, y se ha estudiado la seguridad de 
 \textit{BPS} con este $w$.
 
 Es recomendable que como tweak se use la salida truncada de una función hash,
