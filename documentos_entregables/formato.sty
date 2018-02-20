@@ -8,11 +8,15 @@
 
 % http://mirrors.ctan.org/macros/latex/base/inputenc.pdf
 % Soporte para distintas codificaciones
-\usepackage[utf8]{inputenc}
+\RequirePackage[utf8]{inputenc}
 
 % http://mirrors.ctan.org/macros/latex/required/babel/base/babel.pdf
 % Soporte para lenguajes distintos del inglés
-\usepackage[spanish, mexico, es-noindentfirst]{babel}
+\RequirePackage[spanish, mexico, es-noindentfirst]{babel}
+
+% http://ctan.math.washington.edu/tex-archive/macros/latex/contrib/import/import.pdf
+% Establece inputs relativos con respecto a una carpeta.
+\RequirePackage{import}
 
 % Variables generales
 \newcommand{\Subtitulo}{Trabajo terminal No. 2017-B008}

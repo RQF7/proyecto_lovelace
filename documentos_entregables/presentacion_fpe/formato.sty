@@ -1,0 +1,111 @@
+%
+% Especificación de formato y plantillas para presentación de FPE
+% Proyecto Lovelace.
+%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{presentacion_fpe/formato}
+  [2017/10/13 Paquete para formato de presentación de FPE]
+
+\title{\Titulo}
+\subtitle{\Subtitulo}
+\author{\Autor}
+\institute{Escuela Superior de Cómputo \\
+           Instituto Politécnico Nacional \\\vspace*{0.1  in}
+           \includegraphics[scale=0.25]{imagenes/logos.png}}
+\date{\Fecha}
+
+% Fuentes
+
+% La fuente por defecto es Computer Modern (la normal de TeX), pero sin
+% serifa; con «usefonttheme» se puede regresar a la fuente normal.
+\usefonttheme{serif}
+% Los siguientes paquetes pueden cambiar la familia de fuentes usada;
+% es decir, dejar de usar a Computer Modern.
+%\RequirePackage{arev}
+%\RequirePackage{utopia/fourier}
+%\RequirePackage{tgbonum}
+%\RequirePackage{times}
+%\RequirePackage[T1]{fontenc}
+
+\setbeamerfont{title}{series=\scshape}
+\setbeamerfont{date}{series=\scshape}
+\setbeamerfont{author}{series=\scshape}
+\setbeamerfont{institute}{series=\scshape}
+\setbeamerfont{frametitle}{series=\scshape}
+
+% Colores
+
+% Para una referencia completa de las posibilidades, ver
+% https://github.com/josephwright/beamer/blob/master/base/themes/color/
+% beamercolorthemedefault.sty
+
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{structure}{fg=black}
+
+% Animaciones
+%\addtobeamertemplate{background canvas}{\transpush[duration=1.0]}{}
+
+% Mostrar notas (para borradores).
+\setbeameroption{show notes}
+
+% Mostrarlas en segunda pantalla; no estoy muy seguro de que evince o los
+% controladores de Linux soporten esto.
+% \setbeameroption{show notes on second screen}
+
+% Ocultar notas (para versión final)
+% \setbeameroption{hide notes}
+
+% Solo notas (en caso de querer generar un pdf de soporte)
+% \setbeameroption{show only notes}
+
+% Número de diapositivas en pie.
+\setbeamertemplate{sidebar right}{}
+\setbeamertemplate{footline}{%
+\hfill\usebeamertemplate***{navigation symbols}
+\hspace{5.5cm} {\tiny \usebeamercolor[fg]{navigation symbols}
+Diapositiva \insertframenumber{} de \inserttotalframenumber}}
+
+% Redefinir comandos de índice para incluir números
+\newcounter{sectionpage}
+
+\makeatletter
+
+\def\beamer@subsection[#1]#2{%
+  \beamer@savemode%
+  \mode<all>%
+  \ifbeamer@inlecture%
+    \refstepcounter{subsection}%
+    \beamer@ifempty{#2}{\long\def\subsecname{#1}\long\def\lastsubsection{#1}}
+    {%
+      \long\def\subsecname{#2}%
+      \long\def\lastsubsection{#1}%
+    \setcounter{sectionpage}{\insertframenumber}\stepcounter{sectionpage}%
+      \addtocontents{toc}{\protect\beamer@subsectionintoc{\the\c@section}%
+        {\the\c@subsection}{#2\hfill\thesectionpage}{\the\c@page}{\the\c@part}%
+        {\the\beamer@tocsectionnumber}}%
+    }%
+    \beamer@tempcount=\c@page\advance\beamer@tempcount by -1%
+    \addtocontents{nav}{%
+      \protect\headcommand{\protect\beamer@subsectionentry%
+        {\the\c@part}{\the\c@section}{\the\c@subsection}{\the\c@page}%
+        {\lastsubsection}}%
+      \protect\headcommand{\protect\beamer@subsectionpages%
+        {\the\beamer@subsectionstartpage}{\the\beamer@tempcount}}%
+    }%
+    \beamer@subsectionstartpage=\c@page%
+    \edef\subsectionlink{{Navigation\the\c@page}{\noexpand\subsecname}}%
+    \def\insertsubsection{\expandafter\hyperlink\subsectionlink}%
+    \def\insertsubsubsection{}%
+    \def\insertsubsectionhead{\hyperlink{Navigation\the\c@page}{#1}}%
+    \def\insertsubsubsectionhead{}%
+    \Hy@writebookmark{\the\c@subsection}{#2}%
+    {Outline\the\c@part.\the\c@section.\the\c@subsection.\the\c@page}{3}{toc}%
+    \hyper@anchorstart%
+    {Outline\the\c@part.\the\c@section.\the\c@subsection.\the\c@page}%
+    \hyper@anchorend%
+    \beamer@ifempty{#2}{\beamer@atbeginsubsections}{\beamer@atbeginsubsection}%
+  \fi%
+  \beamer@resumemode}
+
+\makeatother
