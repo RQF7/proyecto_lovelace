@@ -48,6 +48,17 @@
 \end{frame}
 
 \begin{frame}{Anatomía de un número de tarjeta}
+  {Sobre el IIN}
+  La base de datos BINDB proveé información cuando se ingresa un BIN válido.
+  Permite solo 10 consultas gratuitas por computadora.
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.75\linewidth]{diagramas/bindb.png}
+    \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Anatomía de un número de tarjeta}
   {Sobre el número de cuenta}
   Los dígitos que siguen al IIN, excepto el último, son el número de cuenta.
   El número de cuenta puede variar, pero máximo comprende 12 dígitos, por lo que
@@ -60,7 +71,6 @@
   \begin{enumerate}
     \item Comenzando desde la derecha, se obtiene el doble de cada segundo
       dígito. Si el producto es mayor a $9$, se suman sus dígitos.
-
       \begin{figure}[H]
         \begin{center}
           \includegraphics[width=0.4\linewidth]{diagramas/luhn_1.png}
