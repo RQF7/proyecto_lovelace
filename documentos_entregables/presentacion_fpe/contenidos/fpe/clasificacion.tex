@@ -5,8 +5,76 @@
 
 \subsection{Clasificación}
 
-\begin{frame}
+\begin{frame}{Clasificación de FPE}
 
-  Prueba \cite{modos_de_operacion}.
+  En \cite{sinopsis_rogaway}, Phillip Rogaway clasifica a los algoritmos que
+  preservan el formato según el tamaño del espacio de mensajes ($ N = |X| $).
+
+  \begin{itemize}
+    \item Espacios minúslculos.
+    \item Espacios pequeños.
+    \item Espacios grandes.
+  \end{itemize}
+
+  \only<2>
+  {
+    \textbf{Espacios minúsculos:} el espacio es tan pequeño que es aceptable
+    gastar $ O(N) $ en el proceso de cifrado.
+
+    Por ejemplo, se puede inicializar una tabla de $ N $ elementos, y realizar
+    las operaciones de cifrado y descifrado con consultas. Para esto se pueden
+    ocupar métodos como el \textit{Knuth shuffle} o un cifrado con prefijo.
+  }
+
+  \note<2>
+  {
+    \textit{Knuth shuffle} (también \textit{Fisher-Yates shuffle}) genera una
+    permutación pseudoaleatorioa de una secuencia finita.
+
+    También había un \textit{permutation numbering}; no lo entiendo.
+
+    El cifrado con prefijo utiliza un cifrador estándar para cifrar todos los
+    elementos y después utiliza un ordenamiento para determinar la permutación.
+  }
+
+  \only<3>
+  {
+    \textbf{Espacios pequeños:} el espacio no es más grande que $ 2^w $, en
+    donde $ w $ es el tamaño de bloque del cifrado subyacente. Para AES, en
+    donde $ w = 128 $, $ N = 2^{128} \approx 10^{38} $.
+
+    En este esquema, el mensaje se ve como una cadena de $ n $ elementos
+    pertenecientes a un alfabeto de cardinalidad $ m $ (i. e. $ N = m^n $).
+
+    Por ejemplo, para números de tarjetas de crédito, $ n \approx 16 $ y
+    $ m = 10 $, por lo que $ N = 10^{16} $ (diez mil trillones); lo cual es
+    aproximadamente $ 2.93 \times 10^{-21} \% $ de $ 2^{128} $.
+  }
+
+  \note<3>
+  {
+    \textit{Pequeño} en comparación con el tamaño del bloque, no con
+    estándares humanos (e. g. el universo solo lleva $ \approx 2^{86}$
+    nanosegundos de existencia).
+
+    Las técnicas para los espacios pequeños pueden ser usadas en los
+    espacios minúsculos, aunque con menos garantías de seguridad que con
+    las técnicas propias.
+  }
+
+  \only<4>
+  {
+    \textbf{Espacios grandes:} el espacio es más grande que $ 2^w $.
+
+    Para estos casos, el mensaje se ve como una cadena binaria. Las técnicas
+    utilizadas incluyen cualquier cifrado cuya salida sea \textit{de la misma}
+    longitud que la entrada (e. g. los TES: CMC, EME, HCH, etc.).
+  }
+
+  \note<4>
+  {
+    Los ejemplos más clásico que se usa aquí son los cifradores para sectores
+    de discos duros.
+  }
 
 \end{frame}
