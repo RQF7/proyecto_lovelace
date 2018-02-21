@@ -105,14 +105,6 @@
 % Permite que haya tablas distribuidas en varias páginas
 \RequirePackage{longtable}
 
-% http://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/biblatex.pdf
-\RequirePackage[backend=biber,
-                style=numeric,
-                sorting=none,
-                citestyle=ieee,
-                backref=true
-                ]{biblatex}
-
 % http://mirrors.ctan.org/macros/latex/contrib/geometry/geometry.pdf
 \RequirePackage[letterpaper,                % Tamaño
                 textwidth=7in,              % Ancho
@@ -246,9 +238,6 @@
 
 % Archivo con definición de siglas
 \import{documento_final/contenidos/}{siglas.tex}
-
-% Archivo con referencias
-\addbibresource{documento_final/contenidos/referencias.bib}
 
 \makeatletter
 

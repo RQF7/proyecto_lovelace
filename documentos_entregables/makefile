@@ -44,6 +44,9 @@ $(PRESENTACION_FPE): \
 	pdflatex -halt-on-error -file-line-error --output-dir $(CARPETA_TEMPORAL) $<
 	mv $(CARPETA_TEMPORAL)/$@.pdf ./$(CARPETA_PRESENTACION_FPE)/
 
+referencias_fpe:
+	biber --input-directory $(CARPETA_TEMPORAL) \
+		$(CARPETA_TEMPORAL)/$(PRESENTACION_FPE).bcf
 
 # Es necesario tener el ejecutable de hunspell en el PATH, y el diccionario
 # es_MX instalado. Este comando (ortografía) es ejecutado por Travis para

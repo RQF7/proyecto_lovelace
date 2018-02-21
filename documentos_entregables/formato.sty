@@ -18,6 +18,16 @@
 % Establece inputs relativos con respecto a una carpeta.
 \RequirePackage{import}
 
+% http://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/biblatex.pdf
+\RequirePackage[backend=biber,
+                style=numeric,
+                sorting=none,
+                citestyle=ieee,
+                backref=true
+                ]{biblatex}
+
+\addbibresource{referencias.bib}
+
 % Variables generales
 \newcommand{\Subtitulo}{Trabajo terminal No. 2017-B008}
 \newcommand{\Director}{Dra. Sandra Díaz Santiago}
