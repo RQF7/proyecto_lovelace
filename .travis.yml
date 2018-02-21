@@ -3,6 +3,10 @@
 # Proyecto Lovelace.
 #
 
+language: perl
+perl:
+ - "5.24"
+
 # Instalación de dependencias
 install:
   - sudo apt-get update
@@ -29,9 +33,9 @@ install:
   - wget http://mirrors.ctan.org/install/macros/latex/required/babel-base.tds.zip
   - unzip -d ~/texmf babel-base.tds.zip
   # biber
-  - wget https://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/2.10/biblatex-biber.tar.gz
+  - wget https://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/current/binaries/Linux/biber-linux_x86_64.tar.gz
   - mkdir ~/ejecutable_biber
-  - tar -xvf biblatex-biber.tar.gz -C ~/ejecutable_biber
+  - tar -xvf biber-linux_x86_64.tar.gz -C ~/ejecutable_biber
   - export PATH=~/ejecutable_biber/:$PATH
   # No pues sí... lo único que tienen que hacer los gestores de paquetes de las
   # distribuciones es descomprimir un zip en la carpeta de latex.
@@ -53,11 +57,15 @@ script:
 
   # Compilación de archivos de LaTeX
   # Esto debería dejar el pdf completo
-  - make -C documentos_entregables
-  - make -C documentos_entregables glosarios
-  - make -C documentos_entregables referencias
-  - make -C documentos_entregables
-  - make -C documentos_entregables
+  - make -B -C documentos_entregables
+  - make -B -C documentos_entregables glosarios
+  - make -B -C documentos_entregables referencias
+  - make -B -C documentos_entregables
+  - make -B -C documentos_entregables
+  - make -B -C documentos_entregables presentacion_fpe
+  - make -B -C documentos_entregables referencias_fpe
+  - make -B -C documentos_entregables presentacion_fpe
+  - make -B -C documentos_entregables presentacion_fpe
 
   # Revisión de ortografía
   #  - make -C documentos_entregables ortografía
