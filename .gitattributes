@@ -1,2 +1,6 @@
+
 # Archivos de draw.io, tratados como binarios.
 **/diagramas/*.xml binary
+
+# Archivo lock de Ruby, tratado como autogenerado
+Gemfile.lock linguist-generated
