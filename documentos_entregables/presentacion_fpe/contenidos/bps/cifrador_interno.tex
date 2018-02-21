@@ -22,7 +22,7 @@
     \item $w$ es el número de rondas de la red Feistel interna. (par)
     \item $X$ es la cadena de longitud $b$ a cifrar.
     \item $K$ es una llave acorde a $F$.
-    \item $T$ es un tweak de 64 bits.
+    \item $T$ es un \textit{tweak} de 64 bits.
   \end{itemize}
   
 \end{frame}
@@ -33,7 +33,8 @@
   El cifrador $BC$ sigue el siguiente proceso para cifrar un bloque.
   
   \begin{enumerate}  
-    \item Dividir el tweak $T$ en 2 subtweaks $T_L$ y $T_R$ de 32 bits.
+    \item Dividir el \textit{tweak} $T$ en 2 \textit{subtweaks} $T_L$ y $T_R$
+    de 32 bits.
       \begin{align}
         T_R\: &=\: T\: \mod\: 2^{32}  \\
         T_L\: &=\: (T\: -\: T_R) / 2^{32}
