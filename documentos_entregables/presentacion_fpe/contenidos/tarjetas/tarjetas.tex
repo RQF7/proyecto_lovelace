@@ -74,15 +74,17 @@
       dígito. Si el producto es mayor a $9$, se suman sus dígitos.
       \begin{figure}[H]
         \begin{center}
-          \includegraphics[width=0.4\linewidth]{diagramas/luhn_1.png}
+          \includegraphics[width=0.3\linewidth]{diagramas/luhn_1.png}
         \end{center}
       \end{figure}
     \item Se suman todos los dígitos.
-    \item Se multiplica la suma por $9 \quad \mod \quad 10$.
+    \item Se multiplica la suma por $9 \mod  10$.
       \begin{figure}[H]
         \begin{center}
           \includegraphics[width=0.5\linewidth]{diagramas/luhn_2.png}
         \end{center}
       \end{figure}
   \end{enumerate}
+  El proceso para obtener el dígito verificador es conocido como el algoritmo de
+  Luhn.
 \end{frame}
