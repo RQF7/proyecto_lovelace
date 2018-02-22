@@ -9,47 +9,47 @@
 \begin{frame}{BPS}{Conclusiones}
 
   \begin{itemize}
-    \item \textit{BPS} está basado en las redes Feistel y primitivas 
-      criptográficas estandarizadas, lo cual puede verse como una ventaja, 
-      debido al amplio estudio que tienen, y a que hacen más comprensible 
+    \item \textit{BPS} está basado en las redes Feistel y primitivas
+      criptográficas estandarizadas, lo cual puede verse como una ventaja,
+      debido al amplio estudio que tienen, y a que hacen más comprensible
       y fácil su implementación.
-    
-    \item \textit{BPS} es un cifrado que preserva el formato capaz de cifrar 
-      cadenas formadas por cualquier conjunto y de un longitud de $2$ hasta 
+
+    \item \textit{BPS} es un cifrado que preserva el formato capaz de cifrar
+      cadenas formadas por cualquier conjunto y de un longitud de $2$ hasta
       $max(b) \cdot 2^{b}$.
   \end{itemize}
-  
+
 \end{frame}
 
 %------------------------------------------------------------------------------
 \begin{frame}{BPS}{Conclusiones}
 
   \begin{itemize}
-    \item Se puede considerar que \textit{BPS} es eficiente, debido a que la 
-      llave $K$ usada en cada bloque $BC$ es constante, y a que usa un número 
+    \item Se puede considerar que \textit{BPS} es eficiente, debido a que la
+      llave $K$ usada en cada bloque $BC$ es constante, y a que usa un número
       reducido de operaciones internas.
-    
+
     \item El uso de \textit{tweaks} protege a \textit{BPS} de ataques de
       diccionario, los cuales son fáciles de cometer cuando el dominio de la
       cadena a cifrar es muy pequeño.
   \end{itemize}
-  
+
 \end{frame}
 
 %------------------------------------------------------------------------------
 \begin{frame}{BPS}{Recomendaciones}
 
   \begin{itemize}
-    \item Se recomienda que el número de rondas $w$ de la red Feistel sea 
-      $8$, dado que es una número de rondas eficiente, y se ha estudiado 
+    \item Se recomienda que el número de rondas $w$ de la red Feistel sea
+      $8$, dado que es una número de rondas eficiente, y se ha estudiado
       la seguridad de \textit{BPS} con este $w$.
-    
+
     \item Es recomendable que como \textit{tweak} se use la salida truncada de
-      una función hash, en donde la entrada de la función puede ser cualquier 
-      información relacionada a los datos que se deseen proteger; por 
-      ejemplo, fechas, lugares, o parte de los datos que no se deseen cifrar. 
+      una función hash, en donde la entrada de la función puede ser cualquier
+      información relacionada a los datos que se deseen proteger; por
+      ejemplo, fechas, lugares, o parte de los datos que no se deseen cifrar.
   \end{itemize}
-  
+
 \end{frame}
 
 %------------------------------------------------------------------------------

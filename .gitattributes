@@ -4,3 +4,6 @@
 
 # Archivo lock de Ruby, tratado como autogenerado
 Gemfile.lock linguist-generated
+
+# Archivos de documentación
+documentacion_doxygen linguist-documentation

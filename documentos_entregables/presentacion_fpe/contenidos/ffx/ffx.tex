@@ -4,3 +4,33 @@
 %
 
 \section{FFX}
+
+\begin{frame}{FFX}{Introducción}
+
+  FFX (\textit{Format-preserving, Feistel-based encryption}) es un modo de
+  operación para lograr FPE en espacios pequeños.
+
+  El mecanismo general usado en FFX son las redes Feistel, aplicadas sobre
+  alfabetos arbitrarios.
+
+  La primera versión fue presentada al NIST en \cite{ffx_1}, en noviembre de
+  2009; en la segunda versión \cite{ffx_2}, se agregó el perfil de parámetros
+  FF2, para cadenas binarias.
+
+  \note
+  {
+    Fue creado por Rogaway, Bellare y Spies. El último, asociado a voltage
+    security, había propuesto antes FFSEM. FFX es una generalización de
+    FFSEM (las redes Feistel de este último solo funcionan en alfabetos
+    binarios).
+
+    Terence Spies fue quien empezó a usar el término de cifrados que preservan
+    el formato.
+
+    \textbf{TODO:} ¿Cómo estuvo lo de las vulnerabilidades encontradas?
+  }
+
+\end{frame}
+
+\subimport{/}{feistel}
+\subimport{/}{parametros}
