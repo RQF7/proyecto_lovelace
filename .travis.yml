@@ -3,10 +3,6 @@
 # Proyecto Lovelace.
 #
 
-language: perl
-perl:
- - "5.24"
-
 # Instalación de dependencias
 install:
   - sudo apt-get update
@@ -23,20 +19,25 @@ install:
   # glossaries
   - wget http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
   - unzip -d ~/texmf glossaries.tds.zip
+  - rm glossaries.tds.zip
   # tracklang
   - wget http://mirrors.ctan.org/install/macros/generic/tracklang.tds.zip
   - unzip -d ~/texmf tracklang.tds.zip
+  - rm tracklang.tds.zip
   # bibtex
   - wget https://sourceforge.net/projects/biblatex/files/biblatex-3.9/biblatex-3.9.tds.tgz
   - tar -xvf biblatex-3.9.tds.tgz -C ~/texmf
+  - rm biblatex-3.9.tds.tgz
   # babel
   - wget http://mirrors.ctan.org/install/macros/latex/required/babel-base.tds.zip
   - unzip -d ~/texmf babel-base.tds.zip
+  - rm babel-base.tds.zip
   # biber
   - wget https://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/current/binaries/Linux/biber-linux_x86_64.tar.gz
   - mkdir ~/ejecutable_biber
   - tar -xvf biber-linux_x86_64.tar.gz -C ~/ejecutable_biber
   - export PATH=~/ejecutable_biber/:$PATH
+  - rm biber-linux_x86_64.tar.gz
   # No pues sí... lo único que tienen que hacer los gestores de paquetes de las
   # distribuciones es descomprimir un zip en la carpeta de latex.
   # ¿Para qué tantos intermediarios?
@@ -77,13 +78,19 @@ script:
   # Documentación.
   - doxygen .doxygen
 
+# Antes de despliegue
+before_deploy:
+  rm -Rfv documentos_entregables/temporales_de_latex
+  rm .gitignore
+
 # Fase de despliegue
-# deploy:
-#   provider: pages
-#   skip-cleanup: true
-#   github-token: $GITHUB_TOKEN
-#   target-branch: master
-#   name: Bot de RQF7
-#   verbose: true
-#   on:
-#     branch: master
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  target-branch: master
+  keep-history: true
+  name: Bot de RQF7
+  verbose: true
+  on:
+    branch: master
