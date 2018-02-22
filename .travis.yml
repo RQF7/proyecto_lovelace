@@ -89,6 +89,7 @@ deploy:
   github-token: $GITHUB_TOKEN
   target-branch: master
   keep-history: true
+  allow-empty-commit: true
   name: RQF7_bot
   verbose: true
   on:
