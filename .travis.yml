@@ -5,7 +5,7 @@
 
 # Construcción condicional
 # Evita el ciclo infinito cuando Travis hace un commit
-if sender != RQF_bot
+if: sender != RQF_bot
 
 # Instalación de dependencias
 install:
