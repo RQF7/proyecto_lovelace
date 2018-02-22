@@ -3,6 +3,10 @@
 # Proyecto Lovelace.
 #
 
+# Construcción condicional
+# Evita el ciclo infinito cuando Travis hace un commit
+if sender != RQF_bot
+
 # Instalación de dependencias
 install:
   - sudo apt-get update
@@ -78,11 +82,6 @@ script:
   # Documentación.
   - doxygen .doxygen
 
-# Antes de despliegue
-before_deploy:
-  rm -Rfv documentos_entregables/temporales_de_latex
-  rm .gitignore
-
 # Fase de despliegue
 deploy:
   provider: pages
@@ -90,7 +89,7 @@ deploy:
   github-token: $GITHUB_TOKEN
   target-branch: master
   keep-history: true
-  name: Bot de RQF7
+  name: RQF7_bot
   verbose: true
   on:
     branch: master

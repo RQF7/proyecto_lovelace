@@ -1,0 +1,22 @@
+
+# Archivos generados por latex; sólo se sube el pdf.
+temporales_de_latex
+
+# Archivos temporales de vim
+*.swp
+
+# Carpetas de binarios y archivos objeto
+binarios
+objetos
+
+# Visual paradigm
+*.svg
+*.bak_*
+*.lck
+
+# Archivos de doxygen
+.doxygen_documentacion
+# documentacion_doxygen
+
+# Versión local de github pages
+_site
