@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.6"/>
+<title>Proyecto Lovelace: Fichero Fuente pruebas_librerias/cryptopp/cabeceras/prueba_AES.hh</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Proyecto Lovelace
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Generación de tokens para proteger los datos de tarjetas bancarias</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.6 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "../../search",false,'Buscar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="../../namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="../../annotated.html"><span>Clases</span></a></li>
+      <li class="current"><a href="../../files.html"><span>Archivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="../../files.html"><span>Lista&#160;de&#160;archivos</span></a></li>
+      <li><a href="../../globals.html"><span>Miembros&#160;de&#160;los&#160;ficheros</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Clases</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>&apos;typedefs&apos;</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_9d7759df0595398387f7490caa651c28.html">pruebas_librerias</a></li><li class="navelem"><a class="el" href="../../dir_3eaf3afde9fef4cfb61d9b48ab258a1b.html">cryptopp</a></li><li class="navelem"><a class="el" href="../../dir_fda36021094b91ab9c12eba9a48748ea.html">cabeceras</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">prueba_AES.hh</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d8/d51/prueba__AES_8hh.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Prueba de AES, declaración, crypto++</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> * Proyecto Lovelace.</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifndef __PRUEBA_AES_CRYPTOPP__</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define __PRUEBA_AES_CRYPTOPP__</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;../../utilidades/cabeceras/prueba.hh&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="../../d4/d50/namespacePruebasCryptopp.html">   18</a></span>&#160;<span class="keyword">namespace </span>PruebasCryptopp</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="../../d2/db3/classPruebasCryptopp_1_1PruebaAES.html">   27</a></span>&#160;  <span class="keyword">class </span><a class="code" href="../../d2/db3/classPruebasCryptopp_1_1PruebaAES.html">PruebaAES</a> : <span class="keyword">public</span> <a class="code" href="../../d5/def/classPrueba.html">Prueba</a></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      <a class="code" href="../../d2/db3/classPruebasCryptopp_1_1PruebaAES.html#a86c47892815df91f073762a4b6577cab">PruebaAES</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="../../d2/db3/classPruebasCryptopp_1_1PruebaAES.html#a97bd242668e16eefa81215ecf21f23a4">probarCifradoDescifrado</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="../../d2/db3/classPruebasCryptopp_1_1PruebaAES.html#a56652f96c8233d784f00072382fac588">probarConstantes</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  };</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="classPruebasCryptopp_1_1PruebaAES_html_a56652f96c8233d784f00072382fac588"><div class="ttname"><a href="../../d2/db3/classPruebasCryptopp_1_1PruebaAES.html#a56652f96c8233d784f00072382fac588">PruebasCryptopp::PruebaAES::probarConstantes</a></div><div class="ttdeci">static bool probarConstantes()</div><div class="ttdoc">Prueba el proceso de cifrado y descifrado de AES. </div><div class="ttdef"><b>Definition:</b> <a href="../../d4/dd4/prueba__AES_8cpp_source.html#l00048">prueba_AES.cpp:48</a></div></div>
+<div class="ttc" id="classPruebasCryptopp_1_1PruebaAES_html_a97bd242668e16eefa81215ecf21f23a4"><div class="ttname"><a href="../../d2/db3/classPruebasCryptopp_1_1PruebaAES.html#a97bd242668e16eefa81215ecf21f23a4">PruebasCryptopp::PruebaAES::probarCifradoDescifrado</a></div><div class="ttdeci">static bool probarCifradoDescifrado()</div><div class="ttdoc">Prueba el funcionamiento de constantes de AES. </div><div class="ttdef"><b>Definition:</b> <a href="../../d4/dd4/prueba__AES_8cpp_source.html#l00075">prueba_AES.cpp:75</a></div></div>
+<div class="ttc" id="classPrueba_html"><div class="ttname"><a href="../../d5/def/classPrueba.html">Prueba</a></div><div class="ttdoc">Superclase común a todas las pruebas. </div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d8e/prueba_8hh_source.html#l00019">prueba.hh:19</a></div></div>
+<div class="ttc" id="classPruebasCryptopp_1_1PruebaAES_html"><div class="ttname"><a href="../../d2/db3/classPruebasCryptopp_1_1PruebaAES.html">PruebasCryptopp::PruebaAES</a></div><div class="ttdoc">Prueba de la impementación de AES de cryptopp. </div><div class="ttdef"><b>Definition:</b> <a href="../../d8/d51/prueba__AES_8hh_source.html#l00027">prueba_AES.hh:27</a></div></div>
+<div class="ttc" id="classPruebasCryptopp_1_1PruebaAES_html_a86c47892815df91f073762a4b6577cab"><div class="ttname"><a href="../../d2/db3/classPruebasCryptopp_1_1PruebaAES.html#a86c47892815df91f073762a4b6577cab">PruebasCryptopp::PruebaAES::PruebaAES</a></div><div class="ttdeci">PruebaAES()</div><div class="ttdoc">Regitro de pruebas en vector de funciones. </div><div class="ttdef"><b>Definition:</b> <a href="../../d4/dd4/prueba__AES_8cpp_source.html#l00021">prueba_AES.cpp:21</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.6
+</small></address>
+</body>
+</html>
