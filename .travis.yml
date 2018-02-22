@@ -76,3 +76,13 @@ script:
 
   # Documentación.
   - doxygen .doxygen
+
+# Fase de despliegue
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  local_dir: documentacion_doxygen
+  verbose: true
+  on:
+    branch: master
