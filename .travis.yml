@@ -78,12 +78,12 @@ script:
   - doxygen .doxygen
 
 # Fase de despliegue
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  target-branch: master
-  name: Bot de RQF7
-  verbose: true
-  on:
-    branch: master
+# deploy:
+#   provider: pages
+#   skip-cleanup: true
+#   github-token: $GITHUB_TOKEN
+#   target-branch: master
+#   name: Bot de RQF7
+#   verbose: true
+#   on:
+#     branch: master
