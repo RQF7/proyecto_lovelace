@@ -6,4 +6,4 @@
 Gemfile.lock linguist-generated
 
 # Archivos de documentación
-documentacion_doxygen linguist-documentation
+documentacion_doxygen/* linguist-documentation
