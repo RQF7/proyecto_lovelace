@@ -44,3 +44,17 @@ correr: $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL)
 
 limpiar:
 	rm -Rvf $(CARPETA_BINARIOS) $(CARPETA_OBJETOS)
+
+# make RSA ----------------------------------------------------------------
+
+RSA: prueba_RSA $(CARPETA_OBJETOS)/cryptopp/prueba_RSA
+	mkdir -p $(CARPETA_BINARIOS)
+	g++ $(BANDERAS_GENERALES) $(CARPETA_OBJETOS)/cryptopp/prueba_RSA \
+	-lcryptopp -o $(CARPETA_BINARIOS)/$@
+
+prueba_RSA: cryptopp/prueba_RSA.cpp
+	mkdir -p $(CARPETA_OBJETOS)/cryptopp
+	g++ $(BANDERAS_GENERALES) -c $< -o $(CARPETA_OBJETOS)/cryptopp/$@
+
+correr_RSA: $(CARPETA_BINARIOS)/RSA
+	./$<
