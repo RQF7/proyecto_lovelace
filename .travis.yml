@@ -89,7 +89,7 @@ script:
 # Antes del despliegue
 before_deploy:
   - mv README.md pagina_publica/
-  - mv reglas_de_estilo pagina_publica/
+  - mv reglas_de_estilo.md pagina_publica/
   - mkdir -p pagina_publica/documentos_entregables/documento_final
   - mv documentos_entregables/documento_final/documento_final.pdf pagina_publica/documentos_entregables/documento_final/
   - mkdir -p pagina_publica/documentos_entregables/presentacion_fpe
