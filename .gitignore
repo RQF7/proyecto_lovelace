@@ -16,7 +16,7 @@ objetos
 
 # Archivos de doxygen
 .doxygen_documentacion
-# documentacion_doxygen
+pagina_publica/documentacion_doxygen
 
 # Versión local de github pages
 _site
