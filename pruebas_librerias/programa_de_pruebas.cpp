@@ -1,5 +1,6 @@
-/*
- * Archivo principal de pruebas de librerías.
+/**
+ * \file
+ * \brief Archivo principal de pruebas de librerías.
  * Proyecto Lovelace.
  */
 

@@ -1,5 +1,6 @@
-/*
- * Clase contenedor para funciones de prueba, utilidades
+/**
+ * \file
+ * \brief Clase contenedor para funciones de prueba, utilidades
  * Proyecto Lovelace.
  */
 

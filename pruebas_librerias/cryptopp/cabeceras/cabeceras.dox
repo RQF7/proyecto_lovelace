@@ -1,0 +1,12 @@
+/**
+ * \dir
+ * \brief Cabeceras de sección de pruebas con crypto++.
+ */
+
+/**
+* \namespace PruebasCryptopp
+* \brief Conjunto de pruebas de la librería crypto++.
+*
+* Clases y funciones de prueba de algunas primitivas criptográficas con
+* crypto++.
+*/

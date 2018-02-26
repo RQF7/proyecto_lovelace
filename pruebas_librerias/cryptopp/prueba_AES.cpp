@@ -1,5 +1,6 @@
-/*
- * Prueba de AES, implementacón, crypto++
+/**
+ * \file
+ * \brief Prueba de AES, implementación, crypto++
  * Proyecto Lovelace.
  */
 

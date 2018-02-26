@@ -1,5 +1,6 @@
-/*
- * Super clase de todas las pruebas, definición.
+/**
+ * \file
+ * \brief Super clase de todas las pruebas, definición.
  * Proyecto Lovelace.
  */
 

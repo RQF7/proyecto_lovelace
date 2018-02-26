@@ -1,12 +1,13 @@
-/*
- * Prueba de AES, declaración, crypto++
+/**
+ * \file
+ * \brief Prueba de AES, declaración, crypto++
  * Proyecto Lovelace.
  */
 
 #ifndef __PRUEBA_SALSA20_CRYPTOPP__
 #define __PRUEBA_SALSA20_CRYPTOPP__
 
-#include "../../utilidades/cabeceras/prueba.hh"
+#include "../../../utilidades/cabeceras/prueba.hh"
 
 namespace PruebasCryptopp
 {

@@ -1,0 +1,12 @@
+/**
+ * \dir
+ * \brief Cabeceras de sección de pruebas con openssl.
+ */
+
+/**
+ * \namespace PruebasOpenssl
+ * \brief Conjunto de pruebas de la librería openssl.
+ *
+ * Clases y funciones de prueba de algunas primitivas criptográficas con
+ * openssl.
+ */

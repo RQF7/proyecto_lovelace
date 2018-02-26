@@ -23,7 +23,7 @@ $(CARPETA_OBJETOS)/programa_de_pruebas.o: programa_de_pruebas.cpp
 	mkdir -p $(CARPETA_OBJETOS)
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
-$(CARPETA_OBJETOS)/utilidades/prueba.o: utilidades/prueba.cpp
+$(CARPETA_OBJETOS)/utilidades/prueba.o: ../utilidades/prueba.cpp
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 

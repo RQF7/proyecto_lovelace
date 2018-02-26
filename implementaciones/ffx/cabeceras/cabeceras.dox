@@ -1,0 +1,21 @@
+/**
+ * \dir
+ * \brief Cabeceras de FFX (cifrado que preserva el formato).
+ */
+
+/**
+ * \namespace Implementaciones
+ * \brief Implementaciones de algoritmos tokenizadores.
+ *
+ * Conjunto de métodos para generar tokens. Aquí se agrupan todas las
+ * implementaciones de algoritmos tokenizadores junto con clases y métodos
+ * derivados.
+ */
+
+/**
+ * \namespace PruebasImplementaciones
+ * \brief Pruebas de implementaciones de algoritmos tokenizadores.
+ *
+ * Clases y funciones de prueba alrededor de las implementaciones de
+ * algoritmos tokenizadores.
+ */
