@@ -53,12 +53,12 @@ install:
   # ¿Para qué tantos intermediarios?
 
   # # Instalación de cryptopp
-  # - wget https://cryptopp.com/cryptopp600.zip
-  # - unzip -a -d cryptopp cryptopp600.zip
-  # - make -C cryptopp
-  # - sudo mkdir /usr/include/cryptopp
-  # - sudo mv cryptopp/*.h /usr/include/cryptopp/
-  # - sudo mv cryptopp/libcryptopp.a /usr/lib/
+  - wget https://cryptopp.com/cryptopp600.zip
+  - unzip -a -d cryptopp cryptopp600.zip
+  - make -C cryptopp
+  - sudo mkdir /usr/include/cryptopp
+  - sudo mv cryptopp/*.h /usr/include/cryptopp/
+  - sudo mv cryptopp/libcryptopp.a /usr/lib/
   # # Instlación de openssl
   # - wget https://www.openssl.org/source/openssl-1.1.1-pre1.tar.gz
   # - tar -xvf openssl-1.1.1-pre1.tar.gz
@@ -84,8 +84,8 @@ script:
   #  - make -C documentos_entregables ortografía
 
   # Ejecución de funciones de prueba
-  # - make -C pruebas_librerias
-  # - make -C pruebas_librerias correr
+  - make -C pruebas_librerias
+  - make -C pruebas_librerias correr
 
   # Documentación.
   - make documentación_doxygen
@@ -93,7 +93,7 @@ script:
   # Pruebas de implementaciones
   - make -C implementaciones/ffx correr
 
-# Despliegue ######## ########################################################
+# Despliegue #################################################################
 # Antes del despliegue
 before_deploy:
   - mv README.md pagina_publica/

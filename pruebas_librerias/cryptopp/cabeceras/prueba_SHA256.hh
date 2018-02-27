@@ -1,5 +1,6 @@
-/*
- * Prueba de SHA256, declaración, crypto++
+/**
+ * \file
+ * \brief Prueba de SHA256, declaración, crypto++
  * Proyecto Lovelace
  */
 
@@ -10,7 +11,7 @@
 
 namespace PruebasCryptopp
 {
-  /*
+  /**
    * \brief Prueba de la implementación SHA-256 de Crypto++
    *
    * Pequeña prueba para obtener el valor HASH de la entrada abc en SHA-256.
@@ -20,7 +21,7 @@ namespace PruebasCryptopp
   class PruebaSHA256 : public Prueba
   {
     public:
-      /** \brief Prueba de constantes y funcionamiento de SHA256. */
+      /** \brief Registro de funciones estáticas. */
       PruebaSHA256();
 
       /** \brief Prueba funcionamiento de SHA256. */

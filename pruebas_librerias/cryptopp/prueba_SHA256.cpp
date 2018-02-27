@@ -1,5 +1,6 @@
-/*
- * Prueba de SHA256, declaración, crypto++
+/**
+ * \file
+ * \brief Prueba de SHA256, implementación, crypto++
  * Proyecto Lovelace
  */
 
@@ -14,9 +15,10 @@ using namespace CryptoPP;
 using namespace PruebasCryptopp;
 
 /**
- * Registra las funciones de prueba de AES en la lista de funciones a probar
- * que mantiene la clase de Prueba.
+ * Registra las funciones de prueba de SHA256 en la lista de funciones a probar
+ * que mantiene la clase base.
  */
+
 PruebaSHA256::PruebaSHA256()
 {
   mListaDePruebas.push_back(FuncionDePrueba{
@@ -25,11 +27,11 @@ PruebaSHA256::PruebaSHA256()
   });
 }
 
-/*
+/**
  * Primero, en entrada se define la cadena a la que se le va a sacar el SHA.
  * Luego, se define el vector de prueba para la cadena de entrada y poder
  * comprobar que da el valor correcto.
- * Luego, se define un arreglo de bytes donde se va a guardar la salida de 
+ * Luego, se define un arreglo de bytes donde se va a guardar la salida de
  * la función y el codificador que permite ver los datos en base hexadecimal:
  * la salida del codificador va a dar a la cadena <<salidaClara>>.
  * Luego, mediante la función Update, se le dan los datos de entrada a la
@@ -43,12 +45,13 @@ PruebaSHA256::PruebaSHA256()
  * regresa verdadero si coinciden o falso si la cadena del vector de prueba
  * es distinta a la que hay en la salida clara.
  */
+
 bool PruebaSHA256::probarDigestion()
 {
   string entrada {"abc"},
     vectorPrueba {"BA7816BF8F01CFEA414140DE5DAE2223B00361A396177A9CB410FF61F20015AD"},
     salidaClara;
-  
+
   byte salida[SHA256::DIGESTSIZE];
 
   SHA256 sha256;
