@@ -25,10 +25,10 @@ namespace PruebasCryptopp
       PruebaAES();
 
       /** \brief Prueba el funcionamiento de constantes de AES. */
-      static bool probarCifradoDescifrado();
+      static bool probarConstantes();
 
       /** \brief Prueba el proceso de cifrado y descifrado de AES. */
-      static bool probarConstantes();
+      static bool probarCifradoDescifrado();
   };
 }
 

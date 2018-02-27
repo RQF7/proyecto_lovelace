@@ -25,6 +25,24 @@ PruebaSHA256::PruebaSHA256()
   });
 }
 
+/*
+ * Primero, en entrada se define la cadena a la que se le va a sacar el SHA.
+ * Luego, se define el vector de prueba para la cadena de entrada y poder
+ * comprobar que da el valor correcto.
+ * Luego, se define un arreglo de bytes donde se va a guardar la salida de 
+ * la función y el codificador que permite ver los datos en base hexadecimal:
+ * la salida del codificador va a dar a la cadena <<salidaClara>>.
+ * Luego, mediante la función Update, se le dan los datos de entrada a la
+ * función SHA256 (sus argumentos son la cadena visto como un arreglo de bytes
+ * y la longitud de la cadena); si la entrada está fragmentada o se le quiere
+ * dar fragmentada, se utiliza la función Update varias veces y es equivalente
+ * a ir concatenando la entrada. Una vez que se termina de dar la entrada,
+ * se llama a la función Final y se le indica, mediante el argumento, dónde
+ * se desea poner el valor hash. Al final se muestra la entrada y salida
+ * obtenida en hexadecimal y se compara la salida con el vector de prueba:
+ * regresa verdadero si coinciden o falso si la cadena del vector de prueba
+ * es distinta a la que hay en la salida clara.
+ */
 bool PruebaSHA256::probarDigestion()
 {
   string entrada {"abc"},

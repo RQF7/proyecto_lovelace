@@ -6,7 +6,7 @@
 #ifndef __PRUEBA_SHA256_CRYPTOPP__
 #define __PRUEBA_SHA256_CRYPTOPP__
 
-#include "../../utilidades/cabeceras/prueba.hh"
+#include "../../../utilidades/cabeceras/prueba.hh"
 
 namespace PruebasCryptopp
 {
