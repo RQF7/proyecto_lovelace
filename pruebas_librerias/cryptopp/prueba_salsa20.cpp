@@ -41,8 +41,8 @@ PruebaSalsa20::PruebaSalsa20()
  * error al compilar si no se le pasaban los argumentos del template, cuando
  * (cuando menos la versión del manual que tengo) indica que esos parámetros
  * tienen un valor por defecto (los mismos que estoy pasando).
- * Posiblementesea por incompatibilidades de versiones, sin embargo, por lo
- * mientras decidí degarlo así porque ejemplifica cómo usar los argumentos
+ * Posiblemente sea por incompatibilidades de versiones, sin embargo, por lo
+ * mientras decidí dejarlo así porque ejemplifica cómo usar los argumentos
  * de los templates.
  */
 

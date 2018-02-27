@@ -12,7 +12,7 @@
 namespace PruebasCryptopp
 {
   /**
-   * \brief Prueba de la impementación de AES de cryptopp.
+   * \brief Prueba de la implementación de AES de cryptopp.
    *
    * Agrupa las funciones de prueba que interactúan con la implementación
    * de AES de cryptopp.
@@ -21,7 +21,7 @@ namespace PruebasCryptopp
   class PruebaAES : public Prueba
   {
     public:
-      /** \brief Regitro de pruebas en vector de funciones. */
+      /** \brief Registro de pruebas en vector de funciones. */
       PruebaAES();
 
       /** \brief Prueba el funcionamiento de constantes de AES. */
