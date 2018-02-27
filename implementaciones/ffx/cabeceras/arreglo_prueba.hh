@@ -26,11 +26,14 @@ namespace ImplementacionesPruebas
       /** \brief Prueba el funcionamiento básico de la clase. */
       static bool probarFuncionalidadBasica();
 
-      /** \brief Prueba la función de partición */
+      /** \brief Prueba la función de partición. */
       static bool probarParticiones();
 
-      /** \brief Prueba de operación de concatenación */
+      /** \brief Prueba de operación de concatenación. */
       static bool probarConcatenacion();
+
+      /** \brief Prueba la operación de los constructores. */
+      static bool probarConstructores();
   };
 }
 

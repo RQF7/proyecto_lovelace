@@ -28,6 +28,10 @@ ArregloPrueba::ArregloPrueba()
     "concatenación",
     ArregloPrueba::probarConcatenacion
   });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "constructores",
+    ArregloPrueba::probarConstructores
+  });
 }
 
 /**
@@ -38,19 +42,19 @@ ArregloPrueba::ArregloPrueba()
  * y la impresión en un flujo. Se prueba con distintos tipos (tanto básicos
  * como compuestos).
  *
- * \return verdaderoen todos los casos.
+ * \return Estado de la prueba.
  */
 
 bool ArregloPrueba::probarFuncionalidadBasica()
 {
-  Arreglo<int> arreglo {10};
+  Arreglo<int> arreglo (10);
   for (int i = 0; i < 10; i++)
     arreglo.colocar(i, i + 1);
   cout << arreglo << endl;
   if (arreglo[3] != 4 || arreglo[7] != 8 || arreglo[9] != 10)
     return false;
 
-  Arreglo<char> arreglo2 {3};
+  Arreglo<char> arreglo2 (3);
   arreglo2.colocar(0, 'A');
   arreglo2.colocar(1, 'B');
   arreglo2.colocar(2, 'C');
@@ -58,13 +62,13 @@ bool ArregloPrueba::probarFuncionalidadBasica()
   if (arreglo2[0] != 'A' || arreglo2[1] != 'B' || arreglo2[2] != 'C')
     return false;
 
-  Arreglo<vector<int>> arreglo3 {2};
+  Arreglo<vector<int>> arreglo3 (2);
   arreglo3.colocar(0, {0, 1, 2, 3, 4});
   arreglo3.colocar(1, {5, 6, 7, 8, 9});
   if (arreglo3[0][0] != 0 || arreglo3[0][3] != 3 || arreglo3[1][4] != 9)
     return false;
 
-  Arreglo<string> arreglo4 {3};
+  Arreglo<string> arreglo4 (3);
   arreglo4.colocar(0, "Ricardo");
   arreglo4.colocar(1, "Quezada");
   arreglo4.colocar(2, "Figueroa");
@@ -79,12 +83,12 @@ bool ArregloPrueba::probarFuncionalidadBasica()
  * Prueba de particiones de un arreglo. Se prueban dos particiones exactas y
  * una con residuo.
  *
- * \return Verdadero en todos los casos.
+ * \return Estado de la prueba.
  */
 
 bool ArregloPrueba::probarParticiones()
 {
-  Arreglo<int> arreglo {10};
+  Arreglo<int> arreglo (10);
   for (int i = 0; i < 10; i++)
     arreglo.colocar(i, i + 1);
 
@@ -118,12 +122,12 @@ bool ArregloPrueba::probarParticiones()
 /**
  * Prueba la operación de concatenación de los arreglos.
  *
- * \return Verdadero en todos los casos.
+ * \return Estado de la prueba.
  */
 
 bool ArregloPrueba::probarConcatenacion()
 {
-  Arreglo<int> arregloUno {5}, arregloDos{5}, arregloTres{5};
+  Arreglo<int> arregloUno (5), arregloDos (5), arregloTres (5);
   for (int i = 0; i < 5; i++)
   {
     arregloUno.colocar(i, i + 1);
@@ -136,5 +140,54 @@ bool ArregloPrueba::probarConcatenacion()
   cout << compuestoDos << endl;
   if (compuestoUno[1] != 2 || compuestoUno[7] != 8 || compuestoDos[13] != 14)
     return false;
+  return true;
+}
+
+/**
+ * Prueba el funcionamiento de todos los constructores (por tamaño, por lista
+ * de inicialización, por copia, por movimiento) y de las operaciones
+ * de asignación (de copia y de movimiento).
+ *
+ * \return Estado de la prueba.
+ *
+ * \todo Probar los dos criterios de copiado (17.5.1.3).
+ */
+
+bool ArregloPrueba::probarConstructores()
+{
+  /* Lista de inicialización. */
+  Arreglo<int> arreglo {1, 2, 3, 4};
+  cout << "Construcción por lista de inicialización:" << endl
+       << arreglo << endl;
+  if (arreglo[0] != 1 || arreglo.obtenerNumeroDeElementos() != 4)
+    return false;
+
+  /* Construcción por copia */
+  auto arregloCopia (arreglo);
+  cout << "Construcción por copia:" << endl
+       << arregloCopia << endl;
+  if (arregloCopia[2] != 3 || arregloCopia[3] != 4)
+    return false;
+
+  /* Asignación por copia */
+  arreglo.colocar(1, 50);
+  cout << "Asignación por copia (antes):" << endl
+       << arregloCopia << endl;
+  if (arregloCopia[1] == 50)
+    return false;
+  arregloCopia = arreglo;
+  cout << "Asignación por copia (después):" << endl
+       << arregloCopia << endl;
+  if (arregloCopia[1] != 50)
+    return false;
+
+  /* Construcción por movimiento. */
+  auto arregloMovimiento (move(arreglo));
+  cout << "Construcción por movimiento:" << endl
+       << arregloMovimiento << endl;
+   if (arregloMovimiento[1] != 50
+     || arregloMovimiento.obtenerNumeroDeElementos() != 4)
+     return false;
+
   return true;
 }
