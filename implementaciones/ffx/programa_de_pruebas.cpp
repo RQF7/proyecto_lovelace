@@ -5,6 +5,7 @@
  */
 
 #include "cabeceras/arreglo_prueba.hh"
+#include "cabeceras/red_feistel_prueba.hh"
 #include <iostream>
 #include <vector>
 
@@ -21,7 +22,8 @@ int main()
 {
   vector<Prueba> clasesDePrueba
   {
-    ArregloPrueba {}
+    ArregloPrueba {},
+    RedFeistelPrueba {}
   };
   for (auto claseDePrueba : clasesDePrueba)
     if (!claseDePrueba.probar())

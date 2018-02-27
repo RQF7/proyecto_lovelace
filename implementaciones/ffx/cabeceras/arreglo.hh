@@ -7,6 +7,8 @@
  * intentan ligar por separado, hay problemas. Al parecer es técnica
  * estándar definir a las clases con plantillas dentro de los archivos de
  * cabeceras.
+ *
+ * Proyecto Lovelace.
  */
 
 #ifndef __ARREGLO__
@@ -31,8 +33,6 @@ namespace Implementaciones
    *
    * Esta clase encapsula las operaciones de bajo nivel (con apuntadores y de
    * manejo de memoria) para ofrecer una interfaz clara y de alto nivel.
-   *
-   * \todo ¿En qué parte se refleja la documentación del template?
    *
    * \tparam tipo Tipo de dato del contenedor.
    */
@@ -64,7 +64,7 @@ namespace Implementaciones
       ~Arreglo();
 
       /** \brief Operación de lectura. */
-      tipo operator[] (int indice) const;
+      tipo operator[](int indice) const;
 
       /** \brief Operación de escritura. */
       void colocar(int indice, tipo valor);
@@ -73,7 +73,7 @@ namespace Implementaciones
       inline int obtenerNumeroDeElementos() const { return mNumeroDeElementos; }
 
       /** \brief Parte el arreglo según parámetros. */
-      Arreglo<tipo> partir(int numeroDePartes, int parte);
+      Arreglo<tipo> partir(int numeroDePartes, int parte) const;
 
     private:
 
@@ -351,7 +351,7 @@ namespace Implementaciones
   Arreglo<tipo> Arreglo<tipo>::partir(
     int numeroDePartes, /**< Número de particiones a hacer. **/
     int parte           /**< Número de partición deseada. **/
-  )
+  ) const
   {
     int tamanioDeDivision = mNumeroDeElementos / numeroDePartes;
     Arreglo<tipo> subArreglo (tamanioDeDivision);
