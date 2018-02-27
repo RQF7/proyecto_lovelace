@@ -8,7 +8,7 @@
 #include <iostream>
 #include <vector>
 
-using namespace PruebasImplementaciones;
+using namespace ImplementacionesPruebas;
 using namespace std;
 
 /**

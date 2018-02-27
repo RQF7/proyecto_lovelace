@@ -90,6 +90,9 @@ script:
   # Documentación.
   - make documentación_doxygen
 
+  # Pruebas de implementaciones
+  - make -C implementaciones/ffx correr
+
 # Despliegue ######## ########################################################
 # Antes del despliegue
 before_deploy:

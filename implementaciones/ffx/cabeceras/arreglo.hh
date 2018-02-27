@@ -61,7 +61,7 @@ namespace Implementaciones
       /** \brief Apuntador a sección de memoria con el contenido del arreglo.*/
       tipo *mArregloInterno;
 
-      /** \brief Tamaño del arreglo */
+      /** \brief Tamaño del arreglo (entero mayor a cero). */
       int mNumeroDeElementos;
   };
 

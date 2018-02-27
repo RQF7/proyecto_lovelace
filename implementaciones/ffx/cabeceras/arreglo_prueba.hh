@@ -9,7 +9,7 @@
 
 #include "../../../utilidades/cabeceras/prueba.hh"
 
-namespace PruebasImplementaciones
+namespace ImplementacionesPruebas
 {
   /**
    * \brief Prueba del contenedor tipo arreglo.

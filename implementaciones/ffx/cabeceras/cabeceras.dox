@@ -13,7 +13,7 @@
  */
 
 /**
- * \namespace PruebasImplementaciones
+ * \namespace ImplementacionesPruebas
  * \brief Pruebas de implementaciones de algoritmos tokenizadores.
  *
  * Clases y funciones de prueba alrededor de las implementaciones de
