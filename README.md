@@ -12,6 +12,7 @@ Archivos publicados en la
 
 * [Documento final](documentos_entregables/documento_final/documento_final.pdf)
 * [Presentación de FPE](documentos_entregables/presentacion_fpe/presentacion_fpe.pdf)
+* [Documentación de doxygen (html)](documentacion_doxygen/html/index.html).
 
 ## Estructura de carpetas
 

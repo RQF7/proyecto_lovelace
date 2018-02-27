@@ -1,19 +1,13 @@
-/*
- * Prueba de AES, declaración, crypto++
+/**
+ * \file
+ * \brief Prueba de AES, declaración, crypto++
  * Proyecto Lovelace.
  */
 
 #ifndef __PRUEBA_AES_CRYPTOPP__
 #define __PRUEBA_AES_CRYPTOPP__
 
-#include "../../utilidades/cabeceras/prueba.hh"
-
-/**
- * \brief Conjunto de pruebas de la librería cryptopp.
- *
- * Clases y funciones de prueba de algunas primitivas criptográficas con
- * cryptopp.
- */
+#include "../../../utilidades/cabeceras/prueba.hh"
 
 namespace PruebasCryptopp
 {

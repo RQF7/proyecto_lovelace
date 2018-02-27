@@ -1,5 +1,6 @@
-/*
- * Prueba de Salsa20, implementacón, crypto++
+/**
+ * \file
+ * \brief Prueba de Salsa20, implementacón, crypto++
  * Proyecto Lovelace.
  */
 

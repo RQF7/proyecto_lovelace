@@ -1,0 +1,7 @@
+/**
+ * \dir
+ * \brief Clases y funciones de utilidades.
+ *
+ * Utilidades comunes a varios módulos del proyecto (e.g. clases generícas
+ * de prueba, contenedores).
+ */

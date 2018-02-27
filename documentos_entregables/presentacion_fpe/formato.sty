@@ -7,6 +7,12 @@
 \ProvidesPackage{presentacion_fpe/formato}
   [2017/10/13 Paquete para formato de presentación de FPE]
 
+% http://mirrors.ctan.org/macros/latex/contrib/caption/caption-eng.pdf
+\RequirePackage[labelformat=empty]{caption}
+
+% http://mirrors.ctan.org/macros/latex/contrib/caption/subcaption.pdf
+\RequirePackage{subcaption}
+
 \title{\Titulo}
 \subtitle{\Subtitulo}
 \author{\Autor}
@@ -47,17 +53,28 @@
 %\addtobeamertemplate{background canvas}{\transpush[duration=1.0]}{}
 
 % Mostrar notas (para borradores).
-\setbeameroption{show notes}
+%\setbeameroption{show notes}
 
 % Mostrarlas en segunda pantalla; no estoy muy seguro de que evince o los
 % controladores de Linux soporten esto.
 % \setbeameroption{show notes on second screen}
 
 % Ocultar notas (para versión final)
-% \setbeameroption{hide notes}
+\setbeameroption{hide notes}
 
 % Solo notas (en caso de querer generar un pdf de soporte)
 % \setbeameroption{show only notes}
+
+% Índice al iniciar una subsección
+\AtBeginSection[]
+{
+  \setlength{\parskip}{0.0em}
+  \begin{frame}
+    \frametitle{Contenido}
+    \tableofcontents[currentsection]
+  \end{frame}
+  \setlength{\parskip}{0.5em}
+}
 
 % Número de diapositivas en pie.
 \setbeamertemplate{sidebar right}{}

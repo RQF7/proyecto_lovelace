@@ -1,0 +1,84 @@
+%
+% Parámetros de FFX, presentación de FPE.
+% Proyecto Lovelace.
+%
+
+\subsection{Definición de parámetros}
+
+\begin{frame}{FFX}{Parámetros}
+
+  Los siguientes 9 parámetros hacen de FFX un esquema muy general, que
+  puede ser utilizado para cifrar cadenas de \textit{cualquier} longitud.
+
+  \only<1>
+  {
+    \begin{block}{\textbf{1. \textit{Radix}}}
+      Número que determina el alfabeto usado.
+      $ C = \{ 0, 1, \dots, \text{radix} - 1\} $. Tanto el texto en claro como
+      el texto cifrado pertenecen a este alfabeto.
+    \end{block}
+
+    \begin{block}{\textbf{2. Longitudes}}
+      El rango permitido para longitudes de mensaje.
+    \end{block}
+
+    \begin{block}{\textbf{3. Llaves}}
+      El conjunto que representa al espacio de llaves.
+    \end{block}
+  }
+
+  \note<1>
+  {
+    Los parámetros se condicionan unos a otros: el rango permitido depende
+    de la función de ronda utilizada.
+  }
+
+  \only<2>
+  {
+    \begin{block}{\textbf{4. \textit{Tweaks}}}
+      El conjunto que representa al espacio de \textit{tweaks}.
+    \end{block}
+
+    \begin{block}{\textbf{5. Suma}}
+      El operador utilizado en la red Feistel para combinar la parte izquierda
+      con la salida de la función de ronda.
+    \end{block}
+
+    \begin{block}{\textbf{6. Método}}
+      El tipo de red Feistel a ocupar: desbalanceada o alternante.
+    \end{block}
+  }
+
+  \note<2>
+  {
+    Explicar la diferencia entre una suma a nivel de caracter o una suma a
+    nivel de bloque.
+
+    Recordar que las redes balanceadas son caso específico de cualquiera de
+    los dos métodos.
+  }
+
+  \only<3>
+  {
+    \begin{block}{\textbf{7. \textit{Split}}}
+      El grado de desbalanceo de la red Feistel.
+    \end{block}
+
+    \begin{block}{\textbf{8. Rondas}}
+      El número de rondas de la red Feistel.
+    \end{block}
+
+    \begin{block}{\textbf{9. F}}
+      La función de ronda. Recibe la llave, el \textit{tweak}, el número de
+      ronda y un mensaje; regresa una cadena del alfabeto de la longitud
+      apropiada.
+    \end{block}
+  }
+
+  \note<3>
+  {
+    El número de rondas necesario depende de cada caso en particular.
+    Por ejemplo, en FF2 van de 12 a 36 y en FF10, de 12 a 24.
+  }
+
+\end{frame}

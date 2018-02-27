@@ -14,7 +14,7 @@ PROJECT_NUMBER         = 1.0
 PROJECT_BRIEF          = "Generación de tokens para proteger" \
                          "los datos de tarjetas bancarias"
 PROJECT_LOGO           =
-OUTPUT_DIRECTORY       = documentacion_doxygen
+OUTPUT_DIRECTORY       = pagina_publica/documentacion_doxygen
 CREATE_SUBDIRS         = YES
 ALLOW_UNICODE_NAMES    = NO
 OUTPUT_LANGUAGE        = Spanish
@@ -118,7 +118,9 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = pruebas_librerias
+INPUT                  = pruebas_librerias \
+                         utilidades \
+                         implementaciones
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.c \
                          *.cc \
@@ -129,7 +131,8 @@ FILE_PATTERNS          = *.c \
                          *.hh \
                          *.hxx \
                          *.hpp \
-                         *.h++
+                         *.h++ \
+                         *.dox
 RECURSIVE              = YES
 EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO
