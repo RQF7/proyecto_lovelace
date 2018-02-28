@@ -9,6 +9,7 @@ CARPETA_OBJETOS			:= objetos
 LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 arreglo_prueba.cpp \
 											 red_feistel_prueba.cpp \
+											 red_feistel_alternante_prueba.cpp \
 											 utilidades/prueba.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
@@ -22,11 +23,17 @@ $(CARPETA_OBJETOS)/programa_de_pruebas.o: programa_de_pruebas.cpp
 	mkdir -p $(CARPETA_OBJETOS)
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
-$(CARPETA_OBJETOS)/arreglo_prueba.o: arreglo_prueba.cpp
+$(CARPETA_OBJETOS)/arreglo_prueba.o: arreglo_prueba.cpp cabeceras/arreglo.hh
 	mkdir -p $(CARPETA_OBJETOS)
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
-$(CARPETA_OBJETOS)/red_feistel_prueba.o: red_feistel_prueba.cpp
+$(CARPETA_OBJETOS)/red_feistel_prueba.o: red_feistel_prueba.cpp \
+	cabeceras/red_feistel.hh
+	mkdir -p $(CARPETA_OBJETOS)
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/red_feistel_alternante_prueba.o: \
+	red_feistel_alternante_prueba.cpp cabeceras/red_feistel_alternante.hh
 	mkdir -p $(CARPETA_OBJETOS)
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 

@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Definición de funciones de prueba del contenedor tipo arreglo.
+ * \brief Definición de funciones de prueba de una red Feistel..
  * Proyecto Lovelace.
  */
 
@@ -31,8 +31,6 @@ RedFeistelPrueba::RedFeistelPrueba()
  * \todo ¿Qué pasa si cifrar tuviera una sobrecarga que recibe otra cosa con
  * una lista de inicialización? ¿Error de compilación, o cómo se resuelve la
  * ambigüedad?
- *
- * \todo Hacer prueba con algo que no sea trivial.
  */
 
 bool RedFeistelPrueba::probarCifradoDescifrado()

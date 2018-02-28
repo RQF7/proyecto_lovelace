@@ -32,6 +32,10 @@ ArregloPrueba::ArregloPrueba()
     "constructores",
     ArregloPrueba::probarConstructores
   });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "operaciones de comparación",
+    ArregloPrueba::probarOperadoresComparacion
+  });
 }
 
 /**
@@ -80,8 +84,8 @@ bool ArregloPrueba::probarFuncionalidadBasica()
 }
 
 /**
- * Prueba de particiones de un arreglo. Se prueban dos particiones exactas y
- * una con residuo.
+ * Prueba de particiones de un arreglo. Se prueban dos particiones exactas,
+ * una con residuo y dos con una desviación.
  *
  * \return Estado de la prueba.
  */
@@ -92,6 +96,7 @@ bool ArregloPrueba::probarParticiones()
   for (int i = 0; i < 10; i++)
     arreglo.colocar(i, i + 1);
 
+  /* Partición exacta: 5 */
   auto primerMedio = arreglo.partir(2, 0);
   auto segundoMedio = arreglo.partir(2, 1);
   cout << "Medios: " << endl
@@ -100,6 +105,7 @@ bool ArregloPrueba::probarParticiones()
   if (primerMedio[2] != 3 || segundoMedio[4] != 10)
     return false;
 
+  /* Partición exacta: 2 */
   auto segundoQuinto = arreglo.partir(5, 1);
   auto quintoQuinto = arreglo.partir(5, 4);
   cout << "Quintos: " << endl
@@ -108,12 +114,53 @@ bool ArregloPrueba::probarParticiones()
   if (segundoQuinto[1] != 4 || quintoQuinto[0] != 9)
     return false;
 
+  /* Partición con residuo: 2, 2, 2, 4 */
   auto primerCuarto = arreglo.partir(4, 0);
   auto cuartoCuarto = arreglo.partir(4, 3);
   cout << "Cuartos: " << endl
        << primerCuarto << endl
        << cuartoCuarto << endl;
-  if (primerCuarto[0] != 1 || cuartoCuarto[1] != 8)
+  if (primerCuarto[0] != 1 || cuartoCuarto[1] != 8 || cuartoCuarto[3] != 10)
+    return false;
+
+  /* Partición par con desviación: 7, 3 y 3, 7 */
+  auto primerMedioCompuesto = arreglo.partir(2, 0, 2);
+  auto segundoMedioCompuesto = arreglo.partir(2, 1, 2);
+  cout << "Medio compuesto de 10 (+2): " << endl
+       << primerMedioCompuesto << endl
+       << segundoMedioCompuesto << endl;
+  if (primerMedioCompuesto != Arreglo<int>{1, 2, 3, 4, 5, 6, 7} ||
+    segundoMedioCompuesto != Arreglo<int>{8, 9, 10})
+    return false;
+  auto primerMedioCompuestoDos = arreglo.partir(2, 0, -2);
+  auto segundoMedioCompuestoDos = arreglo.partir(2, 1, -2);
+  cout << "Medio compuesto de 10 (-2): " << endl
+       << primerMedioCompuestoDos << endl
+       << segundoMedioCompuestoDos << endl;
+  if (primerMedioCompuestoDos != Arreglo<int>{1, 2, 3} ||
+    segundoMedioCompuestoDos != Arreglo<int>{4, 5, 6, 7, 8, 9, 10})
+    return false;
+
+  /* Partición impar con desviación: 5, 2 y 1, 6 */
+  Arreglo<int> arregloDos (7);
+  for (int i = 0; i < 7; i++)
+    arregloDos.colocar(i, i + 1);
+
+  auto primerMedioCompuestoTres = arregloDos.partir(2, 0, 2);
+  auto segundoMedioCompuestoTres = arregloDos.partir(2, 1, 2);
+  cout << "Medio compuesto de 7 (+2): " << endl
+       << primerMedioCompuestoTres << endl
+       << segundoMedioCompuestoTres << endl;
+  if (primerMedioCompuestoTres != Arreglo<int>{1, 2, 3, 4, 5} ||
+    segundoMedioCompuestoTres != Arreglo<int>{6, 7})
+    return false;
+  auto primerMedioCompuestoCuatro = arregloDos.partir(2, 0, -2);
+  auto segundoMedioCompuestoCuatro = arregloDos.partir(2, 1, -2);
+  cout << "Medio compuesto de 7 (-2): " << endl
+       << primerMedioCompuestoCuatro << endl
+       << segundoMedioCompuestoCuatro << endl;
+  if (primerMedioCompuestoCuatro != Arreglo<int>{1} ||
+    segundoMedioCompuestoCuatro != Arreglo<int>{2, 3, 4, 5, 6, 7})
     return false;
 
   return true;
@@ -188,6 +235,39 @@ bool ArregloPrueba::probarConstructores()
    if (arregloMovimiento[1] != 50
      || arregloMovimiento.obtenerNumeroDeElementos() != 4)
      return false;
+
+  return true;
+}
+
+/**
+ * Prueba las operaciones de comparación de los arreglos.
+ *
+ * \todo ¿Por qué el constructor de los arreglos tiene que ser explícito?
+ *
+ * \return Estado de la prueba.
+ */
+
+bool ArregloPrueba::probarOperadoresComparacion()
+{
+  Arreglo<int> arreglo (5);
+  for (int i = 0; i < 5; i++)
+    arreglo.colocar(i, i + 1);
+
+  /* Comparación de igualdad */
+  cout << "Prueba de igualdad: " << endl
+       << (arreglo == Arreglo<int>{1, 2, 3, 4, 5}) << endl
+       << (arreglo == Arreglo<int>{1, 2, 4, 5}) << endl;
+  if ((arreglo == Arreglo<int>{1, 2, 3, 4, 5}) != true ||
+    (arreglo == Arreglo<int>{1, 2, 4, 5}) != false)
+    return false;
+
+  /* Comparación de desigualdad */
+  cout << "Prueba de desigualdad: " << endl
+       << (arreglo != Arreglo<int>{5}) << endl
+       << (arreglo != Arreglo<int>{1, 2, 3, 4, 5}) << endl;
+  if ((arreglo != Arreglo<int>{5}) != true ||
+    (arreglo != Arreglo<int>{1, 2, 3, 4, 5}) != false)
+    return false;
 
   return true;
 }

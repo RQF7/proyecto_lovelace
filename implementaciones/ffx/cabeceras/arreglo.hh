@@ -73,7 +73,8 @@ namespace Implementaciones
       inline int obtenerNumeroDeElementos() const { return mNumeroDeElementos; }
 
       /** \brief Parte el arreglo según parámetros. */
-      Arreglo<tipo> partir(int numeroDePartes, int parte) const;
+      Arreglo<tipo> partir(int numeroDePartes, int parte,
+        int desviacion = 0) const;
 
     private:
 
@@ -91,6 +92,16 @@ namespace Implementaciones
   /** \brief Concatenación de dos arreglos. */
   template <typename tipo>
   Arreglo<tipo> operator+(const Arreglo<tipo> &arregloUno,
+    const Arreglo<tipo> &arregloDos);
+
+  /** \brief Comparación de igualdad entre arreglos. */
+  template <typename tipo>
+  bool operator==(const Arreglo<tipo> &arregloUno,
+    const Arreglo<tipo> &arregloDos);
+
+  /** \brief Comparación de desigualdad entre arreglos. */
+  template <typename tipo>
+  bool operator!=(const Arreglo<tipo> &arregloUno,
     const Arreglo<tipo> &arregloDos);
 
   /* Definición **************************************************************/
@@ -337,9 +348,20 @@ namespace Implementaciones
    * `numeroDePartes` distintas, y después se crea un nuevo arreglo con
    * la parte número `parte`.
    *
+   * La desviación se aplica sobre el lugar en el que normalmente estaría
+   * el corte. Números positivos implican una desviación a la derecha y
+   * negativos a la izquierda (suponiendo una representación abstracta del
+   * arreglo en el que «derecha» significa más cerca del primer índice e
+   * «izquierda» más cerca del final).
+   *
    * \warning El tamaño de la subdivisión está determinado por un división
-   * entre enteros (truncada); en caso de división no entera y de petición
-   * de último fragmento, los últimos elementos no van.
+   * entre enteros (truncada); el posible desface en caso de divisiones
+   * no enteras coloca los elementos extras en el último fragmento:
+   * ```
+   * |-------- 7 --------|
+   * partido en 3 partes:
+   * |- 2 -||- 2 -||- 3 -|
+   * ```
    *
    * \return Subarreglo número `parte`.
    *
@@ -350,13 +372,19 @@ namespace Implementaciones
   template<typename tipo>
   Arreglo<tipo> Arreglo<tipo>::partir(
     int numeroDePartes, /**< Número de particiones a hacer. **/
-    int parte           /**< Número de partición deseada. **/
+    int parte,          /**< Número de partición deseada. **/
+    int desviacion      /**< Desviación con respecto al corte (0 por defecto). **/
   ) const
   {
     int tamanioDeDivision = mNumeroDeElementos / numeroDePartes;
-    Arreglo<tipo> subArreglo (tamanioDeDivision);
-    for (int i = tamanioDeDivision * parte, j = 0;
-      i < tamanioDeDivision * (parte + 1); i++, j++)
+    int inicio = (parte == 0)
+      ? 0
+      : tamanioDeDivision * parte + desviacion;
+    int fin = (parte == numeroDePartes - 1)
+      ? mNumeroDeElementos
+      : tamanioDeDivision * (parte + 1) + desviacion;
+    Arreglo<tipo> subArreglo (fin - inicio);
+    for (int i = inicio, j = 0; i < fin; i++, j++)
       subArreglo.colocar(j, mArregloInterno[i]);
     return subArreglo;
   }
@@ -403,6 +431,43 @@ namespace Implementaciones
     for (int i = 0; i < total; i++)
       resultado.colocar(i, (i < mitad) ? arregloUno[i] : arregloDos[i - mitad]);
     return resultado;
+  }
+
+  /**
+   * Primero compara número de elemetos y después compara elemento a
+   * elemento.
+   *
+   * \todo Validación de igualdad.
+   */
+
+  template <typename tipo>
+  bool operator==(
+    const Arreglo<tipo> &arregloUno,  /**< Primer arreglo. */
+    const Arreglo<tipo> &arregloDos   /**< Segundo arreglo. */
+  )
+  {
+    if (arregloUno.obtenerNumeroDeElementos() !=
+      arregloDos.obtenerNumeroDeElementos())
+      return false;
+    for (int i = 0; i < arregloUno.obtenerNumeroDeElementos(); i++)
+      if (arregloUno[i] != arregloDos[i])
+        return false;
+    return true;
+  }
+
+  /**
+   * Simplemente hace el complemento de la validación de igualdad.
+   *
+   * \todo Validación de desigualdad.
+   */
+
+  template <typename tipo>
+  bool operator!=(
+    const Arreglo<tipo> &arregloUno,  /**< Primer arreglo. */
+    const Arreglo<tipo> &arregloDos   /**< Segundo arreglo. */
+  )
+  {
+    return !(arregloUno == arregloDos);
   }
 }
 

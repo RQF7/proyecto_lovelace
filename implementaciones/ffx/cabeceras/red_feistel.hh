@@ -18,6 +18,35 @@ namespace Implementaciones
 {
   /* Declaración *************************************************************/
 
+  /**
+   * \brief Apuntador a función de operación.
+   *
+   * Una «función de operación» procesa un bloque: recibe una referencia
+   * constante a un arreglo del tipo de datos con el que opera la red y
+   * entrega un nuevo arreglo (con el mismo tipo de dato).
+   *
+   * Posibles implementaciones de esto son cifradores por bloque, funciones
+   * hash, etc.
+   */
+
+  template <typename tipo>
+  using funcionDeOperacion = Arreglo<tipo>(*)(const Arreglo<tipo>&);
+
+  /**
+   * \brief Apuntador a función de combinación.
+   *
+   * Una «función de combinación» procesa dos bloques: recibe dos
+   * referencias constantes a arreglos del mismo tipo de dato con el que
+   * opera la red y entrega un nuevo arreglo.
+   *
+   * Pensado como interfaz a funciones de XOR, de suma modular por caracter
+   * o de suma modular por bloque.
+   */
+
+  template <typename tipo>
+  using funcionDeCombinacion = Arreglo<tipo>(*)(const Arreglo<tipo>&,
+    const Arreglo<tipo>&);
+
   /** \brief Operación trivial: regresa copia del bloque dado. */
   template <typename tipo>
   Arreglo<tipo> operacionTrivial(const Arreglo<tipo>& arreglo);
@@ -41,48 +70,21 @@ namespace Implementaciones
   class RedFeistel
   {
 
-    /**
-     * \brief Apuntador a función de operación.
-     *
-     * Una «función de operación» procesa un bloque: recibe una referencia
-     * constante a un arreglo del tipo de datos con el que opera la red y
-     * entrega un nuevo arreglo (con el mismo tipo de dato).
-     *
-     * Posibles implementaciones de esto son cifradores por bloque, funciones
-     * hash, etc.
-     */
-
-    using funcionDeOperacion = Arreglo<tipo>(*)(const Arreglo<tipo>&);
-
-    /**
-     * \brief Apuntador a función de combinación.
-     *
-     * Una «función de combinación» procesa dos bloques: recibe dos
-     * referencias constantes a arreglos del mismo tipo de dato con el que
-     * opera la red y entrega un nuevo arreglo.
-     *
-     * Pensado como interfaz a funciones de XOR, de suma modular por caracter
-     * o de suma modular por bloque.
-     */
-
-    using funcionDeCombinacion = Arreglo<tipo>(*)(const Arreglo<tipo>&,
-      const Arreglo<tipo>&);
-
     public:
 
       /** \brief Construcción de red Feistel balanceada. */
       RedFeistel(int numeroDeRondas, int tamanioDeBloque,
-        funcionDeOperacion funcionDeRonda = operacionTrivial<tipo>,
-        funcionDeCombinacion operadorSuma = combinacionTrivial<tipo>,
-        funcionDeCombinacion operadorSumaInverso = nullptr);
+        funcionDeOperacion<tipo> funcionDeRonda = operacionTrivial<tipo>,
+        funcionDeCombinacion<tipo> operadorSuma = combinacionTrivial<tipo>,
+        funcionDeCombinacion<tipo> operadorSumaInverso = nullptr);
 
       /** \brief Operación de cifrado de la red. */
-      Arreglo<tipo> cifrar(const Arreglo<tipo>& textoEnClaro);
+      virtual Arreglo<tipo> cifrar(const Arreglo<tipo>& textoEnClaro);
 
       /** \brief Operación de descifrado de la red. */
-      Arreglo<tipo> descifrar(const Arreglo<tipo>& textoCifrado);
+      virtual Arreglo<tipo> descifrar(const Arreglo<tipo>& textoCifrado);
 
-    private:
+    protected:
 
       /** \brief Número de rondas de la red. */
       int mNumeroDeRondas;
@@ -91,15 +93,16 @@ namespace Implementaciones
       int mTamanioDeBloque;
 
       /** \brief Función de ronda. */
-      funcionDeOperacion mFuncionDeRonda;
+      funcionDeOperacion<tipo> mFuncionDeRonda;
 
       /** \brief Operación de combinación. */
-      funcionDeCombinacion mOperadorSuma;
+      funcionDeCombinacion<tipo> mOperadorSuma;
 
       /** \brief Operación de combinación inversa. */
-      funcionDeCombinacion mOperadorSumaInverso;
+      funcionDeCombinacion<tipo> mOperadorSumaInverso;
 
-      /** \brief */
+      /** \brief Ronda actual (pensando en implementaciones
+       *  concurrentes). */
       int mRondaActual;
   };
 
@@ -112,15 +115,22 @@ namespace Implementaciones
    * inversa a la suma, se deja esta para ambas operaciones.
    *
    * \todo Lanzar excepción cuando el tamaño de bloque sea impar.
+   * Pensándolo bien... este constructor también lo usan las clases derivadas.
+   * ¿Se necesitan dos distintos?
    */
 
   template <typename tipo>
   RedFeistel<tipo>::RedFeistel(
-    int numeroDeRondas,            /**< Número de rondas. */
-    int tamanioDeBloque,           /**< Tamaño de bloque (entrada, salida). */
-    funcionDeOperacion funcionDeRonda,  /**< Función de ronda. */
-    funcionDeCombinacion operadorSuma,  /**< Función para combinar bloques. */
-    funcionDeCombinacion operadorSumaInverso  /**< Inverso de la suma. */
+    /** Número de rondas. */
+    int numeroDeRondas,
+    /** Tamaño de bloque (entrada, salida). */
+    int tamanioDeBloque,
+    /** Función de ronda; por defecto implementación trivial. */
+    funcionDeOperacion<tipo> funcionDeRonda,
+    /** Función para combinar bloques; por defecto implementación trivial. */
+    funcionDeCombinacion<tipo> operadorSuma,
+    /** Inverso de la suma; por defecto la misma que el operadorSuma. */
+    funcionDeCombinacion<tipo> operadorSumaInverso
   )
   : mNumeroDeRondas {numeroDeRondas},
     mTamanioDeBloque {tamanioDeBloque},
