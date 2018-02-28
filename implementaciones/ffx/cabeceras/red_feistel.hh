@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Implementación y definición de una red Feistel.
+ * \brief Implementación y declaración de una red Feistel.
  *
  * Mismo caso que con la declaración del arreglo: como se trata de una clase
  * con plantillas, la declaración y la definición deben de estar en el mismo
@@ -70,10 +70,11 @@ namespace Implementaciones
 
     public:
 
-      /** \brief Red Feistel balanceada. */
+      /** \brief Construcción de red Feistel balanceada. */
       RedFeistel(int numeroDeRondas, int tamanioDeBloque,
         funcionDeOperacion funcionDeRonda = operacionTrivial<tipo>,
-        funcionDeCombinacion operadorSuma = combinacionTrivial<tipo>);
+        funcionDeCombinacion operadorSuma = combinacionTrivial<tipo>,
+        funcionDeCombinacion operadorSumaInverso = nullptr);
 
       /** \brief Operación de cifrado de la red. */
       Arreglo<tipo> cifrar(const Arreglo<tipo>& textoEnClaro);
@@ -95,6 +96,9 @@ namespace Implementaciones
       /** \brief Operación de combinación. */
       funcionDeCombinacion mOperadorSuma;
 
+      /** \brief Operación de combinación inversa. */
+      funcionDeCombinacion mOperadorSumaInverso;
+
       /** \brief */
       int mRondaActual;
   };
@@ -104,7 +108,8 @@ namespace Implementaciones
   /**
    * Construye una red Feistel con los parámetros dados. Si no se especifíca
    * una función de ronda y/o un operador, estos actúan en modo trivial.
-   * Inicializa el contador de ronda actual en cero.
+   * Inicializa el contador de ronda actual en cero. Si no se da una operación
+   * inversa a la suma, se deja esta para ambas operaciones.
    *
    * \todo Lanzar excepción cuando el tamaño de bloque sea impar.
    */
@@ -114,14 +119,18 @@ namespace Implementaciones
     int numeroDeRondas,            /**< Número de rondas. */
     int tamanioDeBloque,           /**< Tamaño de bloque (entrada, salida). */
     funcionDeOperacion funcionDeRonda,  /**< Función de ronda. */
-    funcionDeCombinacion operadorSuma   /**< Función para combinar bloques. */
+    funcionDeCombinacion operadorSuma,  /**< Función para combinar bloques. */
+    funcionDeCombinacion operadorSumaInverso  /**< Inverso de la suma. */
   )
   : mNumeroDeRondas {numeroDeRondas},
     mTamanioDeBloque {tamanioDeBloque},
     mFuncionDeRonda {funcionDeRonda},
     mOperadorSuma {operadorSuma},
+    mOperadorSumaInverso {operadorSumaInverso},
     mRondaActual {0}
   {
+    if (mOperadorSumaInverso == nullptr)
+      mOperadorSumaInverso = mOperadorSuma;
   }
 
   /**
@@ -183,8 +192,8 @@ namespace Implementaciones
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       auxiliar = std::move(parteIzquierda);
-      parteIzquierda =
-        std::move(mOperadorSuma(parteDerecha, mFuncionDeRonda(auxiliar)));
+      parteIzquierda = std::move(
+        mOperadorSumaInverso(parteDerecha, mFuncionDeRonda(auxiliar)));
       parteDerecha = std::move(auxiliar);
     }
     return parteIzquierda + parteDerecha;
