@@ -42,6 +42,9 @@ namespace Implementaciones
   {
     public:
 
+      /** \brief Construcción por defecto. */
+      explicit Arreglo();
+
       /** \brief Construcción de arreglo del tamaño dado. */
       explicit Arreglo(int numeroDeElementos);
 
@@ -105,6 +108,18 @@ namespace Implementaciones
     const Arreglo<tipo> &arregloDos);
 
   /* Definición **************************************************************/
+
+  /**
+   * Constructor vacío. Inicializa conun nullptr el arreglo y coloca un
+   * 0 en el contador de elementos.
+   */
+
+  template<typename tipo>
+  Arreglo<tipo>::Arreglo()
+  : mNumeroDeElementos {0},
+    mArregloInterno {nullptr}
+  {
+  }
 
   /**
    * Reserva la memoria necesaria para el arreglo. El tamaño reservado equivale
