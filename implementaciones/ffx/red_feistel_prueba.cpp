@@ -26,10 +26,6 @@ RedFeistelPrueba::RedFeistelPrueba()
  * De momento solamente se hacen con compuestos enteros; aunque debería ser lo
  * mismo para cualquier tipo de dato.
  *
- * \todo La operación de descifrado de una red impar termina en el orden
- * inverso (me estoy saltando la condición). ¿Es normal, o la regué en algún
- * punto?
- *
  * \return Estado de la prueba.
  *
  * \todo ¿Qué pasa si cifrar tuviera una sobrecarga que recibe otra cosa con
@@ -68,6 +64,8 @@ bool RedFeistelPrueba::probarCifradoDescifrado()
   Arreglo<int> textoDescifradoDos = redDos.descifrar(textoCifradoDos);
   cout << "Prueba de descifrado trivial (par): " << endl
        << textoDescifradoDos << endl;
+   if (textoDescifradoDos[1] != 2 || textoDescifradoDos[2] != 3)
+     return false;
 
   return true;
 }

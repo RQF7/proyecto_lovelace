@@ -149,7 +149,7 @@ namespace Implementaciones
     Arreglo<tipo> parteIzquierda = textoEnClaro.partir(2, 0);
     Arreglo<tipo> parteDerecha = textoEnClaro.partir(2, 1);
     Arreglo<tipo> auxiliar (mTamanioDeBloque / 2);
-    for (; mRondaActual < mNumeroDeRondas; mRondaActual++)
+    for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       auxiliar = std::move(parteDerecha);
       parteDerecha =
@@ -180,7 +180,7 @@ namespace Implementaciones
     Arreglo<tipo> parteIzquierda = textoCifrado.partir(2, 0);
     Arreglo<tipo> parteDerecha = textoCifrado.partir(2, 1);
     Arreglo<tipo> auxiliar (mTamanioDeBloque / 2);
-    for (; mRondaActual < mNumeroDeRondas; mRondaActual++)
+    for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       auxiliar = std::move(parteIzquierda);
       parteIzquierda =
