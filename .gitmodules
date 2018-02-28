@@ -1,0 +1,3 @@
+[submodule "implementaciones/aes_ensamblador/libaesni"]
+	path = implementaciones/aes_ensamblador/libaesni
+	url = https://github.com/amiralis/libaesni
