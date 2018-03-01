@@ -1,0 +1,70 @@
+%
+% Propuesta de parámetros A10, presentación de FPE.
+% Proyecto Lovelace.
+%
+
+\subsection{Colección FFX-A10}
+
+\begin{frame}{FFX-A10}
+
+  En \cite{ffx_2} se proponenen dos colecciones de parámetros para instanciar
+  a FFX: FFX-A2 y FFX-A10. La primera está pensada para cadenas binarias y la
+  segunda para cadenas de dígitos.
+
+  Aquí presentamos FFX-A10 dado que es la que se adapta mejor para la
+  tokenización de números de tarjetas de crédito.
+
+\end{frame}
+
+\begin{frame}{FFX-A10}{Parámetros}
+
+  \only<1>
+  {
+    \begin{block}{\textbf{1. \textit{Radix:} 10}}
+      Lo que implica que el alfabeto es $ C = \{ 0, 1, \dots, 9 \} $,
+    \end{block}
+
+    \begin{block}{\textbf{2. Longitudes: $ [ 4, 36 ] $}}
+      Las longitudes de cadenas permitidas.
+    \end{block}
+
+    \begin{block}{\textbf{3. Llaves: $ \{ 0, 1\}^{128} $}}
+      Tamaño de llave para AES.
+    \end{block}
+  }
+
+  \only<2>
+  {
+    \begin{block}{\textbf{4. \textit{Tweaks}: $ \text{BYTE}^{\leq 2^{64} - 1} $}}
+      El \textit{tweak} es una cadena de bytes arbitraria.
+    \end{block}
+
+    \begin{block}{\textbf{5. Suma: por bloque}}
+      Combinación de números mediante sumas a nivel de bloque.
+    \end{block}
+
+    \begin{block}{\textbf{6. Método: redes alternantes}}
+    \end{block}
+  }
+
+  \only<3>
+  {
+    \begin{block}{\textbf{7. \textit{Split}: $ \lfloor \frac{n}{2} \rfloor $ }}
+      Lo más cerca del centro posible.
+    \end{block}
+
+    \begin{block}{\textbf{8. Rondas: dependen de $ n $}}
+      12, si $ 10 \leq n \leq 36 $; \par
+      18, si $ 6 \leq n \leq 9 $; \par
+      24, si $ 4 \leq n \leq 5 $
+    \end{block}
+  }
+
+  \only<4>
+  {
+    \begin{block}{\textbf{9. Función de ronda}}
+
+    \end{block}
+  }
+
+\end{frame}

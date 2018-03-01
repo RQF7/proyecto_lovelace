@@ -65,6 +65,50 @@
     cíclica en la función de ronda.
   }
 
+  \only<3>
+  {
+    La operación de una red Feistel desbalanceada se puede resumir en las
+    siguientes ecuaciones:
+    \begin{align*}
+      L_{i} &= R_{i - 1} \\
+      R_{i} &= F_k(R_{i - 1}) \oplus L_{i - 1}
+    \end{align*}
+
+    Estas son las mismas que las de una red Feistel balanceada, con el costo
+    extra de que en cada iteración hay que estar redistribuyendo los bloques.
+  }
+
+  \note<3>
+  {
+    El problema de estas es que hay que estar concatenando y volviendo a partir
+    en cada iteración.
+  }
+
+  \only<4>
+  {
+    La operación de una red Feistel alternante se puede resumir en las
+    siguientes ecuaciones:
+
+    Si la ronda es par:
+    \begin{align*}
+      L_{i} &= F^1_k(R_{i - 1}) \oplus L_{i - 1} \\
+      R_{i} &= R_{i - 1}
+    \end{align*}
+
+    Si la ronda es impar:
+    \begin{align*}
+      R_{i} &= F^2_k(L_{i - 1}) \oplus R_{i - 1} \\
+      L_{i} &= L_{i - 1}
+    \end{align*}
+  }
+
+  \note<4>
+  {
+    La implementación de estas es mucho más sencilla: no hay que hacer
+    reparticiones en cada ronda; el proceso de cifrado y el de descifrado es
+    prácticamente el mismo.
+  }
+
 \end{frame}
 
 \begin{frame}{FFX}{Función de ronda}
