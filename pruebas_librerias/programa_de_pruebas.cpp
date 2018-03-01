@@ -7,6 +7,7 @@
 #include "cryptopp/cabeceras/prueba_AES.hh"
 #include "cryptopp/cabeceras/prueba_salsa20.hh"
 #include "cryptopp/cabeceras/prueba_SHA256.hh"
+#include "cryptopp/cabeceras/prueba_CBC_MAC.hh"
 #include <iostream>
 #include <vector>
 
@@ -32,7 +33,8 @@ int main()
   {
     PruebasCryptopp::PruebaAES {},
     PruebasCryptopp::PruebaSalsa20 {},
-    PruebasCryptopp::PruebaSHA256 {}
+    PruebasCryptopp::PruebaSHA256 {},
+    PruebasCryptopp::PruebaCBCMAC {}
   };
   for (auto claseDePrueba : clasesDePrueba)
     if (!claseDePrueba.probar())

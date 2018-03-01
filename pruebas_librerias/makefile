@@ -10,7 +10,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 utilidades/prueba.cpp \
 											 cryptopp/prueba_AES.cpp \
 											 cryptopp/prueba_salsa20.cpp \
-											 cryptopp/prueba_SHA256.cpp 
+											 cryptopp/prueba_SHA256.cpp \
+											 cryptopp/prueba_CBC_MAC.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
 BANDERAS_GENERALES	:= -std=c++11 -Wall -ggdb
@@ -36,6 +37,10 @@ $(CARPETA_OBJETOS)/cryptopp/prueba_salsa20.o: cryptopp/prueba_salsa20.cpp
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/cryptopp/prueba_SHA256.o: cryptopp/prueba_SHA256.cpp
+	mkdir -p $(CARPETA_OBJETOS)/cryptopp
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/cryptopp/prueba_CBC_MAC.o: cryptopp/prueba_CBC_MAC.cpp
 	mkdir -p $(CARPETA_OBJETOS)/cryptopp
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 

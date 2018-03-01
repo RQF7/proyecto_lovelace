@@ -8,13 +8,18 @@
  * estándar definir a las clases con plantillas dentro de los archivos de
  * cabeceras.
  *
+ * \todo Mover esto a la carpeta de utilidades (y cambiar de espacio de
+ * nombres).
+ *
  * Proyecto Lovelace.
  */
 
 #ifndef __ARREGLO__
 #define __ARREGLO__
 
+//#include "intermediario_de_arreglo.hh"
 #include <algorithm>
+#include <cmath>
 #include <initializer_list>
 #include <memory>
 #include <ostream>
@@ -42,6 +47,9 @@ namespace Implementaciones
   {
     public:
 
+      /** \brief Construcción por defecto. */
+      explicit Arreglo();
+
       /** \brief Construcción de arreglo del tamaño dado. */
       explicit Arreglo(int numeroDeElementos);
 
@@ -64,6 +72,7 @@ namespace Implementaciones
       ~Arreglo();
 
       /** \brief Operación de lectura. */
+      //IntermediarioDeArreglo<tipo> operator[](int indice);
       tipo operator[](int indice) const;
 
       /** \brief Operación de escritura. */
@@ -73,9 +82,19 @@ namespace Implementaciones
       inline int obtenerNumeroDeElementos() const { return mNumeroDeElementos; }
 
       /** \brief Parte el arreglo según parámetros. */
-      Arreglo<tipo> partir(int numeroDePartes, int parte) const;
+      Arreglo<tipo> partir(int numeroDePartes, int parte,
+        int desviacion = 0) const;
+
+      /** \brief Regresa la representación entera del arreglo. */
+      int convertirANumero(int base) const;
+
+      /** \brief Convierte el nñumero dado en un arreglo. */
+      static Arreglo<tipo> convertirAArreglo(int numero, int base, int tamanio);
 
     private:
+
+      /** El intermediario es un amigo. */
+      //friend class IntermediarioDeArreglo;
 
       /** \brief Tamaño del arreglo (entero mayor a cero). */
       int mNumeroDeElementos;
@@ -93,7 +112,29 @@ namespace Implementaciones
   Arreglo<tipo> operator+(const Arreglo<tipo> &arregloUno,
     const Arreglo<tipo> &arregloDos);
 
+  /** \brief Comparación de igualdad entre arreglos. */
+  template <typename tipo>
+  bool operator==(const Arreglo<tipo> &arregloUno,
+    const Arreglo<tipo> &arregloDos);
+
+  /** \brief Comparación de desigualdad entre arreglos. */
+  template <typename tipo>
+  bool operator!=(const Arreglo<tipo> &arregloUno,
+    const Arreglo<tipo> &arregloDos);
+
   /* Definición **************************************************************/
+
+  /**
+   * Constructor vacío. Inicializa conun nullptr el arreglo y coloca un
+   * 0 en el contador de elementos.
+   */
+
+  template<typename tipo>
+  Arreglo<tipo>::Arreglo()
+  : mNumeroDeElementos {0},
+    mArregloInterno {nullptr}
+  {
+  }
 
   /**
    * Reserva la memoria necesaria para el arreglo. El tamaño reservado equivale
@@ -310,10 +351,13 @@ namespace Implementaciones
    */
 
   template<typename tipo>
+  //IntermediarioDeArreglo<tipo> Arreglo<tipo>::operator[](
   tipo Arreglo<tipo>::operator[](
-    int indice /**< Índice de lectura. */
-  ) const
+    int indice /**< Índice de elemento. */
+  //)
+) const
   {
+    //return IntermediarioDeArreglo<tipo>(*this, indice);
     return mArregloInterno[indice];
   }
 
@@ -337,9 +381,20 @@ namespace Implementaciones
    * `numeroDePartes` distintas, y después se crea un nuevo arreglo con
    * la parte número `parte`.
    *
+   * La desviación se aplica sobre el lugar en el que normalmente estaría
+   * el corte. Números positivos implican una desviación a la derecha y
+   * negativos a la izquierda (suponiendo una representación abstracta del
+   * arreglo en el que «derecha» significa más cerca del primer índice e
+   * «izquierda» más cerca del final).
+   *
    * \warning El tamaño de la subdivisión está determinado por un división
-   * entre enteros (truncada); en caso de división no entera y de petición
-   * de último fragmento, los últimos elementos no van.
+   * entre enteros (truncada); el posible desface en caso de divisiones
+   * no enteras coloca los elementos extras en el último fragmento:
+   * ```
+   * |-------- 7 --------|
+   * partido en 3 partes:
+   * |- 2 -||- 2 -||- 3 -|
+   * ```
    *
    * \return Subarreglo número `parte`.
    *
@@ -350,15 +405,74 @@ namespace Implementaciones
   template<typename tipo>
   Arreglo<tipo> Arreglo<tipo>::partir(
     int numeroDePartes, /**< Número de particiones a hacer. **/
-    int parte           /**< Número de partición deseada. **/
+    int parte,          /**< Número de partición deseada. **/
+    int desviacion      /**< Desviación con respecto al corte (0 por defecto). **/
   ) const
   {
     int tamanioDeDivision = mNumeroDeElementos / numeroDePartes;
-    Arreglo<tipo> subArreglo (tamanioDeDivision);
-    for (int i = tamanioDeDivision * parte, j = 0;
-      i < tamanioDeDivision * (parte + 1); i++, j++)
+    int inicio = (parte == 0)
+      ? 0
+      : tamanioDeDivision * parte + desviacion;
+    int fin = (parte == numeroDePartes - 1)
+      ? mNumeroDeElementos
+      : tamanioDeDivision * (parte + 1) + desviacion;
+    Arreglo<tipo> subArreglo (fin - inicio);
+    for (int i = inicio, j = 0; i < fin; i++, j++)
       subArreglo.colocar(j, mArregloInterno[i]);
     return subArreglo;
+  }
+
+  /**
+   * Interpreta el contenido del arreglo como un número escrito en dígitos
+   * de la base dada.
+   *
+   * El formato esperado es en *little endian*: los números menos significativos
+   * se encuentran al inicio del arreglo.
+
+   * \return Número equivalente.
+   *
+   * \sa http://www.cplusplus.com/reference/cmath/pow/
+   */
+
+  template<typename tipo>
+  int Arreglo<tipo>::convertirANumero(
+    int base            /**< Base de la conversión. */
+  ) const
+  {
+    int resultado {0};
+    for (int i = 0; i < mNumeroDeElementos; i++)
+      resultado += mArregloInterno[i] * pow(base, i);
+    return resultado;
+  }
+
+  /**
+   * Crea un arreglo a partir de los argumentos dados: interpreta el número
+   * como dígitos de la base dada. El tamaño es para especificar la longitud
+   * del arreglo; en caso de un número menor, se colocan ceros a la izquierda.
+   *
+   * El formato dado es en *little endian*: los números menos significativos se
+   * encuentran al inicio del arreglo.
+   *
+   * \sa http://www.cplusplus.com/reference/cmath/pow/
+   *     http://www.cplusplus.com/reference/cmath/floor/
+   */
+
+  template<typename tipo>
+  Arreglo<tipo> Arreglo<tipo>::convertirAArreglo(
+    int numero,         /**< Número a convertir. */
+    int base,           /**< Base de la conversión. */
+    int tamanio         /**< Número de dígitos. */
+  )
+  {
+    Arreglo<tipo> resultado (tamanio);
+    for (int i = tamanio - 1; i >= 0; i--)
+    {
+      int potencia = pow(base, i);
+      int digito = floor(numero / potencia);
+      resultado.colocar(i, digito);
+      numero -= digito * potencia;
+    }
+    return resultado;
   }
 
   /**
@@ -403,6 +517,43 @@ namespace Implementaciones
     for (int i = 0; i < total; i++)
       resultado.colocar(i, (i < mitad) ? arregloUno[i] : arregloDos[i - mitad]);
     return resultado;
+  }
+
+  /**
+   * Primero compara número de elemetos y después compara elemento a
+   * elemento.
+   *
+   * \todo Validación de igualdad.
+   */
+
+  template <typename tipo>
+  bool operator==(
+    const Arreglo<tipo> &arregloUno,  /**< Primer arreglo. */
+    const Arreglo<tipo> &arregloDos   /**< Segundo arreglo. */
+  )
+  {
+    if (arregloUno.obtenerNumeroDeElementos() !=
+      arregloDos.obtenerNumeroDeElementos())
+      return false;
+    for (int i = 0; i < arregloUno.obtenerNumeroDeElementos(); i++)
+      if (arregloUno[i] != arregloDos[i])
+        return false;
+    return true;
+  }
+
+  /**
+   * Simplemente hace el complemento de la validación de igualdad.
+   *
+   * \todo Validación de desigualdad.
+   */
+
+  template <typename tipo>
+  bool operator!=(
+    const Arreglo<tipo> &arregloUno,  /**< Primer arreglo. */
+    const Arreglo<tipo> &arregloDos   /**< Segundo arreglo. */
+  )
+  {
+    return !(arregloUno == arregloDos);
   }
 }
 

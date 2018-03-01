@@ -34,6 +34,12 @@ namespace ImplementacionesPruebas
 
       /** \brief Prueba la operación de los constructores. */
       static bool probarConstructores();
+
+      /** \brief Prueba los operadores de comparación. */
+      static bool probarOperadoresComparacion();
+
+      /** \brief Prueba las conversiones numéricas. */
+      static bool probarConversionesNumericas();
   };
 }
 

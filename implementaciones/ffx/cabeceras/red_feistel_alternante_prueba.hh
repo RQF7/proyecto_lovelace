@@ -1,27 +1,27 @@
 /**
  * \file
- * \brief Prueba de red Feistel balanceada.
+ * \brief Prueba de red Feistel alternante.
  * Proyecto Lovelace.
  */
 
-#ifndef __RED_FEISTEL_PRUEBA__
-#define __RED_FEISTEL_PRUEBA__
+#ifndef __RED_FEISTEL_ALTERNANTE_PRUEBA__
+#define __RED_FEISTEL_ALTERNANTE_PRUEBA__
 
 #include "../../../utilidades/cabeceras/prueba.hh"
 
 namespace ImplementacionesPruebas
 {
   /**
-   * \brief Prueba de la clase de red Feistel.
+   * \brief Prueba de la clase de red Feistel alternante.
    *
-   * Pruebas de funcionalidades de las redes Feistel.
+   * Pruebas de funcionalidades de las redes Feistel alternantes.
    */
 
-  class RedFeistelPrueba : public Prueba
+  class RedFeistelAlternantePrueba : public Prueba
   {
     public:
       /** \brief Regitro de pruebas en vector de funciones. */
-      RedFeistelPrueba();
+      RedFeistelAlternantePrueba();
 
       /** \brief Prueba el funcionamiento básico de la clase. */
       static bool probarCifradoDescifrado();
