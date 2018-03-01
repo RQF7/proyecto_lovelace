@@ -53,7 +53,7 @@ namespace Implementaciones
       enum class TipoDeSuma {porCaracter, porBloque};
 
       /** \brief Inicialización de parámetros de FFX. */
-      FFX(unsigned char *llave, unsigned char *tweak, int tamanioTweak
+      FFX(unsigned char *llave, unsigned char *tweak, int tamanioTweak,
         int numeroDeRondas, int tamanioDeMensaje,
         int desbalanceo = 0, TipoDeRed tipoDeRed = TipoDeRed::alternante,
         TipoDeSuma tipoDeSuma = TipoDeSuma::porCaracter,
@@ -117,7 +117,7 @@ namespace Implementaciones
     /** */
     unsigned char *tweak,
     /** */
-    int tamanioTweak
+    int tamanioTweak,
     /** Número de rondas de la red Feistel subyacente. */
     int numeroDeRondas,
     /** Tamaño de las cadenas */
@@ -135,7 +135,6 @@ namespace Implementaciones
     /** Cardinalidad de alfabeto. */
     int radix
   )
-  :
   {
     /* Instanciar funciones de suma y resta */
     funcionDeCombinacion<tipo> operadorSuma =
@@ -148,18 +147,18 @@ namespace Implementaciones
       : restaPorCaracter<tipo, radix>;
 
     /* Crear función de ronda */
-    funcionDeOperacion<tipo> funcionDeRonda = funcionRondaCbcMacAes<tipo,
-      llave, tweak, longitudTweak, tipoDeRed, tipoDeSuma, radix,
-      tamanioDeMensaje, desbalanceo, numeroDeRondas>
+    funcionDeOperacion<tipo> funcionDeRondaTmp = funcionRondaCbcMacAes<tipo,
+      llave, tweak, tamanioTweak, tipoDeRed, tipoDeSuma, radix,
+      tamanioDeMensaje, desbalanceo, numeroDeRondas>;
 
     /* Instanciar red Feistel. */
     if (tipoDeRed == TipoDeRed::alternante)
-      redFeistel = RedFeistelAlternante<tipo>{numeroDeRondas,
-        tamanioDeMensaje, desbalanceo, funcionDeRonda, funcionDeRonda,
+      mRedFeistel = RedFeistelAlternante<tipo>{numeroDeRondas,
+        tamanioDeMensaje, desbalanceo, funcionDeRondaTmp, funcionDeRondaTmp,
         operadorSuma, operadorResta};
     else
-      redFeistel = RedFeistelDesbalanceada<tipo>{numeroDeRondas,
-        tamanioDeMensaje, desbalanceo, funcionDeRonda,
+      mRedFeistel = RedFeistelDesbalanceada<tipo>{numeroDeRondas,
+        tamanioDeMensaje, desbalanceo, funcionDeRondaTmp,
         operadorSuma, operadorResta};
   }
 

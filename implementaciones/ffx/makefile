@@ -11,7 +11,6 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 red_feistel_prueba.cpp \
 											 red_feistel_alternante_prueba.cpp \
 											 red_feistel_desbalanceada_prueba.cpp \
-											 ffx_prueba.cpp \
 											 utilidades/prueba.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))

@@ -25,6 +25,9 @@ namespace ImplementacionesPruebas
 
       /** \brief Prueba el funcionamiento de las funciones de suma y resta. */
       static bool probarFuncionesDeSuma();
+
+      /** \brief Prueba la función de ronda. */
+      static bool probarFuncionDeRonda();
   };
 }
 

@@ -8,7 +8,7 @@
 #include "cabeceras/red_feistel_prueba.hh"
 #include "cabeceras/red_feistel_alternante_prueba.hh"
 #include "cabeceras/red_feistel_desbalanceada_prueba.hh"
-#include "cabeceras/ffx_prueba.hh"
+//#include "cabeceras/ffx_prueba.hh"
 #include <iostream>
 #include <vector>
 
@@ -28,8 +28,8 @@ int main()
     ArregloPrueba {},
     RedFeistelPrueba {},
     RedFeistelAlternantePrueba {},
-    RedFeistelDesbalanceadaPrueba {},
-    FFXPrueba {}
+    RedFeistelDesbalanceadaPrueba {}
+//    FFXPrueba {}
   };
   for (auto claseDePrueba : clasesDePrueba)
     if (!claseDePrueba.probar())
