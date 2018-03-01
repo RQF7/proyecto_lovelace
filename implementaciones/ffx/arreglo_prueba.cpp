@@ -36,6 +36,10 @@ ArregloPrueba::ArregloPrueba()
     "operaciones de comparación",
     ArregloPrueba::probarOperadoresComparacion
   });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "conversiones numéricas",
+    ArregloPrueba::probarConversionesNumericas
+  });
 }
 
 /**
@@ -267,6 +271,39 @@ bool ArregloPrueba::probarOperadoresComparacion()
        << (arreglo != Arreglo<int>{1, 2, 3, 4, 5}) << endl;
   if ((arreglo != Arreglo<int>{5}) != true ||
     (arreglo != Arreglo<int>{1, 2, 3, 4, 5}) != false)
+    return false;
+
+  return true;
+}
+
+/**
+ * Prueba las funciones para pasar de número a arreglo y de arreglo a número.
+ *
+ * \return Estado de la prueba.
+ */
+
+bool ArregloPrueba::probarConversionesNumericas()
+{
+  /* Prueba decimal. */
+  int numeroUno {6547};
+  Arreglo<int> arregloUno = Arreglo<int>::convertirAArreglo(numeroUno, 10, 6);
+  int copiaUno = arregloUno.convertirANumero(10);
+  cout << "Prueba decimal: " << endl
+       << "Número, " << numeroUno << endl
+       << "Arreglo, " << arregloUno << endl
+       << "Copia, " << copiaUno << endl;
+  if (arregloUno != Arreglo<int>{7, 4, 5, 6, 0, 0} || numeroUno != copiaUno)
+    return false;
+
+  /* Prueba binaria. */
+  int numeroDos {10};
+  Arreglo<int> arregloDos = Arreglo<int>::convertirAArreglo(numeroDos, 2, 4);
+  int copiaDos = arregloDos.convertirANumero(2);
+  cout << "Prueba binaria: " << endl
+       << "Número, " << numeroDos << endl
+       << "Arreglo, " << arregloDos << endl
+       << "Copia, " << copiaDos << endl;
+  if (arregloDos != Arreglo<int>{0, 1, 0, 1} || numeroDos != copiaDos)
     return false;
 
   return true;

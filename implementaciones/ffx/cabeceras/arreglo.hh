@@ -8,13 +8,18 @@
  * estándar definir a las clases con plantillas dentro de los archivos de
  * cabeceras.
  *
+ * \todo Mover esto a la carpeta de utilidades (y cambiar de espacio de
+ * nombres).
+ *
  * Proyecto Lovelace.
  */
 
 #ifndef __ARREGLO__
 #define __ARREGLO__
 
+//#include "intermediario_de_arreglo.hh"
 #include <algorithm>
+#include <cmath>
 #include <initializer_list>
 #include <memory>
 #include <ostream>
@@ -67,6 +72,7 @@ namespace Implementaciones
       ~Arreglo();
 
       /** \brief Operación de lectura. */
+      //IntermediarioDeArreglo<tipo> operator[](int indice);
       tipo operator[](int indice) const;
 
       /** \brief Operación de escritura. */
@@ -79,7 +85,16 @@ namespace Implementaciones
       Arreglo<tipo> partir(int numeroDePartes, int parte,
         int desviacion = 0) const;
 
+      /** \brief Regresa la representación entera del arreglo. */
+      int convertirANumero(int base) const;
+
+      /** \brief Convierte el nñumero dado en un arreglo. */
+      static Arreglo<tipo> convertirAArreglo(int numero, int base, int tamanio);
+
     private:
+
+      /** El intermediario es un amigo. */
+      //friend class IntermediarioDeArreglo;
 
       /** \brief Tamaño del arreglo (entero mayor a cero). */
       int mNumeroDeElementos;
@@ -336,10 +351,13 @@ namespace Implementaciones
    */
 
   template<typename tipo>
+  //IntermediarioDeArreglo<tipo> Arreglo<tipo>::operator[](
   tipo Arreglo<tipo>::operator[](
-    int indice /**< Índice de lectura. */
-  ) const
+    int indice /**< Índice de elemento. */
+  //)
+) const
   {
+    //return IntermediarioDeArreglo<tipo>(*this, indice);
     return mArregloInterno[indice];
   }
 
@@ -402,6 +420,59 @@ namespace Implementaciones
     for (int i = inicio, j = 0; i < fin; i++, j++)
       subArreglo.colocar(j, mArregloInterno[i]);
     return subArreglo;
+  }
+
+  /**
+   * Interpreta el contenido del arreglo como un número escrito en dígitos
+   * de la base dada.
+   *
+   * El formato esperado es en *little endian*: los números menos significativos
+   * se encuentran al inicio del arreglo.
+
+   * \return Número equivalente.
+   *
+   * \sa http://www.cplusplus.com/reference/cmath/pow/
+   */
+
+  template<typename tipo>
+  int Arreglo<tipo>::convertirANumero(
+    int base            /**< Base de la conversión. */
+  ) const
+  {
+    int resultado {0};
+    for (int i = 0; i < mNumeroDeElementos; i++)
+      resultado += mArregloInterno[i] * pow(base, i);
+    return resultado;
+  }
+
+  /**
+   * Crea un arreglo a partir de los argumentos dados: interpreta el número
+   * como dígitos de la base dada. El tamaño es para especificar la longitud
+   * del arreglo; en caso de un número menor, se colocan ceros a la izquierda.
+   *
+   * El formato dado es en *little endian*: los números menos significativos se
+   * encuentran al inicio del arreglo.
+   *
+   * \sa http://www.cplusplus.com/reference/cmath/pow/
+   *     http://www.cplusplus.com/reference/cmath/floor/
+   */
+
+  template<typename tipo>
+  Arreglo<tipo> Arreglo<tipo>::convertirAArreglo(
+    int numero,         /**< Número a convertir. */
+    int base,           /**< Base de la conversión. */
+    int tamanio         /**< Número de dígitos. */
+  )
+  {
+    Arreglo<tipo> resultado (tamanio);
+    for (int i = tamanio - 1; i >= 0; i--)
+    {
+      int potencia = pow(base, i);
+      int digito = floor(numero / potencia);
+      resultado.colocar(i, digito);
+      numero -= digito * potencia;
+    }
+    return resultado;
   }
 
   /**
