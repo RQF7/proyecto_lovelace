@@ -60,11 +60,39 @@
     \end{block}
   }
 
-  \only<4>
-  {
-    \begin{block}{\textbf{9. Función de ronda}}
+\end{frame}
 
-    \end{block}
+\begin{frame}{FFX-A10}{La función de ronda}
+
+  \only<1>
+  {
+    La función de ronda de FFX-A10 ocupa a CBC MAC con AES: la en ntrada es una
+    concatenación de todos los parámetros (una representación como cadena
+    binaria), junto con el \textit{tweak} y el mensaje de entrada.
+
+    El MAC ($ Y $) es tratado de la siguiente manera para poder regresar un
+    número de la longitud necesaria.
+    \begin{align*}
+      Y\prime &= Y[1 \dots 64] \quad Y\prime\prime = Y[65 \dots 128] \\
+      y\prime &= \text{NUM}_{2}(Y\prime) \quad y\prime\prime
+        = \text{NUM}_{2}(Y\prime\prime)
+    \end{align*}
+  }
+
+  \only<2>
+  {
+    Ahora, considerando a $ m $ como el lugar de corte del \textit{split} en
+    la ronda actual, si este es menor a 9:
+    \begin{align*}
+      z = y\prime\prime \mod 10^{m}
+    \end{align*}
+
+    Y si es mayor a 9:
+    \begin{align*}
+      z = (y\prime \mod 10^{m - 9}) \cdot 10^{9} + (y\prime\prime \mod 10^{m})
+    \end{align*}
+
+    Lo que regresa la función es una representación decimal de $ z $.
   }
 
 \end{frame}
