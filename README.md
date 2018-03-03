@@ -1,6 +1,18 @@
-# Proyecto Lovelace
+<h1 align="center">
+  Proyecto Lovelace
+</h1>
 
-[![Build Status](https://travis-ci.com/RQF7/proyecto_lovelace.svg?token=57K77bpWmFas4ams6Ewm&branch=master)](https://travis-ci.com/RQF7/proyecto_lovelace)
+<p align="center">
+  <a href="https://travis-ci.com/RQF7/proyecto_lovelace" alt="">
+     <img src="https://travis-ci.com/RQF7/proyecto_lovelace.svg?token=57K77bpWmFas4ams6Ewm&branch=master"/>
+  </a>
+</p>
+
+<p align="center">
+  Generación de tokens para proteger los datos de tarjetas bancarias.
+</p>
+
+***
 
 En el archivo de [reglas](reglas_de_estilo.md) se enlistan las reglas y
 recomendaciones a seguir en el proyecto.
