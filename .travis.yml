@@ -35,9 +35,9 @@ install:
   - unzip -d ~/texmf tracklang.tds.zip
   - rm tracklang.tds.zip
   # bibtex
-  - wget https://sourceforge.net/projects/biblatex/files/biblatex-3.10/biblatex-3.10.tds.tgz
-  - tar -xvf biblatex-3.10.tds.tgz -C ~/texmf
-  - rm biblatex-3.10.tds.tgz
+  - wget https://newcontinuum.dl.sourceforge.net/project/biblatex/biblatex-3.9/biblatex-3.9.tds.tgz
+  - tar -xvf biblatex-3.9.tds.tgz -C ~/texmf
+  - rm biblatex-3.9.tds.tgz
   # babel
   - wget http://mirrors.ctan.org/install/macros/latex/required/babel-base.tds.zip
   - unzip -d ~/texmf babel-base.tds.zip
