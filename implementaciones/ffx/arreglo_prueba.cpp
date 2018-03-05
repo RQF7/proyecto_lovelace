@@ -84,6 +84,11 @@ bool ArregloPrueba::probarFuncionalidadBasica()
   if (arreglo4[0] != "Ricardo" || arreglo4[2] != "Figueroa")
     return false;
 
+//  Arreglo<Arreglo<int>> arreglo5 (2);
+//  arreglo5.colocar(0, {1, 2});
+//  arreglo5.colocar(1, {3, 4});
+//  cout << arreglo5 << endl;
+
   return true;
 }
 

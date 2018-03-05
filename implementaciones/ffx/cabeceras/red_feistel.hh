@@ -13,48 +13,14 @@
 #define __RED_FEISTEL__
 
 #include "arreglo.hh"
+#include "funcion.hh"
+#include "funcion_con_inverso.hh"
+#include "funcion_de_ronda_trivial.hh"
+#include "funcion_de_combinacion_trivial.hh"
+#include <vector>
 
 namespace Implementaciones
 {
-  /* Declaración *************************************************************/
-
-  /**
-   * \brief Apuntador a función de operación.
-   *
-   * Una «función de operación» procesa un bloque: recibe una referencia
-   * constante a un arreglo del tipo de datos con el que opera la red y
-   * entrega un nuevo arreglo (con el mismo tipo de dato).
-   *
-   * Posibles implementaciones de esto son cifradores por bloque, funciones
-   * hash, etc.
-   */
-
-  template <typename tipo>
-  using funcionDeOperacion = Arreglo<tipo>(*)(const Arreglo<tipo>&);
-
-  /**
-   * \brief Apuntador a función de combinación.
-   *
-   * Una «función de combinación» procesa dos bloques: recibe dos
-   * referencias constantes a arreglos del mismo tipo de dato con el que
-   * opera la red y entrega un nuevo arreglo.
-   *
-   * Pensado como interfaz a funciones de XOR, de suma modular por caracter
-   * o de suma modular por bloque.
-   */
-
-  template <typename tipo>
-  using funcionDeCombinacion = Arreglo<tipo>(*)(const Arreglo<tipo>&,
-    const Arreglo<tipo>&);
-
-  /** \brief Operación trivial: regresa copia del bloque dado. */
-  template <typename tipo>
-  Arreglo<tipo> operacionTrivial(const Arreglo<tipo>& arreglo);
-
-  /** \brief Comprobación trivial: regresa solo el primer bloque. */
-  template <typename tipo>
-  Arreglo<tipo> combinacionTrivial(const Arreglo<tipo>& arregloUno,
-    const Arreglo<tipo>& arregloDos);
 
   /**
    * \brief Implementación de red Feistel balanceada.
@@ -69,14 +35,36 @@ namespace Implementaciones
   template <typename tipo>
   class RedFeistel
   {
-
     public:
+
+      /**
+       * \brief Definición de tipo de funciones de ronda.
+       *
+       * Define el template de la clase *Funcion* que usa de forma interna la
+       * red Feistel para la función de ronda. Esta función toma a la entrada
+       * referencias de arreglos y regresa un nuevo arreglo; el tipo de datos de
+       * estos arreglos es tomado del template de la Red.
+       */
+
+      using FuncionDeRonda = Funcion<Arreglo<tipo>, Arreglo<tipo>>;
+
+      /**
+       * \brief Definición de operación de combinación.
+       *
+       * Define el template de la clase *Funcion* que usa de forma interna la
+       * red Feistel para la operación de combinación. La única diferencia con
+       * respecto al tipo de la función de operación es que esta tiene una
+       * operación inversa (la interfaz *FuncionConInverso* implementa a su
+       * vez a la interfaz de *Funcion*).
+       */
+
+      using FuncionDeCombinacion = FuncionConInverso<Arreglo<tipo>,
+        Arreglo<tipo>>;
 
       /** \brief Construcción de red Feistel balanceada. */
       RedFeistel(int numeroDeRondas, int tamanioDeBloque,
-        funcionDeOperacion<tipo> funcionDeRonda = operacionTrivial<tipo>,
-        funcionDeCombinacion<tipo> operadorSuma = combinacionTrivial<tipo>,
-        funcionDeCombinacion<tipo> operadorSumaInverso = nullptr);
+        const FuncionDeRonda& funcionDeRonda = FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>{},
+        const FuncionDeCombinacion& operadorSuma = FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>{});
 
       /** \brief Operación de cifrado de la red. */
       virtual Arreglo<tipo> cifrar(const Arreglo<tipo>& textoEnClaro);
@@ -93,13 +81,10 @@ namespace Implementaciones
       int mTamanioDeBloque;
 
       /** \brief Función de ronda. */
-      funcionDeOperacion<tipo> mFuncionDeRonda;
+      const FuncionDeRonda& mFuncionDeRonda;
 
       /** \brief Operación de combinación. */
-      funcionDeCombinacion<tipo> mOperadorSuma;
-
-      /** \brief Operación de combinación inversa. */
-      funcionDeCombinacion<tipo> mOperadorSumaInverso;
+      const FuncionDeCombinacion& mOperadorSuma;
 
       /** \brief Ronda actual (pensando en implementaciones
        *  concurrentes). */
@@ -126,21 +111,16 @@ namespace Implementaciones
     /** Tamaño de bloque (entrada, salida). */
     int tamanioDeBloque,
     /** Función de ronda; por defecto implementación trivial. */
-    funcionDeOperacion<tipo> funcionDeRonda,
+    const FuncionDeRonda& funcionDeRonda,
     /** Función para combinar bloques; por defecto implementación trivial. */
-    funcionDeCombinacion<tipo> operadorSuma,
-    /** Inverso de la suma; por defecto la misma que el operadorSuma. */
-    funcionDeCombinacion<tipo> operadorSumaInverso
+    const FuncionDeCombinacion& operadorSuma
   )
   : mNumeroDeRondas {numeroDeRondas},
     mTamanioDeBloque {tamanioDeBloque},
     mFuncionDeRonda {funcionDeRonda},
     mOperadorSuma {operadorSuma},
-    mOperadorSumaInverso {operadorSumaInverso},
     mRondaActual {0}
   {
-    if (mOperadorSumaInverso == nullptr)
-      mOperadorSumaInverso = mOperadorSuma;
   }
 
   /**
@@ -171,8 +151,9 @@ namespace Implementaciones
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       auxiliar = std::move(parteDerecha);
-      parteDerecha =
-        std::move(mOperadorSuma(parteIzquierda, mFuncionDeRonda(auxiliar)));
+      parteDerecha = std::move(
+        mOperadorSuma.operar({parteIzquierda,
+          mFuncionDeRonda.operar({auxiliar})}));
       parteIzquierda = std::move(auxiliar);
     }
     return parteIzquierda + parteDerecha;
@@ -203,71 +184,11 @@ namespace Implementaciones
     {
       auxiliar = std::move(parteIzquierda);
       parteIzquierda = std::move(
-        mOperadorSumaInverso(parteDerecha, mFuncionDeRonda(auxiliar)));
+        mOperadorSuma.deoperar({parteDerecha,
+          mFuncionDeRonda.operar({auxiliar})}));
       parteDerecha = std::move(auxiliar);
     }
     return parteIzquierda + parteDerecha;
-  }
-
-  /**
-   * \note Con fines ilustrativos solamente:
-   * aparte de la implementación dada, se consideran otras dos. La primera
-   * recibe el arreglo por valor (no por referencia) y su cuerpo es:
-   * ```
-   * return Arreglo<tipo>(arreglo);
-   * ```
-   * La segunda también recibe el arreglo por valor, pero su cuerpo es:
-   * ```
-   * return Arreglo<tipo>(std::move(arreglo));
-   * ```
-   * El compilador efectúa una operación de copia (`O(n)`) al llamar a una
-   * función con argumentos por valor y una operación de movimiento (`O(1)`)
-   * al regreso de cada función. Dicho esto, podemos decir que la primera
-   * versión ejecuta dos operaciones de copia, una detrás de la otra, y una
-   * operación de movimiento (`O(n) + O(n) + O(1)`); la segunda versión es
-   * una mejora, dado que quita una de las operaciones de copia redundantes
-   * (`O(n) + O(1) + O(1)`). La versión original (la que recibe el argumento
-   * por referencia), efectúa casi las mismas operaciones que la segunda
-   * versión, solo que con un orden distinto y con una sintaxis más clara
-   * (`O(1) + O(n) + O(1)`); en este caso la primera operación no corresponde
-   * a una llamada al constructor por movimiento, sino que es el costo de la
-   * creación de la referencia. En todo caso, la versión  que hay que evitar
-   * a toda costa es la primera, dado que hay una copia redundante.
-   *
-   * \return Copia de bloque dado.
-   *
-   * \sa http://www.cplusplus.com/reference/utility/move/
-   *
-   * \todo ¿Tiene caso hacer implementación trivial con puras operaciones de
-   * movimiento? Tal vez como ejercicio de C++, pero no con espera de que
-   * se ocupe en algún lado.
-   */
-
-  template <typename tipo>
-  Arreglo<tipo> operacionTrivial(
-    const Arreglo<tipo>& arreglo      /**< Referencia a bloque de entrada. */
-  )
-  {
-    return Arreglo<tipo>(arreglo);
-  }
-
-  /**
-   * El primer bloque es el del lado izquierdo, mientras que el segundo bloque
-   * es la salida de la función de ronda. Al regresar solo el primer bloque,
-   * se busca que, en una red con funciones de ronda y de combinaciones
-   * triviales, la salida sea el mismo bloque (si el número de rondas es par),
-   * o el bloque de entrada invertido (si el número de rondas es impar).
-   *
-   * \return Copia del primer bloque.
-   */
-
-  template <typename tipo>
-  Arreglo<tipo> combinacionTrivial(
-    const Arreglo<tipo>& arregloUno,  /**< Referencia a primer bloque. */
-    const Arreglo<tipo>& arregloDos   /**< Referencia a segudo bloque. */
-  )
-  {
-    return Arreglo<tipo>(arregloUno);
   }
 
 }
