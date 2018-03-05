@@ -45,18 +45,20 @@ namespace Implementaciones
       /** \brief Construcción de red Feistel alternante. */
       RedFeistelAlternante(int numeroDeRondas,
         int tamanioDeBloque, int desbalanceo = 0,
-        const FuncionDeRonda& funcionDeRondaPar =
-          FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>{},
-        const FuncionDeRonda& funcionDeRondaImpar =
-          FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>{},
-        const FuncionDeCombinacion& operadorSuma =
-          FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>{});
+        FuncionDeRonda& funcionDeRondaPar =
+          RedFeistel<tipo>::funcionDeRondaPorDefecto,
+        FuncionDeRonda& funcionDeRondaImpar =
+          RedFeistel<tipo>::funcionDeRondaPorDefecto,
+        FuncionDeCombinacion& operadorSuma =
+          RedFeistel<tipo>::funcionDeCombinacionPorDefecto);
 
       /** \brief Operación de cifrado de la red. */
-      Arreglo<tipo> cifrar(const Arreglo<tipo>& textoEnClaro) override;
+      Arreglo<tipo> operar(
+        const std::vector<Arreglo<tipo>>& textoEnClaro) override;
 
       /** \brief Operación de descifrado de la red. */
-      Arreglo<tipo> descifrar(const Arreglo<tipo>& textoCifrado) override;
+      Arreglo<tipo> deoperar(
+        const std::vector<Arreglo<tipo>>& textoCifrado) override;
 
     private:
 
@@ -65,7 +67,7 @@ namespace Implementaciones
 
       /** \brief Función de ronda impar (para pares se utiliza la de la
        *  superclase). */
-      const FuncionDeRonda& mFuncionDeRondaImpar;
+      FuncionDeRonda& mFuncionDeRondaImpar;
 
       /** \brief Referencia a número de rondas de la red. */
       using RedFeistel<tipo>::mNumeroDeRondas;
@@ -80,7 +82,7 @@ namespace Implementaciones
       using RedFeistel<tipo>::mOperadorSuma;
 
       /** \brief Referencia a ronda actual. */
-     using RedFeistel<tipo>::mRondaActual;
+      using RedFeistel<tipo>::mRondaActual;
   };
 
   /**
@@ -102,11 +104,11 @@ namespace Implementaciones
     /** Grado de desbalanceo de la red; por defecto 0. */
     int desbalanceo,
     /** Función de ronda par; por defecto implementación trivial. */
-    const FuncionDeRonda& funcionDeRondaPar,
+    FuncionDeRonda& funcionDeRondaPar,
     /** Función de ronda impar; por defecto misma que para las pares. */
-    const FuncionDeRonda& funcionDeRondaImpar,
+    FuncionDeRonda& funcionDeRondaImpar,
     /** Función para combinar bloques; por defecto implementación trivial. */
-    const FuncionDeCombinacion& operadorSuma
+    FuncionDeCombinacion& operadorSuma
   )
   : RedFeistel<tipo> {numeroDeRondas, tamanioDeBloque,
       funcionDeRondaPar, operadorSuma},
@@ -130,12 +132,12 @@ namespace Implementaciones
    */
 
   template <typename tipo>
-  Arreglo<tipo> RedFeistelAlternante<tipo>::cifrar (
-    const Arreglo<tipo>& textoEnClaro       /**< Bloque a cifrar. */
+  Arreglo<tipo> RedFeistelAlternante<tipo>::operar(
+    const std::vector<Arreglo<tipo>>& textoEnClaro     /**< Bloque a cifrar. */
   )
   {
-    Arreglo<tipo> parteIzquierda = textoEnClaro.partir(2, 0, mDesbalanceo);
-    Arreglo<tipo> parteDerecha = textoEnClaro.partir(2, 1, mDesbalanceo);
+    Arreglo<tipo> parteIzquierda = textoEnClaro[0].partir(2, 0, mDesbalanceo);
+    Arreglo<tipo> parteDerecha = textoEnClaro[0].partir(2, 1, mDesbalanceo);
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       if (mRondaActual % 2 == 0)
@@ -162,12 +164,12 @@ namespace Implementaciones
    */
 
   template <typename tipo>
-  Arreglo<tipo> RedFeistelAlternante<tipo>::descifrar (
-    const Arreglo<tipo>& textoCifrado       /**< Bloque a descifrar. */
+  Arreglo<tipo> RedFeistelAlternante<tipo>::deoperar(
+    const std::vector<Arreglo<tipo>>& textoCifrado   /**< Bloque a descifrar. */
   )
   {
-    Arreglo<tipo> parteIzquierda = textoCifrado.partir(2, 0, mDesbalanceo);
-    Arreglo<tipo> parteDerecha = textoCifrado.partir(2, 1, mDesbalanceo);
+    Arreglo<tipo> parteIzquierda = textoCifrado[0].partir(2, 0, mDesbalanceo);
+    Arreglo<tipo> parteDerecha = textoCifrado[0].partir(2, 1, mDesbalanceo);
     for (mRondaActual = mNumeroDeRondas - 1; mRondaActual >= 0; mRondaActual--)
     {
       if (mRondaActual % 2 == 0)

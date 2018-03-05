@@ -25,6 +25,10 @@ namespace Implementaciones
   /**
    * \brief Implementación de red Feistel balanceada.
    *
+   * Implementa la interfaz de *Funcion* (a través de *FuncionConInverso*);
+   * de esta manera, la función de ronda de una red Feistel, podría ser otra
+   * red Feistel.
+   *
    * \tparam tipo Tipo de dato con el que opera la red.
    *
    * \todo Excepciones de tamaños.
@@ -33,7 +37,7 @@ namespace Implementaciones
    */
 
   template <typename tipo>
-  class RedFeistel
+  class RedFeistel : public FuncionConInverso<Arreglo<tipo>, Arreglo<tipo>>
   {
     public:
 
@@ -61,18 +65,32 @@ namespace Implementaciones
       using FuncionDeCombinacion = FuncionConInverso<Arreglo<tipo>,
         Arreglo<tipo>>;
 
+    protected:
+
+      /** \brief Función de ronda usada por defecto. */
+      static FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>
+        funcionDeRondaPorDefecto;
+
+      /** \brief Función de combinación usada por defecto. */
+      static FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>
+        funcionDeCombinacionPorDefecto;
+
+    public:
+
       /** \brief Construcción de red Feistel balanceada. */
       RedFeistel(int numeroDeRondas, int tamanioDeBloque,
-        const FuncionDeRonda& funcionDeRonda =
-          FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>{},
-        const FuncionDeCombinacion& operadorSuma =
-          FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>{});
+        FuncionDeRonda& funcionDeRonda =
+          RedFeistel<tipo>::funcionDeRondaPorDefecto,
+        FuncionDeCombinacion& operadorSuma =
+          RedFeistel<tipo>::funcionDeCombinacionPorDefecto);
 
       /** \brief Operación de cifrado de la red. */
-      virtual Arreglo<tipo> cifrar(const Arreglo<tipo>& textoEnClaro);
+      virtual Arreglo<tipo> operar(
+        const std::vector<Arreglo<tipo>>& textoEnClaro) override;
 
       /** \brief Operación de descifrado de la red. */
-      virtual Arreglo<tipo> descifrar(const Arreglo<tipo>& textoCifrado);
+      virtual Arreglo<tipo> deoperar(
+        const std::vector<Arreglo<tipo>>& textoCifrado) override;
 
     protected:
 
@@ -83,10 +101,10 @@ namespace Implementaciones
       int mTamanioDeBloque;
 
       /** \brief Función de ronda. */
-      const FuncionDeRonda& mFuncionDeRonda;
+      FuncionDeRonda& mFuncionDeRonda;
 
       /** \brief Operación de combinación. */
-      const FuncionDeCombinacion& mOperadorSuma;
+      FuncionDeCombinacion& mOperadorSuma;
 
       /** \brief Ronda actual (pensando en implementaciones
        *  concurrentes). */
@@ -94,6 +112,40 @@ namespace Implementaciones
   };
 
   /* Definición **************************************************************/
+
+  /**
+   * Referencia a una función de ronda trivial.
+   *
+   * \note Tanto para este miembro como para la función de combinación por
+   * defecto, para poder ser ligados de alguna manera a los argumentos del
+   * constructor, deben por fuerza ser estáticos: como se trata de
+   * referencias no constantes, el ligador necesita reservar su espacio
+   * de manera distinta a las expresiones constantes; las funciones no
+   * pueden ser constantes, dado que en la mayoría de las implementaciones
+   * reales se espera guardar (y cambiar) en el estado del objeto
+   * información propia de este (e.g. la llave o el tweak). La desventaja
+   * de este método es que se reserva espacio para las funciones se ocupen
+   * o no (como cualquier miembro estático); la ventaja es que el código
+   * de mis pruebas triviales está mucho más limpio, y al fin y al cabo,
+   * son funciones muy muy pequeñas.
+   */
+
+  template <typename tipo>
+  FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>
+    RedFeistel<tipo>::funcionDeRondaPorDefecto;
+
+  /**
+   * Referencia a una función de combinación trivial.
+   *
+   * \note Estas líneas corresponden a la definición de los miembros estáticos,
+   * mientras que las anteriores (las que están dentro de la clase) corresponden
+   * a la declaración (aunque se parezcan bastante, sin la definición, el
+   * ligador se pierde).
+   */
+
+  template <typename tipo>
+  FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>
+    RedFeistel<tipo>::funcionDeCombinacionPorDefecto;
 
   /**
    * Construye una red Feistel con los parámetros dados. Si no se especifíca
@@ -113,9 +165,9 @@ namespace Implementaciones
     /** Tamaño de bloque (entrada, salida). */
     int tamanioDeBloque,
     /** Función de ronda; por defecto implementación trivial. */
-    const FuncionDeRonda& funcionDeRonda,
+    FuncionDeRonda& funcionDeRonda,
     /** Función para combinar bloques; por defecto implementación trivial. */
-    const FuncionDeCombinacion& operadorSuma
+    FuncionDeCombinacion& operadorSuma
   )
   : mNumeroDeRondas {numeroDeRondas},
     mTamanioDeBloque {tamanioDeBloque},
@@ -143,12 +195,12 @@ namespace Implementaciones
    */
 
   template <typename tipo>
-  Arreglo<tipo> RedFeistel<tipo>::cifrar (
-    const Arreglo<tipo>& textoEnClaro       /**< Bloque a cifrar. */
+  Arreglo<tipo> RedFeistel<tipo>::operar(
+    const std::vector<Arreglo<tipo>>& textoEnClaro      /**< Bloque a cifrar. */
   )
   {
-    Arreglo<tipo> parteIzquierda = textoEnClaro.partir(2, 0);
-    Arreglo<tipo> parteDerecha = textoEnClaro.partir(2, 1);
+    Arreglo<tipo> parteIzquierda = textoEnClaro[0].partir(2, 0);
+    Arreglo<tipo> parteDerecha = textoEnClaro[0].partir(2, 1);
     Arreglo<tipo> auxiliar (mTamanioDeBloque / 2);
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
@@ -175,12 +227,12 @@ namespace Implementaciones
    */
 
   template <typename tipo>
-  Arreglo<tipo> RedFeistel<tipo>::descifrar (
-    const Arreglo<tipo>& textoCifrado       /**< Bloque a descifrar. */
+  Arreglo<tipo> RedFeistel<tipo>::deoperar(
+    const std::vector<Arreglo<tipo>>& textoCifrado   /**< Bloque a descifrar. */
   )
   {
-    Arreglo<tipo> parteIzquierda = textoCifrado.partir(2, 0);
-    Arreglo<tipo> parteDerecha = textoCifrado.partir(2, 1);
+    Arreglo<tipo> parteIzquierda = textoCifrado[0].partir(2, 0);
+    Arreglo<tipo> parteDerecha = textoCifrado[0].partir(2, 1);
     Arreglo<tipo> auxiliar (mTamanioDeBloque / 2);
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {

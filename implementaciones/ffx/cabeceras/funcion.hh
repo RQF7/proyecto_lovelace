@@ -43,7 +43,7 @@ namespace Implementaciones
        */
 
       virtual tipoDeVuelta operar(
-        const std::vector<tipoDeIda> &entrada) const = 0;
+        const std::vector<tipoDeIda> &entrada) = 0;
   };
 }
 

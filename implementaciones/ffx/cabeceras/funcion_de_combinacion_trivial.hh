@@ -37,7 +37,7 @@ namespace Implementaciones
       * \return Copia del primer bloque.
       */
 
-     tipoDeVuelta operar(const std::vector<tipoDeIda> &entrada) const override
+     tipoDeVuelta operar(const std::vector<tipoDeIda> &entrada) override
      {
        return tipoDeVuelta(entrada[0]);
      }

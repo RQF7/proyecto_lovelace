@@ -27,8 +27,8 @@ int main()
   {
     ArregloPrueba {},
     RedFeistelPrueba {},
-    RedFeistelAlternantePrueba {}
-//    RedFeistelDesbalanceadaPrueba {}
+    RedFeistelAlternantePrueba {},
+    RedFeistelDesbalanceadaPrueba {}
 //    FFXPrueba {}
   };
   for (auto claseDePrueba : clasesDePrueba)

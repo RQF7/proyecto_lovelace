@@ -41,16 +41,18 @@ namespace Implementaciones
       /** \brief Construcción de red Feistel desbalanceada. */
       RedFeistelDesbalanceada(int numeroDeRondas,
         int tamanioDeBloque, int desbalanceo = 0,
-        const FuncionDeRonda& funcionDeRonda =
-          FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>{},
-        const FuncionDeCombinacion& operadorSuma =
-          FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>{});
+        FuncionDeRonda& funcionDeRonda =
+          RedFeistel<tipo>::funcionDeRondaPorDefecto,
+        FuncionDeCombinacion& operadorSuma =
+          RedFeistel<tipo>::funcionDeCombinacionPorDefecto);
 
       /** \brief Operación de cifrado de la red. */
-      Arreglo<tipo> cifrar(const Arreglo<tipo>& textoEnClaro) override;
+      Arreglo<tipo> operar(
+        const std::vector<Arreglo<tipo>>& textoEnClaro) override;
 
       /** \brief Operación de descifrado de la red. */
-      Arreglo<tipo> descifrar(const Arreglo<tipo>& textoCifrado) override;
+      Arreglo<tipo> deoperar(
+        const std::vector<Arreglo<tipo>>& textoEnClaro) override;
 
     private:
 
@@ -90,9 +92,9 @@ namespace Implementaciones
     /** Grado de desbalanceo de la red; por defecto 0. */
     int desbalanceo,
     /** Función de ronda par; por defecto implementación trivial. */
-    const FuncionDeRonda& funcionDeRonda,
+    FuncionDeRonda& funcionDeRonda,
     /** Función para combinar bloques; por defecto implementación trivial. */
-    const FuncionDeCombinacion& operadorSuma
+    FuncionDeCombinacion& operadorSuma
   )
   : RedFeistel<tipo> {numeroDeRondas, tamanioDeBloque,
       funcionDeRonda, operadorSuma},
@@ -107,11 +109,11 @@ namespace Implementaciones
    */
 
   template <typename tipo>
-  Arreglo<tipo> RedFeistelDesbalanceada<tipo>::cifrar (
-    const Arreglo<tipo>& textoEnClaro       /**< Bloque a cifrar. */
+  Arreglo<tipo> RedFeistelDesbalanceada<tipo>::operar (
+    const std::vector<Arreglo<tipo>>& textoEnClaro      /**< Bloque a cifrar. */
   )
   {
-    Arreglo<tipo> temporal = std::move(textoEnClaro);
+    Arreglo<tipo> temporal = std::move(textoEnClaro[0]);
     Arreglo<tipo> parteDerecha, parteIzquierda, auxiliar;
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
@@ -137,14 +139,14 @@ namespace Implementaciones
    */
 
   template <typename tipo>
-  Arreglo<tipo> RedFeistelDesbalanceada<tipo>::descifrar (
-    const Arreglo<tipo>& textoCifrado       /**< Bloque a descifrar. */
+  Arreglo<tipo> RedFeistelDesbalanceada<tipo>::deoperar (
+    const std::vector<Arreglo<tipo>>& textoCifrado   /**< Bloque a descifrar. */
   )
   {
     int desbalanceoInverso = (mTamanioDeBloque % 2 == 0)
       ? mDesbalanceo * -1
       : (mDesbalanceo * -1) + 1;
-    Arreglo<tipo> temporal = std::move(textoCifrado);
+    Arreglo<tipo> temporal = std::move(textoCifrado[0]);
     Arreglo<tipo> parteDerecha, parteIzquierda, auxiliar;
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {

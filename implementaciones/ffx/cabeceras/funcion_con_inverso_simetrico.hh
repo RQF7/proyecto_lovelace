@@ -44,7 +44,7 @@ namespace Implementaciones
        */
 
       tipoDeVuelta deoperar(const std::vector<tipoDeIda> &entrada)
-      const override
+      override
       {
         return this->operar(entrada);
       }

@@ -25,6 +25,9 @@ namespace ImplementacionesPruebas
 
       /** \brief Prueba el funcionamiento básico de la clase. */
       static bool probarCifradoDescifrado();
+
+      /** \brief Construcción de una metared Feistel. */
+      static bool metaRedFeistel();
   };
 }
 
