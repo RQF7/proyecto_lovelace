@@ -63,8 +63,10 @@ namespace Implementaciones
 
       /** \brief Construcción de red Feistel balanceada. */
       RedFeistel(int numeroDeRondas, int tamanioDeBloque,
-        const FuncionDeRonda& funcionDeRonda = FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>{},
-        const FuncionDeCombinacion& operadorSuma = FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>{});
+        const FuncionDeRonda& funcionDeRonda =
+          FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>{},
+        const FuncionDeCombinacion& operadorSuma =
+          FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>{});
 
       /** \brief Operación de cifrado de la red. */
       virtual Arreglo<tipo> cifrar(const Arreglo<tipo>& textoEnClaro);

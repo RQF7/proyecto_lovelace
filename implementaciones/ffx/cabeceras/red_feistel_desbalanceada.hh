@@ -30,12 +30,21 @@ namespace Implementaciones
   {
     public:
 
+      /** \brief Definición de función de ronda en super clase. */
+      using FuncionDeRonda =
+        typename RedFeistel<tipo>::FuncionDeRonda;
+
+        /** \brief Definición de función de combinación en super clase. */
+      using FuncionDeCombinacion =
+        typename RedFeistel<tipo>::FuncionDeCombinacion;
+
       /** \brief Construcción de red Feistel desbalanceada. */
       RedFeistelDesbalanceada(int numeroDeRondas,
         int tamanioDeBloque, int desbalanceo = 0,
-        funcionDeOperacion<tipo> funcionDeRondaPar = operacionTrivial<tipo>,
-        funcionDeCombinacion<tipo> operadorSuma = combinacionTrivial<tipo>,
-        funcionDeCombinacion<tipo> operadorSumaInverso = nullptr);
+        const FuncionDeRonda& funcionDeRonda =
+          FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>{},
+        const FuncionDeCombinacion& operadorSuma =
+          FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>{});
 
       /** \brief Operación de cifrado de la red. */
       Arreglo<tipo> cifrar(const Arreglo<tipo>& textoEnClaro) override;
@@ -60,9 +69,6 @@ namespace Implementaciones
       /** \brief Referencia a operación de combinación. */
       using RedFeistel<tipo>::mOperadorSuma;
 
-      /** \brief Referencia a operación de combinación inversa. */
-      using RedFeistel<tipo>::mOperadorSumaInverso;
-
       /** \brief Referencia a ronda actual. */
       using RedFeistel<tipo>::mRondaActual;
   };
@@ -84,14 +90,12 @@ namespace Implementaciones
     /** Grado de desbalanceo de la red; por defecto 0. */
     int desbalanceo,
     /** Función de ronda par; por defecto implementación trivial. */
-    funcionDeOperacion<tipo> funcionDeRonda,
+    const FuncionDeRonda& funcionDeRonda,
     /** Función para combinar bloques; por defecto implementación trivial. */
-    funcionDeCombinacion<tipo> operadorSuma,
-    /** Inverso de la suma; por defecto la misma que el operadorSuma. */
-    funcionDeCombinacion<tipo> operadorSumaInverso
+    const FuncionDeCombinacion& operadorSuma
   )
-  : RedFeistel<tipo> {numeroDeRondas, tamanioDeBloque, funcionDeRonda,
-      operadorSuma, operadorSumaInverso},
+  : RedFeistel<tipo> {numeroDeRondas, tamanioDeBloque,
+      funcionDeRonda, operadorSuma},
     mDesbalanceo {desbalanceo}
   {
   }
@@ -117,8 +121,8 @@ namespace Implementaciones
 
       /* Operación normal */
       auxiliar = std::move(parteDerecha);
-      parteDerecha =
-        std::move(mOperadorSuma(parteIzquierda, mFuncionDeRonda(auxiliar)));
+      parteDerecha = std::move(mOperadorSuma.operar(
+        {parteIzquierda, mFuncionDeRonda.operar({auxiliar})}));
       parteIzquierda = std::move(auxiliar);
 
       temporal = std::move(parteIzquierda + parteDerecha);
@@ -137,7 +141,7 @@ namespace Implementaciones
     const Arreglo<tipo>& textoCifrado       /**< Bloque a descifrar. */
   )
   {
-    int desvalanceoInverso = (mTamanioDeBloque % 2 == 0)
+    int desbalanceoInverso = (mTamanioDeBloque % 2 == 0)
       ? mDesbalanceo * -1
       : (mDesbalanceo * -1) + 1;
     Arreglo<tipo> temporal = std::move(textoCifrado);
@@ -145,13 +149,13 @@ namespace Implementaciones
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       /* Partición */
-      parteIzquierda = std::move(temporal.partir(2, 0, desvalanceoInverso));
-      parteDerecha = std::move(temporal.partir(2, 1, desvalanceoInverso));
+      parteIzquierda = std::move(temporal.partir(2, 0, desbalanceoInverso));
+      parteDerecha = std::move(temporal.partir(2, 1, desbalanceoInverso));
 
       /* Operación normal */
       auxiliar = std::move(parteIzquierda);
-      parteIzquierda = std::move(mOperadorSumaInverso(
-        parteDerecha, mFuncionDeRonda(auxiliar)));
+      parteIzquierda = std::move(mOperadorSuma.deoperar(
+        {parteDerecha, mFuncionDeRonda.operar({auxiliar})}));
       parteDerecha = std::move(auxiliar);
 
       temporal = std::move(parteIzquierda + parteDerecha);

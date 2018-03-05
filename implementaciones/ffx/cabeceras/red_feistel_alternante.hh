@@ -34,13 +34,23 @@ namespace Implementaciones
   {
     public:
 
+      /** \brief Definición de función de ronda en super clase. */
+      using FuncionDeRonda =
+        typename RedFeistel<tipo>::FuncionDeRonda;
+
+        /** \brief Definición de función de combinación en super clase. */
+      using FuncionDeCombinacion =
+        typename RedFeistel<tipo>::FuncionDeCombinacion;
+
       /** \brief Construcción de red Feistel alternante. */
       RedFeistelAlternante(int numeroDeRondas,
         int tamanioDeBloque, int desbalanceo = 0,
-        funcionDeOperacion<tipo> funcionDeRondaPar = operacionTrivial<tipo>,
-        funcionDeOperacion<tipo> funcionDeRondaImpar = nullptr,
-        funcionDeCombinacion<tipo> operadorSuma = combinacionTrivial<tipo>,
-        funcionDeCombinacion<tipo> operadorSumaInverso = nullptr);
+        const FuncionDeRonda& funcionDeRondaPar =
+          FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>{},
+        const FuncionDeRonda& funcionDeRondaImpar =
+          FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>{},
+        const FuncionDeCombinacion& operadorSuma =
+          FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>{});
 
       /** \brief Operación de cifrado de la red. */
       Arreglo<tipo> cifrar(const Arreglo<tipo>& textoEnClaro) override;
@@ -55,7 +65,7 @@ namespace Implementaciones
 
       /** \brief Función de ronda impar (para pares se utiliza la de la
        *  superclase). */
-      funcionDeOperacion<tipo> mFuncionDeRondaImpar;
+      const FuncionDeRonda& mFuncionDeRondaImpar;
 
       /** \brief Referencia a número de rondas de la red. */
       using RedFeistel<tipo>::mNumeroDeRondas;
@@ -69,11 +79,8 @@ namespace Implementaciones
       /** \brief Referencia a operación de combinación. */
       using RedFeistel<tipo>::mOperadorSuma;
 
-      /** \brief Referencia a operación de combinación inversa. */
-      using RedFeistel<tipo>::mOperadorSumaInverso;
-
       /** \brief Referencia a ronda actual. */
-      using RedFeistel<tipo>::mRondaActual;
+     using RedFeistel<tipo>::mRondaActual;
   };
 
   /**
@@ -95,21 +102,17 @@ namespace Implementaciones
     /** Grado de desbalanceo de la red; por defecto 0. */
     int desbalanceo,
     /** Función de ronda par; por defecto implementación trivial. */
-    funcionDeOperacion<tipo> funcionDeRondaPar,
+    const FuncionDeRonda& funcionDeRondaPar,
     /** Función de ronda impar; por defecto misma que para las pares. */
-    funcionDeOperacion<tipo> funcionDeRondaImpar,
+    const FuncionDeRonda& funcionDeRondaImpar,
     /** Función para combinar bloques; por defecto implementación trivial. */
-    funcionDeCombinacion<tipo> operadorSuma,
-    /** Inverso de la suma; por defecto la misma que el operadorSuma. */
-    funcionDeCombinacion<tipo> operadorSumaInverso
+    const FuncionDeCombinacion& operadorSuma
   )
-  : RedFeistel<tipo> {numeroDeRondas, tamanioDeBloque, funcionDeRondaPar,
-      operadorSuma, operadorSumaInverso},
+  : RedFeistel<tipo> {numeroDeRondas, tamanioDeBloque,
+      funcionDeRondaPar, operadorSuma},
     mDesbalanceo {desbalanceo},
     mFuncionDeRondaImpar {funcionDeRondaImpar}
   {
-    if (mFuncionDeRondaImpar == nullptr)
-      mFuncionDeRondaImpar = mFuncionDeRonda;
   }
 
   /**
@@ -136,11 +139,11 @@ namespace Implementaciones
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       if (mRondaActual % 2 == 0)
-        parteIzquierda = std::move(
-          mOperadorSuma(parteIzquierda, mFuncionDeRonda(parteDerecha)));
+        parteIzquierda = std::move(mOperadorSuma.operar(
+          {parteIzquierda, mFuncionDeRonda.operar({parteDerecha})}));
       else
-        parteDerecha = std::move(
-          mOperadorSuma(parteDerecha, mFuncionDeRondaImpar(parteIzquierda)));
+        parteDerecha = std::move(mOperadorSuma.operar(
+          {parteDerecha, mFuncionDeRondaImpar.operar({parteIzquierda})}));
     }
     return parteIzquierda + parteDerecha;
   }
@@ -168,11 +171,11 @@ namespace Implementaciones
     for (mRondaActual = mNumeroDeRondas - 1; mRondaActual >= 0; mRondaActual--)
     {
       if (mRondaActual % 2 == 0)
-        parteIzquierda = std::move(mOperadorSumaInverso(
-          parteIzquierda, mFuncionDeRonda(parteDerecha)));
+        parteIzquierda = std::move(mOperadorSuma.deoperar({
+          parteIzquierda, mFuncionDeRonda.operar({parteDerecha})}));
       else
-        parteDerecha = std::move(mOperadorSumaInverso(
-          parteDerecha, mFuncionDeRondaImpar(parteIzquierda)));
+        parteDerecha = std::move(mOperadorSuma.deoperar({
+          parteDerecha, mFuncionDeRondaImpar.operar({parteIzquierda})}));
     }
     return parteIzquierda + parteDerecha;
   }
