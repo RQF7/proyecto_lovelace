@@ -29,6 +29,9 @@ namespace PruebasCryptopp
 
       /** \brief Prueba el proceso de cifrado y descifrado de AES. */
       static bool probarCifradoDescifrado();
+
+      /** \brief Prueba el cifrado de un solo bloque en CBC y en AES solo. */
+      static bool probarAESCBC();
   };
 }
 

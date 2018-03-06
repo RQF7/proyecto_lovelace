@@ -29,6 +29,10 @@ PruebaAES::PruebaAES()
     "Proceso de cifrado y descifrado",
     PruebaAES::probarCifradoDescifrado
   });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "Comparación entre AES CBC y AES ECB para un solo bloque",
+    PruebaAES::probarAESCBC
+  });
 }
 
 /**
@@ -130,5 +134,74 @@ bool PruebaAES::probarCifradoDescifrado()
   /* Registro posterior. */
   cout << "Texto en claro (" << textoDescifrado.size() << " bytes):" << endl
        << "  " << textoDescifrado << endl;
+  return true;
+}
+
+/**
+ * Compara la salida de AES con CBC con la salida de AES con ECB.
+ *
+ * ECB (electronic codebook) es el equivalente más cercano a no usar ningún
+ * modo de operación: dado que el vector de inicialización de CBC es 0,
+ * el primer bloque de ambos textos cifrados debería ser igual. 
+ *
+ * \note No importa que tan chico sea el mensaje a cifrar, las implementaciones
+ * de los modos de operación siempre regresan un mensaje de al menos dos
+ * bloques.
+ *
+ * \test Estado de la prueba.
+ */
+
+bool PruebaAES::probarAESCBC()
+{
+  /* Reservación de memoria. */
+  byte llave[AES::DEFAULT_KEYLENGTH],
+       vi[AES::BLOCKSIZE],
+       textoEnClaro[2];
+  memset(llave, 0, AES::DEFAULT_KEYLENGTH);
+  memset(vi, 0, AES::BLOCKSIZE);
+  memset(textoEnClaro, 50, 2);
+  string textoCifradoECB, textoCifradoCBC;
+
+  /* Cifrado con CBC. */
+  AES::Encryption cifradoAESUno{llave, AES::DEFAULT_KEYLENGTH};
+  CBC_Mode_ExternalCipher::Encryption cifradoCBC{cifradoAESUno, vi};
+  StreamTransformationFilter cifradoFiltroUno{
+    cifradoCBC,
+    new StringSink(textoCifradoCBC)
+  };
+  cifradoFiltroUno.Put(
+    reinterpret_cast<const unsigned char*>(textoEnClaro),
+    AES::BLOCKSIZE
+  );
+  cifradoFiltroUno.MessageEnd();
+
+  cout << "Texto cifrado con CBC (" << dec << textoCifradoCBC.size()
+       << " bytes):" << endl;
+  for (auto caracter : textoCifradoCBC)
+    cout << "0x" << hex << (0xFF & static_cast<byte>(caracter)) << " ";
+  cout << endl;
+
+  /* Cifrado solo con AES. */
+  AES::Encryption cifradoAESDos{llave, AES::DEFAULT_KEYLENGTH};
+  ECB_Mode_ExternalCipher::Encryption cifradoECB{cifradoAESUno};
+  StreamTransformationFilter cifradoFiltroDos {
+    cifradoECB,
+    new StringSink(textoCifradoECB)
+  };
+  cifradoFiltroDos.Put(
+    reinterpret_cast<const unsigned char*>(textoEnClaro),
+    AES::BLOCKSIZE
+  );
+  cifradoFiltroDos.MessageEnd();
+
+  cout << "Texto cifrado con ECB (" << dec << textoCifradoECB.size()
+       << " bytes):" << endl;
+  for (auto caracter : textoCifradoECB)
+    cout << "0x" << hex << (0xFF & static_cast<byte>(caracter)) << " ";
+  cout << endl;
+
+  if (textoCifradoECB.substr(0, 16) != textoCifradoCBC.substr(0, 16))
+    return false;
+
   return true;
 }
