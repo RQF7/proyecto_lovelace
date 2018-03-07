@@ -75,15 +75,6 @@ namespace Implementaciones
 
   };
 
-  /** \brief Función de ronda con CBC MAC AES. */
-  template<typename tipo, unsigned char *llave,
-    unsigned char *tweak, int longitudTweak, int tipoDeRed, int tipoDeSuma,
-    int radix, int longitud, int desbalanceo, int numeroDeRondas>
-  Arreglo<tipo> funcionRondaCbcMacAes(const Arreglo<tipo>& textoEnClaro);
-
-  /** \brief Función de módulo */
-  int modulo(int numeroUno, int numeroDos);
-
   /**
    * El desbalanceo por defecto es 0 (lo más cerca del centro posible).
    * El radix por defecto es 10: valor utilizado para el cifrado de dígitos.
@@ -163,74 +154,6 @@ namespace Implementaciones
   )
   {
     return mRedFeistel.descifrar(textoCifrado);
-  }
-
-  /**
-   *
-   */
-
-  template<
-    typename tipo,                        /**< */
-    unsigned char *llave,                 /**< */
-    unsigned char *tweak,                 /**< */
-    int longitudTweak,                    /**< */
-    int tipoDeRed,                        /**< */
-    int tipoDeSuma,                       /**< */
-    int radix,                            /**< */
-    int longitud,                         /**< */
-    int desbalanceo,                      /**< */
-    int numeroDeRondas>                   /**< */
-  Arreglo<tipo> funcionRondaCbcMacAes(
-    const Arreglo<tipo>& textoEnClaro     /**< */
-  )
-  {
-    /* Armar arreglo de mensaje */
-    int longitudEntrada = 8 + longitudTweak + sizeof(int);
-    unsigned char entrada [longitudEntrada];
-    entrada[0] = 0;
-    entrada[1] = static_cast<unsigned char> (tipoDeRed);
-    entrada[2] = static_cast<unsigned char> (tipoDeSuma);
-    entrada[3] = static_cast<unsigned char> (radix);
-    entrada[4] = static_cast<unsigned char> (longitud);
-    entrada[5] = static_cast<unsigned char> (desbalanceo);
-    entrada[6] = static_cast<unsigned char> (numeroDeRondas);
-    entrada[7] = 0;
-    for (int i = 0, j = 8; i < longitudTweak; i++, j++)
-      entrada[j] = tweak[i];
-    int representacionNumero = textoEnClaro.convertirANumero(radix);
-    entrada[7 + longitudTweak + 1] =
-      static_cast<unsigned char> (representacionNumero);
-    entrada[7 + longitudTweak + 2] =
-      static_cast<unsigned char> (8 >> representacionNumero);
-    entrada[7 + longitudTweak + 3] =
-      static_cast<unsigned char> (16 >> representacionNumero);
-    entrada[7 + longitudTweak + 4] =
-      static_cast<unsigned char> (24 >> representacionNumero);
-
-    /* Generar MAC */
-    CryptoPP::CBC_MAC<CryptoPP::AES> cbcmac {llave};
-    cbcmac.Update(entrada, longitudEntrada);
-    unsigned char mac[cbcmac.DigestSize()];
-    cbcmac.TruncatedFinal(mac, cbcmac.DigestSize());
-
-    /* Partir por mitad */
-    Arreglo<unsigned char> ladoIzquierdo (8), ladoDerecho(8);
-    for (int i = 0; i < 16; i++)
-      if (i < 8)
-        ladoIzquierdo.colocar(i, mac[i]);
-      else
-        ladoDerecho.colocar(i - 8, mac[i]);
-
-    int numeroIzquierdo = ladoIzquierdo.convertirANumero(256);
-    int numeroDerecho = ladoIzquierdo.convertirANumero(256);
-    int m = (longitud / 2) + desbalanceo, z;
-    if (m <= 9)
-      z = numeroDerecho % static_cast<int>(pow(radix, m));
-    else
-      z = numeroIzquierdo % static_cast<int>(pow(radix, m - 9))
-        * (static_cast<int>(pow(radix, 9))
-          + (numeroDerecho % static_cast<int>(pow(radix, 9))));
-    return Arreglo<tipo>::convertirAArreglo(z, 10, m);
   }
 
 }

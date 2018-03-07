@@ -18,6 +18,7 @@
 #define __ARREGLO__
 
 //#include "intermediario_de_arreglo.hh"
+#include "utilidades_matematicas.hh"
 #include <algorithm>
 #include <cmath>
 #include <initializer_list>
@@ -86,7 +87,7 @@ namespace Implementaciones
         int desviacion = 0) const;
 
       /** \brief Regresa la representación entera del arreglo. */
-      int convertirANumero(int base) const;
+      tipo convertirANumero(int base) const;
 
       /** \brief Convierte el nñumero dado en un arreglo. */
       static Arreglo<tipo> convertirAArreglo(int numero, int base, int tamanio);
@@ -435,13 +436,13 @@ namespace Implementaciones
    */
 
   template<typename tipo>
-  int Arreglo<tipo>::convertirANumero(
+  tipo Arreglo<tipo>::convertirANumero(
     int base            /**< Base de la conversión. */
   ) const
   {
-    int resultado {0};
+    tipo resultado {0};
     for (int i = 0; i < mNumeroDeElementos; i++)
-      resultado += mArregloInterno[i] * pow(base, i);
+      resultado += mArregloInterno[i] * potencia<tipo>(base, i);
     return resultado;
   }
 

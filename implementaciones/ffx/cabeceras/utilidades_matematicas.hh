@@ -8,11 +8,17 @@
 #ifndef __UTILIDADES_MATEMATICAS__
 #define __UTILIDADES_MATEMATICAS__
 
+#include <iostream>
+
 namespace Implementaciones
 {
   /** \brief Operación de módulo. */
   template <typename tipo>
   tipo modulo(tipo numeroUno, tipo numeroDos);
+
+  /** \brief Operación de potencia. */
+  template <typename tipo>
+  tipo potencia(int base, int exponente);
 
   /**
    * Envolvente alrededor de la función de módulo normal para lidiar con
@@ -31,6 +37,22 @@ namespace Implementaciones
     return (numeroUno >= 0)
       ? numeroUno % numeroDos
       : numeroDos - ((numeroUno * -1) % numeroDos);
+  }
+
+  /**
+   * Efectúa una operación de potencia. El template permite especificar
+   * el tipo de datos con el que se opera.
+   *
+   * \return operación de potencia.
+   */
+
+  template <typename tipo>
+  tipo potencia(int base, int exponente)
+  {
+    tipo resultado {1};
+    for (int i = 0; i < exponente; i++)
+      resultado *= base;
+    return resultado;
   }
 }
 
