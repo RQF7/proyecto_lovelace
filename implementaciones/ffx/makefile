@@ -11,6 +11,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 red_feistel_prueba.cpp \
 											 red_feistel_alternante_prueba.cpp \
 											 red_feistel_desbalanceada_prueba.cpp \
+											 combinacion_por_caracter_prueba.cpp \
+											 combinacion_por_bloque_prueba.cpp \
 											 utilidades/prueba.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
@@ -40,6 +42,16 @@ $(CARPETA_OBJETOS)/red_feistel_alternante_prueba.o: \
 
 $(CARPETA_OBJETOS)/red_feistel_desbalanceada_prueba.o: \
 	red_feistel_desbalanceada_prueba.cpp cabeceras/red_feistel_desbalanceada.hh
+	mkdir -p $(CARPETA_OBJETOS)
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/combinacion_por_caracter_prueba.o: \
+	combinacion_por_caracter_prueba.cpp cabeceras/combinacion_por_caracter.hh
+	mkdir -p $(CARPETA_OBJETOS)
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/combinacion_por_bloque_prueba.o: \
+	combinacion_por_bloque_prueba.cpp cabeceras/combinacion_por_bloque.hh
 	mkdir -p $(CARPETA_OBJETOS)
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 

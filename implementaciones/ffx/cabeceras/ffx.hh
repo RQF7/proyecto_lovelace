@@ -30,7 +30,6 @@
 
 #include <cryptopp/aes.h>
 #include <cryptopp/cbcmac.h>
-#include <cmath>
 
 namespace Implementaciones
 {
@@ -75,26 +74,6 @@ namespace Implementaciones
       RedFeistel<tipo> mRedFeistel = nullptr;
 
   };
-
-  /** \brief Suma por bloques */
-  template<typename tipo, int base>
-  Arreglo<tipo> sumaPorBloque(const Arreglo<tipo>& arregloUno,
-    const Arreglo<tipo>& arregloDos);
-
-  /** \brief Suma por bloques */
-  template<typename tipo, int base>
-  Arreglo<tipo> restaPorBloque(const Arreglo<tipo>& arregloUno,
-    const Arreglo<tipo>& arregloDos);
-
-  /** \brief Suma por bloques */
-  template<typename tipo, int base>
-  Arreglo<tipo> sumaPorCaracter(const Arreglo<tipo>& arregloUno,
-    const Arreglo<tipo>& arregloDos);
-
-  /** \brief Suma por bloques */
-  template<typename tipo, int base>
-  Arreglo<tipo> restaPorCaracter(const Arreglo<tipo>& arregloUno,
-    const Arreglo<tipo>& arregloDos);
 
   /** \brief Función de ronda con CBC MAC AES. */
   template<typename tipo, unsigned char *llave,
@@ -187,96 +166,6 @@ namespace Implementaciones
   }
 
   /**
-   * Interpreta como número ambos argumentos, los suma y al resultado le saca
-   * módulo para dejarlo en el mismo conjunto.
-   * Por ejemplo:
-   * 79 + 12 = 91
-   * 50 + 67 = 17
-   *
-   * \return Arreglo con suma por bloque.
-   */
-
-  template<typename tipo, int base>
-  Arreglo<tipo> sumaPorBloque(
-    const Arreglo<tipo>& arregloUno,      /**< Primer operando. */
-    const Arreglo<tipo>& arregloDos       /**< Segundo operando. */
-  )
-  {
-    int tamanio {arregloUno.obtenerNumeroDeElementos()};
-    int numeroUno {arregloUno.convertirANumero(base)};
-    int numeroDos {arregloDos.convertirANumero(base)};
-    return Arreglo<tipo>::convertirAArreglo(modulo((numeroUno + numeroDos),
-      static_cast<int>(pow(base, tamanio))), base, tamanio);
-  }
-
-  /**
-   * Interpreta como número ambos argumentos, los resta y al resultado le saca
-   * módulo para dejarlo en el mismo conjunto.
-   * Por ejemplo:
-   * 91 - 79 = 12
-   * 17 - 50 = 67
-   *
-   * \return Arreglo con resta por bloque.
-   */
-
-  template<typename tipo, int base>
-  Arreglo<tipo> restaPorBloque(
-    const Arreglo<tipo>& arregloUno,      /**< Primer operando. */
-    const Arreglo<tipo>& arregloDos       /**< Segundo operando. */
-  )
-  {
-    int tamanio {arregloUno.obtenerNumeroDeElementos()};
-    int numeroUno {arregloUno.convertirANumero(base)};
-    int numeroDos {arregloDos.convertirANumero(base)};
-    return Arreglo<tipo>::convertirAArreglo(modulo((numeroUno - numeroDos),
-      static_cast<int>(pow(base, tamanio))), base, tamanio);
-  }
-
-  /**
-   * Realiza la suma dígito por dígito módulo la base.
-   * Por ejemplo:
-   * 79 + 12 = 81
-   * 50 + 67 = 17
-   *
-   * \return Arreglo con suma por caracter.
-   */
-
-  template<typename tipo, int base>
-  Arreglo<tipo> sumaPorCaracter(
-    const Arreglo<tipo>& arregloUno,      /**< Primer operando. */
-    const Arreglo<tipo>& arregloDos       /**< Segundo operando. */
-  )
-  {
-    int tamanio {arregloUno.obtenerNumeroDeElementos()};
-    Arreglo<tipo> resultado(tamanio);
-    for (int i = 0; i < tamanio; i++)
-      resultado.colocar(i, modulo((arregloUno[i] + arregloDos[i]), base));
-    return resultado;
-  }
-
-  /**
-   * Realiza la resta dígito por dígito módulo la base.
-   * Por ejemplo:
-   * 81 - 79 = 12
-   * 17 - 50 = 67
-   *
-   * \return Arreglo con resta por caracter.
-   */
-
-  template<typename tipo, int base>
-  Arreglo<tipo> restaPorCaracter(
-    const Arreglo<tipo>& arregloUno,      /**< Primer operando. */
-    const Arreglo<tipo>& arregloDos       /**< Segundo operando. */
-  )
-  {
-    int tamanio {arregloUno.obtenerNumeroDeElementos()};
-    Arreglo<tipo> resultado(tamanio);
-    for (int i = 0; i < tamanio; i++)
-      resultado.colocar(i, modulo((arregloUno[i] - arregloDos[i]), base));
-    return resultado;
-  }
-
-  /**
    *
    */
 
@@ -342,26 +231,6 @@ namespace Implementaciones
         * (static_cast<int>(pow(radix, 9))
           + (numeroDerecho % static_cast<int>(pow(radix, 9))));
     return Arreglo<tipo>::convertirAArreglo(z, 10, m);
-  }
-
-  /**
-   * Envolvente alrededor de la función de módulo normal para lidiar con
-   * números negativos: si el primer operando es negativo, se regresa el
-   * módulo del complemento.
-   *
-   * \todo Pasar esto a las utilidades.
-   *
-   * \return numeroUno % numeroDos
-   */
-
-  int modulo(
-    int numeroUno,                        /**< Primer operando. */
-    int numeroDos                         /**< Segundo operando. */
-  )
-  {
-    return (numeroUno >= 0)
-      ? numeroUno % numeroDos
-      : numeroDos - ((numeroUno * -1) % numeroDos);
   }
 
 }
