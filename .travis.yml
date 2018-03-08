@@ -5,18 +5,18 @@
 
 # Configuración general #######################################################
 
-#language: cpp
-#compiler: gcc
-#
-#matrix:
-#  include:
-#    - os: linux
-#      addons:
-#        apt:
-#          sources:
-#            - ubuntu-toolchain-r-test
-#          packages:
-#            - g++-6
+language: cpp
+compiler: gcc
+
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
 
 cache:
   directories:
@@ -28,9 +28,9 @@ cache:
 
 # Instalación de dependencias #################################################
 install:
-  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-  - sudo apt-get update
-  - sudo apt-get install
+#  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install
     texlive
     texlive-latex-recommended
     texlive-latex-extra
@@ -39,8 +39,8 @@ install:
     texlive-generic-extra
     doxygen
     graphviz
-    g++-7
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/gcc-7 50
+#    g++-7
+#  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/gcc-7 50
 
   # Instalación de paquetes directo desde el CTAN y sourceforge
   # glossaries
@@ -70,12 +70,12 @@ install:
   # ¿Para qué tantos intermediarios?
 
   # # Instalación de cryptopp
-  - wget https://cryptopp.com/cryptopp600.zip
-  - unzip -a -d cryptopp cryptopp600.zip
-  - make -C cryptopp
-  - sudo mkdir /usr/include/cryptopp
-  - sudo mv cryptopp/*.h /usr/include/cryptopp/
-  - sudo mv cryptopp/libcryptopp.a /usr/lib/
+  #  - wget https://cryptopp.com/cryptopp600.zip
+  #  - unzip -a -d cryptopp cryptopp600.zip
+  #  - make -C cryptopp
+  #  - sudo mkdir /usr/include/cryptopp
+  #  - sudo mv cryptopp/*.h /usr/include/cryptopp/
+  #  - sudo mv cryptopp/libcryptopp.a /usr/lib/
   # # Instlación de openssl
   # - wget https://www.openssl.org/source/openssl-1.1.1-pre1.tar.gz
   # - tar -xvf openssl-1.1.1-pre1.tar.gz
@@ -101,14 +101,14 @@ script:
   #  - make -C documentos_entregables ortografía
 
   # Ejecución de funciones de prueba
-  - make -C pruebas_librerias
-  - make -C pruebas_librerias correr
+  # - make -C pruebas_librerias
+  # - make -C pruebas_librerias correr
 
   # Documentación.
   - make documentación_doxygen
 
   # Pruebas de implementaciones
-  - make -C implementaciones/ffx correr
+  # - make -C implementaciones/ffx correr
 
 # Despliegue #################################################################
 # Antes del despliegue
