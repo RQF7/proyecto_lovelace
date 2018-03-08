@@ -8,7 +8,7 @@
 #define __FUNCION_CON_INVERSO_SIMETRICO__
 
 #include "arreglo.hh"
-#include "funcion.hh"
+#include "funcion_con_inverso.hh"
 #include <vector>
 
 namespace Implementaciones

@@ -4,9 +4,9 @@
  * Proyecto Lovelace.
  */
 
-#include "cabeceras/red_feistel_prueba.hh"
 #include "cabeceras/arreglo.hh"
 #include "cabeceras/red_feistel.hh"
+#include "cabeceras/red_feistel_prueba.hh"
 #include <iostream>
 
 using namespace Implementaciones;

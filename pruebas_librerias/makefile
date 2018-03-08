@@ -18,7 +18,7 @@ BANDERAS_GENERALES	:= -std=c++11 -Wall -ggdb
 
 $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)
 	mkdir -p $(CARPETA_BINARIOS)
-	g++ $(BANDERAS_GENERALES) $(LISTA_DE_OBJETOS) -lcryptopp -lssl -lcrypto -o $@
+	g++ $(BANDERAS_GENERALES) $(LISTA_DE_OBJETOS) -lcryptopp -o $@
 
 $(CARPETA_OBJETOS)/programa_de_pruebas.o: programa_de_pruebas.cpp
 	mkdir -p $(CARPETA_OBJETOS)
