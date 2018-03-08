@@ -10,13 +10,13 @@
  * 
  */
 
+#ifndef UTILIDADES_H_
+#define UTILIDADES_H_
+
 #include <iostream>
 #include <iomanip>
 #include <gmpxx.h>
 #include <gmp.h>
-
-#ifndef UTILIDADES_H_
-#define UTILIDADES_H_
 
 /* ========================================================================= */
 
