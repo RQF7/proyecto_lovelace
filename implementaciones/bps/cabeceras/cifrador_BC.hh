@@ -10,6 +10,9 @@
  * 
  */
 
+#ifndef CIFRADOR_BC_H_
+#define CIFRADOR_BC_H_
+
 #include "codificador.hh"
 #include "cifrador_de_ronda.hh"
 #include <iostream>
@@ -21,9 +24,6 @@
 #include <cryptopp/modes.h>
 #include <cryptopp/aes.h>
 #include <cryptopp/filters.h>
-
-#ifndef CIFRADOR_BC_H_
-#define CIFRADOR_BC_H_
 
 /* ========================================================================= */
 
