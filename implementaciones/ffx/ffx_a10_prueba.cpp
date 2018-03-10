@@ -61,28 +61,54 @@ bool FFXA10Prueba::probarCifradoDescifrado()
   if (textoDescifradoDos != textoOriginalDos)
     return false;
 
-//  FFXA10<int> ffxTres {llave, tweak, AES::DEFAULT_KEYLENGTH, 5, 10};
-//  Arreglo<int> textoOriginalTres {1, 2, 3, 4, 5};
-//  Arreglo<int> textoCifradoTres = ffxTres.operar({textoOriginalTres});
-//  Arreglo<int> textoDescifradoTres = ffxTres.deoperar({textoCifradoTres});
-//  cout << "Prueba con 5 caracteres: " << endl
-//       << "Texto original: " << textoOriginalTres << endl
-//       << "Texto cifrado: " << textoCifradoTres << endl
-//       << "Texto descifrado: " << textoDescifradoTres << endl;
-//  if (textoDescifradoTres != textoOriginalTres)
-//    return false;
+  FFXA10<int> ffxTres {llave, tweak, AES::DEFAULT_KEYLENGTH, 5, 10};
+  Arreglo<int> textoOriginalTres {1, 2, 3, 4, 5};
+  Arreglo<int> textoCifradoTres = ffxTres.operar({textoOriginalTres});
+  Arreglo<int> textoDescifradoTres = ffxTres.deoperar({textoCifradoTres});
+  cout << "Prueba con 5 caracteres: " << endl
+       << "Texto original: " << textoOriginalTres << endl
+       << "Texto cifrado: " << textoCifradoTres << endl
+       << "Texto descifrado: " << textoDescifradoTres << endl;
+  if (textoDescifradoTres != textoOriginalTres)
+    return false;
 
-//  FFXA10<int> ffxCuatro {llave, tweak, AES::DEFAULT_KEYLENGTH, 14, 10};
-//  Arreglo<int> textoOriginalCuatro {1, 2, 3, 4, 5, 6, 7, 8,
-//    9, 10, 11, 12, 13, 14};
-//  Arreglo<int> textoCifradoCuatro = ffxCuatro.operar({textoOriginalCuatro});
-//  Arreglo<int> textoDescifradoCuatro = ffxCuatro.deoperar({textoCifradoCuatro});
-//  cout << "Prueba con 16 caracteres: " << endl
-//       << "Texto original: " << textoOriginalCuatro << endl
-//       << "Texto cifrado: " << textoCifradoCuatro << endl
-//       << "Texto descifrado: " << textoDescifradoCuatro << endl;
-//  if (textoDescifradoCuatro != textoOriginalCuatro)
-//    return false;
+  FFXA10<int> ffxCuatro {llave, tweak, AES::DEFAULT_KEYLENGTH, 16, 10};
+  Arreglo<int> textoOriginalCuatro {1, 2, 3, 4, 5, 6, 7, 8,
+    9, 0, 1, 2, 3, 4, 5, 6};
+  Arreglo<int> textoCifradoCuatro = ffxCuatro.operar({textoOriginalCuatro});
+  Arreglo<int> textoDescifradoCuatro = ffxCuatro.deoperar({textoCifradoCuatro});
+  cout << "Prueba con 16 caracteres: " << endl
+       << "Texto original: " << textoOriginalCuatro << endl
+       << "Texto cifrado: " << textoCifradoCuatro << endl
+       << "Texto descifrado: " << textoDescifradoCuatro << endl;
+  if (textoDescifradoCuatro != textoOriginalCuatro)
+    return false;
+
+  FFXA10<int> ffxCinco {llave, tweak, AES::DEFAULT_KEYLENGTH, 15, 10};
+  Arreglo<int> textoOriginalCinco {1, 2, 3, 4, 5, 6, 7, 8,
+    9, 0, 1, 2, 3, 4, 5};
+  Arreglo<int> textoCifradoCinco = ffxCinco.operar({textoOriginalCinco});
+  Arreglo<int> textoDescifradoCinco = ffxCinco.deoperar({textoCifradoCinco});
+  cout << "Prueba con 15 caracteres: " << endl
+       << "Texto original: " << textoOriginalCinco << endl
+       << "Texto cifrado: " << textoCifradoCinco << endl
+       << "Texto descifrado: " << textoDescifradoCinco << endl;
+  if (textoDescifradoCinco != textoOriginalCinco)
+    return false;
+
+  FFXA10<int> ffxSeis {llave, tweak, AES::DEFAULT_KEYLENGTH, 36, 10};
+  Arreglo<int> textoOriginalSeis {1, 2, 3, 4, 5, 6, 7, 8, 9,
+    1, 2, 3, 4, 5, 6, 7, 8, 9,
+    1, 2, 3, 4, 5, 6, 7, 8, 9,
+    1, 2, 3, 4, 5, 6, 7, 8, 9};
+  Arreglo<int> textoCifradoSeis = ffxSeis.operar({textoOriginalSeis});
+  Arreglo<int> textoDescifradoSeis = ffxSeis.deoperar({textoCifradoSeis});
+  cout << "Prueba con 36 caracteres: " << endl
+       << "Texto original: " << textoOriginalSeis << endl
+       << "Texto cifrado: " << textoCifradoSeis << endl
+       << "Texto descifrado: " << textoDescifradoSeis << endl;
+  if (textoDescifradoSeis != textoOriginalSeis)
+    return false;
 
   return true;
 }

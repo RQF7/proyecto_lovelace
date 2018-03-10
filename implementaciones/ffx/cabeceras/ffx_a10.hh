@@ -100,7 +100,7 @@ namespace Implementaciones
       1,
       1,
       radix,
-      static_cast<int>(floor(tamanioDeMensaje / 2)),
+      static_cast<int>(floor(tamanioDeMensaje / 2.0)),
       0,
       12
     },
@@ -112,7 +112,7 @@ namespace Implementaciones
       1,
       1,
       radix,
-      static_cast<int>(ceil(tamanioDeMensaje / 2)),
+      static_cast<int>(ceil(tamanioDeMensaje / 2.0)),
       0,
       12
     },

@@ -141,11 +141,15 @@ namespace Implementaciones
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       if (mRondaActual % 2 == 0)
+      {
         parteIzquierda = std::move(mOperadorSuma.operar(
           {parteIzquierda, mFuncionDeRonda.operar({parteDerecha})}));
+      }
       else
+      {
         parteDerecha = std::move(mOperadorSuma.operar(
           {parteDerecha, mFuncionDeRondaImpar.operar({parteIzquierda})}));
+      }
     }
     return parteIzquierda + parteDerecha;
   }
@@ -173,11 +177,15 @@ namespace Implementaciones
     for (mRondaActual = mNumeroDeRondas - 1; mRondaActual >= 0; mRondaActual--)
     {
       if (mRondaActual % 2 == 0)
+      {
         parteIzquierda = std::move(mOperadorSuma.deoperar({
           parteIzquierda, mFuncionDeRonda.operar({parteDerecha})}));
+      }
       else
+      {
         parteDerecha = std::move(mOperadorSuma.deoperar({
           parteDerecha, mFuncionDeRondaImpar.operar({parteIzquierda})}));
+      }
     }
     return parteIzquierda + parteDerecha;
   }
