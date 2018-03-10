@@ -11,7 +11,8 @@
 #include "cabeceras/red_feistel_alternante_prueba.hh"
 #include "cabeceras/red_feistel_desbalanceada_prueba.hh"
 #include "cabeceras/ronda_ffx_prueba.hh"
-//#include "cabeceras/ffx_prueba.hh"
+#include "cabeceras/ffx_prueba.hh"
+#include "cabeceras/utilidades_matematicas_prueba.hh"
 #include <iostream>
 #include <vector>
 
@@ -34,7 +35,8 @@ int main()
     RedFeistelDesbalanceadaPrueba {},
     CombinacionPorCaracterPrueba {},
     CombinacionPorBloquePrueba {},
-    RondaFFXPrueba {}
+    RondaFFXPrueba {},
+    UtilidadesMatematicasPrueba {}
 //    FFXPrueba {}
   };
   for (auto claseDePrueba : clasesDePrueba)

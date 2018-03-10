@@ -14,6 +14,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 combinacion_por_caracter_prueba.cpp \
 											 combinacion_por_bloque_prueba.cpp \
 											 ronda_ffx_prueba.cpp \
+											 ffx_prueba.cpp \
+											 utilidades_matematicas_prueba.cpp \
 											 utilidades/prueba.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
@@ -63,6 +65,11 @@ $(CARPETA_OBJETOS)/ronda_ffx_prueba.o: ronda_ffx_prueba.cpp \
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/ffx_prueba.o: ffx_prueba.cpp cabeceras/ffx.hh
+	mkdir -p $(CARPETA_OBJETOS)
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades_matematicas_prueba.o: \
+	utilidades_matematicas_prueba.cpp cabeceras/utilidades_matematicas.hh
 	mkdir -p $(CARPETA_OBJETOS)
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 

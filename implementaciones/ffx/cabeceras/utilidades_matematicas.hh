@@ -12,6 +12,10 @@
 
 namespace Implementaciones
 {
+
+  /** \brief Alias para entero de 8 bytes. */
+  using entero = unsigned long long int;
+
   /** \brief Operación de módulo. */
   template <typename tipo>
   tipo modulo(tipo numeroUno, tipo numeroDos);
