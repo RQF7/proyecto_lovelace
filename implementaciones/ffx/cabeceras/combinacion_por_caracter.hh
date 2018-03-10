@@ -6,9 +6,9 @@
 #ifndef __COMBINACION_POR_CARACTER__
 #define __COMBINACION_POR_CARACTER__
 
-#include "arreglo.hh"
-#include "funcion_con_inverso.hh"
-#include "utilidades_matematicas.hh"
+#include "../../../utilidades/cabeceras/arreglo.hh"
+#include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
+#include "../../../utilidades/interfaces_comunes/funcion_con_inverso.hh"
 
 namespace Implementaciones
 {
@@ -25,8 +25,8 @@ namespace Implementaciones
    */
 
   template <typename tipo /**< Tipo de dato de los arreglos. */ >
-  class CombinacionPorCaracter : public FuncionConInverso<Arreglo<tipo>,
-    Arreglo<tipo>>
+  class CombinacionPorCaracter : public Utilidades::FuncionConInverso<
+    Arreglo<tipo>, Arreglo<tipo>>
   {
     public:
 

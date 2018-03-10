@@ -12,11 +12,11 @@
 #ifndef __RED_FEISTEL__
 #define __RED_FEISTEL__
 
-#include "arreglo.hh"
-#include "funcion.hh"
-#include "funcion_con_inverso.hh"
 #include "funcion_de_ronda_trivial.hh"
 #include "funcion_de_combinacion_trivial.hh"
+#include "../../../utilidades/cabeceras/arreglo.hh"
+#include "../../../utilidades/interfaces_comunes/funcion.hh"
+#include "../../../utilidades/interfaces_comunes/funcion_con_inverso.hh"
 #include <vector>
 
 namespace Implementaciones
@@ -37,7 +37,8 @@ namespace Implementaciones
    */
 
   template <typename tipo>
-  class RedFeistel : public FuncionConInverso<Arreglo<tipo>, Arreglo<tipo>>
+  class RedFeistel : public Utilidades::FuncionConInverso<
+    Arreglo<tipo>, Arreglo<tipo>>
   {
     public:
 
@@ -50,7 +51,7 @@ namespace Implementaciones
        * estos arreglos es tomado del template de la Red.
        */
 
-      using FuncionDeRonda = Funcion<Arreglo<tipo>, Arreglo<tipo>>;
+      using FuncionDeRonda = Utilidades::Funcion<Arreglo<tipo>, Arreglo<tipo>>;
 
       /**
        * \brief Definición de operación de combinación.
@@ -62,7 +63,7 @@ namespace Implementaciones
        * vez a la interfaz de *Funcion*).
        */
 
-      using FuncionDeCombinacion = FuncionConInverso<Arreglo<tipo>,
+      using FuncionDeCombinacion = Utilidades::FuncionConInverso<Arreglo<tipo>,
         Arreglo<tipo>>;
 
     public:

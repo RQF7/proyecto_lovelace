@@ -1,12 +1,12 @@
 /**
  * \file
- * \brief Definición de funciones de prueba de FFX.
+ * \brief Definición de funciones de prueba de FFX A10.
  * Proyecto Lovelace.
  */
 
-#include "cabeceras/arreglo.hh"
 #include "cabeceras/ffx_a10.hh"
 #include "cabeceras/ffx_a10_prueba.hh"
+#include "../../utilidades/cabeceras/arreglo.hh"
 #include <cryptopp/aes.h>
 #include <cryptopp/cbcmac.h>
 #include <cryptopp/drbg.h>
@@ -20,8 +20,8 @@ using namespace std;
 
 FFXA10Prueba::FFXA10Prueba()
 {
-  mListaDePruebas.push_back(FuncionDePrueba{
-    "operación de ffxa10",
+  mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
+    "operación de ffx a10",
     FFXA10Prueba::probarCifradoDescifrado
   });
 }

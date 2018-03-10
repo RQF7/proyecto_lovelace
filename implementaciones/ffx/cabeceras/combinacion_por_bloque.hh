@@ -6,9 +6,9 @@
 #ifndef __COMBINACION_POR_BLOQUE__
 #define __COMBINACION_POR_BLOQUE__
 
-#include "arreglo.hh"
-#include "funcion_con_inverso.hh"
-#include "utilidades_matematicas.hh"
+#include "../../../utilidades/cabeceras/arreglo.hh"
+#include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
+#include "../../../utilidades/interfaces_comunes/funcion_con_inverso.hh"
 #include <cmath>
 
 namespace Implementaciones
@@ -26,8 +26,8 @@ namespace Implementaciones
    */
 
   template <typename tipo /**< Tipo de dato de los arreglos. */ >
-  class CombinacionPorBloque : public FuncionConInverso<Arreglo<tipo>,
-    Arreglo<tipo>>
+  class CombinacionPorBloque : public Utilidades::FuncionConInverso<
+    Arreglo<tipo>, Arreglo<tipo>>
   {
     public:
 

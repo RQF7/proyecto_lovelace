@@ -4,20 +4,20 @@
  * Proyecto Lovelace.
  */
 
-#include "cabeceras/red_feistel_desbalanceada_prueba.hh"
-#include "cabeceras/arreglo.hh"
-#include "cabeceras/red_feistel_desbalanceada.hh"
+#include "cabeceras/red_feistel_alternante_prueba.hh"
+#include "cabeceras/red_feistel_alternante.hh"
+#include "../../utilidades/cabeceras/arreglo.hh"
 #include <iostream>
 
 using namespace Implementaciones;
 using namespace ImplementacionesPruebas;
 using namespace std;
 
-RedFeistelDesbalanceadaPrueba::RedFeistelDesbalanceadaPrueba()
+RedFeistelAlternantePrueba::RedFeistelAlternantePrueba()
 {
-  mListaDePruebas.push_back(FuncionDePrueba{
+  mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "operaciones de cifrado y descifrado",
-    RedFeistelDesbalanceadaPrueba::probarCifradoDescifrado
+    RedFeistelAlternantePrueba::probarCifradoDescifrado
   });
 }
 
@@ -27,10 +27,10 @@ RedFeistelDesbalanceadaPrueba::RedFeistelDesbalanceadaPrueba()
  * \return Estado de la prueba.
  */
 
-bool RedFeistelDesbalanceadaPrueba::probarCifradoDescifrado()
+bool RedFeistelAlternantePrueba::probarCifradoDescifrado()
 {
   /* Bloque impar, desbalanceo 0, rondas pares. */
-  RedFeistelDesbalanceada<int> red {10, 5};
+  RedFeistelAlternante<int> red {10, 5};
   Arreglo<int> textoEnClaro {1, 2, 3, 4, 5};
   Arreglo<int> textoCifrado = red.operar({textoEnClaro});
   Arreglo<int> textoDescifrado = red.deoperar({textoCifrado});
@@ -42,7 +42,7 @@ bool RedFeistelDesbalanceadaPrueba::probarCifradoDescifrado()
     return false;
 
   /* Bloque impar, desbalanceo 0, rondas impares. */
-  RedFeistelDesbalanceada<int> redDos {11, 5};
+  RedFeistelAlternante<int> redDos {11, 5};
   Arreglo<int> textoEnClaroDos {1, 2, 3, 4, 5};
   Arreglo<int> textoCifradoDos = redDos.operar({textoEnClaroDos});
   Arreglo<int> textoDescifradoDos = redDos.deoperar({textoCifradoDos});
@@ -54,11 +54,11 @@ bool RedFeistelDesbalanceadaPrueba::probarCifradoDescifrado()
     return false;
 
   /* Bloque impar, desbalanceo 2, rondas pares. */
-  RedFeistelDesbalanceada<int> redTres {10, 7, 2};
+  RedFeistelAlternante<int> redTres {10, 7, 2};
   Arreglo<int> textoEnClaroTres {1, 2, 3, 4, 5, 6, 7};
   Arreglo<int> textoCifradoTres = redTres.operar({textoEnClaroTres});
   Arreglo<int> textoDescifradoTres = redTres.deoperar({textoCifradoTres});
-  cout << "Bloque impar, desbalanceo 2, rondas impares: " << endl
+  cout << "Bloque impar, desbalanceo 2, rondas pares: " << endl
        << "En claro - " << textoEnClaroTres << endl
        << "Cifrado - " << textoCifradoTres << endl
        << "Descifrado - " << textoDescifradoTres << endl;
@@ -66,7 +66,7 @@ bool RedFeistelDesbalanceadaPrueba::probarCifradoDescifrado()
     return false;
 
   /* Bloque impar, desbalanceo 2, rondas impares. */
-  RedFeistelDesbalanceada<int> redCuatro {11, 7, 2};
+  RedFeistelAlternante<int> redCuatro {11, 7, 2};
   Arreglo<int> textoEnClaroCuatro {1, 2, 3, 4, 5, 6, 7};
   Arreglo<int> textoCifradoCuatro = redCuatro.operar({textoEnClaroCuatro});
   Arreglo<int> textoDescifradoCuatro = redCuatro.deoperar({textoCifradoCuatro});

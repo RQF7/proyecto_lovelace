@@ -4,9 +4,9 @@
  * Proyecto Lovelace.
  */
 
-#include "cabeceras/arreglo.hh"
 #include "cabeceras/red_feistel.hh"
 #include "cabeceras/red_feistel_prueba.hh"
+#include "../../utilidades/cabeceras/arreglo.hh"
 #include <iostream>
 
 using namespace Implementaciones;
@@ -15,11 +15,11 @@ using namespace std;
 
 RedFeistelPrueba::RedFeistelPrueba()
 {
-  mListaDePruebas.push_back(FuncionDePrueba{
+  mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "operaciones de cifrado y descifrado",
     RedFeistelPrueba::probarCifradoDescifrado
   });
-  mListaDePruebas.push_back(FuncionDePrueba{
+  mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "construcción de una metared Feistel",
     RedFeistelPrueba::metaRedFeistel
   });

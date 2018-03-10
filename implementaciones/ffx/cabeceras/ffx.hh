@@ -7,13 +7,13 @@
 #ifndef __FFX__
 #define __FFX__
 
-#include "arreglo.hh"
-#include "funcion_con_inverso.hh"
 #include "combinacion_por_caracter.hh"
 #include "combinacion_por_bloque.hh"
-#include "red_feistel.hh"
-#include "red_feistel_alternante.hh"
-#include "red_feistel_desbalanceada.hh"
+#include "../../redes_feistel/cabeceras/red_feistel.hh"
+#include "../../redes_feistel/cabeceras/red_feistel_alternante.hh"
+#include "../../redes_feistel/cabeceras/red_feistel_desbalanceada.hh"
+#include "../../../utilidades/cabeceras/arreglo.hh"
+#include "../../../utilidades/interfaces_comunes/funcion_con_inverso.hh"
 
 namespace Implementaciones
 {
@@ -32,7 +32,7 @@ namespace Implementaciones
    */
 
   template <typename tipo /**< Tipo de dato con el que se opera. */ >
-  class FFX : public FuncionConInverso<Arreglo<tipo>, Arreglo<tipo>>
+  class FFX : public Utilidades::FuncionConInverso<Arreglo<tipo>, Arreglo<tipo>>
   {
     public:
 

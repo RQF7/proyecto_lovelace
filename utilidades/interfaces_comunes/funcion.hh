@@ -7,10 +7,10 @@
 #ifndef __FUNCION__
 #define __FUNCION__
 
-#include "arreglo.hh"
+#include "../cabeceras/arreglo.hh"
 #include <vector>
 
-namespace Implementaciones
+namespace Utilidades
 {
   /**
    * \brief Interfaz de función.

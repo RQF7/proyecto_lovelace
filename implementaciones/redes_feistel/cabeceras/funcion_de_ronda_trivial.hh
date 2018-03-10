@@ -7,7 +7,7 @@
 #ifndef __FUNCION_DE_RONDA_TRIVIAL__
 #define __FUNCION_DE_RONDA_TRIVIAL__
 
-#include "funcion.hh"
+#include "../../../utilidades/interfaces_comunes/funcion.hh"
 
 namespace Implementaciones
 {
@@ -20,7 +20,8 @@ namespace Implementaciones
    */
 
   template <typename tipoDeVuelta, typename tipoDeIda>
-  class FuncionDeRondaTrivial : public Funcion<tipoDeVuelta, tipoDeIda>
+  class FuncionDeRondaTrivial : public Utilidades::Funcion<
+    tipoDeVuelta, tipoDeIda>
   {
 
     /**

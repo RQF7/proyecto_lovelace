@@ -4,9 +4,9 @@
  * Proyecto Lovelace.
  */
 
-#include "cabeceras/arreglo.hh"
 #include "cabeceras/combinacion_por_caracter.hh"
 #include "cabeceras/combinacion_por_caracter_prueba.hh"
+#include "../../utilidades/cabeceras/arreglo.hh"
 #include <iostream>
 
 using namespace Implementaciones;
@@ -15,7 +15,7 @@ using namespace std;
 
 CombinacionPorCaracterPrueba::CombinacionPorCaracterPrueba()
 {
-  mListaDePruebas.push_back(FuncionDePrueba{
+  mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "operaciones de suma y resta por caracter",
     CombinacionPorCaracterPrueba::probarSumaYResta
   });

@@ -121,7 +121,6 @@ before_deploy:
   - mkdir -p pagina_publica/documentos_entregables/presentacion_fpe
   - mv documentos_entregables/presentacion_fpe/presentacion_fpe.pdf
     pagina_publica/documentos_entregables/presentacion_fpe/
-  - rm /tmp/d20180310-19814-1qsyngq/work
 
 # Fase de despliegue
 deploy:

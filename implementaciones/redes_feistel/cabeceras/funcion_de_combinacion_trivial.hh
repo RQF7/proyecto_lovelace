@@ -7,7 +7,7 @@
 #ifndef __FUNCION_DE_COMBINACION_TRIVIAL__
 #define __FUNCION_DE_COMBINACION_TRIVIAL__
 
-#include "funcion_con_inverso_simetrico.hh"
+#include "../../../utilidades/interfaces_comunes/funcion_con_inverso_simetrico.hh"
 
 namespace Implementaciones
 {
@@ -19,8 +19,8 @@ namespace Implementaciones
    */
 
   template <typename tipoDeVuelta, typename tipoDeIda>
-  class FuncionDeCombinacionTrivial : public FuncionConInversoSimetrico<
-    tipoDeVuelta, tipoDeIda>
+  class FuncionDeCombinacionTrivial : public
+    Utilidades::FuncionConInversoSimetrico<tipoDeVuelta, tipoDeIda>
   {
    /**
     * \brief Operación de combinación trivial.

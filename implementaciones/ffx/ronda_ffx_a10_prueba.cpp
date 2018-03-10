@@ -4,9 +4,9 @@
  * Proyecto Lovelace.
  */
 
-#include "cabeceras/arreglo.hh"
 #include "cabeceras/ronda_ffx_a10.hh"
 #include "cabeceras/ronda_ffx_a10_prueba.hh"
+#include "../../utilidades/cabeceras/arreglo.hh"
 #include <cryptopp/aes.h>
 #include <cryptopp/cbcmac.h>
 #include <cryptopp/drbg.h>
@@ -20,7 +20,7 @@ using namespace std;
 
 RondaFFXA10Prueba::RondaFFXA10Prueba()
 {
-  mListaDePruebas.push_back(FuncionDePrueba{
+  mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "operaciones de cifrado y descifrado",
     RondaFFXA10Prueba::probarOperacion
   });

@@ -7,15 +7,15 @@
 #ifndef __UTILIDADES_MATEMATICAS_PRUEBA__
 #define __UTILIDADES_MATEMATICAS_PRUEBA__
 
-#include "../../../utilidades/cabeceras/prueba.hh"
+#include "prueba.hh"
 
-namespace ImplementacionesPruebas
+namespace UtilidadesPruebas
 {
   /**
    * \brief Pruebas de las operaciones por caracter.
    */
 
-  class UtilidadesMatematicasPrueba : public Prueba
+  class UtilidadesMatematicasPrueba : public Utilidades::Prueba
   {
     public:
       /** \brief Regitro de pruebas en vector de funciones. */

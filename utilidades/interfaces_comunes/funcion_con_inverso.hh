@@ -7,11 +7,11 @@
 #ifndef __FUNCION_CON_INVERSO__
 #define __FUNCION_CON_INVERSO__
 
-#include "arreglo.hh"
 #include "funcion.hh"
+#include "../cabeceras/arreglo.hh"
 #include <vector>
 
-namespace Implementaciones
+namespace Utilidades
 {
   /**
    * \brief Interfaz de función inversa.

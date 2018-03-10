@@ -7,12 +7,12 @@
 #ifndef __FFX_A10__
 #define __FFX_A10__
 
-#include "arreglo.hh"
 #include "ffx.hh"
-#include "red_feistel.hh"
-#include "red_feistel_alternante.hh"
-#include "red_feistel_desbalanceada.hh"
 #include "ronda_ffx_a10.hh"
+#include "../../redes_feistel/cabeceras/red_feistel.hh"
+#include "../../redes_feistel/cabeceras/red_feistel_alternante.hh"
+#include "../../redes_feistel/cabeceras/red_feistel_desbalanceada.hh"
+#include "../../../utilidades/cabeceras/arreglo.hh"
 #include <cmath>
 
 namespace Implementaciones

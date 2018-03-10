@@ -15,7 +15,7 @@ namespace ImplementacionesPruebas
    * \brief Prueba de.
    */
 
-  class RondaFFXA10Prueba : public Prueba
+  class RondaFFXA10Prueba : public Utilidades::Prueba
   {
     public:
       /** \brief Regitro de pruebas en vector de funciones. */

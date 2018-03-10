@@ -17,7 +17,7 @@ namespace ImplementacionesPruebas
    * Pruebas de funcionalidades de las redes Feistel desbalanceadas.
    */
 
-  class RedFeistelDesbalanceadaPrueba : public Prueba
+  class RedFeistelDesbalanceadaPrueba : public Utilidades::Prueba
   {
     public:
       /** \brief Regitro de pruebas en vector de funciones. */

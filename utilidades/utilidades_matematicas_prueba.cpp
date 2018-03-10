@@ -8,8 +8,8 @@
 #include "cabeceras/utilidades_matematicas_prueba.hh"
 #include <iostream>
 
-using namespace Implementaciones;
-using namespace ImplementacionesPruebas;
+using namespace Utilidades;
+using namespace UtilidadesPruebas;
 using namespace std;
 
 UtilidadesMatematicasPrueba::UtilidadesMatematicasPrueba()

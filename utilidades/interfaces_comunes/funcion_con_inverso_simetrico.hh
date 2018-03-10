@@ -7,11 +7,11 @@
 #ifndef __FUNCION_CON_INVERSO_SIMETRICO__
 #define __FUNCION_CON_INVERSO_SIMETRICO__
 
-#include "arreglo.hh"
 #include "funcion_con_inverso.hh"
+#include "../cabeceras/arreglo.hh"
 #include <vector>
 
-namespace Implementaciones
+namespace Utilidades
 {
 
   /**

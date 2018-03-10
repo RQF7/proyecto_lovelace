@@ -17,7 +17,7 @@ namespace ImplementacionesPruebas
    * Pruebas de funcionalidades de la clase de FFX.
    */
 
-  class FFXA10Prueba : public Prueba
+  class FFXA10Prueba : public Utilidades::Prueba
   {
     public:
       /** \brief Registro de pruebas en vector de funciones. */

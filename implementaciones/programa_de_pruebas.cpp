@@ -4,15 +4,13 @@
  * Proyecto Lovelace.
  */
 
-#include "cabeceras/arreglo_prueba.hh"
-#include "cabeceras/combinacion_por_bloque_prueba.hh"
-#include "cabeceras/combinacion_por_caracter_prueba.hh"
-#include "cabeceras/ffx_a10_prueba.hh"
-#include "cabeceras/red_feistel_prueba.hh"
-#include "cabeceras/red_feistel_alternante_prueba.hh"
-#include "cabeceras/red_feistel_desbalanceada_prueba.hh"
-#include "cabeceras/ronda_ffx_a10_prueba.hh"
-#include "cabeceras/utilidades_matematicas_prueba.hh"
+#include "ffx/cabeceras/combinacion_por_bloque_prueba.hh"
+#include "ffx/cabeceras/combinacion_por_caracter_prueba.hh"
+#include "ffx/cabeceras/ffx_a10_prueba.hh"
+#include "ffx/cabeceras/ronda_ffx_a10_prueba.hh"
+#include "redes_feistel/cabeceras/red_feistel_prueba.hh"
+#include "redes_feistel/cabeceras/red_feistel_alternante_prueba.hh"
+#include "redes_feistel/cabeceras/red_feistel_desbalanceada_prueba.hh"
 #include <iostream>
 #include <vector>
 
@@ -27,15 +25,13 @@ using namespace std;
 
 int main()
 {
-  vector<Prueba> clasesDePrueba
+  vector<Utilidades::Prueba> clasesDePrueba
   {
-    ArregloPrueba {},
     RedFeistelPrueba {},
     RedFeistelAlternantePrueba {},
     RedFeistelDesbalanceadaPrueba {},
     CombinacionPorCaracterPrueba {},
     CombinacionPorBloquePrueba {},
-    UtilidadesMatematicasPrueba {},
     RondaFFXA10Prueba {},
     FFXA10Prueba {}
   };

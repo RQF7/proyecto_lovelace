@@ -10,8 +10,8 @@
 #include <string>
 #include <vector>
 
-using namespace Implementaciones;
-using namespace ImplementacionesPruebas;
+using namespace Utilidades;
+using namespace UtilidadesPruebas;
 using namespace std;
 
 ArregloPrueba::ArregloPrueba()
@@ -321,6 +321,6 @@ bool ArregloPrueba::probarConversionesNumericas()
        << "Copia, " << copiaTres << endl;
   if (numeroTres != copiaTres)
     return false;
-  
+
   return true;
 }

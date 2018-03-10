@@ -7,9 +7,9 @@
 #ifndef __ARREGLO_PRUEBA__
 #define __ARREGLO_PRUEBA__
 
-#include "../../../utilidades/cabeceras/prueba.hh"
+#include "prueba.hh"
 
-namespace ImplementacionesPruebas
+namespace UtilidadesPruebas
 {
   /**
    * \brief Prueba del contenedor tipo arreglo.
@@ -17,7 +17,7 @@ namespace ImplementacionesPruebas
    * Pruebas de funcionalidades del contenedor tipo arreglo.
    */
 
-  class ArregloPrueba : public Prueba
+  class ArregloPrueba : public Utilidades::Prueba
   {
     public:
       /** \brief Regitro de pruebas en vector de funciones. */

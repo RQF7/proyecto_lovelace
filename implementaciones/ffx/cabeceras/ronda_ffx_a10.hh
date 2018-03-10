@@ -11,9 +11,9 @@
 #ifndef __RONDA_FFX_A10__
 #define __RONDA_FFX_A10__
 
-#include "arreglo.hh"
-#include "funcion_con_inverso_simetrico.hh"
-#include "utilidades_matematicas.hh"
+#include "../../../utilidades/cabeceras/arreglo.hh"
+#include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
+#include "../../../utilidades/interfaces_comunes/funcion_con_inverso_simetrico.hh"
 #include <cryptopp/aes.h>
 #include <cryptopp/cbcmac.h>
 #include <iostream>
@@ -33,8 +33,8 @@ namespace Implementaciones
    */
 
   template <typename tipo>
-  class RondaFFXA10 : public FuncionConInversoSimetrico<Arreglo<tipo>,
-    Arreglo<tipo>>
+  class RondaFFXA10 : public Utilidades::FuncionConInversoSimetrico<
+    Arreglo<tipo>, Arreglo<tipo>>
   {
     public:
 
