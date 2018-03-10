@@ -10,14 +10,14 @@
  * 
  */
 
+#ifndef CODIFICADOR_H_
+#define CODIFICADOR_H_
+
 #include <iostream>
 #include <iomanip>
 #include <vector>
 #include <gmpxx.h>
 #include <gmp.h>
-
-#ifndef CODIFICADOR_H_
-#define CODIFICADOR_H_
 
 /* ========================================================================= */
 

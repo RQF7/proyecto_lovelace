@@ -11,15 +11,15 @@
  * \todo Mejor la clase para cifrar con otros cifradores por bloques.
  */
 
+#ifndef CIFRADOR_DE_RONDA_H_
+#define CIFRADOR_DE_RONDA_H_
+
 #include <iostream>
 #include <iomanip>
 
 #include <cryptopp/modes.h>
 #include <cryptopp/aes.h>
 #include <cryptopp/filters.h>
-
-#ifndef CIFRADOR_DE_RONDA_H_
-#define CIFRADOR_DE_RONDA_H_
 
 /* ========================================================================= */
 

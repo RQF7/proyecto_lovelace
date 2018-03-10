@@ -10,6 +10,9 @@
  * 
  */
 
+#ifndef CIFRADOR_BPS_H_
+#define CIFRADOR_BPS_H_
+
 #include "codificador.hh"
 #include <iostream>
 #include <iomanip>
@@ -21,9 +24,6 @@
 #include <cryptopp/modes.h>
 #include <cryptopp/aes.h>
 #include <cryptopp/filters.h>
-
-#ifndef CIFRADOR_BPS_H_
-#define CIFRADOR_BPS_H_
 
 /* ========================================================================= */
 
