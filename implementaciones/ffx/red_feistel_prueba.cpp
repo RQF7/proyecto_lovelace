@@ -87,7 +87,7 @@ bool RedFeistelPrueba::probarCifradoDescifrado()
 
 bool RedFeistelPrueba::metaRedFeistel()
 {
-  RedFeistel<int> redInterna {4, 4};
+  RedFeistel<int>* redInterna = new RedFeistel<int>{4, 4};
   RedFeistel<int> metaRed {4, 4, redInterna};
   Arreglo<int> textoCifrado = metaRed.operar({{1, 2, 3, 4}});
   Arreglo<int> textoDescifrado = metaRed.deoperar({textoCifrado});

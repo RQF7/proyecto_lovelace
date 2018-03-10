@@ -13,6 +13,7 @@
 
 namespace Implementaciones
 {
+
   /**
    * \brief Interfaz de función inversa simétrica.
    *
@@ -27,6 +28,16 @@ namespace Implementaciones
     FuncionConInverso<tipoDeVuelta, tipoDeIda>
   {
     public:
+
+      /**
+       * \brief Destructor virtual.
+       *
+       * Permite a los implementadores definir su propio destructor.
+       */
+
+      virtual ~FuncionConInversoSimetrico()
+      {
+      }
 
       /**
        * Implementación de la función *deoperar* definida en *FuncionConInverso*

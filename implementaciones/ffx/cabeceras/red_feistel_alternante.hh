@@ -38,19 +38,22 @@ namespace Implementaciones
       using FuncionDeRonda =
         typename RedFeistel<tipo>::FuncionDeRonda;
 
-        /** \brief Definición de función de combinación en super clase. */
+      /** \brief Definición de función de combinación en super clase. */
       using FuncionDeCombinacion =
         typename RedFeistel<tipo>::FuncionDeCombinacion;
 
       /** \brief Construcción de red Feistel alternante. */
       RedFeistelAlternante(int numeroDeRondas,
         int tamanioDeBloque, int desbalanceo = 0,
-        FuncionDeRonda& funcionDeRondaPar =
-          RedFeistel<tipo>::funcionDeRondaPorDefecto,
-        FuncionDeRonda& funcionDeRondaImpar =
-          RedFeistel<tipo>::funcionDeRondaPorDefecto,
-        FuncionDeCombinacion& operadorSuma =
-          RedFeistel<tipo>::funcionDeCombinacionPorDefecto);
+        FuncionDeRonda* funcionDeRondaPar =
+          new FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>,
+        FuncionDeRonda* funcionDeRondaImpar =
+          new FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>,
+        FuncionDeCombinacion* operadorSuma =
+          new FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>);
+
+      /** \brief Destructor. */
+      ~RedFeistelAlternante();
 
       /** \brief Operación de cifrado de la red. */
       Arreglo<tipo> operar(
@@ -67,7 +70,7 @@ namespace Implementaciones
 
       /** \brief Función de ronda impar (para pares se utiliza la de la
        *  superclase). */
-      FuncionDeRonda& mFuncionDeRondaImpar;
+      FuncionDeRonda* mFuncionDeRondaImpar;
 
       /** \brief Referencia a número de rondas de la red. */
       using RedFeistel<tipo>::mNumeroDeRondas;
@@ -104,17 +107,27 @@ namespace Implementaciones
     /** Grado de desbalanceo de la red; por defecto 0. */
     int desbalanceo,
     /** Función de ronda par; por defecto implementación trivial. */
-    FuncionDeRonda& funcionDeRondaPar,
+    FuncionDeRonda* funcionDeRondaPar,
     /** Función de ronda impar; por defecto misma que para las pares. */
-    FuncionDeRonda& funcionDeRondaImpar,
+    FuncionDeRonda* funcionDeRondaImpar,
     /** Función para combinar bloques; por defecto implementación trivial. */
-    FuncionDeCombinacion& operadorSuma
+    FuncionDeCombinacion* operadorSuma
   )
   : RedFeistel<tipo> {numeroDeRondas, tamanioDeBloque,
       funcionDeRondaPar, operadorSuma},
     mDesbalanceo {desbalanceo},
     mFuncionDeRondaImpar {funcionDeRondaImpar}
   {
+  }
+
+  /**
+   * Libera la memoria del apuntador a la función de ronda impar.
+   */
+
+  template <typename tipo>
+  RedFeistelAlternante<tipo>::~RedFeistelAlternante()
+  {
+    delete mFuncionDeRondaImpar;
   }
 
   /**
@@ -142,13 +155,13 @@ namespace Implementaciones
     {
       if (mRondaActual % 2 == 0)
       {
-        parteIzquierda = std::move(mOperadorSuma.operar(
-          {parteIzquierda, mFuncionDeRonda.operar({parteDerecha})}));
+        parteIzquierda = std::move(mOperadorSuma->operar(
+          {parteIzquierda, mFuncionDeRonda->operar({parteDerecha})}));
       }
       else
       {
-        parteDerecha = std::move(mOperadorSuma.operar(
-          {parteDerecha, mFuncionDeRondaImpar.operar({parteIzquierda})}));
+        parteDerecha = std::move(mOperadorSuma->operar(
+          {parteDerecha, mFuncionDeRondaImpar->operar({parteIzquierda})}));
       }
     }
     return parteIzquierda + parteDerecha;
@@ -178,13 +191,13 @@ namespace Implementaciones
     {
       if (mRondaActual % 2 == 0)
       {
-        parteIzquierda = std::move(mOperadorSuma.deoperar({
-          parteIzquierda, mFuncionDeRonda.operar({parteDerecha})}));
+        parteIzquierda = std::move(mOperadorSuma->deoperar({
+          parteIzquierda, mFuncionDeRonda->operar({parteDerecha})}));
       }
       else
       {
-        parteDerecha = std::move(mOperadorSuma.deoperar({
-          parteDerecha, mFuncionDeRondaImpar.operar({parteIzquierda})}));
+        parteDerecha = std::move(mOperadorSuma->deoperar({
+          parteDerecha, mFuncionDeRondaImpar->operar({parteIzquierda})}));
       }
     }
     return parteIzquierda + parteDerecha;

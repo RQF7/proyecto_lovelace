@@ -33,6 +33,16 @@ namespace Implementaciones
     public:
 
       /**
+       * \brief Destructor virtual.
+       *
+       * Permite a los implementadores definir su propio destructor.
+       */
+
+      virtual ~Funcion()
+      {
+      }
+
+      /**
        * \brief Representación abstracta de proceso.
        *
        * Firma de función virtual que las subclases no pueden ignorar: si la

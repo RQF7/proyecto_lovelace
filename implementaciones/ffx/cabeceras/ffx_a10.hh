@@ -1,22 +1,6 @@
 /**
  * \file
- * \brief Definición e implementación de FFX
- *
- * Fuera de la clase pero en el mismo espacio de nombres se declaran funciones
- * de suma y resta (por caracter y por bloque) para usar como argumentos en
- * la operación de combinación de la red Feistel. Estas funciones reciben
- * valores numéricos desde los argumentos del template (no de la función), para
- * que la firma siga sirviendo como argumento de la red Feistel (los alias
- * definidos ahí).
- *
- * \todo ¿Cómo hace esto el compilador? ¿Cuál es la diferencia entre un
- * argumento de template y uno de función?
- *
- * En cuanto a las implementaciones de las funciones, técnicamente ambas
- * versiones funcionan bien, sin embargo, la versión por bloques es más lenta
- * que la versión por caracter; esto porque la primera tiene que hacer
- * conversiones de número a arreglo y de arreglo a número.
- *
+ * \brief Parámetros FFX A10.
  * Proyecto Lovelace.
  */
 
@@ -24,8 +8,7 @@
 #define __FFX_A10__
 
 #include "arreglo.hh"
-#include "combinacion_por_caracter.hh"
-#include "funcion_con_inverso.hh"
+#include "ffx.hh"
 #include "red_feistel.hh"
 #include "red_feistel_alternante.hh"
 #include "red_feistel_desbalanceada.hh"
@@ -36,121 +19,96 @@ namespace Implementaciones
 {
 
   /**
-   * \brief Implementación de FFX.
+   * \brief Colección de parámetros A10.
    *
-   * \tparam tipo Tipo de dato con el que opera el algoritmo.
+   * Clase que simplifica la interfaz de FFX definiendo valores propios
+   * que permiten trabajar con cadenas de dígitos. Corresponden a los
+   * parámetros especificados en la especificación del algoritmo.
    */
 
-  template <typename tipo>
-  class FFXA10 : FuncionConInverso<Arreglo<tipo>, Arreglo<tipo>>
+  template <typename tipo /**< Tipo de dato con el que se opera. */>
+  class FFXA10 : public FFX<tipo>
   {
     public:
 
-      /** \brief Inicialización de parámetros de FFX. */
-      FFXA10(unsigned char *llave, unsigned char *tweak, int tamanioTweak,
-        int tamanioDeMensaje, int radix = 10);
-
-      /** \brief Proceso de cifrado. */
-      Arreglo<tipo> operar(
-        const std::vector<Arreglo<tipo>> &entrada) override;
-
-      /** \brief Proceso de descifrado. */
-      Arreglo<tipo> deoperar(
-        const std::vector<Arreglo<tipo>> &entrada) override;
-
-    private:
-
-      /** \brief */
-      int mRadix;
-
-      RondaFFXA10<tipo> mFuncionRondaPar;
-
-      RondaFFXA10<tipo> mFuncionRondaImpar;
-
-      CombinacionPorCaracter<tipo> mCombinacion;
-
-      /** \brief Red Feistel. */
-      RedFeistelAlternante<tipo> mRedFeistel;
-
+      /** \brief Inicialización de parámetros de FFX A10. */
+      FFXA10(unsigned char *llave, unsigned char *tweak,
+        int tamanioTweak, int tamanioDeMensaje);
   };
 
   /**
-   * El desbalanceo por defecto es 0 (lo más cerca del centro posible).
-   * El radix por defecto es 10: valor utilizado para el cifrado de dígitos.
+   * Todo el punto de esta clase se encuentra en la lista de inicialización:
+   * se trata de la instanciación de los parámetros de FFX según la
+   * colección A10.
+   *
+   * \note Se que la determinación del número de rondas dependiendo del tamaño
+   * de los mensajes en la lista de inicialización resulta un tanto repetitiva,
+   * sin embargo, de momento no encuentro otra forma de expresarlo: lo más
+   * lógico es definir un entero miembro e inicializarlo primero;
+   * lamentablemente son las clases base las que se inicializan antes que la
+   * propia, por lo que hacer eso tendría un comportamiento raro (probablemente
+   * se ocuparía el valor por defecto de un entero).
    */
 
   template <typename tipo>
   FFXA10<tipo>::FFXA10(
-    /** */
+    /** Llave para la función de ronda. */
     unsigned char *llave,
-    /** */
+    /** Tweak para la función de ronda. */
     unsigned char *tweak,
-    /** */
+    /** Tamaño del tweak dado. */
     int tamanioTweak,
-    /** Tamaño de las cadenas */
-    int tamanioDeMensaje,
-    /** Cardinalidad de alfabeto. */
-    int radix
+    /** Tamaño de los mensajes a procesar. */
+    int tamanioDeMensaje
   )
-  : mFuncionRondaPar
-  {
+  : FFX<tipo>{
+    /* Cardinalidad (radix). */
+    10,
+    tamanioDeMensaje,
+    FFX<tipo>::TipoDeCombinacion::porCaracter,
+    FFX<tipo>::TipoDeRed::alternante,
+    /* Desbalanceo. */
+    0,
+    /* Número de rondas (dependen de el tamaño del mensaje). */
+    (tamanioDeMensaje <= 5) ? 24 :
+    (tamanioDeMensaje <= 9) ? 18 :
+    12,
+
+    /* Función de ronda par. */
+    new RondaFFXA10<tipo>{
       llave,
       tweak,
       tamanioTweak,
-      1,
-      1,
-      radix,
-      static_cast<int>(floor(tamanioDeMensaje / 2.0)),
-      0,
-      12
-    },
-    mFuncionRondaImpar
-    {
-      llave,
-      tweak,
-      tamanioTweak,
-      1,
-      1,
-      radix,
-      static_cast<int>(ceil(tamanioDeMensaje / 2.0)),
-      0,
-      12
-    },
-    mCombinacion {radix},
-    mRedFeistel
-    {
-      12,
+      static_cast<int>(FFX<tipo>::TipoDeCombinacion::porCaracter),
+      static_cast<int>(FFX<tipo>::TipoDeRed::alternante),
+      /* Cardinalidad (radix). */
+      10,
       tamanioDeMensaje,
-      0,
-      mFuncionRondaPar,
-      mFuncionRondaImpar,
-      mCombinacion
+      /* Posición del split (el desbalanceo es 0). */
+      static_cast<int>(floor(tamanioDeMensaje / 2.0)),
+      /* Número de rondas (dependen de el tamaño del mensaje). */
+      (tamanioDeMensaje <= 5) ? 24 :
+      (tamanioDeMensaje <= 9) ? 18 :
+      12},
+
+    /* Función de ronda impar. */
+    new RondaFFXA10<tipo>{
+      llave,
+      tweak,
+      tamanioTweak,
+      static_cast<int>(FFX<tipo>::TipoDeCombinacion::porCaracter),
+      static_cast<int>(FFX<tipo>::TipoDeRed::alternante),
+      /* Cardinalidad (radix). */
+      10,
+      tamanioDeMensaje,
+      /* Posición del split (el desbalanceo es 0). */
+      static_cast<int>(ceil(tamanioDeMensaje / 2.0)),
+      /* Número de rondas (dependen de el tamaño del mensaje). */
+      (tamanioDeMensaje <= 5) ? 24 :
+      (tamanioDeMensaje <= 9) ? 18 :
+      12}
     }
   {
-  }
-
-  /**
-   * \return Mensaje cifrado.
-   */
-
-  template <typename tipo>
-  Arreglo<tipo> FFXA10<tipo>::operar(
-    const std::vector<Arreglo<tipo>> &entrada    /**< Mensaje a cifrar. */
-  )
-  {
-    return mRedFeistel.operar({entrada[0]});
-  }
-
-  /**
-   * \return Mensaje descifrado.
-   */
-
-  template <typename tipo>
-  Arreglo<tipo> FFXA10<tipo>::deoperar(
-    const std::vector<Arreglo<tipo>> &entrada
-  )
-  {
-    return mRedFeistel.deoperar({entrada[0]});
   }
 
 }

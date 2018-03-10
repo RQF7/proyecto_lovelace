@@ -65,24 +65,20 @@ namespace Implementaciones
       using FuncionDeCombinacion = FuncionConInverso<Arreglo<tipo>,
         Arreglo<tipo>>;
 
-    protected:
-
-      /** \brief Función de ronda usada por defecto. */
-      static FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>
-        funcionDeRondaPorDefecto;
-
-      /** \brief Función de combinación usada por defecto. */
-      static FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>
-        funcionDeCombinacionPorDefecto;
-
     public:
 
       /** \brief Construcción de red Feistel balanceada. */
       RedFeistel(int numeroDeRondas, int tamanioDeBloque,
-        FuncionDeRonda& funcionDeRonda =
-          RedFeistel<tipo>::funcionDeRondaPorDefecto,
-        FuncionDeCombinacion& operadorSuma =
-          RedFeistel<tipo>::funcionDeCombinacionPorDefecto);
+        FuncionDeRonda* funcionDeRonda =
+          new FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>,
+        FuncionDeCombinacion* operadorSuma =
+          new FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>);
+
+      /** \brief Constructor vacío. */
+      RedFeistel();
+
+      /** \brief Destructor. */
+      ~RedFeistel();
 
       /** \brief Operación de cifrado de la red. */
       virtual Arreglo<tipo> operar(
@@ -101,10 +97,10 @@ namespace Implementaciones
       int mTamanioDeBloque;
 
       /** \brief Función de ronda. */
-      FuncionDeRonda& mFuncionDeRonda;
+      FuncionDeRonda* mFuncionDeRonda;
 
       /** \brief Operación de combinación. */
-      FuncionDeCombinacion& mOperadorSuma;
+      FuncionDeCombinacion* mOperadorSuma;
 
       /** \brief Ronda actual (pensando en implementaciones
        *  concurrentes). */
@@ -112,40 +108,6 @@ namespace Implementaciones
   };
 
   /* Definición **************************************************************/
-
-  /**
-   * Referencia a una función de ronda trivial.
-   *
-   * \note Tanto para este miembro como para la función de combinación por
-   * defecto, para poder ser ligados de alguna manera a los argumentos del
-   * constructor, deben por fuerza ser estáticos: como se trata de
-   * referencias no constantes, el ligador necesita reservar su espacio
-   * de manera distinta a las expresiones constantes; las funciones no
-   * pueden ser constantes, dado que en la mayoría de las implementaciones
-   * reales se espera guardar (y cambiar) en el estado del objeto
-   * información propia de este (e.g. la llave o el tweak). La desventaja
-   * de este método es que se reserva espacio para las funciones se ocupen
-   * o no (como cualquier miembro estático); la ventaja es que el código
-   * de mis pruebas triviales está mucho más limpio, y al fin y al cabo,
-   * son funciones muy muy pequeñas.
-   */
-
-  template <typename tipo>
-  FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>
-    RedFeistel<tipo>::funcionDeRondaPorDefecto;
-
-  /**
-   * Referencia a una función de combinación trivial.
-   *
-   * \note Estas líneas corresponden a la definición de los miembros estáticos,
-   * mientras que las anteriores (las que están dentro de la clase) corresponden
-   * a la declaración (aunque se parezcan bastante, sin la definición, el
-   * ligador se pierde).
-   */
-
-  template <typename tipo>
-  FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>
-    RedFeistel<tipo>::funcionDeCombinacionPorDefecto;
 
   /**
    * Construye una red Feistel con los parámetros dados. Si no se especifíca
@@ -165,9 +127,9 @@ namespace Implementaciones
     /** Tamaño de bloque (entrada, salida). */
     int tamanioDeBloque,
     /** Función de ronda; por defecto implementación trivial. */
-    FuncionDeRonda& funcionDeRonda,
+    FuncionDeRonda* funcionDeRonda,
     /** Función para combinar bloques; por defecto implementación trivial. */
-    FuncionDeCombinacion& operadorSuma
+    FuncionDeCombinacion* operadorSuma
   )
   : mNumeroDeRondas {numeroDeRondas},
     mTamanioDeBloque {tamanioDeBloque},
@@ -175,6 +137,30 @@ namespace Implementaciones
     mOperadorSuma {operadorSuma},
     mRondaActual {0}
   {
+  }
+
+  /**
+   * Permite tener objetos sin "sin inicializar".
+   */
+
+  template <typename tipo>
+  RedFeistel<tipo>::RedFeistel()
+  {
+  }
+
+  /**
+   * Libera la memoria reservada para la función de ronda y la función de
+   * combinación.
+   *
+   * \note Para que esto funcione en código polimórfico, el destructor de la
+   * superclase debe ser virtual.
+   */
+
+  template <typename tipo>
+  RedFeistel<tipo>::~RedFeistel()
+  {
+    delete mFuncionDeRonda;
+    delete mOperadorSuma;
   }
 
   /**
@@ -206,8 +192,8 @@ namespace Implementaciones
     {
       auxiliar = std::move(parteDerecha);
       parteDerecha = std::move(
-        mOperadorSuma.operar({parteIzquierda,
-          mFuncionDeRonda.operar({auxiliar})}));
+        mOperadorSuma->operar({parteIzquierda,
+          mFuncionDeRonda->operar({auxiliar})}));
       parteIzquierda = std::move(auxiliar);
     }
     return parteIzquierda + parteDerecha;
@@ -238,8 +224,8 @@ namespace Implementaciones
     {
       auxiliar = std::move(parteIzquierda);
       parteIzquierda = std::move(
-        mOperadorSuma.deoperar({parteDerecha,
-          mFuncionDeRonda.operar({auxiliar})}));
+        mOperadorSuma->deoperar({parteDerecha,
+          mFuncionDeRonda->operar({auxiliar})}));
       parteDerecha = std::move(auxiliar);
     }
     return parteIzquierda + parteDerecha;

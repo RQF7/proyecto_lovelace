@@ -39,7 +39,7 @@ bool FFXA10Prueba::probarCifradoDescifrado()
   generadorAleatorio.GenerateBlock(llave, AES::DEFAULT_KEYLENGTH);
   generadorAleatorio.GenerateBlock(tweak, AES::DEFAULT_KEYLENGTH);
 
-  FFXA10<int> ffx {llave, tweak, AES::DEFAULT_KEYLENGTH, 8, 10};
+  FFXA10<int> ffx {llave, tweak, AES::DEFAULT_KEYLENGTH, 8};
   Arreglo<int> textoOriginal {1, 2, 3, 4, 5, 6, 7, 8};
   Arreglo<int> textoCifrado = ffx.operar({textoOriginal});
   Arreglo<int> textoDescifrado = ffx.deoperar({textoCifrado});
@@ -50,7 +50,7 @@ bool FFXA10Prueba::probarCifradoDescifrado()
   if (textoDescifrado != textoOriginal)
     return false;
 
-  FFXA10<int> ffxDos {llave, tweak, AES::DEFAULT_KEYLENGTH, 4, 10};
+  FFXA10<int> ffxDos {llave, tweak, AES::DEFAULT_KEYLENGTH, 4};
   Arreglo<int> textoOriginalDos {1, 2, 3, 4};
   Arreglo<int> textoCifradoDos = ffxDos.operar({textoOriginalDos});
   Arreglo<int> textoDescifradoDos = ffxDos.deoperar({textoCifradoDos});
@@ -61,7 +61,7 @@ bool FFXA10Prueba::probarCifradoDescifrado()
   if (textoDescifradoDos != textoOriginalDos)
     return false;
 
-  FFXA10<int> ffxTres {llave, tweak, AES::DEFAULT_KEYLENGTH, 5, 10};
+  FFXA10<int> ffxTres {llave, tweak, AES::DEFAULT_KEYLENGTH, 5};
   Arreglo<int> textoOriginalTres {1, 2, 3, 4, 5};
   Arreglo<int> textoCifradoTres = ffxTres.operar({textoOriginalTres});
   Arreglo<int> textoDescifradoTres = ffxTres.deoperar({textoCifradoTres});
@@ -72,7 +72,7 @@ bool FFXA10Prueba::probarCifradoDescifrado()
   if (textoDescifradoTres != textoOriginalTres)
     return false;
 
-  FFXA10<int> ffxCuatro {llave, tweak, AES::DEFAULT_KEYLENGTH, 16, 10};
+  FFXA10<int> ffxCuatro {llave, tweak, AES::DEFAULT_KEYLENGTH, 16};
   Arreglo<int> textoOriginalCuatro {1, 2, 3, 4, 5, 6, 7, 8,
     9, 0, 1, 2, 3, 4, 5, 6};
   Arreglo<int> textoCifradoCuatro = ffxCuatro.operar({textoOriginalCuatro});
@@ -84,7 +84,7 @@ bool FFXA10Prueba::probarCifradoDescifrado()
   if (textoDescifradoCuatro != textoOriginalCuatro)
     return false;
 
-  FFXA10<int> ffxCinco {llave, tweak, AES::DEFAULT_KEYLENGTH, 15, 10};
+  FFXA10<int> ffxCinco {llave, tweak, AES::DEFAULT_KEYLENGTH, 15};
   Arreglo<int> textoOriginalCinco {1, 2, 3, 4, 5, 6, 7, 8,
     9, 0, 1, 2, 3, 4, 5};
   Arreglo<int> textoCifradoCinco = ffxCinco.operar({textoOriginalCinco});
@@ -96,8 +96,9 @@ bool FFXA10Prueba::probarCifradoDescifrado()
   if (textoDescifradoCinco != textoOriginalCinco)
     return false;
 
-  FFXA10<int> ffxSeis {llave, tweak, AES::DEFAULT_KEYLENGTH, 36, 10};
-  Arreglo<int> textoOriginalSeis {1, 2, 3, 4, 5, 6, 7, 8, 9,
+  FFXA10<int> ffxSeis {llave, tweak, AES::DEFAULT_KEYLENGTH, 36};
+  Arreglo<int> textoOriginalSeis {
+    1, 2, 3, 4, 5, 6, 7, 8, 9,
     1, 2, 3, 4, 5, 6, 7, 8, 9,
     1, 2, 3, 4, 5, 6, 7, 8, 9,
     1, 2, 3, 4, 5, 6, 7, 8, 9};

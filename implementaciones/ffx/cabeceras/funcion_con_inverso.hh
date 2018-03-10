@@ -27,6 +27,16 @@ namespace Implementaciones
     public:
 
       /**
+       * \brief Destructor virtual.
+       *
+       * Permite a los implementadores definir su propio destructor.
+       */
+
+      virtual ~FuncionConInverso()
+      {
+      }
+
+      /**
        * \brief Función inversa para una operación.
        *
        * Al ser subclase de una interfaz con un método puramente virtual y no

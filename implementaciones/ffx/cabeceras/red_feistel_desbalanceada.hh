@@ -41,10 +41,10 @@ namespace Implementaciones
       /** \brief Construcción de red Feistel desbalanceada. */
       RedFeistelDesbalanceada(int numeroDeRondas,
         int tamanioDeBloque, int desbalanceo = 0,
-        FuncionDeRonda& funcionDeRonda =
-          RedFeistel<tipo>::funcionDeRondaPorDefecto,
-        FuncionDeCombinacion& operadorSuma =
-          RedFeistel<tipo>::funcionDeCombinacionPorDefecto);
+        FuncionDeRonda* funcionDeRonda =
+          new FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>,
+        FuncionDeCombinacion* operadorSuma =
+          new FuncionDeCombinacionTrivial<Arreglo<tipo>, Arreglo<tipo>>);
 
       /** \brief Operación de cifrado de la red. */
       Arreglo<tipo> operar(
@@ -92,9 +92,9 @@ namespace Implementaciones
     /** Grado de desbalanceo de la red; por defecto 0. */
     int desbalanceo,
     /** Función de ronda par; por defecto implementación trivial. */
-    FuncionDeRonda& funcionDeRonda,
+    FuncionDeRonda* funcionDeRonda,
     /** Función para combinar bloques; por defecto implementación trivial. */
-    FuncionDeCombinacion& operadorSuma
+    FuncionDeCombinacion* operadorSuma
   )
   : RedFeistel<tipo> {numeroDeRondas, tamanioDeBloque,
       funcionDeRonda, operadorSuma},
@@ -123,8 +123,8 @@ namespace Implementaciones
 
       /* Operación normal */
       auxiliar = std::move(parteDerecha);
-      parteDerecha = std::move(mOperadorSuma.operar(
-        {parteIzquierda, mFuncionDeRonda.operar({auxiliar})}));
+      parteDerecha = std::move(mOperadorSuma->operar(
+        {parteIzquierda, mFuncionDeRonda->operar({auxiliar})}));
       parteIzquierda = std::move(auxiliar);
 
       temporal = std::move(parteIzquierda + parteDerecha);
@@ -156,8 +156,8 @@ namespace Implementaciones
 
       /* Operación normal */
       auxiliar = std::move(parteIzquierda);
-      parteIzquierda = std::move(mOperadorSuma.deoperar(
-        {parteDerecha, mFuncionDeRonda.operar({auxiliar})}));
+      parteIzquierda = std::move(mOperadorSuma->deoperar(
+        {parteDerecha, mFuncionDeRonda->operar({auxiliar})}));
       parteDerecha = std::move(auxiliar);
 
       temporal = std::move(parteIzquierda + parteDerecha);

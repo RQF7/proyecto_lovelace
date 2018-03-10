@@ -29,7 +29,7 @@ namespace Implementaciones
    * Uno de los inconvenientes que (a mi modo de ver) tiene esta función de
    * ronda es que depende mucho del nivel superior, de los parámetros de FFX.
    * Me parecería más elegante una función de ronda que no se preocupe por
-   * cosas como el tipo de red, o el tipo de suma.
+   * cosas como el tipo de red, o el tipo de suma; cuando menos más modular.
    */
 
   template <typename tipo>
