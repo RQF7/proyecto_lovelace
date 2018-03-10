@@ -5,8 +5,8 @@
  */
 
 #include "cabeceras/arreglo.hh"
-#include "cabeceras/ronda_ffx.hh"
-#include "cabeceras/ronda_ffx_prueba.hh"
+#include "cabeceras/ronda_ffx_a10.hh"
+#include "cabeceras/ronda_ffx_a10_prueba.hh"
 #include <cryptopp/aes.h>
 #include <cryptopp/cbcmac.h>
 #include <cryptopp/drbg.h>
@@ -18,11 +18,11 @@ using namespace ImplementacionesPruebas;
 using namespace CryptoPP;
 using namespace std;
 
-RondaFFXPrueba::RondaFFXPrueba()
+RondaFFXA10Prueba::RondaFFXA10Prueba()
 {
   mListaDePruebas.push_back(FuncionDePrueba{
     "operaciones de cifrado y descifrado",
-    RondaFFXPrueba::probarOperacion
+    RondaFFXA10Prueba::probarOperacion
   });
 }
 
@@ -32,7 +32,7 @@ RondaFFXPrueba::RondaFFXPrueba()
  * \return Estado de la prueba.
  */
 
-bool RondaFFXPrueba::probarOperacion()
+bool RondaFFXA10Prueba::probarOperacion()
 {
   /* Crear llave y tweak. */
   unsigned char llave[AES::DEFAULT_KEYLENGTH], tweak[AES::DEFAULT_KEYLENGTH];
@@ -42,7 +42,7 @@ bool RondaFFXPrueba::probarOperacion()
 
   /* Prueba de 4 caracteres. */
   Arreglo<int> textoEnClaroUno {1, 2, 3, 4};
-  RondaFFX<int> rondaFFXUno {llave, tweak, AES::DEFAULT_KEYLENGTH,
+  RondaFFXA10<int> rondaFFXUno {llave, tweak, AES::DEFAULT_KEYLENGTH,
     1, 1, 10, 4, 0, 12};
   auto textoCifradoUno = rondaFFXUno.operar({textoEnClaroUno});
   cout << "Prueba de 4 carcateres:" << endl
@@ -53,7 +53,7 @@ bool RondaFFXPrueba::probarOperacion()
 
   /* Prueba de 8 caracteres. */
   Arreglo<int> textoEnClaroDos {1, 2, 3, 4, 6, 7, 8};
-  RondaFFX<int> rondaFFXDos {llave, tweak, AES::DEFAULT_KEYLENGTH,
+  RondaFFXA10<int> rondaFFXDos {llave, tweak, AES::DEFAULT_KEYLENGTH,
     1, 1, 10, 8, 0, 12};
   auto textoCifradoDos = rondaFFXDos.operar({textoEnClaroDos});
   cout << "Prueba de 8 carcateres:" << endl
@@ -64,7 +64,7 @@ bool RondaFFXPrueba::probarOperacion()
 
   /* Prueba de 2 caracteres. */
   Arreglo<int> textoEnClaroTres {1, 2};
-  RondaFFX<int> rondaFFXTres {llave, tweak, AES::DEFAULT_KEYLENGTH,
+  RondaFFXA10<int> rondaFFXTres {llave, tweak, AES::DEFAULT_KEYLENGTH,
     1, 1, 10, 2, 0, 12};
   auto textoCifradoTres = rondaFFXTres.operar({textoEnClaroTres});
   cout << "Prueba de 2 carcateres:" << endl
@@ -75,7 +75,7 @@ bool RondaFFXPrueba::probarOperacion()
 
   /* Prueba de 12 caracteres. */
   Arreglo<int> textoEnClaroCuatro {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-  RondaFFX<int> rondaFFXCuatro {llave, tweak, AES::DEFAULT_KEYLENGTH,
+  RondaFFXA10<int> rondaFFXCuatro {llave, tweak, AES::DEFAULT_KEYLENGTH,
     1, 1, 10, 12, 0, 12};
   auto textoCifradoCuatro = rondaFFXCuatro.operar({textoEnClaroCuatro});
   cout << "Prueba de 12 carcateres:" << endl
@@ -87,7 +87,7 @@ bool RondaFFXPrueba::probarOperacion()
   /* Prueba de 16 caracteres. */
   Arreglo<int> textoEnClaroCinco {1, 2, 3, 4, 5, 6, 7, 8,
     9, 10, 11, 12, 13, 14, 15, 16};
-  RondaFFX<int> rondaFFXCinco {llave, tweak, AES::DEFAULT_KEYLENGTH,
+  RondaFFXA10<int> rondaFFXCinco {llave, tweak, AES::DEFAULT_KEYLENGTH,
     4, 1, 10, 16, 0, 12};
   auto textoCifradoCinco = rondaFFXCinco.operar({textoEnClaroCinco});
   cout << "Prueba de 12 carcateres:" << endl

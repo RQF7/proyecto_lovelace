@@ -8,8 +8,8 @@
  * Proyecto Lovelace.
  */
 
-#ifndef __RONDA_FFX__
-#define __RONDA_FFX__
+#ifndef __RONDA_FFX_A10__
+#define __RONDA_FFX_A10__
 
 #include "arreglo.hh"
 #include "funcion_con_inverso_simetrico.hh"
@@ -33,13 +33,13 @@ namespace Implementaciones
    */
 
   template <typename tipo>
-  class RondaFFX : public FuncionConInversoSimetrico<Arreglo<tipo>,
+  class RondaFFXA10 : public FuncionConInversoSimetrico<Arreglo<tipo>,
     Arreglo<tipo>>
   {
     public:
 
       /** \brief Construye una nueva instancia de la función. */
-      RondaFFX(unsigned char *llave, unsigned char *tweak, int longitudTweak,
+      RondaFFXA10(unsigned char *llave, unsigned char *tweak, int longitudTweak,
         int tipoDeRed, int tipoDeSuma, int radix, int longitud, int desbalanceo,
         int numeroDeRondas);
 
@@ -84,7 +84,7 @@ namespace Implementaciones
    */
 
   template<typename tipo>
-  RondaFFX<tipo>::RondaFFX(
+  RondaFFXA10<tipo>::RondaFFXA10(
     /** Llave de 64 bits (AES). */
     unsigned char *llave,
     /** Tweak (longitud variable). */
@@ -123,7 +123,7 @@ namespace Implementaciones
    */
 
   template<typename tipo>
-  Arreglo<tipo> RondaFFX<tipo>::operar(
+  Arreglo<tipo> RondaFFXA10<tipo>::operar(
     const std::vector<Arreglo<tipo>> &textoEnClaro    /**< */
   )
   {
@@ -178,7 +178,6 @@ namespace Implementaciones
         * potencia<entero>(mRadix, 9))
         + modulo(numeroDerecho, potencia<entero>(mRadix, 9));
 
-    std::cout << "DEBUG: " << z << std::endl;
     return convertirAArreglo<tipo, entero>(z, mRadix, mLongitud);
   }
 

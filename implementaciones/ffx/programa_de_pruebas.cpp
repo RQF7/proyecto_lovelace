@@ -7,11 +7,11 @@
 #include "cabeceras/arreglo_prueba.hh"
 #include "cabeceras/combinacion_por_bloque_prueba.hh"
 #include "cabeceras/combinacion_por_caracter_prueba.hh"
+#include "cabeceras/ffx_a10_prueba.hh"
 #include "cabeceras/red_feistel_prueba.hh"
 #include "cabeceras/red_feistel_alternante_prueba.hh"
 #include "cabeceras/red_feistel_desbalanceada_prueba.hh"
-#include "cabeceras/ronda_ffx_prueba.hh"
-#include "cabeceras/ffx_prueba.hh"
+#include "cabeceras/ronda_ffx_a10_prueba.hh"
 #include "cabeceras/utilidades_matematicas_prueba.hh"
 #include <iostream>
 #include <vector>
@@ -36,8 +36,8 @@ int main()
     CombinacionPorCaracterPrueba {},
     CombinacionPorBloquePrueba {},
     UtilidadesMatematicasPrueba {},
-    RondaFFXPrueba {}
-//    FFXPrueba {}
+    RondaFFXA10Prueba {},
+    FFXA10Prueba {}
   };
   for (auto claseDePrueba : clasesDePrueba)
     if (!claseDePrueba.probar())

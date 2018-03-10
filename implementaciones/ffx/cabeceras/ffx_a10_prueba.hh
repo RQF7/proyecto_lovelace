@@ -4,8 +4,8 @@
  * Proyecto Lovelace.
  */
 
-#ifndef __FFX_PRUEBA__
-#define __FFX_PRUEBA__
+#ifndef __FFX_A10_PRUEBA__
+#define __FFX_A10_PRUEBA__
 
 #include "../../../utilidades/cabeceras/prueba.hh"
 
@@ -17,17 +17,14 @@ namespace ImplementacionesPruebas
    * Pruebas de funcionalidades de la clase de FFX.
    */
 
-  class FFXPrueba : public Prueba
+  class FFXA10Prueba : public Prueba
   {
     public:
       /** \brief Registro de pruebas en vector de funciones. */
-      FFXPrueba();
+      FFXA10Prueba();
 
-      /** \brief Prueba el funcionamiento de las funciones de suma y resta. */
-      static bool probarFuncionesDeSuma();
-
-      /** \brief Prueba la función de ronda. */
-      static bool probarFuncionDeRonda();
+      /** \brief  */
+      static bool probarCifradoDescifrado();
   };
 }
 

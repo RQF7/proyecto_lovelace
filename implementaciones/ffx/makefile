@@ -13,8 +13,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 red_feistel_desbalanceada_prueba.cpp \
 											 combinacion_por_caracter_prueba.cpp \
 											 combinacion_por_bloque_prueba.cpp \
-											 ronda_ffx_prueba.cpp \
-											 ffx_prueba.cpp \
+											 ronda_ffx_a10_prueba.cpp \
+											 ffx_a10_prueba.cpp \
 											 utilidades_matematicas_prueba.cpp \
 											 utilidades/prueba.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
@@ -59,12 +59,12 @@ $(CARPETA_OBJETOS)/combinacion_por_bloque_prueba.o: \
 	mkdir -p $(CARPETA_OBJETOS)
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
-$(CARPETA_OBJETOS)/ronda_ffx_prueba.o: ronda_ffx_prueba.cpp \
-	cabeceras/ronda_ffx.hh
+$(CARPETA_OBJETOS)/ronda_ffx_a10_prueba.o: ronda_ffx_a10_prueba.cpp \
+	cabeceras/ronda_ffx_a10.hh
 	mkdir -p $(CARPETA_OBJETOS)
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
-$(CARPETA_OBJETOS)/ffx_prueba.o: ffx_prueba.cpp cabeceras/ffx.hh
+$(CARPETA_OBJETOS)/ffx_a10_prueba.o: ffx_a10_prueba.cpp cabeceras/ffx_a10.hh
 	mkdir -p $(CARPETA_OBJETOS)
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 

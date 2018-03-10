@@ -77,10 +77,10 @@ namespace Implementaciones
   )
   {
     int tamanio {entrada[0].obtenerNumeroDeElementos()};
-    int numeroUno {entrada[0].convertirANumero(mBase)};
-    int numeroDos {entrada[1].convertirANumero(mBase)};
-    return Arreglo<tipo>::convertirAArreglo(modulo((numeroUno + numeroDos),
-      static_cast<int>(pow(mBase, tamanio))), mBase, tamanio);
+    entero numeroUno {convertirANumero<tipo, entero>(entrada[0], mBase)};
+    entero numeroDos {convertirANumero<tipo, entero>(entrada[1], mBase)};
+    return convertirAArreglo<tipo, entero>(modulo((numeroUno + numeroDos),
+      static_cast<entero>(potencia<entero>(mBase, tamanio))), mBase, tamanio);
   }
 
   /**
@@ -100,10 +100,12 @@ namespace Implementaciones
   )
   {
     int tamanio {entrada[0].obtenerNumeroDeElementos()};
-    int numeroUno {entrada[0].convertirANumero(mBase)};
-    int numeroDos {entrada[1].convertirANumero(mBase)};
-    return Arreglo<tipo>::convertirAArreglo(modulo((numeroUno - numeroDos),
-      static_cast<int>(pow(mBase, tamanio))), mBase, tamanio);
+    enteroConSigno numeroUno {
+      convertirANumero<tipo, enteroConSigno>(entrada[0], mBase)};
+    enteroConSigno numeroDos {
+      convertirANumero<tipo, enteroConSigno>(entrada[1], mBase)};
+    return convertirAArreglo<tipo, enteroConSigno>(modulo((numeroUno - numeroDos),
+      static_cast<enteroConSigno>(potencia<entero>(mBase, tamanio))), mBase, tamanio);
   }
 }
 
