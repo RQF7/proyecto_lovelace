@@ -12,7 +12,7 @@
 namespace ImplementacionesPruebas
 {
   /**
-   * \brief
+   * \brief Pruebas de las operaciones por caracter.
    */
 
   class CombinacionPorCaracterPrueba : public Prueba

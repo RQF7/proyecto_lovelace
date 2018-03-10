@@ -86,12 +86,6 @@ namespace Implementaciones
       Arreglo<tipo> partir(int numeroDePartes, int parte,
         int desviacion = 0) const;
 
-      /** \brief Regresa la representación entera del arreglo. */
-      tipo convertirANumero(int base) const;
-
-      /** \brief Convierte el nñumero dado en un arreglo. */
-      static Arreglo<tipo> convertirAArreglo(int numero, int base, int tamanio);
-
     private:
 
       /** El intermediario es un amigo. */
@@ -122,6 +116,16 @@ namespace Implementaciones
   template <typename tipo>
   bool operator!=(const Arreglo<tipo> &arregloUno,
     const Arreglo<tipo> &arregloDos);
+
+  /** \brief Convierte el número dado en un arreglo. */
+  template <typename tipoDeArreglo, typename tipoDeNumero>
+  Arreglo<tipoDeArreglo> convertirAArreglo(tipoDeNumero numero,
+    int base, int tamanio);
+
+  /** \brief Regresa la representación entera del arreglo. */
+  template<typename tipoDeArreglo, typename tipoDeNumero>
+  tipoDeNumero convertirANumero(
+    const Arreglo<tipoDeArreglo> &arreglo, int base);
 
   /* Definición **************************************************************/
 
@@ -424,59 +428,6 @@ namespace Implementaciones
   }
 
   /**
-   * Interpreta el contenido del arreglo como un número escrito en dígitos
-   * de la base dada.
-   *
-   * El formato esperado es en *little endian*: los números menos significativos
-   * se encuentran al inicio del arreglo.
-
-   * \return Número equivalente.
-   *
-   * \sa http://www.cplusplus.com/reference/cmath/pow/
-   */
-
-  template<typename tipo>
-  tipo Arreglo<tipo>::convertirANumero(
-    int base            /**< Base de la conversión. */
-  ) const
-  {
-    tipo resultado {0};
-    for (int i = 0; i < mNumeroDeElementos; i++)
-      resultado += mArregloInterno[i] * potencia<tipo>(base, i);
-    return resultado;
-  }
-
-  /**
-   * Crea un arreglo a partir de los argumentos dados: interpreta el número
-   * como dígitos de la base dada. El tamaño es para especificar la longitud
-   * del arreglo; en caso de un número menor, se colocan ceros a la izquierda.
-   *
-   * El formato dado es en *little endian*: los números menos significativos se
-   * encuentran al inicio del arreglo.
-   *
-   * \sa http://www.cplusplus.com/reference/cmath/pow/
-   *     http://www.cplusplus.com/reference/cmath/floor/
-   */
-
-  template<typename tipo>
-  Arreglo<tipo> Arreglo<tipo>::convertirAArreglo(
-    int numero,         /**< Número a convertir. */
-    int base,           /**< Base de la conversión. */
-    int tamanio         /**< Número de dígitos. */
-  )
-  {
-    Arreglo<tipo> resultado (tamanio);
-    for (int i = tamanio - 1; i >= 0; i--)
-    {
-      int potencia = pow(base, i);
-      int digito = floor(numero / potencia);
-      resultado.colocar(i, digito);
-      numero -= digito * potencia;
-    }
-    return resultado;
-  }
-
-  /**
    * Coloca en el flujo los elementos del arreglo separados por un
    * espacio. La disponibilidad de esta operación depende de la existencia
    * de una operación equivalente para un elemento del arreglo (error en
@@ -555,6 +506,60 @@ namespace Implementaciones
   )
   {
     return !(arregloUno == arregloDos);
+  }
+
+  /**
+   * Crea un arreglo a partir de los argumentos dados: interpreta el número
+   * como dígitos de la base dada. El tamaño es para especificar la longitud
+   * del arreglo; en caso de un número menor, se colocan ceros a la izquierda.
+   *
+   * El formato dado es en *little endian*: los números menos significativos se
+   * encuentran al inicio del arreglo.
+   *
+   * \sa http://www.cplusplus.com/reference/cmath/pow/
+   *     http://www.cplusplus.com/reference/cmath/floor/
+   */
+
+  template <typename tipoDeArreglo, typename tipoDeNumero>
+  Arreglo<tipoDeArreglo> convertirAArreglo(
+    tipoDeNumero numero,        /**< Número a convertir. */
+    int base,                   /**< Base de la conversión. */
+    int tamanio                 /**< Número de dígitos. */
+  )
+  {
+    Arreglo<tipoDeArreglo> resultado (tamanio);
+    for (int i = tamanio - 1; i >= 0; i--)
+    {
+      tipoDeNumero equivalentePotencia = potencia<tipoDeNumero>(base, i);
+      tipoDeArreglo digito = floor(numero / equivalentePotencia);
+      resultado.colocar(i, digito);
+      numero -= digito * equivalentePotencia;
+    }
+    return resultado;
+  }
+
+  /**
+   * Interpreta el contenido del arreglo como un número escrito en dígitos
+   * de la base dada.
+   *
+   * El formato esperado es en *little endian*: los números menos significativos
+   * se encuentran al inicio del arreglo.
+
+   * \return Número equivalente.
+   *
+   * \sa http://www.cplusplus.com/reference/cmath/pow/
+   */
+
+  template<typename tipoDeArreglo, typename tipoDeNumero>
+  tipoDeNumero convertirANumero(
+    const Arreglo<tipoDeArreglo> &arreglo,    /**< Referencia a arreglo. */
+    int base                                  /**< Base de la conversión. */
+  )
+  {
+    tipoDeNumero resultado {0};
+    for (int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
+      resultado += arreglo[i] * potencia<tipoDeNumero>(base, i);
+    return resultado;
   }
 }
 

@@ -291,8 +291,8 @@ bool ArregloPrueba::probarConversionesNumericas()
 {
   /* Prueba decimal. */
   int numeroUno {6547};
-  Arreglo<int> arregloUno = Arreglo<int>::convertirAArreglo(numeroUno, 10, 6);
-  int copiaUno = arregloUno.convertirANumero(10);
+  Arreglo<int> arregloUno = convertirAArreglo<int, int>(numeroUno, 10, 6);
+  int copiaUno = convertirANumero<int, int>(arregloUno, 10);
   cout << "Prueba decimal: " << endl
        << "Número, " << numeroUno << endl
        << "Arreglo, " << arregloUno << endl
@@ -302,8 +302,8 @@ bool ArregloPrueba::probarConversionesNumericas()
 
   /* Prueba binaria. */
   int numeroDos {10};
-  Arreglo<int> arregloDos = Arreglo<int>::convertirAArreglo(numeroDos, 2, 4);
-  int copiaDos = arregloDos.convertirANumero(2);
+  Arreglo<int> arregloDos = convertirAArreglo<int, int>(numeroDos, 2, 4);
+  int copiaDos = convertirANumero<int, int>(arregloDos, 2);
   cout << "Prueba binaria: " << endl
        << "Número, " << numeroDos << endl
        << "Arreglo, " << arregloDos << endl
@@ -311,5 +311,16 @@ bool ArregloPrueba::probarConversionesNumericas()
   if (arregloDos != Arreglo<int>{0, 1, 0, 1} || numeroDos != copiaDos)
     return false;
 
+  /* Prueba de número grande. */
+  entero numeroTres {potencia<entero>(2, 64) - 1};
+  Arreglo<int> arregloTres = convertirAArreglo<int, entero>(numeroTres, 10, 20);
+  entero copiaTres = convertirANumero<int, entero>(arregloTres, 10);
+  cout << "Prueba con enteros grandes: " << endl
+       << "Número, " << numeroTres << endl
+       << "Arreglo, " << arregloTres << endl
+       << "Copia, " << copiaTres << endl;
+  if (numeroTres != copiaTres)
+    return false;
+  
   return true;
 }

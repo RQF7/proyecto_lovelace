@@ -48,9 +48,6 @@ namespace Implementaciones
 
     private:
 
-      /** \brief Alias para entero de 8 bytes. */
-      using entero = unsigned long long int;
-
       /** \brief Llave de 64 bits (AES). */
       unsigned char *mLlave;
 
@@ -150,15 +147,11 @@ namespace Implementaciones
       entrada[j] = mTweak[i];
 
     /* Representación numérica de mensaje. */
-    int representacionNumero = textoEnClaro[0].convertirANumero(mRadix);
-    entrada[7 + mLongitudTweak + 1] =
-      static_cast<unsigned char>(representacionNumero);
-    entrada[7 + mLongitudTweak + 2] =
-      static_cast<unsigned char>(representacionNumero >> 8);
-    entrada[7 + mLongitudTweak + 3] =
-      static_cast<unsigned char>(representacionNumero >> 16);
-    entrada[7 + mLongitudTweak + 4] =
-      static_cast<unsigned char>(representacionNumero >> 24);
+    entero representacionNumero = convertirANumero<tipo, entero>(
+      textoEnClaro[0], mRadix);
+    for (int i = 0; i < 8; i++)
+      entrada[7 + mLongitudTweak + i + 1] =
+        static_cast<unsigned char>(representacionNumero >> (8 + i));
 
     /* Generar MAC */
     CryptoPP::CBC_MAC<CryptoPP::AES> cbcmac {mLlave};
@@ -167,7 +160,7 @@ namespace Implementaciones
     cbcmac.TruncatedFinal(mac, cbcmac.DigestSize());
 
     /* Partir por mitad */
-    Arreglo<entero> ladoIzquierdo (8), ladoDerecho(8);
+    Arreglo<int> ladoIzquierdo (8), ladoDerecho(8);
     for (int i = 0; i < 16; i++)
       if (i < 8)
         ladoIzquierdo.colocar(i, mac[i]);
@@ -175,18 +168,18 @@ namespace Implementaciones
         ladoDerecho.colocar(i - 8, mac[i]);
 
     /* Formatear salida a longitud adecuada. */
-    entero numeroIzquierdo = ladoIzquierdo.convertirANumero(256);
-    entero numeroDerecho = ladoIzquierdo.convertirANumero(256);
-    int m = (mLongitud / 2) + mDesbalanceo;
+    entero numeroIzquierdo = convertirANumero<int, entero>(ladoIzquierdo, 256);
+    entero numeroDerecho = convertirANumero<int, entero>(ladoDerecho, 256);
     entero z;
-    if (m <= 9)
-      z = modulo(numeroDerecho, potencia<entero>(mRadix, m - 1));
+    if (mLongitud <= 9)
+      z = modulo(numeroDerecho, potencia<entero>(mRadix, mLongitud));
     else
-      z = modulo(numeroIzquierdo, potencia<entero>(mRadix, m - 9 - 1))
-        * (potencia<entero>(mRadix, 9)
-          + (modulo(numeroDerecho, potencia<entero>(mRadix, 9))));
+      z = (modulo(numeroIzquierdo, potencia<entero>(mRadix, mLongitud - 9))
+        * potencia<entero>(mRadix, 9))
+        + modulo(numeroDerecho, potencia<entero>(mRadix, 9));
 
-    return Arreglo<tipo>::convertirAArreglo(z, 10, m);
+    std::cout << "DEBUG: " << z << std::endl;
+    return convertirAArreglo<tipo, entero>(z, mRadix, mLongitud);
   }
 
 }

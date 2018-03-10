@@ -35,8 +35,8 @@ int main()
     RedFeistelDesbalanceadaPrueba {},
     CombinacionPorCaracterPrueba {},
     CombinacionPorBloquePrueba {},
-    RondaFFXPrueba {},
-    UtilidadesMatematicasPrueba {}
+    UtilidadesMatematicasPrueba {},
+    RondaFFXPrueba {}
 //    FFXPrueba {}
   };
   for (auto claseDePrueba : clasesDePrueba)
