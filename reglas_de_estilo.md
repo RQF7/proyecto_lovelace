@@ -87,6 +87,28 @@ Todo el código en c++ debe cumplir con los siguientes puntos:
     en controles de flujo (ciclos, condicionales) ambas llaves se colocan en
     un renglón propio. Para los controles de flujo, no se colocan llaves si
     el bloque solamente contiene una línea.
+* Espacios en blanco:
+  * Debe haber un espacio en blanco antes y después de cualquier palabra
+    reservada:
+    ```c++
+    if (condicion)
+    for (;;)
+    ```
+  * Los operadores binarios llevan espacios en blanco antes y después:
+    ```c++
+    5 + 6;
+    prueba = funcion(76) - (45 / 98);
+    ```
+  * El contenido de paréntesis, corchetes o llaves no lleva espacios por
+    el lado de adentro:
+    ```c++
+    funcion(a + b);
+    for (int i = 6; i <= 7; i++)
+    ```
+  * Las listas de argumentos van separadas por espacios después de cada coma:
+    ```c++
+    llamadaAFuncion(arg1, arg2, funcionDos(5 + 8, arg3));
+    ```
 * Terminación de archivos:
   * Código fuente: **.cpp**.
   * Archivos de cabeceras: **.hh**.

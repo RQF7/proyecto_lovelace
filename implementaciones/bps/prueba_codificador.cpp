@@ -20,39 +20,41 @@
 using namespace std;
 
 /* ========================================================================= */
-int probar_codificacion(vector<char> alfabeto)
+
+int probarCodificacion(vector<char> alfabeto)
 {
   Codificador codificador(alfabeto);
   unsigned char caracter;
-  for(unsigned int i=0; i<alfabeto.size(); i++)
+  for (unsigned int i = 0; i < alfabeto.size(); i++)
   {
     caracter = codificador.codificar(alfabeto[i]);
-    if(caracter >= alfabeto.size())
+    if (caracter >= alfabeto.size())
       return 0;
     caracter = codificador.decodificar(caracter);
-    if(caracter != alfabeto[i])
+    if (caracter != alfabeto[i])
       return 0;
   }
   return 1;
 }
 
 /* ========================================================================= */
-int probar_sumaRestaMod(vector<char> alfabeto)
+
+int probarSumaRestaMod(vector<char> alfabeto)
 {
   Codificador codificador(alfabeto);
   string A{""}, B{""}, C{""};
-  
-  for(int i=0; i<1000; i+=23)
+
+  for (int i = 0; i < 1000; i += 23)
   {
-    for(int j=5; j<15; j++)
+    for (int j = 5; j < 15; j++)
     {
-      for(int k=0; k<j; k++)
+      for (int k = 0; k < j; k++)
       {
-        A += alfabeto[(i*7) % alfabeto.size()];
-        B += alfabeto[(i*11) % alfabeto.size()];
+        A += alfabeto[(i * 7) % alfabeto.size()];
+        B += alfabeto[(i * 11) % alfabeto.size()];
       }
-      C = codificador.sumaMod(A,B);
-      if(codificador.restaMod(C,B) != A)
+      C = codificador.sumaMod(A, B);
+      if (codificador.restaMod(C, B) != A)
         return 0;
       A = "";
     }
@@ -61,58 +63,60 @@ int probar_sumaRestaMod(vector<char> alfabeto)
 }
 
 /* ========================================================================= */
-int main(int argc, char* argv[]) {
 
-  vector<char> alfabeto_numerico;
-  vector<char> alfabeto_alfabetico1;
-  vector<char> alfabeto_alfabetico2;
-  vector<char> alfabeto_alfabetico3;
-  vector<char> alfabeto_alfanumerico1;
-  vector<char> alfabeto_alfanumerico2;
-  vector<char> alfabeto_alfanumerico3;
+int main(int argc, char* argv[])
+{
+  vector<char> alfabetoNumerico;
+  vector<char> alfabetoAlfabetico1;
+  vector<char> alfabetoAlfabetico2;
+  vector<char> alfabetoAlfabetico3;
+  vector<char> alfabetoAlfanumerico1;
+  vector<char> alfabetoAlfanumerico2;
+  vector<char> alfabetoAlfanumerico3;
   vector<vector<char> > alfabetos;
 
-  for(int i=0; i<10; i++)
+  for (int i = 0; i < 10; i++)
   {
-    alfabeto_numerico.push_back('0' + i);
-    alfabeto_alfanumerico1.push_back('0' + i);
-    alfabeto_alfanumerico2.push_back('0' + i);
-    alfabeto_alfanumerico3.push_back('0' + i);
+    alfabetoNumerico.push_back('0' + i);
+    alfabetoAlfanumerico1.push_back('0' + i);
+    alfabetoAlfanumerico2.push_back('0' + i);
+    alfabetoAlfanumerico3.push_back('0' + i);
   }
 
-  for(int i=0; i<26; i++)
+  for (int i = 0; i < 26; i++)
   {
-    alfabeto_alfabetico1.push_back('a' + i);
-    alfabeto_alfabetico3.push_back('a' + i);
-    alfabeto_alfanumerico1.push_back('a' + i);
-    alfabeto_alfanumerico3.push_back('a' + i);
+    alfabetoAlfabetico1.push_back('a' + i);
+    alfabetoAlfabetico3.push_back('a' + i);
+    alfabetoAlfanumerico1.push_back('a' + i);
+    alfabetoAlfanumerico3.push_back('a' + i);
   }
 
-  for(int i=0; i<26; i++)
+  for (int i = 0; i < 26; i++)
   {
-    alfabeto_alfabetico2.push_back('A' + i);
-    alfabeto_alfabetico3.push_back('A' + i);
-    alfabeto_alfanumerico2.push_back('A' + i);
-    alfabeto_alfanumerico3.push_back('A' + i);
+    alfabetoAlfabetico2.push_back('A' + i);
+    alfabetoAlfabetico3.push_back('A' + i);
+    alfabetoAlfanumerico2.push_back('A' + i);
+    alfabetoAlfanumerico3.push_back('A' + i);
   }
 
-  alfabetos.push_back(alfabeto_numerico);
-  alfabetos.push_back(alfabeto_alfabetico1);
-  alfabetos.push_back(alfabeto_alfabetico2);
-  alfabetos.push_back(alfabeto_alfabetico3);
-  alfabetos.push_back(alfabeto_alfanumerico1);
-  alfabetos.push_back(alfabeto_alfanumerico2);
-  alfabetos.push_back(alfabeto_alfanumerico3);
+  alfabetos.push_back(alfabetoNumerico);
+  alfabetos.push_back(alfabetoAlfabetico1);
+  alfabetos.push_back(alfabetoAlfabetico2);
+  alfabetos.push_back(alfabetoAlfabetico3);
+  alfabetos.push_back(alfabetoAlfanumerico1);
+  alfabetos.push_back(alfabetoAlfanumerico2);
+  alfabetos.push_back(alfabetoAlfanumerico3);
 
-  for(unsigned int i=0; i<alfabetos.size(); i++)
+  for(unsigned int i = 0; i < alfabetos.size(); i++)
   {
-    if(probar_codificacion(alfabetos[i]) == 0)
+    if(probarCodificacion(alfabetos[i]) == 0)
     {
       cout << "ERROR, Las funciones Codificador::codificar() y ";
       cout << "Utilidades::decodificar son incorrectas." << endl;
       exit(-1);
     }
-    if(probar_sumaRestaMod(alfabetos[i]) == 0){
+    if(probarSumaRestaMod(alfabetos[i]) == 0)
+    {
       cout << "ERROR, Las funciones Codificador::sumaMod() y ";
       cout << "Utilidades::restaMod son incorrectas." << endl;
       exit(-1);
@@ -125,5 +129,3 @@ int main(int argc, char* argv[]) {
 
   return 0;
 }
-
-/* ========================================================================= */

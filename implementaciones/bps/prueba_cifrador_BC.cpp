@@ -22,21 +22,22 @@ using namespace std;
 using namespace CryptoPP;
 
 /* ========================================================================= */
-int probar_composicion(vector<char> alfabeto)
+
+int probarComposicion(vector<char> alfabeto)
 {
   CifradorBC BC(alfabeto,8,8);
   string cadena{""};
   mpz_class num = 0;
-  
-  for(int i=0; i<100000; i+=23)
+
+  for (int i = 0; i < 100000; i += 23)
   {
-    for(int j=5; j<15; j++)
+    for (int j = 5; j < 15; j++)
     {
-      for(int k=0; k<j; k++)
-        cadena += alfabeto[(i*7) % alfabeto.size()];
-      BC.setTamBloque(j);
+      for (int k = 0; k < j; k++)
+        cadena += alfabeto[(i * 7) % alfabeto.size()];
+      BC.colocarTamBloque(j);
       num = BC.componer(cadena);
-      if(cadena != BC.descomponer(num,cadena.size()))
+      if (cadena != BC.descomponer(num, cadena.size()))
         return 0;
       cadena = "";
     }
@@ -45,52 +46,53 @@ int probar_composicion(vector<char> alfabeto)
 }
 
 /* ========================================================================= */
+
 int main(int argc, char* argv[])
 {
-  vector<char> alfabeto_numerico;
-  vector<char> alfabeto_alfabetico1;
-  vector<char> alfabeto_alfabetico2;
-  vector<char> alfabeto_alfabetico3;
-  vector<char> alfabeto_alfanumerico1;
-  vector<char> alfabeto_alfanumerico2;
-  vector<char> alfabeto_alfanumerico3;
+  vector<char> alfabetoNumerico;
+  vector<char> alfabetoAlfabetico1;
+  vector<char> alfabetoAlfabetico2;
+  vector<char> alfabetoAlfabetico3;
+  vector<char> alfabetoAlfanumerico1;
+  vector<char> alfabetoAlfanumerico2;
+  vector<char> alfabetoAlfanumerico3;
   vector<vector<char> > alfabetos;
 
-  for(int i=0; i<10; i++)
+  for (int i = 0; i < 10; i++)
   {
-    alfabeto_numerico.push_back('0' + i);
-    alfabeto_alfanumerico1.push_back('0' + i);
-    alfabeto_alfanumerico2.push_back('0' + i);
-    alfabeto_alfanumerico3.push_back('0' + i);
+    alfabetoNumerico.push_back('0' + i);
+    alfabetoAlfanumerico1.push_back('0' + i);
+    alfabetoAlfanumerico2.push_back('0' + i);
+    alfabetoAlfanumerico3.push_back('0' + i);
   }
 
-  for(int i=0; i<26; i++)
+  for (int i = 0; i < 26; i++)
   {
-    alfabeto_alfabetico1.push_back('a' + i);
-    alfabeto_alfabetico3.push_back('a' + i);
-    alfabeto_alfanumerico1.push_back('a' + i);
-    alfabeto_alfanumerico3.push_back('a' + i);
+    alfabetoAlfabetico1.push_back('a' + i);
+    alfabetoAlfabetico3.push_back('a' + i);
+    alfabetoAlfanumerico1.push_back('a' + i);
+    alfabetoAlfanumerico3.push_back('a' + i);
   }
 
-  for(int i=0; i<26; i++)
+  for (int i = 0; i < 26; i++)
   {
-    alfabeto_alfabetico2.push_back('A' + i);
-    alfabeto_alfabetico3.push_back('A' + i);
-    alfabeto_alfanumerico2.push_back('A' + i);
-    alfabeto_alfanumerico3.push_back('A' + i);
+    alfabetoAlfabetico2.push_back('A' + i);
+    alfabetoAlfabetico3.push_back('A' + i);
+    alfabetoAlfanumerico2.push_back('A' + i);
+    alfabetoAlfanumerico3.push_back('A' + i);
   }
 
-  alfabetos.push_back(alfabeto_numerico);
-  alfabetos.push_back(alfabeto_alfabetico1);
-  alfabetos.push_back(alfabeto_alfabetico2);
-  alfabetos.push_back(alfabeto_alfabetico3);
-  alfabetos.push_back(alfabeto_alfanumerico1);
-  alfabetos.push_back(alfabeto_alfanumerico2);
-  alfabetos.push_back(alfabeto_alfanumerico3);
+  alfabetos.push_back(alfabetoNumerico);
+  alfabetos.push_back(alfabetoAlfabetico1);
+  alfabetos.push_back(alfabetoAlfabetico2);
+  alfabetos.push_back(alfabetoAlfabetico3);
+  alfabetos.push_back(alfabetoAlfanumerico1);
+  alfabetos.push_back(alfabetoAlfanumerico2);
+  alfabetos.push_back(alfabetoAlfanumerico3);
 
-  for(unsigned int i=0; i<alfabetos.size(); i++)
+  for (unsigned int i = 0; i<alfabetos.size(); i++)
   {
-    if(probar_composicion(alfabetos[i]) == 0)
+    if (probarComposicion(alfabetos[i]) == 0)
     {
       cout << "ERROR, Las funciones CifradorBC::componer() y ";
       cout << "CifradorBC::descomponer() son incorrectas." << endl;
@@ -104,5 +106,3 @@ int main(int argc, char* argv[])
 
   return 0;
 }
-
-/* ========================================================================= */
