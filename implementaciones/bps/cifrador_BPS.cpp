@@ -1,13 +1,8 @@
-/* ========================================================================= */
-/* ============================== Cifrador BPS ============================= */
-/* ======================================================================daz */
-
 /**
- * Proyecto Lovelace.
- * 
  * \file
  * \brief Implementación de la clase del cifrador BPS.
- * 
+ *
+ * Proyecto Lovelace.
  */
 
 #include "cabeceras/cifrador_BPS.hh"
@@ -31,205 +26,211 @@ using namespace CryptoPP;
 
 /* ========================================================================= */
 
-CifradorBPS::CifradorBPS(vector<char> alfabeto, unsigned int num_rondas)
+CifradorBPS::CifradorBPS(vector<char> alfabeto, unsigned int numRondas)
 {
-  m_ALFABETO    = alfabeto;
-  m_NUM_RONDAS  = num_rondas;
-  m_codificador.setAlfabeto(m_ALFABETO);
+  mAlfabeto    = alfabeto;
+  mNumRondas   = numRondas;
+  mCodificador.colocarAlfabeto(mAlfabeto);
 }
 
 /* ========================================================================= */
+
 /**
  * Este método sirve para cifrar la cadena dada con la llave y el tweak dados.
  * El funcionamiento de este método es el del modo de operación del algoritmo
  * de cifrado que preserva el formato BPS.
  */
+
 string CifradorBPS::cifrar(string mensaje, byte llave[], mpz_class tweak)
 {
   CifradorBC BC;
-  int tam_cifrador_de_ronda = BC.getCifradorDeRonda().getTamBloque();
+  int tamCifradorDeRonda = BC.obtenerCifradorDeRonda().obtenerTamBloque();
 
   /* Obtención del tamaño máximo de bloque del cifrador interno BC */
-  unsigned int tam_total, tam_max;
-  tam_total  = mensaje.size();
-  tam_max = 2 * ((tam_cifrador_de_ronda-32)*log(2))/log(m_ALFABETO.size());
+  unsigned int tamTotal, tamMax;
+  tamTotal  = mensaje.size();
+  tamMax = 2 * ((tamCifradorDeRonda - 32) * log(2)) / log(mAlfabeto.size());
 
   /* Configuración del cifrador interno BC */
-  BC.setAlfabeto(m_ALFABETO);
-  BC.setTamBloque(tam_max);
-  BC.setNumRondas(m_NUM_RONDAS);  
+  BC.colocarAlfabeto(mAlfabeto);
+  BC.colocarTamBloque(tamMax);
+  BC.colocarNumRondas(mNumRondas);
 
-  /* En caso de que la cadena dada tenga una longitud menor al tamaño máximo 
+  /* En caso de que la cadena dada tenga una longitud menor al tamaño máximo
   del cifrador BC, simplemente se cifra la cadena con BC */
-  if(tam_total <= tam_max)
+  if(tamTotal <= tamMax)
   {
-    BC.setTamBloque(tam_total);
-    return BC.cifrar(mensaje,llave,tweak);
+    BC.colocarTamBloque(tamTotal);
+    return BC.cifrar(mensaje, llave, tweak);
   }
 
-  string bloque_a     {""};
-  string salida       {""};
-  string salida_final {""};
+  string bloqueA     {""};
+  string salida      {""};
+  string salidaFinal {""};
 
-  unsigned int num_bloques = tam_total / tam_max;
-  unsigned int tam_ultimo_bloque = tam_total % tam_max;
-  mpz_class contador_u = 0;
-  mpz_class tweak_u = 0;
-  
-  /* En caso de que la cadena dada tenga una longitud mayor al tamaño máximo 
-  del cifrador BC, se van cifrando bloques x de longitud igual a la longitud 
-  máxima de BC, donde x es igual a la suma modular de un bloque i con un 
+  unsigned int numBloques = tamTotal / tamMax;
+  unsigned int tamUltimoBloque = tamTotal % tamMax;
+  mpz_class contadorU = 0;
+  mpz_class tweakU = 0;
+
+  /* En caso de que la cadena dada tenga una longitud mayor al tamaño máximo
+  del cifrador BC, se van cifrando bloques x de longitud igual a la longitud
+  máxima de BC, donde x es igual a la suma modular de un bloque i con un
   bloque i-1 */
-  BC.setTamBloque(tam_max);
-  for(unsigned int i=0; i<num_bloques; i++)
+  BC.colocarTamBloque(tamMax);
+  for (unsigned int i = 0; i < numBloques; i++)
   {
-    /* Xor del contador u = 2^16 + 2^48 con el tweak que entrara 
+    /* Xor del contador u = 2^16 + 2^48 con el tweak que entrara
     al cifrador BC */
-    contador_u = i;
-    contador_u = (contador_u << 16) + (contador_u << 48);
-    tweak_u = tweak^contador_u;
-    
+    contadorU = i;
+    contadorU = (contadorU << 16) + (contadorU << 48);
+    tweakU = tweak^contadorU;
+
     /* Cifrado de la suma modular del bloque i con el bloque i-1 */
-    bloque_a = mensaje.substr(i*tam_max,tam_max);
-    salida = BC.cifrar(m_codificador.sumaMod(bloque_a,salida),llave,tweak_u);
-    salida_final += salida;
+    bloqueA = mensaje.substr(i * tamMax, tamMax);
+    salida = BC.cifrar(mCodificador.sumaMod(bloqueA, salida), llave, tweakU);
+    salidaFinal += salida;
   }
 
-  /* En caso de que la cadena dada tenga una longitud que no es múltiplo 
-  del tamaño máximo de BC, el ultimo bloque se cifra configurando BC 
+  /* En caso de que la cadena dada tenga una longitud que no es múltiplo
+  del tamaño máximo de BC, el último bloque se cifra configurando BC
   a su longitud */
-  if(tam_ultimo_bloque != 0)
+  if(tamUltimoBloque != 0)
   {
-    /* Xor del contador u = 2^16 + 2^48 con el tweak que entrara 
+    /* Xor del contador u = 2^16 + 2^48 con el tweak que entrará
     al cifrador BC */
-    BC.setTamBloque(tam_ultimo_bloque);
-    contador_u = num_bloques;
-    contador_u = (contador_u << 16) + (contador_u << 48);
-    tweak_u = tweak^contador_u;
-    
+    BC.colocarTamBloque(tamUltimoBloque);
+    contadorU = numBloques;
+    contadorU = (contadorU << 16) + (contadorU << 48);
+    tweakU = tweak ^ contadorU;
+
     /* Cifrado de la suma modular del bloque i con el bloque i-1 */
-    bloque_a = mensaje.substr(tam_total-tam_ultimo_bloque,tam_ultimo_bloque);
-    salida = BC.cifrar(m_codificador.sumaMod(bloque_a,salida),llave,tweak_u);
-    salida_final += salida;
+    bloqueA = mensaje.substr(tamTotal - tamUltimoBloque, tamUltimoBloque);
+    salida = BC.cifrar(mCodificador.sumaMod(bloqueA, salida), llave, tweakU);
+    salidaFinal += salida;
   }
-  
-  return salida_final;
+
+  return salidaFinal;
 }
 
 /* ========================================================================= */
+
 /**
  * Este método sirve para descifrar la cadena dada con la llave y tweak dados.
  * El funcionamiento de este método es el del modo de operación del algoritmo
  * de cifrado que preserva el formato BPS.
  */
+
 string CifradorBPS::descifrar(string mensaje, byte llave[], mpz_class tweak)
 {
   CifradorBC BC;
-  int tam_cifrador_de_ronda = BC.getCifradorDeRonda().getTamBloque();
+  int tamCifradorDeRonda = BC.obtenerCifradorDeRonda().obtenerTamBloque();
 
   /* Obtención del tamaño máximo de bloque del cifrador interno BC */
-  unsigned int tam_total, tam_max;
-  tam_total  = mensaje.size();
-  tam_max = 2 * ((tam_cifrador_de_ronda-32)*log(2))/log(m_ALFABETO.size());
+  unsigned int tamTotal, tamMax;
+  tamTotal = mensaje.size();
+  tamMax = 2 * ((tamCifradorDeRonda - 32) * log(2)) / log(mAlfabeto.size());
 
   /* Configuración del cifrador interno BC */
-  BC.setAlfabeto(m_ALFABETO);
-  BC.setTamBloque(tam_max);
-  BC.setNumRondas(m_NUM_RONDAS);  
+  BC.colocarAlfabeto(mAlfabeto);
+  BC.colocarTamBloque(tamMax);
+  BC.colocarNumRondas(mNumRondas);
 
-  /* En caso de que la cadena dada tenga una longitud menor al tamaño máximo 
+  /* En caso de que la cadena dada tenga una longitud menor al tamaño máximo
   del cifrador BC, simplemente se descifra la cadena con BC */
-  if(tam_total <= tam_max)
+  if(tamTotal <= tamMax)
   {
-    BC.setTamBloque(tam_total);
-    return BC.descifrar(mensaje,llave,tweak);
+    BC.colocarTamBloque(tamTotal);
+    return BC.descifrar(mensaje, llave, tweak);
   }
 
-  string bloque_a     {""};
-  string bloque_b     {""};
-  string salida       {""};
-  string salida_final {""};
+  string bloqueA     {""};
+  string bloqueB     {""};
+  string salida      {""};
+  string salidaFinal {""};
 
-  unsigned int num_bloques = tam_total / tam_max;
-  unsigned int tam_ultimo_bloque = tam_total % tam_max;
-  mpz_class contador_u = 0;
-  mpz_class tweak_u = 0;
-  
-  /* En caso de que la cadena dada tenga una longitud que no es múltiplo 
-  del tamaño máximo de BC, el ultimo bloque se descifra configurando BC 
+  unsigned int numBloques = tamTotal / tamMax;
+  unsigned int tamUltimoBloque = tamTotal % tamMax;
+  mpz_class contadorU = 0;
+  mpz_class tweakU = 0;
+
+  /* En caso de que la cadena dada tenga una longitud que no es múltiplo
+  del tamaño máximo de BC, el último bloque se descifra configurando BC
   a su longitud */
-  if(tam_ultimo_bloque != 0)
+  if(tamUltimoBloque != 0)
   {
-    /* Xor del contador u = 2^16 + 2^48 con el tweak que entrara 
+    /* Xor del contador u = 2^16 + 2^48 con el tweak que entrara
     al cifrador BC */
-    BC.setTamBloque(tam_ultimo_bloque);
-    contador_u = num_bloques;
-    contador_u = (contador_u << 16) + (contador_u << 48);
-    tweak_u = tweak^contador_u;
-    
+    BC.colocarTamBloque(tamUltimoBloque);
+    contadorU = numBloques;
+    contadorU = (contadorU << 16) + (contadorU << 48);
+    tweakU = tweak^contadorU;
+
     /* Obtención del bloque i e i-1 */
-    bloque_b = mensaje.substr(tam_total-tam_ultimo_bloque,tam_ultimo_bloque);
-    bloque_a = mensaje.substr((num_bloques-1)*tam_max,tam_max);
-    
+    bloqueB = mensaje.substr(tamTotal - tamUltimoBloque, tamUltimoBloque);
+    bloqueA = mensaje.substr((numBloques - 1) * tamMax, tamMax);
+
     /* Resta modular del resultado de decifrar el bloque i, menor el bloque i-1 */
-    salida = m_codificador.restaMod(BC.descifrar(bloque_b,llave,tweak_u),bloque_a);
-    salida_final = salida + salida_final;
+    salida = mCodificador.restaMod(BC.descifrar(bloqueB, llave, tweakU), bloqueA);
+    salidaFinal = salida + salidaFinal;
   }
-  
-  /* En caso de que la cadena dada tenga una longitud mayor al tamaño máximo 
-  del cifrador BC, se van obteniendo bloques descifrados x de longitud igual 
-  a la longitud máxima de BC, donde x es igual a la resta modular del 
+
+  /* En caso de que la cadena dada tenga una longitud mayor al tamaño máximo
+  del cifrador BC, se van obteniendo bloques descifrados x de longitud igual
+  a la longitud máxima de BC, donde x es igual a la resta modular del
   resultado de descifrar un bloque un bloque i con un bloque i-1 */
-  BC.setTamBloque(tam_max);
-  for(int i=num_bloques-1; i>0; i--)
+  BC.colocarTamBloque(tamMax);
+  for(int i = numBloques - 1; i > 0; i--)
   {
-    /* Xor del contador u = 2^16 + 2^48 con el tweak que entrara 
+    /* Xor del contador u = 2^16 + 2^48 con el tweak que entrara
     al cifrador BC */
-    contador_u = i;
-    contador_u = (contador_u << 16) + (contador_u << 48);
-    tweak_u = tweak^contador_u;
-    
+    contadorU = i;
+    contadorU = (contadorU << 16) + (contadorU << 48);
+    tweakU = tweak ^ contadorU;
+
     /* Obtención del bloque i e i-1 */
-    bloque_b = mensaje.substr(i*tam_max,tam_max);
-    bloque_a = mensaje.substr((i-1)*tam_max,tam_max);
-    
+    bloqueB = mensaje.substr(i * tamMax, tamMax);
+    bloqueA = mensaje.substr((i - 1) * tamMax, tamMax);
+
     /* Resta modular del resultado de decifrar el bloque i, menor el bloque i-1 */
-    salida = m_codificador.restaMod(BC.descifrar(bloque_b,llave,tweak_u),bloque_a);
-    salida_final = salida + salida_final;
+    salida = mCodificador.restaMod(BC.descifrar(bloqueB, llave, tweakU), bloqueA);
+    salidaFinal = salida + salidaFinal;
   }
 
-  /* Descifrado del primer bloque en caso de que la cadena dada fuese de una 
+  /* Descifrado del primer bloque en caso de que la cadena dada fuese de una
   longitud mayor al tamaño máximo del cifrador BC */
-  bloque_a = mensaje.substr(0,tam_max);
-  salida = BC.descifrar(bloque_a,llave,tweak);
-  salida_final = salida + salida_final;
+  bloqueA = mensaje.substr(0, tamMax);
+  salida = BC.descifrar(bloqueA, llave, tweak);
+  salidaFinal = salida + salidaFinal;
 
-  return salida_final;
+  return salidaFinal;
 }
 
 /* ========================================================================= */
 
-vector<char> CifradorBPS::getAlfabeto(){
-  return m_ALFABETO;
+vector<char> CifradorBPS::obtenerAlfabeto()
+{
+  return mAlfabeto;
 }
 
 /* ========================================================================= */
 
-unsigned int CifradorBPS::getNumRondas(){
-  return m_NUM_RONDAS;
+unsigned int CifradorBPS::obtenerNumRondas()
+{
+  return mNumRondas;
 }
 
 /* ========================================================================= */
 
-void CifradorBPS::setAlfabeto(vector<char> alfabeto){
-  m_ALFABETO = alfabeto;
-  m_codificador.setAlfabeto(m_ALFABETO);
+void CifradorBPS::colocarAlfabeto(vector<char> alfabeto)
+{
+  mAlfabeto = alfabeto;
+  mCodificador.colocarAlfabeto(mAlfabeto);
 }
 
 /* ========================================================================= */
 
-void CifradorBPS::setNumRondas(unsigned int num_rondas){
-  m_NUM_RONDAS = num_rondas;
+void CifradorBPS::colocarNumRondas(unsigned int numRondas)
+{
+  mNumRondas = numRondas;
 }
-
-/* ========================================================================= */

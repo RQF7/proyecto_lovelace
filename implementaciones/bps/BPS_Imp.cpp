@@ -1,6 +1,7 @@
 /**
+ * \file
+ * \brief Cifrador BPS.
  * Proyecto Lovelace.
- * Cifrador BPS.
  */
 
 #include "cabeceras/cifrador_BPS.hh"
@@ -17,20 +18,21 @@
 using namespace std;
 using namespace CryptoPP;
 
-int main(int argc, char* argv[]) {
-  
+int main(int argc, char* argv[])
+{
   string tipoalfa = argv[1];
   string claro = argv[2];
 
-  byte llave[AES::DEFAULT_KEYLENGTH];            /* Generacion de la llave */
+  byte llave[AES::DEFAULT_KEYLENGTH];            /* Generación de la llave */
   memset(llave, 0x23, AES::DEFAULT_KEYLENGTH);
-  mpz_class tweak = 0xF0F0F0F01F1F1F1F;          /* Generacion del tweak */
+  mpz_class tweak = 0xF0F0F0F01F1F1F1F;          /* Generación del tweak */
 
-  unsigned int num_de_rondas = 8;                /* Numero de rondas */
+  unsigned int numDeRondas = 8;                  /* Número de rondas */
 
-  vector<char> alfabeto;                         /* Creacion del alfabeto */
-  
-  if(tipoalfa == "NUMERICO"){
+  vector<char> alfabeto;                         /* Creación del alfabeto */
+
+  if(tipoalfa == "NUMERICO")
+  {
     for(int i=0; i<10; i++)
       alfabeto.push_back('0' + i);
   }
@@ -76,7 +78,8 @@ int main(int argc, char* argv[]) {
       alfabeto.push_back('A' + i);
     }
   }
-  else 
+  else
+  {
     cout << "Especifica uno de los siguentes alfabetos" << endl
          << "NUMERICO"                << endl
          << "ALFABETICO"              << endl
@@ -85,9 +88,11 @@ int main(int argc, char* argv[]) {
          << "ALFABETICO_MAYUSCULAS"   << endl
          << "ALFANUMERICO_MINUSCULAS" << endl
          << "ALFANUMERICO_MAYUSCULAS" << endl;
+    exit(1);
+  }
 
   string cifrado, descifrado;
-  CifradorBPS BPS(alfabeto,num_de_rondas);
+  CifradorBPS BPS(alfabeto, numDeRondas);
 
   cout << "==============================================" << endl;
   cout << "Texto claro:      " << claro << endl;
