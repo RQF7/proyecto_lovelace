@@ -40,6 +40,12 @@ siguientes puntos:
   u observaciones sobre muchos archivos o sobre muchos commits, se debe
   levantar un *issue*.
 
+* **Sobre la historia de los issues:** la página de un *issue* no solamente
+  describe una tarea (eso lo hace el primer comentario) sino que también
+  muestra la historia de cómo se fue desarrollando la tarea. Para esto se deben
+  crear referencias en la página de un commit hacia el *issue* al que está
+  relacionado.
+
 ### LaTeX
 
 Recomendaciones:

@@ -7,8 +7,8 @@ CARPETA_TEMPORAL 					:= temporales_de_latex
 
 # Documento final #############################################################
 
-DOCUMENTO_FINAL 					:= documento_final
-CARPETA_DOCUMENTO_FINAL 	:= documento_final
+DOCUMENTO_FINAL 					:= reporte_tecnico
+CARPETA_DOCUMENTO_FINAL 	:= reporte_tecnico
 
 $(DOCUMENTO_FINAL): \
 		$(CARPETA_DOCUMENTO_FINAL)/$(DOCUMENTO_FINAL).tex
