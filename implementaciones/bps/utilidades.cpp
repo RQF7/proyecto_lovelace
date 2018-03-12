@@ -23,11 +23,10 @@ Utilidades::Utilidades()
 /* ========================================================================= */
 
 /**
- * Esta función se encarga de sacarle el módulo al número a,
- * haciendo este siempre sea negativo.
+ * Esta función se encarga de sacarle el módulo al un número,
+ * haciendo que siempre se retorne un valor positivo.
  */
-
-/* ¿Qué? */
+/* Ejemplo: -7 % 4 = -3; mod(-7,4) = 1 */
 
 int Utilidades::mod(int num, int mod)
 {
@@ -37,11 +36,10 @@ int Utilidades::mod(int num, int mod)
 /* ========================================================================= */
 
 /**
- * Esta función se encarga de sacarle el módulo al número grande a,
- * haciendo este siempre sea negativo.
+ * Esta función se encarga de sacarle el módulo al un número,
+ * haciendo que siempre se retorne un valor positivo.
  */
-
-/* Otra vez: ¿qué? */
+/* Ejemplo: -7 % 4 = -3; mod(-7,4) = 1 */
 
 mpz_class Utilidades::mod(mpz_class num, mpz_class mod)
 {
@@ -58,8 +56,6 @@ mpz_class Utilidades::mod(mpz_class num, mpz_class mod)
 mpz_class Utilidades::cadenaANumero(string cadena)
 {
   mpz_class numero = 0;
-  mpz_class numAsx = 0; /* ¿En dónde se ocupa?
-                         * Esto lo debería marcar el compilador. */<
 
   for (unsigned int i = 0; i < cadena.size(); i++)
   {
