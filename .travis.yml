@@ -88,10 +88,6 @@ script:
   # Compilación de archivos de LaTeX
   # Esto debería dejar el pdf completo
   - make -B -C documentos_entregables
-  - make -B -C documentos_entregables glosarios
-  - make -B -C documentos_entregables referencias
-  - make -B -C documentos_entregables
-  - make -B -C documentos_entregables
   - make -B -C documentos_entregables presentacion_fpe
   - make -B -C documentos_entregables referencias_fpe
   - make -B -C documentos_entregables presentacion_fpe

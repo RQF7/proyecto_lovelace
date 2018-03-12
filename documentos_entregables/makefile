@@ -5,16 +5,42 @@
 
 CARPETA_TEMPORAL 					:= temporales_de_latex
 
-# Documento final #############################################################
+# Reporte técnico ##############################################################
 
-DOCUMENTO_FINAL 					:= reporte_tecnico
-CARPETA_DOCUMENTO_FINAL 	:= reporte_tecnico
+REPORTE_TECNICO 					  := reporte_tecnico
+CARPETA_REPORTE_TECNICO 	  := reporte_tecnico
+FUENTES_REPORTE_TECNICO     := \
+	$(shell find reporte_tecnico/ -type f -name '*.tex' -o -name '*.sty')
 
-$(DOCUMENTO_FINAL): \
-		$(CARPETA_DOCUMENTO_FINAL)/$(DOCUMENTO_FINAL).tex
+COMPILACION_REPORTE_TECNICO := pdflatex -halt-on-error -file-line-error \
+	--output-dir $(CARPETA_TEMPORAL) \
+	$(CARPETA_REPORTE_TECNICO)/$(REPORTE_TECNICO).tex
+
+CONDICION_DE_REFERENCIAS		:= \
+	$(shell grep "Please (re)run Biber" salida.temporal)
+
+$(CARPETA_REPORTE_TECNICO)/$(REPORTE_TECNICO).pdf: $(FUENTES_REPORTE_TECNICO)
 	mkdir -p $(CARPETA_TEMPORAL)
-	pdflatex -halt-on-error -file-line-error --output-dir $(CARPETA_TEMPORAL) $<
-	mv $(CARPETA_TEMPORAL)/$@.pdf ./$(CARPETA_DOCUMENTO_FINAL)/
+	$(COMPILACION_REPORTE_TECNICO) | tee salida.temporal
+	@if grep "has been referenced but does not exist" salida.temporal; then\
+	  make glosarios;\
+		$(COMPILACION_REPORTE_TECNICO) | tee salida.temporal;\
+	else\
+		echo "El glosario está al día.";\
+	fi
+	@if grep "Please (re)run Biber" salida.temporal; then\
+		make referencias;\
+		$(COMPILACION_REPORTE_TECNICO) | tee salida.temporal;\
+	else\
+		echo "La bibliografía están al día.";\
+	fi
+	@if grep "Rerun to get cross-references right" salida.temporal; then\
+		$(COMPILACION_REPORTE_TECNICO) | tee salida.temporal;\
+	else\
+		echo "Las referencias están al día.";\
+	fi
+	rm salida.temporal
+	mv $(CARPETA_TEMPORAL)/$(REPORTE_TECNICO).pdf ./$(CARPETA_REPORTE_TECNICO)/
 
 # Es necesario tener el ejecutable de biber en el PATH.
 # Si se agregan referencias, generalmente hay que compilar con pdflatex, luego
@@ -24,13 +50,13 @@ $(DOCUMENTO_FINAL): \
 
 referencias:
 	biber --input-directory $(CARPETA_TEMPORAL) \
-		$(CARPETA_TEMPORAL)/$(DOCUMENTO_FINAL).bcf
+		$(CARPETA_TEMPORAL)/$(REPORTE_TECNICO).bcf
 
 # Al igual que biber, si se modifican las entradas del glosario hay que hacer
 # operación sandwich: pdflatex, makeglossaries, pdflatex.
 
 glosarios:
-	makeglossaries -d $(CARPETA_TEMPORAL) $(DOCUMENTO_FINAL)
+	makeglossaries -d $(CARPETA_TEMPORAL) $(REPORTE_TECNICO)
 
 
 # Presentación FPE ###########################################################
