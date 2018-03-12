@@ -231,19 +231,20 @@ label={descifrado_BC}]
 En cuanto al modo de operación de \textit{BPS}, se puede decir que es un 
 equivalente al modo de operación CBC (véase \ref{sec:cbc}), ya que el bloque 
 $BC_n$ utiliza el texto cifrado de la salida del bloque $BC_{n-1}$, con la 
-distinción de que en lugar de aplicar operaciones \textit{xor} usa sumas 
+distinción de que en lugar de aplicar operaciones \textit{xor}, usa sumas 
 modulares carácter por carácter, y de que no utiliza un 
 \gls{gl:vector_de_inicializacion}, a pesar de soportar su uso.
 
-Algo importante a resaltar de este modo de operación es que, en caso de que el 
-texto en claro no tenga una longitud total que sea múltiplo de la longitud de 
-bloque $b$, al cifrar el último bloque se recorre el cursor que determina 
-el inicio del mismo, hasta que su longitud concuerde con $b$, esto se puede 
+Algo importante a resaltar de este modo de operación es que, la longitud de 
+cada bloque $B_i$ debe ser igual a la longitud máxima de bloque permitida 
+para el cifrador interno $BC$, y en caso de que el texto en claro no tenga 
+una longitud múltiplo de este valor, en el último bloque el cifrador $BC$ 
+cambia su longitud para que concuerde con la de ese bloque, esto se puede 
 ver de forma gráfica en la figura \ref{cursor_BPS}.
 
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[width=0.5\linewidth]
+    \includegraphics[width=0.9\linewidth]
     {../../../../../../diagramas_comunes/bps/cursor_bps}
     \caption{Ejemplo del corrimiento de cursor para la selección del ultimo 
       bloque en el modo de operación de \textit{BPS}.}
