@@ -3,7 +3,7 @@
 % Proyecto Lovelace.
 %
 
-\paragraph{\textit{Tweakable Encyphering Escheme} (TES)}
+\section{\textit{Tweakable Encyphering Eschemes} (TES)}
 
 La información que aquí se presenta puede ser consultada con mayor detalle en
 \cite{cifradores_de_disco} y \cite{tweaks}.
@@ -32,7 +32,6 @@ con un \textit{tweak}. Comparando esta función con la de la ecuación
 \ref{cifrado_bloques_def} (véase sección de cifrados por bloques,
 \ref{sec:bloques}) se agrega un conjunto más al producto cruz de la entrada:
 una cadena de bits de tamaño $ t $ (el espacio de los \textit{tweaks}).
-
 \begin{equation}
   \label{eq:tbc}
   \tilde{E}: \{0,1\}^k \times \{0,1\}^y \times \{0,1\}^n
@@ -41,7 +40,6 @@ una cadena de bits de tamaño $ t $ (el espacio de los \textit{tweaks}).
 
 En las siguientes ecuaciones se muestran algunas de las construcciones para
 \gls{gl:tbc} propuestas a la fecha:
-
 \begin{align}
   \label{tbc_trivial}
   \tilde{E}_k(T, M) &= E_k(T \oplus E_k(M)) \\
