@@ -59,7 +59,7 @@ Recomendaciones:
   de los documentos (la información) debe de ir dentro de archivos **tex**,
   mientras que las instrucciones para modificar el formato van en archivos
   **sty**. Se debe evitar a toda costa colocar instrucciones estructurales
-  junto con el contenido (e. g. modificaciones de espaciado, saltos de página).
+  junto con el contenido (p. ej. modificaciones de espaciado, saltos de página).
 
 Reglas. Todos los archivos **tex** y **sty** deben cumplir con los siguientes
 puntos:
@@ -77,7 +77,7 @@ puntos:
   extenso, las llaves de apertura y cierre deben de estar en su propio renglón.
 * Todas las imágenes se colocan dentro de una carpeta *diagramas* hermana al
   archivo desde el cual se importan. Dentro de esta carpeta se debe de colocar
-  una versión binaria del archivo del programa desde el cual se generó (e. g.
+  una versión binaria del archivo del programa desde el cual se generó (p. ej.
   los xml de draw.io).
 
 ### C++

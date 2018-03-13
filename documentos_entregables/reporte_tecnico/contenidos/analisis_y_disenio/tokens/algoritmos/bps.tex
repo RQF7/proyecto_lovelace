@@ -39,7 +39,7 @@ Donde:
     (véase \ref{sec:red_feistel}).
   \item $X$ es la cadena o bloque de longitud $b$ a cifrar.
   \item $K$ es una llave acorde al cifrador por bloques $F$.
-  \item $T$ es un tweak de 64 bits.
+  \item $T$ es un \textit{tweak} de 64 bits.
 \end{itemize}
 
 %------------------------------------------------------------------------------
@@ -50,10 +50,10 @@ Para poder cifrar la cadena $X$:
 
 \begin{enumerate}
 
-  \item Se tiene que dividir el tweak $T$ de 64 bits en 2 subtweaks $T_L$ y
-    $T_R$ de 32 bits. Viendo a $T$ como un número entero codificado en binario
-    se puede calcular $T_R\: =\: T\: \mod\: 2^{32}$ y
-    $T_L\: =\: (T\: -\: T_R) / 2^{32}$
+  \item Se tiene que dividir el \textit{tweak} $T$ de 64 bits en 2
+    sub\textit{tweak}s $T_L$ y $T_R$ de 32 bits. Viendo a $T$ como un número
+    entero codificado en binario se puede calcular $T_R\: =\: T\: \mod\: 2^{32}$
+    y $T_L\: =\: (T\: -\: T_R) / 2^{32}$
 
   \item Igualmente, se tiene que dividir en 2 la cadena $X$ para obtener las
     subcadenas $X_L$ y $X_R$ con una longitud $l$ y $r$ respectivamente.
@@ -236,7 +236,7 @@ ver de forma gráfica en la figura \ref{cursor_BPS}.
 
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[width=0.5\linewidth]
+    \includegraphics[width=0.8\linewidth]
     {../../../../../diagramas_comunes/bps/cursor_bps}
     \caption{Ejemplo del corrimiento de cursor para la selección del ultimo
       bloque en el modo de operación de \textit{BPS}.}
@@ -257,12 +257,12 @@ funcionamiento del modo de operación de \textit{BPS}.
 \end{figure}
 
 Otra particularidad del modo de operación es el uso del contador $u$ de 16
-bits, que es utilizado para aplicar una operación \textit{xor} al tweak $T$
-que entra a cada uno de los bloques $BC$. Recordando que $T$ es de 64 bits,
-el \textit{xor} se aplica a los 16 bits más significativos de ambas mitades
-de tweak, esto debido a cada mitad de tweak funciona de manera independiente
-en el cifrador $BC$, y a que no se desea un traslape entre el contador externo
-$u$ y el contador $i$ interno en $BC$.
+bits, que es utilizado para aplicar una operación \textit{xor} al
+\textit{tweak} $T$ que entra a cada uno de los bloques $BC$. Recordando que $T$
+es de 64 bits, el \textit{xor} se aplica a los 16 bits más significativos de
+ambas mitades de \textit{tweak}, esto debido a cada mitad de \textit{tweak}
+funciona de manera independiente en el cifrador $BC$, y a que no se desea un
+traslape entre el contador externo $u$ y el contador $i$ interno en $BC$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -282,7 +282,7 @@ usada en cada bloque $BC$ es constante, y a que además usa un número reducido
 de operaciones internas en comparación con otros algoritmos de cifrado que
 preservan el formato.
 
-Por último, se puede resaltar que el uso de tweaks protege a \textit{BPS} de
+Por último, se puede resaltar que el uso de \textit{tweaks} protege a \textit{BPS} de
 ataques de diccionario, los cuales son fáciles de cometer cuando el dominio
 de la cadena a cifrar es muy pequeño.
 
@@ -294,7 +294,7 @@ Se recomienda que el número de rondas $w$ de la red Feistel sea $8$, dado
 que es una número de rondas eficiente, y se ha estudiado la seguridad de
 \textit{BPS} con este $w$.
 
-Es recomendable que como tweak se use la salida truncada de una función hash,
+Es recomendable que como \textit{tweak} se use la salida truncada de una función hash,
 en donde la entrada de la función puede ser cualquier información relacionada
 a los datos que se deseen proteger, como por ejemplo fechas, lugares, o parte
 de los datos que no se deseen cifrar.
