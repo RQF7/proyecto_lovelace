@@ -18,9 +18,28 @@
 
 class CifradorDeRonda
 {
+  private:
+    unsigned int tipo;
+
   public:
+    /* No se uso el estilo de las reglas por que son banderas no variables. */
+    /** \brief Bandera para usar AES. */
+    static const unsigned int BANDERA_AES  = 1;
+
+    /** \brief Bandera para usar TDES. */
+    static const unsigned int BANDERA_TDES = 2;
+
     /** \brief Constructor de la clase sin argumentos. */
     CifradorDeRonda();
+
+    /** \brief Constructor de la clase con argumentos. */
+    CifradorDeRonda(unsigned int cifrador);
+
+    /** \brief Método para cambiar el tipo de cifrador que se usa. */
+    void colocarCifrador(unsigned int cifrador);
+
+    /** \brief Método para obtener el tipo de cifrador que se usa. */
+    unsigned int obtenerCifrador();
 
     /** \brief Método para obtener el tamaño de bloque del cifrador. */
     unsigned int obtenerTamBloque();

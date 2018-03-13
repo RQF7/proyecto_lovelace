@@ -29,7 +29,7 @@ int probarComposicion(vector<char> alfabeto)
   string cadena{""};
   mpz_class num = 0;
 
-  for (int i = 0; i < 100000; i += 23)
+  for (int i = 0; i < 10000; i += 23)
   {
     for (int j = 5; j < 15; j++)
     {

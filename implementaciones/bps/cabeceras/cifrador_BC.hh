@@ -33,9 +33,15 @@ class CifradorBC
     /** \brief Constructor de la clase sin argumentos. */
     CifradorBC();
 
-    /** \brief Constructor de la clase con argumentos. */
+    /** \brief Constructor de la clase con argumentos de alfabeto, 
+    tamaño de bloque y número de rondas. */
     CifradorBC(std::vector<char> alfabeto, unsigned int tamBloque,
                                            unsigned int numRondas);
+
+    /** \brief Constructor de la clase con argumentos de alfabeto, 
+    tamaño de bloque, número de rondas y cifrador. */
+    CifradorBC(std::vector<char> alfabeto, unsigned int tamBloque,
+                    unsigned int numRondas, unsigned int cifrador);
 
     /** \brief Método para generar el número resultante de la
      *  composición de un mensaje en el dominio del alfabeto. */
@@ -73,6 +79,9 @@ class CifradorBC
 
     /** \brief Método para cambiar el numero de rondas del cifrador. */
     void colocarNumRondas(unsigned int numRondas);
+
+    /** \brief Método para cambiar el tipo de cifrador F. */
+    void colocarTipoCifrador(unsigned int tipo);
 
 };
 

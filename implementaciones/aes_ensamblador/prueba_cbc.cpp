@@ -1,4 +1,4 @@
-#include "cabeceras/cbcmac.h"
+#include "cabeceras/cbc.hh"
 #include <iostream>
 #include <fstream>
 #include <string.h>
@@ -6,12 +6,20 @@
 
 using namespace std;
 
+char* obtenerNombreSalida(char* nombreOrigen)
+{
+  char *nombreArchivoDestino = (char*) malloc (strlen(nombreOrigen) + 4);
+  memcpy(nombreArchivoDestino, nombreOrigen, strlen(nombreOrigen));
+  memcpy(nombreArchivoDestino+strlen(nombreOrigen), ".cbc", 4);
+  return nombreArchivoDestino;
+}
+
 int main(int argc, char* argv[])
 {
-  if(argc!=3)
+  if(argc!=4)
   {
     cout << "Uso correcto: " << argv[0] << " [nombreArchivoOrigen] "
-         <<"[nombreArchivoLlave]" << endl;
+         <<"[nombreArchivoLlave] [nombreArchivoIV]" << endl;
     return 0;
   }
 
@@ -33,33 +41,33 @@ int main(int argc, char* argv[])
     exit(0);
   }
 
-  /** Leer el archivo de la llave y obtener su tamaño */
-  unsigned char *vectorLlave = leerLlave(archivoLlave);
-  int tamLlave = determinarTamanioLlave(strlen((char*)vectorLlave));
-
-  unsigned char* textoCifrado;
-  textoCifrado = cbcMac(archivoOrigen, vectorLlave, tamLlave);
-
-  /** Abrir archivo de salida */
-  fstream archivoDestino;
-  char* nombreArchivoDestino;
-  nombreArchivoDestino = obtenerNombreSalida(argv[1]);
-  archivoDestino.open(nombreArchivoDestino, ios::binary | ios::out);
-  if(!archivoDestino.is_open())
+  /** Abrir el archivo de la llave en modo binario */
+  ifstream archivoIni;
+  archivoIni.open(argv[3], ios::binary);
+  if(!archivoIni.is_open())
   {
-    cout << "Error al abrir el archivo destino." << endl;
-    return 0;
+    cout << "Error al abrir el archivo del vector de inicialización." << endl;
+    exit(0);
   }
 
-  /** Escribir CBC residual en el archivo de salida */
-  archivoDestino.write((char*)textoCifrado, TAM_BLOQUE);
-  
-  /** Cerrar ficheros */
-  archivoDestino.close();
-  archivoOrigen.close();
+  char* nombreArchivoDestino = obtenerNombreSalida(argv[1]);
+  char* nombreArchivoDestino2 = obtenerNombreSalida(nombreArchivoDestino);
 
-  /** Liberar memoria */
-  delete [] textoCifrado;
+  CBC cifrador = CBC(AES_256);
+  cifrador.leerLlave(archivoLlave);
+  cifrador.leerVectorIni(archivoIni);
+  cifrador.cifrarArchivoExacto(archivoOrigen, nombreArchivoDestino);
+
+  /** Abrir el archivo de la llave en modo binario */
+  ifstream archivoCifrado;
+  archivoCifrado.open(nombreArchivoDestino, ios::binary);
+  if(!archivoCifrado.is_open())
+  {
+    cout << "Error al abrir el archivo cifrado." << endl;
+    exit(0);
+  }
+
+  cifrador.descifrarArchivoExacto(archivoCifrado, nombreArchivoDestino2);
   
   return 1;
 }

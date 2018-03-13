@@ -53,23 +53,25 @@ de cuenta.
 \subsection{Dígito verificador}
 Finalmente, se tiene el dígito verificador; este toma en cuenta todos los
 dígitos anteriores y se calcula mediante el algoritmo de Luhn, que se describe
-a continuación:
-\begin{enumerate}
-    \item Comenzando desde la derecha, se obtiene el doble de cada segundo
-      dígito. Si el producto es mayor a $9$, se suman sus dígitos (ver
-      figura~\ref{fig:luhn1}).
-      \begin{figure}[H]
-        \begin{center}
-          \includegraphics[width=0.3\linewidth]{diagramas/luhn_1.png}
-        \end{center}
-        \caption{Primeros pasos del algoritmo de Luhn.}\label{fig:luhn1}
-      \end{figure}
-    \item Se suman todos los dígitos.
-    \item Se multiplica la suma por $9 \mod  10$ (ver figura~\ref{fig:luhn2}).
-      \begin{figure}[H]
-        \begin{center}
-          \includegraphics[width=0.5\linewidth]{diagramas/luhn_2.png}
-        \end{center}
-        \caption{Últimos pasos del algoritmo de Luhn.}\label{fig:luhn2}
-      \end{figure}
-\end{enumerate}
+en~\ref{luhn:1}.
+
+\begin{pseudocodigo}[%
+    caption={Algoritmo de Luhn.},
+    label={luhn:1}%
+  ]
+  entrada: número de tarjeta, compuesto desde 12 hasta 19 dígitos:
+           $\{x_{n} x_{n-1} x_{n-2} \dots x_3 x_2 x_1\}$
+  salida:  dígito verificador $x_1$.
+  inicio
+    Sean los conjuntos $x_{par} = \{x_2, x_4, x_6, \dots, x_n\}$ si $n$ es par, o $x_{par} = \{x_2, x_4, x_6, \dots, x_{n-1}\}$; y
+                       $x_{impar} = \{x_3, x_5, x_7, \dots, x_{n-1}\}$ si $n$ es par, o $x_{impar} = \{x_3, x_5, x_7, \dots, x_n\}$.
+    Obtener el doble de cada uno de los elementos del conjunto $x_{par}$; si
+      el producto es mayor a 9, sumar los dígitos que lo componen:
+      $x_{par doble} = \{2 \times x_2, 2 \times x_4, 2 \times x_6, \dots \}$.
+    Sumar los elementos de los conjuntos $x_{par doble}$ y $x_{impar}$:
+      $S = \Sigma x_{par doble} + \Sigma x_{impar}$
+    Multiplicar la suma anterior por $9 \mod  10$.
+      $x_1 = S \times 9 \mod 10$
+    Regresar $x_1$
+  fin
+\end{pseudocodigo}

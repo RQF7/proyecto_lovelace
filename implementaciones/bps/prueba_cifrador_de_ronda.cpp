@@ -31,6 +31,13 @@ int probarCifradoDescifrado(string mensaje)
   for (unsigned int i = 0; i < 256; i++)
   {
     memset(llave, i, AES::DEFAULT_KEYLENGTH);
+
+    cifradorDeRonda.colocarCifrador(CifradorDeRonda::BANDERA_AES);
+    cifrado = cifradorDeRonda.cifrar(mensaje, llave);
+    if (mensaje != cifradorDeRonda.descifrar(cifrado, llave))
+      return 0;
+
+    cifradorDeRonda.colocarCifrador(CifradorDeRonda::BANDERA_TDES);
     cifrado = cifradorDeRonda.cifrar(mensaje, llave);
     if (mensaje != cifradorDeRonda.descifrar(cifrado, llave))
       return 0;

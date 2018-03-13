@@ -9,6 +9,7 @@
 
 #include "cabeceras/utilidades.hh"
 #include "cabeceras/codificador.hh"
+#include "cabeceras/cifrador_de_ronda.hh"
 #include "cabeceras/cifrador_BC.hh"
 #include <iostream>
 #include <iomanip>
@@ -31,6 +32,18 @@ CifradorBPS::CifradorBPS(vector<char> alfabeto, unsigned int numRondas)
   mAlfabeto    = alfabeto;
   mNumRondas   = numRondas;
   mCodificador.colocarAlfabeto(mAlfabeto);
+  mTipoCifrador = CifradorDeRonda::BANDERA_AES;
+}
+
+/* ========================================================================= */
+
+CifradorBPS::CifradorBPS(vector<char> alfabeto, unsigned int numRondas,
+                                                 unsigned int cifrador)
+{
+  mAlfabeto    = alfabeto;
+  mNumRondas   = numRondas;
+  mCodificador.colocarAlfabeto(mAlfabeto);
+  mTipoCifrador = cifrador;
 }
 
 /* ========================================================================= */
@@ -44,6 +57,7 @@ CifradorBPS::CifradorBPS(vector<char> alfabeto, unsigned int numRondas)
 string CifradorBPS::cifrar(string mensaje, byte llave[], mpz_class tweak)
 {
   CifradorBC BC;
+  BC.colocarTipoCifrador(mTipoCifrador);
   int tamCifradorDeRonda = BC.obtenerCifradorDeRonda().obtenerTamBloque();
 
   /* Obtención del tamaño máximo de bloque del cifrador interno BC */
@@ -124,6 +138,7 @@ string CifradorBPS::cifrar(string mensaje, byte llave[], mpz_class tweak)
 string CifradorBPS::descifrar(string mensaje, byte llave[], mpz_class tweak)
 {
   CifradorBC BC;
+  BC.colocarTipoCifrador(mTipoCifrador);
   int tamCifradorDeRonda = BC.obtenerCifradorDeRonda().obtenerTamBloque();
 
   /* Obtención del tamaño máximo de bloque del cifrador interno BC */
@@ -233,4 +248,11 @@ void CifradorBPS::colocarAlfabeto(vector<char> alfabeto)
 void CifradorBPS::colocarNumRondas(unsigned int numRondas)
 {
   mNumRondas = numRondas;
+}
+
+/* ========================================================================= */
+
+void CifradorBPS::colocarTipoCifrador(unsigned int tipo)
+{
+  mTipoCifrador = tipo;
 }
