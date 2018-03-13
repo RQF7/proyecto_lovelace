@@ -51,6 +51,19 @@ CifradorBC::CifradorBC(vector<char> alfabeto, unsigned int tamBloque,
 
 /* ========================================================================= */
 
+CifradorBC::CifradorBC(vector<char> alfabeto, unsigned int tamBloque,
+                       unsigned int numRondas, unsigned int cifrador)
+{
+  mAlfabeto     = alfabeto;
+  mCardinalidad = alfabeto.size();
+  mTamBloque   = tamBloque;
+  mNumRondas   = numRondas;
+  mCodificador.colocarAlfabeto(mAlfabeto);
+  mCifradorDeRonda.colocarCifrador(cifrador);
+}
+
+/* ========================================================================= */
+
 /**
  * Este método retorna el valor x de la cadena, donde x se define como:
  * la sumatoria desde 0 hasta la longitud de la cadena dada, de la
@@ -360,4 +373,11 @@ void CifradorBC::colocarTamBloque(unsigned int tamBloque)
 void CifradorBC::colocarNumRondas(unsigned int numRondas)
 {
   mNumRondas = numRondas;
+}
+
+/* ========================================================================= */
+
+void CifradorBC::colocarTipoCifrador(unsigned int tipo)
+{
+  mCifradorDeRonda.colocarCifrador(tipo);
 }

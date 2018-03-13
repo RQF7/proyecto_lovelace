@@ -3,6 +3,7 @@
  * Pruebas de la clase de Cifrador BPS.
  */
 
+#include "cabeceras/cifrador_de_ronda.hh"
 #include "cabeceras/cifrador_BPS.hh"
 
 #include <iostream>
@@ -23,11 +24,27 @@ using namespace CryptoPP;
 
 /* ========================================================================= */
 
-int probarCifradoDescifrado(string claro, byte llave[], mpz_class tweak,
-                      vector<char> alfabeto, unsigned int numDeRondas){
+int probarCifradoDescifradoAES(string claro, byte llave[], mpz_class tweak,
+                          vector<char> alfabeto, unsigned int numDeRondas){
 
   string cifrado, descifrado;
-  CifradorBPS BPS(alfabeto,numDeRondas);
+  CifradorBPS BPS(alfabeto,numDeRondas,CifradorDeRonda::BANDERA_AES);
+
+  cifrado    = BPS.cifrar(claro, llave, tweak);
+  descifrado = BPS.descifrar(cifrado, llave, tweak);
+
+  if(claro == descifrado)
+    return 1;
+  return 0;
+}
+
+/* ========================================================================= */
+
+int probarCifradoDescifradoTDES(string claro, byte llave[], mpz_class tweak,
+                           vector<char> alfabeto, unsigned int numDeRondas){
+
+  string cifrado, descifrado;
+  CifradorBPS BPS(alfabeto,numDeRondas,CifradorDeRonda::BANDERA_TDES);
 
   cifrado    = BPS.cifrar(claro, llave, tweak);
   descifrado = BPS.descifrar(cifrado, llave, tweak);
@@ -154,16 +171,34 @@ int main(int argc, char* argv[])
       {
         for(unsigned int i = 0; i < valores[a].size(); i++)
         {
-          cout << "# Cifrando con: ..................................."
+          cout << "# Cifrando con AES: ..................................."
                << endl << "  Cadena: "  << valores[a][i] << endl
                << "  Llave: " << l << " " << "Tweak: " << t << endl;
 
-          resultado = probarCifradoDescifrado(valores[a][i], llave[l], tweak[t],
-                                               alfabetos[a], numDeRondas);
+          resultado = probarCifradoDescifradoAES(valores[a][i], llave[l], 
+                                    tweak[t], alfabetos[a], numDeRondas);
 
           if(resultado == 0)
           {
-            cout << "PRUEBA FALLIDA:" << endl
+            cout << "PRUEBA FALLIDA EN AES:" << endl
+                 << "No se ha podido cifrar y cifrar correctamente." << endl
+                 << "Cadena: "  << valores[a][i] << endl
+                 << "Llave: " << l << " " << "Tweak: " << t << endl;
+            exit(-1);
+          }
+          else
+            cout << "  ¡Exitoso!" << endl;
+
+          cout << "# Cifrando con TDES: ..................................."
+               << endl << "  Cadena: "  << valores[a][i] << endl
+               << "  Llave: " << l << " " << "Tweak: " << t << endl;
+
+          resultado = probarCifradoDescifradoTDES(valores[a][i], llave[l], 
+                                     tweak[t], alfabetos[a], numDeRondas);
+
+          if(resultado == 0)
+          {
+            cout << "PRUEBA FALLIDA EN TDES:" << endl
                  << "No se ha podido cifrar y cifrar correctamente." << endl
                  << "Cadena: "  << valores[a][i] << endl
                  << "Llave: " << l << " " << "Tweak: " << t << endl;

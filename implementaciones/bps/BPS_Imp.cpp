@@ -4,6 +4,7 @@
  * Proyecto Lovelace.
  */
 
+#include "cabeceras/cifrador_de_ronda.hh"
 #include "cabeceras/cifrador_BPS.hh"
 
 #include <iostream>
@@ -20,8 +21,13 @@ using namespace CryptoPP;
 
 int main(int argc, char* argv[])
 {
-  string tipoalfa = argv[1];
-  string claro = argv[2];
+  if(argc < 3)
+    cout << "Especifica el tipo de cifrado a usar, "
+         << "el alfabeto y el mensaje a cifrar" << endl;
+
+  string tipocifrado = argv[1];
+  string tipoalfa    = argv[2];
+  string claro       = argv[3];
 
   byte llave[AES::DEFAULT_KEYLENGTH];            /* Generación de la llave */
   memset(llave, 0x23, AES::DEFAULT_KEYLENGTH);
@@ -80,7 +86,8 @@ int main(int argc, char* argv[])
   }
   else
   {
-    cout << "Especifica uno de los siguentes alfabetos" << endl
+    cout << "Especifica uno de los siguentes alfabetos "
+         << "como segundo argumento" << endl
          << "NUMERICO"                << endl
          << "ALFABETICO"              << endl
          << "ALFANUMERICO"            << endl
@@ -93,6 +100,22 @@ int main(int argc, char* argv[])
 
   string cifrado, descifrado;
   CifradorBPS BPS(alfabeto, numDeRondas);
+  
+  if(tipocifrado == "AES")
+    BPS.colocarTipoCifrador(CifradorDeRonda::BANDERA_AES);
+  
+  else if(tipocifrado == "TDES")
+    BPS.colocarTipoCifrador(CifradorDeRonda::BANDERA_TDES);
+  
+  else
+  {
+    cout << "Especifica uno de los siguentes cifrador "
+         << "como primer argumento" << endl
+         << "AES"  << endl
+         << "TDES" << endl;
+    exit(1);
+  }
+
 
   cout << "==============================================" << endl;
   cout << "Texto claro:      " << claro << endl;
