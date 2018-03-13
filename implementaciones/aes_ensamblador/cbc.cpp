@@ -1,31 +1,38 @@
 #include "cabeceras/cbc.hh"
 #include <iostream>
-#include <math.h> 
-#include <string.h> 
+#include <math.h>
+#include <string.h>
 #include "libaesni/iaesni.h"
 
 using namespace std;
 
-
+/** \brief El constructor inicia al cifrador de bloque con el tamaño de
+llave a utilizar y reserva la memoria necesaria para el vector de
+inicialización. */
 CBC::CBC(int tamLlave){
   cifrador = AES(tamLlave);
   tamLongLongInt = sizeof(long long int);
   memset(vectorIni, 0x00, TAM_BLOQUE);
 }
 
-void CBC::leerBloque(ifstream &archivoOrigen, long long int inicio, 
+/** \brief  Dado el flujo de entrada, el desfase mediante el parámetro en
+  inicio y el tamaño de bloque que se va a leer dado en el tercer
+  parámetro, desplaza el cursor al desfase indicado y lee el número de
+  bytes indicados anteriormente. Guarda los datos leídos en bloqueLeido. */
+void CBC::leerBloque(ifstream &archivoOrigen, long long int inicio,
                       int tamBloque)
 {
-  /* Leer el archivo */
   archivoOrigen.seekg(inicio, ios::beg);
   archivoOrigen.read((char*)bloqueLeido, tamBloque);
   return;
 }
-
+/** \brief Realiza la operación lógica XOR entre bloqueUno y bloqueDos,
+  elemento a elemento y almacena el resultado en resultado. Es importante
+  resaltar que la operación da por sentado que los tres bloques provistos
+  en los parámetros tiene longitud TAM_BLOQUE. */
 void CBC::xorSimple(unsigned char* resultado, unsigned char* bloqueUno,
                     unsigned char* bloqueDos)
 {
-  /* Hacer XOR entre el bloque leído y el bloque cifrado anterior */
   for(int j=0; j<TAM_BLOQUE; j++)
   {
     resultado[j] = bloqueUno[j] ^ bloqueDos[j];
@@ -33,6 +40,11 @@ void CBC::xorSimple(unsigned char* resultado, unsigned char* bloqueUno,
   return;
 }
 
+/** \brief  Al inicio, calcula el tamaño de la llave (se asume que en el
+  archivo no hay nada más que la llave), reserva el espacio de memoria
+  suficiente para leerla y pone el tamaño de la llave en el cifrador AES.
+  Posteriormente, inicializa la llave en el cifrador y libera el espacio
+  que había reservado para leer la llave, pues ya no es necesario. */
 void CBC::leerLlave(ifstream &archivoLlave)
 {
   streampos inicioArchivo, finArchivo;
@@ -54,6 +66,11 @@ void CBC::leerLlave(ifstream &archivoLlave)
   return;
 }
 
+/** \brief  Al inicio, calcula el tamaño del vector de inicialización (se
+  asume que en el archivo no hay nada más que el vector de inicialización).
+  Luego, comprueba que el tamaño del vector sea el mismo que el tamaño del
+  bloque (y manda un error si no concuerda). Posteriormente lee al vector
+  y lo almacena en el bloque vectorIni. */
 void CBC::leerVectorIni(ifstream &archivoVI)
 {
   streampos inicioArchivo, finArchivo;
@@ -75,6 +92,8 @@ void CBC::leerVectorIni(ifstream &archivoVI)
   return;
 }
 
+/** \brief  Se encarga de obtener el tamaño del archivo que le es dado
+  en el parámetro. */
 void CBC::obtenerTamanioArchivo(ifstream &archivoOrigen)
 {
   /* Obtener el tamaño del archivo origen */
@@ -86,20 +105,34 @@ void CBC::obtenerTamanioArchivo(ifstream &archivoOrigen)
   tamArchivo = finArchivo - inicioArchivo;
 }
 
+/** \brief  Como se recomienda agregar la longitud de los datos en el
+  bloque inicial, se suma al tamaño del archivo el tamaño de un long long
+  int (tipo de la variable que almacena el tamaño del archivo) y se divide
+  entre el tamaño de bloque. La función ceil se encarga de redondear hacia
+  arriba siempre para no perder información. Si se requiere más de un
+  bloque, se calcula el resto (el número de bytes que faltan para completar
+  el bloque) y el desfase ocasionado por agregar la longitud al inicio,
+  pues no se lee un bloque de tamaño TAM_BLOQUE la primera vez cuando se
+  requiere más de un bloque. */
 void CBC::calcularNumBloques()
 {
   /* Calcular número de bloques */
   numBloques = ceil((tamArchivo + sizeof(long long int)) / (double) TAM_BLOQUE);
-  
+
   /* Determinar tamaño del primer bloque */
   desfase = tamArchivo;
-  resto = 0;
+  resto = TAM_BLOQUE - (tamArchivo + tamLongLongInt);
   if(numBloques > 1){
      desfase = TAM_BLOQUE - tamLongLongInt;
      resto = (TAM_BLOQUE * numBloques) - (tamArchivo + tamLongLongInt);
   }
 }
 
+/** \brief  El CBC residual o CBC MAC se calcula cifrando el archivo
+  con un vector de inicialización en ceros; el resultado es el último
+  bloque cifrado. La función cifra el primer bloque (habiendo agregado
+  la longitud de los datos) y, si es necesario más de un bloque, entra
+  en un ciclo para cifrar los bloques intermedios. */
 unsigned char* CBC::calcularCBCResidual(ifstream &archivoOrigen)
 {
 
@@ -136,7 +169,7 @@ unsigned char* CBC::calcularCBCResidual(ifstream &archivoOrigen)
     memset(bloqueClaro, 0x00, TAM_BLOQUE);
 
     /* Leer y cifrar el último bloque */
-    leerBloque(archivoOrigen, (TAM_BLOQUE*(numBloques-2))+desfase, 
+    leerBloque(archivoOrigen, (TAM_BLOQUE*(numBloques-2))+desfase,
       TAM_BLOQUE - resto);
     xorSimple(bloqueClaro, bloqueLeido, bloqueCifrado);
     cifrador.cifrarBloque(bloqueClaro);
@@ -145,6 +178,15 @@ unsigned char* CBC::calcularCBCResidual(ifstream &archivoOrigen)
   return cifrador.obtenerBloqueTCifrado();
 }
 
+/** \brief  Crea un archivo con el nombre de destino y escribe en ese flujo
+  el archivo cifrado mediante CBC. Dado que esta es una función para probar
+  el funcionamiento del CBC, se da por sentado que la entrada es múltiplo
+  del tamaño de bloque y no es necesario agregar nada. Primero calcula el
+  tamaño de archivo y luego el número de bloques necesarios. Posteriormente
+  cifra el archivo mediante CBC. Cada que tiene una salida, la escribe en
+  el archivo de salida. Al final, hace que el apuntador cbcResidual apunte
+  al último bloque del cifrado, así no se debe cifrar de nuevo para obtener
+  el CBC-MAC del archivo en cuestión. */
 int CBC::cifrarArchivoExacto(ifstream &archivoOrigen, char* nombreDestino)
 {
 
@@ -158,11 +200,11 @@ int CBC::cifrarArchivoExacto(ifstream &archivoOrigen, char* nombreDestino)
   }
 
   obtenerTamanioArchivo(archivoOrigen);
-  
+
   /* Calcular número de bloques */
   numBloques = ceil(tamArchivo / (double) TAM_BLOQUE);
-  
-  
+
+
   /* Leer el primer bloque del archivo */
   leerBloque(archivoOrigen, 0, TAM_BLOQUE);
 
@@ -190,7 +232,13 @@ int CBC::cifrarArchivoExacto(ifstream &archivoOrigen, char* nombreDestino)
 
   return 1;
 }
-
+/** \brief  Crea un archivo con el nombre de destino y escribe en ese flujo
+  el archivo descifrado mediante CBC. Dado que esta es una función para probar
+  el funcionamiento del CBC, se da por sentado que la entrada es múltiplo
+  del tamaño de bloque y no es necesario agregar nada. Primero calcula el
+  tamaño de archivo y luego el número de bloques necesarios. Posteriormente
+  descifra el archivo mediante CBC. Cada que tiene una salida, la escribe en
+  el archivo de salida.  */
 int CBC::descifrarArchivoExacto(ifstream &archivoOrigen, char* nombreDestino)
 {
 
@@ -206,18 +254,18 @@ int CBC::descifrarArchivoExacto(ifstream &archivoOrigen, char* nombreDestino)
   unsigned char *bloqueLeidoAnterior = new unsigned char[TAM_BLOQUE];
 
   obtenerTamanioArchivo(archivoOrigen);
-  
+
   /* Calcular número de bloques */
   numBloques = ceil(tamArchivo / (double) TAM_BLOQUE);
-  
-  
+
+
   /* Leer el primer bloque del archivo */
   leerBloque(archivoOrigen, 0, TAM_BLOQUE);
 
   memcpy(bloqueCifrado, bloqueLeido, TAM_BLOQUE);
   cifrador.descifrarBloque(bloqueCifrado);
   xorSimple(bloqueClaro, cifrador.obtenerBloqueTClaro(), vectorIni);
-  
+
   archivoDestino.write((char*)bloqueClaro, TAM_BLOQUE);
   memcpy(bloqueLeidoAnterior, bloqueLeido, TAM_BLOQUE);
 
@@ -242,10 +290,11 @@ int CBC::descifrarArchivoExacto(ifstream &archivoOrigen, char* nombreDestino)
   return 1;
 }
 
+/** \brief  Regresa en un apuntador el contenido que hay en el bloque de
+  cbc residual. */
 unsigned char* CBC::obtenerBloqueCifrado()
 {
   unsigned char *bloqueTCifradoExterior = new unsigned char[TAM_BLOQUE];
   memcpy(bloqueTCifradoExterior, cbcResidual, TAM_BLOQUE);
   return cbcResidual;
 }
-
