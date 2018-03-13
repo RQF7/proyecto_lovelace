@@ -2,9 +2,9 @@
  * \file
  * \brief Definición e implementación de AES mediante hardware
  *
- * Esta es una capa que, utilizando el paradigma orientado a objetos,
+ * Capa que, utilizando el paradigma orientado a objetos,
  * se encarga de cifrar y descifrar bloques mediante las instrucciones
- * que tiene Intel en sus procesadores. 
+ * que tiene Intel en sus procesadores.
  *
  * Proyecto Lovelace.
  */
@@ -14,56 +14,69 @@
 
 #include <iostream>
 
+/** \brief Tamaño del bloque: 16 bytes = 128 bits. */
 #define TAM_BLOQUE 16 //16 bytes = 128 bits
 
+/** \brief Constante para indicar el tamaño de la llave al constructor */
 #define AES_128 1
+/** \brief Constante para indicar el tamaño de la llave al constructor */
 #define AES_192 2
+/** \brief Constante para indicar el tamaño de la llave al constructor */
 #define AES_256 3
 
+/** \brief Tamaño de la llave: 16 bytes = 128 bits. */
 #define LLAVE_AES_128 16
+/** \brief Tamaño de la llave: 24 bytes = 192 bits. */
 #define LLAVE_AES_192 24
+/** \brief Tamaño de la llave: 32 bytes = 256 bits. */
 #define LLAVE_AES_256 32
 
 class AES
 {
   private:
+    /** \brief Arreglo donde se guarda el bloque en claro. */
     unsigned char *bloqueTClaro;
+
+    /** \brief Arreglo donde se guarda el bloque cifrado. */
     unsigned char *bloqueTCifrado;
+
+    /** \brief Arreglo donde se guarda la llave que se está utilizando. */
     unsigned char *vectorLlave;
-    int numBloques;
+
+    /** \brief Contiene la longitud de la llave que se está utilizando. */
     int tamLlave;
-    long long int resto;
-    long long int desfase;
 
   public:
-    /** Constructor que recibe como parámetro el tamaño de llave a utilizar */
+    /** \brief Constructor que inicia el cifrador AES con una longitud de llave
+    de 192 bits. */
     AES();
 
-    /** Constructor que recibe como parámetro el tamaño de llave a utilizar */
+    /** \brief Constructor que recibe como parámetro el tamaño de llave a
+    utilizar */
     AES(int);
 
-    /** Operación para cambiar el tamaño de la llave a utilizar */
+    /** \brief Operación para cambiar el tamaño de la llave a utilizar */
     void ponerTamanioLlave(int);
 
-    /** Operación para obtener el tamaño de llave indicado en bytes */
+    /** \brief Operación para obtener el tamaño de llave indicado en bytes */
     int obtenerTamanioLlave();
 
-    /** Operación para poner (o reemplazar) la llave actual */
+    /** \brief Operación para poner (o reemplazar) la llave actual */
     void ponerLlave(unsigned char*);
 
-    /** Operación para obtener la llave actual */
+    /** \brief Operación para obtener la llave actual */
     unsigned char* obtenerLlave();
 
-    /** Operación para obtener el bloque de texto claro*/
+    /** \brief Operación para obtener el bloque de texto claro*/
     unsigned char* obtenerBloqueTClaro();
 
-     /** Operación para obtener el bloque de texto cifrado*/
+     /** \brief Operación para obtener el bloque de texto cifrado*/
     unsigned char* obtenerBloqueTCifrado();
 
-    /** Operación que permite cifrar un bloque mediante AES*/
+    /** \brief Operación que permite cifrar un bloque mediante AES*/
     int cifrarBloque(unsigned char*);
 
-    /** Operación que permite descifrar un bloque mediante AES*/
+    /** \brief Operación que permite descifrar un bloque mediante AES*/
     int descifrarBloque(unsigned char*);
 };
 
