@@ -44,7 +44,7 @@ Donde:
 
 %------------------------------------------------------------------------------
 
-\textbf(Proceso de cifrado BC.)
+\textbf{Proceso de cifrado BC}.
 
 Para poder cifrar la cadena $X$:
 
@@ -143,7 +143,7 @@ label={cifrado_BC}]
 
 %------------------------------------------------------------------------------
 
-\textbf(Proceso de descifrado $BC^{-1}$.)
+\textbf{Proceso de descifrado $BC^{-1}$.}
 
 Para poder descifrar la cadena $Y$:
 
@@ -282,9 +282,9 @@ usada en cada bloque $BC$ es constante, y a que además usa un número reducido
 de operaciones internas en comparación con otros algoritmos de cifrado que
 preservan el formato.
 
-Por último, se puede resaltar que el uso de \textit{tweaks} protege a \textit{BPS} de
-ataques de diccionario, los cuales son fáciles de cometer cuando el dominio
-de la cadena a cifrar es muy pequeño.
+Por último, se puede resaltar que el uso de \textit{tweaks} protege a
+\textit{BPS} de ataques de diccionario, los cuales son fáciles de cometer cuando
+el dominio de la cadena a cifrar es muy pequeño.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -294,7 +294,7 @@ Se recomienda que el número de rondas $w$ de la red Feistel sea $8$, dado
 que es una número de rondas eficiente, y se ha estudiado la seguridad de
 \textit{BPS} con este $w$.
 
-Es recomendable que como \textit{tweak} se use la salida truncada de una función hash,
-en donde la entrada de la función puede ser cualquier información relacionada
-a los datos que se deseen proteger, como por ejemplo fechas, lugares, o parte
-de los datos que no se deseen cifrar.
+Es recomendable que como \textit{tweak} se use la salida truncada de una función
+hash, en donde la entrada de la función puede ser cualquier información
+relacionada a los datos que se deseen proteger, como por ejemplo fechas, lugares,
+o parte de los datos que no se deseen cifrar.
