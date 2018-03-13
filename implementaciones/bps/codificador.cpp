@@ -1,13 +1,8 @@
-/* ========================================================================= */
-/* ============================== Codificador ============================== */
-/* ======================================================================daz */
-
 /**
- * Proyecto Lovelace.
- * 
  * \file
  * \brief Implementación de la clase del codificador.
- * 
+ *
+ * Proyecto Lovelace.
  */
 
 #include "cabeceras/codificador.hh"
@@ -23,34 +18,38 @@ using namespace std;
 
 /* ========================================================================= */
 
-Codificador::Codificador(){}
+Codificador::Codificador()
+{
+}
 
 /* ========================================================================= */
 
 Codificador::Codificador(vector<char> alfabeto)
 {
-  m_ALFABETO = alfabeto;
+  mAlfabeto = alfabeto;
 }
 
 /* ========================================================================= */
 
-void Codificador::setAlfabeto(vector<char> alfabeto)
+void Codificador::colocarAlfabeto(vector<char> alfabeto)
 {
-  m_ALFABETO = alfabeto;
+  mAlfabeto = alfabeto;
 }
 
 /* ========================================================================= */
+
 /**
- * Esta función se encarga de obtener el carácter con valor entero 
- * equivalente a la posición del carácter dado dentro del alfabeto 
+ * Esta función se encarga de obtener el carácter con valor entero
+ * equivalente a la posición del carácter dado dentro del alfabeto
  * de la clase.
  */
+
 char Codificador::codificar(char c)
 {
   unsigned char x;
-  x = find(m_ALFABETO.begin(),m_ALFABETO.end(),c)-m_ALFABETO.begin();
-  
-  if(x >= m_ALFABETO.size())
+  x = find(mAlfabeto.begin(), mAlfabeto.end(), c) - mAlfabeto.begin();
+
+  if (x >= mAlfabeto.size())
   {
     cout << "ERROR, caracteres inexistentes en el alfabeto.";
     cout << endl;
@@ -60,78 +59,82 @@ char Codificador::codificar(char c)
 }
 
 /* ========================================================================= */
+
 /**
- * Esta función sirve para obtener el carácter del alfabeto en la 
+ * Esta función sirve para obtener el carácter del alfabeto en la
  * posición del valor entero del carácter dado.
  */
+
 char Codificador::decodificar(char c)
 {
-  return m_ALFABETO[c];
+  return mAlfabeto[c];
 }
 
 /* ========================================================================= */
+
 /**
- * Esta función se encarga de regresar una cadena que esta formado de la 
- * decodificación de la suma modular de la codificación de cada uno de 
+ * Esta función se encarga de regresar una cadena que está formada de la
+ * decodificación de la suma modular de la codificación de cada uno de
  * los caracteres de las cadenas dadas en los argumentos.
  */
-string Codificador::sumaMod(string cadena_a, string cadena_b)
+
+string Codificador::sumaMod(string cadenaA, string cadenaB)
 {
-  if(cadena_a == "") return cadena_b;
-  if(cadena_b == "") return cadena_a;
+  if(cadenaA == "") return cadenaB;
+  if(cadenaB == "") return cadenaA;
 
   Utilidades util;
   string salida{""};
   unsigned int tam, s;
   int a, b, offset;
-  
-  s = m_ALFABETO.size();
-  offset = cadena_a.size() - cadena_b.size();
-  
-  if(offset <= 0) tam = cadena_a.size();
-  else            tam = cadena_b.size();
- 
-  for(unsigned int i=0; i<tam; i++)
+
+  s = mAlfabeto.size();
+  offset = cadenaA.size() - cadenaB.size();
+
+  if (offset <= 0) tam = cadenaA.size();
+  else             tam = cadenaB.size();
+
+  for (unsigned int i = 0; i < tam; i++)
   {
-    a = codificar(cadena_a[i]);
-    b = codificar(cadena_b[i-offset]);
-    salida += decodificar(util.mod(a+b,s));
+    a = codificar(cadenaA[i]);
+    b = codificar(cadenaB[i - offset]);
+    salida += decodificar(util.mod(a + b, s));
   }
-  
+
   return salida;
 }
 
 /* ========================================================================= */
+
 /**
- * Esta función se encarga de regresar una cadena que esta formado de la 
- * decodificación de la resta modular de la codificación de cada uno de 
- * los caracteres de las cadenas dadas en los argumentos. 
- * (cadena_a - cadena_b)
+ * Esta función se encarga de regresar una cadena que está formada de la
+ * decodificación de la resta modular de la codificación de cada uno de
+ * los caracteres de las cadenas dadas en los argumentos.
+ * (cadenaA - cadenaB)
  */
-string Codificador::restaMod(string cadena_a, string cadena_b)
+
+string Codificador::restaMod(string cadenaA, string cadenaB)
 {
-  if(cadena_a == "") return cadena_b;
-  if(cadena_b == "") return cadena_a;
+  if(cadenaA == "") return cadenaB;
+  if(cadenaB == "") return cadenaA;
 
   Utilidades util;
   string salida{""};
   unsigned int tam, s;
   int a, b, offset;
-  
-  s = m_ALFABETO.size();
-  offset = cadena_a.size() - cadena_b.size();
-  
-  if(offset <= 0) tam = cadena_a.size();
-  else            tam = cadena_b.size();
- 
-  for(unsigned int i=0; i<tam; i++)
+
+  s = mAlfabeto.size();
+  offset = cadenaA.size() - cadenaB.size();
+
+  if(offset <= 0) tam = cadenaA.size();
+  else            tam = cadenaB.size();
+
+  for(unsigned int i = 0; i < tam; i++)
   {
-    a = codificar(cadena_a[i]);
-    b = codificar(cadena_b[i-offset]);
-    salida += decodificar(util.mod(a-b,s));
+    a = codificar(cadenaA[i]);
+    b = codificar(cadenaB[i - offset]);
+    salida += decodificar(util.mod(a - b, s));
   }
-  
+
   return salida;
 }
-
-/* ========================================================================= */

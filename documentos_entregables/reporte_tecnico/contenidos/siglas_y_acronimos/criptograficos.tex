@@ -1,0 +1,142 @@
+%
+% Siglas y acrónimos relacionados con la criptografía, reporte técnico.
+% Proyecto Lovelace.
+%
+
+\setglossarypreamble[siglas_cripto]
+{%
+  \addcontentsline{toc}{section}{Criptográficos}
+}
+
+\newacronym[type=siglas_cripto]{gl:abl}{ABL}{Arbitrary Block Length Mode}
+
+\newacronym[type=siglas_cripto]{gl:aes}{AES}{Advanced Encryption Standard}
+
+\newacronym[type=siglas_cripto]{gl:cavp}{CAVP}
+  {Cryptographic Algorithm Validation Program}
+
+\newacronym[type=siglas_cripto]{gl:cbc}{CBC}{Cipher-block Chaining}
+
+\newacronym[type=siglas_cripto]{gl:cfb}{CFB}{Cipher Feedback}
+
+\newacronym[type=siglas_cripto]{gl:cmac}{CMAC}
+  {Cipher-based Message Authentication Code}
+
+\newacronym[type=siglas_cripto]{gl:cmc}{CMC}{\gls{gl:cbc}-Mask-\gls{gl:cbc}}
+
+\newacronym[type=siglas_cripto]{gl:crhf}{CRHF}
+  {Collision-Resistant Hash Function}
+
+\newacronym[type=siglas_cripto]{gl:csp}{CSP}{Critical Security Parameter}
+
+\newacronym[type=siglas_cripto]{gl:ctr}{CTR}{Counter Mode}
+
+\newacronym[type=siglas_cripto]{gl:des}{DES}{Data Encryption Standard}
+
+\newacronym[type=siglas_cripto]{gl:dh}{DH}{Diffie-Hellman}
+
+\newacronym[type=siglas_cripto]{gl:dhe}{DHE}{\gls{gl:dh} Ephemeral}
+
+\newacronym[type=siglas_cripto]{gl:drbg}{DRBG}
+  {Deterministic Random Bit Generator}
+
+\newacronym[type=siglas_cripto]{gl:dsa}{DSA}{Digital Signature Algorithm}
+
+\newacronym[type=siglas_cripto]{gl:ecb}{ECB}{Electronic Codebook}
+
+\newacronym[type=siglas_cripto]{gl:ecc}{ECC}{Elliptic Curve Cryptosystem}
+
+\newacronym[type=siglas_cripto]{gl:ecdh}{ECDH}{Elliptic Curve \gls{gl:dh}}
+
+\newacronym[type=siglas_cripto]{gl:ecdsa}{ECDSA}{Elliptic Curve \gls{gl:dsa}}
+
+\newacronym[type=siglas_cripto]{gl:ecies}{ECIES}{
+  Elliptic Curve Integrated Encryption Scheme}
+
+\newacronym[type=siglas_cripto]{gl:ecmqv}{ECMQV}
+  {Elliptic Curve Menezes-Qu-Vanstone}
+
+\newacronym[type=siglas_cripto]{gl:eme}{EME}{\gls{gl:ecb}-Mask-\gls{gl:ecb}}
+
+\newacronym[type=siglas_cripto]{gl:feal}{FEAL}
+  {Fast Data Encipherment Algorithm}
+
+% ¿FFn? No lo encuentro (búsqueda superficial en duck duck go)
+% Hasta ahora caigo en la cuenta: «FFn» es como el NIST y el PCI se refieren
+% a una instanciación de los parámetros de FFX.
+% \newacronym{gl:ffn}{FFn}{Counther Mode}
+
+\newacronym[type=siglas_cripto]{gl:ffx}{FFX}
+  {Format-preserving Feistel-based Encryption}
+
+\newacronym[type=siglas_cripto]{gl:fpe}{FPE}{Format Preserving Encryption}
+
+\newacronym[type=siglas_cripto]{gl:hctr}{HCTR}{Hash \gls{gl:ctr}}
+
+\newacronym[type=siglas_cripto]{gl:hmac}{HMAC}
+  {Keyed-Hashed Message Authentication Code}
+
+\newacronym[type=siglas_cripto]{gl:idea}{IDEA}
+  {International Data Encryption Algorithm}
+
+\newacronym[type=siglas_cripto]{gl:kdf}{KDF}{Key Derivation Function}
+
+\newacronym[type=siglas_cripto]{gl:maa}{MAA}{Message Authenticator Algorithm}
+
+\newacronym[type=siglas_cripto]{gl:mac}{MAC}{Message Authentication Code}
+
+\newacronym[type=siglas_cripto]{gl:mdc}{MDC}{Message Digest Cipher}
+
+\newacronym[type=siglas_cripto]{gl:mdc2}{MDC-2}{Modification Detection Code-2}
+
+\newacronym[type=siglas_cripto]{gl:md4}{MD4}{Message Digest-4}
+
+\newacronym[type=siglas_cripto]{gl:md5}{MD5}{Message Digest-5}
+
+\newacronym[type=siglas_cripto]{gl:nrbg}{NRBG}
+  {Non-deterministic Random Bit Generator}
+
+\newacronym[type=siglas_cripto]{gl:oaep}{OAEP}
+  {Optimal Asymmetric Encryption Padding}
+
+\newacronym[type=siglas_cripto]{gl:ocb}{OCB}{Offset Codebook}
+
+\newacronym[type=siglas_cripto]{gl:ofb}{OFB}{Output Feedback}
+
+\newacronym[type=siglas_cripto]{gl:owhf}{OWHF}{One-Way Hash Function}
+
+\newacronym[type=siglas_cripto]{gl:prf}{PRF}{Pseudorandom Function}
+
+\newacronym[type=siglas_cripto]{gl:prng}{PRNG}{Pseudorandom Number Generator}
+
+\newacronym[type=siglas_cripto]{gl:rbg}{RBG}{Random Bit Generator}
+
+\newacronym[type=siglas_cripto]{gl:rng}{RNG}{Random Number Generator}
+
+\newacronym[type=siglas_cripto]{gl:rsa}{RSA}
+  {Ron Rivest, Adi Shamir, Leonard Adleman}
+
+% No estoy seguro de que la ES realmente sea eso; no lo dicen claramente
+% en ningún lado:
+% http://www.inf.pucrs.br/~calazans/graduate/TPVLSI_I/RSA-oaep_spec.pdf
+% Creo que sí, yo juraría que era una especie de juego de palabras con AES,
+% pero creo que ño.
+\newacronym[type=siglas_cripto]{gl:rsaes}{RSAES}
+  {\gls{gl:rsa} Encryption Scheme}
+
+\newacronym[type=siglas_cripto]{gl:safer}{SAFER}
+  {Secure And Fast Encryption Routine}
+
+\newacronym[type=siglas_cripto]{gl:sha}{SHA}{Secure Hash Algorithm}
+
+\newacronym[type=siglas_cripto]{gl:tdes}{TDES}{Triple \gls{gl:des}}
+
+\newacronym[type=siglas_cripto]{gl:tbc}{TBC}{Tweakable Block Cipher}
+
+\newacronym[type=siglas_cripto]{gl:tbc_modo}{TBC}{Tweakable Block Chaining}
+
+\newacronym[type=siglas_cripto]{gl:tes}{TES}{Tweakable Encyphering Scheme}
+
+\newacronym[type=siglas_cripto]{gl:trng}{TRNG}{True Random Number Generator}
+
+\newacronym[type=siglas_cripto]{gl:xcb}{XCB}{Extended Codebook}

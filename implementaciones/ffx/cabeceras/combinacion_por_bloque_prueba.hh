@@ -15,7 +15,7 @@ namespace ImplementacionesPruebas
    * \brief
    */
 
-  class CombinacionPorBloquePrueba : public Prueba
+  class CombinacionPorBloquePrueba : public Utilidades::Prueba
   {
     public:
       /** \brief Regitro de pruebas en vector de funciones. */

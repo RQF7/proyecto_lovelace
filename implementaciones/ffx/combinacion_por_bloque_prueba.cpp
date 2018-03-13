@@ -4,9 +4,9 @@
  * Proyecto Lovelace.
  */
 
-#include "cabeceras/arreglo.hh"
 #include "cabeceras/combinacion_por_bloque.hh"
 #include "cabeceras/combinacion_por_bloque_prueba.hh"
+#include "../../utilidades/cabeceras/arreglo.hh"
 #include <iostream>
 
 using namespace Implementaciones;
@@ -15,7 +15,7 @@ using namespace std;
 
 CombinacionPorBloquePrueba::CombinacionPorBloquePrueba()
 {
-  mListaDePruebas.push_back(FuncionDePrueba{
+  mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "operaciones de suma y resta por bloque",
     CombinacionPorBloquePrueba::probarSumaYResta
   });

@@ -40,7 +40,7 @@ recomendaciones a seguir en el proyecto.
 Archivos publicados en la
 [página pública del proyecto](https://rqf7.github.io/proyecto_lovelace/).
 
-* [Documento final](documentos_entregables/documento_final/documento_final.pdf)
+* [Reporte técnico](documentos_entregables/reporte_tecnico/reporte_tecnico.pdf)
 * [Presentación de FPE](documentos_entregables/presentacion_fpe/presentacion_fpe.pdf)
 * [Documentación de doxygen (html)](documentacion_doxygen/html/index.html).
 
@@ -53,11 +53,3 @@ Archivos publicados en la
 * **fuentes_bibliograficas:** registro de publicaciones consultadas.
   * **iacr:** artículos de la IACR y parecidos.
   * **pci_y_nist** recomendaciones y estándares del PCI SSC y del NIST.
-
-## Flujos de trabajo
-
-* Observaciones específicas a ciertos archivos o a un solo commit se deben hacer
-  en las propias páginas de los commits. Observaciones generales que afectan
-  a muchos archivos o commits se deben hacer por medio de los
-  [issues](https://github.com/RQF7/proyecto_lovelace/issues). Quien abre un
-  *issue*  es quien debe cerrarlo.

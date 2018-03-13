@@ -1,8 +1,10 @@
 /**
+ * \file
+ * \brief Cifrador BPS.
  * Proyecto Lovelace.
- * Cifrador BPS.
  */
 
+#include "cabeceras/cifrador_de_ronda.hh"
 #include "cabeceras/cifrador_BPS.hh"
 
 #include <iostream>
@@ -17,20 +19,26 @@
 using namespace std;
 using namespace CryptoPP;
 
-int main(int argc, char* argv[]) {
-  
-  string tipoalfa = argv[1];
-  string claro = argv[2];
+int main(int argc, char* argv[])
+{
+  if(argc < 3)
+    cout << "Especifica el tipo de cifrado a usar, "
+         << "el alfabeto y el mensaje a cifrar" << endl;
 
-  byte llave[AES::DEFAULT_KEYLENGTH];            /* Generacion de la llave */
+  string tipocifrado = argv[1];
+  string tipoalfa    = argv[2];
+  string claro       = argv[3];
+
+  byte llave[AES::DEFAULT_KEYLENGTH];            /* Generación de la llave */
   memset(llave, 0x23, AES::DEFAULT_KEYLENGTH);
-  mpz_class tweak = 0xF0F0F0F01F1F1F1F;          /* Generacion del tweak */
+  mpz_class tweak = 0xF0F0F0F01F1F1F1F;          /* Generación del tweak */
 
-  unsigned int num_de_rondas = 8;                /* Numero de rondas */
+  unsigned int numDeRondas = 8;                  /* Número de rondas */
 
-  vector<char> alfabeto;                         /* Creacion del alfabeto */
-  
-  if(tipoalfa == "NUMERICO"){
+  vector<char> alfabeto;                         /* Creación del alfabeto */
+
+  if(tipoalfa == "NUMERICO")
+  {
     for(int i=0; i<10; i++)
       alfabeto.push_back('0' + i);
   }
@@ -76,8 +84,10 @@ int main(int argc, char* argv[]) {
       alfabeto.push_back('A' + i);
     }
   }
-  else 
-    cout << "Especifica uno de los siguentes alfabetos" << endl
+  else
+  {
+    cout << "Especifica uno de los siguentes alfabetos "
+         << "como segundo argumento" << endl
          << "NUMERICO"                << endl
          << "ALFABETICO"              << endl
          << "ALFANUMERICO"            << endl
@@ -85,9 +95,27 @@ int main(int argc, char* argv[]) {
          << "ALFABETICO_MAYUSCULAS"   << endl
          << "ALFANUMERICO_MINUSCULAS" << endl
          << "ALFANUMERICO_MAYUSCULAS" << endl;
+    exit(1);
+  }
 
   string cifrado, descifrado;
-  CifradorBPS BPS(alfabeto,num_de_rondas);
+  CifradorBPS BPS(alfabeto, numDeRondas);
+  
+  if(tipocifrado == "AES")
+    BPS.colocarTipoCifrador(CifradorDeRonda::BANDERA_AES);
+  
+  else if(tipocifrado == "TDES")
+    BPS.colocarTipoCifrador(CifradorDeRonda::BANDERA_TDES);
+  
+  else
+  {
+    cout << "Especifica uno de los siguentes cifrador "
+         << "como primer argumento" << endl
+         << "AES"  << endl
+         << "TDES" << endl;
+    exit(1);
+  }
+
 
   cout << "==============================================" << endl;
   cout << "Texto claro:      " << claro << endl;

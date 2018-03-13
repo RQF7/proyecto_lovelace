@@ -40,6 +40,12 @@ siguientes puntos:
   u observaciones sobre muchos archivos o sobre muchos commits, se debe
   levantar un *issue*.
 
+* **Sobre la historia de los issues:** la página de un *issue* no solamente
+  describe una tarea (eso lo hace el primer comentario) sino que también
+  muestra la historia de cómo se fue desarrollando la tarea. Para esto se deben
+  crear referencias en la página de un commit hacia el *issue* al que está
+  relacionado.
+
 ### LaTeX
 
 Recomendaciones:
@@ -53,7 +59,7 @@ Recomendaciones:
   de los documentos (la información) debe de ir dentro de archivos **tex**,
   mientras que las instrucciones para modificar el formato van en archivos
   **sty**. Se debe evitar a toda costa colocar instrucciones estructurales
-  junto con el contenido (e. g. modificaciones de espaciado, saltos de página).
+  junto con el contenido (p. ej. modificaciones de espaciado, saltos de página).
 
 Reglas. Todos los archivos **tex** y **sty** deben cumplir con los siguientes
 puntos:
@@ -71,7 +77,7 @@ puntos:
   extenso, las llaves de apertura y cierre deben de estar en su propio renglón.
 * Todas las imágenes se colocan dentro de una carpeta *diagramas* hermana al
   archivo desde el cual se importan. Dentro de esta carpeta se debe de colocar
-  una versión binaria del archivo del programa desde el cual se generó (e. g.
+  una versión binaria del archivo del programa desde el cual se generó (p. ej.
   los xml de draw.io).
 
 ### C++
@@ -87,6 +93,28 @@ Todo el código en c++ debe cumplir con los siguientes puntos:
     en controles de flujo (ciclos, condicionales) ambas llaves se colocan en
     un renglón propio. Para los controles de flujo, no se colocan llaves si
     el bloque solamente contiene una línea.
+* Espacios en blanco:
+  * Debe haber un espacio en blanco antes y después de cualquier palabra
+    reservada:
+    ```c++
+    if (condicion)
+    for (;;)
+    ```
+  * Los operadores binarios llevan espacios en blanco antes y después:
+    ```c++
+    5 + 6;
+    prueba = funcion(76) - (45 / 98);
+    ```
+  * El contenido de paréntesis, corchetes o llaves no lleva espacios por
+    el lado de adentro:
+    ```c++
+    funcion(a + b);
+    for (int i = 6; i <= 7; i++)
+    ```
+  * Las listas de argumentos van separadas por espacios después de cada coma:
+    ```c++
+    llamadaAFuncion(arg1, arg2, funcionDos(5 + 8, arg3));
+    ```
 * Terminación de archivos:
   * Código fuente: **.cpp**.
   * Archivos de cabeceras: **.hh**.

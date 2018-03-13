@@ -47,13 +47,14 @@
 %------------------------------------------------------------------------------
 \begin{frame}{BPS}{Modo de operación}
 
-  Con este modo de operación, cuando el texto en claro a cifrar no tenga
-  una longitud total que sea múltiplo de la longitud de bloque, el último
-  bloque recorre su cursor de inicio hasta que su longitud concuerde.
+  Con este modo de operación, el tamaño de cada bloque $B_i$ debe ser igual 
+  a $max(b)$ y cuando el texto en claro a cifrar no tenga una longitud total 
+  que sea múltiplo de este valor, en el último bloque el cifrador $BC$ tendrá 
+  una longitud igual a la de ese bloque.
 
   \begin{figure}[H]
     \begin{center}
-      \includegraphics[width=0.5\linewidth]
+      \includegraphics[width=0.9\linewidth]
         {../../../diagramas_comunes/bps/cursor_bps}
       \caption{Corrimiento de cursor de selección del ultimo bloque.}
      \end{center}

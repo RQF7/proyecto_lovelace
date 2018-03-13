@@ -1,0 +1,92 @@
+%
+% Archivo principal de documento final.
+% Proyecto Lovelace.
+%
+
+\documentclass[11pt, letterpaper, twosides]{book}
+\usepackage{formato}
+\newcommand{\Titulo}{Generación de \textit{tokens} para proteger
+                     los datos de tarjetas bancarias}
+\newcommand{\Fecha}{Enero de 2018}
+\usepackage{reporte_tecnico/formato}
+
+\begin{document}
+
+  \frontmatter
+  \Portada
+
+  \pdfbookmark[1]{\contentsname}{Contenido}
+  \setcounter{page}{3}
+  \setcounter{tocdepth}{5}
+  \tableofcontents
+  \newpage
+  \import{reporte_tecnico/contenidos/}{simbologia.tex}
+
+  \mainmatter
+  \import{reporte_tecnico/contenidos/intro/}{intro.tex}
+  \import{reporte_tecnico/contenidos/antecedentes/}{antecedentes.tex}
+  \import{reporte_tecnico/contenidos/analisis_y_disenio/}
+    {analisis_y_disenio.tex}
+
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{Bibliografía}
+  \printbibliography[
+    heading=subbibliography,
+    title={Bibliografía}
+  ]
+
+  \setglossarystyle{altlist}
+  \printglossary[
+    type=main,
+    entrycounter=true
+  ]
+
+  \section*{Siglas y acrónimos}
+  \phantomsection
+  \addcontentsline{toc}{chapter}{Siglas y acrónimos}
+  \setglossarystyle{list}
+  \renewcommand*{\glsgroupskip}{}
+  \setglossarysection{subsection}
+
+  \printglossary[
+    type=siglas_cripto,
+    title={Criptográficos}
+  ]
+
+  \printglossary[
+    type=siglas_computacionales,
+    title={Computacionales}
+  ]
+
+  \printglossary[
+    type=siglas_bancarias,
+    title={Bancarios}
+  ]
+
+  \printglossary[
+    type=siglas_instituciones,
+    title={De instituciones y asociaciones}
+  ]
+
+  \printglossary[
+    type=\acronymtype,
+    title={Misceláneos}
+  ]
+
+  \newpage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\listfigurename}
+  \listoffigures
+
+  \newpage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\listtablename}
+  \listoftables
+
+  \newpage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\lstlistlistingname}
+  \lstlistoflistings
+
+\end{document}

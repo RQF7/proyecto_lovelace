@@ -12,10 +12,10 @@
 namespace ImplementacionesPruebas
 {
   /**
-   * \brief
+   * \brief Pruebas de las operaciones por caracter.
    */
 
-  class CombinacionPorCaracterPrueba : public Prueba
+  class CombinacionPorCaracterPrueba : public Utilidades::Prueba
   {
     public:
       /** \brief Regitro de pruebas en vector de funciones. */

@@ -20,39 +20,43 @@
 using namespace std;
 
 /* ========================================================================= */
-int probar_mod(int mod, int cota)
+
+int probarMod(int mod, int cota)
 {
   Utilidades util;
-  for(int i=-cota; i<cota; i++)
-    if(util.mod(i,mod) < 0 || util.mod(i,mod) >= mod)
+  for(int i = -cota; i < cota; i++)
+    if(util.mod(i, mod) < 0 || util.mod(i, mod) >= mod)
       return 0;
   return 1;
 }
 
 /* ========================================================================= */
-int probar_stringMpz(mpz_class num)
+
+int probarStringMpz(mpz_class num)
 {
   Utilidades util;
-  string cad = util.numToString(num);
-  mpz_class numx = util.stringToNum(cad);
+  string cad = util.numeroACadena(num);
+  mpz_class numx = util.cadenaANumero(cad);
   if(num == numx) return 1;
   else            return 0;
 }
 
 /* ========================================================================= */
+
 int main(int argc, char* argv[])
 {
-  for(int i=1; i<100000; i+=23)
+  for (int i = 1; i < 100000; i += 23)
   {
-    if(probar_mod(i,1000) == 0)
+    if (probarMod(i, 1000) == 0)
     {
       cout << "ERROR, La función Utilidades::mod() es incorrecta." << endl;
       exit(-1);
     }
     mpz_class x = i;
-    if(probar_stringMpz(x) == 0){
-      cout << "ERROR, Las funciones Utilidades::numToString() y ";
-      cout << "Utilidades::stringToNum son incorrectas." << endl;
+    if (probarStringMpz(x) == 0)
+    {
+      cout << "ERROR, Las funciones Utilidades::numeroACadena() y ";
+      cout << "Utilidades::cadenaANumero son incorrectas." << endl;
       exit(-1);
     }
   }

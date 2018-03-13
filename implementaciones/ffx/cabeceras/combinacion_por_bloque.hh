@@ -6,9 +6,9 @@
 #ifndef __COMBINACION_POR_BLOQUE__
 #define __COMBINACION_POR_BLOQUE__
 
-#include "arreglo.hh"
-#include "funcion_con_inverso.hh"
-#include "utilidades_matematicas.hh"
+#include "../../../utilidades/cabeceras/arreglo.hh"
+#include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
+#include "../../../utilidades/interfaces_comunes/funcion_con_inverso.hh"
 #include <cmath>
 
 namespace Implementaciones
@@ -26,8 +26,8 @@ namespace Implementaciones
    */
 
   template <typename tipo /**< Tipo de dato de los arreglos. */ >
-  class CombinacionPorBloque : public FuncionConInverso<Arreglo<tipo>,
-    Arreglo<tipo>>
+  class CombinacionPorBloque : public Utilidades::FuncionConInverso<
+    Arreglo<tipo>, Arreglo<tipo>>
   {
     public:
 
@@ -77,10 +77,10 @@ namespace Implementaciones
   )
   {
     int tamanio {entrada[0].obtenerNumeroDeElementos()};
-    int numeroUno {entrada[0].convertirANumero(mBase)};
-    int numeroDos {entrada[1].convertirANumero(mBase)};
-    return Arreglo<tipo>::convertirAArreglo(modulo((numeroUno + numeroDos),
-      static_cast<int>(pow(mBase, tamanio))), mBase, tamanio);
+    entero numeroUno {convertirANumero<tipo, entero>(entrada[0], mBase)};
+    entero numeroDos {convertirANumero<tipo, entero>(entrada[1], mBase)};
+    return convertirAArreglo<tipo, entero>(modulo((numeroUno + numeroDos),
+      static_cast<entero>(potencia<entero>(mBase, tamanio))), mBase, tamanio);
   }
 
   /**
@@ -100,10 +100,12 @@ namespace Implementaciones
   )
   {
     int tamanio {entrada[0].obtenerNumeroDeElementos()};
-    int numeroUno {entrada[0].convertirANumero(mBase)};
-    int numeroDos {entrada[1].convertirANumero(mBase)};
-    return Arreglo<tipo>::convertirAArreglo(modulo((numeroUno - numeroDos),
-      static_cast<int>(pow(mBase, tamanio))), mBase, tamanio);
+    enteroConSigno numeroUno {
+      convertirANumero<tipo, enteroConSigno>(entrada[0], mBase)};
+    enteroConSigno numeroDos {
+      convertirANumero<tipo, enteroConSigno>(entrada[1], mBase)};
+    return convertirAArreglo<tipo, enteroConSigno>(modulo((numeroUno - numeroDos),
+      static_cast<enteroConSigno>(potencia<entero>(mBase, tamanio))), mBase, tamanio);
   }
 }
 

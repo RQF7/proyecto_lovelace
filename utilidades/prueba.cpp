@@ -7,6 +7,7 @@
 #include "cabeceras/prueba.hh"
 #include <iostream>
 
+using namespace Utilidades;
 using namespace std;
 
 /**

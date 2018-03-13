@@ -1,4 +1,18 @@
 /**
- * \dir .
+ * \dir
  * \brief Cabeceras de sección de utilidades.
+ *
+ * \note Las utilidades más comunes (el arreglo, las funciones matemáticas) se
+ * dejan fuera del espacio de nombres para simplificar los códigos dependientes.
+ */
+
+/**
+ * \namespace Utilidades
+ * \brief Clases y funciones de soporte: funciones matemáticas, estructuras
+ * de datos e interfaces comunes.
+ */
+
+/**
+ * \namespace UtilidadesPruebas
+ * \brief Clases de pruebas del espacio de Utilidades.
  */

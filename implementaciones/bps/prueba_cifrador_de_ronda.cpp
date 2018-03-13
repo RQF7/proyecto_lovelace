@@ -21,25 +21,34 @@ using namespace std;
 using namespace CryptoPP;
 
 /* ========================================================================= */
-int probar_cifradoDescifrado(string mensaje)
+
+int probarCifradoDescifrado(string mensaje)
 {
-  CifradorDeRonda cifrador_de_ronda;
+  CifradorDeRonda cifradorDeRonda;
   byte llave[AES::DEFAULT_KEYLENGTH];
   string cifrado;
 
-  for(unsigned int i=0; i<256; i++)
+  for (unsigned int i = 0; i < 256; i++)
   {
     memset(llave, i, AES::DEFAULT_KEYLENGTH);
-    cifrado = cifrador_de_ronda.cifrar(mensaje,llave);
-    if(mensaje != cifrador_de_ronda.descifrar(cifrado,llave))
+
+    cifradorDeRonda.colocarCifrador(CifradorDeRonda::BANDERA_AES);
+    cifrado = cifradorDeRonda.cifrar(mensaje, llave);
+    if (mensaje != cifradorDeRonda.descifrar(cifrado, llave))
+      return 0;
+
+    cifradorDeRonda.colocarCifrador(CifradorDeRonda::BANDERA_TDES);
+    cifrado = cifradorDeRonda.cifrar(mensaje, llave);
+    if (mensaje != cifradorDeRonda.descifrar(cifrado, llave))
       return 0;
   }
   return 1;
 }
 
 /* ========================================================================= */
-int main(int argc, char* argv[]) {
 
+int main(int argc, char* argv[])
+{
   vector<string> mensajes;
   mensajes.push_back("ABCDEFGHIJKLMNOP");
   mensajes.push_back("abvcdefghijklmop");
@@ -57,9 +66,9 @@ int main(int argc, char* argv[]) {
   mensajes.push_back("huiHUIHUIhIuhIhI");
   mensajes.push_back("ZZZZAAAXXXAAAZZZ");
 
-  for(unsigned int i=0; i<mensajes.size(); i++)
+  for (unsigned int i = 0; i < mensajes.size(); i++)
   {
-    if(probar_cifradoDescifrado(mensajes[i]) == 0)
+    if (probarCifradoDescifrado(mensajes[i]) == 0)
     {
       cout << "ERROR, Los metodos CifradorDeRonda::cifrar() y ";
       cout << "CifradorDeRonda::descifrar() son incorrectas." << endl;
@@ -73,5 +82,3 @@ int main(int argc, char* argv[]) {
 
   return 0;
 }
-
-/* ========================================================================= */

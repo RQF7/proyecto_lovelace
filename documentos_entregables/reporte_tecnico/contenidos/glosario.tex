@@ -1,0 +1,504 @@
+%
+% Definición de entradas del glosario.
+% Proyecto Lovelace.
+%
+% Más información en https://www.sharelatex.com/learn/Glossaries
+%
+
+\newglossary*{siglas_cripto}{Criptográficos}
+\newglossary*{siglas_bancarias}{Bancarios}
+\newglossary*{siglas_computacionales}{Computacionales}
+\newglossary*{siglas_instituciones}{Instituciones y agrupaciones}
+
+\makeglossaries
+
+\setglossarypreamble
+{%
+  \phantomsection%
+  \addcontentsline{toc}{chapter}{Glosario}%
+  Glosario de términos criptográficos y matemáticos. Las principales fuentes
+  bibliográficas usadas son \cite{menezes} y \cite{stallings}; en caso de
+  tratarse de una fuente distinta, se indica en la entrada en particular.
+}
+
+\newglossaryentry{gl:modo_de_operacion}
+{
+  name = modo de operación,
+  plural = modos de operación,
+  description = {
+    Construcción que permite extender la funcionalidad de un cifrado a bloques
+    para operar sobre tamaños de información arbitrarios%
+  }
+}
+
+\newglossaryentry{gl:vector_de_inicializacion}
+{
+  name = vector de inicialización,
+  plural = vectores de inicialización,
+  description = {
+    Cadena de bits de tamaño fijo que sirve como entrada a muchas primitivas
+    criptográficas (p. ej. algunos modos de operación). Generalmente
+    se requiere que sea generado de forma aleatoria%
+  },
+  see={gl:modo_de_operacion,gl:primitiva_criptografica}
+}
+
+\newglossaryentry{gl:ronda}
+{
+  name = ronda,
+  description = {
+    (\textit{Round}) Bloque compuesto por un conjunto de operaciones que es
+    ejecutado múltiples veces. Las \textit{rondas} son definidas por el
+    algoritmo de cifrado%
+  }
+}
+
+\newglossaryentry{gl:integridad_datos}
+{
+  name = integridad de datos,
+  description = {
+    Propiedad en la que los datos no han sido alterados sin autorización desde
+    que fueron creados, transmitidos o almacenados por una fuente autorizada.
+    Operaciones que insertan, eliminan, modifican o reordenan bits invalidan
+    la \textit{integridad de los datos}. La \textit{integridad de los datos}
+    incluye que los datos estén completos y, cuando los datos son divididos en
+    bloques, cada bloque cumplir con lo mencionado anteriormente%
+  }
+}
+
+\newglossaryentry{gl:autenticacion_origen}
+{
+  name = autenticación de origen,
+  description = {
+    Tipo de autenticación donde se corrobora que una entidad es la fuente
+    original de la creación de un conjunto de datos en un tiempo específico.
+    Por definición, la \textit{autenticación de origen} incluye la integridad
+    de datos, pues cuando se modifican los datos, se tiene una nueva fuente%
+  },
+  see={gl:integridad_datos}
+}
+
+\newglossaryentry{gl:cifrado_iterativo}
+{
+  name = cifrado iterativo,
+  plural = cifrados iterativos,
+  description = {
+    (\textit{Iterated block cipher}) Cifrado de bloque que involucra la
+    repetición secuencial de una función interna llamada función de ronda. Los
+    parámetros incluyen el número de rondas, el tamaño de bloque y
+    el tamaño de llave%
+  },
+  see={gl:ronda}
+}
+
+\newglossaryentry{gl:entropia}
+{
+  name = entropía,
+  description = {
+    Definida para una función de probabilidad de distribución discreta,
+    mide cuánta información en promedio es requerida para identificar
+    muestras aleatorias de esa distribución%
+  },
+  see={gl:funcion,gl:distribucion_probabilidad}
+}
+
+\newglossaryentry{gl:preimagen}
+{
+  name = preimagen,
+  plural = preimágenes,
+  description = {
+    Suponga que se tiene $x \in X$ y $y \in Y$ tal que $f(x) = y$;
+    se dice entonces que $x$ es \textit{preimagen} de $y$, o que
+    $y$ es la imagen de $x$ bajo $f$%
+  },
+  see={gl:imagen,gl:funcion,gl:dominio,gl:codominio}
+}
+
+\newglossaryentry{gl:imagen}
+{
+  name = imagen,
+  plural = imágenes,
+  description = {
+    Suponga que se tiene $x \in X$ y $y \in Y$ tal que $f(x) = y$;
+    se dice entonces que $y$ es la \textit{imagen} de $x$ bajo $f$,
+    o que $x$ es preimagen de $y$%
+  },
+  see={gl:preimagen,gl:funcion,gl:dominio,gl:codominio}
+}
+
+\newglossaryentry{gl:biyeccion}
+{
+  name = biyección,
+  plural = biyecciones,
+  description = {
+    Dicho de las funciones que son inyectivas y
+    suprayectivas al mismo tiempo; en otras palabras, que todos los
+    elementos del conjunto de salida tengan una imagen distinta en el conjunto
+    de llegada y a cada elemento del conjunto de llegada le corresponde
+    un elemento del conjunto de salida%
+  },
+  see={gl:inyectiva,gl:suprayectiva,gl:funcion,gl:imagen}
+}
+
+\newglossaryentry{gl:inyectiva}
+{
+  name = inyectiva,
+  description = {
+    Una función $f:D_f \rightarrow C_f$ es \textit{inyectiva} (o uno a
+    uno) si a diferentes elementos del dominio le corresponden
+    diferentes elementos del codominio; se cumple para dos
+    valores cualesquiera $x_1, x_2 \in D_f$ que
+    $x_1 \neq x_2 \implies f(x_1) \neq f(x_2)$%
+  },
+  see={gl:funcion,gl:dominio,gl:codominio,gl:biyeccion,gl:suprayectiva}
+}
+
+\newglossaryentry{gl:suprayectiva}
+{
+  name = suprayectiva,
+  description = {
+    Una función $f:D_f \rightarrow C_f$ es \textit{suprayectiva} si
+    todo elemento de su codominio $C_f$ es imagen de
+    por lo menos un elemento de su dominio $D_f$: $\forall b \in C_f$
+    $\exists a \in D_f$ tal que $f(a)=b$%
+  },
+  see={gl:funcion,gl:dominio,gl:codominio,gl:imagen,gl:biyeccion,gl:inyectiva}
+}
+
+\newglossaryentry{gl:dominio}
+{
+  name = dominio,
+  description = {
+    El \textit{dominio} de una función $f(x)$ es el conjunto de
+    valores para los cuales la función está definida%
+  },
+  see={gl:funcion,gl:codominio}
+}
+
+\newglossaryentry{gl:codominio}
+{
+  name = codominio,
+  description = {
+    Una función mapea a los elementos de un conjunto $A$ con elementos
+    de un conjunto $B$; $A$ es el dominio y $B$ es el
+    \textit{codominio}%
+  },
+  see={gl:funcion,gl:dominio}
+}
+
+\newglossaryentry{gl:funcion}
+{
+  name = función,
+  plural = funciones,
+  description = {
+    Regla entre dos conjuntos $A$ y $B$ de manera que a cada elemento del
+    conjunto $A$ le corresponda un único elemento del conjunto $B$%
+  },
+  see={gl:codominio,gl:dominio}
+}
+
+\newglossaryentry{gl:token}
+{
+  name = token,
+  description = {
+    Valor representativo que se usa en lugar de información valiosa%
+  }
+}
+
+\newglossaryentry{gl:criptografia_fuerte}
+{
+  name = criptografía fuerte,
+  description = {
+    (\textit{Strong cryptography}) De acuerdo al \gls{gl:pci} \gls{gl:ssc}
+    (en~\cite{dss_glosario}), es la criptografía basada en algorítmos probados
+    y aceptados en la industria, junto con longitudes de llaves fuertes y
+    buenas prácticas de administración de llaves%
+  }
+}
+
+\newglossaryentry{gl:criptologia}
+{
+  name = criptología,
+  description = {
+    Estudio de los sistemas, claves y lenguajes secretos u ocultos%
+  }
+}
+
+\newglossaryentry{gl:permutacion}
+{
+  name = permutación,
+  plural = permutaciones,
+  description = {
+    Sea $ S $ un conjunto finito de elementos. Una \textit{permutación} $ p $
+    en $ S $ es una biyección de $ S $ a sí misma (i. e.
+    $ p: S \rightarrow S $)%
+  },
+  see={gl:biyeccion}
+}
+
+\newglossaryentry{gl:computacionalmente_no_factible}
+{
+  name = computacionalmente no factible,
+  description = {
+    (\textit{Computationally infeasible}) Se dice que una tarea es
+    \textit{computacionalmente no factible} si su costo (medido en términos de
+    espacio o de tiempo) es finito pero ridículamente grande%
+  }
+}
+
+\newglossaryentry{gl:primitiva_criptografica}
+{
+  name = primitiva criptográfica,
+  plural = primitivas criptográficas,
+  description = {
+    (\textit{Cryptographic primitive}) Algoritmos criptográficos que son usados
+    con frecuencia para la construcción de protocolos de seguridad. En
+    \cite{menezes} se clasifican en tres categorías principales: de llave
+    simétrica, de llave pública y sin llave%
+  }
+}
+
+\newglossaryentry{gl:fuerza_efectiva}
+{
+  name = fuerza efectiva,
+  plural = fuerzas efectivas,
+  description = {
+    Para un espacio de llaves $ K $, su \textit{fuerza efectiva} es
+    $ \log_2 | K | $ (el logaritmo base dos de su cardinalidad)%
+  }
+}
+
+\longnewglossaryentry{gl:probabilidad_condicional}
+{
+  name = probabilidad condicional
+}
+{%
+  Sean $ E_1 $ y $ E_2 $ dos eventos, con $ P(E_2) \ge 0 $. La
+  \textit{probabilidad condicional} se denota por $ P(E_1 | E_2) $, y es
+  igual a
+  $$ P(E_1 | E_2) = \frac{P(E_1 \cap E_2)}{P(E_2)} $$
+  Esto mide la probabilidad de que ocurra $ E_1 $ sabiendo que ya ocurrió
+  $ E_2 $%
+}
+
+\newglossaryentry{gl:estidisticamente_independiente}
+{
+  name = estadísticamente independiente,
+  description = {
+    Dicho de la ocurrencia de dos eventos $ E_1 $ y $ E_2 $: si
+    $ P(E_1 \cap E_2) = P(E_1) P(E_2) $ entonces $ E_1 $ y $ E_2 $ son
+    \textit{estadísticamente independientes} entre sí. Es importante notar
+    que si esto ocurre, entonces $ P(E_1 | E_2) = P(E_1) $ y
+    $ P(E_2 | E_1) = P(E_2) $, es decir, la ocurrencia de uno no tiene ninguna
+    influencia en las probabilidades de ocurrencia del otro%
+  },
+  see={gl:probabilidad_condicional}
+}
+
+\newglossaryentry{gl:oraculo}
+{
+  name = oráculo,
+  description = {
+    \textit{Oracle machine} Se refiere a una máquina abstracta utilizada para
+    estudiar problemas de decisión. Puede verse como una máquina de Turing con
+    una caja negra (llamada \textit{oráculo}) que puede resolver ciertos
+    problemas de decisión u obtener el valor de una función en una sola
+    operación%
+  },
+  see={gl:maquina_turing}
+}
+
+\newglossaryentry{gl:maquina_turing}
+{
+  name = máquina de Turing,
+  plural = máquinas de Turing,
+  description = {
+    (\textit{Turing machine}) Se considera como una cinta infinita dividida
+    en casillas, cada una de las cuales contiene un símbolo. Sobre dicha cinta
+    actúa un dispositivo que puede adoptar distintos estados y que, en cada
+    instante, lee un símbolo de la casilla sobre la que está situado;
+    dependiendo del símbolo leído y del estado en el que se encuentra, la
+    máquina realiza las siguientes tres acciones: primero, pasa a un nuevo
+    estado; segundo, imprime un símbolo en el lugar del que acaba de leer;
+    y, tercero, se desplaza hacia la derecha, hacia la izquierda o se detiene%
+  }
+}
+
+\newglossaryentry{gl:distribucion_probabilidad}
+{
+  name = distribución de probabilidad,
+  description = {
+    Una distribución de probabilidad $P$ en el conjunto de eventos $S$ es
+    una secuencia de números positivos $p_1,\: p_2,\: \dots\, p_n$ que
+    sumados dan 1. Donde $p_i$ se interpreta como la probabilidad de
+    que el evento $s_i$ ocurra%
+  }
+}
+
+\newglossaryentry{gl:equiprobable}
+{
+  name = equiprobable,
+  plural = equiprobables,
+  description = {
+    Se dice que un conjunto de eventos es equiprobable cuando cada uno tiene
+    la misma probabilidad de ocurrencia%
+  }
+}
+
+\newglossaryentry{gl:funcion_booleana}
+{
+  name = función booleana,
+  plural = funciones booleanas,
+  description = {
+    Son las funciones que mapean $f$ a un valor del conjunto booleano ${0,1}$ o
+    \textit{verdadero} y \textit{falso}.
+    Formalmente, se define como $f: B^n \rightarrow B$, donde $B={0,1}$
+    y $n$ un entero no negativo que corresponde al número de argumentos,
+    o variables, que necesita la función%
+  },
+  see={gl:funcion}
+}
+
+\newglossaryentry{gl:cifrado_caminata_ciclica}
+{
+  name = cifrado de caminata cíclica,
+  plural = cifrados de caminata cíclica,
+  description = {
+    (\textit{Cycle-walking cipher}) Método diseñado para cifrar mensajes de un
+    espacio $M$ utilizando un algoritmo de cifrado por bloques que actúa en un
+    espacio $M^\prime \supset M$ y obtener textos cifrados que están en $M$ al
+    cifrar iterativamente hasta que el mensaje cifrado se encuentra en el
+    dominio deseado%
+  }
+}
+
+\newglossaryentry{gl:autenticacion_multifactor}
+{
+  name = autenticación multifactor,
+  description = {
+    (\textit{Multi-factor authentication}) Método de autenticación que requiere
+    al menos dos métodos (independientes entre sí) para identificar al usuario%
+  }
+}
+
+\newglossaryentry{gl:autenticacion_mutua}
+{
+  name = autenticación mutua,
+  description = {
+    (\textit{Mutual authentication}) Autenticación en la cual cada una de
+    las partes identifica a la otra%
+  }
+}
+
+% No se me ocurre cómo traducir esto... es como ¿valor de un solo uso?
+\newglossaryentry{gl:nonce}
+{
+  name = nonce,
+  description = {
+    Valor que varía con el tiempo y es improbable que se repita. Por ejemplo,
+    puede ser un valor aleatorio generado para cada uso, una etiqueta de tiempo,
+    un número de secuencia o una combinación de los tres%
+  }
+}
+
+\newglossaryentry{gl:semilla}
+{
+  name = semilla,
+  description = {
+    (\textit{Seed}) Cadena de bits que es utilizada como entrada para los
+    los mecanismos \gls{gl:drbg}. Determina una parte del estado interno
+    del \gls{gl:drbg}%
+  }
+}
+
+\newglossaryentry{gl:material_de_llaves}
+{
+  name = material de llaves,
+  description = {(\textit{keying material})
+    Conjunto de llaves criptográficas sin un formato específico%
+  }
+}
+
+\newglossaryentry{gl:tiempo_polinomial}
+{
+  name = tiempo polinomial,
+  description = {
+    Se dice que una función computable o algoritmo es de \textit{tiempo 
+    polinomial} cuando su complejidad está, en el peor de los casos, acotada 
+    por arriba por un polinomio sobre el tamaño de sus variables de entrada.
+    Si se toma a $f$ como una función computable, esta es de \textit{tiempo 
+    polinomial} si $f\: \in\: O(n^k)$ donde $k \ge 1$%
+  }
+}
+
+\newglossaryentry{gl:distribucion_uniforme}
+{
+  name = distribución uniforme,
+  description = {
+    Distribución de probabilidad en la que todos los elementos tienen la misma
+    probabilidad ocurrencia%
+  },
+  see={gl:distribucion_probabilidad}
+}
+
+\longnewglossaryentry{gl:computacionalmente_indistinguible}
+{
+  name = computacionalmente indistinguible,
+  plural = computacionalmente indistinguibles,
+  see={gl:funcion,gl:funcion_despreciable,gl:conjunto_de_distribucion,gl:circuito_booleano}
+}
+{%
+  (\textit{Computational indistinguishability}) Para un $ A $ tomado de
+  algún conjunto de distribución y un circuito booleano $ C $ (con las
+  suficientes entradas), $ p_C^A $ es la probabilidad de que la salida
+  del circuito booleano $ C $ sea 1 para una entrada de $ A $. Se dice
+  que los conjuntos de distribución $ \{ A_k \} $ y $ \{ B_k \} $ son
+  \textit{computacionalmente indistinguibles} si para cualquier familia
+  de circuitos de tamaño polinomial $ C = \{ C_k \} $, la función
+  $ e(k) = | p_{A_k}^{C_k} - p_{B_k}^{C_k} |$ es
+  despreciable~\cite{DBLP:conf/stoc/BeaverMR90}.
+  \\*
+  Otra forma de expresarlo, en un contexto más criptográfico, es como la
+  incapacidad de un adversario de distingir si la salida de una primitiva
+  criptográfica es una permutación aleatoria o una permutación pseudoaleatoria:
+  una permutación $ P $ es segura (en términos de un ataque de texto cifrado
+  conocido) cuando es \textit{computacionalmente indistingible} de una
+  permutación aleatoria.%
+}
+
+\newglossaryentry{gl:funcion_despreciable}
+{
+  name = función despreciable,
+  description = {
+    (\textit{Negligible function}) Una función $ e: N \rightarrow R $ es
+    \textit{despreciable} si, para todos los enteros positivos $ c $,
+    existe un entero $ N_c $ tal que para todo $ x \ge N_c $,
+    $ |e(x)| \le \frac{1}{x^c} $. Esto significa que $ e(x) $ se desvanece
+    más rápido que el inverso de cualquier
+    polinomio~\cite{DBLP:conf/stoc/BeaverMR90}%
+  },
+  see={gl:funcion}
+}
+
+\newglossaryentry{gl:conjunto_de_distribucion}
+{
+  name = conjunto de distribución,
+  description = {
+    (\textit{Distribution ensemble}) Un \textit{conjunto de distribución}
+    $ \{ A_k \} $ es una familia de medidas de probabilidad en $ \{0, 1\}^* $
+    para la cual hay un polinomio $ q $ tal que las únicas cadenas de longitud
+    mayor a $ q(k) $ tienen una probabilidad distinta de cero en
+    $ \{ A_k \} $~\cite{DBLP:conf/stoc/BeaverMR90}%
+  }
+}
+
+\newglossaryentry{gl:circuito_booleano}
+{
+  name = circuito booleano,
+  description = {
+    (\textit{Boolean circuit}) Modelo matemático definido en términos de
+    compuertas lógicas digitales (AND, OR, NOT, etc.)%
+  }
+}
+
+\glsaddall
