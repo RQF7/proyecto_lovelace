@@ -14,6 +14,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 ffx/combinacion_por_bloque_prueba.cpp \
 											 ffx/ronda_ffx_a10_prueba.cpp \
 											 ffx/ffx_a10_prueba.cpp \
+											 utilidades/utilidades_tarjetas.cpp \
+											 utilidades/utilidades_tarjetas_prueba.cpp \
 											 utilidades/prueba.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
@@ -22,7 +24,7 @@ BANDERAS_DE_LIGADO	:= -lcryptopp
 
 $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)
 	mkdir -p $(CARPETA_BINARIOS)
-	g++ $(BANDERAS_GENERALES) $(LISTA_DE_OBJETOS) $(BANDERAS_DE_LIGADO) -o $@
+	g++ $(BANDERAS_GENERALES) $(LISTA_DE_OBJETOS) $(BANDERAS_DE_LIGADO) -o ~/$@
 
 $(CARPETA_OBJETOS)/programa_de_pruebas.o: programa_de_pruebas.cpp
 	mkdir -p $(CARPETA_OBJETOS)
@@ -64,6 +66,18 @@ $(CARPETA_OBJETOS)/ffx/ronda_ffx_a10_prueba.o: ffx/ronda_ffx_a10_prueba.cpp \
 $(CARPETA_OBJETOS)/ffx/ffx_a10_prueba.o: ffx/ffx_a10_prueba.cpp \
 	ffx/cabeceras/ffx_a10.hh
 	mkdir -p $(CARPETA_OBJETOS)/ffx
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/utilidades_tarjetas.o: \
+	utilidades/utilidades_tarjetas.cpp \
+	utilidades/cabeceras/utilidades_tarjetas.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/utilidades_tarjetas_prueba.o: \
+	utilidades/utilidades_tarjetas_prueba.cpp \
+	utilidades/cabeceras/utilidades_tarjetas_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/utilidades/prueba.o: ../utilidades/prueba.cpp

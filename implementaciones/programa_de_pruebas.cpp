@@ -11,6 +11,7 @@
 #include "redes_feistel/cabeceras/red_feistel_prueba.hh"
 #include "redes_feistel/cabeceras/red_feistel_alternante_prueba.hh"
 #include "redes_feistel/cabeceras/red_feistel_desbalanceada_prueba.hh"
+#include "utilidades/cabeceras/utilidades_tarjetas_prueba.hh"
 #include <iostream>
 #include <vector>
 
@@ -33,7 +34,8 @@ int main()
     CombinacionPorCaracterPrueba {},
     CombinacionPorBloquePrueba {},
     RondaFFXA10Prueba {},
-    FFXA10Prueba {}
+    FFXA10Prueba {},
+    UtilidadesTarjetasPrueba {}
   };
   for (auto claseDePrueba : clasesDePrueba)
     if (!claseDePrueba.probar())
