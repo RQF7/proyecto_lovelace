@@ -17,19 +17,19 @@
 /** \brief Tamaño del bloque: 16 bytes = 128 bits. */
 #define TAM_BLOQUE 16 //16 bytes = 128 bits
 
-/** \brief Constante para indicar el tamaño de la llave al constructor */
-#define AES_128 1
-/** \brief Constante para indicar el tamaño de la llave al constructor */
-#define AES_192 2
-/** \brief Constante para indicar el tamaño de la llave al constructor */
-#define AES_256 3
-
 /** \brief Tamaño de la llave: 16 bytes = 128 bits. */
 #define LLAVE_AES_128 16
 /** \brief Tamaño de la llave: 24 bytes = 192 bits. */
 #define LLAVE_AES_192 24
 /** \brief Tamaño de la llave: 32 bytes = 256 bits. */
 #define LLAVE_AES_256 32
+
+/** \brief Constante para indicar el tamaño de la llave al constructor */
+#define AES_128 1
+/** \brief Constante para indicar el tamaño de la llave al constructor */
+#define AES_192 2
+/** \brief Constante para indicar el tamaño de la llave al constructor */
+#define AES_256 3
 
 class AES
 {
@@ -54,6 +54,12 @@ class AES
     /** \brief Constructor que recibe como parámetro el tamaño de llave a
     utilizar */
     AES(int);
+
+    /** \brief Constructor por copia */
+    AES(AES const&);
+
+    /** \brief Destructor que libera la memoria utilizada */
+    ~AES();
 
     /** \brief Operación para cambiar el tamaño de la llave a utilizar */
     void ponerTamanioLlave(int);

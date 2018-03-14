@@ -55,6 +55,31 @@ AES::AES(int tamLlave)
 }
 
 /**
+ * El constructor recibe un objeto de tipo AES y crea una copia
+ */
+AES::AES(AES const& copia)
+{
+  bloqueTClaro = new unsigned char [TAM_BLOQUE];
+  bloqueTCifrado = new unsigned char [TAM_BLOQUE];
+
+  tamLlave = copia.tamLlave;
+  vectorLlave = new unsigned char[copia.tamLlave];
+
+  memcpy(vectorLlave, copia.vectorLlave, copia.tamLlave);
+}
+
+/**
+ * El destructor libera el espacio que se había reservado para los bloques
+ * de texto claro y cifrado, además del vector donde se almacena la llave.
+ */
+AES::~AES()
+{
+  //delete [] bloqueTClaro;
+  //delete [] bloqueTCifrado;
+  //delete [] vectorLlave;
+}
+
+/**
  * Libera el espaci para la llave que se tenía anteriormente y, dependiendo
  * del tamaño especificado, se encarga de reservar el espacio para la llave
  * y actualiza el tamaño de la llave. Si el tamaño de llave no corresponde
@@ -121,7 +146,7 @@ unsigned char* AES::obtenerBloqueTClaro()
 {
   unsigned char *bloqueTClaroExterior = new unsigned char[TAM_BLOQUE];
   memcpy(bloqueTClaroExterior, bloqueTClaro, TAM_BLOQUE);
-  return bloqueTClaro;
+  return bloqueTClaroExterior;
 }
 
 
@@ -133,7 +158,7 @@ unsigned char* AES::obtenerBloqueTCifrado()
 {
   unsigned char *bloqueTCifradoExterior = new unsigned char[TAM_BLOQUE];
   memcpy(bloqueTCifradoExterior, bloqueTCifrado, TAM_BLOQUE);
-  return bloqueTCifrado;
+  return bloqueTCifradoExterior;
 }
 
 

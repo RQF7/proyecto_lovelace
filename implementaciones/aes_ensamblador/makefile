@@ -3,8 +3,8 @@ cbc_prueba: prueba_cbc.cpp e_cbc.o e_aes.o
 	g++ -o binarios/prueba_cbc.out binarios/*.o libaesni/*.o
 
 aes_prueba: prueba_aes.cpp e_aes.o
-	g++ -c prueba_aes.cpp -o binarios/prueba_aes.o
-	g++ -o binarios/prueba_aes.out binarios/*.o libaesni/*.o 
+	g++ -std=c++11 -c prueba_aes.cpp -o binarios/prueba_aes.o
+	g++ -std=c++11 -o binarios/prueba_aes.out binarios/*.o libaesni/*.o
 
 e_cbc.o: cbc.cpp cabeceras/cbc.hh
 	mkdir -p binarios
