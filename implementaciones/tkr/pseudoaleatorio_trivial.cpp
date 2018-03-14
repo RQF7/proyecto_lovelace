@@ -3,7 +3,7 @@
  * \brief Definición de la función pseudoaleatoria temporal.
  */
 
-#include "cabeceras/pseudoaleatoria_trivial.hh"
+#include "cabeceras/pseudoaleatorio_trivial.hh"
 #include "../utilidades/cabeceras/utilidades_tarjetas.hh"
 #include "../../utilidades/cabeceras/arreglo.hh"
 #include "../../utilidades/cabeceras/utilidades_matematicas.hh"
@@ -19,7 +19,7 @@ using namespace std;
  * pruebas y códigos temporales.
  */
 
-Arreglo<int> PseudoaleatoriaTrivial::operar(
+Arreglo<int> PseudoaleatorioTrivial::operar(
   const std::vector<int>& entrada   /**< Nada en sí, pero la interfaz obliga. */
 )
 {

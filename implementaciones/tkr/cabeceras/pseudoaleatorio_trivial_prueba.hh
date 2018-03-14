@@ -15,11 +15,11 @@ namespace ImplementacionesPruebas
    * \brief Pruebas de función pseudoaleatoria trivial.
    */
 
-  class PseudoaleatoriaTrivialPrueba : public Utilidades::Prueba
+  class PseudoaleatorioTrivialPrueba : public Utilidades::Prueba
   {
     public:
       /** \brief Registro de pruebas en vector de funciones. */
-      PseudoaleatoriaTrivialPrueba();
+      PseudoaleatorioTrivialPrueba();
 
       /** \brief Prueba la generación de tokens trivial. */
       static bool probarOperacion();

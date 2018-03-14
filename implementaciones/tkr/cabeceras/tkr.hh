@@ -6,7 +6,7 @@
 #ifndef __TKR__
 #define __TKR__
 
-#include "pseudoaleatoria_trivial.hh"
+#include "pseudoaleatorio_trivial.hh"
 #include "../../acceso_a_datos/cabeceras/cdv.hh"
 #include "../../acceso_a_datos/cabeceras/acceso_simulado.hh"
 #include "../../utilidades/cabeceras/algoritmo_tokenizador.hh"
@@ -33,7 +33,7 @@ namespace Implementaciones
 
       /* \brief Constructor de instancia. */
       TKR(FuncionPseudoaleatoria* funcionPseudoaleatoria =
-          new PseudoaleatoriaTrivial,
+          new PseudoaleatorioTrivial,
         CDV* baseDeDatos =
           new AccesoSimulado);
 

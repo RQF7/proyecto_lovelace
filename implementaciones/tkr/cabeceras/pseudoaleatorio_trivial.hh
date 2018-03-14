@@ -21,7 +21,7 @@ namespace Implementaciones
    * de función pseudoaleatoria.
    */
 
-  class PseudoaleatoriaTrivial : public Utilidades::Funcion<Arreglo<int>, int>
+  class PseudoaleatorioTrivial : public Utilidades::Funcion<Arreglo<int>, int>
   {
     public:
       /** \brief Generación de token pseudoaleatorio trivial. */

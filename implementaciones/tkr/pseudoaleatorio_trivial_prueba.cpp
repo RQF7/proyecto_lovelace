@@ -5,8 +5,8 @@
  * Proyecto Lovelace.
  */
 
-#include "cabeceras/pseudoaleatoria_trivial.hh"
-#include "cabeceras/pseudoaleatoria_trivial_prueba.hh"
+#include "cabeceras/pseudoaleatorio_trivial.hh"
+#include "cabeceras/pseudoaleatorio_trivial_prueba.hh"
 #include "../../utilidades/cabeceras/arreglo.hh"
 #include <iostream>
 
@@ -14,17 +14,17 @@ using namespace Implementaciones;
 using namespace ImplementacionesPruebas;
 using namespace std;
 
-PseudoaleatoriaTrivialPrueba::PseudoaleatoriaTrivialPrueba()
+PseudoaleatorioTrivialPrueba::PseudoaleatorioTrivialPrueba()
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "generación de tokens trivial",
-    PseudoaleatoriaTrivialPrueba::probarOperacion
+    PseudoaleatorioTrivialPrueba::probarOperacion
   });
 }
 
-bool PseudoaleatoriaTrivialPrueba::probarOperacion()
+bool PseudoaleatorioTrivialPrueba::probarOperacion()
 {
-  PseudoaleatoriaTrivial funcion;
+  PseudoaleatorioTrivial funcion;
   Arreglo<int> pruebaUno = funcion.operar({});
   Arreglo<int> pruebaDos = funcion.operar({});
   Arreglo<int> pruebaTres = funcion.operar({});
