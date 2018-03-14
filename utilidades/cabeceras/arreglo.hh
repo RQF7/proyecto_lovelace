@@ -263,6 +263,9 @@ Arreglo<tipo>& Arreglo<tipo>::operator=(
   const Arreglo<tipo> &arreglo  /**< Arreglo fuente. */
 )
 {
+  delete[] mArregloInterno;
+  mNumeroDeElementos = arreglo.obtenerNumeroDeElementos();
+  mArregloInterno = new tipo[mNumeroDeElementos];
   std::copy(arreglo.mArregloInterno,
     arreglo.mArregloInterno + mNumeroDeElementos, mArregloInterno);
   return *this;

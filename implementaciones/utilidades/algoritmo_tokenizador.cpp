@@ -4,8 +4,10 @@
  */
 
 #include "cabeceras/algoritmo_tokenizador.hh"
+#include <vector>
 
 using namespace Implementaciones;
+using namespace std;
 
 /**
  * Mapea los argumentos de esta operación (comunes a cualquier función con
@@ -16,7 +18,7 @@ using namespace Implementaciones;
 
 Arreglo<int> AlgoritmoTokenizador::operar(
   /** Argumentos de entrada, se espera el PAN y la información adicional. */
-  const vector<Arreglo<tipo>> &entrada
+  const vector<Arreglo<int>> &entrada
 )
 {
   return tokenizar(entrada[0], entrada[1]);
@@ -31,7 +33,7 @@ Arreglo<int> AlgoritmoTokenizador::operar(
 
 Arreglo<int> AlgoritmoTokenizador::deoperar(
   /** Argumentos de entrada, se espera el token y la información adicional. */
-  const vector<Arreglo<tipo>> &entrada
+  const vector<Arreglo<int>> &entrada
 )
 {
   return detokenizar(entrada[0], entrada[1]);
