@@ -20,8 +20,8 @@ namespace Implementaciones
    */
 
   template <typename tipoDeVuelta, typename tipoDeIda>
-  class FuncionDeRondaTrivial : public Utilidades::Funcion<
-    tipoDeVuelta, tipoDeIda>
+  class FuncionDeRondaTrivial
+  : public Utilidades::Funcion<tipoDeVuelta, tipoDeIda>
   {
 
     /**

@@ -12,7 +12,7 @@
 namespace ImplementacionesPruebas
 {
   /**
-   * \brief
+   * \brief Pruebas do combinación por bloque.
    */
 
   class CombinacionPorBloquePrueba : public Utilidades::Prueba

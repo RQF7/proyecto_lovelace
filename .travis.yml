@@ -102,6 +102,8 @@ script:
 
   # Documentación.
   - make documentación_doxygen
+  - make -C pagina_publica/documentacion_doxygen/latex
+  - make -C pagina_publica/documentacion_doxygen/latex
 
   # Pruebas de implementaciones
   # - make -C implementaciones/ffx correr
