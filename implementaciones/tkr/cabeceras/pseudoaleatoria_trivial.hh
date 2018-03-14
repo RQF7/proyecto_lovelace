@@ -24,7 +24,7 @@ namespace Implementaciones
   class PseudoaleatoriaTrivial : public Utilidades::Funcion<Arreglo<int>, int>
   {
     public:
-      /** \brief Generación de token pseudoaleatorio. */
+      /** \brief Generación de token pseudoaleatorio trivial. */
       Arreglo<int> operar(const std::vector<int>& entrada) override;
   };
 }

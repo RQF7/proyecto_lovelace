@@ -11,6 +11,7 @@
 #include "redes_feistel/cabeceras/red_feistel_prueba.hh"
 #include "redes_feistel/cabeceras/red_feistel_alternante_prueba.hh"
 #include "redes_feistel/cabeceras/red_feistel_desbalanceada_prueba.hh"
+#include "tkr/cabeceras/pseudoaleatorio_aes_prueba.hh"
 #include "tkr/cabeceras/pseudoaleatoria_trivial_prueba.hh"
 #include "tkr/cabeceras/tkr_prueba.hh"
 #include "utilidades/cabeceras/utilidades_tarjetas_prueba.hh"
@@ -39,6 +40,7 @@ int main()
     FFXA10Prueba {},
     UtilidadesTarjetasPrueba {},
     PseudoaleatoriaTrivialPrueba {},
+    PseudoaleatorioAESPrueba {},
     TKRPrueba {}
   };
   for (auto claseDePrueba : clasesDePrueba)

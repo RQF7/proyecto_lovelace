@@ -19,6 +19,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 utilidades/algoritmo_tokenizador.cpp \
 											 tkr/pseudoaleatoria_trivial.cpp \
 											 tkr/pseudoaleatoria_trivial_prueba.cpp \
+											 tkr/pseudoaleatorio_aes.cpp \
+											 tkr/pseudoaleatorio_aes_prueba.cpp \
 											 tkr/tkr.cpp \
 											 tkr/tkr_prueba.cpp \
 											 acceso_a_datos/acceso_simulado.cpp \
@@ -101,6 +103,18 @@ $(CARPETA_OBJETOS)/tkr/pseudoaleatoria_trivial.o: \
 $(CARPETA_OBJETOS)/tkr/pseudoaleatoria_trivial_prueba.o: \
 	tkr/pseudoaleatoria_trivial_prueba.cpp \
 	tkr/cabeceras/pseudoaleatoria_trivial_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/pseudoaleatorio_aes.o: \
+	tkr/pseudoaleatorio_aes.cpp \
+	tkr/cabeceras/pseudoaleatorio_aes.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/pseudoaleatorio_aes_prueba.o: \
+	tkr/pseudoaleatorio_aes_prueba.cpp \
+	tkr/cabeceras/pseudoaleatorio_aes_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)/tkr
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
