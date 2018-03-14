@@ -63,15 +63,19 @@ en~\ref{luhn:1}.
            $\{x_{n} x_{n-1} x_{n-2} \dots x_3 x_2 x_1\}$
   salida:  dígito verificador $x_1$.
   inicio
-    Sean los conjuntos $x_{par} = \{x_2, x_4, x_6, \dots, x_n\}$ si $n$ es par, o $x_{par} = \{x_2, x_4, x_6, \dots, x_{n-1}\}$; y
-                       $x_{impar} = \{x_3, x_5, x_7, \dots, x_{n-1}\}$ si $n$ es par, o $x_{impar} = \{x_3, x_5, x_7, \dots, x_n\}$.
-    Obtener el doble de cada uno de los elementos del conjunto $x_{par}$; si
-      el producto es mayor a 9, sumar los dígitos que lo componen:
+    Sean los conjuntos $x_{par}$ y $x_{impar}$:
+        si $n$ es par:
+            $x_{par} = \{x_2, x_4, x_6, \dots, x_n\}$
+            $x_{impar} = \{x_3, x_5, x_7, \dots, x_{n-1}\}$.
+        si_no:
+            $x_{par} = \{x_2, x_4, x_6, \dots, x_{n-1}\}$
+            $x_{impar} = \{x_3, x_5, x_7, \dots, x_n\}$.
+    Obtener el doble de cada uno de los elementos del conjunto $x_{par}$:
       $x_{par doble} = \{2 \times x_2, 2 \times x_4, 2 \times x_6, \dots \}$.
-    Sumar los elementos de los conjuntos $x_{par doble}$ y $x_{impar}$:
-      $S = \Sigma x_{par doble} + \Sigma x_{impar}$
-    Multiplicar la suma anterior por $9 \mod  10$.
-      $x_1 = S \times 9 \mod 10$
+    $\forall x_i \in x_{par doble} > 9$:
+        $x_i = (x_i \mod 10) + 1 $
+    Sumar los elementos de los conjuntos $x_{par doble}$ y $x_{impar}$.
+    $x_1 = (S \times 9) \mod 10$
     Regresar $x_1$
   fin
 \end{pseudocodigo}
