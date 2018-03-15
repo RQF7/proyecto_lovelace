@@ -69,14 +69,40 @@ AES::AES(AES const& copia)
 }
 
 /**
+ * Se recarga el operador de asignación. Copia el contenido de los
+ * arreglos y copia el tamaño de llave.
+ */
+AES& AES::operator= (AES const& otro)
+{
+  unsigned char *auxiliar = new unsigned char[TAM_BLOQUE];
+  memcpy(auxiliar, otro.bloqueTClaro, TAM_BLOQUE);
+  delete [] bloqueTClaro;
+  bloqueTClaro = auxiliar;
+
+  unsigned char *auxiliar2 = new unsigned char[TAM_BLOQUE];
+  memcpy(auxiliar2, otro.bloqueTCifrado, TAM_BLOQUE);
+  delete[] bloqueTCifrado;
+  bloqueTCifrado = (unsigned char*) auxiliar2;
+
+  unsigned char *auxiliar3 = new unsigned char[otro.tamLlave];
+  memcpy(auxiliar3, otro.vectorLlave, otro.tamLlave);
+  delete [] vectorLlave;
+  vectorLlave = auxiliar3;
+
+  tamLlave = otro.tamLlave;
+
+  return *this;
+}
+
+/**
  * El destructor libera el espacio que se había reservado para los bloques
  * de texto claro y cifrado, además del vector donde se almacena la llave.
  */
 AES::~AES()
 {
-  //delete [] bloqueTClaro;
-  //delete [] bloqueTCifrado;
-  //delete [] vectorLlave;
+  delete [] bloqueTClaro;
+  delete [] bloqueTCifrado;
+  delete [] vectorLlave;
 }
 
 /**

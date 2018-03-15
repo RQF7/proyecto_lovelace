@@ -58,6 +58,9 @@ class AES
     /** \brief Constructor por copia */
     AES(AES const&);
 
+    /** \brief Operador de asignación */
+    AES& operator= (AES const& otro);
+
     /** \brief Destructor que libera la memoria utilizada */
     ~AES();
 
