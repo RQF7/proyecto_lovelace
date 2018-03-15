@@ -21,6 +21,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 tkr/pseudoaleatorio_trivial_prueba.cpp \
 											 tkr/pseudoaleatorio_aes.cpp \
 											 tkr/pseudoaleatorio_aes_prueba.cpp \
+											 tkr/funcion_rn.cpp \
+											 tkr/funcion_rn_prueba.cpp \
 											 tkr/tkr.cpp \
 											 tkr/tkr_prueba.cpp \
 											 acceso_a_datos/acceso_simulado.cpp \
@@ -115,6 +117,18 @@ $(CARPETA_OBJETOS)/tkr/pseudoaleatorio_aes.o: \
 $(CARPETA_OBJETOS)/tkr/pseudoaleatorio_aes_prueba.o: \
 	tkr/pseudoaleatorio_aes_prueba.cpp \
 	tkr/cabeceras/pseudoaleatorio_aes_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/funcion_rn.o: \
+	tkr/funcion_rn.cpp \
+	tkr/cabeceras/funcion_rn.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/funcion_rn_prueba.o: \
+	tkr/funcion_rn_prueba.cpp \
+	tkr/cabeceras/funcion_rn_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)/tkr
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
