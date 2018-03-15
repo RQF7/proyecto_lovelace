@@ -24,6 +24,9 @@ namespace ImplementacionesPruebas
 
       /** \brief Prueba la operación con miembros triviales. */
       static bool probarOperacionTrivial();
+
+      /** \brief Prueba la operación con la función RN. */
+      static bool probarOperacionNoTanTrivial();
   };
 }
 

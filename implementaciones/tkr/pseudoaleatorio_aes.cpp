@@ -64,6 +64,7 @@ Arreglo<unsigned char> PseudoaleatorioAES::operar(
   const std::vector<entero>& entrada    /**< Contador y longitud de resultado. */
 )
 {
+  cout << "DEBUG: " << entrada[0] << " " << entrada[1] << endl;
   int numeroDeBloques = static_cast<int>(ceil(entrada[1] / 128.0));
   Arreglo<unsigned char> resultado (numeroDeBloques * 16);
   unsigned char bufferUno[16];
