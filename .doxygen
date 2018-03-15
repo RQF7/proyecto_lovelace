@@ -134,7 +134,7 @@ FILE_PATTERNS          = *.c \
                          *.h++ \
                          *.dox
 RECURSIVE              = YES
-EXCLUDE                =
+EXCLUDE                = implementaciones/aes_ensamblador/libaesni
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       =
 EXCLUDE_SYMBOLS        =
@@ -227,7 +227,7 @@ EXTRA_SEARCH_MAPPINGS  =
 #---------------------------------------------------------------------------
 # Configuration options related to the LaTeX output
 #---------------------------------------------------------------------------
-GENERATE_LATEX         = NO
+GENERATE_LATEX         = YES
 LATEX_OUTPUT           = latex
 LATEX_CMD_NAME         = latex
 MAKEINDEX_CMD_NAME     = makeindex

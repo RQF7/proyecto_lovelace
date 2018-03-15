@@ -1,5 +1,7 @@
 /**
+ * \file
  * \brief Declaración y definición de funciones matemáticas comunes.
+ *
  * En la mayoría de los casos el tipo de los operadores es un template, por lo
  * que la implementación se encuentra junto a la declaración.
  * Proyecto Lovelace.

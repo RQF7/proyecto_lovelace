@@ -11,6 +11,11 @@
 #include "redes_feistel/cabeceras/red_feistel_prueba.hh"
 #include "redes_feistel/cabeceras/red_feistel_alternante_prueba.hh"
 #include "redes_feistel/cabeceras/red_feistel_desbalanceada_prueba.hh"
+#include "tkr/cabeceras/funcion_rn_prueba.hh"
+#include "tkr/cabeceras/pseudoaleatorio_aes_prueba.hh"
+#include "tkr/cabeceras/pseudoaleatorio_trivial_prueba.hh"
+#include "tkr/cabeceras/tkr_prueba.hh"
+#include "utilidades/cabeceras/utilidades_tarjetas_prueba.hh"
 #include <iostream>
 #include <vector>
 
@@ -33,7 +38,12 @@ int main()
     CombinacionPorCaracterPrueba {},
     CombinacionPorBloquePrueba {},
     RondaFFXA10Prueba {},
-    FFXA10Prueba {}
+    FFXA10Prueba {},
+    UtilidadesTarjetasPrueba {},
+    PseudoaleatorioTrivialPrueba {},
+    PseudoaleatorioAESPrueba {},
+    FuncionRNPrueba {},
+    TKRPrueba {}
   };
   for (auto claseDePrueba : clasesDePrueba)
     if (!claseDePrueba.probar())

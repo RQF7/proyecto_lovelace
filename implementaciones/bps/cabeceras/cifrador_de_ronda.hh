@@ -22,7 +22,7 @@ class CifradorDeRonda
     unsigned int tipo;
 
   public:
-    /* No se uso el estilo de las reglas por que son banderas no variables. */
+    /* No se usó el estilo de las reglas por que son banderas no variables. */
     /** \brief Bandera para usar AES. */
     static const unsigned int BANDERA_AES  = 1;
 

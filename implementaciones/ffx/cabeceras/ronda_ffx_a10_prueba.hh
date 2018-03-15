@@ -12,7 +12,7 @@
 namespace ImplementacionesPruebas
 {
   /**
-   * \brief Prueba de.
+   * \brief Prueba de la función de ronda de FFX A10.
    */
 
   class RondaFFXA10Prueba : public Utilidades::Prueba

@@ -53,7 +53,7 @@ namespace Utilidades
        */
 
       virtual tipoDeVuelta operar(
-        const std::vector<tipoDeIda> &entrada) = 0;
+        const std::vector<tipoDeIda>& entrada) = 0;
   };
 }
 

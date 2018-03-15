@@ -79,21 +79,24 @@ namespace Implementaciones
    * Casi todos los parámetros se pasan a la superclase; el único propio a
    * esta clase es el desbalanceo.
    *
+   * \param numeroDeRondas    Número de rondas.
+   * \param tamanioDelBloque  Tamaño de bloque (entrada, salida).
+   * \param desbalanceo       Grado de desbalanceo de la red; por defecto 0.
+   * \param funcionDeRonda    Función de ronda par; por defecto implementación
+   *                          trivial.
+   * \param operadorSuma      Función para combinar bloques; por defecto
+   *                          implementación trivial.
+   *
    * \todo Lanzar excepción cuando el desbalanceo no concuerde con el tamaño
    * de bloque.
    */
 
   template <typename tipo>
   RedFeistelDesbalanceada<tipo>::RedFeistelDesbalanceada(
-    /** Número de rondas. */
     int numeroDeRondas,
-    /** Tamaño de bloque (entrada, salida). */
     int tamanioDeBloque,
-    /** Grado de desbalanceo de la red; por defecto 0. */
     int desbalanceo,
-    /** Función de ronda par; por defecto implementación trivial. */
     FuncionDeRonda* funcionDeRonda,
-    /** Función para combinar bloques; por defecto implementación trivial. */
     FuncionDeCombinacion* operadorSuma
   )
   : RedFeistel<tipo> {numeroDeRondas, tamanioDeBloque,

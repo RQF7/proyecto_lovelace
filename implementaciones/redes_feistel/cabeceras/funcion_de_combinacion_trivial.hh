@@ -16,17 +16,20 @@ namespace Implementaciones
    *
    * Implementa a la interfaz de una función con inverso simétrico y no define
    * ninguna operación virtual; por lo tanto, se trata de una clase concreta.
+   *
+   * \tparam tipoDeVuelta Tipo de dato de retorno.
+   * \tparam tipoDeIda    Tipo de dato de argumentos.
    */
 
   template <typename tipoDeVuelta, typename tipoDeIda>
-  class FuncionDeCombinacionTrivial : public
-    Utilidades::FuncionConInversoSimetrico<tipoDeVuelta, tipoDeIda>
+  class FuncionDeCombinacionTrivial
+  : public Utilidades::FuncionConInversoSimetrico<tipoDeVuelta, tipoDeIda>
   {
    /**
     * \brief Operación de combinación trivial.
     *
     * Regresa el primer elemento del vector del argumento de entrada; en
-    + casos normales, este vector tiene dos elementos (los dos operandos).
+    * casos normales, este vector tiene dos elementos (los dos operandos).
     *
     * El primer bloque es el del lado izquierdo, mientras que el segundo
     * bloque es la salida de la función de ronda. Al regresar solo el primer

@@ -14,6 +14,18 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 ffx/combinacion_por_bloque_prueba.cpp \
 											 ffx/ronda_ffx_a10_prueba.cpp \
 											 ffx/ffx_a10_prueba.cpp \
+											 utilidades/utilidades_tarjetas.cpp \
+											 utilidades/utilidades_tarjetas_prueba.cpp \
+											 utilidades/algoritmo_tokenizador.cpp \
+											 tkr/pseudoaleatorio_trivial.cpp \
+											 tkr/pseudoaleatorio_trivial_prueba.cpp \
+											 tkr/pseudoaleatorio_aes.cpp \
+											 tkr/pseudoaleatorio_aes_prueba.cpp \
+											 tkr/funcion_rn.cpp \
+											 tkr/funcion_rn_prueba.cpp \
+											 tkr/tkr.cpp \
+											 tkr/tkr_prueba.cpp \
+											 acceso_a_datos/acceso_simulado.cpp \
 											 utilidades/prueba.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
@@ -64,6 +76,75 @@ $(CARPETA_OBJETOS)/ffx/ronda_ffx_a10_prueba.o: ffx/ronda_ffx_a10_prueba.cpp \
 $(CARPETA_OBJETOS)/ffx/ffx_a10_prueba.o: ffx/ffx_a10_prueba.cpp \
 	ffx/cabeceras/ffx_a10.hh
 	mkdir -p $(CARPETA_OBJETOS)/ffx
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/utilidades_tarjetas.o: \
+	utilidades/utilidades_tarjetas.cpp \
+	utilidades/cabeceras/utilidades_tarjetas.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/utilidades_tarjetas_prueba.o: \
+	utilidades/utilidades_tarjetas_prueba.cpp \
+	utilidades/cabeceras/utilidades_tarjetas_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/algoritmo_tokenizador.o: \
+	utilidades/algoritmo_tokenizador.cpp \
+	utilidades/cabeceras/algoritmo_tokenizador.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/pseudoaleatorio_trivial.o: \
+	tkr/pseudoaleatorio_trivial.cpp \
+	tkr/cabeceras/pseudoaleatorio_trivial.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/pseudoaleatorio_trivial_prueba.o: \
+	tkr/pseudoaleatorio_trivial_prueba.cpp \
+	tkr/cabeceras/pseudoaleatorio_trivial_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/pseudoaleatorio_aes.o: \
+	tkr/pseudoaleatorio_aes.cpp \
+	tkr/cabeceras/pseudoaleatorio_aes.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/pseudoaleatorio_aes_prueba.o: \
+	tkr/pseudoaleatorio_aes_prueba.cpp \
+	tkr/cabeceras/pseudoaleatorio_aes_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/funcion_rn.o: \
+	tkr/funcion_rn.cpp \
+	tkr/cabeceras/funcion_rn.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/funcion_rn_prueba.o: \
+	tkr/funcion_rn_prueba.cpp \
+	tkr/cabeceras/funcion_rn_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/tkr.o: tkr/tkr.cpp tkr/cabeceras/tkr.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/tkr_prueba.o: tkr/tkr_prueba.cpp \
+	tkr/cabeceras/tkr_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/acceso_a_datos/acceso_simulado.o: \
+	acceso_a_datos/acceso_simulado.cpp \
+	acceso_a_datos/cabeceras/acceso_simulado.hh
+	mkdir -p $(CARPETA_OBJETOS)/acceso_a_datos
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/utilidades/prueba.o: ../utilidades/prueba.cpp

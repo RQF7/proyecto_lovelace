@@ -21,7 +21,7 @@
 namespace Implementaciones
 {
   /**
-   * \breif Función de ronda de FFX.
+   * \brief Función de ronda de FFX.
    *
    * La función de ronda de FFX es simétrica: solo se tiene que definir la
    * operación de ida, la de vuelta la define *FuncionConInversoSimetrico*.

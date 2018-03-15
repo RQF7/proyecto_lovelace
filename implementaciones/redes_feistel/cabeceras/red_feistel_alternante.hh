@@ -94,23 +94,27 @@ namespace Implementaciones
    * pasa sin ninguna modificación a la función de *partir*, de la clase
    * Arreglo.
    *
+   * \param numeroDeRondas      Número de rondas.
+   * \param tamanioDeBloque     Tamaño de bloque (entrada, salida).
+   * \param desbalanceo         Grado de desbalanceo de la red; por defecto 0.
+   * \param funcionDeRondaPar   Función de ronda par; por defecto implementación
+   *                            trivial.
+   * \param funcionDeRondaImpar Función de ronda impar; por defecto misma que
+   *                            para las pares.
+   * \param operadorSuma        Función para combinar bloques; por defecto
+   *                            implementación trivial.
+   *
    * \todo Lanzar excepción cuando el desbalanceo no concuerde con el tamaño
    * de bloque.
    */
 
   template <typename tipo>
   RedFeistelAlternante<tipo>::RedFeistelAlternante(
-    /** Número de rondas. */
     int numeroDeRondas,
-    /** Tamaño de bloque (entrada, salida). */
     int tamanioDeBloque,
-    /** Grado de desbalanceo de la red; por defecto 0. */
     int desbalanceo,
-    /** Función de ronda par; por defecto implementación trivial. */
     FuncionDeRonda* funcionDeRondaPar,
-    /** Función de ronda impar; por defecto misma que para las pares. */
     FuncionDeRonda* funcionDeRondaImpar,
-    /** Función para combinar bloques; por defecto implementación trivial. */
     FuncionDeCombinacion* operadorSuma
   )
   : RedFeistel<tipo> {numeroDeRondas, tamanioDeBloque,

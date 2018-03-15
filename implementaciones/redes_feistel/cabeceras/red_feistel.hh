@@ -37,8 +37,8 @@ namespace Implementaciones
    */
 
   template <typename tipo>
-  class RedFeistel : public Utilidades::FuncionConInverso<
-    Arreglo<tipo>, Arreglo<tipo>>
+  class RedFeistel
+  : public Utilidades::FuncionConInverso<Arreglo<tipo>, Arreglo<tipo>>
   {
     public:
 
@@ -116,20 +116,24 @@ namespace Implementaciones
    * Inicializa el contador de ronda actual en cero. Si no se da una operación
    * inversa a la suma, se deja esta para ambas operaciones.
    *
+   * \param numeroDeRondas  Número de rondas.
+   * \param tamanioDeBloque Tamaño de bloque (entrada, salida).
+   * \param funcionDeRonda  Función de ronda; por defecto implementación
+                            trivial.
+   * \param operadorSuma    Función para combinar bloques; por defecto
+                            implementación trivial.
+   *
    * \todo Lanzar excepción cuando el tamaño de bloque sea impar.
    * Pensándolo bien... este constructor también lo usan las clases derivadas.
    * ¿Se necesitan dos distintos?
+   *
    */
 
   template <typename tipo>
   RedFeistel<tipo>::RedFeistel(
-    /** Número de rondas. */
     int numeroDeRondas,
-    /** Tamaño de bloque (entrada, salida). */
     int tamanioDeBloque,
-    /** Función de ronda; por defecto implementación trivial. */
     FuncionDeRonda* funcionDeRonda,
-    /** Función para combinar bloques; por defecto implementación trivial. */
     FuncionDeCombinacion* operadorSuma
   )
   : mNumeroDeRondas {numeroDeRondas},
@@ -167,8 +171,12 @@ namespace Implementaciones
   /**
    * Realiza todas las rondas del proceso de cifrado. La operación de una
    * ronda se resume como:
+   * \f[
    * PI_{i} = PD_{i - 1}
-   * PD_{i} = F(PD_{i - 1}) \xor PI_{i - 1}
+   * \f]
+   * \f[
+   * PD_{i} = F(PD_{i - 1}) \oplus PI_{i - 1}
+   * \f]
    *
    * \return Bloque cifrado.
    *
@@ -203,8 +211,12 @@ namespace Implementaciones
   /**
    * Realiza todas las rondas del proceso de descifrado. La operación de una
    * ronda se resume como:
+   * \f[
    * PD_{i - 1} = PI_{i}
-   * PI_{i - 1} = f(PD_{i - 1}) \xor PD_{i}
+   * \f]
+   * \f[
+   * PI_{i - 1} = f(PD_{i - 1}) \oplus PD_{i}
+   * \f]
    *
    * \return Bloque descifrado.
    *

@@ -42,7 +42,8 @@ Archivos publicados en la
 
 * [Reporte técnico](documentos_entregables/reporte_tecnico/reporte_tecnico.pdf)
 * [Presentación de FPE](documentos_entregables/presentacion_fpe/presentacion_fpe.pdf)
-* [Documentación de doxygen (html)](documentacion_doxygen/html/index.html).
+* Documentación de doxygen ([html](documentacion_doxygen/html/index.html) y
+  [pdf](documentacion_doxygen/latex/refman.pdf)).
 
 ## Estructura de carpetas
 
