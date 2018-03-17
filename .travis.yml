@@ -5,18 +5,25 @@
 
 # Configuración general #######################################################
 
-#language: cpp
-#compiler: gcc
+language: cpp
+compiler:
+  - gcc
 
-#matrix:
-#  include:
-#    - os: linux
-#      addons:
-#        apt:
-#          sources:
-#            - ubuntu-toolchain-r-test
-#          packages:
-#            - g++-7
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+
+# Determinan el entorno: ubuntu trusty (14.04)
+sudo: required
+dist: trusty
 
 cache:
   directories:
@@ -27,8 +34,8 @@ cache:
     - /usr/share/doc/texlive
 
 # Instalación de dependencias #################################################
-install:
-#  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+befor_install:
+  - eval "${MATRIX_EVAL}"
   - sudo apt-get -qq update
   - sudo apt-get -qq install
     texlive
@@ -39,8 +46,7 @@ install:
     texlive-generic-extra
     doxygen
     graphviz
-#    g++-7
-#  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/gcc-7 50
+    libcrypto++9
 
   # Instalación de paquetes directo desde el CTAN y sourceforge
   # glossaries
@@ -76,14 +82,22 @@ install:
   #  - sudo mkdir /usr/include/cryptopp
   #  - sudo mv cryptopp/*.h /usr/include/cryptopp/
   #  - sudo mv cryptopp/libcryptopp.a /usr/lib/
-  # # Instlación de openssl
-  # - wget https://www.openssl.org/source/openssl-1.1.1-pre1.tar.gz
-  # - tar -xvf openssl-1.1.1-pre1.tar.gz
-  # - cd openssl-1.1.1-pre1 && ./config && make && make install && cd ..
+
+install:
+  - make -C implementaciones
 
 
 # Fase de construcción ########################################################
 script:
+
+  # Ejecución de funciones de prueba
+  # - make -C pruebas_librerias
+  # - make -C pruebas_librerias correr
+
+  - make -C implementaciones correr
+
+# Generación de documentación #################################################
+after_success:
 
   # Compilación de archivos de LaTeX
   # Esto debería dejar el pdf completo
@@ -93,19 +107,9 @@ script:
   - make -B -C documentos_entregables presentacion_fpe
   - make -B -C documentos_entregables presentacion_fpe
 
-  # Revisión de ortografía
-  #  - make -C documentos_entregables ortografía
-
-  # Ejecución de funciones de prueba
-  # - make -C pruebas_librerias
-  # - make -C pruebas_librerias correr
-
   # Documentación.
   - make documentación_doxygen
   #- make -C pagina_publica/documentacion_doxygen/latex
-
-  # Pruebas de implementaciones
-  # - make -C implementaciones/ffx correr
 
 # Despliegue #################################################################
 # Antes del despliegue
