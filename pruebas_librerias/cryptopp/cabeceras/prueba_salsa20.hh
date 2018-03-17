@@ -18,7 +18,7 @@ namespace PruebasCryptopp
    * de Salsa20 de cryptopp.
    */
 
-  class PruebaSalsa20 : public Prueba
+  class PruebaSalsa20 : public Utilidades::Prueba
   {
     public:
       /** \brief Regitro de pruebas en vector de funciones. */

@@ -22,7 +22,7 @@ using namespace PruebasCryptopp;
 
 PruebaSalsa20::PruebaSalsa20()
 {
-  mListaDePruebas.push_back(FuncionDePrueba{
+  mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "Proceso de cifrado y descifrado",
     probarCifradoDescifrado
   });

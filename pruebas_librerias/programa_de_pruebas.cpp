@@ -29,7 +29,7 @@ using namespace std;
 
 int main()
 {
-  vector<Prueba> clasesDePrueba
+  vector<Utilidades::Prueba> clasesDePrueba
   {
     PruebasCryptopp::PruebaAES {},
     PruebasCryptopp::PruebaSalsa20 {},

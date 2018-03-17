@@ -18,7 +18,7 @@ namespace PruebasCryptopp
    * Se prueban también las constantes.
    */
 
-  class PruebaSHA256 : public Prueba
+  class PruebaSHA256 : public Utilidades::Prueba
   {
     public:
       /** \brief Registro de funciones estáticas. */

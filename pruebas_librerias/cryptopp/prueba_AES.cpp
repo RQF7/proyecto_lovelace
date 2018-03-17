@@ -21,15 +21,15 @@ using namespace PruebasCryptopp;
 
 PruebaAES::PruebaAES()
 {
-  mListaDePruebas.push_back(FuncionDePrueba{
+  mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "Uso de constantes",
     PruebaAES::probarConstantes
   });
-  mListaDePruebas.push_back(FuncionDePrueba{
+  mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "Proceso de cifrado y descifrado",
     PruebaAES::probarCifradoDescifrado
   });
-  mListaDePruebas.push_back(FuncionDePrueba{
+  mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "Comparación entre AES CBC y AES ECB para un solo bloque",
     PruebaAES::probarAESCBC
   });
@@ -142,7 +142,7 @@ bool PruebaAES::probarCifradoDescifrado()
  *
  * ECB (electronic codebook) es el equivalente más cercano a no usar ningún
  * modo de operación: dado que el vector de inicialización de CBC es 0,
- * el primer bloque de ambos textos cifrados debería ser igual. 
+ * el primer bloque de ambos textos cifrados debería ser igual.
  *
  * \note No importa que tan chico sea el mensaje a cifrar, las implementaciones
  * de los modos de operación siempre regresan un mensaje de al menos dos

@@ -24,7 +24,7 @@ using namespace PruebasCryptopp;
 
 PruebaCBCMAC::PruebaCBCMAC()
 {
-  mListaDePruebas.push_back(FuncionDePrueba{
+  mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "Proceso de generación de MAC",
     PruebaCBCMAC::probarCifrado
   });

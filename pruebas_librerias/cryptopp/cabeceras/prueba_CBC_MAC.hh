@@ -15,7 +15,7 @@ namespace PruebasCryptopp
    * \brief Prueba de la implementación de CBC MAC de cryptopp.
    */
 
-  class PruebaCBCMAC : public Prueba
+  class PruebaCBCMAC : public Utilidades::Prueba
   {
     public:
       /** \brief Registro de pruebas en vector de funciones. */

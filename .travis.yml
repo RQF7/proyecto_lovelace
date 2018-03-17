@@ -79,10 +79,12 @@ before_install:
 install:
   - make -C pruebas_librerias
   - make -C implementaciones
+  - make -C utilidades
 
 script:
   - make -C pruebas_librerias correr
   - make -C implementaciones correr
+  - make -C utilidades correr
 
 # Generación de documentación #################################################
 after_success:

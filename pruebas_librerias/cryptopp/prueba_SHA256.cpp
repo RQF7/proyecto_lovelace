@@ -21,7 +21,7 @@ using namespace PruebasCryptopp;
 
 PruebaSHA256::PruebaSHA256()
 {
-  mListaDePruebas.push_back(FuncionDePrueba{
+  mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "Obtener la digestión del mensaje",
     PruebaSHA256::probarDigestion
   });

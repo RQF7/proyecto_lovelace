@@ -18,7 +18,7 @@ namespace PruebasCryptopp
    * de AES de cryptopp.
    */
 
-  class PruebaAES : public Prueba
+  class PruebaAES : public Utilidades::Prueba
   {
     public:
       /** \brief Registro de pruebas en vector de funciones. */
