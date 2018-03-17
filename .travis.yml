@@ -46,8 +46,6 @@ before_install:
     texlive-generic-extra
     doxygen
     graphviz
-
-  # Instalación de paquetes directo desde el CTAN y sourceforge
   # glossaries
   - wget http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
   - unzip -d ~/texmf glossaries.tds.zip
@@ -70,17 +68,13 @@ before_install:
   - tar -xvf biber-linux_x86_64.tar.gz -C ~/ejecutable_biber
   - export PATH=~/ejecutable_biber/:$PATH
   - rm biber-linux_x86_64.tar.gz
-  # No pues sí... lo único que tienen que hacer los gestores de paquetes de las
-  # distribuciones es descomprimir un zip en la carpeta de latex.
-  # ¿Para qué tantos intermediarios?
-
-  # Instalación de cryptopp
-   - wget https://cryptopp.com/cryptopp600.zip
-   - unzip -a -d cryptopp cryptopp600.zip
-   - make -C cryptopp
-   - sudo mkdir /usr/include/cryptopp
-   - sudo mv cryptopp/*.h /usr/include/cryptopp/
-   - sudo mv cryptopp/libcryptopp.a /usr/lib/
+  # Cryptopp
+  - wget https://cryptopp.com/cryptopp600.zip
+  - unzip -a -d cryptopp cryptopp600.zip
+  - make -C cryptopp
+  - sudo mkdir /usr/include/cryptopp
+  - sudo mv cryptopp/*.h /usr/include/cryptopp/
+  - sudo mv cryptopp/libcryptopp.a /usr/lib/
 
 install:
   - make -C pruebas_librerias
@@ -92,15 +86,12 @@ script:
 
 # Generación de documentación #################################################
 after_success:
-
   # Compilación de archivos de LaTeX
-  # Esto debería dejar el pdf completo
   - make -B -C documentos_entregables
   - make -B -C documentos_entregables presentacion_fpe
   - make -B -C documentos_entregables referencias_fpe
   - make -B -C documentos_entregables presentacion_fpe
   - make -B -C documentos_entregables presentacion_fpe
-
   # Documentación.
   - make documentación_doxygen
   #- make -C pagina_publica/documentacion_doxygen/latex
