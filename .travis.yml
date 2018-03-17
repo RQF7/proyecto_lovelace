@@ -46,7 +46,6 @@ before_install:
     texlive-generic-extra
     doxygen
     graphviz
-    libcrypto++9
 
   # Instalación de paquetes directo desde el CTAN y sourceforge
   # glossaries
@@ -75,25 +74,20 @@ before_install:
   # distribuciones es descomprimir un zip en la carpeta de latex.
   # ¿Para qué tantos intermediarios?
 
-  # # Instalación de cryptopp
-  #  - wget https://cryptopp.com/cryptopp600.zip
-  #  - unzip -a -d cryptopp cryptopp600.zip
-  #  - make -C cryptopp
-  #  - sudo mkdir /usr/include/cryptopp
-  #  - sudo mv cryptopp/*.h /usr/include/cryptopp/
-  #  - sudo mv cryptopp/libcryptopp.a /usr/lib/
+  # Instalación de cryptopp
+   - wget https://cryptopp.com/cryptopp600.zip
+   - unzip -a -d cryptopp cryptopp600.zip
+   - make -C cryptopp
+   - sudo mkdir /usr/include/cryptopp
+   - sudo mv cryptopp/*.h /usr/include/cryptopp/
+   - sudo mv cryptopp/libcryptopp.a /usr/lib/
 
 install:
+  - make -C pruebas_librerias
   - make -C implementaciones
 
-
-# Fase de construcción ########################################################
 script:
-
-  # Ejecución de funciones de prueba
-  # - make -C pruebas_librerias
-  # - make -C pruebas_librerias correr
-
+  - make -C pruebas_librerias correr
   - make -C implementaciones correr
 
 # Generación de documentación #################################################
