@@ -7,6 +7,7 @@
 #define __REGISTRO__
 
  #include "../../../utilidades/cabeceras/arreglo.hh"
+ #include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
  #include <ostream>
 
 namespace Implementaciones
@@ -28,44 +29,70 @@ namespace Implementaciones
   {
     private:
 
+      /** \brief Índice dentro de base de datos. */
+      int mIdentificador;
+
       /** \brief Arreglo con el número de tarjeta. */
-      Arreglo<int> mPAN;
+      entero mPAN;
 
       /** \brief Arreglo con el valor sustituto (token). */
-      Arreglo<int> mToken;
+      entero mToken;
 
-      /** \brief Arreglo con la información asociada. */
-      Arreglo<int> mInformacionAsociada;
+      /** \brief Mes de caducidad [0, 11]. */
+      int mMes;
+
+      /** \brief Año de caducidad */
+      int mAnio;
+
+      /** \brief Código de seguridad. */
+      int mCodigo;
 
     public:
 
       /** \brief Inicialización de miembros. */
-      Registro(const Arreglo<int> &pan, const Arreglo<int> &token,
-        const Arreglo<int> &informacionAsociada)
-      : mPAN {pan}, mToken {token}, mInformacionAsociada {informacionAsociada}
+      Registro(int identificador, entero pan, entero token,
+        int anio = 0, int mes = 0, int codigo = 0)
+      : mIdentificador {identificador}, mPAN {pan}, mToken {token},
+         mMes {mes}, mAnio {anio}, mCodigo {codigo}
       {
       }
 
+      /** \brief Regresa el identificador del registor. */
+      inline int obtenerIdentificador() { return mIdentificador; }
+
       /** \brief Regresa el PAN de la estructura. */
-      inline Arreglo<int> obtenerPAN() { return mPAN; }
+      inline entero obtenerPAN() { return mPAN; }
 
       /** \brief Regresa el token de la estructura. */
-      inline Arreglo<int> obtenerToken() { return mToken; }
+      inline entero obtenerToken() { return mToken; }
 
-      /** \brief Regresa la información asociada de la estructura, */
-      inline Arreglo<int> obtenerInformacionAsociada() {
-        return mInformacionAsociada; }
+      /** \brief Regresa el mes de caducidad. */
+      inline int obtenerMes() { return mMes; }
+
+      /** \brief Regresa el año de caducidad. */
+      inline int obtenerAnio() { return mAnio; }
+
+      /** \brief Regresa el código del registro. */
+      inline int obtenerCodigo() { return mCodigo; }
+
+      /** \brief Coloca el identificador del registro. */
+      inline void colocarIdentificador(int identificador)
+        { mIdentificador = identificador; }
 
       /** \brief Coloca el PAN en la estructura. */
-      inline void colocarPAN(const Arreglo<int>& pan) { mPAN = pan; }
+      inline void colocarPAN(entero pan) { mPAN = pan; }
 
       /** \brief Coloca el token en la estructura. */
-      inline void colocarToken(const Arreglo<int>& token) { mToken = token; }
+      inline void colocarToken(entero token) { mToken = token; }
 
-      /** \brief Coloca la información asociada en la estructura. */
-      inline void colocarInformacionAsociada(
-        const Arreglo<int>& informacionAsociada){
-        mInformacionAsociada = informacionAsociada; }
+      /** \brief Coloca el mes dado en la estructura. */
+      inline void colocarMes(int mes) { mMes = mes; }
+
+      /** \brief Coloca el año dado en la estructura. */
+      inline void colocarAnio(int anio) { mAnio = anio; }
+
+      /** \brief Coloca el código de seguridad en la estructura. */
+      inline void colocarCodigo(int codigo) { mCodigo = codigo; }
 
       /** Función de impresión como amiga */
       friend std::ostream& operator<<(std::ostream &flujo,
@@ -75,10 +102,12 @@ namespace Implementaciones
   /** \brief Imprimir registro en flujo. */
   inline std::ostream& operator<<(std::ostream &flujo,
     const Registro& registro){
-    std::cout << "PAN: " << registro.mPAN << std::endl
+    std::cout << "Identificador: " << registro.mIdentificador << std::endl
+              << "PAN: " << registro.mPAN << std::endl
               << "Token: " << registro.mToken << std::endl
-              << "Información asociada: "
-              << registro.mInformacionAsociada << std::endl;
+              << "Caducidad: "
+              << registro.mMes << "/" << registro.mAnio << std::endl
+              << "Código: " << registro.mCodigo << std::endl;
     return flujo;
   }
 }

@@ -1,6 +1,8 @@
 /**
  * \file
  * \brief Declaración de clase de simulación de acceso a datos.
+ *
+ * Proyecto Lovelace.
  */
 
 #ifndef __ACCESO_SIMULADO__
@@ -9,6 +11,7 @@
 #include "cdv.hh"
 #include "registro.hh"
 #include "../../../utilidades/cabeceras/arreglo.hh"
+#include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
 
 namespace Implementaciones
 {
@@ -24,10 +27,10 @@ namespace Implementaciones
   {
     public:
       /** \brief Busca el PAN dado en la base de datos. */
-      Registro buscarPorPan(const Arreglo<int>& PAN) override;
+      Registro buscarPorPan(entero PAN) override;
 
       /** \brief Busca el token dado en la base de datos. */
-      Registro buscarPorToken(const Arreglo<int>& token) override;
+      Registro buscarPorToken(entero token) override;
 
       /** \brief Guarda el registro dado en la base de datos. */
       void guardar(const Registro& registro) override;

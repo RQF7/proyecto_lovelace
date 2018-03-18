@@ -16,10 +16,10 @@ using namespace Implementaciones;
  */
 
 Registro AccesoSimulado::buscarPorPan(
-  const Arreglo<int>& PAN               /**< Número de tarjeta a buscar. */
+  entero PAN                            /**< Número de tarjeta a buscar. */
 )
 {
-  return Registro{PAN, Arreglo<int>{}, Arreglo<int>{}};
+  return Registro{0, PAN, 0};
 }
 
 /**
@@ -30,10 +30,10 @@ Registro AccesoSimulado::buscarPorPan(
  */
 
 Registro AccesoSimulado::buscarPorToken(
-  const Arreglo<int>& token             /**< Token a buscar. */
+  entero token                          /**< Token a buscar. */
 )
 {
-  return Registro{Arreglo<int>{1, 2, 3, 4, 5, 6, 7, 8}, token, Arreglo<int>{1, 2, 3, 4}};
+  return Registro{0, 12345678ull, token};
 }
 
 /**
