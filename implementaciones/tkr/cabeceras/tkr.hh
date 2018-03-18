@@ -41,12 +41,10 @@ namespace Implementaciones
       ~TKR();
 
       /** Operación de tokenización (declarada por la interfaz). */
-      Arreglo<int> tokenizar(const Arreglo<int>& pan,
-        const Arreglo<int>& informacionAdicional) override;
+      Arreglo<int> tokenizar(const Arreglo<int>& pan) override;
 
       /** Operación de detokenización (declarada por la interfaz). */
-      Arreglo<int> detokenizar(const Arreglo<int>& token,
-        const Arreglo<int>& informacionAdicional) override;
+      Arreglo<int> detokenizar(const Arreglo<int>& token) override;
 
     private:
 

@@ -28,10 +28,10 @@ namespace Implementaciones
       }
 
       /** \brief Busca el PAN dado en la base de datos. */
-      virtual Registro buscarPorPan(entero PAN) = 0;
+      virtual Registro buscarPorPan(const Arreglo<int>& PAN) = 0;
 
       /** \brief Busca el token dado en la base de datos. */
-      virtual Registro buscarPorToken(entero token) = 0;
+      virtual Registro buscarPorToken(const Arreglo<int>& token) = 0;
 
       /** \brief Guarda el registro dado en la base de datos. */
       virtual void guardar(const Registro& registro) = 0;

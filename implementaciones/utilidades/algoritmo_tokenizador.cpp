@@ -4,6 +4,7 @@
  */
 
 #include "cabeceras/algoritmo_tokenizador.hh"
+#include "../../utilidades/cabeceras/arreglo.hh"
 #include <vector>
 
 using namespace Implementaciones;
@@ -21,7 +22,7 @@ Arreglo<int> AlgoritmoTokenizador::operar(
   const vector<Arreglo<int>> &entrada
 )
 {
-  return tokenizar(entrada[0], entrada[1]);
+  return tokenizar(entrada[0]);
 }
 
 /**
@@ -36,5 +37,5 @@ Arreglo<int> AlgoritmoTokenizador::deoperar(
   const vector<Arreglo<int>> &entrada
 )
 {
-  return detokenizar(entrada[0], entrada[1]);
+  return detokenizar(entrada[0]);
 }

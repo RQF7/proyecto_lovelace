@@ -46,8 +46,7 @@ TKR::~TKR()
  */
 
 Arreglo<int> TKR::tokenizar(
-  const Arreglo<int>& pan,                   /**< Número de tarjeta. */
-  const Arreglo<int>& informacionAsociada    /**< Información asociada al PAN. */
+  const Arreglo<int>& pan                   /**< Número de tarjeta. */
 )
 {
   Registro informacion = mBaseDeDatos->buscarPorPan(pan);
@@ -55,7 +54,6 @@ Arreglo<int> TKR::tokenizar(
   {
     auto temporal = mFuncionPseudoaleatoria->operar({});
     informacion.colocarToken(temporal);
-    informacion.colocarInformacionAsociada(informacionAsociada);
     mBaseDeDatos->guardar(informacion);
   }
   return informacion.obtenerToken();
@@ -71,8 +69,7 @@ Arreglo<int> TKR::tokenizar(
  */
 
 Arreglo<int> TKR::detokenizar(
-  const Arreglo<int>& token,                 /** Token (generado previamente). */
-  const Arreglo<int>& informacionAsociada    /** Información asociada al token. */
+  const Arreglo<int>& token                 /** Token (generado previamente). */
 )
 {
   Registro informacion = mBaseDeDatos->buscarPorToken(token);

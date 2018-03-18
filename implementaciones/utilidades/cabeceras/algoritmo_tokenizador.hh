@@ -27,12 +27,10 @@ namespace Implementaciones
     public:
 
       /** \brief Operación de tokenización. */
-      virtual Arreglo<int> tokenizar(
-        const Arreglo<int>& pan, const Arreglo<int>& informacionAdicional) = 0;
+      virtual Arreglo<int> tokenizar(const Arreglo<int>& pan) = 0;
 
       /** \brief Operación de detokenización. */
-      virtual Arreglo<int> detokenizar(
-        const Arreglo<int>& token, const Arreglo<int>& informacionAdicional) = 0;
+      virtual Arreglo<int> detokenizar(const Arreglo<int>& token) = 0;
 
       /** \brief Puente con operación de tokenización. */
       Arreglo<int> operar(
