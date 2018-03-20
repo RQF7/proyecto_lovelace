@@ -22,7 +22,7 @@ matrix:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
 addons:
-  mariadb: '10.1'
+  mariadb: '10.2'
 
 # Determinan el entorno: ubuntu trusty (14.04)
 sudo: required
