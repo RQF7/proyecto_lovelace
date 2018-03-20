@@ -22,7 +22,7 @@ matrix:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
 addons:
-  mariadb: '10.0'
+  mariadb: '10.1'
 
 # Determinan el entorno: ubuntu trusty (14.04)
 sudo: required
@@ -85,7 +85,9 @@ install:
   - make -C implementaciones
   - make -C utilidades
   - cd bases_de_datos
-  - ./crear_base.sh
+  - chmod 770 crear_base.sh
+  - chmod 770 crear_estructura.sh
+  - sudo ./crear_base.sh
   - ./crear_estructura.sh
   - cd ..
 
