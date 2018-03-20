@@ -511,6 +511,11 @@ bool operator!=(
  *
  * \sa http://www.cplusplus.com/reference/cmath/pow/
  *     http://www.cplusplus.com/reference/cmath/floor/
+ *
+ * \deprecated A partir de
+ * [este commit](https://github.com/RQF7/proyecto_lovelace/commit/1413ef905357af7dd8159f44c9938e259be00f84)
+ * esta función queda sustituida por la operación del contructor de un
+ * \ref ArregloDeDigitos.
  */
 
 template <typename tipoDeArreglo, typename tipoDeNumero>
@@ -541,6 +546,11 @@ Arreglo<tipoDeArreglo> convertirAArreglo(
  * \return Número equivalente.
  *
  * \sa http://www.cplusplus.com/reference/cmath/pow/
+ *
+ * \deprecated A partir de
+ * [este commit](https://github.com/RQF7/proyecto_lovelace/commit/1413ef905357af7dd8159f44c9938e259be00f84)
+ * esta función queda sustituida por la operación del contructor de un
+ * \ref ArregloDeDigitos.
  */
 
 template<typename tipoDeArreglo, typename tipoDeNumero>

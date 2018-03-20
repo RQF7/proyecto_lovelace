@@ -21,7 +21,7 @@ using namespace std;
  */
 
 ArregloDeDigitos::ArregloDeDigitos(
-  string cadena,                      /**< Representación en cadena. */
+  std::string cadena,                 /**< Representación en cadena. */
   int base                            /**< Base de número. */
 )
 : Arreglo<int> (cadena.size()),

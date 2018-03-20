@@ -96,7 +96,7 @@ after_success:
   - make -B -C documentos_entregables presentacion_fpe
   # Documentación.
   - make documentación_doxygen
-  #- make -C pagina_publica/documentacion_doxygen/latex
+  - make -C pagina_publica/documentacion_doxygen/latex
 
 # Despliegue #################################################################
 # Antes del despliegue
