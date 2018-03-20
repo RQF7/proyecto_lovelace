@@ -7,4 +7,4 @@
 # Proyecto Lovelace.
 #
 
-mysql -u root -p < crear_base.sql
+sudo mysql -u root -p < crear_base.sql
