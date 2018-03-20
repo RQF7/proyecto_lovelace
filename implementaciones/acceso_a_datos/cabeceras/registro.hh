@@ -46,13 +46,13 @@ namespace Implementaciones
       }
 
       /** \brief Regresa el identificador del registor. */
-      inline int obtenerIdentificador() { return mIdentificador; }
+      inline int obtenerIdentificador() const { return mIdentificador; }
 
       /** \brief Regresa el PAN de la estructura. */
-      inline ArregloDeDigitos obtenerPAN() { return mPAN; }
+      inline ArregloDeDigitos obtenerPAN() const { return mPAN; }
 
       /** \brief Regresa el token de la estructura. */
-      inline ArregloDeDigitos obtenerToken() { return mToken; }
+      inline ArregloDeDigitos obtenerToken() const { return mToken; }
 
       /** \brief Coloca el identificador del registro. */
       inline void colocarIdentificador(int identificador)

@@ -35,6 +35,9 @@ namespace Implementaciones
 
       /** \brief Guarda el registro dado en la base de datos. */
       virtual void guardar(const Registro& registro) = 0;
+
+      /** \brief Elimina el registro con el identificador dado. */
+      virtual void eliminar(int identificador) = 0;
   };
 }
 

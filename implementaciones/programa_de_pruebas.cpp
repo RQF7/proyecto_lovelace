@@ -4,6 +4,7 @@
  * Proyecto Lovelace.
  */
 
+#include "acceso_a_datos/cabeceras/acceso_mysql_prueba.hh"
 #include "ffx/cabeceras/combinacion_por_bloque_prueba.hh"
 #include "ffx/cabeceras/combinacion_por_caracter_prueba.hh"
 #include "ffx/cabeceras/ffx_a10_prueba.hh"
@@ -43,7 +44,8 @@ int main()
     PseudoaleatorioTrivialPrueba {},
     PseudoaleatorioAESPrueba {},
     FuncionRNPrueba {},
-    TKRPrueba {}
+    TKRPrueba {},
+    AccesoMySQLPrueba {}
   };
   for (auto claseDePrueba : clasesDePrueba)
     if (!claseDePrueba.probar())

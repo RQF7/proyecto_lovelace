@@ -21,6 +21,9 @@ matrix:
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
+addons:
+  mariadb: '10.0'
+
 # Determinan el entorno: ubuntu trusty (14.04)
 sudo: required
 dist: trusty
@@ -46,6 +49,7 @@ before_install:
     texlive-generic-extra
     doxygen
     graphviz
+    libmysqlcppconn-dev
   # glossaries
   - wget http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
   - unzip -d ~/texmf glossaries.tds.zip
@@ -80,6 +84,10 @@ install:
   - make -C pruebas_librerias
   - make -C implementaciones
   - make -C utilidades
+  - cd bases_de_datos
+  - sudo ./crear_base.sh
+  - ./crear_estructura.sh
+  - cd ..
 
 script:
   - make -C pruebas_librerias correr

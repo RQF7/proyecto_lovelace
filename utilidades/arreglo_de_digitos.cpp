@@ -54,7 +54,7 @@ ArregloDeDigitos::ArregloDeDigitos(
   {
     entero equivalentePotencia = potencia<entero>(mBase, i);
     int digito = floor(numero / equivalentePotencia);
-    mArregloInterno[i] = digito;
+    mArregloInterno[mNumeroDeElementos - i - 1] = digito;
     mCadena[mNumeroDeElementos - i - 1] = digito + 48;
     numero -= digito * equivalentePotencia;
   }

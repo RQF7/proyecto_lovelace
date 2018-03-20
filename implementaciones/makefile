@@ -7,6 +7,9 @@ PROGRAMA_PRINCIPAL	:= programa_de_pruebas
 CARPETA_BINARIOS		:= binarios
 CARPETA_OBJETOS			:= objetos
 LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
+											 acceso_a_datos/acceso_simulado.cpp \
+											 acceso_a_datos/acceso_mysql.cpp \
+											 acceso_a_datos/acceso_mysql_prueba.cpp \
 											 redes_feistel/red_feistel_prueba.cpp \
 											 redes_feistel/red_feistel_alternante_prueba.cpp \
 											 redes_feistel/red_feistel_desbalanceada_prueba.cpp \
@@ -14,9 +17,6 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 ffx/combinacion_por_bloque_prueba.cpp \
 											 ffx/ronda_ffx_a10_prueba.cpp \
 											 ffx/ffx_a10_prueba.cpp \
-											 utilidades/utilidades_tarjetas.cpp \
-											 utilidades/utilidades_tarjetas_prueba.cpp \
-											 utilidades/algoritmo_tokenizador.cpp \
 											 tkr/pseudoaleatorio_trivial.cpp \
 											 tkr/pseudoaleatorio_trivial_prueba.cpp \
 											 tkr/pseudoaleatorio_aes.cpp \
@@ -25,13 +25,15 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 tkr/funcion_rn_prueba.cpp \
 											 tkr/tkr.cpp \
 											 tkr/tkr_prueba.cpp \
-											 acceso_a_datos/acceso_simulado.cpp \
+											 utilidades/utilidades_tarjetas.cpp \
+											 utilidades/utilidades_tarjetas_prueba.cpp \
+											 utilidades/algoritmo_tokenizador.cpp \
 											 utilidades/prueba.cpp \
 											 utilidades/arreglo_de_digitos.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
 BANDERAS_GENERALES	:= -std=c++11 -Wall -ggdb
-BANDERAS_DE_LIGADO	:= -lcryptopp
+BANDERAS_DE_LIGADO	:= -lcryptopp -lmysqlcppconn
 
 $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)
 	mkdir -p $(CARPETA_BINARIOS)
@@ -145,6 +147,17 @@ $(CARPETA_OBJETOS)/tkr/tkr_prueba.o: tkr/tkr_prueba.cpp \
 $(CARPETA_OBJETOS)/acceso_a_datos/acceso_simulado.o: \
 	acceso_a_datos/acceso_simulado.cpp \
 	acceso_a_datos/cabeceras/acceso_simulado.hh
+	mkdir -p $(CARPETA_OBJETOS)/acceso_a_datos
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/acceso_a_datos/acceso_mysql.o: \
+	acceso_a_datos/acceso_mysql.cpp acceso_a_datos/cabeceras/acceso_mysql.hh
+	mkdir -p $(CARPETA_OBJETOS)/acceso_a_datos
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/acceso_a_datos/acceso_mysql_prueba.o: \
+	acceso_a_datos/acceso_mysql_prueba.cpp \
+	acceso_a_datos/cabeceras/acceso_mysql_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)/acceso_a_datos
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 

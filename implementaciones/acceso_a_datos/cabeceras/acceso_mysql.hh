@@ -8,6 +8,8 @@
 #ifndef __ACCESO_MYSQL__
 #define __ACCESO_MYSQL__
 
+#include "cdv.hh"
+#include "../../../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include <cppconn/connection.h>
 #include <cppconn/driver.h>
 #include <string>
@@ -33,13 +35,16 @@ namespace Implementaciones
       ~AccesoMySQL();
 
       /** \brief Busca el PAN dado en la base de datos. */
-      Registro buscarPorPan(const Arreglo<int>& PAN) override;
+      Registro buscarPorPan(const ArregloDeDigitos& PAN) override;
 
       /** \brief Busca el token dado en la base de datos. */
-      Registro buscarPorToken(const Arreglo<int>& token) override;
+      Registro buscarPorToken(const ArregloDeDigitos& token) override;
 
       /** \brief Guarda el registro dado en la base de datos. */
       void guardar(const Registro& registro) override;
+
+      /** \brief Elimina el registro con el identificador dado. */
+      void eliminar(int identificador) override;
 
     private:
       /** \brief Controlador de conexiones. */

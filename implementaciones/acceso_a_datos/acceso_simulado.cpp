@@ -46,3 +46,13 @@ void AccesoSimulado::guardar(
 )
 {
 }
+
+/**
+ * Mismo cado que la inserción: no se hace nada.
+ */
+
+void AccesoSimulado::eliminar(
+  int identificador                      /**< Registro a ignorar. */
+)
+{
+}

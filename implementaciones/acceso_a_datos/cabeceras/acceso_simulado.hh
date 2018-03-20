@@ -33,6 +33,9 @@ namespace Implementaciones
 
       /** \brief Guarda el registro dado en la base de datos. */
       void guardar(const Registro& registro) override;
+
+      /** \brief Simula la eliminación de un registro. */
+      void eliminar(int identificador) override;
   };
 }
 

@@ -1,14 +1,17 @@
-/*
+/**
  * \file
  * \brief
  */
 
 #include "cabeceras/acceso_mysql.hh"
+#include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
 #include <cppconn/resultset.h>
 #include <cppconn/statement.h>
+#include <cppconn/prepared_statement.h>
 #include <string>
+#include <iostream>
 
 using namespace Implementaciones;
 using namespace sql;
@@ -27,14 +30,14 @@ AccesoMySQL::AccesoMySQL(
   string base             /**< Nombre de la base de datos. */
 )
 : mControlador {get_driver_instance()},
-  mConexion {mControlador->connect("tcp://" + ip + ":" + puerto,
+  mConexion {mControlador->connect("tcp://" + ip + ":" + to_string(puerto),
     usuario, contrasenia)}
 {
-  mConexion->setScema(base);
+  mConexion->setSchema(base);
 }
 
 /**
- * Libera la instancia de la conexión. La ionstancia del controlador es
+ * Libera la instancia de la conexión. La instancia del controlador es
  * liberada por el propio conector.
  */
 
@@ -47,17 +50,19 @@ AccesoMySQL::~AccesoMySQL()
  *
  */
 
-Registro AccesoMySQL::buscarPorPan(const Arreglo<int>& PAN)
+Registro AccesoMySQL::buscarPorPan(
+  const ArregloDeDigitos& PAN
+)
 {
   string consulta {"SELECT * FROM registro WHERE pan = ?"};
   PreparedStatement* declaracion = mConexion->prepareStatement(consulta);
-  declaracion->setString(1, PAN.aCadena());
-  ResultSet* resultado = declaracion->execute();
+  declaracion->setString(1, PAN.obtenerCadena());
+  ResultSet* resultado = declaracion->executeQuery();
   resultado->next();
   Registro registro {
     resultado->getInt("identificador"),
     PAN,
-    Arreglo<int>(resultado->getString("token"))
+    ArregloDeDigitos(resultado->getString("token"))
   };
   delete declaracion;
   delete resultado;
@@ -68,16 +73,18 @@ Registro AccesoMySQL::buscarPorPan(const Arreglo<int>& PAN)
  *
  */
 
-Registro AccesoMySQL::buscarPorToken(const Arreglo<int>& token)
+Registro AccesoMySQL::buscarPorToken(
+  const ArregloDeDigitos& token
+)
 {
   string consulta {"SELECT * FROM registro WHERE token = ?"};
   PreparedStatement* declaracion = mConexion->prepareStatement(consulta);
-  declaracion->setString(1, token.aCadena());
-  ResultSet* resultado = declaracion->execute();
+  declaracion->setString(1, token.obtenerCadena());
+  ResultSet* resultado = declaracion->executeQuery();
   resultado->next();
   Registro registro {
     resultado->getInt("identificador"),
-    Arreglo<int>(resultado->getString("pan")),
+    ArregloDeDigitos(resultado->getString("pan")),
     token
   };
   delete declaracion;
@@ -89,14 +96,32 @@ Registro AccesoMySQL::buscarPorToken(const Arreglo<int>& token)
  *
  */
 
-void AccesoMySQL::guardar(const Registro& registro)
+void AccesoMySQL::guardar(
+  const Registro& registro
+)
 {
-  string instruccion = "INSERT INTO registro VALUES (?, ?, ?)";
+  string instruccion {"INSERT INTO registro VALUES (?, ?, ?)"};
   PreparedStatement* declaracion = mConexion->prepareStatement(instruccion);
   declaracion->setInt(1, 0);
-  declaracion->setString(2, registro.obtenerPan().aCadena());
-  declaracion->setString(3. registro.obtenerToken()-aCadena());
-  declaracion->execute();
+  declaracion->setString(2, registro.obtenerPAN().obtenerCadena());
+  declaracion->setString(3, registro.obtenerToken().obtenerCadena());
+  declaracion->executeQuery();
+  delete declaracion;
+  return;
+}
+
+/**
+ *
+ */
+
+void AccesoMySQL::eliminar(
+  int identificador
+)
+{
+  string instruccion {"DELETE FROM registro WHERE identificador = ?"};
+  PreparedStatement* declaracion = mConexion->prepareStatement(instruccion);
+  declaracion->setInt(1, identificador);
+  declaracion->executeQuery();
   delete declaracion;
   return;
 }
