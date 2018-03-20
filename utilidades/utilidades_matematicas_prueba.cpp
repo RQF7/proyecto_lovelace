@@ -18,10 +18,14 @@ UtilidadesMatematicasPrueba::UtilidadesMatematicasPrueba()
     "prueba la operación de potencia",
     UtilidadesMatematicasPrueba::probarPotencia
   });
-    mListaDePruebas.push_back(FuncionDePrueba{
-      "prueba la operación de módulo",
-      UtilidadesMatematicasPrueba::probarModulo
-    });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "prueba la operación de módulo",
+    UtilidadesMatematicasPrueba::probarModulo
+  });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "prueba de la operación para contar dígitos",
+    UtilidadesMatematicasPrueba::probarContarDigitos
+  });
 }
 
 /**
@@ -88,6 +92,40 @@ bool UtilidadesMatematicasPrueba::probarModulo()
        << "-7 mod 10 = " << pruebaTres << endl
        << "-158 mod 6 = " << pruebaCuatro << endl;
   if (pruebaTres != 3 || pruebaCuatro != 4)
+    return false;
+  return true;
+}
+
+/**
+ * Prueba la función para contar los dígitos de un número dado.
+ *
+ * \return Estado de la prueba.
+ */
+
+bool UtilidadesMatematicasPrueba::probarContarDigitos()
+{
+  int numeroUno {6758};
+  int pruebaUno {contarDigitos<int>(numeroUno, 10)};
+  int numeroDos {1024};
+  int pruebaDos {contarDigitos<int>(numeroDos, 2)};
+  entero numeroTres {1234567891234560ull};
+  int pruebaTres {contarDigitos<entero>(numeroTres, 10)};
+  int numeroCuatro {0b1111};
+  int pruebaCuatro {contarDigitos<int>(numeroCuatro, 2)};
+  int numeroCinco {0342776};
+  int pruebaCinco {contarDigitos<int>(numeroCinco, 8)};
+  entero numeroSeis {0x124acd4567};
+  int pruebaSeis {contarDigitos<entero>(numeroSeis, 16)};
+
+  cout << "Pruena uno (10): " << numeroUno << " - " << pruebaUno << endl
+       << "Pruena dos (2): " << numeroDos << " - " << pruebaDos << endl
+       << "Pruena tres (10): " << numeroTres << " - " << pruebaTres << endl
+       << "Pruena cuatro (2): " << numeroCuatro << " - " << pruebaCuatro << endl
+       << "Pruena cinco (8): " << numeroCinco << " - " << pruebaCinco << endl
+       << "Pruena seis (16): " << numeroSeis << " - " << pruebaSeis << endl;
+
+  if (pruebaUno != 4 || pruebaDos != 11 || pruebaTres != 16 ||
+    pruebaCuatro != 4 || pruebaCinco != 6 || pruebaSeis != 10)
     return false;
   return true;
 }

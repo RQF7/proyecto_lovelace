@@ -26,6 +26,9 @@ namespace UtilidadesPruebas
 
       /** \brief Prueba la operación de módulo */
       static bool probarModulo();
+
+      /** \brief Prueba la operación de contar dígitos. */
+      static bool probarContarDigitos();
   };
 }
 

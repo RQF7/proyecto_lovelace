@@ -26,6 +26,10 @@ tipo modulo(tipo numeroUno, tipo numeroDos);
 template <typename tipo>
 tipo potencia(int base, int exponente);
 
+/** \brief Cuenta el número de dígitos del número dado. */
+template <typename tipo>
+int contarDigitos(tipo numero, int base);
+
 /**
  * Envolvente alrededor de la función de módulo normal para lidiar con
  * números negativos: si el primer operando es negativo, se regresa el
@@ -34,7 +38,7 @@ tipo potencia(int base, int exponente);
  * \return numeroUno % numeroDos
  */
 
-template <typename tipo>
+template <typename tipo>                 /**< Tipo de operandos. */
 tipo modulo(
   tipo numeroUno,                        /**< Primer operando. */
   tipo numeroDos                         /**< Segundo operando. */
@@ -52,12 +56,31 @@ tipo modulo(
  * \return operación de potencia.
  */
 
-template <typename tipo>
-tipo potencia(int base, int exponente)
+template <typename tipo>                 /**< Tipo de resultado. */
+tipo potencia(
+  int base,                              /**< Base de la operación. */
+  int exponente                          /**< Exponente de la operación. */
+)
 {
   tipo resultado {1};
   for (int i = 0; i < exponente; i++)
     resultado *= base;
+  return resultado;
+}
+
+/**
+ * Cuenta los dígitos del número dado en la base dada.
+ */
+
+template <typename tipo>                 /**< Tipo de número dado. */
+int contarDigitos(
+  tipo numero,                           /**< Número a analizar. */
+  int base                               /**< Base de número dado. */
+)
+{
+  int resultado {1};
+  while ((numero /= base) != 0)
+    resultado++;
   return resultado;
 }
 
