@@ -1,6 +1,7 @@
 /**
  * \file
  * \brief Implementación de pruebas de utilidades matemáticas.
+ *
  * Proyecto Lovelace.
  */
 

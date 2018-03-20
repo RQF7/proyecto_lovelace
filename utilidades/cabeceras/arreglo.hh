@@ -17,7 +17,6 @@
 #ifndef __ARREGLO__
 #define __ARREGLO__
 
-//#include "intermediario_de_arreglo.hh"
 #include "utilidades_matematicas.hh"
 #include <algorithm>
 #include <cmath>
@@ -58,7 +57,7 @@ class Arreglo
     /** \brief Constructor de operación de copiado. */
     Arreglo(const Arreglo &arreglo);
 
-    /** \brief Operación de asignación por copia */
+    /** \brief Operación de asignación por copia. */
     Arreglo& operator=(const Arreglo &arreglo);
 
     /** \brief Constructor de operación de movimiento. */
@@ -71,7 +70,6 @@ class Arreglo
     ~Arreglo();
 
     /** \brief Operación de lectura. */
-    //IntermediarioDeArreglo<tipo> operator[](int indice);
     tipo operator[](int indice) const;
 
     /** \brief Operación de escritura. */
@@ -84,10 +82,7 @@ class Arreglo
     Arreglo<tipo> partir(int numeroDePartes, int parte,
       int desviacion = 0) const;
 
-  private:
-
-    /** El intermediario es un amigo. */
-    //friend class IntermediarioDeArreglo;
+  protected:
 
     /** \brief Tamaño del arreglo (entero mayor a cero). */
     int mNumeroDeElementos;
@@ -98,22 +93,22 @@ class Arreglo
 
 /** \brief Impresión de un arreglo. */
 template <typename tipo>
-std::ostream& operator<<(std::ostream &flujo, const Arreglo<tipo> &arreglo);
+std::ostream& operator<<(std::ostream& flujo, const Arreglo<tipo>& arreglo);
 
 /** \brief Concatenación de dos arreglos. */
 template <typename tipo>
-Arreglo<tipo> operator+(const Arreglo<tipo> &arregloUno,
-  const Arreglo<tipo> &arregloDos);
+Arreglo<tipo> operator+(const Arreglo<tipo>& arregloUno,
+  const Arreglo<tipo>& arregloDos);
 
 /** \brief Comparación de igualdad entre arreglos. */
 template <typename tipo>
-bool operator==(const Arreglo<tipo> &arregloUno,
-  const Arreglo<tipo> &arregloDos);
+bool operator==(const Arreglo<tipo>& arregloUno,
+  const Arreglo<tipo>& arregloDos);
 
 /** \brief Comparación de desigualdad entre arreglos. */
 template <typename tipo>
-bool operator!=(const Arreglo<tipo> &arregloUno,
-  const Arreglo<tipo> &arregloDos);
+bool operator!=(const Arreglo<tipo>& arregloUno,
+  const Arreglo<tipo>& arregloDos);
 
 /** \brief Convierte el número dado en un arreglo. */
 template <typename tipoDeArreglo, typename tipoDeNumero>
@@ -123,7 +118,7 @@ Arreglo<tipoDeArreglo> convertirAArreglo(tipoDeNumero numero,
 /** \brief Regresa la representación entera del arreglo. */
 template<typename tipoDeArreglo, typename tipoDeNumero>
 tipoDeNumero convertirANumero(
-  const Arreglo<tipoDeArreglo> &arreglo, int base);
+  const Arreglo<tipoDeArreglo>& arreglo, int base);
 
 /* Definición **************************************************************/
 
@@ -198,9 +193,9 @@ Arreglo<tipo>::Arreglo(
 
 template<typename tipo>
 Arreglo<tipo>::Arreglo(
-  std::initializer_list<tipo> elementos /**< Contenido del arreglo. */
+  std::initializer_list<tipo> elementos   /**< Contenido del arreglo. */
 )
-: Arreglo<tipo>(elementos.size())   /* Delegación de constructor. */
+: Arreglo<tipo>(elementos.size())         /* Delegación de constructor. */
 {
   std::uninitialized_copy(elementos.begin(), elementos.end(),
     mArregloInterno);

@@ -8,6 +8,8 @@ CARPETA_BINARIOS		:= binarios
 CARPETA_OBJETOS			:= objetos
 LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 arreglo_prueba.cpp \
+											 arreglo_de_digitos.cpp \
+											 arreglo_de_digitos_prueba.cpp \
 											 utilidades_matematicas_prueba.cpp \
 											 prueba.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
@@ -24,6 +26,16 @@ $(CARPETA_OBJETOS)/programa_de_pruebas.o: programa_de_pruebas.cpp
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/arreglo_prueba.o: arreglo_prueba.cpp cabeceras/arreglo.hh
+	mkdir -p $(CARPETA_OBJETOS)
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/arreglo_de_digitos.o: arreglo_de_digitos.cpp \
+	cabeceras/arreglo_de_digitos.hh
+	mkdir -p $(CARPETA_OBJETOS)
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/arreglo_de_digitos_prueba.o: arreglo_de_digitos_prueba.cpp \
+	cabeceras/arreglo_de_digitos_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 

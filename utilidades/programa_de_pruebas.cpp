@@ -6,6 +6,7 @@
 
 
 #include "cabeceras/arreglo_prueba.hh"
+#include "cabeceras/arreglo_de_digitos_prueba.hh"
 #include "cabeceras/utilidades_matematicas_prueba.hh"
 #include <iostream>
 #include <vector>
@@ -25,7 +26,8 @@ int main()
   vector<Prueba> clasesDePrueba
   {
     ArregloPrueba {},
-    UtilidadesMatematicasPrueba {}
+    UtilidadesMatematicasPrueba {},
+    ArregloDeDigitosPrueba {}
   };
   for (auto claseDePrueba : clasesDePrueba)
     if (!claseDePrueba.probar())
