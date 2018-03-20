@@ -20,7 +20,7 @@ namespace Implementaciones
    * corresponiente y un arreglo que representa a la información asociada.
    *
    * Al tratarse de una clase de solo datos (lo que en java llaman «bean»),
-   * todos los métodos («setters» y «getter») son *inline*: se declaran y
+   * todos los métodos («setters» y «getters») son *inline*: se declaran y
    * definen en la cabecera.
    */
 

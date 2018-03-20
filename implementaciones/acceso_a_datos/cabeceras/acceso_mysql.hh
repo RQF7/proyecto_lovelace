@@ -33,10 +33,10 @@ namespace Implementaciones
       ~AccesoMySQL();
 
       /** \brief Busca el PAN dado en la base de datos. */
-      Registro buscarPorPan(entero PAN) override;
+      Registro buscarPorPan(const Arreglo<int>& PAN) override;
 
       /** \brief Busca el token dado en la base de datos. */
-      Registro buscarPorToken(entero token) override;
+      Registro buscarPorToken(const Arreglo<int>& token) override;
 
       /** \brief Guarda el registro dado en la base de datos. */
       void guardar(const Registro& registro) override;

@@ -8,9 +8,6 @@
  * estándar definir a las clases con plantillas dentro de los archivos de
  * cabeceras.
  *
- * \todo Mover esto a la carpeta de utilidades (y cambiar de espacio de
- * nombres).
- *
  * Proyecto Lovelace.
  */
 
