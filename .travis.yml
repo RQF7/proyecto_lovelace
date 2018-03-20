@@ -85,7 +85,7 @@ install:
   - make -C implementaciones
   - make -C utilidades
   - cd bases_de_datos
-  - sudo ./crear_base.sh
+  - ./crear_base.sh
   - ./crear_estructura.sh
   - cd ..
 

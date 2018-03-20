@@ -47,11 +47,13 @@ AccesoMySQL::~AccesoMySQL()
 }
 
 /**
+ * Busca registros por el PAN dado.
  *
+ * \return Instancia de \ref Registro con información de base de datos.
  */
 
 Registro AccesoMySQL::buscarPorPan(
-  const ArregloDeDigitos& PAN
+  const ArregloDeDigitos& PAN       /**< PAN a buscar en los registros. */
 )
 {
   string consulta {"SELECT * FROM registro WHERE pan = ?"};
@@ -70,11 +72,13 @@ Registro AccesoMySQL::buscarPorPan(
 }
 
 /**
+ * Busca registros por el token dado.
  *
+ * \return Instancia de \ref Registro con información de base de datos.
  */
 
 Registro AccesoMySQL::buscarPorToken(
-  const ArregloDeDigitos& token
+  const ArregloDeDigitos& token         /**< Token a buscar. */
 )
 {
   string consulta {"SELECT * FROM registro WHERE token = ?"};
@@ -93,11 +97,13 @@ Registro AccesoMySQL::buscarPorToken(
 }
 
 /**
- *
+ * Guarda el registro dado el base de datos. No hace ningún tipo de comprobacón
+ * de duplicados: el token se inserta como viene; lo mismo para el PAN y el
+ * token.
  */
 
 void AccesoMySQL::guardar(
-  const Registro& registro
+  const Registro& registro              /**< Nuevo registro. */
 )
 {
   string instruccion {"INSERT INTO registro VALUES (?, ?, ?)"};
@@ -111,11 +117,11 @@ void AccesoMySQL::guardar(
 }
 
 /**
- *
+ * Elimina el registor que coincida con el identificador dado.
  */
 
 void AccesoMySQL::eliminar(
-  int identificador
+  int identificador         /**< Identificador de registro a eliminar. */
 )
 {
   string instruccion {"DELETE FROM registro WHERE identificador = ?"};
