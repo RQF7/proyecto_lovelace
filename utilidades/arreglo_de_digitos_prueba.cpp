@@ -19,6 +19,10 @@ ArregloDeDigitosPrueba::ArregloDeDigitosPrueba()
     "prueba la operación de los constructores",
     ArregloDeDigitosPrueba::probarConstructores
   });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "prueba la operación de escritura",
+    ArregloDeDigitosPrueba::probarColocar
+  });
 }
 
 /**
@@ -40,5 +44,32 @@ bool ArregloDeDigitosPrueba::probarConstructores()
   if (pruebaUno.obtenerNumero() != 123456ull ||
     pruebaDos.obtenerCadena() != "76589")
     return false;
+  return true;
+}
+
+
+/**
+ * Prueba la construcción de un arreglo vacío que se va llenando después
+ * de la construcción. Esta función se creo solo por razones de compatibilidad
+ * con los Srreglos normales, en realidad, siempre que sea posible, hay que
+ * inicializar el arreglo desde el contructor, y no cambiarlo durante su vida
+ * útil.
+ *
+ * \retrun Estado de la prueba. 
+ */
+
+bool ArregloDeDigitosPrueba::probarColocar()
+{
+  ArregloDeDigitos prueba(4);
+  prueba.colocar(0, 1);
+  prueba.colocar(1, 2);
+  prueba.colocar(2, 3);
+  prueba.colocar(3, 4);
+  cout << "Primera prueba: " << prueba << " "
+       << prueba.obtenerNumero() << endl;
+  if (prueba.obtenerNumero() != 1234ull ||
+    prueba.obtenerCadena() != "1234")
+    return false;
+
   return true;
 }

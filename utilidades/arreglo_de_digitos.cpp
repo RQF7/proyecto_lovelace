@@ -79,6 +79,10 @@ ArregloDeDigitos::ArregloDeDigitos(
  * Llama a la función equivalente de la superclase y actualiza las
  * representaciones internas: coloca el caracter equivalente en la cadena y
  * opera el número interno.
+ *
+ * \deprecated Esta función solo existe por razones de compatibilidad; en
+ * realidad se espera que siempre que se cree un arreglo, este se inicialice
+ * desde el contructor (como ocurriría con un arreglo de apuntadores).
  */
 
 void ArregloDeDigitos::colocar(
@@ -86,10 +90,10 @@ void ArregloDeDigitos::colocar(
   int valor                           /**< Dígito a colocar. */
 )
 {
-  mNumero -= mArregloInterno[indice] * potencia<entero>(mBase, indice);
+  //mNumero -= mArregloInterno[indice] * potencia<entero>(mBase, indice);
   Arreglo<int>::colocar(indice, valor);
   mCadena[indice] = valor + 48;
-  mNumero += valor * potencia<entero>(mBase, indice);
+  mNumero += valor * potencia<entero>(mBase, mNumeroDeElementos - indice - 1);
 }
 
 /**

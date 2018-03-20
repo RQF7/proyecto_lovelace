@@ -23,6 +23,9 @@ namespace UtilidadesPruebas
 
       /** \brief Prueba los contructores. */
       static bool probarConstructores();
+
+      /** \brief Prueba la función de colocación. */
+      static bool probarColocar();
   };
 }
 
