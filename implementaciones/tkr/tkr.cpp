@@ -54,6 +54,7 @@ ArregloDeDigitos TKR::tokenizar(
   {
     ArregloDeDigitos temporal = mFuncionPseudoaleatoria->operar({});
     informacion.colocarToken(temporal);
+    informacion.colocarPAN(pan);
     mBaseDeDatos->guardar(informacion);
   }
   return informacion.obtenerToken();

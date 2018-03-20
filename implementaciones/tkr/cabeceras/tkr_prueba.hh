@@ -27,6 +27,9 @@ namespace ImplementacionesPruebas
 
       /** \brief Prueba la operación con la función RN. */
       static bool probarOperacionNoTanTrivial();
+
+      /** \brief Prueba la operación con base de datos. */
+      static bool probarOperacionNormal();
   };
 }
 

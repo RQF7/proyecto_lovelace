@@ -47,7 +47,8 @@ AccesoMySQL::~AccesoMySQL()
 }
 
 /**
- * Busca registros por el PAN dado.
+ * Busca registros por el PAN dado. Regresa la primera coincidencia (en una
+ * base consistente, la única); si no hay, regresa un registro vacío.
  *
  * \return Instancia de \ref Registro con información de base de datos.
  */
@@ -60,19 +61,22 @@ Registro AccesoMySQL::buscarPorPan(
   PreparedStatement* declaracion = mConexion->prepareStatement(consulta);
   declaracion->setString(1, PAN.obtenerCadena());
   ResultSet* resultado = declaracion->executeQuery();
-  resultado->next();
-  Registro registro {
-    resultado->getInt("identificador"),
-    PAN,
-    ArregloDeDigitos(resultado->getString("token"))
-  };
+  Registro registro {};
+  if (resultado->next())
+  {
+    registro.colocarIdentificador(resultado->getInt("identificador"));
+    registro.colocarPAN(PAN);
+    registro.colocarToken(ArregloDeDigitos{resultado->getString("token")});
+  }
   delete declaracion;
   delete resultado;
   return registro;
 }
 
 /**
- * Busca registros por el token dado.
+ * Busca registros por el token dado. Regresa la primera coincidencia (en una
+ * base comsistente, la única); si no hay coincidencias regresa un registro
+ * vacío.
  *
  * \return Instancia de \ref Registro con información de base de datos.
  */
@@ -85,12 +89,13 @@ Registro AccesoMySQL::buscarPorToken(
   PreparedStatement* declaracion = mConexion->prepareStatement(consulta);
   declaracion->setString(1, token.obtenerCadena());
   ResultSet* resultado = declaracion->executeQuery();
-  resultado->next();
-  Registro registro {
-    resultado->getInt("identificador"),
-    ArregloDeDigitos(resultado->getString("pan")),
-    token
-  };
+  Registro registro {};
+  if (resultado->next())
+  {
+    registro.colocarIdentificador(resultado->getInt("identificador"));
+    registro.colocarPAN(ArregloDeDigitos(resultado->getString("pan")));
+    registro.colocarToken(token);
+  }
   delete declaracion;
   delete resultado;
   return registro;

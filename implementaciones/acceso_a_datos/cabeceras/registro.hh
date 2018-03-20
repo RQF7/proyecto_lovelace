@@ -45,6 +45,12 @@ namespace Implementaciones
       {
       }
 
+      /** \brief Registro vacío. */
+      Registro()
+      : mIdentificador {0}, mPAN {}, mToken {}
+      {
+      }
+
       /** \brief Regresa el identificador del registor. */
       inline int obtenerIdentificador() const { return mIdentificador; }
 

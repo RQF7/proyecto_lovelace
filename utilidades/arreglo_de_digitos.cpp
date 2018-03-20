@@ -76,6 +76,17 @@ ArregloDeDigitos::ArregloDeDigitos(
 }
 
 /**
+ * Permite tener arreglos de dígitos sin reservar memoria; solo sirven para
+ * expresiones temporales (como os mismos arreglos vacíos) ya que no se reserva
+ * memoria.
+ */
+
+ArregloDeDigitos::ArregloDeDigitos()
+: Arreglo<int>()
+{
+}
+
+/**
  * Llama a la función equivalente de la superclase y actualiza las
  * representaciones internas: coloca el caracter equivalente en la cadena y
  * opera el número interno.

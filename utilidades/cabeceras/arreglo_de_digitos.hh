@@ -32,6 +32,9 @@ class ArregloDeDigitos : public Arreglo<int>
     /** \brief Arreglo vacío, solo reserva memoria. */
     ArregloDeDigitos(int numeroDeElementos, int base = 10);
 
+    /** \brief Arreglo vacío, sin reserva de memoria. */
+    ArregloDeDigitos();
+
     /** \brief Operación de escritura. */
     void colocar(int indice, int valor);
 
