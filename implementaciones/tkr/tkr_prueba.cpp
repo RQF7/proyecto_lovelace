@@ -43,9 +43,9 @@ TKRPrueba::TKRPrueba()
 bool TKRPrueba::probarOperacionTrivial()
 {
   TKR tkr {};
-  Arreglo<int> panUno {1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6};
-  Arreglo<int> tokenUno = tkr.tokenizar(panUno);
-  Arreglo<int> panDos = tkr.detokenizar(tokenUno);
+  ArregloDeDigitos panUno {123456789123456ull};
+  ArregloDeDigitos tokenUno = tkr.tokenizar(panUno);
+  ArregloDeDigitos panDos = tkr.detokenizar(tokenUno);
   cout << "Prueba uno: " << endl
        << "PAN uno: " << panUno << endl
        << "Token uno: " << tokenUno << endl
@@ -71,9 +71,9 @@ bool TKRPrueba::probarOperacionNoTanTrivial()
   FuncionRN *funcion = new FuncionRN{aes};
   TKR tkr {funcion};
 
-  Arreglo<int> panUno {1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6};
-  Arreglo<int> tokenUno = tkr.tokenizar(panUno);
-  Arreglo<int> tokenDos = tkr.tokenizar(panUno);
+  ArregloDeDigitos panUno {123456789123456ull};
+  ArregloDeDigitos tokenUno = tkr.tokenizar(panUno);
+  ArregloDeDigitos tokenDos = tkr.tokenizar(panUno);
 
   cout << "PAN original: " << panUno << endl
        << "Token uno: " << tokenUno << endl

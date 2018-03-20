@@ -29,7 +29,7 @@ namespace Implementaciones
     public:
 
       /** \brief Alias para la función pseudoaleatoria. */
-      using FuncionPseudoaleatoria = Utilidades::Funcion<Arreglo<int>, int>;
+      using FuncionPseudoaleatoria = Utilidades::Funcion<ArregloDeDigitos, int>;
 
       /* \brief Constructor de instancia. */
       TKR(FuncionPseudoaleatoria* funcionPseudoaleatoria =
@@ -41,10 +41,10 @@ namespace Implementaciones
       ~TKR();
 
       /** Operación de tokenización (declarada por la interfaz). */
-      Arreglo<int> tokenizar(const Arreglo<int>& pan) override;
+      ArregloDeDigitos tokenizar(const ArregloDeDigitos& pan) override;
 
       /** Operación de detokenización (declarada por la interfaz). */
-      Arreglo<int> detokenizar(const Arreglo<int>& token) override;
+      ArregloDeDigitos detokenizar(const ArregloDeDigitos& token) override;
 
     private:
 

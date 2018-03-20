@@ -9,7 +9,7 @@
 #define __FUNCION_RN__
 
 #include "pseudoaleatorio_aes.hh"
-#include "../../../utilidades/cabeceras/arreglo.hh"
+#include "../../../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
 #include "../../../utilidades/interfaces_comunes/funcion.hh"
 #include <vector>
@@ -23,7 +23,7 @@ namespace Implementaciones
    * artículo de TKR.
    */
 
-  class FuncionRN : public Utilidades::Funcion<Arreglo<int>, int>
+  class FuncionRN : public Utilidades::Funcion<ArregloDeDigitos, int>
   {
     public:
       /** \brief Alias para función interna. */
@@ -37,7 +37,7 @@ namespace Implementaciones
       ~FuncionRN();
 
       /** \brief Generación de token pseudoaleatorio. */
-      Arreglo<int> operar(const std::vector<int>& entrada) override;
+      ArregloDeDigitos operar(const std::vector<int>& entrada) override;
 
       /** \brief Redistribuye los bytes del arreglo dado. */
       Arreglo<unsigned char> redistribuir(

@@ -7,7 +7,7 @@
 #define __CDV__
 
 #include "registro.hh"
-#include "../../../utilidades/cabeceras/arreglo.hh"
+#include "../../../utilidades/cabeceras/arreglo_de_digitos.hh"
 
 namespace Implementaciones
 {
@@ -28,10 +28,10 @@ namespace Implementaciones
       }
 
       /** \brief Busca el PAN dado en la base de datos. */
-      virtual Registro buscarPorPan(const Arreglo<int>& PAN) = 0;
+      virtual Registro buscarPorPan(const ArregloDeDigitos& PAN) = 0;
 
       /** \brief Busca el token dado en la base de datos. */
-      virtual Registro buscarPorToken(const Arreglo<int>& token) = 0;
+      virtual Registro buscarPorToken(const ArregloDeDigitos& token) = 0;
 
       /** \brief Guarda el registro dado en la base de datos. */
       virtual void guardar(const Registro& registro) = 0;

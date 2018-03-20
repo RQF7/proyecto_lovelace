@@ -6,7 +6,7 @@
 #ifndef __PSEUDOALEATORIOA_TRIVIAL__
 #define __PSEUDOALEATORIOA_TRIVIAL__
 
-#include "../../../utilidades/cabeceras/arreglo.hh"
+#include "../../../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include "../../../utilidades/interfaces_comunes/funcion.hh"
 #include <vector>
 
@@ -21,11 +21,12 @@ namespace Implementaciones
    * de función pseudoaleatoria.
    */
 
-  class PseudoaleatorioTrivial : public Utilidades::Funcion<Arreglo<int>, int>
+  class PseudoaleatorioTrivial
+  : public Utilidades::Funcion<ArregloDeDigitos, int>
   {
     public:
       /** \brief Generación de token pseudoaleatorio trivial. */
-      Arreglo<int> operar(const std::vector<int>& entrada) override;
+      ArregloDeDigitos operar(const std::vector<int>& entrada) override;
   };
 }
 

@@ -4,7 +4,7 @@
  */
 
 #include "cabeceras/algoritmo_tokenizador.hh"
-#include "../../utilidades/cabeceras/arreglo.hh"
+#include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include <vector>
 
 using namespace Implementaciones;
@@ -17,9 +17,9 @@ using namespace std;
  * \return resultado de operación de tokenización.
  */
 
-Arreglo<int> AlgoritmoTokenizador::operar(
+ArregloDeDigitos AlgoritmoTokenizador::operar(
   /** Argumentos de entrada, se espera el PAN y la información adicional. */
-  const vector<Arreglo<int>> &entrada
+  const vector<ArregloDeDigitos> &entrada
 )
 {
   return tokenizar(entrada[0]);
@@ -32,9 +32,9 @@ Arreglo<int> AlgoritmoTokenizador::operar(
  * \return Resultado de operación de detokenización.
  */
 
-Arreglo<int> AlgoritmoTokenizador::deoperar(
+ArregloDeDigitos AlgoritmoTokenizador::deoperar(
   /** Argumentos de entrada, se espera el token y la información adicional. */
-  const vector<Arreglo<int>> &entrada
+  const vector<ArregloDeDigitos> &entrada
 )
 {
   return detokenizar(entrada[0]);

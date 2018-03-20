@@ -10,7 +10,7 @@
 
 #include "cdv.hh"
 #include "registro.hh"
-#include "../../../utilidades/cabeceras/arreglo.hh"
+#include "../../../utilidades/cabeceras/arreglo_de_digitos.hh"
 
 namespace Implementaciones
 {
@@ -26,10 +26,10 @@ namespace Implementaciones
   {
     public:
       /** \brief Busca el PAN dado en la base de datos. */
-      Registro buscarPorPan(const Arreglo<int>& PAN) override;
+      Registro buscarPorPan(const ArregloDeDigitos& PAN) override;
 
       /** \brief Busca el token dado en la base de datos. */
-      Registro buscarPorToken(const Arreglo<int>& token) override;
+      Registro buscarPorToken(const ArregloDeDigitos& token) override;
 
       /** \brief Guarda el registro dado en la base de datos. */
       void guardar(const Registro& registro) override;

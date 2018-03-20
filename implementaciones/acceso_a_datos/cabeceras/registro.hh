@@ -6,7 +6,7 @@
 #ifndef __REGISTRO__
 #define __REGISTRO__
 
- #include "../../../utilidades/cabeceras/arreglo.hh"
+ #include "../../../utilidades/cabeceras/arreglo_de_digitos.hh"
  #include <ostream>
 
 namespace Implementaciones
@@ -32,15 +32,15 @@ namespace Implementaciones
       int mIdentificador;
 
       /** \brief Arreglo con el número de tarjeta. */
-      Arreglo<int> mPAN;
+      ArregloDeDigitos mPAN;
 
       /** \brief Arreglo con el valor sustituto (token). */
-      Arreglo<int> mToken;
+      ArregloDeDigitos mToken;
 
     public:
 
       /** \brief Inicialización de miembros. */
-      Registro(int identificador, Arreglo<int> pan, Arreglo<int> token)
+      Registro(int identificador, ArregloDeDigitos pan, ArregloDeDigitos token)
       : mIdentificador {identificador}, mPAN {pan}, mToken {token}
       {
       }
@@ -49,20 +49,20 @@ namespace Implementaciones
       inline int obtenerIdentificador() { return mIdentificador; }
 
       /** \brief Regresa el PAN de la estructura. */
-      inline Arreglo<int> obtenerPAN() { return mPAN; }
+      inline ArregloDeDigitos obtenerPAN() { return mPAN; }
 
       /** \brief Regresa el token de la estructura. */
-      inline Arreglo<int> obtenerToken() { return mToken; }
+      inline ArregloDeDigitos obtenerToken() { return mToken; }
 
       /** \brief Coloca el identificador del registro. */
       inline void colocarIdentificador(int identificador)
         { mIdentificador = identificador; }
 
       /** \brief Coloca el PAN en la estructura. */
-      inline void colocarPAN(const Arreglo<int>& pan) { mPAN = pan; }
+      inline void colocarPAN(const ArregloDeDigitos& pan) { mPAN = pan; }
 
       /** \brief Coloca el token en la estructura. */
-      inline void colocarToken(const Arreglo<int> &token) { mToken = token; }
+      inline void colocarToken(const ArregloDeDigitos& token) { mToken = token; }
 
       /** Función de impresión como amiga */
       friend std::ostream& operator<<(std::ostream &flujo,

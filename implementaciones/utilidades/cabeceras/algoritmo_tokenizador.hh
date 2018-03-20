@@ -6,7 +6,7 @@
 #ifndef __ALGORITMO_TOKENIZADDOR__
 #define __ALGORITMO_TOKENIZADDOR__
 
-#include "../../../utilidades/cabeceras/arreglo.hh"
+#include "../../../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include "../../../utilidades/interfaces_comunes/funcion_con_inverso.hh"
 #include <vector>
 
@@ -22,23 +22,23 @@ namespace Implementaciones
    */
 
   class AlgoritmoTokenizador
-  : public Utilidades::FuncionConInverso<Arreglo<int>, Arreglo<int>>
+  : public Utilidades::FuncionConInverso<ArregloDeDigitos, ArregloDeDigitos>
   {
     public:
 
       /** \brief Operación de tokenización. */
-      virtual Arreglo<int> tokenizar(const Arreglo<int>& pan) = 0;
+      virtual ArregloDeDigitos tokenizar(const ArregloDeDigitos& pan) = 0;
 
       /** \brief Operación de detokenización. */
-      virtual Arreglo<int> detokenizar(const Arreglo<int>& token) = 0;
+      virtual ArregloDeDigitos detokenizar(const ArregloDeDigitos& token) = 0;
 
       /** \brief Puente con operación de tokenización. */
-      Arreglo<int> operar(
-        const std::vector<Arreglo<int>> &entrada) override;
+      ArregloDeDigitos operar(
+        const std::vector<ArregloDeDigitos> &entrada) override;
 
       /** \brief Puente con operación de detokenización. */
-      Arreglo<int> deoperar(
-        const std::vector<Arreglo<int>> &entrada) override;
+      ArregloDeDigitos deoperar(
+        const std::vector<ArregloDeDigitos> &entrada) override;
   };
 }
 

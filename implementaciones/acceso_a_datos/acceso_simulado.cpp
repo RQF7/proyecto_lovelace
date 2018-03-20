@@ -5,6 +5,7 @@
 
 #include "cabeceras/acceso_simulado.hh"
 #include "cabeceras/registro.hh"
+#include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
 
 using namespace Implementaciones;
 
@@ -16,10 +17,10 @@ using namespace Implementaciones;
  */
 
 Registro AccesoSimulado::buscarPorPan(
-  const Arreglo<int>& PAN                /**< Número de tarjeta a buscar. */
+  const ArregloDeDigitos& PAN             /**< Número de tarjeta a buscar. */
 )
 {
-  return Registro{0, PAN, {1, 2, 3, 4, 5, 6, 7, 8}};
+  return Registro{0, PAN, {12345678ull}};
 }
 
 /**
@@ -30,10 +31,10 @@ Registro AccesoSimulado::buscarPorPan(
  */
 
 Registro AccesoSimulado::buscarPorToken(
-  const Arreglo<int>& token                /**< Token a buscar. */
+  const ArregloDeDigitos& token            /**< Token a buscar. */
 )
 {
-  return Registro{0, {1, 2, 3, 4, 5, 6, 7, 8}, token};
+  return Registro{0, {12345678ull}, token};
 }
 
 /**

@@ -26,7 +26,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 tkr/tkr.cpp \
 											 tkr/tkr_prueba.cpp \
 											 acceso_a_datos/acceso_simulado.cpp \
-											 utilidades/prueba.cpp
+											 utilidades/prueba.cpp \
+											 utilidades/arreglo_de_digitos.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
 BANDERAS_GENERALES	:= -std=c++11 -Wall -ggdb
@@ -148,6 +149,12 @@ $(CARPETA_OBJETOS)/acceso_a_datos/acceso_simulado.o: \
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/utilidades/prueba.o: ../utilidades/prueba.cpp
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/arreglo_de_digitos.o: \
+	../utilidades/arreglo_de_digitos.cpp \
+	../utilidades/cabeceras/arreglo_de_digitos.hh
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 

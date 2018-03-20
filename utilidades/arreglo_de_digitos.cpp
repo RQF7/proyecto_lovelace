@@ -46,6 +46,7 @@ ArregloDeDigitos::ArregloDeDigitos(
   int base                            /**< Base de número. */
 )
 : Arreglo<int> (contarDigitos<entero>(numero, base)),
+  mCadena (mNumeroDeElementos, '0'),
   mNumero {numero},
   mBase {base}
 {
@@ -54,9 +55,41 @@ ArregloDeDigitos::ArregloDeDigitos(
     entero equivalentePotencia = potencia<entero>(mBase, i);
     int digito = floor(numero / equivalentePotencia);
     mArregloInterno[i] = digito;
-    mCadena += digito + 48;
+    mCadena[mNumeroDeElementos - i - 1] = digito + 48;
     numero -= digito * equivalentePotencia;
   }
+}
+
+/**
+ * Pasa el número de elementos a la superclase para reservar memoria.
+ * La cadena y el número interno usan su valor por defecto.
+ */
+
+ArregloDeDigitos::ArregloDeDigitos(
+  int numeroDeElementos,              /**< Número de lementos del arreglo. */
+  int base                            /**< Base de número. */
+)
+: Arreglo<int> (numeroDeElementos),
+  mCadena (mNumeroDeElementos, '0'),
+  mBase {base}
+{
+}
+
+/**
+ * Llama a la función equivalente de la superclase y actualiza las
+ * representaciones internas: coloca el caracter equivalente en la cadena y
+ * opera el número interno.
+ */
+
+void ArregloDeDigitos::colocar(
+  int indice,                         /**< Índice del arreglo interno. */
+  int valor                           /**< Dígito a colocar. */
+)
+{
+  mNumero -= mArregloInterno[indice] * potencia<entero>(mBase, indice);
+  Arreglo<int>::colocar(indice, valor);
+  mCadena[indice] = valor + 48;
+  mNumero += valor * potencia<entero>(mBase, indice);
 }
 
 /**

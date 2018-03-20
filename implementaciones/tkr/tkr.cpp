@@ -5,7 +5,7 @@
 
 #include "cabeceras/tkr.hh"
 #include "../acceso_a_datos/cabeceras/registro.hh"
-#include "../../utilidades/cabeceras/arreglo.hh"
+#include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include <iostream>
 
 using namespace Implementaciones;
@@ -45,14 +45,14 @@ TKR::~TKR()
  * \return Token asociado al PAN dado.
  */
 
-Arreglo<int> TKR::tokenizar(
-  const Arreglo<int>& pan                   /**< Número de tarjeta. */
+ArregloDeDigitos TKR::tokenizar(
+  const ArregloDeDigitos& pan                   /**< Número de tarjeta. */
 )
 {
   Registro informacion = mBaseDeDatos->buscarPorPan(pan);
   if (informacion.obtenerToken() == Arreglo<int>{})
   {
-    auto temporal = mFuncionPseudoaleatoria->operar({});
+    ArregloDeDigitos temporal = mFuncionPseudoaleatoria->operar({});
     informacion.colocarToken(temporal);
     mBaseDeDatos->guardar(informacion);
   }
@@ -68,8 +68,8 @@ Arreglo<int> TKR::tokenizar(
  * \todo Lanzar excepción en caso de búsqueda infructuosa.
  */
 
-Arreglo<int> TKR::detokenizar(
-  const Arreglo<int>& token                 /** Token (generado previamente). */
+ArregloDeDigitos TKR::detokenizar(
+  const ArregloDeDigitos& token             /** Token (generado previamente). */
 )
 {
   Registro informacion = mBaseDeDatos->buscarPorToken(token);

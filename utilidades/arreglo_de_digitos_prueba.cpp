@@ -16,7 +16,7 @@ using namespace std;
 ArregloDeDigitosPrueba::ArregloDeDigitosPrueba()
 {
   mListaDePruebas.push_back(FuncionDePrueba{
-    "prueba la operación de potencia",
+    "prueba la operación de los constructores",
     ArregloDeDigitosPrueba::probarConstructores
   });
 }

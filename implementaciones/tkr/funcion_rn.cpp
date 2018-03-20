@@ -6,7 +6,7 @@
  */
 
 #include "cabeceras/funcion_rn.hh"
-#include "../../utilidades/cabeceras/arreglo.hh"
+#include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include "../../utilidades/cabeceras/utilidades_matematicas.hh"
 #include <cmath>
 #include <vector>
@@ -53,12 +53,12 @@ FuncionRN::~FuncionRN()
  * \return Arreglo pseudoaleatorio con \ref mLongitudDeBits de longitud.
  */
 
-Arreglo<int> FuncionRN::operar(const vector<int>& entrada)
+ArregloDeDigitos FuncionRN::operar(const vector<int>& entrada)
 {
   Arreglo<unsigned char> binarioAleatorio = mFuncionInterna->operar({mContador,
     static_cast<entero>(3 * mLongitudDeCadena * mLongitudDeBits)});
   Arreglo<unsigned char> binarioDistribuido = redistribuir(binarioAleatorio);
-  Arreglo<int> resultado (mLongitudDeCadena);
+  ArregloDeDigitos resultado (mLongitudDeCadena);
   for (int i = 0, j = 0; i < mLongitudDeCadena; j++)
   {
     int numero = static_cast<int>(binarioDistribuido[j]);

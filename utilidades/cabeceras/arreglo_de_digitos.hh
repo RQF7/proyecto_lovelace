@@ -26,8 +26,14 @@ class ArregloDeDigitos : public Arreglo<int>
     /** \brief Construcción de un arreglo de dígitos a partir de una cadena. */
     ArregloDeDigitos(std::string cadena, int base = 10);
 
-    /** \brief Cosntrucción de un arreglo de dígitos a partir de un número. */
+    /** \brief Construcción de un arreglo de dígitos a partir de un número. */
     ArregloDeDigitos(entero numero, int base = 10);
+
+    /** \brief Arreglo vacío, solo reserva memoria. */
+    ArregloDeDigitos(int numeroDeElementos, int base = 10);
+
+    /** \brief Operación de escritura. */
+    void colocar(int indice, int valor);
 
     /** \brief Regresa la representación en cadena. */
     inline std::string obtenerCadena() const { return mCadena; }
@@ -42,7 +48,7 @@ class ArregloDeDigitos : public Arreglo<int>
   private:
 
     /** \brief Representación en cadena. */
-    std::string mCadena = "";
+    std::string mCadena;
 
     /** \brief Representación numérica. */
     entero mNumero = 0;
