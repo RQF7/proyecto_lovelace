@@ -4,3 +4,104 @@
 %
 
 \section{Cifrados que preservan el formato}
+
+El objetivo de los cifrados que preservan el formato (en inglés, \gls{gl:fpe})
+está bastante bien definido: lograr que los mensajes cifrados \textit{se vean}
+igual que los mensajes en claro. Obviamente para que esto tenga sentido hay que
+definir qué es lo que hace que un mensaje se parezca a otro; los cifradores
+tradicionales, como \gls{gl:aes}, reciben cadenas binarias y entregan cadenas
+binarias, por lo que, en cierto sentido, son ya un tipo de cifrados
+que preservan el formato. En una clase más general de algoritmos \gls{gl:fpe}
+el formato debe ser una parámetro: cadenas binarias, caracteres \gls{gl:ascii}
+imprimibles, dígitos decimales, dígitos hexadecimales, etcétera.
+
+Desde un inicio, los cifrados que preservan el formato se perfilaron como
+una posible solución para el problema de la tokenización: usando un alfabeto
+de dígitos decimales se logra que los \textit{tokens} y los \gls{gl:pan} tengan
+el mismo aspecto. De las posibles soluciones presentadas en la sección
+\ref{sec:algoritmos}, \gls{gl:fpe} es la que presenta un esquema más tradicional
+dentro de la criptografía, ya que el proceso de cifrado y descifrado es el mismo
+que un cifrador simétrico.
+
+La utilidad de los cifrados que preservan el formato se centra principalmente
+en \textit{agregar} seguridad a sistemas y protocolos que ya se encuentran
+en un entorno de producción. Estos son algunos ejemplos de dominios
+comunes en \gls{gl:fpe}:
+
+\begin{itemize}
+
+  \item Números de tarjetas de crédito. \\
+    \texttt{5827 5423 6584 2154} $ \rightarrow $ \texttt{6512 8417 6398 7423}
+
+  \item Números de teléfono. \\
+    \texttt{55 55 54 75 65} $ \rightarrow $ \texttt{55 55 12 36 98}
+
+  \item CURP. \\
+    \texttt{GHUJ887565HGBTOK01} $ \rightarrow $ \texttt{QRGH874528JUHY01}
+
+\end{itemize}
+
+\subsection{Clasificación de los cifrados que preservan el formato}
+
+En \cite{sinopsis_rogaway} Phillip Rogaway propone una clasificación para los
+cifrados que preservan el formato que se basa en el tamaño del espacio de
+mensajes ($ N = |X| $):
+
+\begin{description}
+
+  \item[Espacios minúsculos]
+
+    El espacio es tan pequeño que es aceptable gastar $ O(N) $ en un preproceso
+    de cifrado. Esto es, cifrar todos los posibles mensajes de una sola vez,
+    para que las subsiguientes solicitudes de cifrado y descifrado consistan en
+    simples consultas a una base de datos.
+
+    El tamaño de $ N $ depende del contexto en el que se vaya a utilizar el
+    algoritmo; para el contexto del problema de la tokenización
+    ($ N \approx 10^{16} $) no resulta viable utilizar esta técnica.
+
+    Algunos ejemplos de cómo hacer el preproceso de cifrado son el
+    \textit{Knuth shuffle} (también conocido como \textit{Fisher-Yates shuffle},
+    pseudocódigo \ref{knuth_shuffle}) o un \gls{gl:cifrado_con_prefijo}.
+
+  \item[Espacios pequeños]
+
+    En esta clasificación se colocan a los espacios de mensaje cuyo tamaño
+    no es más grande que $ 2^w $ en donde $ w $ es el tamaño de bloque del
+    cifrado subyacente. Para AES, en donde $ w = 128 $, $ N = 2^{128}
+    \approx 10^{38} $.
+
+    En este esquema, el mensaje se ve como una cadena de $ n $ elementos
+    pertenecientes a un alfabeto de cardinalidad $ m $ (i. e. $ N = m^n $).
+    Por ejemplo, para números de tarjetas de crédito, $ n \approx 16 $ y
+    $ m = 10 $, por lo que $ N = 10^{16} $ (diez mil trillones); lo cual es
+    aproximadamente $ 2.93 \times 10^{-21} \% $ de $ 2^{128} $.
+
+    Los algoritmos que preservan el formato expuestos en la sección
+    \ref{sec:algoritmos} pertenencen a esta categoría.
+
+  \item[Espacios grandes]
+
+    El espacio es más grande que $ 2^w $. Para estos casos, el mensaje se ve
+    como una cadena binaria. Las técnicas utilizadas incluyen cualquier cifrado
+    cuya salida sea de la misma longitud que la entrada (p. ej. los
+    TES: CMC, EME, HCH, etc. Sección \ref{sec:tes}).
+
+\end{description}
+
+Como se puede observar de los ejemplos dados, el problema de la tokenización
+de números de tarjetas de crédito es un problema de espacios pequeños.
+
+\begin{pseudocodigo}[%
+  caption={\textit{Knuth shuffle}, \cite{DBLP:books/aw/Knuth69}.},
+  label={knuth_shuffle}%
+]
+  entrada: lista $ l[0, \dots, n - 1] $
+  salida:  misma lista barajeada
+  inicio
+    para_todo i desde $ n - 1 $ hasta 0:
+      j $ \gets $ rand($ 0 $, $ i $)
+      swap($ l[j] $, $ l[i] $)
+    fin
+  fin
+\end{pseudocodigo}
