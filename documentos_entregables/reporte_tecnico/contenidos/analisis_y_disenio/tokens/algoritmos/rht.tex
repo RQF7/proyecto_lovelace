@@ -4,25 +4,25 @@
 % Proyecto Lovelace.
 %
 
-\subsubsection{\textit{Several Proofs of Security for a Tokenization
-  Algorithm}}
-
-Longo, Aragona y Sala~\cite{aragona}, propusieron en 2017, un algoritmo del
+\subsubsection{Algoritmo Hibrido Reversible}
+\label{sec:ahr}
+Longo, Aragona y Sala~\cite{aragona}, propusieron en 2017, un algoritmo de
 tipo híbrido reversible. Este está basado en un cifrado de bloques con una
 llave secreta y una entrada adicional.
 
-El número de una tarjeta (\gls{gl:pan}) está conformado por tres partes
-concatenadas: el número que identifica al emisor de la tarjeta, el que
-identifica la cuenta y un número de verificación. Se considera que
-reemplazar la primera parte por un código fijo da como resultado un
-\gls{gl:token} ya.
+Se sabe que el número de una tarjeta (\gls{gl:pan}) está conformado por tres
+partes concatenadas: el número que identifica al emisor de la tarjeta, el que
+identifica la cuenta y un número de verificación. En este algoritmo se reemplaza
+la primera parte con un \gls{gl:token} \gls{gl:bin} y se cifra solo la parte
+que identifica la cuenta. Al final, se calcula un nuevo dígito de verificación.
 
-Las entradas del algoritmo son el \gls{gl:pan} y una entrada adicional.
-Esta última permite que se generen varios \glspl{gl:token} para el mismo
-\gls{gl:pan}.
+Las entradas del algoritmo son la parte del \gls{gl:pan} a cifrar y una entrada
+adicional. Esta última actúa como un \textit{tweak} (véase
+sección~\ref{sec:tes}), pues permite que se generen varios \glspl{gl:token}
+para el mismo \gls{gl:pan}.
 
 El algoritmo necesita una función $f$ pública que, dada una cadena
-de longitud $m$ regrese una de longitud $n$ (véase sección de funciones 
+de longitud $m$ regrese una de longitud $n$ (véase sección de funciones
 hash~\ref{sec:hash}). Se toman solo cifrados cuyo tamaño de bloque sea de
 mínimo 128 bits. La función $f$ se encarga de poner el relleno en la entrada
 para completar el bloque del cifrado y permitir la creación de varios
@@ -33,11 +33,24 @@ de crear los \glspl{gl:token}, se necesita acceder a la base de datos
 mediante una \gls{gl:funcion_booleana} \textit{comprobar} que revisa si el
 \gls{gl:token} generado ya está almacenado en la base.
 
-Como se desea obtener un \gls{gl:token} que
-tenga el mismo número de dígitos que el \gls{gl:pan} (longitud $l$)
-ingresado, se deben tomar en cuenta solo una fracción de las posibles salidas
-del cifrado $E$; para resolver este problema, se utiliza un método conocido
-como el \gls{gl:cifrado_caminata_ciclica}.
+Como se desea obtener un \gls{gl:token} que tenga el mismo número de dígitos
+que el \gls{gl:pan} (longitud $l$) ingresado, se deben tomar en cuenta solo una
+fracción de las posibles salidas del cifrado $E$; para resolver este problema,
+se utiliza un método conocido como el \gls{gl:cifrado_caminata_ciclica}.
+
+\paragraph{Notación}
+A continuación se definen una serie de notaciones que se utilizarán en el
+algoritmo:
+\begin{itemize}
+  \item $ M $ Tamaño de bloque del cifrador por bloques que se usará.
+  \item $ l $ Longitud de la entrada. En este caso, $13 \geq l \geq 19$.
+  \item $ n $ Número de bits necesarios para representar a la entrada:
+    $n = log_2(10^l)$.
+  \item $ [y]^s_b $ Indica que $y$ es menor que $b^s$: $y < b^s$.
+  \item $\bar{x}$ Representación de $x$ en una cadena binaria cuando $x$ es
+    representado en su forma decimal y viceversa.
+\end{itemize}
+
 
 El algoritmo de tokenización es el siguiente:
 \begin{pseudocodigo}[%
@@ -46,16 +59,16 @@ El algoritmo de tokenización es el siguiente:
   entrada: PAN p; entrada_adicional u; llave k
   salida:  token
   inicio
-    $t = f(u, p)$ (paso 1)
+    $t = f(u, p) || [\bar{p}]^s_b$ (paso 1)
     $c = E(k, t)$ (paso 2)
     si $(\bar{c} \mod 2^n) \geq 10^l$
       $t = c$
-      Regresar al paso 2 (obtener $c$).
+      Regresar al paso 2.
     fin
     $token = {[\bar{c} \mod 2^n]}^l_{10}$
     si $comprobar(token) =$ verdadero
       $u = u + 1$
-      Regresar al paso 1 (obtener $t$).
+      Regresar al paso 1.
     fin
     regresar token
   fin

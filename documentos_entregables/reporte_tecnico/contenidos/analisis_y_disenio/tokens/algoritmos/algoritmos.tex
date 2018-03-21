@@ -1,16 +1,66 @@
 %
-% Listado de posibles algoritmos, análisis y diseño de generación de tokens.
+% Listado de algoritmos implementados, análisis y diseño de generación de tokens.
 % Proyecto Lovelace.
 %
 
-\subsection{Lista de posibles algoritmos}
+\subsection{Algoritmos implementados}
 
-En esta sección se presentan todos los algoritmos para generar
-\glspl{gl:token} encontrados. Además de una descripción del funcionamiento,
-cada algoritmo se clasifica según las categorías establecidas por el
-\gls{gl:pci} \gls{gl:ssc} expuestas en la sección anterior.
+En esta sección se documentan los algoritmos para generar \glspl{gl:token}
+que serán implementados; cada apartado incluye una descripción del
+algoritmo y su pseudocódigo. Antes de la documentación, se presentan
+dos clasificaciones de los algoritmos tokenizadores: la primera es la propuesta
+por el \gls{gl:pci} \gls{gl:ssc} y mencionada en la
+sección~\ref{sec:requerimientos}; la segunda clasificación es propuesta por los
+autores de este documento, tomando en cuenta un enfoque más criptográfico.
 
-% ¿¡Cómo es que estos subimports funcionan!?
+\paragraph{Clasificación del \gls{gl:pci} \gls{gl:ssc}}
+\begin{itemize}
+  \item \Glspl{gl:token} reversibles:
+    \begin{itemize}
+      \item \Glspl{gl:token} criptográficos:
+        \begin{enumerate}
+          \item BPS (véase sección~\ref{sec:bps}).
+          \item FFX (véase sección~\ref{sec:ffx}).
+        \end{enumerate}
+      \item \Glspl{gl:token} no criptográficos:
+        \begin{enumerate}
+          \item AHR (véase sección~\ref{sec:ahr}).
+          \item TKR (véase sección~\ref{sec:tkr}).
+          \item \gls{gl:drbg}
+        \end{enumerate}
+    \end{itemize}
+\end{itemize}
+
+Cabe resaltar que, de acuerdo con esta clasificación, los \glspl{gl:token}
+generados mediante \gls{gl:drbg} pueden quedar también en la clasificación
+de \gls{gl:token} no reversible, no autenticable.
+
+\paragraph{Clasificación propuesta}
+\begin{itemize}
+  \item Criptografía convencional:
+    \begin{enumerate}
+      \item BPS (véase sección~\ref{sec:bps}).
+      \item FFX (véase sección~\ref{sec:ffx}).
+    \end{enumerate}
+  \item Criptografía no convencional:
+    \begin{enumerate}
+      \item AHR (véase sección~\ref{sec:ahr}).
+      \item TKR (véase sección~\ref{sec:tkr}).
+    \end{enumerate}
+  \item No criptográficos:
+    \begin{enumerate}
+      \item \gls{gl:drbg}
+    \end{enumerate}
+\end{itemize}
+
+La segunda clasificación tiene un enfoque distinto, pues toma en cuenta que todos
+utilizan, en mayor o menor medida, funciones criptográficas. Consiste en tres
+categorías: la primera (criptografía convencional), incluye algoritmos bien
+conocidos o \textit{tradicionales}, publicados con relativa antigüedad;
+la segunda categoría (criptografía no convencional) incluye algoritmos cuya
+publicación es relativamente nueva; finalmente, están los
+\textit{no criptograficos}, denominados así no porque no utilicen criptografía,
+sino porque dependen, principalmente, de la pseudoaleatoriedad.
 
 \subimport{ffx/}{ffx}
 \subimport{bps/}{bps}
