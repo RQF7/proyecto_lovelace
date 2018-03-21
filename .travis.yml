@@ -86,7 +86,7 @@ before_install:
   - sudo mv cryptopp/libcryptopp.a /usr/lib/
   # Configuración de mysql
   - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('root') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
-  - sudo mysql_upgrade
+  - sudo mysql_upgrade --force
   - sudo service mysql restart
 
 install:
