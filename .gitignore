@@ -20,3 +20,6 @@ pagina_publica/documentacion_doxygen
 
 # Versión local de github pages
 _site
+
+% Archivos temporales de quién sabe qué
+*.fuse*
