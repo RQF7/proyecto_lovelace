@@ -7,4 +7,4 @@
 # Proyecto Lovelace.
 #
 
-mysql -u root < crear_base.sql
+mysql -u root -proot < crear_base.sql
