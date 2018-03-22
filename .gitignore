@@ -9,6 +9,9 @@ temporales_de_latex
 binarios
 objetos
 
+# Cabeceras precompiladas
+*.hh.gch
+
 # Visual paradigm
 *.svg
 *.bak_*
