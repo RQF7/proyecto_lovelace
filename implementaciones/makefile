@@ -4,6 +4,7 @@
 #
 
 PROGRAMA_PRINCIPAL	:= programa_de_pruebas
+PROGRAMA_DOS				:= lovelace
 CARPETA_BINARIOS		:= binarios
 CARPETA_OBJETOS			:= objetos
 LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
@@ -27,11 +28,17 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 tkr/tkr_prueba.cpp \
 											 utilidades/utilidades_tarjetas.cpp \
 											 utilidades/utilidades_tarjetas_prueba.cpp \
+											 utilidades/utilidades_criptograficas.cpp \
+											 utilidades/utilidades_criptograficas_prueba.cpp \
 											 utilidades/algoritmo_tokenizador.cpp \
 											 utilidades/prueba.cpp \
 											 utilidades/arreglo_de_digitos.cpp
+FUENTES_DOS					:= lovelace.cpp \
+											 utilidades/utilidades_criptograficas.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
+OBJETOS_DOS		      := $(addprefix $(CARPETA_OBJETOS)/, \
+												 $(FUENTES_DOS:.cpp=.o))
 BANDERAS_GENERALES	:= -std=c++11 -Wall -ggdb
 BANDERAS_DE_LIGADO	:= -lcryptopp -lmysqlcppconn
 
@@ -39,7 +46,15 @@ $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)
 	mkdir -p $(CARPETA_BINARIOS)
 	g++ $(BANDERAS_GENERALES) $(LISTA_DE_OBJETOS) $(BANDERAS_DE_LIGADO) -o $@
 
+$(CARPETA_BINARIOS)/$(PROGRAMA_DOS): $(OBJETOS_DOS)
+	mkdir -p $(CARPETA_BINARIOS)
+	g++ $(BANDERAS_GENERALES) $(OBJETOS_DOS) $(BANDERAS_DE_LIGADO) -o $@
+
 $(CARPETA_OBJETOS)/programa_de_pruebas.o: programa_de_pruebas.cpp
+	mkdir -p $(CARPETA_OBJETOS)
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/lovelace.o: lovelace.cpp
 	mkdir -p $(CARPETA_OBJETOS)
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
@@ -90,6 +105,18 @@ $(CARPETA_OBJETOS)/utilidades/utilidades_tarjetas.o: \
 $(CARPETA_OBJETOS)/utilidades/utilidades_tarjetas_prueba.o: \
 	utilidades/utilidades_tarjetas_prueba.cpp \
 	utilidades/cabeceras/utilidades_tarjetas_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/utilidades_criptograficas.o: \
+	utilidades/utilidades_criptograficas.cpp \
+	utilidades/cabeceras/utilidades_criptograficas.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/utilidades_criptograficas_prueba.o: \
+	utilidades/utilidades_criptograficas_prueba.cpp \
+	utilidades/cabeceras/utilidades_criptograficas_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 

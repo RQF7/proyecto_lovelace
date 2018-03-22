@@ -16,6 +16,7 @@
 #include "tkr/cabeceras/pseudoaleatorio_aes_prueba.hh"
 #include "tkr/cabeceras/pseudoaleatorio_trivial_prueba.hh"
 #include "tkr/cabeceras/tkr_prueba.hh"
+#include "utilidades/cabeceras/utilidades_criptograficas_prueba.hh"
 #include "utilidades/cabeceras/utilidades_tarjetas_prueba.hh"
 #include <iostream>
 #include <vector>
@@ -45,7 +46,8 @@ int main()
     PseudoaleatorioAESPrueba {},
     FuncionRNPrueba {},
     TKRPrueba {},
-    AccesoMySQLPrueba {}
+    AccesoMySQLPrueba {},
+    UtilidadesCriptograficasPrueba {}
   };
   for (auto claseDePrueba : clasesDePrueba)
     if (!claseDePrueba.probar())
