@@ -10,6 +10,7 @@
 
 #include "cdv.hh"
 #include "../../../utilidades/cabeceras/arreglo_de_digitos.hh"
+#include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
 #include <cppconn/connection.h>
 #include <cppconn/driver.h>
 #include <string>
@@ -45,6 +46,12 @@ namespace Implementaciones
 
       /** \brief Elimina el registro con el identificador dado. */
       void eliminar(int identificador) override;
+
+      /** \brief Obtiene el valor del contador. */
+      entero obtenerContador(std::string nombre) override;
+
+      /** virtual Coloca el valor del contador. */
+      void colocarContador(std::string nombre, entero valor) override;
 
     private:
       /** \brief Controlador de conexiones. */

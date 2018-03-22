@@ -15,8 +15,6 @@
 using namespace Implementaciones;
 using namespace std;
 
-entero FuncionRN::mContador = 0;
-
 /**
  * Iniclializa el apuntador a la función interna.
  *
@@ -26,22 +24,29 @@ entero FuncionRN::mContador = 0;
 
 FuncionRN::FuncionRN(
   FuncionInterna* funcionInterna,   /**< Apuntador a primitiva interna. */
+  CDV* baseDeDatos,                 /**< Acceso a datos. */
   int longitudDeCadena,             /**< Longitud de cadena resultado. */
   int cardinalidadDeAlfabeto        /**< Cardinalidad del alfabeto usado. */
 )
 : mFuncionInterna {funcionInterna},
+  mBaseDeDatos {baseDeDatos},
   mLongitudDeCadena {longitudDeCadena},
   mCardinalidadDeAlfabeto {cardinalidadDeAlfabeto},
-  mLongitudDeBits {static_cast<int>(ceil(log2(mCardinalidadDeAlfabeto)))}
+  mLongitudDeBits {static_cast<int>(ceil(log2(mCardinalidadDeAlfabeto)))},
+  mContador {baseDeDatos->obtenerContador("contador de tkr")}
 {
 }
 
 /**
- * Libera la memoria mantenida por el apuntador a función interna.
+ * Libera la memoria mantenida por el apuntador a función interna. Actualiza
+ * el valor del contador en la base de datos. No se libera el acceso a
+ * la base dado que este apuntador siempre es compartido con TKR (es ahí en
+ * donde se libera).
  */
 
 FuncionRN::~FuncionRN()
 {
+  mBaseDeDatos->colocarContador("contador de tkr", mContador);
   delete mFuncionInterna;
 }
 

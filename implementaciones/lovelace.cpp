@@ -180,9 +180,9 @@ ArregloDeDigitos tokenizar(
   ArregloDeDigitos resultado;
   if (metodo == "TKR")
   {
-    PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
-    FuncionRN* funcion = new FuncionRN {aes};
     CDV* accesoADatos = new AccesoMySQL {};
+    PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
+    FuncionRN* funcion = new FuncionRN {aes, accesoADatos};
     TKR tkr {funcion, accesoADatos};
     ArregloDeDigitos token {tkr.tokenizar(pan)};
     resultado = token;
@@ -222,7 +222,7 @@ ArregloDeDigitos detokenizar(
   {
     CDV* accesoADatos = new AccesoMySQL {};
     PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
-    FuncionRN* funcion = new FuncionRN {aes};
+    FuncionRN* funcion = new FuncionRN {aes, accesoADatos};
     TKR tkr {funcion, accesoADatos};
     ArregloDeDigitos pan {tkr.detokenizar(token)};
     resultado = pan;

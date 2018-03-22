@@ -5,6 +5,7 @@
 
 #include "cabeceras/acceso_mysql.hh"
 #include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
+#include "../../utilidades/cabeceras/utilidades_matematicas.hh"
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
 #include <cppconn/resultset.h>
@@ -132,6 +133,45 @@ void AccesoMySQL::eliminar(
   string instruccion {"DELETE FROM registro WHERE identificador = ?"};
   PreparedStatement* declaracion = mConexion->prepareStatement(instruccion);
   declaracion->setInt(1, identificador);
+  declaracion->executeQuery();
+  delete declaracion;
+  return;
+}
+
+/**
+ * Consulta en la base de datos el valor del contador solicitado.
+ *
+ * \return Valor de contador.
+ */
+
+entero AccesoMySQL::obtenerContador(
+  std::string nombre                  /**< Nombre del contador en la base. */
+)
+{
+  string instruccion {"SELECT * FROM contador WHERE nombre = ?"};
+  PreparedStatement* declaracion = mConexion->prepareStatement(instruccion);
+  declaracion->setString(1, nombre);
+  ResultSet* resultado = declaracion->executeQuery();
+  resultado->next();
+  entero valor {resultado->getUInt64("valor")};
+  delete resultado;
+  delete declaracion;
+  return valor;
+}
+
+/**
+ * Guarda en el contador dado el valor dado.
+ */
+
+void AccesoMySQL::colocarContador(
+  std::string nombre,               /**< Nombre del contador en la base. */
+  entero valor                      /**< Valor a guardar. */
+)
+{
+  string instruccion {"UPDATE contador SET valor = ? WHERE nombre = ?"};
+  PreparedStatement* declaracion = mConexion->prepareStatement(instruccion);
+  declaracion->setUInt64(1, valor);
+  declaracion->setString(2, nombre);
   declaracion->executeQuery();
   delete declaracion;
   return;

@@ -105,8 +105,8 @@ bool TKRPrueba::probarOperacionNormal()
 
   /* Instanciación de algoritmo. */
   PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
-  FuncionRN* funcion = new FuncionRN {aes};
   CDV* accesoADatos = new AccesoMySQL {};
+  FuncionRN* funcion = new FuncionRN {aes, accesoADatos};
   TKR tkr {funcion, accesoADatos};
 
   /* Prueba de tokenización y detokenización. */
