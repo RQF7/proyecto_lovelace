@@ -111,12 +111,15 @@ bool TKRPrueba::probarOperacionNormal()
 
   /* Prueba de tokenización y detokenización. */
   ArregloDeDigitos panUno {1234567891234560ull};
+  ArregloDeDigitos panTres {5556667778765433ull};
   ArregloDeDigitos tokenUno {tkr.tokenizar(panUno)};
   ArregloDeDigitos tokenDos {tkr.tokenizar(panUno)};
+  ArregloDeDigitos tokenTres {tkr.tokenizar(panTres)};
   ArregloDeDigitos panDos {tkr.detokenizar(tokenUno)};
   cout << "PAN: " << panUno << endl
        << "Token uno: " << tokenUno << endl
        << "Token dos: " << tokenDos << endl
+       << "Token tres: " << tokenTres << endl
        << "PAN descifrado: " << panDos << endl;
 
   if (tokenUno != tokenDos || panUno != panDos)

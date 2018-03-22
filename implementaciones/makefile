@@ -34,13 +34,26 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 utilidades/prueba.cpp \
 											 utilidades/arreglo_de_digitos.cpp
 FUENTES_DOS					:= lovelace.cpp \
-											 utilidades/utilidades_criptograficas.cpp
+											 acceso_a_datos/acceso_mysql.cpp \
+											 bps/cifrador_de_ronda.cpp \
+                       bps/cifrador_BC.cpp \
+											 bps/utilidades.cpp \
+                       bps/cifrador_BPS.cpp \
+											 bps/codificador.cpp \
+											 tkr/pseudoaleatorio_trivial.cpp \
+											 tkr/pseudoaleatorio_aes.cpp \
+											 tkr/funcion_rn.cpp \
+											 tkr/tkr.cpp \
+											 utilidades/utilidades_tarjetas.cpp \
+											 utilidades/utilidades_criptograficas.cpp \
+											 utilidades/algoritmo_tokenizador.cpp \
+											 utilidades/arreglo_de_digitos.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
 OBJETOS_DOS		      := $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(FUENTES_DOS:.cpp=.o))
 BANDERAS_GENERALES	:= -std=c++11 -Wall -ggdb
-BANDERAS_DE_LIGADO	:= -lcryptopp -lmysqlcppconn
+BANDERAS_DE_LIGADO	:= -lcryptopp -lmysqlcppconn -lgmpxx -lgmp
 
 $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)
 	mkdir -p $(CARPETA_BINARIOS)
@@ -186,6 +199,31 @@ $(CARPETA_OBJETOS)/acceso_a_datos/acceso_mysql_prueba.o: \
 	acceso_a_datos/acceso_mysql_prueba.cpp \
 	acceso_a_datos/cabeceras/acceso_mysql_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)/acceso_a_datos
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/bps/cifrador_de_ronda.o: bps/cifrador_de_ronda.cpp \
+	bps/cabeceras/cifrador_de_ronda.hh
+	mkdir -p $(CARPETA_OBJETOS)/bps
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/bps/cifrador_BC.o: bps/cifrador_BC.cpp \
+	bps/cabeceras/cifrador_BC.hh
+	mkdir -p $(CARPETA_OBJETOS)/bps
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/bps/utilidades.o: bps/utilidades.cpp \
+	bps/cabeceras/utilidades.hh
+	mkdir -p $(CARPETA_OBJETOS)/bps
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/bps/cifrador_BPS.o: bps/cifrador_BPS.cpp \
+	bps/cabeceras/cifrador_BPS.hh
+	mkdir -p $(CARPETA_OBJETOS)/bps
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/bps/codificador.o: bps/codificador.cpp \
+	bps/cabeceras/codificador.hh
+	mkdir -p $(CARPETA_OBJETOS)/bps
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/utilidades/prueba.o: ../utilidades/prueba.cpp
