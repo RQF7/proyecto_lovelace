@@ -9,90 +9,81 @@ language: cpp
 compiler:
   - gcc
 
-matrix:
-  include:
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
-      env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+#matrix:
+#  include:
+#    - os: linux
+#      addons:
+#        apt:
+#          sources:
+#            - ubuntu-toolchain-r-test
+#          packages:
+#            - g++-7
+#      env:
+#        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
 addons:
-  apt:
-    sources:
-      - mysql-5.7-trusty
-    packages:
-      - mysql-server
-      - mysql-client
+  mariadb: '10.1'
 
 # Determinan el entorno: ubuntu trusty (14.04)
 sudo: required
 dist: trusty
 
-cache:
-  directories:
-    # Generales
-    - ~/texmf
-    # Texlive
-    - /usr/share/bug/texlive
-    - /usr/share/doc/texlive
+#cache:
+#  directories:
+#    # Generales
+#    - ~/texmf
+#    # Texlive
+#    - /usr/share/bug/texlive
+#    - /usr/share/doc/texlive
 
 # Instalación de dependencias #################################################
 before_install:
-  - eval "${MATRIX_EVAL}"
-  - sudo apt-get -qq update
-  - sudo apt-get -qq install
-    texlive
-    texlive-latex-recommended
-    texlive-latex-extra
-    texlive-lang-spanish
-    texlive-bibtex-extra
-    texlive-generic-extra
-    doxygen
-    graphviz
-    libmysqlcppconn-dev
-  # glossaries
-  - wget http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
-  - unzip -d ~/texmf glossaries.tds.zip
-  - rm glossaries.tds.zip
-  # tracklang
-  - wget http://mirrors.ctan.org/install/macros/generic/tracklang.tds.zip
-  - unzip -d ~/texmf tracklang.tds.zip
-  - rm tracklang.tds.zip
-  # bibtex
-  - wget https://newcontinuum.dl.sourceforge.net/project/biblatex/biblatex-3.9/biblatex-3.9.tds.tgz
-  - tar -xvf biblatex-3.9.tds.tgz -C ~/texmf
-  - rm biblatex-3.9.tds.tgz
-  # babel
-  - wget http://mirrors.ctan.org/install/macros/latex/required/babel-base.tds.zip
-  - unzip -d ~/texmf babel-base.tds.zip
-  - rm babel-base.tds.zip
-  # biber
-  - wget https://phoenixnap.dl.sourceforge.net/project/biblatex-biber/biblatex-biber/current/binaries/Linux/biber-linux_x86_64.tar.gz
-  - mkdir ~/ejecutable_biber
-  - tar -xvf biber-linux_x86_64.tar.gz -C ~/ejecutable_biber
-  - export PATH=~/ejecutable_biber/:$PATH
-  - rm biber-linux_x86_64.tar.gz
-  # Cryptopp
-  - wget https://cryptopp.com/cryptopp600.zip
-  - unzip -a -d cryptopp cryptopp600.zip
-  - make -C cryptopp
-  - sudo mkdir /usr/include/cryptopp
-  - sudo mv cryptopp/*.h /usr/include/cryptopp/
-  - sudo mv cryptopp/libcryptopp.a /usr/lib/
-  # Configuración de mysql
-  - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('root') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
-  - sudo mysql_upgrade --force
-  - sudo service mysql restart
+#  - eval "${MATRIX_EVAL}"
+#  - sudo apt-get -qq update
+#  - sudo apt-get -qq install
+#    texlive
+#    texlive-latex-recommended
+#    texlive-latex-extra
+#    texlive-lang-spanish
+#    texlive-bibtex-extra
+#    texlive-generic-extra
+#    doxygen
+#    graphviz
+#    libmysqlcppconn-dev
+#  # glossaries
+#  - wget http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
+#  - unzip -d ~/texmf glossaries.tds.zip
+#  - rm glossaries.tds.zip
+#  # tracklang
+#  - wget http://mirrors.ctan.org/install/macros/generic/tracklang.tds.zip
+#  - unzip -d ~/texmf tracklang.tds.zip
+#  - rm tracklang.tds.zip
+#  # bibtex
+#  - wget https://newcontinuum.dl.sourceforge.net/project/biblatex/biblatex-3.9/biblatex-3.9.tds.tgz
+#  - tar -xvf biblatex-3.9.tds.tgz -C ~/texmf
+#  - rm biblatex-3.9.tds.tgz
+#  # babel
+#  - wget http://mirrors.ctan.org/install/macros/latex/required/babel-base.tds.zip
+#  - unzip -d ~/texmf babel-base.tds.zip
+#  - rm babel-base.tds.zip
+#  # biber
+#  - wget https://phoenixnap.dl.sourceforge.net/project/biblatex-biber/biblatex-biber/current/binaries/Linux/biber-linux_x86_64.tar.gz
+#  - mkdir ~/ejecutable_biber
+#  - tar -xvf biber-linux_x86_64.tar.gz -C ~/ejecutable_biber
+#  - export PATH=~/ejecutable_biber/:$PATH
+#  - rm biber-linux_x86_64.tar.gz
+#  # Cryptopp
+#  - wget https://cryptopp.com/cryptopp600.zip
+#  - unzip -a -d cryptopp cryptopp600.zip
+#  - make -C cryptopp
+#  - sudo mkdir /usr/include/cryptopp
+#  - sudo mv cryptopp/*.h /usr/include/cryptopp/
+#  - sudo mv cryptopp/libcryptopp.a /usr/lib/
 
 install:
-  - make -C pruebas_librerias
-  - make -C implementaciones
-  - make -C utilidades
+#  - make -C pruebas_librerias
+#  - make -C implementaciones
+#  - make -C utilidades
   - cd bases_de_datos
   - chmod 770 crear_base.sh
   - chmod 770 crear_estructura.sh
@@ -101,21 +92,21 @@ install:
   - cd ..
 
 script:
-  - make -C pruebas_librerias correr
-  - make -C implementaciones correr
-  - make -C utilidades correr
+#  - make -C pruebas_librerias correr
+#  - make -C implementaciones correr
+#  - make -C utilidades correr
 
 # Generación de documentación #################################################
 after_success:
   # Compilación de archivos de LaTeX
-  - make -B -C documentos_entregables
-  - make -B -C documentos_entregables presentacion_fpe
-  - make -B -C documentos_entregables referencias_fpe
-  - make -B -C documentos_entregables presentacion_fpe
-  - make -B -C documentos_entregables presentacion_fpe
+#  - make -B -C documentos_entregables
+#  - make -B -C documentos_entregables presentacion_fpe
+#  - make -B -C documentos_entregables referencias_fpe
+#  - make -B -C documentos_entregables presentacion_fpe
+#  - make -B -C documentos_entregables presentacion_fpe
   # Documentación.
   - make documentación_doxygen
-  - make -C pagina_publica/documentacion_doxygen/latex
+#  - make -C pagina_publica/documentacion_doxygen/latex
 
 # Despliegue #################################################################
 # Antes del despliegue

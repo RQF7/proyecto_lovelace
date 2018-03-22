@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief
+ * \brief Implementación de acceso a base de datos en MySQL.
  */
 
 #include "cabeceras/acceso_mysql.hh"
