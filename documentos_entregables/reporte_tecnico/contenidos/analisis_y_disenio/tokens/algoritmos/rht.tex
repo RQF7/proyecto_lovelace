@@ -56,20 +56,20 @@ El algoritmo de tokenización es el siguiente:
 \begin{pseudocodigo}[%
     caption={Híbrido reversible, método de tokenización}
   ]
-  entrada: PAN p; entrada_adicional u; llave k
-  salida:  token
-  inicio
-    $t = f(u, p) || [\bar{p}]^s_b$ (paso 1)
-    $c = E(k, t)$ (paso 2)
-    si $(\bar{c} \mod 2^n) \geq 10^l$
-      $t = c$
-      Regresar al paso 2.
+    entrada: PAN p; entrada_adicional u; llave k
+    salida:  token
+    inicio
+      $t = f(u, p) || [\bar{p}]^s_b$ (paso 1)
+      $c = E(k, t)$ (paso 2)
+      si $(\bar{c} \mod 2^n) \geq 10^l$
+        $t = c$
+        Regresar al paso 2.
+      fin
+      $token = {[\bar{c} \mod 2^n]}^l_{10}$
+      si $comprobar(token) =$ verdadero
+        $u = u + 1$
+        Regresar al paso 1.
+      fin
+      regresar token
     fin
-    $token = {[\bar{c} \mod 2^n]}^l_{10}$
-    si $comprobar(token) =$ verdadero
-      $u = u + 1$
-      Regresar al paso 1.
-    fin
-    regresar token
-  fin
 \end{pseudocodigo}

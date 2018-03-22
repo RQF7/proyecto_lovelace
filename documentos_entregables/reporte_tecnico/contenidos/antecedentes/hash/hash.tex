@@ -15,7 +15,6 @@ mapean cadenas binarias de una longitud arbitraria a cadenas binarias
 de una longitud fija, llamadas valores hash.
 
 Matemáticamente, una función hash es una función
-
 \begin{equation}
   \label{funcion_hash_def}
   \begin{split}
@@ -23,7 +22,6 @@ Matemáticamente, una función hash es una función
     m \longmapsto h(m)
   \end{split}
 \end{equation}
-
 La longitud de $n$ suele ser entre 128 y 512 bits. Las funciones hash
 $h$ tienen las siguientes propiedades:
 
@@ -44,7 +42,6 @@ salidas $y$ y $y^\prime$, respectivamente. A continuación se listan
 algunas de las propiedades que puede tener:
 
 \begin{enumerate}
-
   \item Resistencia de \gls{gl:preimagen}: no es computacionalmente factible
     para una salida específica $y$ encontrar una entrada $x^\prime$ que
     dé como resultado el mismo valor hash $h(x^\prime) = y$ si no se
@@ -118,7 +115,6 @@ ser mucho más grandes. Este problema existe en todos los esquemas de firma
 digital y usualmente es resuelto al aplicar una función hash resistente a
 colisiones $h$. De esta forma, primero se obtiene el valor hash del mensaje
 $h(m)$ y esto es lo que se firma en lugar del mensaje mismo ($m$):
-
 \begin{equation}
   \label{funcion_hash_sign}
   \sigma = h(m)^d \quad mod \quad n

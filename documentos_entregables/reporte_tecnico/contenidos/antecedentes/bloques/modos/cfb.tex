@@ -18,13 +18,12 @@ ser implementadas por un solo algoritmo (pseudocódigo \ref{cfb:1}); tanto para
 cifrar como para descifrar solamente se ocupa la operación de cifrado del
 algoritmo a bloques subyacente. Estas ventajas se deben principalmente a las
 propiedades de la operación \verb|xor| (ecuación \ref{xor:inverso_igual}).
-
 \begin{equation}
   \label{xor:inverso_igual}
   A \oplus B = C \quad \Rightarrow \quad A = B \oplus C
 \end{equation}
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   \begin{subfigure}{0.45\textwidth}
     \begin{center}
@@ -47,14 +46,14 @@ propiedades de la operación \verb|xor| (ecuación \ref{xor:inverso_igual}).
       (cifrado y descifrado).},
     label={cfb:1}%
   ]
-  entrada: llave $ k $; vector de inicialización $ VI $;
-           bloques de mensaje (cifrado o descifrado) $ Bm_1, Bm_2 \dots Bm_n $.
-  salida:  bloques de mensaje (cifrado o descifrado) $ Bc_1, Bc_2 \dots Bc_n $.
-  inicio
-    $Bc_0$ $\gets$ $ VI $
-    para_todo $Bm$
-      $Bc_i$ $\gets$ $C_k$($Bc_{i - 1}$) $\oplus$ $Bm_i$
+    entrada: llave $ k $; vector de inicialización $ VI $;
+             bloques de mensaje (cifrado o descifrado) $ Bm_1, Bm_2 \dots Bm_n $.
+    salida:  bloques de mensaje (cifrado o descifrado) $ Bc_1, Bc_2 \dots Bc_n $.
+    inicio
+      $Bc_0$ $\gets$ $ VI $
+      para_todo $Bm$
+        $Bc_i$ $\gets$ $C_k$($Bc_{i - 1}$) $\oplus$ $Bm_i$
+      fin
+      regresar $Bc$
     fin
-    regresar $Bc$
-  fin
 \end{pseudocodigo}

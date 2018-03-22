@@ -29,37 +29,37 @@ mientras que en \ref{tkr2_descifrado} está la detokenización.
     caption={\textit{TKR2}, método de tokenización},
     label={tkr2_cifrado}%
   ]
-  entrada: PAN p; información asociada d; llave k
-  salida:  token
-  inicio
-    $ S_1 $ $ \gets $ buscarPAN(p)
-    $ S_2 $ $ \gets $ buscarInfoAsociada(d)
-    si $ S_1 $ y $ S_2 $ = 0:
-      t $ \gets $ RN(k)
-      insertar(t, p, d)
-    sino:
-      t $ \gets $ $ S_1 $
+    entrada: PAN p; información asociada d; llave k
+    salida:  token
+    inicio
+      $ S_1 $ $ \gets $ buscarPAN(p)
+      $ S_2 $ $ \gets $ buscarInfoAsociada(d)
+      si $ S_1 $ y $ S_2 $ = 0:
+        t $ \gets $ RN(k)
+        insertar(t, p, d)
+      sino:
+        t $ \gets $ $ S_1 $
+      fin
+      regresar t
     fin
-    regresar t
-  fin
 \end{pseudocodigo}
 
 \begin{pseudocodigo}[%
     caption={\textit{TKR2}, método de detokenización},
     label={tkr2_descifrado}%
   ]
-  entrada: token t; información asociada d; llave k
-  salida:  PAN
-  inicio
-    $ S_1 $ $ \gets $ buscarToken(t)
-    $ S_2 $ $ \gets $ buscarInfoAsociada(d)
-    si $ S_1 $ y $ S_2 $ = 0:
-      regresar error
-    sino:
-      p $ \gets $ $ S_1 $
+    entrada: token t; información asociada d; llave k
+    salida:  PAN
+    inicio
+      $ S_1 $ $ \gets $ buscarToken(t)
+      $ S_2 $ $ \gets $ buscarInfoAsociada(d)
+      si $ S_1 $ y $ S_2 $ = 0:
+        regresar error
+      sino:
+        p $ \gets $ $ S_1 $
+      fin
+      regresar p
     fin
-    regresar p
-  fin
 \end{pseudocodigo}
 
 La mayor parte del proceso de tokenización y toda la detokenización son
@@ -78,22 +78,22 @@ alfabeto se guardan en $ \lambda = \lceil \log_2 l \rceil$.
     caption={\textit{ACSTS}, generación de \glspl{gl:token} aleatorios},
     label={tkr2_rn}%
   ]
-  entrada: llave k
-  salida:  token
-  inicio
-    $X$ $\gets$ f(k, contador)
-    $X_1, X_2, \dots, X_m$ $\gets$ cortar($X$, $\lambda$)
-    t $\gets$ ""
-    i $\gets$ 0
-    mientras $|t| \neq \mu$:
-      si entero(X_i) $\le$ $l$:
-        t $\gets$ t + entero(X_i)
+    entrada: llave k
+    salida:  token
+    inicio
+      $X$ $\gets$ f(k, contador)
+      $X_1, X_2, \dots, X_m$ $\gets$ cortar($X$, $\lambda$)
+      t $\gets$ ""
+      i $\gets$ 0
+      mientras $|t| \neq \mu$:
+        si entero(X_i) $\le$ $l$:
+          t $\gets$ t + entero(X_i)
+        fin
+        i $\gets$ i  + 1
       fin
-      i $\gets$ i  + 1
+      contador $\gets$ contador + 1
+      regresar t
     fin
-    contador $\gets$ contador + 1
-    regresar t
-  fin
 \end{pseudocodigo}
 
 En el pseudocódigo \ref{tkr2_rn} lo primero que se hace es utilizar una

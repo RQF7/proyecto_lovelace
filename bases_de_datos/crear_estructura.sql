@@ -13,8 +13,6 @@
 -- DATE:         https://dev.mysql.com/doc/refman/5.7/en/datetime.html
 --
 
-USE lovelace_cdv;
-
 DROP TABLE IF EXISTS registro;
 
 CREATE TABLE registro
@@ -22,4 +20,14 @@ CREATE TABLE registro
   identificador INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   pan CHAR(19) NOT NULL UNIQUE,
   token CHAR(19) NOT NULL UNIQUE
+);
+
+
+DROP TABLE IF EXISTS contador;
+
+CREATE TABLE contador
+(
+  identificador INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(15) NOT NULL,
+  valor BIGINT UNSIGNED NOT NULL
 );

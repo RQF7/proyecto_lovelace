@@ -8,6 +8,8 @@
 
 #include "registro.hh"
 #include "../../../utilidades/cabeceras/arreglo_de_digitos.hh"
+#include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
+#include <string>
 
 namespace Implementaciones
 {
@@ -38,6 +40,12 @@ namespace Implementaciones
 
       /** \brief Elimina el registro con el identificador dado. */
       virtual void eliminar(int identificador) = 0;
+
+      /** \brief Obtiene el valor del contador. */
+      virtual entero obtenerContador(std::string nombre) = 0;
+
+      /** virtual Coloca el valor del contador. */
+      virtual void colocarContador(std::string nombre, entero valor) = 0;
   };
 }
 

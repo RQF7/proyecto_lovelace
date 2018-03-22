@@ -10,4 +10,5 @@
 USUARIO='administrador_lovelace_cdv'
 CONTRASENIA='l0v3lac3-admin'
 
-mysql -u $USUARIO -p$CONTRASENIA < crear_estructura.sql
+mysql -u $USUARIO -p$CONTRASENIA lovelace_cdv < crear_estructura.sql
+mysql -u $USUARIO -p$CONTRASENIA lovelace_cdv < poblar.sql

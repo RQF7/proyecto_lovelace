@@ -97,16 +97,16 @@ Para poder cifrar la cadena $X$:
     El proceso para hacer la descomposición se muestra en el pseudocódigo
     \ref{descomposicion_Lw_Rw}.
 
-    \begin{pseudocodigo}[caption={Proceso de descomposición de $L_w$ o $R_w$.},
+\begin{pseudocodigo}[caption={Proceso de descomposición de $L_w$ o $R_w$.},
     label={descomposicion_Lw_Rw}]
-      entrada:   bloque $N_w$ de longitud $n$.
-      salida:    bloque $Y_N$
-      inicio
-        para $i=0$ hasta $n-1$
-          $Y_N[i] = N_w\ mod\ s$
-          $N_w = (N_w - Y_N[i])/s$
-      fin
-    \end{pseudocodigo}
+   entrada:   bloque $N_w$ de longitud $n$.
+   salida:    bloque $Y_N$
+   inicio
+     para $i=0$ hasta $n-1$
+       $Y_N[i] = N_w\ mod\ s$
+       $N_w = (N_w - Y_N[i])/s$
+   fin
+\end{pseudocodigo}
 
 \end{enumerate}
 
@@ -116,29 +116,32 @@ De forma general, el proceso de cifrado se describe en el pseudocódigo
 %Pseudocodigo excediéndose de los 80 para una correcta visualización el en pdf ---------------------------
 \begin{pseudocodigo}[caption={Proceso de cifrado $BC$.},
 label={cifrado_BC}]
-  entrada:    la llave $K$, el tweak $T$, la cadena $X$ de longitud $b$ formada por el conjunto $S$
-              de cardinalidad $s$, la función de cifrado $F$, y el número de rondas $w$.
-  salida:     La cadena cifrada $Y$.
-  inicio
-    calcular $T_R\: =\: T\: \mod\: 2^{32}$ y $T_L\: =\: (T\: -\: T_R) / 2^{32}$
-    asignar $l = r = b/2$
-    inicializar $L_0\: =\: \sum_{j=0}^{l-1}\: X[j] \cdot s^j$
-    inicializar $R_0\: =\: \sum_{j=0}^{r-1}\: X[j+l] \cdot s^j$
-    para $i=0$ hasta $i=w-1$
-      si $i$ es par
-        $L_{i+1}\: =\: L_i\: \boxplus\: F_K((T_R \oplus i) \cdot 2^{f-32}\: +\: R_i)\qquad (mod\ s^l)$
-        $R_{i+1}\: =\: R_i$
-      si $i$ es impar
-        $R_{i+1}\: =\: R_i\: \boxplus\: F_K((T_L \oplus i) \cdot 2^{f-32}\: +\: L_i)\qquad (mod\ s^r)$
-        $L_{i+1}\: =\: L_i$
-    para $i=0$ hasta $i=l-1$
-      $Y_L[i] = L_w\ mod\ s$
-      $L_w = (L_w - Y_L[i])/s$
-    para $i=l$ hasta $i=r-1$
-      $Y_R[i] = R_w\ mod\ s$
-      $R_w = (R_w - Y_R[i])/s$
-    determinar $Y = Y_L \parallel Y_R$
-  fin
+    entrada:    la llave $K$,
+                el tweak $T$,
+                la cadena $X$ de longitud $b$ formada por el conjunto $S$
+                  de cardinalidad $s$,
+                la función de cifrado $F$, y el número de rondas $w$.
+    salida:     La cadena cifrada $Y$.
+    inicio
+      calcular $T_R\: =\: T\: \mod\: 2^{32}$ y $T_L\: =\: (T\: -\: T_R) / 2^{32}$
+      asignar $l = r = b/2$
+      inicializar $L_0\: =\: \sum_{j=0}^{l-1}\: X[j] \cdot s^j$
+      inicializar $R_0\: =\: \sum_{j=0}^{r-1}\: X[j+l] \cdot s^j$
+      para $i=0$ hasta $i=w-1$
+        si $i$ es par
+          $L_{i+1}\: =\: L_i\: \boxplus\: F_K((T_R \oplus i) \cdot 2^{f-32}\: +\: R_i)\qquad (mod\ s^l)$
+          $R_{i+1}\: =\: R_i$
+        si $i$ es impar
+          $R_{i+1}\: =\: R_i\: \boxplus\: F_K((T_L \oplus i) \cdot 2^{f-32}\: +\: L_i)\qquad (mod\ s^r)$
+          $L_{i+1}\: =\: L_i$
+      para $i=0$ hasta $i=l-1$
+        $Y_L[i] = L_w\ mod\ s$
+        $L_w = (L_w - Y_L[i])/s$
+      para $i=l$ hasta $i=r-1$
+        $Y_R[i] = R_w\ mod\ s$
+        $R_w = (R_w - Y_R[i])/s$
+      determinar $Y = Y_L \parallel Y_R$
+    fin
 \end{pseudocodigo}
 %Pseudocodigo excediéndose de los 80 para una correcta visualización el en pdf ---------------------------
 
@@ -192,29 +195,33 @@ De forma general, el proceso de descifrado se describe en el pseudocódigo
 %Pseudocodigo excediéndose de los 80 para una correcta visualización el en pdf ---------------------------
 \begin{pseudocodigo}[caption={Proceso de descifrado $BC^{-1}$.},
 label={descifrado_BC}]
-  entrada:    la llave $K$, el tweak $T$, la cadena $Y$ de longitud $b$ formada por el conjunto $S$
-              de cardinalidad $s$, la función de cifrado $F$, y el número de rondas $w$.
-  salida:     La cadena $X$.
-  inicio
-    calcular $T_R\: =\: T\: \mod\: 2^{32}$ y $T_L\: =\: (T\: -\: T_R) / 2^{32}$
-    asignar $l = r = b/2$
-    inicializar $L_w\: =\: \sum_{j=0}^{l-1}\: Y[j] \cdot s^j$
-    inicializar $R_w\: =\: \sum_{j=0}^{r-1}\: Y[j+l] \cdot s^j$
-    para $i=w-1$ hasta $i=0$
-    si $i$ es par:
-      $L_i\: =\: L_{i+1}\: \boxminus\: F_K((T_R \oplus i) \cdot 2^{f-32}\: +\: R_{i+1})\qquad (mod\ s^l)$
-      $R_i\: =\: R_{i+1}$
-    si $i$ es impar:
-      $R_i\: =\: R_{i+1}\: \boxminus\: F_K((T_L \oplus i) \cdot 2^{f-32}\: +\: L_{i+1})\qquad (mod\ s^r)$
-      $L_i\: =\: L_{i+1}$
-    para $i=0$ hasta $i=l-1$
-      $X_L[i] = L_w\ mod\ s$
-      $L_w = (L_w - X_L[i])/s$
-    para $i=l$ hasta $i=r-1$
-      $X_R[i] = R_w\ mod\ s$
-      $R_w = (R_w - X_R[i])/s$
-    determinar $X = X_L \parallel X_R$
-  fin
+    entrada:    la llave $K$,
+                el tweak $T$,
+                la cadena $Y$ de longitud $b$ formada por el conjunto $S$
+                  de cardinalidad $s$,
+                la función de cifrado $F$,
+                el número de rondas $w$.
+    salida:     La cadena $X$.
+    inicio
+      calcular $T_R\: =\: T\: \mod\: 2^{32}$ y $T_L\: =\: (T\: -\: T_R) / 2^{32}$
+      asignar $l = r = b/2$
+      inicializar $L_w\: =\: \sum_{j=0}^{l-1}\: Y[j] \cdot s^j$
+      inicializar $R_w\: =\: \sum_{j=0}^{r-1}\: Y[j+l] \cdot s^j$
+      para $i=w-1$ hasta $i=0$
+      si $i$ es par:
+        $L_i\: =\: L_{i+1}\: \boxminus\: F_K((T_R \oplus i) \cdot 2^{f-32}\: +\: R_{i+1})\qquad (mod\ s^l)$
+        $R_i\: =\: R_{i+1}$
+      si $i$ es impar:
+        $R_i\: =\: R_{i+1}\: \boxminus\: F_K((T_L \oplus i) \cdot 2^{f-32}\: +\: L_{i+1})\qquad (mod\ s^r)$
+        $L_i\: =\: L_{i+1}$
+      para $i=0$ hasta $i=l-1$
+        $X_L[i] = L_w\ mod\ s$
+        $L_w = (L_w - X_L[i])/s$
+      para $i=l$ hasta $i=r-1$
+        $X_R[i] = R_w\ mod\ s$
+        $R_w = (R_w - X_R[i])/s$
+      determinar $X = X_L \parallel X_R$
+    fin
 \end{pseudocodigo}
 %Pseudocodigo excediéndose de los 80 para una correcta visualización el en pdf ---------------------------
 
@@ -235,11 +242,11 @@ bloque $b$, al cifrar el último bloque se recorre el cursor que determina
 el inicio del mismo, hasta que su longitud concuerde con $b$, esto se puede
 ver de forma gráfica en la figura \ref{cursor_BPS}.
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.8\linewidth]
     {../../../../../diagramas_comunes/bps/cursor_bps}
-    \caption{Ejemplo del corrimiento de cursor para la selección del ultimo
+    \caption{Corrimiento de cursor para la selección del último
       bloque en el modo de operación de \textit{BPS}.}
     \label{cursor_BPS}
    \end{center}
@@ -248,7 +255,7 @@ ver de forma gráfica en la figura \ref{cursor_BPS}.
 En la figura \ref{modo_de_operacion_BPS} se ve de manera gráfica el
 funcionamiento del modo de operación de \textit{BPS}.
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.85\linewidth]
     {../../../../../diagramas_comunes/bps/modo_de_operacion_bps}

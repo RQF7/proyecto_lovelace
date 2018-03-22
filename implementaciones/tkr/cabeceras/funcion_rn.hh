@@ -9,6 +9,7 @@
 #define __FUNCION_RN__
 
 #include "pseudoaleatorio_aes.hh"
+#include "../../acceso_a_datos/cabeceras/acceso_simulado.hh"
 #include "../../../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
 #include "../../../utilidades/interfaces_comunes/funcion.hh"
@@ -31,6 +32,7 @@ namespace Implementaciones
 
       /** \brief Inicialización de parámetros. */
       FuncionRN(FuncionInterna* funcionInterna,
+        CDV* baseDeDatos = new AccesoSimulado,
         int longitudDeCadena = 16, int cardinalidadDeAlfabeto = 10);
 
       /** \brief Liberación de memoria. */
@@ -47,6 +49,9 @@ namespace Implementaciones
       /** \brief Apuntador a primitiva subyacente. */
       FuncionInterna* mFuncionInterna;
 
+      /** \brief Apuntador a una clase de acceso a datos. */
+      CDV* mBaseDeDatos;
+
       /** \brief Longitud de cadenas resultado */
       int mLongitudDeCadena;
 
@@ -57,7 +62,7 @@ namespace Implementaciones
       int mLongitudDeBits;
 
       /** \brief Contador usado como estado para función interna. */
-      static entero mContador;
+      entero mContador;
   };
 }
 

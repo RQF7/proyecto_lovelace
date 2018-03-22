@@ -61,6 +61,25 @@ ArregloDeDigitos::ArregloDeDigitos(
 }
 
 /**
+ * Construye un nuevo arreglo de dígitos a partir de un arreglo de enteros
+ * Utiliza el constructor por copia de la clase padre.
+ *
+ * \todo Armar representación numérica.
+ */
+
+ArregloDeDigitos::ArregloDeDigitos(
+  const Arreglo<int>& arreglo,
+  int base
+)
+: Arreglo<int>(arreglo),
+  mCadena (mNumeroDeElementos, '0'),
+  mBase {base}
+{
+  for (int i = 0; i < mNumeroDeElementos; i++)
+    mCadena[i] = mArregloInterno[i] + 48;
+}
+
+/**
  * Pasa el número de elementos a la superclase para reservar memoria.
  * La cadena y el número interno usan su valor por defecto.
  */

@@ -29,6 +29,9 @@ class ArregloDeDigitos : public Arreglo<int>
     /** \brief Construcción de un arreglo de dígitos a partir de un número. */
     ArregloDeDigitos(entero numero, int base = 10);
 
+    /** \brief Especialización de arreglo de enteros. */
+    ArregloDeDigitos(const Arreglo<int>& arreglo, int base = 10);
+
     /** \brief Arreglo vacío, solo reserva memoria. */
     ArregloDeDigitos(int numeroDeElementos, int base = 10);
 

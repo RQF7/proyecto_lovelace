@@ -25,22 +25,22 @@ aumenta; y, mientras \gls{gl:des} puede mejorar su velocidad con tablas de
 consulta, resulta más complicado para \gls{gl:feal}.
 
 \begin{pseudocodigo}[caption={FEAL-8, cifrado.}, label={feal8:1}]
-  entrada:    64 bits de texto en claro $M = m_1 \dots m_{64}$;
-              llave de 64 bits $K = k_1 \dots k_{64}$.
-  salida:     bloque de texto cifrado de 64 bits $C = c_1 \dots c_{64}$.
-  inicio
-    Calcular 16 subllaves de 16 bits para $K$.
-    Definir $M_L = m_1 \dots m_{32}; M_R = m_{33} \dots m_{64}$.
-    $(L_0, R_0) \leftarrow (M_L, M_R) \oplus ((K_8, K_9), (K_{10}, K_{11}))$
-    $R_0 \leftarrow R_0 \oplus L_0$.
-    para_todo $i$ desde 1 hasta 8:
-      $L_i \leftarrow R_{i-1}$
-      $R_i \leftarrow L_{i-1} \oplus f(R_{i-1}, K_{i-1})$
+    entrada:    64 bits de texto en claro $M = m_1 \dots m_{64}$;
+                llave de 64 bits $K = k_1 \dots k_{64}$.
+    salida:     bloque de texto cifrado de 64 bits $C = c_1 \dots c_{64}$.
+    inicio
+      Calcular 16 subllaves de 16 bits para $K$.
+      Definir $M_L = m_1 \dots m_{32}; M_R = m_{33} \dots m_{64}$.
+      $(L_0, R_0) \leftarrow (M_L, M_R) \oplus ((K_8, K_9), (K_{10}, K_{11}))$
+      $R_0 \leftarrow R_0 \oplus L_0$.
+      para_todo $i$ desde 1 hasta 8:
+        $L_i \leftarrow R_{i-1}$
+        $R_i \leftarrow L_{i-1} \oplus f(R_{i-1}, K_{i-1})$
+      fin
+      $L_8 \leftarrow L_8 \oplus R_8$
+      $(R_8, L_8) \leftarrow (R_8, L_8) \oplus ((K_{12}, K_{13}),(K_{14},K_{15}))$
+      $C \leftarrow (R_8, L_8)$.
     fin
-    $L_8 \leftarrow L_8 \oplus R_8$
-    $(R_8, L_8) \leftarrow (R_8, L_8) \oplus ((K_{12}, K_{13}),(K_{14},K_{15}))$
-    $C \leftarrow (R_8, L_8)$.
-  fin
 \end{pseudocodigo}
 
 % ¿Qué demonios? Las tuplas de llaves se salen del margen.

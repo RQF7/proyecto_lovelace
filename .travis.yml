@@ -13,6 +13,7 @@ matrix:
   include:
     - os: linux
       addons:
+        mariadb: '10.1'
         apt:
           sources:
             - ubuntu-toolchain-r-test
@@ -21,25 +22,17 @@ matrix:
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
-addons:
-  apt:
-    sources:
-      - mysql-5.7-trusty
-    packages:
-      - mysql-server
-      - mysql-client
-
 # Determinan el entorno: ubuntu trusty (14.04)
 sudo: required
 dist: trusty
 
-cache:
-  directories:
-    # Generales
-    - ~/texmf
-    # Texlive
-    - /usr/share/bug/texlive
-    - /usr/share/doc/texlive
+#cache:
+#  directories:
+#    # Generales
+#    - ~/texmf
+#    # Texlive
+#    - /usr/share/bug/texlive
+#    - /usr/share/doc/texlive
 
 # Instalación de dependencias #################################################
 before_install:
@@ -84,10 +77,6 @@ before_install:
   - sudo mkdir /usr/include/cryptopp
   - sudo mv cryptopp/*.h /usr/include/cryptopp/
   - sudo mv cryptopp/libcryptopp.a /usr/lib/
-  # Configuración de mysql
-  - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('root') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
-  - sudo mysql_upgrade --force
-  - sudo service mysql restart
 
 install:
   - make -C pruebas_librerias

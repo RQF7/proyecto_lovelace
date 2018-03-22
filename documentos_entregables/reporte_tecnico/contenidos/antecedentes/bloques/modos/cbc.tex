@@ -14,7 +14,7 @@ Para poder replicar este comportamiento en todos los bloque cifradores, este
 depende de todos los bloques anteriores; esto incrementa la seguridad con
 respecto a \gls{gl:ecb}.
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   \begin{subfigure}{0.45\textwidth}
     \begin{center}
@@ -38,7 +38,7 @@ unos de los posibles algoritmos a seguir. Es importante notar que mientras que
 el proceso de cifrado debe ser forzosamente secuencial (por la dependencias
 entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
 
-% Látima que con los escapes en modo matemático dentro de los pseudocódigos
+% Lástima que con los escapes en modo matemático dentro de los pseudocódigos
 % se pierda totalmente la ventaja de trabajar con fuentes mono: por eso
 % la alineación tan rara de los comentarios del próximo pseudocódigo.
 
@@ -46,30 +46,30 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
     caption={\Gls{gl:modo_de_operacion} \gls{gl:cbc}, cifrado.},
     label={cbc:1}%
   ]
-  entrada: llave $ k $; vector de inicialización $ VI $;
-           bloques de mensaje $ Bm_1, Bm_2 \dots Bm_n $.
-  salida:  bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
-  inicio
-    $Bc_0$ $\gets$ $ VI $                        // El vector de inicialización
-    para_todo $Bm$               // entra al primer bloque.
-      $Bc_i$ $\gets$ E($k$, $Bm_i \oplus Bc_{i - 1}$)
+    entrada: llave $ k $; vector de inicialización $ VI $;
+             bloques de mensaje $ Bm_1, Bm_2 \dots Bm_n $.
+    salida:  bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
+    inicio
+      $Bc_0$ $\gets$ $ VI $                        // El vector de inicialización
+      para_todo $Bm$               // entra al primer bloque.
+        $Bc_i$ $\gets$ E($k$, $Bm_i \oplus Bc_{i - 1}$)
+      fin
+      regresar $Bc$
     fin
-    regresar $Bc$
-  fin
 \end{pseudocodigo}
 
 \begin{pseudocodigo}[%
     caption={\Gls{gl:modo_de_operacion} \gls{gl:cbc}, descifrado.},
     label={cbc:2}%
   ]
-  entrada: llave $ k $; vector de inicialización $ VI $;
-           bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
-  salida:  bloques de mensaje original $ Bm_1, Bm_2 \dots Bm_n $.
-  inicio
-    $Bc_0$ $\gets$ $ VI $
-    para_todo $Bc$
-      $Bm_i$ $\gets$ $D_k$($Bc_i$) $\oplus$ $Bc_{i-1}$
+    entrada: llave $ k $; vector de inicialización $ VI $;
+             bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
+    salida:  bloques de mensaje original $ Bm_1, Bm_2 \dots Bm_n $.
+    inicio
+      $Bc_0$ $\gets$ $ VI $
+      para_todo $Bc$
+        $Bm_i$ $\gets$ $D_k$($Bc_i$) $\oplus$ $Bc_{i-1}$
+      fin
+      regresar $Bm$
     fin
-    regresar $Bm$
-  fin
 \end{pseudocodigo}

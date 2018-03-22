@@ -12,7 +12,7 @@ forma, nada que tenga que ver con el texto en claro llega al cifrado a bloques;
 este solamente se la pasa cifrando una y otra vez el
 \gls{gl:vector_de_inicializacion}.
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   \begin{subfigure}{0.45\textwidth}
     \begin{center}
@@ -33,15 +33,15 @@ este solamente se la pasa cifrando una y otra vez el
     caption={\Gls{gl:modo_de_operacion} \gls{gl:ofb}%
       (cifrado y descifrado).}%
     ]
-  entrada: llave $ k $; vector de inicialización $ VI $;
-           bloques de mensaje (cifrado o descifrado) $ Bm_1, Bm_2 \dots Bm_n $.
-  salida:  bloques de mensaje (cifrado o descifrado) $ Bc_1, Bc_2 \dots Bc_n $.
-  inicio
-    auxiliar $\gets$ $ VI $
-    para_todo $Bm$
-      auxiliar $\gets$ E_k(auxiliar)
-      $Bc_i$ $\gets$  auxiliar $\oplus$ $Bm_i$
+    entrada: llave $ k $; vector de inicialización $ VI $;
+             bloques de mensaje (cifrado o descifrado) $ Bm_1, Bm_2 \dots Bm_n $.
+    salida:  bloques de mensaje (cifrado o descifrado) $ Bc_1, Bc_2 \dots Bc_n $.
+    inicio
+      auxiliar $\gets$ $ VI $
+      para_todo $Bm$
+        auxiliar $\gets$ E_k(auxiliar)
+        $Bc_i$ $\gets$  auxiliar $\oplus$ $Bm_i$
+      fin
+      regresar $Bc$
     fin
-    regresar $Bc$
-  fin
 \end{pseudocodigo}
