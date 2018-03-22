@@ -13,6 +13,7 @@ matrix:
   include:
     - os: linux
       addons:
+        mariadb: '10.1'
         apt:
           sources:
             - ubuntu-toolchain-r-test
@@ -20,9 +21,6 @@ matrix:
             - g++-7
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-
-addons:
-  mariadb: '10.1'
 
 # Determinan el entorno: ubuntu trusty (14.04)
 sudo: required
