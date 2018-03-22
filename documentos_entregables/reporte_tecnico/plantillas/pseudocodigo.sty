@@ -30,12 +30,14 @@
   % Configuración de entorno listing
   \lstset{
     mathescape=true,
-    frame=tb,
-    numbers=none,
-    %numberstyle=\tiny,
-    basicstyle=\footnotesize,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=-10pt,
+    basicstyle=\small,
     keywordstyle=\color{black}\bfseries,
     captionpos=b,
+    float,
     extendedchars=true,
     literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1,
     % Palabras clave
@@ -59,7 +61,7 @@
 %    xrightmargin=1.0in,
     aboveskip=1em,
     belowskip=1em,
-    #1 % Configuraciones específicas ¿?
+    #1
   }
 }
 {}

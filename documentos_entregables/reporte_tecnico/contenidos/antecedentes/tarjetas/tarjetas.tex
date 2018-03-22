@@ -10,7 +10,7 @@ Como se puede observar en la figura~\ref{figura:pan}, un número de tarjeta
 \gls{gl:pan} puede variar e ir desde los 12 hasta los 19 dígitos. A
 continuación se explica con más detalle cada uno de sus componentes
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.6\linewidth]{diagramas/tarjeta}
     \caption{Componentes de un número de tarjeta.}\label{figura:pan}
@@ -29,7 +29,7 @@ El identificador del emisor provee, entre otros, los siguientes datos:
     \item Nivel de la tarjeta (ej. clásica, Gold, Black)
 \end{enumerate}
 
-\begin{table}[H]
+\begin{table}
   \centering
   \begin{tabular}{ c|l }
     Dígito & Industria \\ \hline
@@ -59,23 +59,23 @@ en~\ref{luhn:1}.
     caption={Algoritmo de Luhn.},
     label={luhn:1}%
   ]
-  entrada: número de tarjeta, compuesto desde 12 hasta 19 dígitos:
-           $\{x_{n} x_{n-1} x_{n-2} \dots x_3 x_2 x_1\}$
-  salida:  dígito verificador $x_1$.
-  inicio
-    Sean los conjuntos $x_{par}$ y $x_{impar}$:
-        si $n$ es par:
-            $x_{par} = \{x_2, x_4, x_6, \dots, x_n\}$
-            $x_{impar} = \{x_3, x_5, x_7, \dots, x_{n-1}\}$.
-        si_no:
-            $x_{par} = \{x_2, x_4, x_6, \dots, x_{n-1}\}$
-            $x_{impar} = \{x_3, x_5, x_7, \dots, x_n\}$.
-    Obtener el doble de cada uno de los elementos del conjunto $x_{par}$:
-      $x_{par doble} = \{2 \times x_2, 2 \times x_4, 2 \times x_6, \dots \}$.
-    $\forall x_i \in x_{par doble} > 9$:
-        $x_i = (x_i \mod 10) + 1 $
-    Sumar los elementos de los conjuntos $x_{par doble}$ y $x_{impar}$.
-    $x_1 = (S \times 9) \mod 10$
-    Regresar $x_1$
-  fin
+    entrada: número de tarjeta, compuesto desde 12 hasta 19 dígitos:
+             $\{x_{n} x_{n-1} x_{n-2} \dots x_3 x_2 x_1\}$
+    salida:  dígito verificador $x_1$.
+    inicio
+      Sean los conjuntos $x_{par}$ y $x_{impar}$:
+          si $n$ es par:
+              $x_{par} = \{x_2, x_4, x_6, \dots, x_n\}$
+              $x_{impar} = \{x_3, x_5, x_7, \dots, x_{n-1}\}$.
+          si_no:
+              $x_{par} = \{x_2, x_4, x_6, \dots, x_{n-1}\}$
+              $x_{impar} = \{x_3, x_5, x_7, \dots, x_n\}$.
+      Obtener el doble de cada uno de los elementos del conjunto $x_{par}$:
+        $x_{par doble} = \{2 \times x_2, 2 \times x_4, 2 \times x_6, \dots \}$.
+      $\forall x_i \in x_{par doble} > 9$:
+          $x_i = (x_i \mod 10) + 1 $
+      Sumar los elementos de los conjuntos $x_{par doble}$ y $x_{impar}$.
+      $x_1 = (S \times 9) \mod 10$
+      Regresar $x_1$
+    fin
 \end{pseudocodigo}

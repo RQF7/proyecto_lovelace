@@ -17,15 +17,15 @@ de cifrado y descifrado se detallan en el pseudocódigo \ref{ctr:1}.
       (cifrado y descifrado).},
     label={ctr:1}%
   ]
-  entrada: llave $ k $; vector de inicialización $ VI $;
-           bloques de mensaje (cifrado o descifrado) $ Bm_1, Bm_2 \dots Bm_n $.
-  salida:  bloques de mensaje (cifrado o descifrado) $ Bc_1, Bc_2 \dots Bc_n $.
-  inicio
-    para_todo $Bm$
-      $Bc_i$ $\gets$ E_k($ (VI + i) \mod 2^n $) $\oplus$ $Bm_i$
+    entrada: llave $ k $; vector de inicialización $ VI $;
+             bloques de mensaje (cifrado o descifrado) $ Bm_1, Bm_2 \dots Bm_n $.
+    salida:  bloques de mensaje (cifrado o descifrado) $ Bc_1, Bc_2 \dots Bc_n $.
+    inicio
+      para_todo $Bm$
+        $Bc_i$ $\gets$ E_k($ (VI + i) \mod 2^n $) $\oplus$ $Bm_i$
+      fin
+      regresar $Bc$
     fin
-    regresar $Bc$
-  fin
 \end{pseudocodigo}
 
 En términos de eficiencia, el \gls{gl:ctr} es mejor que \gls{gl:cbc},

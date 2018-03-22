@@ -24,24 +24,24 @@ El cifrado requiere de una matriz de $4 \times 4$ denominada matriz de
 estado.
 
 \begin{pseudocodigo}[caption={AES, cifrado.}, label={aes:1}]
-  entrada:    128 bits de texto en claro $M$; llave de $n$ bits $K$.
-  salida:     bloque de texto cifrado de 64 bits $C = c_1 \dots c_{64}$.
-  inicio
-    Obtener las subllaves de 128 bits necesarias: una para cada ronda y una extra.
-    Iniciar matriz de estado con el bloque en claro.
-    Realizar $AddRoundKey(matriz\_estado, k_0)$
-    para_todo $i$ desde 1 hasta $num\_rondas-1$:
+    entrada:    128 bits de texto en claro $M$; llave de $n$ bits $K$.
+    salida:     bloque de texto cifrado de 64 bits $C = c_1 \dots c_{64}$.
+    inicio
+      Obtener las subllaves de 128 bits necesarias: una para cada ronda y una extra.
+      Iniciar matriz de estado con el bloque en claro.
+      Realizar $AddRoundKey(matriz\_estado, k_0)$
+      para_todo $i$ desde 1 hasta $num\_rondas-1$:
+        $SubBytes(matriz\_estado)$
+        $ShiftRows(matriz\_estado)$
+        $MixColumns(matriz\_estado)$
+        $AddRoundKey(matriz\_estado, k_i)$
+      fin
       $SubBytes(matriz\_estado)$
       $ShiftRows(matriz\_estado)$
       $MixColumns(matriz\_estado)$
-      $AddRoundKey(matriz\_estado, k_i)$
+      $AddRoundKey(matriz\_estado, k_{num\_rondas})$
+      regresa $matriz\_estado$
     fin
-    $SubBytes(matriz\_estado)$
-    $ShiftRows(matriz\_estado)$
-    $MixColumns(matriz\_estado)$
-    $AddRoundKey(matriz\_estado, k_{num\_rondas})$
-    regresa $matriz\_estado$
-  fin
 \end{pseudocodigo}
 
 Como todos los pasos realizados en las \glspl{gl:ronda} son invertibles, el
@@ -65,7 +65,7 @@ $S_{RD}$ a cada elemento de la matriz. La función $S_{RD}$ es también
 conocida como Caja-S y no depende de la llave. La misma caja es utilizada
 para los bytes en todas las posiciones.
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.6\linewidth]{diagramas/subBytes}
     \caption{Diagrama de la operación $SubBytes$.}
@@ -79,7 +79,7 @@ Esta transformación hace un corrimiento cíclico hacia la izquierda de las
 filas de la matriz de estado. Los desplazamientos son distintos para cada
 fila y dependen de la longitud del bloque ($N_b$).
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.6\linewidth]{diagramas/shiftRows}
     \caption{Diagrama de la operación $ShiftRows$.}
@@ -94,20 +94,17 @@ independientemente. Se considera una columna $a = (a_0, a_1, a_2, a_3)$
 como el polinomio $a(X) = a_3X^3 + a_2X^2 + a_1X + a_0$.
 Entonces este paso transforma una columna $a$ al multiplicarla con el
 siguiente polinomio fijo:
-
 \begin{equation}
   \label{cifrado_aes_poli}
   c(X) = 03X^3 + 01X^2 + 01X+ 02
 \end{equation}
-
 y se toma el residuo del producto módulo $X^4+1$:
-
 \begin{equation}
   \label{cifrado_aes_mix}
   a(X) \mapsto a(X) \cdotp c(X) \mod (X^4+1)
 \end{equation}
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.6\linewidth]{diagramas/mixColumns}
     \caption{Diagrama de la operación $MixColumns$.}
@@ -125,7 +122,6 @@ longitud que los bloques. Esta operación es simplemente una operación
 $XOR$ bit a bit de la matriz de estado con la llave de ronda en turno.
 Para obtener el nuevo valor de la matriz de estado se realiza lo
 siguiente:
-
 \begin{equation}
   \label{cifrado_aes_addkey}
   (matriz\_estado, k_i) \mapsto matriz\_estado \oplus k_i
@@ -138,7 +134,7 @@ columna. Entonces se realiza la operación $XOR$ bit a bit sobre las
 entradas correspondientes de la matriz de estado y la matriz de la llave
 de ronda.
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.6\linewidth]{diagramas/addRoundKey}
     \caption{Diagrama de la operación $AddRoundKey$.}

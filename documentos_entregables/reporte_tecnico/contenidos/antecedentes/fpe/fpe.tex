@@ -96,12 +96,12 @@ de números de tarjetas de crédito es un problema de espacios pequeños.
   caption={\textit{Knuth shuffle}, \cite{DBLP:books/aw/Knuth69}.},
   label={knuth_shuffle}%
 ]
-  entrada: lista $ l[0, \dots, n - 1] $
-  salida:  misma lista barajeada
-  inicio
-    para_todo i desde $ n - 1 $ hasta 0:
-      j $ \gets $ rand($ 0 $, $ i $)
-      swap($ l[j] $, $ l[i] $)
+    entrada: lista $ l[0, \dots, n - 1] $
+    salida:  misma lista barajeada
+    inicio
+      para_todo i desde $ n - 1 $ hasta 0:
+        j $ \gets $ rand($ 0 $, $ i $)
+        swap($ l[j] $, $ l[i] $)
+      fin
     fin
-  fin
 \end{pseudocodigo}

@@ -20,33 +20,33 @@ algoritmo. $ S $ es un vector de estado; $ T $ es un vector temporal.
     caption={Proceso de cifrado de RC4.},
     label={cod:rc4}%
   ]
-  entrada: llave k; mensaje original $ m_1, m_2 \dots m_n $.
-  salida:  mensaje cifrado $ c_1, c_2 \dots c_n $.
-  inicio
-    /* Inicialización */
-    para_todo i entre 0 y 255:
-      S[i] $\gets$ i
-      T[i] $\gets$ K[i $\mod$ longitud_de_llave]
-    fin
+    entrada: llave k; mensaje original $ m_1, m_2 \dots m_n $.
+    salida:  mensaje cifrado $ c_1, c_2 \dots c_n $.
+    inicio
+      /* Inicialización */
+      para_todo i entre 0 y 255:
+        S[i] $\gets$ i
+        T[i] $\gets$ K[i $\mod$ longitud_de_llave]
+      fin
 
-    /* Permutación inicial */
-    j $\gets$ 0
-    para_todo i entre 0 y 255:
-      j = (j + S[i] + T[i]) $\mod$ 256
-      intercambiar(S[i], S[j])
-    fin
+      /* Permutación inicial */
+      j $\gets$ 0
+      para_todo i entre 0 y 255:
+        j = (j + S[i] + T[i]) $\mod$ 256
+        intercambiar(S[i], S[j])
+      fin
 
-    /* Proceso de cifrado */
-    i, j $\gets$ 0
-    para_todo m:
-      i $\gets$ (i + 1) $\mod$ 256
-      j $\gets$ (j + S[i]) $\mod$ 256
-      intercambiar(S[i], S[j])
-      k $\gets$ S[(S[i] + S[j]) $\mod$ 256]
-      c $\gets$ m $\oplus$ k
+      /* Proceso de cifrado */
+      i, j $\gets$ 0
+      para_todo m:
+        i $\gets$ (i + 1) $\mod$ 256
+        j $\gets$ (j + S[i]) $\mod$ 256
+        intercambiar(S[i], S[j])
+        k $\gets$ S[(S[i] + S[j]) $\mod$ 256]
+        c $\gets$ m $\oplus$ k
+      fin
+      regresar c
     fin
-    regresar c
-  fin
 \end{pseudocodigo}
 
 Se han hecho varias publicaciones que analizan métodos para atacar RC4, ninguna

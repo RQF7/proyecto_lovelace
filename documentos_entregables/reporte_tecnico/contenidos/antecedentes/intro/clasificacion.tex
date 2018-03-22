@@ -21,7 +21,7 @@ Una manera de clasificar es de acuerdo a las técnicas y métodos empleados
 para cifrar la información, esta clasificación se puede observar en la
 figura \ref{clasificacion_cripto}.
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.75\linewidth]{diagramas/clasificacion_cripto.png}
     \caption{Clasificación de la criptografía.}
@@ -42,7 +42,7 @@ pública. Hablando de la primer vertiente, se puede decir que es aquella
 que utiliza un modelo matemático para cifrar y descifrar un mensaje
 utilizando únicamente una llave que permanece secreta.
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.8\linewidth]{diagramas/cripto_simetrica.png}
     \caption{Canal de comunicación con criptografía simétrica.}
@@ -62,9 +62,9 @@ $m$.
 
 Gran parte de los algoritmos de cifrado que caen en este tipo de criptografía
 están basados en las redes Feistel, que son un método de cifrado propuesto
-por el criptógrafo Horst Feistel, mismo que desarrolló el \gls{gl:des} 
-(sección \ref{sec:des}) a principios de la década de los 70, que fue el 
-cifrado usado por el gobierno estadounidense hasta 2002, año que el 
+por el criptógrafo Horst Feistel, mismo que desarrolló el \gls{gl:des}
+(sección \ref{sec:des}) a principios de la década de los 70, que fue el
+cifrado usado por el gobierno estadounidense hasta 2002, año que el
 \gls{gl:aes} (sección \ref{sec:aes}) lo sustituyó.
 
 Ahora, adentrándose en la criptografía asimétrica, se tiene que su idea
@@ -81,7 +81,7 @@ se encarga de descifrar $c$ por medio del algoritmo de descifrado
 $D(sk,c)$ haciendo uso de su llave privada $sk$. Este proceso se refleja
 gráficamente el la figura \ref{cripto_asimetrica}.
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.8\linewidth]{diagramas/cripto_asimetrica.png}
     \caption{Canal de comunicación con criptografía asimétrica.}
@@ -124,29 +124,25 @@ el cifrado y el descifrado. El proceso para poder generar un par de llaves
 % de línea en el pdf.
 \begin{pseudocodigo}[caption={Proceso de generación de llaves de
   \gls{gl:rsa}.}, label={rsa:1}]
-  entrada: ninguna.
-  salida:  llave pública $(n,e)$ y privada $(n,d)$.
-  inicio
-    Elegir de forma aleatoria 2 números primos $p$ y $q$, que sean de gran
-    magnitud y de una longitud parecida.
-    Calcular $n\: =\: p \:\cdot \:q$
-    Calcular $\varphi(n) \:= \:(p-1) \:(q-1)$.
-    Elegir un exponente de cifrado $e$ tal que $e \:< \:\varphi(n)$ y $mcd(e,\varphi(n)) \:= \:1$.
-    Encontrar el exponente de descifrado $d$ tal que $e \cdot d \:\mod \:\varphi(n) \:= \:1$.
-  fin
+    entrada: ninguna.
+    salida:  llave pública $(n,e)$ y privada $(n,d)$.
+    inicio
+      Elegir de forma aleatoria 2 números primos $p$ y $q$, que sean de gran
+      magnitud y de una longitud parecida.
+      Calcular $n\: =\: p \:\cdot \:q$
+      Calcular $\varphi(n) \:= \:(p-1) \:(q-1)$.
+      Elegir un exponente de cifrado $e$ tal que $e \:< \:\varphi(n)$ y $mcd(e,\varphi(n)) \:= \:1$.
+      Encontrar el exponente de descifrado $d$ tal que $e \cdot d \:\mod \:\varphi(n) \:= \:1$.
+    fin
 \end{pseudocodigo}
 
 Las funciones de cifrado y descifrado, están definidas en las ecuaciones
 \ref{funcion_cifrado_rsa} y \ref{funcion_descifrado_rsa} respectivamente,
 y se aplican números enteros o bloques de bits, siendo funciones biyectivas
 e inversas entre sí.
-
-\begin{equation}
+\begin{align}
   \label{funcion_cifrado_rsa}
-  E: \mathbb{Z}_n \longrightarrow \mathbb{Z}_n, x \longmapsto x^e
-\end{equation}
-
-\begin{equation}
+  E: \mathbb{Z}_n \longrightarrow \mathbb{Z}_n, x \longmapsto x^e \\
   \label{funcion_descifrado_rsa}
   D: \mathbb{Z}_n \longrightarrow \mathbb{Z}_n, x \longmapsto x^d
-\end{equation}
+\end{align}

@@ -12,7 +12,7 @@ dividen en criptográficos y en no criptográficos; mientras que los
 irreversibles se dividen en autenticables y no autenticables (figura
 \ref{fig:division_tokens}).
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.75\linewidth]{diagramas/clasificacion.png}
     \caption{Clasificación de los \glspl{gl:token}.}
@@ -348,25 +348,23 @@ requerimientos aquí presentada y la notación del \gls{gl:pci} \gls{gl:ssc} en
 bastante repetitivo: se colocan 3 versiones (una para cada categoría) con
 prácticamente el mismo contenido.
 
-\begin{longtable}{| m{3.2in} | m{1.4in} | m{1.4in} |}
+\begin{longtable}{| m{4.2in} | m{2.4in} |}
 
   \hline
   \textbf{Requerimiento} &
-  \textbf{Equivalente \gls{gl:pci}} &
-  \textbf{Clasificación} \\
+  \textbf{Equivalente \gls{gl:pci}} \\
   \hline
   \endfirsthead
 
   \hline
-  \multicolumn{3}{|c|}{\textit{Continuación}}\\
+  \multicolumn{2}{|c|}{\textit{Continuación}}\\
   \hline
   \textbf{Requerimiento} &
-  \textbf{Equivalente \gls{gl:pci}} &
-  \textbf{Clasificación} \\
+  \textbf{Equivalente \gls{gl:pci}} \\
   \hline
   \endhead
 
-  \multicolumn{3}{|c|}{\textit{Continúa en siguiente página}}\\
+  \multicolumn{2}{|c|}{\textit{Continúa en siguiente página}}\\
   \hline
   \endfoot
 
@@ -375,194 +373,148 @@ prácticamente el mismo contenido.
   % Generales:
 
   \hipervinculo{rq_pci:productos_de_hardware} &
-  GT1 &
-  Aplicable \\\hline
+  GT1 \\\hline
 
   \hipervinculo{rq_pci:productos_de_software} &
-  GT3 &
-  Aplicable \\\hline
+  GT3 \\\hline
 
   \hipervinculo{rq_pci:resistencia_texto_claro_conocido} &
-  GT4 &
-  Aplicable \\\hline
+  GT4 \\\hline
 
   \hipervinculo{rq_pci:resistencia_solo_texto_cifrado} &
-  GT5 &
-  Aplicable \\\hline
+  GT5 \\\hline
 
   \hipervinculo{rq_pci:deteccion_anomalias} &
-  GT6 &
-  Aplicable \\\hline
+  GT6 \\\hline
 
   \hipervinculo{rq_pci:distincion_token_pan} &
-  GT7 &
-  Aplicable \\\hline
+  GT7 \\\hline
 
   \hipervinculo{rq_pci:guia_de_instalacion} &
-  GT8 &
-  Aplicable \\\hline
+  GT8 \\\hline
 
   \hipervinculo{rq_pci:integridad_ejecutables} &
-  GT9 &
-  Aplicable \\\hline
+  GT9 \\\hline
 
   \hipervinculo{rq_pci:control_de_peticiones} &
-  GT10.1, RC2A-1, RC2A-2 RN2B y RN3B &
-  Aplicable \\\hline
+  GT10.1, RC2A-1, RC2A-2 RN2B y RN3B \\\hline
 
   \hipervinculo{rq_pci:registros_de_acceso} &
-  GT10.2 &
-  Aplicable \\\hline
+  GT10.2 \\\hline
 
   \hipervinculo{rq_pci:autenticacion_multifactor} &
-  GT10.3 &
-  Aplicable \\\hline
+  GT10.3 \\\hline
 
   \hipervinculo{rq_pci:acceso_de_sistema} &
-  GT10.4 &
-  Aplicable \\\hline
+  GT10.4 \\\hline
 
   \hipervinculo{rq_pci:acceso_administrativo} &
-  GT10.5 &
-  Aplicable \\\hline
+  GT10.5 \\\hline
 
   \hipervinculo{rq_pci:token_a_token_prohibido} &
-  GT11 &
-  - \\\hline
+  GT11 \\\hline
 
   \hipervinculo{rq_pci:vulnerabilidades_comunes} &
-  GT12 &
-  Aplicable \\\hline
+  GT12 \\\hline
 
   \hipervinculo{rq_pci:primitivas_usadas} &
-  GT13 &
-  Aplicable \\\hline
+  GT13 \\\hline
 
   \hipervinculo{rq_pci:ciclo_de_vida_llaves} &
-  IT4A-1 y RC4B-1 &
-  Aplicable \\\hline
+  IT4A-1 y RC4B-1 \\\hline
 
   \hipervinculo{rq_pci:periodo_llaves} &
-  IT4A-2 y RC4B-2 &
-  Aplicable \\\hline
+  IT4A-2 y RC4B-2 \\\hline
 
   \hipervinculo{rq_pci:destruccion_de_llaves} &
-  IT4A-3 y RC4B-3&
-  Aplicable \\\hline
+  IT4A-3 y RC4B-3 \\\hline
 
   \hipervinculo{rq_pci:exportar_llaves_en_claro} &
-  RC1A-1 &
-  Aplicable \\\hline
+  RC1A-1 \\\hline
 
   \hipervinculo{rq_pci:entropia_generacion_llaves} &
-  RC1A-2 &
-  Aplicable \\\hline
+  RC1A-2 \\\hline
 
   \hipervinculo{rq_pci:llaves_de_uso_unico} &
-  RC1A-3 &
-  Aplicable \\\hline
+  RC1A-3 \\\hline
 
   % Irreversibles:
 
   \hipervinculo{rq_pci:ir_mecanismo_generador} &
-  IT1A-1 &
-  Aplicable \\\hline
+  IT1A-1 \\\hline
 
   \hipervinculo{rq_pci:ir_contenido_en_claro} &
-  IT1A-2 &
-  Aplicable \\\hline
+  IT1A-2 \\\hline
 
   \hipervinculo{rq_pci:ir_diccionario_imposible} &
-  IT1A-3 &
-  Aplicable \\\hline
+  IT1A-3 \\\hline
 
   \hipervinculo{rq_pci:ir_busqueda_exhaustiva} &
-  IT1A-4 &
-  Aplicable \\\hline
+  IT1A-4 \\\hline
 
   % Criptográficos:
 
   \hipervinculo{rq_pci:cr_distribucion_uniforme} &
-  RC1B-1 &
-  Aplicable \\\hline
+  RC1B-1 \\\hline
 
   \hipervinculo{rq_pci:cr_permutacion_aleatoria} &
-  RC1B-2 &
-  Aplicable \\\hline
+  RC1B-2 \\\hline
 
   \hipervinculo{rq_pci:cr_cambio_de_llave} &
-  RC1B-3 &
-  Aplicable \\\hline
+  RC1B-3 \\\hline
 
   \hipervinculo{rq_pci:cr_cambio_de_pan} &
-  RC1B-4 &
-  Aplicable \\\hline
+  RC1B-4 \\\hline
 
   \hipervinculo{rq_pci:cr_cambio_de_pan} &
-  RC1B-4 &
-  Aplicable \\\hline
+  RC1B-4 \\\hline
 
   \hipervinculo{rq_pci:cr_aleatoriedad_digitos} &
-  RC1B-5 &
-  Aplicable \\\hline
+  RC1B-5 \\\hline
 
   \hipervinculo{rq_pci:cr_almacenamiento_tokens} &
-  RC1C &
-  Aplicable \\\hline
+  RC1C \\\hline
 
   \hipervinculo{rq_pci:cr_administracion_llaves} &
-  RC4A &
-  Aplicable \\\hline
+  RC4A \\\hline
 
   \hipervinculo{rq_pci:cr_longitud_llaves} &
-  RC4C &
-  Aplicable \\\hline
+  RC4C \\\hline
 
   \hipervinculo{rq_pci:cr_independencia_estadistica} &
-  RC4D &
-  Aplicable \\\hline
+  RC4D \\\hline
 
   % No criptográficos:
 
   \hipervinculo{rq_pci:nc_generacion_y_almacenamiento} &
-  RN1A &
-  Aplicable \\\hline
+  RN1A \\\hline
 
   \hipervinculo{rq_pci:nc_distribucion_equiprobable} &
-  RN1B-1 &
-  Aplicable \\\hline
+  RN1B-1 \\\hline
 
   \hipervinculo{rq_pci:nc_permutaciones_aleatorias} &
-  RN1B-2 &
-  Aplicable \\\hline
+  RN1B-2 \\\hline
 
   \hipervinculo{rq_pci:nc_parametros_de_tokenizacion} &
-  RN1B-3 &
-  Aplicable \\\hline
+  RN1B-3 \\\hline
 
   \hipervinculo{rq_pci:nr_aleatoriedad_digitos} &
-  RN1B-5 &
-  Aplicable \\\hline
+  RN1B-5 \\\hline
 
   \hipervinculo{rq_pci:nc_distribucion_imparcial} &
-  RN1C &
-  Aplicable \\\hline
+  RN1C \\\hline
 
   \hipervinculo{rq_pci:nc_independencia_estadistica} &
-  RN1D &
-  Aplicable \\\hline
+  RN1D \\\hline
 
   \hipervinculo{rq_pci:nc_proceso_detokenizacion} &
-  RN2A &
-  Aplicable \\\hline
+  RN2A \\\hline
 
   \hipervinculo{rq_pci:nc_cifrado_de_base} &
-  RN3A &
-  Aplicable \\\hline
+  RN3A \\\hline
 
   \hipervinculo{rq_pci:nc_administracion_llaves} &
-  RN4A &
-  Aplicable \\\hline
+  RN4A \\\hline
 
   \caption{Resumen de requerimientos del \gls{gl:pci} \gls{gl:ssc} para
     los sistemas tokenizadores.}
