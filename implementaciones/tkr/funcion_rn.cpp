@@ -68,7 +68,7 @@ ArregloDeDigitos FuncionRN::operar(const vector<int>& entrada)
   {
     int numero = static_cast<int>(binarioDistribuido[j]);
     if (numero < mCardinalidadDeAlfabeto)
-      resultado.colocar(i++, numero);
+      resultado[i++] = numero;
   }
   mContador++;
   return resultado;
@@ -101,7 +101,7 @@ Arreglo<unsigned char> FuncionRN::redistribuir(
     i < resultado.obtenerNumeroDeElementos();
     j += (i % 2) ? 1 : 0, i++)
   {
-    resultado.colocar(i, (original[j] >> (4 * (i % 2))) & mascara);
+    resultado[i] = (original[j] >> (4 * (i % 2))) & mascara;
   }
   return resultado;
 }

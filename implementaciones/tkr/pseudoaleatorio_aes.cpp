@@ -76,7 +76,7 @@ Arreglo<unsigned char> PseudoaleatorioAES::operar(
   {
     cifrar(bufferDos, bufferUno, i);
     for (int j = 0; j < 16; j++)
-      resultado.colocar((i * 16) + j, bufferUno[j]);
+      resultado[(i * 16) + j] = bufferUno[j];
   }
   return resultado;
 }

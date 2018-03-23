@@ -28,8 +28,8 @@ ArregloDeDigitos PseudoaleatorioTrivial::operar(
   mt19937_64 generador{dispositivo()};
   uniform_int_distribution<int> distribucion(0, 9);
   for (int i = 0; i < 15; i++)
-    resultado.colocar(i, modulo(distribucion(generador), 10));
+    resultado[i] = modulo(distribucion(generador), 10);
   auto temporal = resultado.partir(2, 0, 7);
-  resultado.colocar(15, algoritmoDeLuhn(temporal));
+  resultado[15] = algoritmoDeLuhn(temporal);
   return resultado;
 }

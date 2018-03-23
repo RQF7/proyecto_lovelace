@@ -14,6 +14,7 @@
 #ifndef __ARREGLO__
 #define __ARREGLO__
 
+#include "intermediario_de_arreglo.hh"
 #include "utilidades_matematicas.hh"
 #include <algorithm>
 #include <cmath>
@@ -23,6 +24,35 @@
 #include <utility>
 
 /* Declaración *************************************************************/
+
+/** \brief Impresión de un arreglo. */
+template <typename tipo>
+std::ostream& operator<<(std::ostream& flujo, const Arreglo<tipo>& arreglo);
+
+/** \brief Concatenación de dos arreglos. */
+template <typename tipo>
+Arreglo<tipo> operator+(const Arreglo<tipo>& arregloUno,
+  const Arreglo<tipo>& arregloDos);
+
+/** \brief Comparación de igualdad entre arreglos. */
+template <typename tipo>
+bool operator==(const Arreglo<tipo>& arregloUno,
+  const Arreglo<tipo>& arregloDos);
+
+/** \brief Comparación de desigualdad entre arreglos. */
+template <typename tipo>
+bool operator!=(const Arreglo<tipo>& arregloUno,
+  const Arreglo<tipo>& arregloDos);
+
+/** \brief Convierte el número dado en un arreglo. */
+template <typename tipoDeArreglo, typename tipoDeNumero>
+Arreglo<tipoDeArreglo> convertirAArreglo(tipoDeNumero numero,
+  int base, int tamanio);
+
+/** \brief Regresa la representación entera del arreglo. */
+template<typename tipoDeArreglo, typename tipoDeNumero>
+tipoDeNumero convertirANumero(
+  const Arreglo<tipoDeArreglo>& arreglo, int base);
 
 /**
  * \brief Contenedor de datos secuencial.
@@ -66,7 +96,10 @@ class Arreglo
     /** \brief Destructor de arreglo. */
     ~Arreglo();
 
-    /** \brief Operación de lectura. */
+    /** \brief Operación de subíndice (no constante). */
+    Utilidades::IntermediarioDeArreglo<tipo> operator[](int indice);
+
+    /** \brief Operación de subíndice (constante). */
     tipo operator[](int indice) const;
 
     /** \brief Operación de escritura. */
@@ -86,36 +119,16 @@ class Arreglo
 
     /** \brief Apuntador a sección de memoria con el contenido del arreglo.*/
     tipo *mArregloInterno;
+
+  private:
+
+    /** \brief Función de impresión como amiga. */
+    friend std::ostream& operator<< <tipo>(
+      std::ostream& flujo, const Arreglo<tipo>& arreglo);
+
+    /** \brief Clase intermediario como amiga. */
+    friend class Utilidades::IntermediarioDeArreglo<tipo>;
 };
-
-/** \brief Impresión de un arreglo. */
-template <typename tipo>
-std::ostream& operator<<(std::ostream& flujo, const Arreglo<tipo>& arreglo);
-
-/** \brief Concatenación de dos arreglos. */
-template <typename tipo>
-Arreglo<tipo> operator+(const Arreglo<tipo>& arregloUno,
-  const Arreglo<tipo>& arregloDos);
-
-/** \brief Comparación de igualdad entre arreglos. */
-template <typename tipo>
-bool operator==(const Arreglo<tipo>& arregloUno,
-  const Arreglo<tipo>& arregloDos);
-
-/** \brief Comparación de desigualdad entre arreglos. */
-template <typename tipo>
-bool operator!=(const Arreglo<tipo>& arregloUno,
-  const Arreglo<tipo>& arregloDos);
-
-/** \brief Convierte el número dado en un arreglo. */
-template <typename tipoDeArreglo, typename tipoDeNumero>
-Arreglo<tipoDeArreglo> convertirAArreglo(tipoDeNumero numero,
-  int base, int tamanio);
-
-/** \brief Regresa la representación entera del arreglo. */
-template<typename tipoDeArreglo, typename tipoDeNumero>
-tipoDeNumero convertirANumero(
-  const Arreglo<tipoDeArreglo>& arreglo, int base);
 
 /* Definición **************************************************************/
 
@@ -341,21 +354,45 @@ Arreglo<tipo>::~Arreglo()
 }
 
 /**
- * Regresa el elemento del arreglo en la posición dada.
+ * Crea un nuevo intermediario con el arreglo asociado a la posición dada.
+ * Esta es la operación que el compilador resuelve en la gran mayoría de
+ * los casos; la otra (operator[](int indice) const) solo se utiliza cuando el
+ * arreglo es constante.
  *
- * \return Elemento en la posición solicitada.
+ * La principal función de esto es poder hacer asignaciones con este operador:
+ * ```
+ * Arreglo<int> prueba {1, 2, 3};
+ * prueba[0] = 9;
+ * ```
+ *
+ * «prueba[0]» regresa una instancia de IntermediarioDeArreglo, la cual tiene
+ * una referencia al índice dado. IntermediarioDeArreglo sobreescribe la
+ * operación de asignación.
+ *
+ * \return Instancia de intermediario asociado al índice dado.
  *
  * \todo Comprobación de índice válido.
  */
 
 template<typename tipo>
-//IntermediarioDeArreglo<tipo> Arreglo<tipo>::operator[](
+Utilidades::IntermediarioDeArreglo<tipo> Arreglo<tipo>::operator[](
+  int indice                             /**< Índice de elemento. */
+)
+{
+  return Utilidades::IntermediarioDeArreglo<tipo>(*this, indice);
+}
+
+/**
+ * Regresa el elemento que hay en el índice dado. A diferencia de
+ * operator[](int indice) esta operación solamente se utiliza cuando se trata
+ * con arreglos constantes.
+ */
+
+template<typename tipo>
 tipo Arreglo<tipo>::operator[](
-  int indice /**< Índice de elemento. */
-//)
+  int indice                             /**< Índice de elemento. */
 ) const
 {
-  //return IntermediarioDeArreglo<tipo>(*this, indice);
   return mArregloInterno[indice];
 }
 
@@ -363,12 +400,23 @@ tipo Arreglo<tipo>::operator[](
  * Guarda el valor dado en la posición dada.
  *
  * \todo comprobación de índice válido.
+ *
+ * \deprecated A partir de este commit el intermediario de arreglo funciona
+ * para hacer asignaciones:
+ * ```
+ * Arreglo<int> prueba {1, 2, 3};
+ * prueba[0] = 9;
+ * ```
+ * «prueba[0]» regresa una instancia de Utilidades::IntermediarioDeArreglo, la
+ * cual tiene una referencia al índice dado. IntermediarioDeArreglo
+ * sobreescribe la operación de asignación.
  */
 
 template<typename tipo>
+[[ deprecated("No es lo que se espera de un arreglo; mejor usar [].") ]]
 void Arreglo<tipo>::colocar(
-  int indice, /**< Posición del arreglo. */
-  tipo valor  /**< Valor a guardar. */
+  int indice,                            /**< Posición del arreglo. */
+  tipo valor                             /**< Valor a guardar. */
 )
 {
   mArregloInterno[indice] = valor;
@@ -416,7 +464,7 @@ Arreglo<tipo> Arreglo<tipo>::partir(
     : tamanioDeDivision * (parte + 1) + desviacion;
   Arreglo<tipo> subArreglo (fin - inicio);
   for (int i = inicio, j = 0; i < fin; i++, j++)
-    subArreglo.colocar(j, mArregloInterno[i]);
+    subArreglo[j] = mArregloInterno[i];
   return subArreglo;
 }
 
@@ -438,7 +486,7 @@ std::ostream& operator<<(
 )
 {
   for (int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
-    flujo << arreglo[i] << " ";
+    flujo << arreglo.mArregloInterno[i] << " ";
   return flujo;
 }
 
@@ -460,7 +508,7 @@ Arreglo<tipo> operator+(
   int total = mitad + arregloDos.obtenerNumeroDeElementos();
   Arreglo<tipo> resultado (total);
   for (int i = 0; i < total; i++)
-    resultado.colocar(i, (i < mitad) ? arregloUno[i] : arregloDos[i - mitad]);
+    resultado[i] = (i < mitad) ? arregloUno[i] : arregloDos[i - mitad];
   return resultado;
 }
 
@@ -530,7 +578,7 @@ Arreglo<tipoDeArreglo> convertirAArreglo(
   {
     tipoDeNumero equivalentePotencia = potencia<tipoDeNumero>(base, i);
     tipoDeArreglo digito = floor(numero / equivalentePotencia);
-    resultado.colocar(i, digito);
+    resultado[i] = digito;
     numero -= digito * equivalentePotencia;
   }
   return resultado;

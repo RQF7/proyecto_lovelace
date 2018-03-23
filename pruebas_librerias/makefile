@@ -14,7 +14,7 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 cryptopp/prueba_CBC_MAC.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
-BANDERAS_GENERALES	:= -std=c++11 -Wall -ggdb
+BANDERAS_GENERALES	:= -std=c++14 -Wall -ggdb
 
 $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)
 	mkdir -p $(CARPETA_BINARIOS)

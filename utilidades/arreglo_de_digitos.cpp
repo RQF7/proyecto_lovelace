@@ -113,6 +113,12 @@ ArregloDeDigitos::ArregloDeDigitos()
  * \deprecated Esta función solo existe por razones de compatibilidad; en
  * realidad se espera que siempre que se cree un arreglo, este se inicialice
  * desde el contructor (como ocurriría con un arreglo de apuntadores).
+ * Además, desde este commit, las asignaciones en arreglos funcionan con
+ * el operador de subíndice.
+ *
+ * \todo Si siempre resulta que la primera razón para marcar esto como obsoleto
+ * no es válida, entonces hay que replicar el IntermediarioDeArreglo en esta
+ * clase (un IntermediarioDeArregloDeDigitos).
  */
 
 void ArregloDeDigitos::colocar(
@@ -120,8 +126,8 @@ void ArregloDeDigitos::colocar(
   int valor                           /**< Dígito a colocar. */
 )
 {
-  //mNumero -= mArregloInterno[indice] * potencia<entero>(mBase, indice);
-  Arreglo<int>::colocar(indice, valor);
+  mNumero -= mArregloInterno[indice] * potencia<entero>(mBase, indice);
+  mArregloInterno[indice] = valor;
   mCadena[indice] = valor + 48;
   mNumero += valor * potencia<entero>(mBase, mNumeroDeElementos - indice - 1);
 }

@@ -57,37 +57,37 @@ bool ArregloPrueba::probarFuncionalidadBasica()
 {
   Arreglo<int> arreglo (10);
   for (int i = 0; i < 10; i++)
-    arreglo.colocar(i, i + 1);
+    arreglo[i] = i + 1;
   cout << arreglo << endl;
   if (arreglo[3] != 4 || arreglo[7] != 8 || arreglo[9] != 10)
     return false;
 
   Arreglo<char> arreglo2 (3);
-  arreglo2.colocar(0, 'A');
-  arreglo2.colocar(1, 'B');
-  arreglo2.colocar(2, 'C');
+  arreglo2[0] = 'A';
+  arreglo2[1] = 'B';
+  arreglo2[2] = 'C';
   cout << arreglo2 << endl;
   if (arreglo2[0] != 'A' || arreglo2[1] != 'B' || arreglo2[2] != 'C')
     return false;
 
   Arreglo<vector<int>> arreglo3 (2);
-  arreglo3.colocar(0, {0, 1, 2, 3, 4});
-  arreglo3.colocar(1, {5, 6, 7, 8, 9});
+  arreglo3[0] = {0, 1, 2, 3, 4};
+  arreglo3[1] = {5, 6, 7, 8, 9};
   if (arreglo3[0][0] != 0 || arreglo3[0][3] != 3 || arreglo3[1][4] != 9)
     return false;
 
   Arreglo<string> arreglo4 (3);
-  arreglo4.colocar(0, "Ricardo");
-  arreglo4.colocar(1, "Quezada");
-  arreglo4.colocar(2, "Figueroa");
+  arreglo4[0] = "Ricardo";
+  arreglo4[1] = "Quezada";
+  arreglo4[2] = "Figueroa";
   cout << arreglo4 << endl;
-  if (arreglo4[0] != "Ricardo" || arreglo4[2] != "Figueroa")
+  if (string{arreglo4[0]} != "Ricardo" || string{arreglo4[2]} != "Figueroa")
     return false;
 
-//  Arreglo<Arreglo<int>> arreglo5 (2);
-//  arreglo5.colocar(0, {1, 2});
-//  arreglo5.colocar(1, {3, 4});
-//  cout << arreglo5 << endl;
+  Arreglo<Arreglo<int>> arreglo5 (2);
+  arreglo5[0] = {1, 2, 3, 4};
+  arreglo5[1] = {5, 6, 7, 8};
+  cout << arreglo5 << endl;
 
   return true;
 }
@@ -103,7 +103,7 @@ bool ArregloPrueba::probarParticiones()
 {
   Arreglo<int> arreglo (10);
   for (int i = 0; i < 10; i++)
-    arreglo.colocar(i, i + 1);
+    arreglo[i] = i + 1;
 
   /* Partición exacta: 5 */
   auto primerMedio = arreglo.partir(2, 0);
@@ -153,7 +153,7 @@ bool ArregloPrueba::probarParticiones()
   /* Partición impar con desviación: 5, 2 y 1, 6 */
   Arreglo<int> arregloDos (7);
   for (int i = 0; i < 7; i++)
-    arregloDos.colocar(i, i + 1);
+    arregloDos[i] = i + 1;
 
   auto primerMedioCompuestoTres = arregloDos.partir(2, 0, 2);
   auto segundoMedioCompuestoTres = arregloDos.partir(2, 1, 2);
@@ -186,9 +186,9 @@ bool ArregloPrueba::probarConcatenacion()
   Arreglo<int> arregloUno (5), arregloDos (5), arregloTres (5);
   for (int i = 0; i < 5; i++)
   {
-    arregloUno.colocar(i, i + 1);
-    arregloDos.colocar(i, (i + 1) + 5);
-    arregloTres.colocar(i, (i + 1) + 10);
+    arregloUno[i] = i + 1;
+    arregloDos[i] = (i + 1) + 5;
+    arregloTres[i] = (i + 1) + 10;
   }
   auto compuestoUno = arregloUno + arregloDos;
   auto compuestoDos = arregloUno + arregloDos + arregloTres;
@@ -226,7 +226,7 @@ bool ArregloPrueba::probarConstructores()
     return false;
 
   /* Asignación por copia */
-  arreglo.colocar(1, 50);
+  arreglo[1] = 50;
   cout << "Asignación por copia (antes):" << endl
        << arregloCopia << endl;
   if (arregloCopia[1] == 50)
@@ -260,7 +260,7 @@ bool ArregloPrueba::probarOperadoresComparacion()
 {
   Arreglo<int> arreglo (5);
   for (int i = 0; i < 5; i++)
-    arreglo.colocar(i, i + 1);
+    arreglo[i] = i + 1;
 
   /* Comparación de igualdad */
   cout << "Prueba de igualdad: " << endl

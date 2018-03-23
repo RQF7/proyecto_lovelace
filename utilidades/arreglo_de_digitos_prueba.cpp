@@ -55,16 +55,16 @@ bool ArregloDeDigitosPrueba::probarConstructores()
  * inicializar el arreglo desde el contructor, y no cambiarlo durante su vida
  * útil.
  *
- * \retrun Estado de la prueba. 
+ * \retrun Estado de la prueba.
  */
 
 bool ArregloDeDigitosPrueba::probarColocar()
 {
   ArregloDeDigitos prueba(4);
-  prueba.colocar(0, 1);
-  prueba.colocar(1, 2);
-  prueba.colocar(2, 3);
-  prueba.colocar(3, 4);
+  prueba[0] = 1;
+  prueba[1] = 2;
+  prueba[2] = 3;
+  prueba[3] = 4;
   cout << "Primera prueba: " << prueba << " "
        << prueba.obtenerNumero() << endl;
   if (prueba.obtenerNumero() != 1234ull ||

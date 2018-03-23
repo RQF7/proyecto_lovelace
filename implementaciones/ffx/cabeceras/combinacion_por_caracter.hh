@@ -77,7 +77,7 @@ namespace Implementaciones
     int tamanio {entrada[0].obtenerNumeroDeElementos()};
     Arreglo<tipo> resultado(tamanio);
     for (int i = 0; i < tamanio; i++)
-      resultado.colocar(i, modulo<tipo>((entrada[0][i] + entrada[1][i]), mBase));
+      resultado[i] = modulo<tipo>((entrada[0][i] + entrada[1][i]), mBase);
     return resultado;
   }
 
@@ -99,7 +99,7 @@ namespace Implementaciones
     int tamanio {entrada[0].obtenerNumeroDeElementos()};
     Arreglo<tipo> resultado(tamanio);
     for (int i = 0; i < tamanio; i++)
-      resultado.colocar(i, modulo<tipo>((entrada[0][i] - entrada[1][i]), mBase));
+      resultado[i] = modulo<tipo>((entrada[0][i] - entrada[1][i]), mBase);
     return resultado;
   }
 

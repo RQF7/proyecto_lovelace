@@ -163,9 +163,9 @@ namespace Implementaciones
     Arreglo<int> ladoIzquierdo (8), ladoDerecho(8);
     for (int i = 0; i < 16; i++)
       if (i < 8)
-        ladoIzquierdo.colocar(i, mac[i]);
+        ladoIzquierdo[i] = mac[i];
       else
-        ladoDerecho.colocar(i - 8, mac[i]);
+        ladoDerecho[i - 8] = mac[i];
 
     /* Formatear salida a longitud adecuada. */
     entero numeroIzquierdo = convertirANumero<int, entero>(ladoIzquierdo, 256);
