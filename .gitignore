@@ -26,3 +26,6 @@ _site
 
 % Archivos temporales de quién sabe qué
 *.fuse*
+
+% Archivos de llaves
+*.llave
