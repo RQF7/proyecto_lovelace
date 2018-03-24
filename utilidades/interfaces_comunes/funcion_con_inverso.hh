@@ -46,8 +46,8 @@ namespace Utilidades
        * sino que también para *operar*.
        */
 
-      virtual tipoDeVuelta deoperar(
-        const std::vector<tipoDeIda> &entrada) = 0;
+      virtual tipoDeIda deoperar(
+        const std::vector<tipoDeVuelta> &entrada) = 0;
   };
 }
 

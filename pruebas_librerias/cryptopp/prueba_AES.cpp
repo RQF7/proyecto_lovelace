@@ -14,12 +14,13 @@ using namespace std;
 using namespace CryptoPP;
 using namespace PruebasCryptopp;
 
-/**/builds/69077700
+/**
  * Registra las funciones de prueba de AES en la lista de funciones a probar
  * que mantiene la clase de Prueba.
  */
 
 PruebaAES::PruebaAES()
+: Utilidades::Prueba{"pruebas con AES"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "Uso de constantes",

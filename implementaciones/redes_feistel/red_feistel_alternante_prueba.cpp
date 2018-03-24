@@ -14,6 +14,7 @@ using namespace ImplementacionesPruebas;
 using namespace std;
 
 RedFeistelAlternantePrueba::RedFeistelAlternantePrueba()
+: Utilidades::Prueba{"Pruebas de redes Feistel alternantes"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "operaciones de cifrado y descifrado",

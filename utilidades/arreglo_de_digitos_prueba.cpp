@@ -14,6 +14,7 @@ using namespace UtilidadesPruebas;
 using namespace std;
 
 ArregloDeDigitosPrueba::ArregloDeDigitosPrueba()
+: Prueba{"pruebas para el arreglo de dígitos"}
 {
   mListaDePruebas.push_back(FuncionDePrueba{
     "prueba la operación de los constructores",

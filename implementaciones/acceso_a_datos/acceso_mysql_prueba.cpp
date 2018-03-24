@@ -19,6 +19,7 @@ using namespace sql;
 using namespace std;
 
 AccesoMySQLPrueba::AccesoMySQLPrueba()
+: Utilidades::Prueba{"pruebas de acceso a MySQL"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "Prueba inserciones y búsquedas",

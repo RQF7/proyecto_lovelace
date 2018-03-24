@@ -15,6 +15,7 @@ using namespace UtilidadesPruebas;
 using namespace std;
 
 ArregloPrueba::ArregloPrueba()
+: Prueba{"prueba de arreglos"}
 {
   mListaDePruebas.push_back(FuncionDePrueba{
     "funcionalidad básica",

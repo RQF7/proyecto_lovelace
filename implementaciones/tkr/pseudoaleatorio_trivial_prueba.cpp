@@ -15,6 +15,7 @@ using namespace ImplementacionesPruebas;
 using namespace std;
 
 PseudoaleatorioTrivialPrueba::PseudoaleatorioTrivialPrueba()
+: Utilidades::Prueba{"pruebas de pseudoaleatorio trivial"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "generación de tokens trivial",

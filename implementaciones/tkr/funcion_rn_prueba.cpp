@@ -22,6 +22,7 @@ using namespace CryptoPP;
 using namespace std;
 
 FuncionRNPrueba::FuncionRNPrueba()
+: Utilidades::Prueba{"pruebas de función RN"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "Redistribución de bytes en arreglo",

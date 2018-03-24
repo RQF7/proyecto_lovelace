@@ -23,6 +23,7 @@ using namespace PruebasCryptopp;
  */
 
 PruebaCBCMAC::PruebaCBCMAC()
+: Utilidades::Prueba{"pruebas de CBC MAC"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "Proceso de generación de MAC",

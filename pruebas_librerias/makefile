@@ -8,6 +8,7 @@ CARPETA_BINARIOS		:= binarios
 CARPETA_OBJETOS			:= objetos
 LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 utilidades/prueba.cpp \
+											 utilidades/conjunto_de_pruebas.cpp \
 											 cryptopp/prueba_AES.cpp \
 											 cryptopp/prueba_salsa20.cpp \
 											 cryptopp/prueba_SHA256.cpp \
@@ -25,6 +26,11 @@ $(CARPETA_OBJETOS)/programa_de_pruebas.o: programa_de_pruebas.cpp
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/utilidades/prueba.o: ../utilidades/prueba.cpp
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/conjunto_de_pruebas.o: \
+	../utilidades/conjunto_de_pruebas.cpp
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 

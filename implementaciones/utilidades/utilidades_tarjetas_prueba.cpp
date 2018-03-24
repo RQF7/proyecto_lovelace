@@ -13,6 +13,7 @@ using namespace ImplementacionesPruebas;
 using namespace std;
 
 UtilidadesTarjetasPrueba::UtilidadesTarjetasPrueba()
+: Utilidades::Prueba{"pruebas de utilidades de tarjetas"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "Cálculo de dígito verificador: algoritmo de Luhn",

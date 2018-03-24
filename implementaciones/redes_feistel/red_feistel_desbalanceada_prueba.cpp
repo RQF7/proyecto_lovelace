@@ -14,6 +14,7 @@ using namespace ImplementacionesPruebas;
 using namespace std;
 
 RedFeistelDesbalanceadaPrueba::RedFeistelDesbalanceadaPrueba()
+: Utilidades::Prueba{"pruebas de redes Feistel desbalanceadas"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "operaciones de cifrado y descifrado",

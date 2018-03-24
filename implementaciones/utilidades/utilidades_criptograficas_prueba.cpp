@@ -12,9 +12,10 @@ using namespace ImplementacionesPruebas;
 using namespace std;
 
 UtilidadesCriptograficasPrueba::UtilidadesCriptograficasPrueba()
+: Utilidades::Prueba{"pruebas de utilidades criptográficas"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
-    "Generación de llaves pseudoaleatorias.",
+    "generación de llaves pseudoaleatorias.",
     UtilidadesCriptograficasPrueba::probarGeneracionDeLlaves
   });
 }

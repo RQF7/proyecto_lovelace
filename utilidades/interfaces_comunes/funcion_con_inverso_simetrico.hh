@@ -54,7 +54,7 @@ namespace Utilidades
        * lleva a cabo.
        */
 
-      tipoDeVuelta deoperar(const std::vector<tipoDeIda> &entrada)
+      tipoDeIda deoperar(const std::vector<tipoDeVuelta> &entrada)
       override
       {
         return this->operar(entrada);

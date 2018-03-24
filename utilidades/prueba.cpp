@@ -24,13 +24,13 @@ bool Prueba::probar()
   bool resultadoGlobal = true;
   for (auto prueba : mListaDePruebas)
   {
-    cout << "==> Prueba " << contador << ": " << prueba.obtenerDescripcion()
-         << endl
-         << "================================================================="
+    cout << "==> Subprueba " << contador << " de " << mListaDePruebas.size()
+         << ": " << prueba.obtenerDescripcion() << endl
+         << "-------------------------------------------------------------------"
          << endl;
     bool resultadoLocal = (prueba.obtenerFuncion())();
     cout
-         << "================================================================="
+         << "-------------------------------------------------------------------"
          << endl
          << "==> Resultado: " << (resultadoLocal ? "aceptado" : "rechazado")
          << endl << endl;

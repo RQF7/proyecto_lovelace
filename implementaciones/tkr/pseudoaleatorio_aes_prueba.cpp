@@ -21,6 +21,7 @@ using namespace CryptoPP;
 using namespace std;
 
 PseudoaleatorioAESPrueba::PseudoaleatorioAESPrueba()
+: Utilidades::Prueba{"pruebas de AES pseudoaleatorio"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "generación de bloque pseudoaleatorio",

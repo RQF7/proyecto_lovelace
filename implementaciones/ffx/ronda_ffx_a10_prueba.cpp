@@ -19,6 +19,7 @@ using namespace CryptoPP;
 using namespace std;
 
 RondaFFXA10Prueba::RondaFFXA10Prueba()
+: Utilidades::Prueba{"pruebas de la función de ronda de ffx"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "operaciones de cifrado y descifrado",

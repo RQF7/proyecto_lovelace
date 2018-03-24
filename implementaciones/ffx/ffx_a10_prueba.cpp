@@ -19,6 +19,7 @@ using namespace CryptoPP;
 using namespace std;
 
 FFXA10Prueba::FFXA10Prueba()
+: Utilidades::Prueba{"pruebas de ffx a10"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "operación de ffx a10",

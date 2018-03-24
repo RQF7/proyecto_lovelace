@@ -24,6 +24,7 @@ using namespace CryptoPP;
 using namespace std;
 
 TKRPrueba::TKRPrueba()
+: Utilidades::Prueba{"pruebas de TKR"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "operación con miembros triviales",

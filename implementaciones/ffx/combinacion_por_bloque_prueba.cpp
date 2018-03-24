@@ -14,6 +14,7 @@ using namespace ImplementacionesPruebas;
 using namespace std;
 
 CombinacionPorBloquePrueba::CombinacionPorBloquePrueba()
+: Utilidades::Prueba{"pruebas de combinación por bloque"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "operaciones de suma y resta por bloque",

@@ -12,7 +12,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 intermediario_de_arreglo_de_digitos.cpp \
 											 arreglo_de_digitos_prueba.cpp \
 											 utilidades_matematicas_prueba.cpp \
-											 prueba.cpp
+											 prueba.cpp \
+											 conjunto_de_pruebas.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
 BANDERAS_GENERALES	:= -std=c++14 -Wall -ggdb
@@ -52,6 +53,10 @@ $(CARPETA_OBJETOS)/intermediario_de_arreglo_de_digitos.o: \
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/prueba.o: prueba.cpp
+	mkdir -p $(CARPETA_OBJETOS)
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/conjunto_de_pruebas.o: conjunto_de_pruebas.cpp
 	mkdir -p $(CARPETA_OBJETOS)
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 

@@ -32,6 +32,7 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 utilidades/utilidades_criptograficas_prueba.cpp \
 											 utilidades/algoritmo_tokenizador.cpp \
 											 utilidades/prueba.cpp \
+											 utilidades/conjunto_de_pruebas.cpp \
 											 utilidades/arreglo_de_digitos.cpp \
 											 utilidades/intermediario_de_arreglo_de_digitos.cpp
 FUENTES_DOS					:= lovelace.cpp \
@@ -229,6 +230,11 @@ $(CARPETA_OBJETOS)/bps/codificador.o: bps/codificador.cpp \
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/utilidades/prueba.o: ../utilidades/prueba.cpp
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/conjunto_de_pruebas.o: \
+	../utilidades/conjunto_de_pruebas.cpp
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 

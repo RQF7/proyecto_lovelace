@@ -14,6 +14,7 @@ using namespace ImplementacionesPruebas;
 using namespace std;
 
 CombinacionPorCaracterPrueba::CombinacionPorCaracterPrueba()
+: Utilidades::Prueba{"pruebas de combinación por caracter"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "operaciones de suma y resta por caracter",

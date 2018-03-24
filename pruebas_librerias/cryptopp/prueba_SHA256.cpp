@@ -20,6 +20,7 @@ using namespace PruebasCryptopp;
  */
 
 PruebaSHA256::PruebaSHA256()
+: Utilidades::Prueba{"pruebas con SHA256"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "Obtener la digestión del mensaje",

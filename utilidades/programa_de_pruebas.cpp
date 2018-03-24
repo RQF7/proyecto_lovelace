@@ -7,6 +7,8 @@
 
 #include "cabeceras/arreglo_prueba.hh"
 #include "cabeceras/arreglo_de_digitos_prueba.hh"
+#include "cabeceras/conjunto_de_pruebas.hh"
+#include "cabeceras/prueba.hh"
 #include "cabeceras/utilidades_matematicas_prueba.hh"
 #include <iostream>
 #include <vector>
@@ -23,14 +25,13 @@ using namespace std;
 
 int main()
 {
-  vector<Prueba> clasesDePrueba
+  ConjuntoDePruebas pruebas
   {
-    ArregloPrueba {},
-    UtilidadesMatematicasPrueba {},
-    ArregloDeDigitosPrueba {}
+    "PRUEBAS DE UTILIDADES",
+    {
+      ArregloPrueba {},
+      UtilidadesMatematicasPrueba {},
+      ArregloDeDigitosPrueba {}
+    }
   };
-  for (auto claseDePrueba : clasesDePrueba)
-    if (!claseDePrueba.probar())
-      exit(-1);
-  exit(0);
 }

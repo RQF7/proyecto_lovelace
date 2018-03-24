@@ -8,6 +8,8 @@
 #include "cryptopp/cabeceras/prueba_salsa20.hh"
 #include "cryptopp/cabeceras/prueba_SHA256.hh"
 #include "cryptopp/cabeceras/prueba_CBC_MAC.hh"
+#include "../utilidades/cabeceras/prueba.hh"
+#include "../utilidades/cabeceras/conjunto_de_pruebas.hh"
 #include <iostream>
 #include <vector>
 
@@ -29,15 +31,14 @@ using namespace std;
 
 int main()
 {
-  vector<Utilidades::Prueba> clasesDePrueba
+  Utilidades::ConjuntoDePruebas prueba
   {
-    PruebasCryptopp::PruebaAES {},
-    PruebasCryptopp::PruebaSalsa20 {},
-    PruebasCryptopp::PruebaSHA256 {},
-    PruebasCryptopp::PruebaCBCMAC {}
+    "PRUEBAS CRYPTOPP",
+    {
+      PruebasCryptopp::PruebaAES {},
+      PruebasCryptopp::PruebaSalsa20 {},
+      PruebasCryptopp::PruebaSHA256 {},
+      PruebasCryptopp::PruebaCBCMAC {}
+    }
   };
-  for (auto claseDePrueba : clasesDePrueba)
-    if (!claseDePrueba.probar())
-      exit(-1);
-  exit(0);
 }

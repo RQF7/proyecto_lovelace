@@ -18,7 +18,9 @@
 #include "tkr/cabeceras/tkr_prueba.hh"
 #include "utilidades/cabeceras/utilidades_criptograficas_prueba.hh"
 #include "utilidades/cabeceras/utilidades_tarjetas_prueba.hh"
+#include "../utilidades/cabeceras/conjunto_de_pruebas.hh"
 #include <iostream>
+#include "../utilidades/cabeceras/prueba.hh"
 #include <vector>
 
 using namespace ImplementacionesPruebas;
@@ -32,25 +34,24 @@ using namespace std;
 
 int main()
 {
-  vector<Utilidades::Prueba> clasesDePrueba
+  Utilidades::ConjuntoDePruebas pruebas
   {
-    RedFeistelPrueba {},
-    RedFeistelAlternantePrueba {},
-    RedFeistelDesbalanceadaPrueba {},
-    CombinacionPorCaracterPrueba {},
-    CombinacionPorBloquePrueba {},
-    RondaFFXA10Prueba {},
-    FFXA10Prueba {},
-    UtilidadesTarjetasPrueba {},
-    PseudoaleatorioTrivialPrueba {},
-    PseudoaleatorioAESPrueba {},
-    FuncionRNPrueba {},
-    TKRPrueba {},
-    AccesoMySQLPrueba {},
-    UtilidadesCriptograficasPrueba {}
+    "PRUEBAS DE IMPLEMENTACIONES",
+    {
+      RedFeistelPrueba {},
+      RedFeistelAlternantePrueba {},
+      RedFeistelDesbalanceadaPrueba {},
+      CombinacionPorCaracterPrueba {},
+      CombinacionPorBloquePrueba {},
+      RondaFFXA10Prueba {},
+      FFXA10Prueba {},
+      UtilidadesTarjetasPrueba {},
+      PseudoaleatorioTrivialPrueba {},
+      PseudoaleatorioAESPrueba {},
+      FuncionRNPrueba {},
+      TKRPrueba {},
+      AccesoMySQLPrueba {},
+      UtilidadesCriptograficasPrueba {}
+    }
   };
-  for (auto claseDePrueba : clasesDePrueba)
-    if (!claseDePrueba.probar())
-      exit(-1);
-  exit(0);
 }

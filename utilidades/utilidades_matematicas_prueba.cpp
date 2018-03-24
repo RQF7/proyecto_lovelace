@@ -14,6 +14,7 @@ using namespace UtilidadesPruebas;
 using namespace std;
 
 UtilidadesMatematicasPrueba::UtilidadesMatematicasPrueba()
+: Prueba{"pruebas de las utilidades matemáticas"}
 {
   mListaDePruebas.push_back(FuncionDePrueba{
     "prueba la operación de potencia",

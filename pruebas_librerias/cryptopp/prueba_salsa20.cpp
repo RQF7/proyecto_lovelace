@@ -21,6 +21,7 @@ using namespace PruebasCryptopp;
  */
 
 PruebaSalsa20::PruebaSalsa20()
+: Utilidades::Prueba{"pruebas con salsa20"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
     "Proceso de cifrado y descifrado",
