@@ -93,7 +93,7 @@ install:
 
 script:
   - eval "${MATRIX_EVAL}"
-  - make -C pruebas_librerias correr
+# - make -C pruebas_librerias correr
   - make -C implementaciones correr
   - make -C utilidades correr
 
