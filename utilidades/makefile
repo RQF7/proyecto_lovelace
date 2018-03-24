@@ -9,6 +9,7 @@ CARPETA_OBJETOS			:= objetos
 LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 arreglo_prueba.cpp \
 											 arreglo_de_digitos.cpp \
+											 intermediario_de_arreglo_de_digitos.cpp \
 											 arreglo_de_digitos_prueba.cpp \
 											 utilidades_matematicas_prueba.cpp \
 											 prueba.cpp
@@ -41,6 +42,12 @@ $(CARPETA_OBJETOS)/arreglo_de_digitos_prueba.o: arreglo_de_digitos_prueba.cpp \
 
 $(CARPETA_OBJETOS)/utilidades_matematicas_prueba.o: \
 	utilidades_matematicas_prueba.cpp cabeceras/utilidades_matematicas.hh
+	mkdir -p $(CARPETA_OBJETOS)
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/intermediario_de_arreglo_de_digitos.o: \
+	intermediario_de_arreglo_de_digitos.cpp \
+	cabeceras/intermediario_de_arreglo_de_digitos.hh
 	mkdir -p $(CARPETA_OBJETOS)
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 

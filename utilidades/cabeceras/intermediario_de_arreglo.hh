@@ -15,7 +15,7 @@ class Arreglo;
 namespace Utilidades
 {
   /**
-   * \brief Intermediario de arreglo.
+   * \brief Clase intermediario para arreglo.
    *
    * Patrón de diseño de intermediario (Proxy object). Permite seguir teniendo
    * acceso a un elemento dado del arreglo después de utilizar el operador de
@@ -34,7 +34,7 @@ namespace Utilidades
       IntermediarioDeArreglo(Arreglo<tipo> &arreglo, int indice);
 
       /** \brief Sobrecarga de operador de asignación. */
-      tipo& operator=(tipo elemento);
+      virtual tipo& operator=(tipo elemento);
 
       /** \brief Operador de conversión implícita */
       operator tipo&();
@@ -92,7 +92,7 @@ namespace Utilidades
       inline auto operator[](int indice)
         { return mArreglo.mArregloInterno[mIndice][indice]; }
 
-    private:
+    protected:
 
       /** \brief Referencia a arreglo. */
       Arreglo<tipo>& mArreglo;
@@ -125,8 +125,7 @@ namespace Utilidades
     tipo elemento                     /* Elemento a escribir. */
   )
   {
-   mArreglo.mArregloInterno[mIndice] = elemento;
-   return  mArreglo.mArregloInterno[mIndice];
+    return  mArreglo.mArregloInterno[mIndice] = elemento;
   }
 
   /**

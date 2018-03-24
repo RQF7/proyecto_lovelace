@@ -103,7 +103,7 @@ class Arreglo
     tipo operator[](int indice) const;
 
     /** \brief Operación de escritura. */
-    void colocar(int indice, tipo valor);
+    virtual void colocar(int indice, tipo valor);
 
     /** \brief Regresa el tamaño del arreglo. */
     inline int obtenerNumeroDeElementos() const { return mNumeroDeElementos; }
@@ -175,6 +175,7 @@ Arreglo<tipo>::Arreglo(
 : mNumeroDeElementos {numeroDeElementos},
   mArregloInterno {new tipo[mNumeroDeElementos]}
 {
+  //memset(mArregloInterno, 0, mNumeroDeElementos);
 }
 
 /**

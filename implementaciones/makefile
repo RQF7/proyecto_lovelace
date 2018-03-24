@@ -32,7 +32,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 utilidades/utilidades_criptograficas_prueba.cpp \
 											 utilidades/algoritmo_tokenizador.cpp \
 											 utilidades/prueba.cpp \
-											 utilidades/arreglo_de_digitos.cpp
+											 utilidades/arreglo_de_digitos.cpp \
+											 utilidades/intermediario_de_arreglo_de_digitos.cpp
 FUENTES_DOS					:= lovelace.cpp \
 											 acceso_a_datos/acceso_mysql.cpp \
 											 bps/cifrador_de_ronda.cpp \
@@ -47,7 +48,8 @@ FUENTES_DOS					:= lovelace.cpp \
 											 utilidades/utilidades_tarjetas.cpp \
 											 utilidades/utilidades_criptograficas.cpp \
 											 utilidades/algoritmo_tokenizador.cpp \
-											 utilidades/arreglo_de_digitos.cpp
+											 utilidades/arreglo_de_digitos.cpp \
+											 utilidades/intermediario_de_arreglo_de_digitos.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
 OBJETOS_DOS		      := $(addprefix $(CARPETA_OBJETOS)/, \
@@ -233,6 +235,12 @@ $(CARPETA_OBJETOS)/utilidades/prueba.o: ../utilidades/prueba.cpp
 $(CARPETA_OBJETOS)/utilidades/arreglo_de_digitos.o: \
 	../utilidades/arreglo_de_digitos.cpp \
 	../utilidades/cabeceras/arreglo_de_digitos.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	g++ $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/intermediario_de_arreglo_de_digitos.o: \
+	../utilidades/intermediario_de_arreglo_de_digitos.cpp \
+	../utilidades/cabeceras/intermediario_de_arreglo_de_digitos.hh
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	g++ $(BANDERAS_GENERALES) -c $< -o $@
 

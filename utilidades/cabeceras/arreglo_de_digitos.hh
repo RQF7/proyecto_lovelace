@@ -7,6 +7,7 @@
 #define __ARREGLO_DE_DIGITOS__
 
 #include "arreglo.hh"
+#include "intermediario_de_arreglo_de_digitos.hh"
 #include "utilidades_matematicas.hh"
 #include <ostream>
 #include <string>
@@ -38,8 +39,12 @@ class ArregloDeDigitos : public Arreglo<int>
     /** \brief Arreglo vacío, sin reserva de memoria. */
     ArregloDeDigitos();
 
+    /** \brief Acceso con subíndice. */
+    Utilidades::IntermediarioDeArregloDeDigitos operator[](int indice);
+
     /** \brief Operación de escritura. */
-    void colocar(int indice, int valor);
+    [[deprecated]]
+    void colocar(int indice, int valor) override;
 
     /** \brief Regresa la representación en cadena. */
     inline std::string obtenerCadena() const { return mCadena; }
@@ -61,6 +66,9 @@ class ArregloDeDigitos : public Arreglo<int>
 
     /** \brief Base en la que se encuentran los dígitos. */
     int mBase;
+
+    /** El intermediario es amigo. */
+    friend class Utilidades::IntermediarioDeArregloDeDigitos;
 };
 
 /** \brief Impresión de un arreglo de dígitos. */

@@ -82,6 +82,8 @@ ArregloDeDigitos::ArregloDeDigitos(
 /**
  * Pasa el número de elementos a la superclase para reservar memoria.
  * La cadena y el número interno usan su valor por defecto.
+ * Inicializa todos los elementos del arreglo en 0 (para evitar interferencia
+ * de basura).
  */
 
 ArregloDeDigitos::ArregloDeDigitos(
@@ -92,6 +94,8 @@ ArregloDeDigitos::ArregloDeDigitos(
   mCadena (mNumeroDeElementos, '0'),
   mBase {base}
 {
+  for (int i = 0; i < mNumeroDeElementos; i++)
+    mArregloInterno[i] = 0;
 }
 
 /**
@@ -106,6 +110,26 @@ ArregloDeDigitos::ArregloDeDigitos()
 }
 
 /**
+ * Crea un nuevo objeto de Utilidades::IntermediarioDeArregloDeDigitos para
+ * hacer asignaciones con el operador de subíndice. No se puede
+ * simplemente heredar el comportamiento de la superclase (que es muy parecido)
+ * porque la asignación debe modificar las representaciones internas. Tampoco
+ * sobreescribe la operación equivalente de la superclase porque se necesita
+ * es un intermediario específico. Lo que sí se puede hacer, es que el
+ * intermediario del arreglo con dígitos hereda al intermediario normal; esto permite
+ * reutilizar algunas operaciones comunes.
+ *
+ * \return Instancia de intermediario asociado al índice dado.
+ */
+
+Utilidades::IntermediarioDeArregloDeDigitos ArregloDeDigitos::operator[](
+  int indice                             /**< Índice de elemento. */
+)
+{
+  return Utilidades::IntermediarioDeArregloDeDigitos(*this, indice);
+}
+
+/**
  * Llama a la función equivalente de la superclase y actualiza las
  * representaciones internas: coloca el caracter equivalente en la cadena y
  * opera el número interno.
@@ -116,11 +140,10 @@ ArregloDeDigitos::ArregloDeDigitos()
  * Además, desde este commit, las asignaciones en arreglos funcionan con
  * el operador de subíndice.
  *
- * \todo Si siempre resulta que la primera razón para marcar esto como obsoleto
- * no es válida, entonces hay que replicar el IntermediarioDeArreglo en esta
- * clase (un IntermediarioDeArregloDeDigitos).
+ * Después de este commit, queda reemplazada con el acceso mediante subíndices.
  */
 
+[[deprecated("usar operador de subíndice.")]]
 void ArregloDeDigitos::colocar(
   int indice,                         /**< Índice del arreglo interno. */
   int valor                           /**< Dígito a colocar. */

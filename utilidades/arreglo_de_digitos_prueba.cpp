@@ -71,5 +71,13 @@ bool ArregloDeDigitosPrueba::probarColocar()
     prueba.obtenerCadena() != "1234")
     return false;
 
+  prueba[0] = 5;
+  prueba[2] = 9;
+  cout << "Segunda prueba: " << prueba << " "
+       << prueba.obtenerNumero() << endl;
+  if (prueba.obtenerNumero() != 5294ull ||
+    prueba.obtenerCadena() != "5294")
+    return false;
+
   return true;
 }
