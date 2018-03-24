@@ -79,6 +79,7 @@ before_install:
   - sudo mv cryptopp/libcryptopp.a /usr/lib/
 
 install:
+  - eval "${MATRIX_EVAL}"
   - make -C pruebas_librerias
   - make -C implementaciones
   - make -C utilidades
@@ -90,6 +91,7 @@ install:
   - cd ..
 
 script:
+  - eval "${MATRIX_EVAL}"
   - make -C pruebas_librerias correr
   - make -C implementaciones correr
   - make -C utilidades correr
