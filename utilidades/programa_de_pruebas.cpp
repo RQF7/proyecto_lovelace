@@ -7,6 +7,7 @@
 
 #include "cabeceras/arreglo_prueba.hh"
 #include "cabeceras/arreglo_de_digitos_prueba.hh"
+#include "cabeceras/codificador_prueba.hh"
 #include "cabeceras/conjunto_de_pruebas.hh"
 #include "cabeceras/prueba.hh"
 #include "cabeceras/utilidades_matematicas_prueba.hh"
@@ -31,7 +32,8 @@ int main()
     {
       ArregloPrueba {},
       UtilidadesMatematicasPrueba {},
-      ArregloDeDigitosPrueba {}
+      ArregloDeDigitosPrueba {},
+      CodificadorPrueba {}
     }
   };
 }

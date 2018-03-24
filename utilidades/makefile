@@ -12,6 +12,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 intermediario_de_arreglo_de_digitos.cpp \
 											 arreglo_de_digitos_prueba.cpp \
 											 utilidades_matematicas_prueba.cpp \
+											 codificador.cpp \
+											 codificador_prueba.cpp \
 											 prueba.cpp \
 											 conjunto_de_pruebas.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
@@ -49,6 +51,16 @@ $(CARPETA_OBJETOS)/utilidades_matematicas_prueba.o: \
 $(CARPETA_OBJETOS)/intermediario_de_arreglo_de_digitos.o: \
 	intermediario_de_arreglo_de_digitos.cpp \
 	cabeceras/intermediario_de_arreglo_de_digitos.hh
+	mkdir -p $(CARPETA_OBJETOS)
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/codificador.o: codificador.cpp \
+	cabeceras/codificador.hh
+	mkdir -p $(CARPETA_OBJETOS)
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/codificador_prueba.o: codificador_prueba.cpp \
+	cabeceras/codificador_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
