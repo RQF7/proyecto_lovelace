@@ -49,30 +49,30 @@ before_install:
     graphviz
     libmysqlcppconn-dev
   # glossaries
-  - wget http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
-  - unzip -d ~/texmf glossaries.tds.zip
+  - wget --quiet http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
+  - unzip --qq -d ~/texmf glossaries.tds.zip
   - rm glossaries.tds.zip
   # tracklang
-  - wget http://mirrors.ctan.org/install/macros/generic/tracklang.tds.zip
-  - unzip -d ~/texmf tracklang.tds.zip
+  - wget --quiet http://mirrors.ctan.org/install/macros/generic/tracklang.tds.zip
+  - unzip -qq -d ~/texmf tracklang.tds.zip
   - rm tracklang.tds.zip
   # bibtex
-  - wget https://newcontinuum.dl.sourceforge.net/project/biblatex/biblatex-3.9/biblatex-3.9.tds.tgz
-  - tar -xvf biblatex-3.9.tds.tgz -C ~/texmf
+  - wget --quiet https://newcontinuum.dl.sourceforge.net/project/biblatex/biblatex-3.9/biblatex-3.9.tds.tgz
+  - tar -xf biblatex-3.9.tds.tgz -C ~/texmf
   - rm biblatex-3.9.tds.tgz
   # babel
-  - wget http://mirrors.ctan.org/install/macros/latex/required/babel-base.tds.zip
-  - unzip -d ~/texmf babel-base.tds.zip
+  - wget --quiet http://mirrors.ctan.org/install/macros/latex/required/babel-base.tds.zip
+  - unzip -qq -d ~/texmf babel-base.tds.zip
   - rm babel-base.tds.zip
   # biber
-  - wget https://phoenixnap.dl.sourceforge.net/project/biblatex-biber/biblatex-biber/current/binaries/Linux/biber-linux_x86_64.tar.gz
+  - wget --quiet https://phoenixnap.dl.sourceforge.net/project/biblatex-biber/biblatex-biber/current/binaries/Linux/biber-linux_x86_64.tar.gz
   - mkdir ~/ejecutable_biber
-  - tar -xvf biber-linux_x86_64.tar.gz -C ~/ejecutable_biber
+  - tar -xf biber-linux_x86_64.tar.gz -C ~/ejecutable_biber
   - export PATH=~/ejecutable_biber/:$PATH
   - rm biber-linux_x86_64.tar.gz
   # Cryptopp
-  - wget https://cryptopp.com/cryptopp600.zip
-  - unzip -a -d cryptopp cryptopp600.zip
+  - wget --quiet https://cryptopp.com/cryptopp600.zip
+  - unzip --qq -a -d cryptopp cryptopp600.zip
   - make -C cryptopp
   - sudo mkdir /usr/include/cryptopp
   - sudo mv cryptopp/*.h /usr/include/cryptopp/
@@ -82,6 +82,7 @@ install:
   - eval "${MATRIX_EVAL}"
   - make -C pruebas_librerias
   - make -C implementaciones
+  - make -C implementaciones binarios/lovelace
   - make -C utilidades
   - cd bases_de_datos
   - chmod 770 crear_base.sh

@@ -20,40 +20,40 @@ BANDERAS_DE_LIGADO	:= -lcryptopp
 
 $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)
 	mkdir -p $(CARPETA_BINARIOS)
-	g++ $(BANDERAS_GENERALES) $(LISTA_DE_OBJETOS) $(BANDERAS_DE_LIGADO) -o $@
+	$(CXX) $(BANDERAS_GENERALES) $(LISTA_DE_OBJETOS) $(BANDERAS_DE_LIGADO) -o $@
 
 $(CARPETA_OBJETOS)/programa_de_pruebas.o: programa_de_pruebas.cpp
 	mkdir -p $(CARPETA_OBJETOS)
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/arreglo_prueba.o: arreglo_prueba.cpp cabeceras/arreglo.hh
 	mkdir -p $(CARPETA_OBJETOS)
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/arreglo_de_digitos.o: arreglo_de_digitos.cpp \
 	cabeceras/arreglo_de_digitos.hh
 	mkdir -p $(CARPETA_OBJETOS)
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/arreglo_de_digitos_prueba.o: arreglo_de_digitos_prueba.cpp \
 	cabeceras/arreglo_de_digitos_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/utilidades_matematicas_prueba.o: \
 	utilidades_matematicas_prueba.cpp cabeceras/utilidades_matematicas.hh
 	mkdir -p $(CARPETA_OBJETOS)
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/intermediario_de_arreglo_de_digitos.o: \
 	intermediario_de_arreglo_de_digitos.cpp \
 	cabeceras/intermediario_de_arreglo_de_digitos.hh
 	mkdir -p $(CARPETA_OBJETOS)
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/prueba.o: prueba.cpp
 	mkdir -p $(CARPETA_OBJETOS)
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 correr: $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL)
 	./$<

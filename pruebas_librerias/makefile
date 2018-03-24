@@ -18,35 +18,35 @@ BANDERAS_GENERALES	:= -std=c++14 -Wall -ggdb
 
 $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)
 	mkdir -p $(CARPETA_BINARIOS)
-	g++ $(BANDERAS_GENERALES) $(LISTA_DE_OBJETOS) -lcryptopp -o $@
+	$(CXX) $(BANDERAS_GENERALES) $(LISTA_DE_OBJETOS) -lcryptopp -o $@
 
 $(CARPETA_OBJETOS)/programa_de_pruebas.o: programa_de_pruebas.cpp
 	mkdir -p $(CARPETA_OBJETOS)
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/utilidades/prueba.o: ../utilidades/prueba.cpp
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/cryptopp/prueba_AES.o: cryptopp/prueba_AES.cpp
 	mkdir -p $(CARPETA_OBJETOS)/cryptopp
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/cryptopp/prueba_salsa20.o: cryptopp/prueba_salsa20.cpp
 	mkdir -p $(CARPETA_OBJETOS)/cryptopp
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/cryptopp/prueba_SHA256.o: cryptopp/prueba_SHA256.cpp
 	mkdir -p $(CARPETA_OBJETOS)/cryptopp
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/cryptopp/prueba_CBC_MAC.o: cryptopp/prueba_CBC_MAC.cpp
 	mkdir -p $(CARPETA_OBJETOS)/cryptopp
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/openssl/prueba_IDEA.o: openssl/prueba_IDEA.cpp
 	mkdir -p $(CARPETA_OBJETOS)/openssl
-	g++ $(BANDERAS_GENERALES) -c $< -o $@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 correr: $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL)
 	./$<
@@ -58,12 +58,12 @@ limpiar:
 
 RSA: prueba_RSA $(CARPETA_OBJETOS)/cryptopp/prueba_RSA
 	mkdir -p $(CARPETA_BINARIOS)
-	g++ $(BANDERAS_GENERALES) $(CARPETA_OBJETOS)/cryptopp/prueba_RSA \
+	$(CXX) $(BANDERAS_GENERALES) $(CARPETA_OBJETOS)/cryptopp/prueba_RSA \
 	-lcryptopp -o $(CARPETA_BINARIOS)/$@
 
 prueba_RSA: cryptopp/prueba_RSA.cpp
 	mkdir -p $(CARPETA_OBJETOS)/cryptopp
-	g++ $(BANDERAS_GENERALES) -c $< -o $(CARPETA_OBJETOS)/cryptopp/$@
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $(CARPETA_OBJETOS)/cryptopp/$@
 
 correr_RSA: $(CARPETA_BINARIOS)/RSA
 	./$<
