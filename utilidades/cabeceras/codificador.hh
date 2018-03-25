@@ -1,6 +1,8 @@
 /**
  * \file
- * \brief
+ * \brief Declaración de codificador.
+ *
+ * Proyecto Lovelace.
  */
 
 #ifndef __CODIFICADOR__
@@ -14,7 +16,22 @@
 namespace Utilidades
 {
   /**
-   * \brief
+   * \brief Codificador de datos binarios en base 64, 32 o 16.
+   *
+   * Implementación de un codificador/decodificador de datos binarios en
+   * base 64, 32 0 16. Dentro de los límites razonablas para una
+   * implementación de uso interno, se sigue lo establecido en el RFC 4648
+   * (v. gr. se excluyen las verificaciones de seguridad, dado que tanto la
+   * entrada como la salida los controla esta aplicación).
+   *
+   * Tanto base64 como base32 necesitan un caracter espceial de *padding* para
+   * la correcta decodificación de los datos (un «=»); base16 no lo necesita.
+   *
+   * Esta clase es una implementación de una FuncionConInverso que recibe un
+   * un arreglo de bytes y regresa una cadena codificada. La decodificación
+   * invierte los tipos de entrada y salida.
+   *
+   * \sa https://tools.ietf.org/html/rfc4648
    */
 
   class Codificador
@@ -22,20 +39,22 @@ namespace Utilidades
   {
     public:
 
-      /** \brief */
+      /** \brief Enumera las posibles bases. */
       enum class Base {Base64, Base32, Base16};
 
-      /** \brief */
+      /** \brief Nueva instancia de codificador. */
       Codificador(Base base = Base::Base64);
 
-      /** \brief */
+      /** \brief Destructor de codificador. */
       ~Codificador();
 
       /** \brief */
-      std::string operar(std::vector<Arreglo<unsigned char>>& entrada);
+      std::string operar(
+        const std::vector<Arreglo<unsigned char>>& entrada) override;
 
       /** \brief */
-      Arreglo<unsigned char> deoperar(std::vector<std::string>& entrada);
+      Arreglo<unsigned char> deoperar(
+        const std::vector<std::string>& entrada) override;
 
     private:
 
@@ -79,7 +98,7 @@ namespace Utilidades
       /** \brief */
       void decodificarBase16();
 
-      /** \brief */
+      /** \brief Alfabeto para el texto codificado. */
       static const std::string mAlfabeto;
   };
 }
