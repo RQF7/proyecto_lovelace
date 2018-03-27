@@ -18,6 +18,7 @@
 
 using namespace std;
 using namespace CryptoPP;
+using namespace Implementaciones;
 
 int main(int argc, char* argv[])
 {
@@ -100,13 +101,13 @@ int main(int argc, char* argv[])
 
   string cifrado, descifrado;
   CifradorBPS BPS(alfabeto, numDeRondas);
-  
+
   if(tipocifrado == "AES")
     BPS.colocarTipoCifrador(CifradorDeRonda::BANDERA_AES);
-  
+
   else if(tipocifrado == "TDES")
     BPS.colocarTipoCifrador(CifradorDeRonda::BANDERA_TDES);
-  
+
   else
   {
     cout << "Especifica uno de los siguentes cifrador "

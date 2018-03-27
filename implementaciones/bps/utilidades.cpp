@@ -13,10 +13,11 @@
 #include <gmp.h>
 
 using namespace std;
+using namespace Implementaciones;
 
 /* ========================================================================= */
 
-Utilidades::Utilidades()
+UtilidadesBPS::UtilidadesBPS()
 {
 }
 
@@ -28,7 +29,7 @@ Utilidades::Utilidades()
  */
 /* Ejemplo: -7 % 4 = -3; mod(-7,4) = 1 */
 
-int Utilidades::mod(int num, int mod)
+int UtilidadesBPS::mod(int num, int mod)
 {
   return (num % mod + mod) % mod;
 }
@@ -41,7 +42,7 @@ int Utilidades::mod(int num, int mod)
  */
 /* Ejemplo: -7 % 4 = -3; mod(-7,4) = 1 */
 
-mpz_class Utilidades::mod(mpz_class num, mpz_class mod)
+mpz_class UtilidadesBPS::mod(mpz_class num, mpz_class mod)
 {
   return (num % mod + mod) % mod;
 }
@@ -53,7 +54,7 @@ mpz_class Utilidades::mod(mpz_class num, mpz_class mod)
  * siendo esta cadena una copia de los bits del número.
  */
 
-mpz_class Utilidades::cadenaANumero(string cadena)
+mpz_class UtilidadesBPS::cadenaANumero(string cadena)
 {
   mpz_class numero = 0;
 
@@ -74,7 +75,7 @@ mpz_class Utilidades::cadenaANumero(string cadena)
  * siendo este número una copia de los bits de la cadena.
  */
 
-string Utilidades::numeroACadena(mpz_class numero)
+string UtilidadesBPS::numeroACadena(mpz_class numero)
 {
   string cadena{""};
   string caracter{""};

@@ -22,6 +22,7 @@
 
 using namespace std;
 using namespace CryptoPP;
+using namespace Implementaciones;
 
 /* ========================================================================= */
 
@@ -125,7 +126,7 @@ string CifradorBC::cifrar(string mensaje, byte llave[], mpz_class tweak)
     exit(-1);
   }
 
-  Utilidades util;
+  UtilidadesBPS util;
   unsigned int l, r;
   string mensajeIzq{""};
   string mensajeDer{""};
@@ -234,7 +235,7 @@ string CifradorBC::descifrar(string mensaje, byte llave[], mpz_class tweak)
     exit(-1);
   }
 
-  Utilidades util;
+  UtilidadesBPS util;
   unsigned int l, r;
   string mensajeIzq{""};
   string mensajeDer{""};
