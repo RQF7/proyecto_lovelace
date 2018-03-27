@@ -34,6 +34,9 @@ const string Codificador::mAlfabeto =
  * * Base 64: mcm(8, 6) = 24 = 8 * 3 = 6 * 4
  * * Base 32: mcm(8, 5) = 40 = 8 * 5 = 5 * 8
  * * Base 16: mcm(8, 4) =  8 = 8 * 1 = 4 * 2
+ *
+ * Se inicializa un apuntador a la función correspondiente de
+ * codifiación/decodificación; esto ahorra pasos en el procesamiento.
  */
 
 Codificador::Codificador(
@@ -43,7 +46,13 @@ Codificador::Codificador(
   mTopeOrigen {(base == Base::Base64) ? 3 : (base == Base::Base32) ? 5 : 1},
   mTopeDestino {(base == Base::Base64) ? 4 : (base == Base::Base32) ? 8 : 2},
   mBufferOrigen {new unsigned char [mTopeOrigen]},
-  mBufferDestino {new unsigned char [mTopeDestino]}
+  mBufferDestino {new unsigned char [mTopeDestino]},
+  mFuncionCodificacion {(base == Base::Base64) ? &Codificador::codificarBase64 :
+                        (base == Base::Base32) ? &Codificador::codificarBase32 :
+                                                 &Codificador::codificarBase16},
+  mFuncionDecodificacion {(base == Base::Base64) ? &Codificador::decodificarBase64 :
+                          (base == Base::Base32) ? &Codificador::decodificarBase32 :
+                                                   &Codificador::decodificarBase16}
 {
 }
 
@@ -91,8 +100,10 @@ string Codificador::operar(
   {
     for (int i = contador; i < mTopeOrigen; i++)
       mBufferOrigen[i] = '\0';
-    codificarBuffers(resultado, contador + 1);
-    for (; contador < mTopeOrigen; contador++)
+    int limite = (mBase != Base::Base32) ? contador + 1 :
+      (contador == 1) ? contador + 1 : contador + 2;
+    codificarBuffers(resultado, limite);
+    for (; limite < mTopeDestino; limite++)
       resultado += '=';
   }
   return resultado;
@@ -109,10 +120,19 @@ Arreglo<unsigned char> Codificador::deoperar(
   const vector<string>& entrada  /**< Cadena codificada (en primer elemento). */
 )
 {
+  cout << "DEBUG: " << entrada[0] << endl;
   /* Establecer longitud. */
   int contadorPaddings = 0;
   for (unsigned int i = entrada[0].size() - 1; entrada[0][i] == '='; i--)
     contadorPaddings++;
+  if (mBase == Base::Base32)
+  {
+    if (contadorPaddings == 6) contadorPaddings = 4;
+    else if (contadorPaddings == 4) contadorPaddings = 3;
+    else if (contadorPaddings == 3) contadorPaddings = 2;
+    else if (contadorPaddings == 2) contadorPaddings = 1;
+  }
+  cout << "DEBUG: " << entrada[0].size() << " " << mTopeOrigen << " " << mTopeDestino << endl;
   Arreglo<unsigned char> resultado(
     (entrada[0].size() / mTopeDestino) * mTopeOrigen - contadorPaddings);
   int contador = 0;
@@ -156,12 +176,7 @@ void Codificador::codificarBuffers(
   int limite                /**< Número de elementos a agregar. */
 )
 {
-  if (mBase == Base::Base64)
-    codificarBase64();
-  else if (mBase == Base::Base32)
-    codificarBase32();
-  else
-    codificarBase16();
+  (this->*mFuncionCodificacion)();
   for (int i = 0; i < limite; i++)
     cadena += mAlfabeto[mBufferDestino[i]];
 }
@@ -180,12 +195,7 @@ void Codificador::decodificarBuffers(
   int limite                          /**< Número de elementos a escribir. */
 )
 {
-  if (mBase == Base::Base64)
-    decodificarBase64();
-  else if (mBase == Base::Base32)
-    decodificarBase32();
-  else
-    decodificarBase16();
+  (this->*mFuncionDecodificacion)();
   for (int i = 0; i < limite; i++)
     arreglo[contador + i] = mBufferOrigen[i];
 }
