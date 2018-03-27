@@ -50,7 +50,8 @@ FUENTES_DOS					:= lovelace.cpp \
 											 utilidades/utilidades_criptograficas.cpp \
 											 utilidades/algoritmo_tokenizador.cpp \
 											 utilidades/arreglo_de_digitos.cpp \
-											 utilidades/intermediario_de_arreglo_de_digitos.cpp
+											 utilidades/intermediario_de_arreglo_de_digitos.cpp \
+											 utilidades/codificador.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
 OBJETOS_DOS		      := $(addprefix $(CARPETA_OBJETOS)/, \
@@ -247,6 +248,12 @@ $(CARPETA_OBJETOS)/utilidades/arreglo_de_digitos.o: \
 $(CARPETA_OBJETOS)/utilidades/intermediario_de_arreglo_de_digitos.o: \
 	../utilidades/intermediario_de_arreglo_de_digitos.cpp \
 	../utilidades/cabeceras/intermediario_de_arreglo_de_digitos.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/codificador.o: \
+	../utilidades/codificador.cpp \
+	../utilidades/cabeceras/codificador.hh
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 

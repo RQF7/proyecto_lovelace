@@ -14,6 +14,7 @@
 #include "tkr/cabeceras/tkr.hh"
 #include "utilidades/cabeceras/utilidades_criptograficas.hh"
 #include "../utilidades/cabeceras/arreglo_de_digitos.hh"
+#include "../utilidades/cabeceras/codificador.hh"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -134,12 +135,13 @@ void generarLlave(
   int longitud                /**< Longitud en bytes de llave. */
 )
 {
-  unsigned char* llave = generarLlave(longitud);
+  Arreglo<unsigned char> llave = generarLlave(longitud);
+  Utilidades::Codificador codificador {};
+  string llaveCodificada = codificador.operar({llave});
   fstream archivo {nombreDeArchivo.c_str(),
     fstream::out | fstream::binary | fstream::trunc};
-  archivo.write(reinterpret_cast<const char*>(llave), longitud);
+  archivo.write(llaveCodificada.c_str(), llaveCodificada.size());
   archivo.close();
-  delete[] llave;
 }
 
 /**
@@ -154,16 +156,13 @@ unsigned char* leerLlave(
   string nombreDeArchivo      /**< Ruta al archivo de la llave. */
 )
 {
-  fstream archivo {nombreDeArchivo.c_str(), fstream::in | fstream::binary};
-  int marcaDeInicio = archivo.tellg();
-  archivo.seekg(0, ios::end);
-  int marcaDeFin =  archivo.tellg();
-  int longitud = marcaDeFin - marcaDeInicio;
-  archivo.seekg(0, ios::beg);
-  unsigned char* llave = new unsigned char[longitud];
-  archivo.read(reinterpret_cast<char*>(llave), longitud);
+  fstream archivo {nombreDeArchivo.c_str(), fstream::in};
+  string llaveCodificada;
+  archivo >> llaveCodificada;
   archivo.close();
-  return llave;
+  Utilidades::Codificador codificador {};
+  Arreglo<unsigned char> llave = codificador.deoperar({llaveCodificada});
+  return llave.obtenerCopiaDeArreglo();
 }
 
 /**

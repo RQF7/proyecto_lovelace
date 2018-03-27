@@ -120,7 +120,6 @@ Arreglo<unsigned char> Codificador::deoperar(
   const vector<string>& entrada  /**< Cadena codificada (en primer elemento). */
 )
 {
-  cout << "DEBUG: " << entrada[0] << endl;
   /* Establecer longitud. */
   int contadorPaddings = 0;
   for (unsigned int i = entrada[0].size() - 1; entrada[0][i] == '='; i--)
@@ -132,7 +131,6 @@ Arreglo<unsigned char> Codificador::deoperar(
     else if (contadorPaddings == 3) contadorPaddings = 2;
     else if (contadorPaddings == 2) contadorPaddings = 1;
   }
-  cout << "DEBUG: " << entrada[0].size() << " " << mTopeOrigen << " " << mTopeDestino << endl;
   Arreglo<unsigned char> resultado(
     (entrada[0].size() / mTopeDestino) * mTopeOrigen - contadorPaddings);
   int contador = 0;

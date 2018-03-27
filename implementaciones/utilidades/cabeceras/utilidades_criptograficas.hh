@@ -6,11 +6,13 @@
 #ifndef __UTILIDADES_CRIPTOGRAFICAS__
 #define __UTILIDADES_CRIPTOGRAFICAS__
 
+#include "../../../utilidades/cabeceras/arreglo.hh"
+
 namespace Implementaciones
 {
 
   /** \brief Genera una llave aleatoria de la longitud solicitada. */
-  unsigned char* generarLlave(int longitud);
+  Arreglo<unsigned char> generarLlave(int longitud);
 
 }
 

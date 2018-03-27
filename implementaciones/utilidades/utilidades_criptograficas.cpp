@@ -4,11 +4,13 @@
  */
 
 #include "cabeceras/utilidades_criptograficas.hh"
+#include "../../utilidades/cabeceras/arreglo.hh"
 #include <cryptopp/drbg.h>
 #include <cryptopp/filters.h>
 #include <cryptopp/osrng.h>
 #include <cryptopp/secblock.h>
 #include <cryptopp/sha.h>
+#include <utility>
 
 using namespace Implementaciones;
 using namespace CryptoPP;
@@ -22,7 +24,7 @@ using namespace CryptoPP;
  * \return Arreglo con llave psudoaleatoria.
  */
 
-unsigned char* Implementaciones::generarLlave(
+Arreglo<unsigned char> Implementaciones::generarLlave(
   int longitud                      /**< Longitud en bytes. */
 )
 {
@@ -41,5 +43,5 @@ unsigned char* Implementaciones::generarLlave(
     32, entropia + 32, 16);
 
   generadorPseudoaleatorio.GenerateBlock(llave, longitud);
-  return llave;
+  return Arreglo<unsigned char>(longitud, std::move(llave));
 }

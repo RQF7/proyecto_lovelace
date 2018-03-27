@@ -5,6 +5,7 @@
 
 #include "cabeceras/utilidades_criptograficas.hh"
 #include "cabeceras/utilidades_criptograficas_prueba.hh"
+#include "../../utilidades/cabeceras/arreglo.hh"
 #include <iostream>
 
 using namespace Implementaciones;
@@ -28,9 +29,9 @@ UtilidadesCriptograficasPrueba::UtilidadesCriptograficasPrueba()
 
 bool UtilidadesCriptograficasPrueba::probarGeneracionDeLlaves()
 {
-  unsigned char* llaveUno = generarLlave(16);
-  unsigned char* llaveDos = generarLlave(8);
-  unsigned char* llaveTres = generarLlave(32);
+  Arreglo<unsigned char> llaveUno = generarLlave(16);
+  Arreglo<unsigned char> llaveDos = generarLlave(8);
+  Arreglo<unsigned char> llaveTres = generarLlave(32);
 
   cout << "Prueba uno (16): " << endl;
   for (int i = 0; i < 16; i++)
@@ -47,8 +48,5 @@ bool UtilidadesCriptograficasPrueba::probarGeneracionDeLlaves()
     cout << "0x" << hex << (0xFF & llaveTres[i]) << " ";
   cout << dec << endl;
 
-  delete[] llaveUno;
-  delete[] llaveDos;
-  delete[] llaveTres;
   return true;
 }

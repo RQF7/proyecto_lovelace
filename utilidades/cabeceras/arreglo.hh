@@ -18,6 +18,7 @@
 #include "utilidades_matematicas.hh"
 #include <algorithm>
 #include <cmath>
+#include <cstring>
 #include <initializer_list>
 #include <memory>
 #include <ostream>
@@ -81,6 +82,9 @@ class Arreglo
     /** \brief Construcción mediante lista de inicialización. */
     Arreglo(std::initializer_list<tipo> elementos);
 
+		/** \brief Construcción por memoria ya existente. */
+		Arreglo(int numeroDeElementos, tipo* &&memoria);
+
     /** \brief Constructor de operación de copiado. */
     Arreglo(const Arreglo &arreglo);
 
@@ -107,6 +111,9 @@ class Arreglo
 
     /** \brief Regresa el tamaño del arreglo. */
     inline int obtenerNumeroDeElementos() const { return mNumeroDeElementos; }
+
+    /** \brief Regresa una copia del arreglo interno. */
+    tipo *obtenerCopiaDeArreglo() const;
 
     /** \brief Parte el arreglo según parámetros. */
     Arreglo<tipo> partir(int numeroDePartes, int parte,
@@ -210,6 +217,23 @@ Arreglo<tipo>::Arreglo(
 {
   std::uninitialized_copy(elementos.begin(), elementos.end(),
     mArregloInterno);
+}
+
+/**
+ * Permite contruir un arreglo a partir de un apuntador a memoria ya reservada.
+ * Funciona de forma bastante similar al contructor por copia, excepto que en
+ * este caso la memoria de origen es un arreglo de bajo nivel.
+ */
+
+template <typename tipo>
+Arreglo<tipo>::Arreglo(
+	int numeroDeElementos,               /**< Número de elementos del arreglo. */
+	tipo* &&memoria                      /**< Apuntador a memoria reservada. */
+)
+: mNumeroDeElementos {numeroDeElementos},
+	mArregloInterno {memoria}
+{
+	memoria = nullptr;
 }
 
 /**
@@ -421,6 +445,22 @@ void Arreglo<tipo>::colocar(
 )
 {
   mArregloInterno[indice] = valor;
+}
+
+/**
+ * Regresa una copia del arreglo interno.
+ *
+ * \warning El usuario es el encargado de liberar esta memoria. Se debe
+ * utilizar solo para interactuar con código viejo; La gestión de la memoria
+ * sólo se debería de encontrar en el sistema de contructores y destructores.
+ */
+
+template<typename tipo>
+tipo *Arreglo<tipo>::obtenerCopiaDeArreglo() const
+{
+  tipo *resultado = new tipo [mNumeroDeElementos];
+  memcpy(resultado, mArregloInterno, mNumeroDeElementos);
+  return resultado;
 }
 
 /**
