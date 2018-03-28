@@ -21,10 +21,10 @@ CodificadorPrueba::CodificadorPrueba()
     "prueba de codificación en base 64",
     CodificadorPrueba::probarBase64
   });
-  mListaDePruebas.push_back(FuncionDePrueba{
-    "prueba de codificación en base 32",
-    CodificadorPrueba::probarBase32
-  });
+  //mListaDePruebas.push_back(FuncionDePrueba{
+  //  "prueba de codificación en base 32",
+  //  CodificadorPrueba::probarBase32
+  //});
   mListaDePruebas.push_back(FuncionDePrueba{
     "prueba de codificación en base 16",
     CodificadorPrueba::probarBase16

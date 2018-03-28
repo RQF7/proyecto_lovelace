@@ -42,6 +42,9 @@ class ArregloDeDigitos : public Arreglo<int>
     /** \brief Acceso con subíndice. */
     Utilidades::IntermediarioDeArregloDeDigitos operator[](int indice);
 
+    /** \brief Operación de subíndice (constante). */
+    int operator[](int indice) const override;
+
     /** \brief Operación de escritura. */
     [[deprecated]]
     void colocar(int indice, int valor) override;

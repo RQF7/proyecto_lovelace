@@ -41,6 +41,10 @@ ArregloPrueba::ArregloPrueba()
     "conversiones numéricas",
     ArregloPrueba::probarConversionesNumericas
   });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "control de acceso",
+    ArregloPrueba::probarControlDeAcceso
+  });
 }
 
 /**
@@ -322,6 +326,52 @@ bool ArregloPrueba::probarConversionesNumericas()
        << "Copia, " << copiaTres << endl;
   if (numeroTres != copiaTres)
     return false;
+
+  return true;
+}
+
+/**
+ * \return Estado de la prueba.
+ */
+
+bool ArregloPrueba::probarControlDeAcceso()
+{
+  Arreglo<int> prueba {1, 2, 3, 4, 5};
+  cout << "Prueba con acceso negativo: " << endl
+       << "-1: " << prueba[-1] << endl
+       << "-2: " << prueba[-2] << endl
+       << "-3: " << prueba[-3] << endl;
+  if (prueba[-1] != 5 || prueba[-2] != 4 || prueba[-3] != 3)
+    return false;
+
+  /* Prueba de excpeciones. */
+  try
+  {
+    cout << prueba[5];
+  }
+  catch (Arreglo<int>::AccesoFueraDeRango &error)
+  {
+    cout << "Prueba de acceso 1, exitosa." << endl;
+  }
+  catch (...)
+  {
+    cout << "Error en prueba de acceso 1." << endl;
+    return false;
+  }
+
+  try
+  {
+    cout << prueba[-10];
+  }
+  catch (Arreglo<int>::AccesoFueraDeRango &error)
+  {
+    cout << "Prueba de acceso 2, exitosa." << endl;
+  }
+  catch (...)
+  {
+    cout << "Error en prueba de acceso 2" << endl;
+    return false;
+  }
 
   return true;
 }

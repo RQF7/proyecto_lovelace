@@ -14,6 +14,7 @@
 #ifndef __ARREGLO__
 #define __ARREGLO__
 
+#include "error.hh"
 #include "intermediario_de_arreglo.hh"
 #include "utilidades_matematicas.hh"
 #include <algorithm>
@@ -104,7 +105,7 @@ class Arreglo
     Utilidades::IntermediarioDeArreglo<tipo> operator[](int indice);
 
     /** \brief Operación de subíndice (constante). */
-    tipo operator[](int indice) const;
+    virtual tipo operator[](int indice) const;
 
     /** \brief Operación de escritura. */
     virtual void colocar(int indice, tipo valor);
@@ -119,6 +120,11 @@ class Arreglo
     Arreglo<tipo> partir(int numeroDePartes, int parte,
       int desviacion = 0) const;
 
+    /** \breif Error para representar un acceso ilegal. */
+    struct AccesoFueraDeRango : public Utilidades::Error
+    { inline AccesoFueraDeRango(std::string mensaje)
+      : Utilidades::Error{mensaje} {} };
+
   protected:
 
     /** \brief Tamaño del arreglo (entero mayor a cero). */
@@ -126,6 +132,9 @@ class Arreglo
 
     /** \brief Apuntador a sección de memoria con el contenido del arreglo.*/
     tipo *mArregloInterno;
+
+    /** \brief Aplica una resolución al índice dado. */
+    int resolverIndice(int indice) const;
 
   private:
 
@@ -404,7 +413,7 @@ Utilidades::IntermediarioDeArreglo<tipo> Arreglo<tipo>::operator[](
   int indice                             /**< Índice de elemento. */
 )
 {
-  return Utilidades::IntermediarioDeArreglo<tipo>(*this, indice);
+  return Utilidades::IntermediarioDeArreglo<tipo>(*this, resolverIndice(indice));
 }
 
 /**
@@ -418,16 +427,15 @@ tipo Arreglo<tipo>::operator[](
   int indice                             /**< Índice de elemento. */
 ) const
 {
-  return mArregloInterno[indice];
+  return mArregloInterno[resolverIndice(indice)];
 }
 
 /**
  * Guarda el valor dado en la posición dada.
  *
- * \todo comprobación de índice válido.
- *
- * \deprecated A partir de este commit el intermediario de arreglo funciona
- * para hacer asignaciones:
+ * \deprecated A partir de
+ * [este commit](https://github.com/RQF7/proyecto_lovelace/commit/0785d61c33f6f8bfa84f5005337c8683894ddebf)
+ * el intermediario de arreglo funciona para hacer asignaciones:
  * ```
  * Arreglo<int> prueba {1, 2, 3};
  * prueba[0] = 9;
@@ -507,6 +515,26 @@ Arreglo<tipo> Arreglo<tipo>::partir(
   for (int i = inicio, j = 0; i < fin; i++, j++)
     subArreglo[j] = mArregloInterno[i];
   return subArreglo;
+}
+
+/**
+ * Verifica que el índice dado se encuentre en el rango de la memoria interna.
+ * Los índices negativos se resuelven de atrás hacia adelante (-1 representa
+ * al último elemento, -2 al penúltimo, etcétera).
+ *
+ * \return El índice después de la resolución.
+ */
+
+template<typename tipo>
+int Arreglo<tipo>::resolverIndice(
+  int indice                        /**< Índice a resolver. */
+) const
+{
+  if (indice < 0)
+    indice = mNumeroDeElementos + indice;
+  if (indice < 0 || indice >= mNumeroDeElementos)
+    throw AccesoFueraDeRango{"El índice no se encuentra en el rango del arreglo"};
+  return indice;
 }
 
 /**

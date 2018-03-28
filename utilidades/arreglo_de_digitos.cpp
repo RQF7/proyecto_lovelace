@@ -116,8 +116,8 @@ ArregloDeDigitos::ArregloDeDigitos()
  * porque la asignación debe modificar las representaciones internas. Tampoco
  * sobreescribe la operación equivalente de la superclase porque se necesita
  * es un intermediario específico. Lo que sí se puede hacer, es que el
- * intermediario del arreglo con dígitos hereda al intermediario normal; esto permite
- * reutilizar algunas operaciones comunes.
+ * intermediario del arreglo con dígitos hereda al intermediario normal; esto
+ * permite reutilizar algunas operaciones comunes.
  *
  * \return Instancia de intermediario asociado al índice dado.
  */
@@ -126,7 +126,21 @@ Utilidades::IntermediarioDeArregloDeDigitos ArregloDeDigitos::operator[](
   int indice                             /**< Índice de elemento. */
 )
 {
-  return Utilidades::IntermediarioDeArregloDeDigitos(*this, indice);
+  return Utilidades::IntermediarioDeArregloDeDigitos(*this,
+    resolverIndice(indice));
+}
+
+/**
+ * Regresa el elemento que hay en el índice dado. A diferencia de
+ * operator[](int indice) esta operación solamente se utiliza cuando se trata
+ * con arreglos constantes.
+ */
+
+int ArregloDeDigitos::operator[](
+  int indice                             /**< Índice de elemento. */
+) const
+{
+  return mArregloInterno[resolverIndice(indice)];
 }
 
 /**

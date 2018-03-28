@@ -40,6 +40,9 @@ namespace UtilidadesPruebas
 
       /** \brief Prueba las conversiones numéricas. */
       static bool probarConversionesNumericas();
+
+      /** \brief Prueba el control de acceso. */
+      static bool probarControlDeAcceso();
   };
 }
 

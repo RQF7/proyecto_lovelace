@@ -12,7 +12,7 @@ namespace Implementaciones
 {
 
   /** \brief Cálculo dígito verificador del arreglo dado. */
-  int algoritmoDeLuhn(const Arreglo<int>& entrada);
+  int algoritmoDeLuhn(const Arreglo<int>& entrada, bool ignorarUltimo = false);
 
 }
 
