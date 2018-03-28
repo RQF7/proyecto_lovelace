@@ -11,15 +11,13 @@
 #include <cryptopp/secblock.h>
 #include <cryptopp/sha.h>
 #include <utility>
+#include <iostream>
 
 using namespace Implementaciones;
 using namespace CryptoPP;
 
 /**
  * Genera una llave pseudoaleatoria con un DRGB aprobado por el NIST.
- *
- * Importante: es responsabilidad del usuario de la función liberar la memoria
- * de la llave.
  *
  * \return Arreglo con llave psudoaleatoria.
  */
@@ -43,5 +41,7 @@ Arreglo<unsigned char> Implementaciones::generarLlave(
     32, entropia + 32, 16);
 
   generadorPseudoaleatorio.GenerateBlock(llave, longitud);
-  return Arreglo<unsigned char>(longitud, std::move(llave));
+  Arreglo<unsigned char>resultado (longitud, std::move(llave));
+  delete[] llave;
+  return resultado;
 }

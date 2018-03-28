@@ -11,6 +11,7 @@
 #include "ffx/cabeceras/ffx_a10.hh"
 #include "tkr/cabeceras/funcion_rn.hh"
 #include "tkr/cabeceras/pseudoaleatorio_aes.hh"
+#include "tkr/cabeceras/pseudoaleatorio_trivial.hh"
 #include "tkr/cabeceras/tkr.hh"
 #include "utilidades/cabeceras/utilidades_criptograficas.hh"
 #include "../utilidades/cabeceras/arreglo_de_digitos.hh"
@@ -25,6 +26,9 @@ using namespace std;
 
 /** \brief Mensaje con instrucciones. */
 void imprimirAyuda();
+
+/** \brief Genera un PAN válido aleatorio. */
+void generarPAN();
 
 /** \brief Genración de llave pseudoaleatoria. */
 void generarLlave(string nombreDeArchivo, int longitud);
@@ -50,15 +54,19 @@ ArregloDeDigitos detokenizar(string metodo, string nombreArchivoLlave,
 int main(int numeroDeArgumentos, char** argumentos)
 {
   /* Discriminación por número de argumentos. */
-  if (numeroDeArgumentos < 3)
+  if (numeroDeArgumentos < 2)
   {
     imprimirAyuda();
     return EXIT_FAILURE;
   }
 
   string operacion {argumentos[1]};
-  /* Generar llave. */
-  if (operacion == "-k")
+  /* Generar PAN aleatorio. */
+  if (operacion == "-r")
+  {
+    generarPAN();
+  } /* Genera llave. */
+  else if (operacion == "-k")
   {
     string nombreDeArchivo {argumentos[2]};
     int longitud {stoi(string{argumentos[3]})};
@@ -72,9 +80,8 @@ int main(int numeroDeArgumentos, char** argumentos)
     string metodo {argumentos[2]};
     ArregloDeDigitos pan {string{argumentos[3]}};
     string nombreArchivoLlave {argumentos[4]};
-    cout << "Tokenizar " << pan << " con " << metodo << "." << endl;
     ArregloDeDigitos token {tokenizar(metodo, nombreArchivoLlave, pan)};
-    cout << "Resultado: " << token << endl;
+    cout << token << endl;
   }
   /* Detokenizar. */
   else if (operacion == "-d")
@@ -82,9 +89,8 @@ int main(int numeroDeArgumentos, char** argumentos)
     string metodo {argumentos[2]};
     ArregloDeDigitos token {string{argumentos[3]}};
     string nombreArchivoLlave {argumentos[4]};
-    cout << "Detokenizar " << token << " con " << metodo << "." << endl;
     ArregloDeDigitos pan {detokenizar(metodo, nombreArchivoLlave, token)};
-    cout << "Resultado: " << pan << endl;
+    cout << pan << endl;
   }
   /* Ayuda. */
   else if (operacion == "-h")
@@ -123,6 +129,16 @@ void imprimirAyuda()
       << "-k" << endl
       << "  Imprime este mensaje." << endl
       << endl;
+}
+
+/**
+ * Genera un PAN aleatorio y lo imprime en la salida estándar.
+ */
+
+void generarPAN()
+{
+  PseudoaleatorioTrivial generador {};
+  cout << generador.operar({}) << endl;
 }
 
 /**
@@ -166,13 +182,16 @@ unsigned char* leerLlave(
 }
 
 /**
+ * Función de tokenización. Lee la llave del archivo dado y cifra el PAN dado
+ * con el método solicitado.
  *
+ * \return Token del PAN dado.
  */
 
 ArregloDeDigitos tokenizar(
-  string metodo,
-  string nombreArchivoLlave,
-  const ArregloDeDigitos& pan
+  string metodo,                /**< Cadena con método a ocupar. */
+  string nombreArchivoLlave,    /**< Ruta a archivo de llave. */
+  const ArregloDeDigitos& pan   /**< Arreglo de dígitos con el PAN. */
 )
 {
   unsigned char *llave = leerLlave(nombreArchivoLlave);
@@ -206,7 +225,10 @@ ArregloDeDigitos tokenizar(
 }
 
 /**
+ * Operación de detokenización. Lee la llave del archivo dado y detokeniza el
+ * token dado con el método solicitado.
  *
+ * \return Arreglo de dígitos con el PAN.
  */
 
 ArregloDeDigitos detokenizar(
