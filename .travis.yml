@@ -98,7 +98,7 @@ script:
   - make -C utilidades correr
   - cd implementaciones
   - chmod 770 lovelace_prueba.sh
-  - ./lovelace_prueba 100
+  - ./lovelace_prueba.sh 100
   - cd ..
 
 # Generación de documentación #################################################
