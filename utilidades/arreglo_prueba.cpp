@@ -45,6 +45,10 @@ ArregloPrueba::ArregloPrueba()
     "control de acceso",
     ArregloPrueba::probarControlDeAcceso
   });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "división entre arreglo",
+    ArregloPrueba::probarDivisionEntreArreglo
+  });
 }
 
 /**
@@ -372,6 +376,24 @@ bool ArregloPrueba::probarControlDeAcceso()
     cout << "Error en prueba de acceso 2" << endl;
     return false;
   }
+
+  return true;
+}
+
+/**
+ *
+ * \ return Estado de la prueba.
+ */
+
+bool ArregloPrueba::probarDivisionEntreArreglo()
+{
+  Arreglo<int> pruebaUno {1, 2, 3, 4};
+  Arreglo<int> divisorUno {1, 3};
+  auto resultadoUno = pruebaUno / divisorUno;
+  cout << "Prueba uno: " << endl
+       << "Dividendo: " << pruebaUno << endl
+       << "Divisor: " << divisorUno << endl
+       << "Resultado: " << resultadoUno << endl;
 
   return true;
 }

@@ -43,6 +43,9 @@ namespace UtilidadesPruebas
 
       /** \brief Prueba el control de acceso. */
       static bool probarControlDeAcceso();
+
+      /** \brief Prueba la división entre arreglo. */
+      static bool probarDivisionEntreArreglo();
   };
 }
 

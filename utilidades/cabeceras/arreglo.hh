@@ -120,6 +120,10 @@ class Arreglo
     Arreglo<tipo> partir(int numeroDePartes, int parte,
       int desviacion = 0) const;
 
+    /** \brief Operación de división entre arreglo de índices. */
+    Arreglo<Arreglo<tipo>> operator/(
+      const Arreglo<int> &marcasDivisorias) const;
+
     /** \breif Error para representar un acceso ilegal. */
     struct AccesoFueraDeRango : public Utilidades::Error
     { inline AccesoFueraDeRango(std::string mensaje)
@@ -518,6 +522,44 @@ Arreglo<tipo> Arreglo<tipo>::partir(
 }
 
 /**
+ * Permite crear subarreglos a partir del propi. Parte el arreglo
+ * actual según los marcadores del divisor. Por ejemplo:
+ * [1, 2, 3, 4] / [1, 3] da como resultado
+ * [ [1], [2, 3], 4 ].
+ * Las marcas divisorias indican el índice posterior a la partición.
+ * Esto es, es un error incluir el 0 o NumeroDeElementos.
+ *
+ * \return Arreglo de arreglos con subpartes del original.
+ */
+
+template<typename tipo>
+Arreglo<Arreglo<tipo>> Arreglo<tipo>::operator/(
+  const Arreglo<int> &marcasDivisorias    /**< Arreglo con marcas divisorias. */
+)
+const
+{
+  Arreglo<Arreglo<tipo>> resultado(
+    marcasDivisorias.obtenerNumeroDeElementos() + 1);
+  int acumulado = 0;
+  int marcaActual = marcasDivisorias[0];
+  for (int i = 0; i < resultado.obtenerNumeroDeElementos(); i++)
+  {
+    Arreglo<tipo> subArreglo(marcaActual - acumulado);
+    for (int j = 0; j < subArreglo.obtenerNumeroDeElementos(); j++)
+      subArreglo[j] = mArregloInterno[acumulado + j];
+    std::cout << "DEBUG: " << subArreglo << std::endl;
+    resultado[i] = subArreglo;
+    if (i == resultado.obtenerNumeroDeElementos() - 1)
+      break;
+    acumulado += subArreglo.obtenerNumeroDeElementos();
+    marcaActual = (i != resultado.obtenerNumeroDeElementos() - 2) ?
+      marcasDivisorias[i + 1] :
+      mNumeroDeElementos;
+  }
+  return resultado;
+}
+
+/**
  * Verifica que el índice dado se encuentre en el rango de la memoria interna.
  * Los índices negativos se resuelven de atrás hacia adelante (-1 representa
  * al último elemento, -2 al penúltimo, etcétera).
@@ -533,7 +575,8 @@ int Arreglo<tipo>::resolverIndice(
   if (indice < 0)
     indice = mNumeroDeElementos + indice;
   if (indice < 0 || indice >= mNumeroDeElementos)
-    throw AccesoFueraDeRango{"El índice no se encuentra en el rango del arreglo"};
+    throw AccesoFueraDeRango{
+      "El índice no se encuentra en el rango del arreglo"};
   return indice;
 }
 
