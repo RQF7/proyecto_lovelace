@@ -17,6 +17,8 @@ using namespace std;
 /**
  * Implementación de función pseudoaleatoria no criptográfica. Solo para
  * pruebas y códigos temporales.
+ *
+ * \return Arreglo de dígitos con PAN válido aleatorio.
  */
 
 ArregloDeDigitos PseudoaleatorioTrivial::operar(
@@ -29,7 +31,6 @@ ArregloDeDigitos PseudoaleatorioTrivial::operar(
   uniform_int_distribution<int> distribucion(0, 9);
   for (int i = 0; i < 15; i++)
     resultado[i] = modulo(distribucion(generador), 10);
-  auto temporal = resultado.partir(2, 0, 7);
-  resultado[15] = algoritmoDeLuhn(temporal);
+  resultado[15] = algoritmoDeLuhn(resultado, true);
   return resultado;
 }

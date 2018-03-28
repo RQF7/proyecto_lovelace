@@ -497,11 +497,13 @@ tipo *Arreglo<tipo>::obtenerCopiaDeArreglo() const
  *
  * \return Subarreglo número `parte`.
  *
- * \todo Soporte en los argumentos para solicitar varias partes a la vez.
- * \todo Validar coherencia en argumentos.
+ * \deprecated A partir de
+ * [este commit](https://github.com/RQF7/proyecto_lovelace/commit/b375defcd0070cf6537a793a7d73b7fcb9f38256),
+ * se utiliza la operación de división entre arreglos.
  */
 
 template<typename tipo>
+[[ deprecated("Se sustituye por operador de división entre arreglo") ]]
 Arreglo<tipo> Arreglo<tipo>::partir(
   int numeroDePartes, /**< Número de particiones a hacer. **/
   int parte,          /**< Número de partición deseada. **/
@@ -522,12 +524,20 @@ Arreglo<tipo> Arreglo<tipo>::partir(
 }
 
 /**
- * Permite crear subarreglos a partir del propi. Parte el arreglo
+ * Permite crear subarreglos a partir del propio. Parte el arreglo
  * actual según los marcadores del divisor. Por ejemplo:
  * [1, 2, 3, 4] / [1, 3] da como resultado
  * [ [1], [2, 3], 4 ].
  * Las marcas divisorias indican el índice posterior a la partición.
  * Esto es, es un error incluir el 0 o NumeroDeElementos.
+ *
+ * Aunque con un formato en los argumentos un poco distinto, esta
+ * función sustituye casi por completo a Arreglo::partir (marcada como
+ * obsoleta). Los únicos casos en los que podría seguir siendo válido
+ * seguir utilizando Arreglo::partir es cuando el arreglo es muy grando
+ y solo se necesita una fracción pequeña de él (que sea ridículo calcular
+ * todas las particiones cuando solo es una la que se ocupa). De momento no
+ * existe el caso arriba mencionado, por lo que se quedará como obsoleta.
  *
  * \return Arreglo de arreglos con subpartes del original.
  */
@@ -547,7 +557,6 @@ const
     Arreglo<tipo> subArreglo(marcaActual - acumulado);
     for (int j = 0; j < subArreglo.obtenerNumeroDeElementos(); j++)
       subArreglo[j] = mArregloInterno[acumulado + j];
-    std::cout << "DEBUG: " << subArreglo << std::endl;
     resultado[i] = subArreglo;
     if (i == resultado.obtenerNumeroDeElementos() - 1)
       break;

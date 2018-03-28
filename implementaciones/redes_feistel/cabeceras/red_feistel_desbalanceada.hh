@@ -117,20 +117,21 @@ namespace Implementaciones
   )
   {
     Arreglo<tipo> temporal = std::move(textoEnClaro[0]);
-    Arreglo<tipo> parteDerecha, parteIzquierda, auxiliar;
+    Arreglo<tipo> auxiliar;
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       /* Partición */
-      parteIzquierda = std::move(temporal.partir(2, 0, mDesbalanceo));
-      parteDerecha = std::move(temporal.partir(2, 1, mDesbalanceo));
+      Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<int>{
+        (textoEnClaro[0].obtenerNumeroDeElementos() / 2) + mDesbalanceo};
 
       /* Operación normal */
-      auxiliar = std::move(parteDerecha);
-      parteDerecha = std::move(mOperadorSuma->operar(
-        {parteIzquierda, mFuncionDeRonda->operar({auxiliar})}));
-      parteIzquierda = std::move(auxiliar);
+      auxiliar = std::move(partes[1]);
+      partes[1] = std::move(mOperadorSuma->operar(
+        {partes[0], mFuncionDeRonda->operar({auxiliar})}));
+      partes[0] = std::move(auxiliar);
 
-      temporal = std::move(parteIzquierda + parteDerecha);
+      temporal = std::move(static_cast<Arreglo<int>>(partes[0])
+        + static_cast<Arreglo<int>>(partes[1]));
     }
     return temporal;
   }
@@ -150,20 +151,21 @@ namespace Implementaciones
       ? mDesbalanceo * -1
       : (mDesbalanceo * -1) + 1;
     Arreglo<tipo> temporal = std::move(textoCifrado[0]);
-    Arreglo<tipo> parteDerecha, parteIzquierda, auxiliar;
+    Arreglo<tipo> auxiliar;
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       /* Partición */
-      parteIzquierda = std::move(temporal.partir(2, 0, desbalanceoInverso));
-      parteDerecha = std::move(temporal.partir(2, 1, desbalanceoInverso));
+      Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<int>{
+        (textoCifrado[0].obtenerNumeroDeElementos() / 2) + desbalanceoInverso};
 
       /* Operación normal */
-      auxiliar = std::move(parteIzquierda);
-      parteIzquierda = std::move(mOperadorSuma->deoperar(
-        {parteDerecha, mFuncionDeRonda->operar({auxiliar})}));
-      parteDerecha = std::move(auxiliar);
+      auxiliar = std::move(partes[0]);
+      partes[0] = std::move(mOperadorSuma->deoperar(
+        {partes[1], mFuncionDeRonda->operar({auxiliar})}));
+      partes[1] = std::move(auxiliar);
 
-      temporal = std::move(parteIzquierda + parteDerecha);
+      temporal = std::move(static_cast<Arreglo<int>>(partes[0])
+        + static_cast<Arreglo<int>>(partes[1]));
     }
     return temporal;
   }

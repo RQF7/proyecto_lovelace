@@ -185,8 +185,6 @@ namespace Implementaciones
    * actualizan apuntadores.
    *
    * \sa http://www.cplusplus.com/reference/utility/move/
-   *
-   * \todo La operación de partición tendría que ser una sola función.
    */
 
   template <typename tipo>
@@ -194,18 +192,19 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>>& textoEnClaro      /**< Bloque a cifrar. */
   )
   {
-    Arreglo<tipo> parteIzquierda = textoEnClaro[0].partir(2, 0);
-    Arreglo<tipo> parteDerecha = textoEnClaro[0].partir(2, 1);
+    Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<int>{
+      textoEnClaro[0].obtenerNumeroDeElementos() / 2};
     Arreglo<tipo> auxiliar (mTamanioDeBloque / 2);
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
-      auxiliar = std::move(parteDerecha);
-      parteDerecha = std::move(
-        mOperadorSuma->operar({parteIzquierda,
+      auxiliar = std::move(partes[1]);
+      partes[1] = std::move(
+        mOperadorSuma->operar({partes[0],
           mFuncionDeRonda->operar({auxiliar})}));
-      parteIzquierda = std::move(auxiliar);
+      partes[0] = std::move(auxiliar);
     }
-    return parteIzquierda + parteDerecha;
+    return static_cast<Arreglo<int>>(partes[0])
+      + static_cast<Arreglo<int>>(partes[1]);
   }
 
   /**
@@ -221,8 +220,6 @@ namespace Implementaciones
    * \return Bloque descifrado.
    *
    * \sa http://www.cplusplus.com/reference/utility/move/
-   *
-   * \todo Las particiones se tendrían que hacer en una sola función.
    */
 
   template <typename tipo>
@@ -230,18 +227,19 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>>& textoCifrado   /**< Bloque a descifrar. */
   )
   {
-    Arreglo<tipo> parteIzquierda = textoCifrado[0].partir(2, 0);
-    Arreglo<tipo> parteDerecha = textoCifrado[0].partir(2, 1);
+    Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<int>{
+      textoCifrado[0].obtenerNumeroDeElementos() / 2};
     Arreglo<tipo> auxiliar (mTamanioDeBloque / 2);
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
-      auxiliar = std::move(parteIzquierda);
-      parteIzquierda = std::move(
-        mOperadorSuma->deoperar({parteDerecha,
+      auxiliar = std::move(partes[0]);
+      partes[0] = std::move(
+        mOperadorSuma->deoperar({partes[1],
           mFuncionDeRonda->operar({auxiliar})}));
-      parteDerecha = std::move(auxiliar);
+      partes[1] = std::move(auxiliar);
     }
-    return parteIzquierda + parteDerecha;
+    return static_cast<Arreglo<int>>(partes[0])
+      + static_cast<Arreglo<int>>(partes[1]);
   }
 
 }

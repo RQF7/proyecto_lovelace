@@ -144,8 +144,6 @@ namespace Implementaciones
    * La función de ronda usada depende de si esta es par, o impar.
    *
    * \return Bloque cifrado.
-   *
-   * \todo La operación de partición tendría que ser una sola función.
    */
 
   template <typename tipo>
@@ -153,22 +151,23 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>>& textoEnClaro     /**< Bloque a cifrar. */
   )
   {
-    Arreglo<tipo> parteIzquierda = textoEnClaro[0].partir(2, 0, mDesbalanceo);
-    Arreglo<tipo> parteDerecha = textoEnClaro[0].partir(2, 1, mDesbalanceo);
+    Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<int>{
+      (textoEnClaro[0].obtenerNumeroDeElementos() / 2) + mDesbalanceo};
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       if (mRondaActual % 2 == 0)
       {
-        parteIzquierda = std::move(mOperadorSuma->operar(
-          {parteIzquierda, mFuncionDeRonda->operar({parteDerecha})}));
+        partes[0] = std::move(mOperadorSuma->operar(
+          {partes[0], mFuncionDeRonda->operar({partes[1]})}));
       }
       else
       {
-        parteDerecha = std::move(mOperadorSuma->operar(
-          {parteDerecha, mFuncionDeRondaImpar->operar({parteIzquierda})}));
+        partes[1] = std::move(mOperadorSuma->operar(
+          {partes[1], mFuncionDeRondaImpar->operar({partes[0]})}));
       }
     }
-    return parteIzquierda + parteDerecha;
+    return static_cast<Arreglo<int>>(partes[0])
+      + static_cast<Arreglo<int>>(partes[1]);
   }
 
   /**
@@ -180,8 +179,6 @@ namespace Implementaciones
    * \return Bloque descifrado.
    *
    * \sa http://www.cplusplus.com/reference/utility/move/
-   *
-   * \todo Las particiones se tendrían que hacer en una sola función.
    */
 
   template <typename tipo>
@@ -189,22 +186,23 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>>& textoCifrado   /**< Bloque a descifrar. */
   )
   {
-    Arreglo<tipo> parteIzquierda = textoCifrado[0].partir(2, 0, mDesbalanceo);
-    Arreglo<tipo> parteDerecha = textoCifrado[0].partir(2, 1, mDesbalanceo);
+    Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<int>{
+      (textoCifrado[0].obtenerNumeroDeElementos() / 2) + mDesbalanceo};
     for (mRondaActual = mNumeroDeRondas - 1; mRondaActual >= 0; mRondaActual--)
     {
       if (mRondaActual % 2 == 0)
       {
-        parteIzquierda = std::move(mOperadorSuma->deoperar({
-          parteIzquierda, mFuncionDeRonda->operar({parteDerecha})}));
+        partes[0] = std::move(mOperadorSuma->deoperar({
+          partes[0], mFuncionDeRonda->operar({partes[1]})}));
       }
       else
       {
-        parteDerecha = std::move(mOperadorSuma->deoperar({
-          parteDerecha, mFuncionDeRondaImpar->operar({parteIzquierda})}));
+        partes[1] = std::move(mOperadorSuma->deoperar({
+          partes[1], mFuncionDeRondaImpar->operar({partes[0]})}));
       }
     }
-    return parteIzquierda + parteDerecha;
+    return static_cast<Arreglo<int>>(partes[0])
+      + static_cast<Arreglo<int>>(partes[1]);
   }
 
 }
