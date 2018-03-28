@@ -4,6 +4,7 @@
  * Proyecto Lovelace.
  */
 
+#include "cabeceras/color.hh"
 #include "cabeceras/prueba.hh"
 #include <iostream>
 
@@ -24,16 +25,18 @@ bool Prueba::probar()
   bool resultadoGlobal = true;
   for (auto prueba : mListaDePruebas)
   {
-    cout << "==> Subprueba " << contador << " de " << mListaDePruebas.size()
+    cout << Color::Azul
+         << "==> Subprueba " << contador << " de " << mListaDePruebas.size()
          << ": " << prueba.obtenerDescripcion() << endl
+         << Color::Original
          << "-------------------------------------------------------------------"
          << endl;
     bool resultadoLocal = (prueba.obtenerFuncion())();
     cout
          << "-------------------------------------------------------------------"
-         << endl
+         << endl << (resultadoLocal ? Color::Verde : Color::Rojo)
          << "==> Resultado: " << (resultadoLocal ? "aceptado" : "rechazado")
-         << endl << endl;
+         << Color::Original << endl << endl;
     resultadoGlobal &= resultadoLocal;
     contador++;
   }
