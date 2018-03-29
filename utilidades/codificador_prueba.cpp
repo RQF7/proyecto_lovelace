@@ -47,12 +47,12 @@ bool CodificadorPrueba::probarBase64()
   string resultado = codificador.operar({arreglo});
   Arreglo<unsigned char> arregloResulatdo = codificador.deoperar({resultado});
   cout << "Prueba con múltiplos:" << endl << "Arreglo 1: ";
-  for (int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arreglo[i]) << " ";
   cout << endl;
   cout << "Codificado 1: " << resultado << endl;
   cout << "Decodificado 1: ";
-  for (int i = 0; i < arregloResulatdo.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloResulatdo.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloResulatdo[i]) << " ";
   cout << endl;
   if (arreglo != arregloResulatdo)
@@ -63,12 +63,12 @@ bool CodificadorPrueba::probarBase64()
   string resultadoDos = codificador.operar({arregloDos});
   Arreglo<unsigned char> arregloResultadoDos = codificador.deoperar({resultadoDos});
   cout << "Prueba con dos caracteres de padding:" << endl << "Arreglo 2: ";
-  for (int i = 0; i < arregloDos.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloDos.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloDos[i]) << " ";
   cout << endl;
   cout << "Codificado 2: " << resultadoDos << endl;
   cout << "Decodificado 2: ";
-  for (int i = 0; i < arregloResultadoDos.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloResultadoDos.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloResultadoDos[i]) << " ";
   cout << endl;
   if (arregloDos != arregloResultadoDos)
@@ -79,12 +79,12 @@ bool CodificadorPrueba::probarBase64()
   string resultadoTres = codificador.operar({arregloTres});
   Arreglo<unsigned char> arregloResultadoTres = codificador.deoperar({resultadoTres});
   cout << "Prueba con un caracter de padding:" << endl << "Arreglo 3: ";
-  for (int i = 0; i < arregloTres.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloTres.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloTres[i]) << " ";
   cout << endl;
   cout << "Codificado 3: " << resultadoTres << endl;
   cout << "Decodificado 3: ";
-  for (int i = 0; i < arregloResultadoTres.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloResultadoTres.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloResultadoTres[i]) << " ";
   cout << endl;
   if (arregloTres != arregloResultadoTres)
@@ -95,12 +95,12 @@ bool CodificadorPrueba::probarBase64()
   string resultadoCuatro = codificador.operar({arregloCuatro});
   Arreglo<unsigned char> arregloResultadoCuatro = codificador.deoperar({resultadoCuatro});
   cout << "Prueba con dos caracteres de padding:" << endl << "Arreglo 3: ";
-  for (int i = 0; i < arregloCuatro.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloCuatro.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloCuatro[i]) << " ";
   cout << endl;
   cout << "Codificado 3: " << resultadoCuatro << endl;
   cout << "Decodificado 3: ";
-  for (int i = 0; i < arregloResultadoCuatro.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloResultadoCuatro.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloResultadoCuatro[i]) << " ";
   cout << endl;
   if (arregloCuatro != arregloResultadoCuatro)
@@ -125,12 +125,12 @@ bool CodificadorPrueba::probarBase32()
   string resultado = codificador.operar({arreglo});
   Arreglo<unsigned char> arregloResulatdo = codificador.deoperar({resultado});
   cout << "Prueba con múltiplos:" << endl << "Arreglo 1: ";
-  for (int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arreglo[i]) << " ";
   cout << endl;
   cout << "Codificado 1: " << resultado << endl;
   cout << "Decodificado 1: ";
-  for (int i = 0; i < arregloResulatdo.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloResulatdo.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloResulatdo[i]) << " ";
   cout << endl;
   if (arreglo != arregloResulatdo)
@@ -141,12 +141,12 @@ bool CodificadorPrueba::probarBase32()
   string resultadoDos = codificador.operar({arregloDos});
   Arreglo<unsigned char> arregloResultadoDos = codificador.deoperar({resultadoDos});
   cout << "Prueba con seis caracteres de padding:" << endl << "Arreglo 2: ";
-  for (int i = 0; i < arregloDos.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloDos.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloDos[i]) << " ";
   cout << endl;
   cout << "Codificado 2: " << resultadoDos << endl;
   cout << "Decodificado 2: ";
-  for (int i = 0; i < arregloResultadoDos.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloResultadoDos.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloResultadoDos[i]) << " ";
   cout << endl;
   if (arregloDos != arregloResultadoDos)
@@ -157,12 +157,12 @@ bool CodificadorPrueba::probarBase32()
   string resultadoTres = codificador.operar({arregloTres});
   Arreglo<unsigned char> arregloResultadoTres = codificador.deoperar({resultadoTres});
   cout << "Prueba con cuatro caracteres de padding:" << endl << "Arreglo 3: ";
-  for (int i = 0; i < arregloTres.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloTres.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloTres[i]) << " ";
   cout << endl;
   cout << "Codificado 3: " << resultadoTres << endl;
   cout << "Decodificado 3: ";
-  for (int i = 0; i < arregloResultadoTres.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloResultadoTres.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloResultadoTres[i]) << " ";
   cout << endl;
   if (arregloTres != arregloResultadoTres)
@@ -173,12 +173,12 @@ bool CodificadorPrueba::probarBase32()
   string resultadoCuatro = codificador.operar({arregloCuatro});
   Arreglo<unsigned char> arregloResultadoCuatro = codificador.deoperar({resultadoCuatro});
   cout << "Prueba con tres caracteres de padding:" << endl << "Arreglo 3: ";
-  for (int i = 0; i < arregloCuatro.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloCuatro.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloCuatro[i]) << " ";
   cout << endl;
   cout << "Codificado 3: " << resultadoCuatro << endl;
   cout << "Decodificado 3: ";
-  for (int i = 0; i < arregloResultadoCuatro.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloResultadoCuatro.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloResultadoCuatro[i]) << " ";
   cout << endl;
   if (arregloCuatro != arregloResultadoCuatro)
@@ -189,12 +189,12 @@ bool CodificadorPrueba::probarBase32()
   string resultadoCinco = codificador.operar({arregloCinco});
   Arreglo<unsigned char> arregloResultadoCinco = codificador.deoperar({resultadoCinco});
   cout << "Prueba con un caracter de padding:" << endl << "Arreglo 3: ";
-  for (int i = 0; i < arregloCinco.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloCinco.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloCinco[i]) << " ";
   cout << endl;
   cout << "Codificado 3: " << resultadoCinco << endl;
   cout << "Decodificado 3: ";
-  for (int i = 0; i < arregloResultadoCinco.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloResultadoCinco.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloResultadoCinco[i]) << " ";
   cout << endl;
   if (arregloCinco != arregloResultadoCinco)
@@ -218,12 +218,12 @@ bool CodificadorPrueba::probarBase16()
   string resultado = codificador.operar({arreglo});
   Arreglo<unsigned char> arregloDos = codificador.deoperar({resultado});
   cout << "Prueba con pares: " << endl << "Arreglo 1: ";
-  for (int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arreglo[i]) << " ";
   cout << endl;
   cout << "Codificado 1: " << resultado << endl;
   cout << "Decodificado 1: ";
-  for (int i = 0; i < arregloDos.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloDos.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloDos[i]) << " ";
   cout << endl;
 
@@ -232,12 +232,12 @@ bool CodificadorPrueba::probarBase16()
   string resultadoDos = codificador.operar({arregloTres});
   Arreglo<unsigned char> arregloCuatro = codificador.deoperar({resultadoDos});
   cout << "Prueba con impares: " << endl << "Arreglo 1: ";
-  for (int i = 0; i < arregloTres.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloTres.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloTres[i]) << " ";
   cout << endl;
   cout << "Codificado 1: " << resultadoDos << endl;
   cout << "Decodificado 1: ";
-  for (int i = 0; i < arregloCuatro.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloCuatro.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arregloCuatro[i]) << " ";
   cout << endl;
 

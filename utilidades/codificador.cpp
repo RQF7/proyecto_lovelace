@@ -73,10 +73,6 @@ Codificador::~Codificador()
  * \param entrada Vector con solo el primer elemento; bytes a codificar.
  *
  * \return Cadena con bytes codificador.
- *
- * \todo Colocar paddings correctos para la operación con base32; dado que
- * en esos casos un solo byte de origen puede estar asociado con hasta tres
- * en el destino, la operación no es igual a la base 64.
  */
 
 string Codificador::operar(
@@ -86,7 +82,7 @@ string Codificador::operar(
   string resultado;
   int contador = 0;
   /* Proceso normal. */
-  for (int i = 0; i < entrada[0].obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < entrada[0].obtenerNumeroDeElementos(); i++)
   {
     mBufferOrigen[contador++] = entrada[0][i];
     if (contador == mTopeOrigen)

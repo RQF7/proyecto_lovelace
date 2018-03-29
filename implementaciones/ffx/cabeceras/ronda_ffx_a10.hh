@@ -2,9 +2,6 @@
  * \file
  * \brief Implementación de función de ronda de FFX.
  *
- * \todo Poner en el constructor la inicialización de los datos fijos, para
- * hacer más corta la función de ronda.
- *
  * Proyecto Lovelace.
  */
 
@@ -30,6 +27,9 @@ namespace Implementaciones
    * ronda es que depende mucho del nivel superior, de los parámetros de FFX.
    * Me parecería más elegante una función de ronda que no se preocupe por
    * cosas como el tipo de red, o el tipo de suma; cuando menos más modular.
+   *
+   * \todo Poner en el constructor la inicialización de los datos fijos, para
+   * hacer más corta la función de ronda.
    */
 
   template <typename tipo>
@@ -39,9 +39,10 @@ namespace Implementaciones
     public:
 
       /** \brief Construye una nueva instancia de la función. */
-      RondaFFXA10(unsigned char *llave, unsigned char *tweak, int longitudTweak,
-        int tipoDeRed, int tipoDeSuma, int radix, int longitud, int desbalanceo,
-        int numeroDeRondas);
+      RondaFFXA10(unsigned char *llave, unsigned char *tweak,
+        unsigned int longitudTweak, int tipoDeRed, int tipoDeSuma,
+        unsigned int radix, unsigned int longitud, int desbalanceo,
+        unsigned int numeroDeRondas);
 
       /** \brief Función de ronda. */
       Arreglo<tipo> operar(const std::vector<Arreglo<tipo>> &entrada) override;
@@ -55,7 +56,7 @@ namespace Implementaciones
       unsigned char *mTweak;
 
       /** \brief Longitud del tweak dado. */
-      int mLongitudTweak;
+      unsigned int mLongitudTweak;
 
       /** \brief Tipo de red usada (desbalanceada, alternante). */
       int mTipoDeRed;
@@ -64,16 +65,16 @@ namespace Implementaciones
       int mTipoDeSuma;
 
       /** \brief Cardinalidad del alfabeto usado. */
-      int mRadix;
+      unsigned int mRadix;
 
       /** \brief Longitud de los mensajes dados. */
-      int mLongitud;
+      unsigned int mLongitud;
 
       /** \brief Grado de desbalanceo de la red. */
       int mDesbalanceo;
 
       /** \brief Número de rondas. */
-      int mNumeroDeRondas;
+      unsigned int mNumeroDeRondas;
   };
 
   /**
@@ -81,28 +82,29 @@ namespace Implementaciones
    * decorativos: se usan solo para rellenar el bloque de entrada del MAC. En
    * una implementación completa (junto con una entidad de FFX superior), estos
    * parámetros serán constantes a lo largo de las iteraciones de la red.
+   *
+   * \param llave           Llave de 64 bits (AES).
+   * \param tweak           Tweak (longitud variable).
+   * \param longitudTweak   Longitud del tweak dado.
+   * \param tipoDeRed       Tipo de red usada (desbalanceada, alternante).
+   * \param tipoDeSuma      Tipo de suma (por bloques, por caracter).
+   * \param radix           Cardinalidad del alfabeto usado.
+   * \param longitud        Longitud de los mensajes dados.
+   * \param desbalanceo     Grado de desbalanceo de la red.
+   * \param numeroDeRondas  Número de rondas.
    */
 
   template<typename tipo>
   RondaFFXA10<tipo>::RondaFFXA10(
-    /** Llave de 64 bits (AES). */
     unsigned char *llave,
-    /** Tweak (longitud variable). */
     unsigned char *tweak,
-    /** Longitud del tweak dado. */
-    int longitudTweak,
-    /** Tipo de red usada (desbalanceada, alternante). */
+    unsigned int longitudTweak,
     int tipoDeRed,
-    /** Tipo de suma (por bloques, por caracter). */
     int tipoDeSuma,
-    /** Cardinalidad del alfabeto usado. */
-    int radix,
-    /** Longitud de los mensajes dados. */
-    int longitud,
-    /** Grado de desbalanceo de la red. */
+    unsigned int radix,
+    unsigned int longitud,
     int desbalanceo,
-    /** Número de rondas. */
-    int numeroDeRondas
+    unsigned int numeroDeRondas
   )
   : mLlave{llave},
     mTweak{tweak},
@@ -124,7 +126,7 @@ namespace Implementaciones
 
   template<typename tipo>
   Arreglo<tipo> RondaFFXA10<tipo>::operar(
-    const std::vector<Arreglo<tipo>> &textoEnClaro    /**< */
+    const std::vector<Arreglo<tipo>> &textoEnClaro    /**< Texto a cifrar- */
   )
   {
     /* Determinar longitud de entrada. La única longitud variable es la del
@@ -143,7 +145,7 @@ namespace Implementaciones
     entrada[7] = 0;
 
     /* Tweak. */
-    for (int i = 0, j = 8; i < mLongitudTweak; i++, j++)
+    for (unsigned int i = 0, j = 8; i < mLongitudTweak; i++, j++)
       entrada[j] = mTweak[i];
 
     /* Representación numérica de mensaje. */

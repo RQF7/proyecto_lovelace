@@ -2,7 +2,6 @@
  * \file
  * \brief Definición de la clase del cifrador de ronda.
  *
- * \todo Mejor la clase para cifrar con otros cifradores por bloques.
  * Proyecto Lovelace.
  */
 

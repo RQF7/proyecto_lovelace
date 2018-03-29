@@ -25,7 +25,7 @@ ArregloDeDigitos PseudoaleatorioTrivial::operar(
   const std::vector<int>& entrada   /**< Nada en sí, pero la interfaz obliga. */
 )
 {
-  ArregloDeDigitos resultado(16);
+  ArregloDeDigitos resultado(16u);
   random_device dispositivo;
   mt19937_64 generador{dispositivo()};
   uniform_int_distribution<int> distribucion(0, 9);

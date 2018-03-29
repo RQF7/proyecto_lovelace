@@ -149,7 +149,7 @@ bool PruebaAES::probarCifradoDescifrado()
  * de los modos de operación siempre regresan un mensaje de al menos dos
  * bloques.
  *
- * \test Estado de la prueba.
+ * \return Estado de la prueba.
  */
 
 bool PruebaAES::probarAESCBC()

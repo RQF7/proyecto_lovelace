@@ -16,8 +16,6 @@ using namespace std;
 /**
  * Interpreta los caracteres de la cadena dada como un número en la base
  * dada. La cadena «564» pasa como constante 564ull y como arreglo {5, 6, 4}.
- *
- * \todo Lanzar excepción si el número interno se desborda.
  */
 
 ArregloDeDigitos::ArregloDeDigitos(
@@ -75,7 +73,7 @@ ArregloDeDigitos::ArregloDeDigitos(
   mCadena (mNumeroDeElementos, '0'),
   mBase {base}
 {
-  for (int i = 0; i < mNumeroDeElementos; i++)
+  for (unsigned int i = 0; i < mNumeroDeElementos; i++)
     mCadena[i] = mArregloInterno[i] + 48;
 }
 
@@ -87,14 +85,14 @@ ArregloDeDigitos::ArregloDeDigitos(
  */
 
 ArregloDeDigitos::ArregloDeDigitos(
-  int numeroDeElementos,              /**< Número de lementos del arreglo. */
+  unsigned int numeroDeElementos,     /**< Número de lementos del arreglo. */
   int base                            /**< Base de número. */
 )
 : Arreglo<int> (numeroDeElementos),
   mCadena (mNumeroDeElementos, '0'),
   mBase {base}
 {
-  for (int i = 0; i < mNumeroDeElementos; i++)
+  for (unsigned int i = 0; i < mNumeroDeElementos; i++)
     mArregloInterno[i] = 0;
 }
 
@@ -120,6 +118,9 @@ ArregloDeDigitos::ArregloDeDigitos()
  * permite reutilizar algunas operaciones comunes.
  *
  * \return Instancia de intermediario asociado al índice dado.
+ *
+ * \throw AccesoFueraDeRango Si el índice dado no se encuentra en el rango del
+ * arreglo intenro.
  */
 
 Utilidades::IntermediarioDeArregloDeDigitos ArregloDeDigitos::operator[](
@@ -134,6 +135,11 @@ Utilidades::IntermediarioDeArregloDeDigitos ArregloDeDigitos::operator[](
  * Regresa el elemento que hay en el índice dado. A diferencia de
  * operator[](int indice) esta operación solamente se utiliza cuando se trata
  * con arreglos constantes.
+ *
+ * \return copia de elemento en el índice dado.
+ *
+ * \throw AccesoFueraDeRango Si el índice dado no se encuentra en el rango del
+ * arreglo intenro.
  */
 
 int ArregloDeDigitos::operator[](

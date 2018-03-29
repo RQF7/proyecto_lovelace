@@ -53,9 +53,9 @@ namespace Implementaciones
         typename RedFeistel<tipo>::FuncionDeCombinacion;
 
       /** \brief Inicialización de red interna. */
-      FFX(int radix, int tamanioDeMensaje,
+      FFX(unsigned int radix, unsigned int tamanioDeMensaje,
         TipoDeCombinacion tipoDeCombinacion, TipoDeRed tipoDeRed,
-        int desbalanceo, int numeroDeRondas,
+        int desbalanceo, unsigned int numeroDeRondas,
         FuncionDeRonda *funcionDeRondaPar,
         FuncionDeRonda *funcionDeRondaImpar);
 
@@ -94,9 +94,9 @@ namespace Implementaciones
   template <typename tipo>
   FFX<tipo>::FFX(
     /** Cardinalidad del alfabeto. */
-    int radix,
+    unsigned int radix,
     /** Tamaño de cadenas procesadas. */
-    int tamanioDeMensaje,
+    unsigned int tamanioDeMensaje,
     /** Tipo de operación de combinación a ocupar. */
     TipoDeCombinacion tipoDeCombinacion,
     /** Tipo de red Feistel a ocupar. */
@@ -104,7 +104,7 @@ namespace Implementaciones
     /** Nivel de desbalanceo de la red. */
     int desbalanceo,
     /** Número de rondas. */
-    int numeroDeRondas,
+    unsigned int numeroDeRondas,
     /** Apuntador a función de ronda (pares). */
     FuncionDeRonda *funcionDeRondaPar,
     /** Apuntador a función de ronda (impares). */

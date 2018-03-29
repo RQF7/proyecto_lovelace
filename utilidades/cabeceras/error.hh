@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief
+ * \brief Declaración de clase base para excepciones.
  */
 
 #ifndef __ERROR_H__

@@ -78,13 +78,13 @@ class Arreglo
     explicit Arreglo();
 
     /** \brief Construcción de arreglo del tamaño dado. */
-    explicit Arreglo(int numeroDeElementos);
+    explicit Arreglo(unsigned int numeroDeElementos);
 
     /** \brief Construcción mediante lista de inicialización. */
     Arreglo(std::initializer_list<tipo> elementos);
 
 		/** \brief Construcción por memoria ya existente. */
-		Arreglo(int numeroDeElementos, tipo* &&memoria);
+		Arreglo(unsigned int numeroDeElementos, tipo* &&memoria);
 
     /** \brief Constructor de operación de copiado. */
     Arreglo(const Arreglo &arreglo);
@@ -111,7 +111,8 @@ class Arreglo
     virtual void colocar(int indice, tipo valor);
 
     /** \brief Regresa el tamaño del arreglo. */
-    inline int obtenerNumeroDeElementos() const { return mNumeroDeElementos; }
+    inline unsigned int obtenerNumeroDeElementos() const
+      { return mNumeroDeElementos; }
 
     /** \brief Regresa una copia del arreglo interno. */
     tipo *obtenerCopiaDeArreglo() const;
@@ -124,7 +125,7 @@ class Arreglo
     Arreglo<Arreglo<tipo>> operator/(
       const Arreglo<int> &marcasDivisorias) const;
 
-    /** \breif Error para representar un acceso ilegal. */
+    /** \brief Error para representar un acceso ilegal. */
     struct AccesoFueraDeRango : public Utilidades::Error
     { inline AccesoFueraDeRango(std::string mensaje)
       : Utilidades::Error{mensaje} {} };
@@ -132,7 +133,7 @@ class Arreglo
   protected:
 
     /** \brief Tamaño del arreglo (entero mayor a cero). */
-    int mNumeroDeElementos;
+    unsigned int mNumeroDeElementos;
 
     /** \brief Apuntador a sección de memoria con el contenido del arreglo.*/
     tipo *mArregloInterno;
@@ -159,7 +160,7 @@ class Arreglo
 
 template<typename tipo>
 Arreglo<tipo>::Arreglo()
-: mNumeroDeElementos {0},
+: mNumeroDeElementos {0u},
   mArregloInterno {nullptr}
 {
 }
@@ -184,18 +185,15 @@ Arreglo<tipo>::Arreglo()
  * funcionPrueba(6);          // Error: no se puede hacer la conversión.
  * funcionPrueba({6});        // Bien: pasa un arreglo con un seis.
  * ```
- *
- * \todo comprobación de tamaño (máximo, mínimo).
  */
 
 template<typename tipo>
 Arreglo<tipo>::Arreglo(
-  int numeroDeElementos /**< Número de elementos del arreglo. */
+  unsigned int numeroDeElementos /**< Número de elementos del arreglo. */
 )
 : mNumeroDeElementos {numeroDeElementos},
   mArregloInterno {new tipo[mNumeroDeElementos]}
 {
-  //memset(mArregloInterno, 0, mNumeroDeElementos);
 }
 
 /**
@@ -240,7 +238,7 @@ Arreglo<tipo>::Arreglo(
 
 template <typename tipo>
 Arreglo<tipo>::Arreglo(
-	int numeroDeElementos,               /**< Número de elementos del arreglo. */
+	unsigned int numeroDeElementos,      /**< Número de elementos del arreglo. */
 	tipo* &&memoria                      /**< Apuntador a memoria reservada. */
 )
 : mNumeroDeElementos {numeroDeElementos},
@@ -272,10 +270,6 @@ Arreglo<tipo>::Arreglo(
  * funcionPrueba(b);      // Constructor por copia: b a «arreglo».
  * ```
  *
- * \todo :O Estoy accediendo a un objeto privado del otro arreglo (el fuente)
- * ¿Esto se puede hacer siempre que la variable sea de tipo «const»? ¿O es
- * una característica especial de los constructores por copia?
- *
  * \sa http://www.cplusplus.com/reference/memory/uninitialized_copy/
  */
 
@@ -290,13 +284,10 @@ Arreglo<tipo>::Arreglo(
 }
 
 /**
- * Copia el contenido del arreglo fuente en este arreglo; en este caso
- * la memoria ya debe de estar reservada.
+ * Copia el contenido del arreglo fuente en este arreglo. Para esto primero
+ * libera la memoria anterior y después reserva la necesaria para la copia.
  *
  * \return Referencia a sí mismo.
- *
- * \todo Comprobaciones de tamaño: si la fuente es más grande, lanzar
- * excepción, si es más pequeña, rellenar con valores por defecto.
  *
  * \sa http://www.cplusplus.com/reference/algorithm/copy/
  */
@@ -337,11 +328,6 @@ Arreglo<tipo>& Arreglo<tipo>::operator=(
  * operaciones de movimiento están hechas para manejar este tipo de
  * referencias, mientras que las operaciones de copia permiten manejar
  * referencias a *lvalue* (valor de lado izquierdo).
- *
- * \todo Hmmm... aquí el argumento no es constante y de todos modos se
- * accede al apuntador privado.
- * Creo que tiene que ver con el hecho de que es un rvalue (un objeto
- * que ya no se va a utilizar más).
  */
 
 template<typename tipo>
@@ -409,7 +395,8 @@ Arreglo<tipo>::~Arreglo()
  *
  * \return Instancia de intermediario asociado al índice dado.
  *
- * \todo Comprobación de índice válido.
+ * \throw AccesoFueraDeRango Si el índice dado no se encuentra en el rango del
+ * arreglo intenro.
  */
 
 template<typename tipo>
@@ -424,6 +411,11 @@ Utilidades::IntermediarioDeArreglo<tipo> Arreglo<tipo>::operator[](
  * Regresa el elemento que hay en el índice dado. A diferencia de
  * operator[](int indice) esta operación solamente se utiliza cuando se trata
  * con arreglos constantes.
+ *
+ * \return Copia de elemento en índice.
+ *
+ * \throw AccesoFueraDeRango Si el índice dado no se encuentra en el rango del
+ * arreglo intenro.
  */
 
 template<typename tipo>
@@ -552,10 +544,10 @@ const
     marcasDivisorias.obtenerNumeroDeElementos() + 1);
   int acumulado = 0;
   int marcaActual = marcasDivisorias[0];
-  for (int i = 0; i < resultado.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < resultado.obtenerNumeroDeElementos(); i++)
   {
     Arreglo<tipo> subArreglo(marcaActual - acumulado);
-    for (int j = 0; j < subArreglo.obtenerNumeroDeElementos(); j++)
+    for (unsigned int j = 0; j < subArreglo.obtenerNumeroDeElementos(); j++)
       subArreglo[j] = mArregloInterno[acumulado + j];
     resultado[i] = subArreglo;
     if (i == resultado.obtenerNumeroDeElementos() - 1)
@@ -574,6 +566,9 @@ const
  * al último elemento, -2 al penúltimo, etcétera).
  *
  * \return El índice después de la resolución.
+ *
+ * \throw AccesoFueraDeRango Si el índice dado no se encuentra en el rango del
+ * arreglo intenro.
  */
 
 template<typename tipo>
@@ -583,7 +578,7 @@ int Arreglo<tipo>::resolverIndice(
 {
   if (indice < 0)
     indice = mNumeroDeElementos + indice;
-  if (indice < 0 || indice >= mNumeroDeElementos)
+  if (indice < 0 || static_cast<unsigned int>(indice) >= mNumeroDeElementos)
     throw AccesoFueraDeRango{
       "El índice no se encuentra en el rango del arreglo"};
   return indice;
@@ -596,8 +591,6 @@ int Arreglo<tipo>::resolverIndice(
  * compilación).
  *
  * \return Referencia a flujo dado (para concatenar operaciones).
- *
- * \todo ¿Cómo hacer que el separador sea un parámetro más?
  */
 
 template <typename tipo>
@@ -606,7 +599,7 @@ std::ostream& operator<<(
   const Arreglo<tipo> &arreglo  /**< Arreglo a imprimir. */
 )
 {
-  for (int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
     flujo << arreglo.mArregloInterno[i] << " ";
   return flujo;
 }
@@ -616,7 +609,7 @@ std::ostream& operator<<(
  * espacio para concatenar a los dos arreglos dados y los coloca en el
  * orden dado (la operación no es conmutativa).
  *
- * \todo Validación de coherencia de tipos.
+ * \return Arreglo con los dos parámetros concatenados.
  */
 
 template <typename tipo>
@@ -637,7 +630,7 @@ Arreglo<tipo> operator+(
  * Primero compara número de elemetos y después compara elemento a
  * elemento.
  *
- * \todo Validación de igualdad.
+ * \return Validación de igualdad.
  */
 
 template <typename tipo>
@@ -649,7 +642,7 @@ bool operator==(
   if (arregloUno.obtenerNumeroDeElementos() !=
     arregloDos.obtenerNumeroDeElementos())
     return false;
-  for (int i = 0; i < arregloUno.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloUno.obtenerNumeroDeElementos(); i++)
     if (arregloUno[i] != arregloDos[i])
       return false;
   return true;
@@ -658,7 +651,7 @@ bool operator==(
 /**
  * Simplemente hace el complemento de la validación de igualdad.
  *
- * \todo Validación de desigualdad.
+ * \return Validación de desigualdad.
  */
 
 template <typename tipo>
@@ -688,6 +681,7 @@ bool operator!=(
  */
 
 template <typename tipoDeArreglo, typename tipoDeNumero>
+[[ deprecated("Mejor usar arreglo de dígitos; tiene más sentido.") ]]
 Arreglo<tipoDeArreglo> convertirAArreglo(
   tipoDeNumero numero,        /**< Número a convertir. */
   int base,                   /**< Base de la conversión. */
@@ -723,13 +717,14 @@ Arreglo<tipoDeArreglo> convertirAArreglo(
  */
 
 template<typename tipoDeArreglo, typename tipoDeNumero>
+[[ deprecated("Mejor usar arreglo de dígitos; tiene más sentido.") ]]
 tipoDeNumero convertirANumero(
   const Arreglo<tipoDeArreglo> &arreglo,    /**< Referencia a arreglo. */
   int base                                  /**< Base de la conversión. */
 )
 {
   tipoDeNumero resultado {0};
-  for (int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
     resultado += arreglo[i] * potencia<tipoDeNumero>(base, i);
   return resultado;
 }

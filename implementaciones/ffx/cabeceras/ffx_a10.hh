@@ -33,7 +33,7 @@ namespace Implementaciones
 
       /** \brief Inicialización de parámetros de FFX A10. */
       FFXA10(unsigned char *llave, unsigned char *tweak,
-        int tamanioTweak, int tamanioDeMensaje);
+        unsigned int tamanioTweak, unsigned int tamanioDeMensaje);
   };
 
   /**
@@ -57,22 +57,22 @@ namespace Implementaciones
     /** Tweak para la función de ronda. */
     unsigned char *tweak,
     /** Tamaño del tweak dado. */
-    int tamanioTweak,
+    unsigned int tamanioTweak,
     /** Tamaño de los mensajes a procesar. */
-    int tamanioDeMensaje
+    unsigned int tamanioDeMensaje
   )
   : FFX<tipo>{
     /* Cardinalidad (radix). */
-    10,
+    10u,
     tamanioDeMensaje,
     FFX<tipo>::TipoDeCombinacion::porCaracter,
     FFX<tipo>::TipoDeRed::alternante,
     /* Desbalanceo. */
     0,
     /* Número de rondas (dependen de el tamaño del mensaje). */
-    (tamanioDeMensaje <= 5) ? 24 :
-    (tamanioDeMensaje <= 9) ? 18 :
-    12,
+    (tamanioDeMensaje <= 5) ? 24u :
+    (tamanioDeMensaje <= 9) ? 18u :
+    12u,
 
     /* Función de ronda par. */
     new RondaFFXA10<tipo>{
@@ -87,9 +87,9 @@ namespace Implementaciones
       /* Posición del split (el desbalanceo es 0). */
       static_cast<int>(floor(tamanioDeMensaje / 2.0)),
       /* Número de rondas (dependen de el tamaño del mensaje). */
-      (tamanioDeMensaje <= 5) ? 24 :
-      (tamanioDeMensaje <= 9) ? 18 :
-      12},
+      (tamanioDeMensaje <= 5) ? 24u :
+      (tamanioDeMensaje <= 9) ? 18u :
+      12u},
 
     /* Función de ronda impar. */
     new RondaFFXA10<tipo>{
@@ -99,14 +99,14 @@ namespace Implementaciones
       static_cast<int>(FFX<tipo>::TipoDeCombinacion::porCaracter),
       static_cast<int>(FFX<tipo>::TipoDeRed::alternante),
       /* Cardinalidad (radix). */
-      10,
+      10u,
       tamanioDeMensaje,
       /* Posición del split (el desbalanceo es 0). */
       static_cast<int>(ceil(tamanioDeMensaje / 2.0)),
       /* Número de rondas (dependen de el tamaño del mensaje). */
-      (tamanioDeMensaje <= 5) ? 24 :
-      (tamanioDeMensaje <= 9) ? 18 :
-      12}
+      (tamanioDeMensaje <= 5) ? 24u :
+      (tamanioDeMensaje <= 9) ? 18u :
+      12u}
     }
   {
   }

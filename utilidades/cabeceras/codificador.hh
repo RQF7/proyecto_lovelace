@@ -31,6 +31,9 @@ namespace Utilidades
    * un arreglo de bytes y regresa una cadena codificada. La decodificación
    * invierte los tipos de entrada y salida.
    *
+   * \todo Arreglar operación de los paddings para la base 32. Hay una
+   * excepción de acceso ilegal.
+   *
    * \sa https://tools.ietf.org/html/rfc4648
    */
 

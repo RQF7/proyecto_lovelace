@@ -65,8 +65,6 @@ ArregloDeDigitos TKR::tokenizar(
  * PAN asociado al token dado.
  *
  * \return PAN asociado al token dado.
- *
- * \todo Lanzar excepción en caso de búsqueda infructuosa.
  */
 
 ArregloDeDigitos TKR::detokenizar(
@@ -74,5 +72,7 @@ ArregloDeDigitos TKR::detokenizar(
 )
 {
   Registro informacion = mBaseDeDatos->buscarPorToken(token);
+  if (informacion.obtenerPAN() == Arreglo<int>{})
+    throw TokenInexistente{"El token no está en la base de datos."};
   return informacion.obtenerPAN();
 }

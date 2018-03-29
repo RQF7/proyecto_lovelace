@@ -32,10 +32,6 @@ RedFeistelPrueba::RedFeistelPrueba()
  * mismo para cualquier tipo de dato.
  *
  * \return Estado de la prueba.
- *
- * \todo ¿Qué pasa si cifrar tuviera una sobrecarga que recibe otra cosa con
- * una lista de inicialización? ¿Error de compilación, o cómo se resuelve la
- * ambigüedad?
  */
 
 bool RedFeistelPrueba::probarCifradoDescifrado()

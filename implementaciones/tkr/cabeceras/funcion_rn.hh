@@ -33,7 +33,8 @@ namespace Implementaciones
       /** \brief Inicialización de parámetros. */
       FuncionRN(FuncionInterna* funcionInterna,
         CDV* baseDeDatos = new AccesoSimulado,
-        int longitudDeCadena = 16, int cardinalidadDeAlfabeto = 10);
+        unsigned int longitudDeCadena = 16u, 
+        unsigned int cardinalidadDeAlfabeto = 10u);
 
       /** \brief Liberación de memoria. */
       ~FuncionRN();
@@ -53,13 +54,13 @@ namespace Implementaciones
       CDV* mBaseDeDatos;
 
       /** \brief Longitud de cadenas resultado */
-      int mLongitudDeCadena;
+      unsigned int mLongitudDeCadena;
 
       /** \brief Cardinalidad del alfabeto usado. */
-      int mCardinalidadDeAlfabeto;
+      unsigned int mCardinalidadDeAlfabeto;
 
       /** \brief Longitud en bits de cada elemento de cadena. */
-      int mLongitudDeBits;
+      unsigned int mLongitudDeBits;
 
       /** \brief Contador usado como estado para función interna. */
       entero mContador;

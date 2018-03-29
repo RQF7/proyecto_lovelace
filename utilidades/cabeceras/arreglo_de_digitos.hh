@@ -34,7 +34,7 @@ class ArregloDeDigitos : public Arreglo<int>
     ArregloDeDigitos(const Arreglo<int>& arreglo, int base = 10);
 
     /** \brief Arreglo vacío, solo reserva memoria. */
-    ArregloDeDigitos(int numeroDeElementos, int base = 10);
+    ArregloDeDigitos(unsigned int numeroDeElementos, int base = 10);
 
     /** \brief Arreglo vacío, sin reserva de memoria. */
     ArregloDeDigitos();

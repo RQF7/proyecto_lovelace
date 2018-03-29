@@ -57,10 +57,6 @@ namespace Implementaciones
      * \return Copia de bloque dado.
      *
      * \sa http://www.cplusplus.com/reference/utility/move/
-     *
-     * \todo ¿Tiene caso hacer implementación trivial con puras operaciones de
-     * movimiento? Tal vez como ejercicio de C++, pero no con espera de que
-     * se ocupe en algún lado.
      */
 
     tipoDeVuelta operar(const std::vector<tipoDeIda> &entrada) override

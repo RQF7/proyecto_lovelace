@@ -61,7 +61,7 @@ bool ArregloDeDigitosPrueba::probarConstructores()
 
 bool ArregloDeDigitosPrueba::probarColocar()
 {
-  ArregloDeDigitos prueba(4);
+  ArregloDeDigitos prueba(4u);
   prueba[0] = 1;
   prueba[1] = 2;
   prueba[2] = 3;

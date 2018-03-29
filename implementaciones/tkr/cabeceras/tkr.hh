@@ -40,11 +40,10 @@ namespace Implementaciones
       /** \brief Libearación de memoria. */
       ~TKR();
 
-      /** Operación de tokenización (declarada por la interfaz). */
-      ArregloDeDigitos tokenizar(const ArregloDeDigitos& pan) override;
-
-      /** Operación de detokenización (declarada por la interfaz). */
-      ArregloDeDigitos detokenizar(const ArregloDeDigitos& token) override;
+      /** \brief El token dado no existe. */
+      struct TokenInexistente : public Utilidades::Error {
+        inline TokenInexistente(std::string mensaje)
+        : Utilidades::Error{mensaje} {}};
 
     private:
 
@@ -53,6 +52,12 @@ namespace Implementaciones
 
       /** \brief Apuntador a una clase de acceso a datos. */
       CDV* mBaseDeDatos;
+
+      /** Operación de tokenización (declarada por la interfaz). */
+      ArregloDeDigitos tokenizar(const ArregloDeDigitos& pan) override;
+
+      /** Operación de detokenización (declarada por la interfaz). */
+      ArregloDeDigitos detokenizar(const ArregloDeDigitos& token) override;
   };
 }
 

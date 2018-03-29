@@ -9,6 +9,7 @@
 #define __RED_FEISTEL_DESBALANCEADA__
 
 #include "red_feistel.hh"
+#include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
 
 namespace Implementaciones
 {
@@ -18,9 +19,6 @@ namespace Implementaciones
    * En cuestión de datos miembro, solamente se agrega el grado de
    * desbalanceo. Se sobrescriben las operaciones de cifrado y descifrado
    * de una red balanceada.
-   *
-   * \todo ¿Cuál es la forma más rápida de hacer la repartición, en las
-   * operaciones de cifrado y descifrado?
    *
    * \tparam tipo Tipo con el que opera la red.
    */
@@ -39,8 +37,8 @@ namespace Implementaciones
         typename RedFeistel<tipo>::FuncionDeCombinacion;
 
       /** \brief Construcción de red Feistel desbalanceada. */
-      RedFeistelDesbalanceada(int numeroDeRondas,
-        int tamanioDeBloque, int desbalanceo = 0,
+      RedFeistelDesbalanceada(unsigned int numeroDeRondas,
+        unsigned int tamanioDeBloque, int desbalanceo = 0,
         FuncionDeRonda* funcionDeRonda =
           new FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>,
         FuncionDeCombinacion* operadorSuma =
@@ -87,14 +85,14 @@ namespace Implementaciones
    * \param operadorSuma      Función para combinar bloques; por defecto
    *                          implementación trivial.
    *
-   * \todo Lanzar excepción cuando el desbalanceo no concuerde con el tamaño
+   * \throw BalanceInvalido Si el grado de desbalanceo dado se sale del tamaño
    * de bloque.
    */
 
   template <typename tipo>
   RedFeistelDesbalanceada<tipo>::RedFeistelDesbalanceada(
-    int numeroDeRondas,
-    int tamanioDeBloque,
+    unsigned int numeroDeRondas,
+    unsigned int tamanioDeBloque,
     int desbalanceo,
     FuncionDeRonda* funcionDeRonda,
     FuncionDeCombinacion* operadorSuma
@@ -103,6 +101,10 @@ namespace Implementaciones
       funcionDeRonda, operadorSuma},
     mDesbalanceo {desbalanceo}
   {
+    if (static_cast<unsigned int>(valorAbsoluto(desbalanceo))
+      > tamanioDeBloque / 2)
+      throw BalanceInvalido{
+        "El desbalanceo se sale del tamaño de bloque."};
   }
 
   /**
@@ -122,7 +124,8 @@ namespace Implementaciones
     {
       /* Partición */
       Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<int>{
-        (textoEnClaro[0].obtenerNumeroDeElementos() / 2) + mDesbalanceo};
+        (static_cast<int>(textoEnClaro[0].obtenerNumeroDeElementos()) / 2)
+        + mDesbalanceo};
 
       /* Operación normal */
       auxiliar = std::move(partes[1]);
@@ -156,7 +159,8 @@ namespace Implementaciones
     {
       /* Partición */
       Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<int>{
-        (textoCifrado[0].obtenerNumeroDeElementos() / 2) + desbalanceoInverso};
+        (static_cast<int>(textoCifrado[0].obtenerNumeroDeElementos()) / 2)
+        + desbalanceoInverso};
 
       /* Operación normal */
       auxiliar = std::move(partes[0]);

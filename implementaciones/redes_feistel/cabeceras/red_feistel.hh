@@ -14,6 +14,7 @@
 
 #include "funcion_de_ronda_trivial.hh"
 #include "funcion_de_combinacion_trivial.hh"
+#include "../../../utilidades/cabeceras/error.hh"
 #include "../../../utilidades/cabeceras/arreglo.hh"
 #include "../../../utilidades/interfaces_comunes/funcion.hh"
 #include "../../../utilidades/interfaces_comunes/funcion_con_inverso.hh"
@@ -30,10 +31,6 @@ namespace Implementaciones
    * red Feistel.
    *
    * \tparam tipo Tipo de dato con el que opera la red.
-   *
-   * \todo Excepciones de tamaños.
-   * \todo Argumentos de función de ronda. ¿Cómo pasarlos sin hacerlos miembro
-   * de esta clase.
    */
 
   template <typename tipo>
@@ -69,7 +66,7 @@ namespace Implementaciones
     public:
 
       /** \brief Construcción de red Feistel balanceada. */
-      RedFeistel(int numeroDeRondas, int tamanioDeBloque,
+      RedFeistel(unsigned int numeroDeRondas, unsigned int tamanioDeBloque,
         FuncionDeRonda* funcionDeRonda =
           new FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>,
         FuncionDeCombinacion* operadorSuma =
@@ -92,10 +89,10 @@ namespace Implementaciones
     protected:
 
       /** \brief Número de rondas de la red. */
-      int mNumeroDeRondas;
+      unsigned int mNumeroDeRondas;
 
       /** \brief Tamaño de los bloques. */
-      int mTamanioDeBloque;
+      unsigned int mTamanioDeBloque;
 
       /** \brief Función de ronda. */
       FuncionDeRonda* mFuncionDeRonda;
@@ -105,8 +102,13 @@ namespace Implementaciones
 
       /** \brief Ronda actual (pensando en implementaciones
        *  concurrentes). */
-      int mRondaActual;
+      unsigned int mRondaActual;
   };
+
+  /** \brief Balanceo inválido en generalizaciones. */
+  struct BalanceInvalido : public Utilidades::Error {
+    inline BalanceInvalido(std::string mensaje)
+    : Utilidades::Error{mensaje} {}};
 
   /* Definición **************************************************************/
 
@@ -131,8 +133,8 @@ namespace Implementaciones
 
   template <typename tipo>
   RedFeistel<tipo>::RedFeistel(
-    int numeroDeRondas,
-    int tamanioDeBloque,
+    unsigned int numeroDeRondas,
+    unsigned int tamanioDeBloque,
     FuncionDeRonda* funcionDeRonda,
     FuncionDeCombinacion* operadorSuma
   )
@@ -140,7 +142,7 @@ namespace Implementaciones
     mTamanioDeBloque {tamanioDeBloque},
     mFuncionDeRonda {funcionDeRonda},
     mOperadorSuma {operadorSuma},
-    mRondaActual {0}
+    mRondaActual {0u}
   {
   }
 
@@ -193,7 +195,7 @@ namespace Implementaciones
   )
   {
     Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<int>{
-      textoEnClaro[0].obtenerNumeroDeElementos() / 2};
+      static_cast<int>(textoEnClaro[0].obtenerNumeroDeElementos()) / 2};
     Arreglo<tipo> auxiliar (mTamanioDeBloque / 2);
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
@@ -228,7 +230,7 @@ namespace Implementaciones
   )
   {
     Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<int>{
-      textoCifrado[0].obtenerNumeroDeElementos() / 2};
+      static_cast<int>(textoCifrado[0].obtenerNumeroDeElementos()) / 2};
     Arreglo<tipo> auxiliar (mTamanioDeBloque / 2);
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {

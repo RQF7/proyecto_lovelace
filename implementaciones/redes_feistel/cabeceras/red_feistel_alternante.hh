@@ -9,6 +9,7 @@
 #define __RED_FEISTEL_ALTERNANTE__
 
 #include "red_feistel.hh"
+#include <string>
 
 namespace Implementaciones
 {
@@ -43,8 +44,8 @@ namespace Implementaciones
         typename RedFeistel<tipo>::FuncionDeCombinacion;
 
       /** \brief Construcción de red Feistel alternante. */
-      RedFeistelAlternante(int numeroDeRondas,
-        int tamanioDeBloque, int desbalanceo = 0,
+      RedFeistelAlternante(unsigned int numeroDeRondas,
+        unsigned int tamanioDeBloque, int desbalanceo = 0,
         FuncionDeRonda* funcionDeRondaPar =
           new FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>,
         FuncionDeRonda* funcionDeRondaImpar =
@@ -104,14 +105,14 @@ namespace Implementaciones
    * \param operadorSuma        Función para combinar bloques; por defecto
    *                            implementación trivial.
    *
-   * \todo Lanzar excepción cuando el desbalanceo no concuerde con el tamaño
+   * \throw BalanceInvalido Si el grado de desbalanceo dado se sale del tamaño
    * de bloque.
    */
 
   template <typename tipo>
   RedFeistelAlternante<tipo>::RedFeistelAlternante(
-    int numeroDeRondas,
-    int tamanioDeBloque,
+    unsigned int numeroDeRondas,
+    unsigned int tamanioDeBloque,
     int desbalanceo,
     FuncionDeRonda* funcionDeRondaPar,
     FuncionDeRonda* funcionDeRondaImpar,
@@ -122,6 +123,10 @@ namespace Implementaciones
     mDesbalanceo {desbalanceo},
     mFuncionDeRondaImpar {funcionDeRondaImpar}
   {
+    if (static_cast<unsigned int>(valorAbsoluto(desbalanceo)) >
+      tamanioDeBloque / 2)
+      throw BalanceInvalido{
+        "El desbalanceo se sale del tamaño de bloque."};
   }
 
   /**
@@ -152,7 +157,8 @@ namespace Implementaciones
   )
   {
     Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<int>{
-      (textoEnClaro[0].obtenerNumeroDeElementos() / 2) + mDesbalanceo};
+      (static_cast<int>(textoEnClaro[0].obtenerNumeroDeElementos()) / 2)
+      + mDesbalanceo};
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       if (mRondaActual % 2 == 0)
@@ -187,7 +193,8 @@ namespace Implementaciones
   )
   {
     Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<int>{
-      (textoCifrado[0].obtenerNumeroDeElementos() / 2) + mDesbalanceo};
+      (static_cast<int>(textoCifrado[0].obtenerNumeroDeElementos()) / 2)
+      + mDesbalanceo};
     for (mRondaActual = mNumeroDeRondas - 1; mRondaActual >= 0; mRondaActual--)
     {
       if (mRondaActual % 2 == 0)
