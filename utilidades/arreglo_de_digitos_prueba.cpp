@@ -35,8 +35,8 @@ ArregloDeDigitosPrueba::ArregloDeDigitosPrueba()
 
 bool ArregloDeDigitosPrueba::probarConstructores()
 {
-  ArregloDeDigitos pruebaUno {"123456"};
-  ArregloDeDigitos pruebaDos {76589ull};
+  ArregloDeDigitos pruebaUno ("123456");
+  ArregloDeDigitos pruebaDos (76589ull);
   cout << "Prueba uno: " << pruebaUno << " "
        << pruebaUno.obtenerNumero() << endl
        << "Prueba dos: " << pruebaDos << " "
