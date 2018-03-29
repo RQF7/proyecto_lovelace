@@ -13,7 +13,9 @@
 #include "tkr/cabeceras/pseudoaleatorio_aes.hh"
 #include "tkr/cabeceras/pseudoaleatorio_trivial.hh"
 #include "tkr/cabeceras/tkr.hh"
+#include "utilidades/cabeceras/algoritmo_tokenizador.hh"
 #include "utilidades/cabeceras/utilidades_criptograficas.hh"
+#include "utilidades/cabeceras/utilidades_tarjetas.hh"
 #include "../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include "../utilidades/cabeceras/codificador.hh"
 #include <iostream>
@@ -65,7 +67,14 @@ int main(int numeroDeArgumentos, char** argumentos)
   if (operacion == "-r")
   {
     generarPAN();
-  } /* Genera llave. */
+  }
+  /* Calcular dígito de verificación. */
+  else if (operacion == "-l")
+  {
+    ArregloDeDigitos pan {string{argumentos[2]}};
+    cout << algoritmoDeLuhn(pan) << endl;
+  }
+  /* Genera llave. */
   else if (operacion == "-k")
   {
     string nombreDeArchivo {argumentos[2]};
@@ -78,18 +87,18 @@ int main(int numeroDeArgumentos, char** argumentos)
   else if (operacion == "-e")
   {
     string metodo {argumentos[2]};
-    ArregloDeDigitos pan {string{argumentos[3]}};
+    ArregloDeDigitos pan (string{argumentos[3]});
     string nombreArchivoLlave {argumentos[4]};
-    ArregloDeDigitos token {tokenizar(metodo, nombreArchivoLlave, pan)};
+    ArregloDeDigitos token (tokenizar(metodo, nombreArchivoLlave, pan));
     cout << token << endl;
   }
   /* Detokenizar. */
   else if (operacion == "-d")
   {
     string metodo {argumentos[2]};
-    ArregloDeDigitos token {string{argumentos[3]}};
+    ArregloDeDigitos token (string{argumentos[3]});
     string nombreArchivoLlave {argumentos[4]};
-    ArregloDeDigitos pan {detokenizar(metodo, nombreArchivoLlave, token)};
+    ArregloDeDigitos pan (detokenizar(metodo, nombreArchivoLlave, token));
     cout << pan << endl;
   }
   /* Ayuda. */
@@ -115,7 +124,11 @@ void imprimirAyuda()
 {
   cout << "Uso de programa: " << endl
       << "./binarios/lovelace OPERACIÓN ARGUMENTOS" << endl
-      << "OPERACIÓN := -k | -e | -d | -h " << endl
+      << "OPERACIÓN := -r | -l | -k | -e | -d | -h " << endl
+      << "-r" << endl
+      << "  Genera PAN aleatorio válido." << endl
+      << "-l PAN" << endl
+      << "  Calcula el dígito de verificación del número dado."
       << "-k NOMBRE_DE_ARCHIVO LONGITUD" << endl
       << "  Genera una llave aleatoria de la longitud solicitada y" << endl
       << "  la guarda en el archivo dado." << endl
@@ -138,7 +151,7 @@ void imprimirAyuda()
 void generarPAN()
 {
   PseudoaleatorioTrivial generador {};
-  cout << generador.operar({}) << endl;
+  cout << generador.operar({16u}) << endl;
 }
 
 /**
@@ -200,9 +213,9 @@ ArregloDeDigitos tokenizar(
   {
     CDV* accesoADatos = new AccesoMySQL {};
     PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
-    FuncionRN* funcion = new FuncionRN {aes, accesoADatos};
-    TKR tkr {funcion, accesoADatos};
-    ArregloDeDigitos token {tkr.tokenizar(pan)};
+    FuncionRN* funcion = new FuncionRN {aes, accesoADatos, 9};
+    AlgoritmoTokenizador* tkr = new TKR{funcion, accesoADatos};
+    ArregloDeDigitos token (tkr->operar({pan}));
     resultado = token;
   }
   else if (metodo == "FFX")
@@ -243,9 +256,9 @@ ArregloDeDigitos detokenizar(
   {
     CDV* accesoADatos = new AccesoMySQL {};
     PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
-    FuncionRN* funcion = new FuncionRN {aes, accesoADatos};
+    FuncionRN* funcion = new FuncionRN {aes, accesoADatos, 9};
     TKR tkr {funcion, accesoADatos};
-    ArregloDeDigitos pan {tkr.detokenizar(token)};
+    ArregloDeDigitos pan (tkr.deoperar({token}));
     resultado = pan;
   }
   else if (metodo == "FFX")

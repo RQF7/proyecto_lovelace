@@ -24,7 +24,8 @@ namespace Implementaciones
    * artículo de TKR.
    */
 
-  class FuncionRN : public Utilidades::Funcion<ArregloDeDigitos, int>
+  class FuncionRN : public Utilidades::Funcion<ArregloDeDigitos,
+    unsigned int>
   {
     public:
       /** \brief Alias para función interna. */
@@ -33,14 +34,14 @@ namespace Implementaciones
       /** \brief Inicialización de parámetros. */
       FuncionRN(FuncionInterna* funcionInterna,
         CDV* baseDeDatos = new AccesoSimulado,
-        unsigned int longitudDeCadena = 16u, 
+        unsigned int longitudDeCadena = 16u,
         unsigned int cardinalidadDeAlfabeto = 10u);
 
       /** \brief Liberación de memoria. */
       ~FuncionRN();
 
       /** \brief Generación de token pseudoaleatorio. */
-      ArregloDeDigitos operar(const std::vector<int>& entrada) override;
+      ArregloDeDigitos operar(const std::vector<unsigned int>& entrada) override;
 
       /** \brief Redistribuye los bytes del arreglo dado. */
       Arreglo<unsigned char> redistribuir(

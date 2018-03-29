@@ -22,15 +22,16 @@ using namespace std;
  */
 
 ArregloDeDigitos PseudoaleatorioTrivial::operar(
-  const std::vector<int>& entrada   /**< Nada en sí, pero la interfaz obliga. */
+  const std::vector<unsigned int>& entrada   /**< Longitud de salida.. */
 )
 {
-  ArregloDeDigitos resultado(16u);
+  ArregloDeDigitos resultado(entrada[0]);
   random_device dispositivo;
   mt19937_64 generador{dispositivo()};
   uniform_int_distribution<int> distribucion(0, 9);
-  for (int i = 0; i < 15; i++)
+  for (unsigned int i = 0; i < resultado.obtenerNumeroDeElementos() - 1; i++)
     resultado[i] = modulo(distribucion(generador), 10);
-  resultado[15] = algoritmoDeLuhn(resultado, true);
+  resultado[resultado.obtenerNumeroDeElementos() - 1] =
+    algoritmoDeLuhn(resultado, true);
   return resultado;
 }

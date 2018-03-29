@@ -123,9 +123,8 @@ namespace Implementaciones
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       /* Partición */
-      Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<int>{
-        (static_cast<int>(textoEnClaro[0].obtenerNumeroDeElementos()) / 2)
-        + mDesbalanceo};
+      Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<unsigned int>{
+        (textoEnClaro[0].obtenerNumeroDeElementos() / 2) + mDesbalanceo};
 
       /* Operación normal */
       auxiliar = std::move(partes[1]);
@@ -158,9 +157,8 @@ namespace Implementaciones
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       /* Partición */
-      Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<int>{
-        (static_cast<int>(textoCifrado[0].obtenerNumeroDeElementos()) / 2)
-        + desbalanceoInverso};
+      Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<unsigned int>{
+        (textoCifrado[0].obtenerNumeroDeElementos() / 2) + desbalanceoInverso};
 
       /* Operación normal */
       auxiliar = std::move(partes[0]);

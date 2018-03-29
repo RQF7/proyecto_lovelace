@@ -52,7 +52,8 @@ ArregloDeDigitos TKR::tokenizar(
   Registro informacion = mBaseDeDatos->buscarPorPan(pan);
   if (informacion.obtenerToken() == Arreglo<int>{})
   {
-    ArregloDeDigitos temporal = mFuncionPseudoaleatoria->operar({});
+    ArregloDeDigitos temporal =
+      mFuncionPseudoaleatoria->operar({pan.obtenerNumeroDeElementos()});
     informacion.colocarToken(temporal);
     informacion.colocarPAN(pan);
     mBaseDeDatos->guardar(informacion);

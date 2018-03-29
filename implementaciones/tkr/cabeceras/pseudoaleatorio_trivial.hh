@@ -22,11 +22,11 @@ namespace Implementaciones
    */
 
   class PseudoaleatorioTrivial
-  : public Utilidades::Funcion<ArregloDeDigitos, int>
+  : public Utilidades::Funcion<ArregloDeDigitos, unsigned int>
   {
     public:
       /** \brief Generación de token pseudoaleatorio trivial. */
-      ArregloDeDigitos operar(const std::vector<int>& entrada) override;
+      ArregloDeDigitos operar(const std::vector<unsigned int>& entrada) override;
   };
 }
 

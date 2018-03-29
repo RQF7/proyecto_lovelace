@@ -36,22 +36,22 @@ AccesoMySQLPrueba::AccesoMySQLPrueba()
 bool AccesoMySQLPrueba::probarAcceso()
 {
   AccesoMySQL acceso {};
-  Registro registro {0, {12345ull}, {67891ull}};
+  Registro registro {0, ArregloDeDigitos(12345ull), ArregloDeDigitos(67891ull)};
   acceso.guardar(registro);
 
-  Registro pruebaUno = acceso.buscarPorPan({12345ull});
-  Registro pruebaDos = acceso.buscarPorToken({67891ull});
+  Registro pruebaUno = acceso.buscarPorPan(ArregloDeDigitos(12345ull));
+  Registro pruebaDos = acceso.buscarPorToken(ArregloDeDigitos(67891ull));
   cout << "Prueba uno:" << endl << pruebaUno
        << "Prueba dos:" << endl << pruebaDos;
 
-  if (pruebaUno.obtenerToken() != ArregloDeDigitos{67891ull} ||
-    pruebaDos.obtenerPAN() != ArregloDeDigitos{12345ull})
+  if (pruebaUno.obtenerToken() != ArregloDeDigitos(67891ull) ||
+    pruebaDos.obtenerPAN() != ArregloDeDigitos(12345ull))
     return false;
 
   acceso.eliminar(pruebaUno.obtenerIdentificador());
   try
   {
-    Registro pruebaTres = acceso.buscarPorPan({12345ull});
+    Registro pruebaTres = acceso.buscarPorPan(ArregloDeDigitos(12345ull));
   }
   catch (SQLException &excepcion)
   {

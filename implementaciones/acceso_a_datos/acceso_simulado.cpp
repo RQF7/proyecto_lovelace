@@ -20,7 +20,7 @@ Registro AccesoSimulado::buscarPorPan(
   const ArregloDeDigitos& PAN             /**< Número de tarjeta a buscar. */
 )
 {
-  return Registro{0, PAN, {12345678ull}};
+  return Registro{0, PAN, ArregloDeDigitos()};
 }
 
 /**
@@ -34,7 +34,7 @@ Registro AccesoSimulado::buscarPorToken(
   const ArregloDeDigitos& token            /**< Token a buscar. */
 )
 {
-  return Registro{0, {12345678ull}, token};
+  return Registro{0, ArregloDeDigitos(12345678ull), token};
 }
 
 /**

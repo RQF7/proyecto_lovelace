@@ -7,6 +7,7 @@
 #define __ALGORITMO_TOKENIZADDOR__
 
 #include "../../../utilidades/cabeceras/arreglo_de_digitos.hh"
+#include "../../../utilidades/cabeceras/error.hh"
 #include "../../../utilidades/interfaces_comunes/funcion_con_inverso.hh"
 #include <vector>
 
@@ -27,18 +28,31 @@ namespace Implementaciones
     public:
 
       /** \brief Operación de tokenización. */
-      virtual ArregloDeDigitos tokenizar(const ArregloDeDigitos& pan) = 0;
-
-      /** \brief Operación de detokenización. */
-      virtual ArregloDeDigitos detokenizar(const ArregloDeDigitos& token) = 0;
-
-      /** \brief Puente con operación de tokenización. */
       ArregloDeDigitos operar(
         const std::vector<ArregloDeDigitos> &entrada) override;
 
-      /** \brief Puente con operación de detokenización. */
+      /** \brief Operación de detokenización. */
       ArregloDeDigitos deoperar(
         const std::vector<ArregloDeDigitos> &entrada) override;
+
+      /** \brief Error para representar formatos inválidos. */
+      struct TarjetaMalFormada : public Utilidades::Error
+        { inline TarjetaMalFormada(std::string mensaje)
+          : Utilidades::Error{mensaje} {} };
+
+    protected:
+
+      /** \brief Operación de tokenización abstracta para implementadores. */
+      virtual ArregloDeDigitos tokenizar(const ArregloDeDigitos& entrada) = 0;
+
+      /** \brief Operación de detokenización abstracta para implementadores. */
+      virtual ArregloDeDigitos detokenizar(const ArregloDeDigitos& entrada) = 0;
+
+    private:
+
+      /** \brief Valida el token o el PAN dados. */
+      void validarEntrada(const ArregloDeDigitos& arreglo,
+        int desfaseDeDigitoVerificador = 0);
   };
 }
 

@@ -18,7 +18,7 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 conjunto_de_pruebas.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
-BANDERAS_GENERALES	:= -std=c++14 -Wall -Wfatal-errors -ggdb
+BANDERAS_GENERALES	:= -std=c++14 -Wall -Werror -Wfatal-errors -ggdb
 BANDERAS_DE_LIGADO	:= -lcryptopp
 
 $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)

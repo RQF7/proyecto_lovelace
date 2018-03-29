@@ -156,9 +156,8 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>>& textoEnClaro     /**< Bloque a cifrar. */
   )
   {
-    Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<int>{
-      (static_cast<int>(textoEnClaro[0].obtenerNumeroDeElementos()) / 2)
-      + mDesbalanceo};
+    Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<unsigned int>{
+      (textoEnClaro[0].obtenerNumeroDeElementos() / 2) + mDesbalanceo};
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       if (mRondaActual % 2 == 0)
@@ -192,9 +191,8 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>>& textoCifrado   /**< Bloque a descifrar. */
   )
   {
-    Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<int>{
-      (static_cast<int>(textoCifrado[0].obtenerNumeroDeElementos()) / 2)
-      + mDesbalanceo};
+    Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<unsigned int>{
+      (textoCifrado[0].obtenerNumeroDeElementos() / 2) + mDesbalanceo};
     for (mRondaActual = mNumeroDeRondas - 1; mRondaActual >= 0; mRondaActual--)
     {
       if (mRondaActual % 2 == 0)
@@ -207,6 +205,8 @@ namespace Implementaciones
         partes[1] = std::move(mOperadorSuma->deoperar({
           partes[1], mFuncionDeRondaImpar->operar({partes[0]})}));
       }
+      if (mRondaActual == 0)
+        break;
     }
     return static_cast<Arreglo<int>>(partes[0])
       + static_cast<Arreglo<int>>(partes[1]);

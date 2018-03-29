@@ -390,7 +390,7 @@ bool ArregloPrueba::probarControlDeAcceso()
 bool ArregloPrueba::probarDivisionEntreArreglo()
 {
   Arreglo<int> pruebaUno {1, 2, 3, 4};
-  Arreglo<int> divisorUno {1, 3};
+  Arreglo<unsigned int> divisorUno {1, 3};
   auto resultadoUno = pruebaUno / divisorUno;
   cout << "Prueba uno: " << endl
        << "Dividendo: " << pruebaUno << endl

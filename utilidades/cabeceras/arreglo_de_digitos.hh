@@ -9,6 +9,7 @@
 #include "arreglo.hh"
 #include "intermediario_de_arreglo_de_digitos.hh"
 #include "utilidades_matematicas.hh"
+#include <initializer_list>
 #include <ostream>
 #include <string>
 
@@ -32,6 +33,9 @@ class ArregloDeDigitos : public Arreglo<int>
 
     /** \brief Especialización de arreglo de enteros. */
     ArregloDeDigitos(const Arreglo<int>& arreglo, int base = 10);
+
+    /** \brief Construcción mediante lista de inicialización. */
+    ArregloDeDigitos(std::initializer_list<int> elementos);
 
     /** \brief Arreglo vacío, solo reserva memoria. */
     ArregloDeDigitos(unsigned int numeroDeElementos, int base = 10);

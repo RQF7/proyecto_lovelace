@@ -29,7 +29,8 @@ namespace Implementaciones
     public:
 
       /** \brief Alias para la función pseudoaleatoria. */
-      using FuncionPseudoaleatoria = Utilidades::Funcion<ArregloDeDigitos, int>;
+      using FuncionPseudoaleatoria =
+        Utilidades::Funcion<ArregloDeDigitos, unsigned int>;
 
       /* \brief Constructor de instancia. */
       TKR(FuncionPseudoaleatoria* funcionPseudoaleatoria =

@@ -66,6 +66,14 @@ tipoDeNumero convertirANumero(
  * Esta clase encapsula las operaciones de bajo nivel (con apuntadores y de
  * manejo de memoria) para ofrecer una interfaz clara y de alto nivel.
  *
+ * \todo Integrar el arreglo con las clases de iteradores de la biblioteca
+ * estándar para poder escribir ciclos con la sintaxis de for-each:
+ * ```
+ * Arreglo<int> elementos {1, 2, 3};
+ * for (auto elemento : elementos)
+ *   cout << elemento << endl;
+ * ```
+ *
  * \tparam tipo Tipo de dato del contenedor.
  */
 
@@ -123,7 +131,7 @@ class Arreglo
 
     /** \brief Operación de división entre arreglo de índices. */
     Arreglo<Arreglo<tipo>> operator/(
-      const Arreglo<int> &marcasDivisorias) const;
+      const Arreglo<unsigned int> &marcasDivisorias) const;
 
     /** \brief Error para representar un acceso ilegal. */
     struct AccesoFueraDeRango : public Utilidades::Error
@@ -531,12 +539,14 @@ Arreglo<tipo> Arreglo<tipo>::partir(
  * todas las particiones cuando solo es una la que se ocupa). De momento no
  * existe el caso arriba mencionado, por lo que se quedará como obsoleta.
  *
+ * \tparam marcasDivisorias Arreglo con marcas divisorias.
+ *
  * \return Arreglo de arreglos con subpartes del original.
  */
 
 template<typename tipo>
 Arreglo<Arreglo<tipo>> Arreglo<tipo>::operator/(
-  const Arreglo<int> &marcasDivisorias    /**< Arreglo con marcas divisorias. */
+  const Arreglo<unsigned int> &marcasDivisorias
 )
 const
 {

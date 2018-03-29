@@ -78,6 +78,28 @@ ArregloDeDigitos::ArregloDeDigitos(
 }
 
 /**
+ * Construye un arreglo de dígitos a partir de una lista de inicialización.
+ *
+ * \todo Hacer métodos de lectura y escritura para el atributo de la base
+ * (dado que no se puede pasar en este constructor) y armar representación
+ * numérica. Dada la construcción en dos pasos, el armado de las
+ * representaciones se debe separar del contructor (algún método cómo
+ * «recalcular»). Por lo mientras, los primeros constructores son
+ * los únicos en los que es segura la representación interna.
+ */
+
+ArregloDeDigitos::ArregloDeDigitos(
+  std::initializer_list<int> elementos   /**< Contenido del arreglo. */
+)
+: Arreglo<int>(elementos),
+  mCadena (mNumeroDeElementos, '0'),
+  mBase {10}
+{
+  for (unsigned int i = 0; i < mNumeroDeElementos; i++)
+    mCadena[i] = mArregloInterno[i] + 48;
+}
+
+/**
  * Pasa el número de elementos a la superclase para reservar memoria.
  * La cadena y el número interno usan su valor por defecto.
  * Inicializa todos los elementos del arreglo en 0 (para evitar interferencia

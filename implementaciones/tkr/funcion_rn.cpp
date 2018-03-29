@@ -58,7 +58,7 @@ FuncionRN::~FuncionRN()
  * \return Arreglo pseudoaleatorio con \ref mLongitudDeBits de longitud.
  */
 
-ArregloDeDigitos FuncionRN::operar(const vector<int>& entrada)
+ArregloDeDigitos FuncionRN::operar(const vector<unsigned int>& entrada)
 {
   Arreglo<unsigned char> binarioAleatorio = mFuncionInterna->operar({mContador,
     static_cast<entero>(3 * mLongitudDeCadena * mLongitudDeBits)});

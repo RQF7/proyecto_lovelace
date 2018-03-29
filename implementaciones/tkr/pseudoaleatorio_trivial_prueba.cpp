@@ -26,9 +26,9 @@ PseudoaleatorioTrivialPrueba::PseudoaleatorioTrivialPrueba()
 bool PseudoaleatorioTrivialPrueba::probarOperacion()
 {
   PseudoaleatorioTrivial funcion;
-  ArregloDeDigitos pruebaUno = funcion.operar({});
-  ArregloDeDigitos pruebaDos = funcion.operar({});
-  ArregloDeDigitos pruebaTres = funcion.operar({});
+  ArregloDeDigitos pruebaUno = funcion.operar({16});
+  ArregloDeDigitos pruebaDos = funcion.operar({16});
+  ArregloDeDigitos pruebaTres = funcion.operar({16});
   cout << "Prueba uno: " << pruebaUno << endl
        << "Prueba dos: " << pruebaDos << endl
        << "Prueba tres: " << pruebaTres << endl;

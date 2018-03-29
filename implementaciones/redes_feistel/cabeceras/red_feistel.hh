@@ -194,8 +194,8 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>>& textoEnClaro      /**< Bloque a cifrar. */
   )
   {
-    Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<int>{
-      static_cast<int>(textoEnClaro[0].obtenerNumeroDeElementos()) / 2};
+    Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<unsigned int>{
+      textoEnClaro[0].obtenerNumeroDeElementos() / 2};
     Arreglo<tipo> auxiliar (mTamanioDeBloque / 2);
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
@@ -229,8 +229,8 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>>& textoCifrado   /**< Bloque a descifrar. */
   )
   {
-    Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<int>{
-      static_cast<int>(textoCifrado[0].obtenerNumeroDeElementos()) / 2};
+    Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<unsigned int>{
+      textoCifrado[0].obtenerNumeroDeElementos() / 2};
     Arreglo<tipo> auxiliar (mTamanioDeBloque / 2);
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
