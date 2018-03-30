@@ -6,7 +6,9 @@
 #include "cabeceras/algoritmo_tokenizador.hh"
 #include "cabeceras/utilidades_tarjetas.hh"
 #include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
+#include "../../utilidades/cabeceras/utilidades_matematicas.hh"
 #include <vector>
+#include <iostream>
 
 using namespace Implementaciones;
 using namespace std;
@@ -70,6 +72,6 @@ void AlgoritmoTokenizador::validarEntrada(
     throw TarjetaMalFormada{"La longitud debe de ser entre 12 y 19 dígitos"};
 
   int verifiacion = algoritmoDeLuhn(arreglo, true);
-  if (arreglo[-1] != verifiacion + desfaseDeDigitoVerificador)
+  if (arreglo[-1] != modulo(verifiacion + desfaseDeDigitoVerificador, 10))
     throw TarjetaMalFormada{"Dígito de verificación inválido"};
 }

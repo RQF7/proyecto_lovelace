@@ -6,6 +6,7 @@
 #include "cabeceras/algoritmo_tokenizador_reversible.hh"
 #include "cabeceras/utilidades_tarjetas.hh"
 #include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
+#include "../../utilidades/cabeceras/utilidades_matematicas.hh"
 
 using namespace Implementaciones;
 
@@ -27,7 +28,7 @@ ArregloDeDigitos AlgoritmoTokenizadorReversible::tokenizarIntermedio(
     / Arreglo<unsigned int>{6, pan.obtenerNumeroDeElementos() - 1};
   auto temporal = static_cast<ArregloDeDigitos>(division[0])
     + tokenizar(static_cast<ArregloDeDigitos>(division[1]));
-  return temporal + ArregloDeDigitos{algoritmoDeLuhn(temporal) + 1};
+  return temporal + ArregloDeDigitos{modulo(algoritmoDeLuhn(temporal) + 1, 10)};
 }
 
 /**

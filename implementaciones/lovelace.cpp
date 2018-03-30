@@ -209,13 +209,14 @@ ArregloDeDigitos tokenizar(
 {
   unsigned char *llave = leerLlave(nombreArchivoLlave);
   ArregloDeDigitos resultado;
+  AlgoritmoTokenizador* algoritmoTokenizador;
   if (metodo == "TKR")
   {
     CDV* accesoADatos = new AccesoMySQL {};
     PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
     FuncionRN* funcion = new FuncionRN {aes, accesoADatos, 9};
-    AlgoritmoTokenizador* tkr = new TKR{funcion, accesoADatos};
-    ArregloDeDigitos token (tkr->operar({pan}));
+    algoritmoTokenizador = new TKR{funcion, accesoADatos};
+    ArregloDeDigitos token (algoritmoTokenizador->operar({pan}));
     resultado = token;
   }
   else if (metodo == "FFX")
@@ -233,6 +234,7 @@ ArregloDeDigitos tokenizar(
     ArregloDeDigitos token {BPS.cifrar(pan.obtenerCadena(), llave, 0)};
     resultado = token;
   }
+  delete algoritmoTokenizador;
   delete[] llave;
   return resultado;
 }

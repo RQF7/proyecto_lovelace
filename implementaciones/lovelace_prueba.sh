@@ -76,10 +76,10 @@ do
   panUno=$($ejecutable -r)
   echo "PAN original: " $panUno
 
-  tokenUno=$($ejecutable -e FFX $panUno temporal.llave)
+  tokenUno=$($ejecutable -e TKR $panUno temporal.llave)
   echo "Token: " $tokenUno
 
-  panUnoDescifrado=$($ejecutable -d FFX $tokenUno temporal.llave)
+  panUnoDescifrado=$($ejecutable -d TKR $tokenUno temporal.llave)
   echo "Pan descifrado: " $panUnoDescifrado
 
   rm temporal.llave

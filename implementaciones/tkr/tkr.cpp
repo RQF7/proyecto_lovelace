@@ -7,6 +7,7 @@
 #include "../utilidades/cabeceras/utilidades_tarjetas.hh"
 #include "../acceso_a_datos/cabeceras/registro.hh"
 #include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
+#include "../../utilidades/cabeceras/utilidades_matematicas.hh"
 #include <iostream>
 
 using namespace Implementaciones;
@@ -60,7 +61,7 @@ ArregloDeDigitos TKR::tokenizar(
         {static_cast<ArregloDeDigitos>(division[1]).obtenerNumeroDeElementos()});
     temporal = static_cast<ArregloDeDigitos>(division[0]) + temporal;
     informacion.colocarToken(temporal
-      + ArregloDeDigitos{algoritmoDeLuhn(temporal) + 1});
+      + ArregloDeDigitos{modulo(algoritmoDeLuhn(temporal) + 1, 10)});
     informacion.colocarPAN(pan);
     mBaseDeDatos->guardar(informacion);
   }
