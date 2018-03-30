@@ -4,6 +4,7 @@
  */
 
 #include "cabeceras/tkr.hh"
+#include "../utilidades/cabeceras/utilidades_tarjetas.hh"
 #include "../acceso_a_datos/cabeceras/registro.hh"
 #include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include <iostream>
@@ -52,9 +53,14 @@ ArregloDeDigitos TKR::tokenizar(
   Registro informacion = mBaseDeDatos->buscarPorPan(pan);
   if (informacion.obtenerToken() == Arreglo<int>{})
   {
+    auto division = pan
+      / Arreglo<unsigned int>{6, pan.obtenerNumeroDeElementos() - 1};
     ArregloDeDigitos temporal =
-      mFuncionPseudoaleatoria->operar({pan.obtenerNumeroDeElementos()});
-    informacion.colocarToken(temporal);
+      mFuncionPseudoaleatoria->operar(
+        {static_cast<ArregloDeDigitos>(division[1]).obtenerNumeroDeElementos()});
+    temporal = static_cast<ArregloDeDigitos>(division[0]) + temporal;
+    informacion.colocarToken(temporal
+      + ArregloDeDigitos{algoritmoDeLuhn(temporal) + 1});
     informacion.colocarPAN(pan);
     mBaseDeDatos->guardar(informacion);
   }

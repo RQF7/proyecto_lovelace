@@ -31,6 +31,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 utilidades/utilidades_criptograficas.cpp \
 											 utilidades/utilidades_criptograficas_prueba.cpp \
 											 utilidades/algoritmo_tokenizador.cpp \
+											 utilidades/algoritmo_tokenizador_reversible.cpp \
+											 utilidades/algoritmo_tokenizador_irreversible.cpp \
 											 utilidades/prueba.cpp \
 											 utilidades/conjunto_de_pruebas.cpp \
 											 utilidades/arreglo_de_digitos.cpp \
@@ -49,6 +51,8 @@ FUENTES_DOS					:= lovelace.cpp \
 											 utilidades/utilidades_tarjetas.cpp \
 											 utilidades/utilidades_criptograficas.cpp \
 											 utilidades/algoritmo_tokenizador.cpp \
+											 utilidades/algoritmo_tokenizador_reversible.cpp \
+											 utilidades/algoritmo_tokenizador_irreversible.cpp \
 											 utilidades/arreglo_de_digitos.cpp \
 											 utilidades/intermediario_de_arreglo_de_digitos.cpp \
 											 utilidades/codificador.cpp
@@ -140,6 +144,18 @@ $(CARPETA_OBJETOS)/utilidades/utilidades_criptograficas_prueba.o: \
 $(CARPETA_OBJETOS)/utilidades/algoritmo_tokenizador.o: \
 	utilidades/algoritmo_tokenizador.cpp \
 	utilidades/cabeceras/algoritmo_tokenizador.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/algoritmo_tokenizador_reversible.o: \
+	utilidades/algoritmo_tokenizador_reversible.cpp \
+	utilidades/cabeceras/algoritmo_tokenizador_reversible.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/algoritmo_tokenizador_irreversible.o: \
+	utilidades/algoritmo_tokenizador_irreversible.cpp \
+	utilidades/cabeceras/algoritmo_tokenizador_irreversible.hh
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 

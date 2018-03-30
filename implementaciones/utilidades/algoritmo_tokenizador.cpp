@@ -13,10 +13,8 @@ using namespace std;
 
 /**
  * Mapea los argumentos de esta operación (comunes a cualquier función con
- * inverso) a la operación abstracta de tokenización.
- *
- * Valida la entrada con el algoritmo de Luhn. Corta el PAN para cifrar
- * solamente el número de cuenta. Recalcula el dígito verificador.
+ * inverso) a la operación abstracta de tokenización. Valida la entrada con el
+ * algoritmo de Luhn.
  *
  * \throw TarjetaMalFormada Si la longitud no es la adecuada [12, 19] o el
  * dígito verificador es erroneo.
@@ -29,20 +27,13 @@ ArregloDeDigitos AlgoritmoTokenizador::operar(
 )
 {
   validarEntrada(entrada[0]);
-  auto division = entrada[0]
-    / Arreglo<unsigned int>{6, entrada[0].obtenerNumeroDeElementos() - 1};
-  auto temporal = static_cast<ArregloDeDigitos>(division[0])
-    + tokenizar(static_cast<ArregloDeDigitos>(division[1]));
-  return temporal + ArregloDeDigitos{algoritmoDeLuhn(temporal) + 1};
+  return tokenizarIntermedio(entrada[0]);
 }
 
 /**
  * Mapea los argumentos de esta operación (comunes a cualquier función con
- * inverso) a la operación abstracta de detokenización.
- *
- * Valida la entrada con el algoritmo de Luhn. Corta el token para descifrar
- * solamente lo que corresponda al número de cuenta. Recalcula el
- * dígito verificador.
+ * inverso) a la operación abstracta de detokenización. Valida la entrada con
+ * el algoritmo de Luhn.
  *
  * \throw TarjetaMalFormada Si la longitud no es la adecuada [12, 19] o el
  * dígito verificador es erroneo.
@@ -55,11 +46,7 @@ ArregloDeDigitos AlgoritmoTokenizador::deoperar(
 )
 {
   validarEntrada(entrada[0], 1);
-  auto division = entrada[0]
-    / Arreglo<unsigned int>{6, entrada[0].obtenerNumeroDeElementos() - 1};
-  auto temporal = static_cast<ArregloDeDigitos>(division[0])
-    + detokenizar(static_cast<ArregloDeDigitos>(division[1]));
-  return temporal + ArregloDeDigitos{algoritmoDeLuhn(temporal)};
+  return detokenizarIntermedio(entrada[0]);
 }
 
 /**

@@ -9,7 +9,7 @@
 #include "pseudoaleatorio_trivial.hh"
 #include "../../acceso_a_datos/cabeceras/cdv.hh"
 #include "../../acceso_a_datos/cabeceras/acceso_simulado.hh"
-#include "../../utilidades/cabeceras/algoritmo_tokenizador.hh"
+#include "../../utilidades/cabeceras/algoritmo_tokenizador_irreversible.hh"
 #include "../../../utilidades/cabeceras/arreglo.hh"
 #include "../../../utilidades/interfaces_comunes/funcion.hh"
 #include <vector>
@@ -24,7 +24,7 @@ namespace Implementaciones
    * la función pseudoaleatoria usada para generar tokens.
    */
 
-  class TKR : public AlgoritmoTokenizador
+  class TKR : public AlgoritmoTokenizadorIrreversible
   {
     public:
 
@@ -54,11 +54,13 @@ namespace Implementaciones
       /** \brief Apuntador a una clase de acceso a datos. */
       CDV* mBaseDeDatos;
 
-      /** Operación de tokenización (declarada por la interfaz). */
-      ArregloDeDigitos tokenizar(const ArregloDeDigitos& pan) override;
+      /** \brief Operación de tokenización (declarada por la interfaz). */
+      ArregloDeDigitos tokenizar(
+        const ArregloDeDigitos& oan) override;
 
-      /** Operación de detokenización (declarada por la interfaz). */
-      ArregloDeDigitos detokenizar(const ArregloDeDigitos& token) override;
+      /** \brief Operación de detokenización (declarada por la interfaz). */
+      ArregloDeDigitos detokenizar(
+        const ArregloDeDigitos& token) override;
   };
 }
 

@@ -19,7 +19,15 @@ namespace Implementaciones
    * Un algoritmo tokenizador es cualquier cosa que implemente los dos métodos
    * puramente abstractos de esta clase. El algoritmo tokenizador es a su vez
    * una función con inverso; la implementación que se hace de operar y deoperar
-   * es simplemente una construcción alrededor de cifrar y descifrar.
+   * es simplemente una construcción alrededor de tokenizarIntermedio y
+   * descifrarIntermedio.
+   *
+   * Los métodos puramente abstractos llevan el sufijo de «intermedio» dado
+   * que (salvo ocasiones extrañas) no son implementados por un algoritmo
+   * tokenizador concreto, sino que son implementados por las clasificaciones
+   * de estos (reversibles e irreversibles). Esta clase solamente se encarga
+   * de proveer una interfaz común a todos los algoritmos tokenizadores y
+   * de hacer validaciones de entradas.
    */
 
   class AlgoritmoTokenizador
@@ -43,10 +51,12 @@ namespace Implementaciones
     protected:
 
       /** \brief Operación de tokenización abstracta para implementadores. */
-      virtual ArregloDeDigitos tokenizar(const ArregloDeDigitos& entrada) = 0;
+      virtual ArregloDeDigitos tokenizarIntermedio(
+        const ArregloDeDigitos& entrada) = 0;
 
       /** \brief Operación de detokenización abstracta para implementadores. */
-      virtual ArregloDeDigitos detokenizar(const ArregloDeDigitos& entrada) = 0;
+      virtual ArregloDeDigitos detokenizarIntermedio(
+        const ArregloDeDigitos& entrada) = 0;
 
     private:
 
