@@ -62,6 +62,8 @@ namespace Implementaciones
       /** \brief Liberación de memoria. */
       ~FFX();
 
+    protected:
+
       /** \brief Proceso de cifrado. */
       Arreglo<tipo> operar(
         const std::vector<Arreglo<tipo>> &entrada) override;

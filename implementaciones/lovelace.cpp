@@ -221,9 +221,9 @@ ArregloDeDigitos tokenizar(
   }
   else if (metodo == "FFX")
   {
-    FFXA10<int> ffx {llave, nullptr, 0, 16};
-    Arreglo<int> textoCifrado = ffx.operar({pan});
-    resultado = ArregloDeDigitos{textoCifrado};
+    algoritmoTokenizador = new FFXA10<int>{llave, nullptr, 0, 9};
+    ArregloDeDigitos token (algoritmoTokenizador->operar({pan}));
+    resultado = token;
   }
   else if (metodo == "BPS")
   {
@@ -254,20 +254,21 @@ ArregloDeDigitos detokenizar(
 {
   unsigned char *llave = leerLlave(nombreArchivoLlave);
   ArregloDeDigitos resultado;
+  AlgoritmoTokenizador* algoritmoTokenizador;
   if (metodo == "TKR")
   {
     CDV* accesoADatos = new AccesoMySQL {};
     PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
     FuncionRN* funcion = new FuncionRN {aes, accesoADatos, 9};
-    TKR tkr {funcion, accesoADatos};
-    ArregloDeDigitos pan (tkr.deoperar({token}));
+    algoritmoTokenizador = new TKR{funcion, accesoADatos};
+    ArregloDeDigitos pan (algoritmoTokenizador->deoperar({token}));
     resultado = pan;
   }
   else if (metodo == "FFX")
   {
-    FFXA10<int> ffx {llave, nullptr, 0, 16};
-    Arreglo<int> textoDescifrado = ffx.deoperar({token});
-    resultado = ArregloDeDigitos{textoDescifrado};
+    algoritmoTokenizador = new FFXA10<int>{llave, nullptr, 0, 9};
+    ArregloDeDigitos pan (algoritmoTokenizador->deoperar({token}));
+    resultado = pan;
   }
   else if (metodo == "BPS")
   {
@@ -275,9 +276,10 @@ ArregloDeDigitos detokenizar(
     for (int i = 0; i < 10; i++)
       alfabetoNumerico.push_back('0' + i);
     CifradorBPS BPS(alfabetoNumerico, 8, CifradorDeRonda::BANDERA_AES);
-    ArregloDeDigitos pan {BPS.descifrar(token.obtenerCadena(), llave, 0)};
+    ArregloDeDigitos pan (BPS.descifrar(token.obtenerCadena(), llave, 0));
     resultado = pan;
   }
+  delete algoritmoTokenizador;
   delete[] llave;
   return resultado;
 }

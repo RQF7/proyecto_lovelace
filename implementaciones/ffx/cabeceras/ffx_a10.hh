@@ -12,7 +12,9 @@
 #include "../../redes_feistel/cabeceras/red_feistel.hh"
 #include "../../redes_feistel/cabeceras/red_feistel_alternante.hh"
 #include "../../redes_feistel/cabeceras/red_feistel_desbalanceada.hh"
+#include "../../utilidades/cabeceras/algoritmo_tokenizador_reversible.hh"
 #include "../../../utilidades/cabeceras/arreglo.hh"
+#include "../../../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include <cmath>
 
 namespace Implementaciones
@@ -27,13 +29,23 @@ namespace Implementaciones
    */
 
   template <typename tipo /**< Tipo de dato con el que se opera. */>
-  class FFXA10 : public FFX<tipo>
+  class FFXA10 : private FFX<tipo>, public AlgoritmoTokenizadorReversible
   {
     public:
 
       /** \brief Inicialización de parámetros de FFX A10. */
       FFXA10(unsigned char *llave, unsigned char *tweak,
         unsigned int tamanioTweak, unsigned int tamanioDeMensaje);
+
+    private:
+
+      /** \brief Operación de tokenización (declarada por la interfaz). */
+      ArregloDeDigitos tokenizar(
+        const ArregloDeDigitos& numeroDeCuenta) override;
+
+      /** \brief Operación de detokenización (declarada por la interfaz). */
+      ArregloDeDigitos detokenizar(
+        const ArregloDeDigitos& numeroDeCuenta) override;
   };
 
   /**
@@ -41,7 +53,7 @@ namespace Implementaciones
    * se trata de la instanciación de los parámetros de FFX según la
    * colección A10.
    *
-   * \note Se que la determinación del número de rondas dependiendo del tamaño
+   * \note Sé que la determinación del número de rondas dependiendo del tamaño
    * de los mensajes en la lista de inicialización resulta un tanto repetitiva,
    * sin embargo, de momento no encuentro otra forma de expresarlo: lo más
    * lógico es definir un entero miembro e inicializarlo primero;
@@ -110,6 +122,30 @@ namespace Implementaciones
     }
   {
   }
+
+  /**
+   *
+   */
+
+  template<typename tipo>
+  ArregloDeDigitos FFXA10<tipo>::tokenizar(
+    const ArregloDeDigitos& numeroDeCuenta
+  )
+  {
+    return FFX<tipo>::operar({numeroDeCuenta});
+  }
+
+   /**
+    *
+    */
+
+    template<typename tipo>
+    ArregloDeDigitos FFXA10<tipo>::detokenizar(
+      const ArregloDeDigitos& numeroDeCuenta
+    )
+    {
+      return FFX<tipo>::deoperar({numeroDeCuenta});
+    }
 
 }
 
