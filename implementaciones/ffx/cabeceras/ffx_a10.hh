@@ -1,6 +1,7 @@
 /**
  * \file
  * \brief Parámetros FFX A10.
+ *
  * Proyecto Lovelace.
  */
 
@@ -29,7 +30,9 @@ namespace Implementaciones
    */
 
   template <typename tipo /**< Tipo de dato con el que se opera. */>
-  class FFXA10 : private FFX<tipo>, public AlgoritmoTokenizadorReversible
+  class FFXA10
+  : private FFX<tipo>,
+    public AlgoritmoTokenizadorReversible
   {
     public:
 
@@ -49,7 +52,7 @@ namespace Implementaciones
         const ArregloDeDigitos& numeroDeCuenta,
         const ArregloDeDigitos& tweak) override;
 
-      /** \brief */
+      /** \brief Coloca el tweak dado en la función de ronda. */
       unsigned char *colocarTweak(const ArregloDeDigitos& tweak);
 
       /** \brief Apuntador a función de ronda par. */
@@ -72,14 +75,6 @@ namespace Implementaciones
    * Todo el punto de esta clase se encuentra en la lista de inicialización:
    * se trata de la instanciación de los parámetros de FFX según la
    * colección A10.
-   *
-   * \note Sé que la determinación del número de rondas dependiendo del tamaño
-   * de los mensajes en la lista de inicialización resulta un tanto repetitiva,
-   * sin embargo, de momento no encuentro otra forma de expresarlo: lo más
-   * lógico es definir un entero miembro e inicializarlo primero;
-   * lamentablemente son las clases base las que se inicializan antes que la
-   * propia, por lo que hacer eso tendría un comportamiento raro (probablemente
-   * se ocuparía el valor por defecto de un entero).
    */
 
   template <typename tipo>
@@ -151,12 +146,21 @@ namespace Implementaciones
   }
 
   /**
+   * Operación definida por la interfaz de los algoritmos tokenizadores
+   * reversibles: recibe el número de cuenta de la tarjeta y un arreglo de
+   * dígitos con el tweak (usualmente el identificador del banco). El
+   * tweak es tratado con la función FFXA10<tipo>::cambiarTweak y se regresa
+   * el resultado de la operación de la red sobre el número de cuenta.
    *
+   * \return Token del número de cuenta dado.
    */
 
   template<typename tipo>
   ArregloDeDigitos FFXA10<tipo>::tokenizar(
-    const ArregloDeDigitos& numeroDeCuenta, const ArregloDeDigitos& tweak
+    /** Parte del PAN correspondiente al número de cuenta. */
+    const ArregloDeDigitos& numeroDeCuenta,
+    /** Arreglo de dígitos a usar como tweak. */
+    const ArregloDeDigitos& tweak
   )
   {
     unsigned char *referencia = colocarTweak(tweak);
@@ -166,12 +170,21 @@ namespace Implementaciones
   }
 
    /**
+    * Esta operación recibe lo mismo que la tokenización: el número de cuenta
+    * (el equivalente en el token) y un arreglo de dígitos con el tweak
+    * (usualmente el identificador del banco). El tweak es tratado con la
+    * función FFXA10<tipo>::cambiarTweak y se regresa el resultado de la
+    * operación de la red sobre el número de cuenta.
     *
+    * \return PAN correspondiente al token dado.
     */
 
     template<typename tipo>
     ArregloDeDigitos FFXA10<tipo>::detokenizar(
-      const ArregloDeDigitos& numeroDeCuenta, const ArregloDeDigitos& tweak
+      /** Parte del token correspondiente al número de cuenta. */
+      const ArregloDeDigitos& numeroDeCuenta,
+      /** Arreglo de dígitos a usar como tweak. */
+      const ArregloDeDigitos& tweak
     )
     {
       unsigned char *referencia = colocarTweak(tweak);
@@ -181,11 +194,18 @@ namespace Implementaciones
     }
 
     /**
+     * Trata el arreglo de dígitos dado para obtener un arreglo (duro) de
+     * bytes. Coloca en las referencias a la función de ronda (par e impar)
+     * el tweak resultado y regresa una referencia a este (para poder
+     * liberarlo, una vez que ya se operó la red).
      *
+     * \return Apuntador a tweak duro.
      */
 
     template<typename tipo>
-    unsigned char* FFXA10<tipo>::colocarTweak(const ArregloDeDigitos& tweak)
+    unsigned char* FFXA10<tipo>::colocarTweak(
+      const ArregloDeDigitos& tweak
+    )
     {
       unsigned char *apuntadorATweak =
         new unsigned char [tweak.obtenerNumeroDeElementos()];
