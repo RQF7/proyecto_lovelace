@@ -39,11 +39,13 @@ namespace Implementaciones
 
       /** \brief Operación de tokenización abstracta para implementadores. */
       virtual ArregloDeDigitos tokenizar(
-        const ArregloDeDigitos& identificadorDeCuenta) = 0;
+        const ArregloDeDigitos& identificadorDeCuenta,
+        const ArregloDeDigitos& tweak) = 0;
 
       /** \brief Operación de detokenización abstracta para implementadores. */
       virtual ArregloDeDigitos detokenizar(
-        const ArregloDeDigitos& identificadorDeCuenta) = 0;
+        const ArregloDeDigitos& identificadorDeCuenta,
+        const ArregloDeDigitos& tweak) = 0;
   };
 }
 

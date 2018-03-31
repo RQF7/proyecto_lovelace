@@ -33,8 +33,8 @@ namespace Implementaciones
    */
 
   template <typename tipo>
-  class RondaFFXA10 : public Utilidades::FuncionConInversoSimetrico<
-    Arreglo<tipo>, Arreglo<tipo>>
+  class RondaFFXA10
+  : public Utilidades::FuncionConInversoSimetrico<Arreglo<tipo>, Arreglo<tipo>>
   {
     public:
 
@@ -46,6 +46,10 @@ namespace Implementaciones
 
       /** \brief Función de ronda. */
       Arreglo<tipo> operar(const std::vector<Arreglo<tipo>> &entrada) override;
+
+      /** \brief Escritura sobre el tweak. */
+      inline void colocarTweak(unsigned char *tweak, int longitudTweak)
+        { mTweak = tweak; mLongitudTweak = longitudTweak; }
 
     private:
 

@@ -52,12 +52,18 @@ namespace Implementaciones
       using FuncionDeCombinacion =
         typename RedFeistel<tipo>::FuncionDeCombinacion;
 
+      /** \brief Inicialización solo de la operación de combinación. */
+      FFX(unsigned int radix, TipoDeCombinacion tipoDeCombinacion);
+
       /** \brief Inicialización de red interna. */
       FFX(unsigned int radix, unsigned int tamanioDeMensaje,
         TipoDeCombinacion tipoDeCombinacion, TipoDeRed tipoDeRed,
         int desbalanceo, unsigned int numeroDeRondas,
         FuncionDeRonda *funcionDeRondaPar,
         FuncionDeRonda *funcionDeRondaImpar);
+
+      /** \brief Constructo vacío. */
+      FFX();
 
       /** \brief Liberación de memoria. */
       ~FFX();
@@ -72,11 +78,24 @@ namespace Implementaciones
       Arreglo<tipo> deoperar(
         const std::vector<Arreglo<tipo>> &entrada) override;
 
-    private:
-
       /** \brief Apuntador a red interna (polimorfismo). */
       RedFeistel<tipo> *mRedFeistel;
+
+      /** \brief Apuntador a operador de combinación. */
+      FuncionDeCombinacion *mFuncionDeCombinacion;
   };
+
+  template<typename tipo>
+  FFX<tipo>::FFX(
+    unsigned int radix,
+    TipoDeCombinacion tipoDeCombinacion
+  )
+  {
+    if (tipoDeCombinacion == TipoDeCombinacion::porCaracter)
+      mFuncionDeCombinacion = new CombinacionPorCaracter<tipo>{radix}; 
+    else
+      mFuncionDeCombinacion = new CombinacionPorBloque<tipo>{radix}; 
+  }
 
   /**
    * Se imita la interfaz definida en el la especificación del algoritmo, aunque
@@ -112,14 +131,8 @@ namespace Implementaciones
     /** Apuntador a función de ronda (impares). */
     FuncionDeRonda *funcionDeRondaImpar
   )
+  :FFX<tipo>{radix, tipoDeCombinacion}
   {
-    /* Operación de combinación. */
-    FuncionDeCombinacion* operacionCombinacion = nullptr;
-    if (tipoDeCombinacion == TipoDeCombinacion::porCaracter)
-      operacionCombinacion = new CombinacionPorCaracter<tipo>{radix};
-    else
-      operacionCombinacion = new CombinacionPorBloque<tipo>{radix};
-
     /* Tipo de red Feistel. */
     if (tipoDeRed == TipoDeRed::alternante)
       mRedFeistel = new RedFeistelAlternante<tipo>{
@@ -128,7 +141,7 @@ namespace Implementaciones
         desbalanceo,
         funcionDeRondaPar,
         funcionDeRondaImpar,
-        operacionCombinacion
+        mFuncionDeCombinacion
       };
     else
       mRedFeistel = new RedFeistelDesbalanceada<tipo>{
@@ -136,9 +149,21 @@ namespace Implementaciones
         tamanioDeMensaje,
         desbalanceo,
         funcionDeRondaPar,
-        operacionCombinacion
+        mFuncionDeCombinacion
       };
   }
+
+  /**
+   * Permite construir la red Feistel en un tiempo posterior a la
+   * inicialización de los objetos.
+   */
+
+  template <typename tipo>
+  FFX<tipo>::FFX()
+  : mRedFeistel {nullptr}
+  {
+  }
+
 
   /**
    * El esquema para la liberación de memoria reservada de forma dinámica

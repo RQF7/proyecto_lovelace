@@ -86,6 +86,10 @@ namespace Implementaciones
       virtual Arreglo<tipo> deoperar(
         const std::vector<Arreglo<tipo>>& textoCifrado) override;
 
+      /** \brief Operación de escritura sobre la función de ronda. */
+      inline void colocarFuncionDeRonda(FuncionDeRonda *funcionDeRonda)
+        { delete mFuncionDeRonda; mFuncionDeRonda = funcionDeRonda; }
+
     protected:
 
       /** \brief Número de rondas de la red. */

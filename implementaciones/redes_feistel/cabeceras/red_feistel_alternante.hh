@@ -64,6 +64,10 @@ namespace Implementaciones
       Arreglo<tipo> deoperar(
         const std::vector<Arreglo<tipo>>& textoCifrado) override;
 
+      /** \brief Operación de escritura sobre la función de ronda par. */
+      inline void colocarFuncionDeRondaImpar(FuncionDeRonda *funcionDeRondaImpar)
+        { delete mFuncionDeRondaImpar; mFuncionDeRondaImpar = funcionDeRondaImpar; }
+
     private:
 
       /** \brief Grado de desbalanceo de la red. */

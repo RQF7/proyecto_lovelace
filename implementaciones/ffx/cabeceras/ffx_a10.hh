@@ -41,11 +41,31 @@ namespace Implementaciones
 
       /** \brief Operación de tokenización (declarada por la interfaz). */
       ArregloDeDigitos tokenizar(
-        const ArregloDeDigitos& numeroDeCuenta) override;
+        const ArregloDeDigitos& numeroDeCuenta,
+        const ArregloDeDigitos& tweak) override;
 
       /** \brief Operación de detokenización (declarada por la interfaz). */
       ArregloDeDigitos detokenizar(
-        const ArregloDeDigitos& numeroDeCuenta) override;
+        const ArregloDeDigitos& numeroDeCuenta,
+        const ArregloDeDigitos& tweak) override;
+
+      /** \brief */
+      unsigned char *colocarTweak(const ArregloDeDigitos& tweak);
+
+      /** \brief Apuntador a función de ronda par. */
+      RondaFFXA10<tipo> *mFuncionDeRondaPar;
+
+      /** \brief Apuntador a función de ronda impar. */
+      RondaFFXA10<tipo> *mFuncionDeRondaImpar;
+
+      /** \brief Apuntador a red Feistel alternante. */
+      RedFeistelAlternante<tipo> *mRedFeistelAlternante;
+
+      /** \brief Referencia a Red Feistel de la clase padre. */
+      using FFX<tipo>::mRedFeistel;
+
+      /** \brief Referencia a función de combinación del padre. */
+      using FFX<tipo>::mFuncionDeCombinacion;
   };
 
   /**
@@ -76,18 +96,11 @@ namespace Implementaciones
   : FFX<tipo>{
     /* Cardinalidad (radix). */
     10u,
-    tamanioDeMensaje,
-    FFX<tipo>::TipoDeCombinacion::porCaracter,
-    FFX<tipo>::TipoDeRed::alternante,
-    /* Desbalanceo. */
-    0,
-    /* Número de rondas (dependen de el tamaño del mensaje). */
-    (tamanioDeMensaje <= 5) ? 24u :
-    (tamanioDeMensaje <= 9) ? 18u :
-    12u,
-
-    /* Función de ronda par. */
-    new RondaFFXA10<tipo>{
+    FFX<tipo>::TipoDeCombinacion::porCaracter
+  }
+  {
+    /* Construcción de función de ronda par. */
+    mFuncionDeRondaPar = new RondaFFXA10<tipo>{
       llave,
       tweak,
       tamanioTweak,
@@ -101,10 +114,11 @@ namespace Implementaciones
       /* Número de rondas (dependen de el tamaño del mensaje). */
       (tamanioDeMensaje <= 5) ? 24u :
       (tamanioDeMensaje <= 9) ? 18u :
-      12u},
+      12u
+    };
 
-    /* Función de ronda impar. */
-    new RondaFFXA10<tipo>{
+    /* Construcción de ronda impar. */
+    mFuncionDeRondaImpar = new RondaFFXA10<tipo>{
       llave,
       tweak,
       tamanioTweak,
@@ -118,9 +132,22 @@ namespace Implementaciones
       /* Número de rondas (dependen de el tamaño del mensaje). */
       (tamanioDeMensaje <= 5) ? 24u :
       (tamanioDeMensaje <= 9) ? 18u :
-      12u}
-    }
-  {
+      12u
+    };
+
+    mRedFeistelAlternante = new RedFeistelAlternante<tipo>{
+      (tamanioDeMensaje <= 5) ? 24u :
+      (tamanioDeMensaje <= 9) ? 18u :
+      12u,
+      tamanioDeMensaje,
+      0,
+      mFuncionDeRondaPar,
+      mFuncionDeRondaImpar,
+      mFuncionDeCombinacion
+    };
+
+    /* La magia del polimorfismo. */
+    mRedFeistel = mRedFeistelAlternante;
   }
 
   /**
@@ -129,10 +156,13 @@ namespace Implementaciones
 
   template<typename tipo>
   ArregloDeDigitos FFXA10<tipo>::tokenizar(
-    const ArregloDeDigitos& numeroDeCuenta
+    const ArregloDeDigitos& numeroDeCuenta, const ArregloDeDigitos& tweak
   )
   {
-    return FFX<tipo>::operar({numeroDeCuenta});
+    unsigned char *referencia = colocarTweak(tweak);
+    ArregloDeDigitos resultado = FFX<tipo>::operar({numeroDeCuenta});
+    delete[] referencia;
+    return resultado;
   }
 
    /**
@@ -141,10 +171,31 @@ namespace Implementaciones
 
     template<typename tipo>
     ArregloDeDigitos FFXA10<tipo>::detokenizar(
-      const ArregloDeDigitos& numeroDeCuenta
+      const ArregloDeDigitos& numeroDeCuenta, const ArregloDeDigitos& tweak
     )
     {
-      return FFX<tipo>::deoperar({numeroDeCuenta});
+      unsigned char *referencia = colocarTweak(tweak);
+      ArregloDeDigitos resultado = FFX<tipo>::deoperar({numeroDeCuenta});
+      delete[] referencia;
+      return resultado;
+    }
+
+    /**
+     *
+     */
+
+    template<typename tipo>
+    unsigned char* FFXA10<tipo>::colocarTweak(const ArregloDeDigitos& tweak)
+    {
+      unsigned char *apuntadorATweak =
+        new unsigned char [tweak.obtenerNumeroDeElementos()];
+      for (unsigned int i = 0; i < tweak.obtenerNumeroDeElementos(); i++)
+        apuntadorATweak[i] = static_cast<unsigned char>(tweak[i]);
+      mFuncionDeRondaPar->colocarTweak(apuntadorATweak,
+        tweak.obtenerNumeroDeElementos());
+      mFuncionDeRondaImpar->colocarTweak(apuntadorATweak,
+        tweak.obtenerNumeroDeElementos());
+      return apuntadorATweak;
     }
 
 }
