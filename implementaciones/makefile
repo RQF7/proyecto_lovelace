@@ -14,8 +14,11 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 redes_feistel/red_feistel_prueba.cpp \
 											 redes_feistel/red_feistel_alternante_prueba.cpp \
 											 redes_feistel/red_feistel_desbalanceada_prueba.cpp \
-											 drgb/aleatoriedad_trivial.cpp \
-											 drgb/aleatoriedad_trivial_prueba.cpp \
+											 drbg/aleatoriedad_trivial.cpp \
+											 drbg/aleatoriedad_trivial_prueba.cpp \
+											 drbg/drbg.cpp \
+											 drbg/hash_drbg.cpp \
+											 drbg/hash_drbg_prueba.cpp \
 											 ffx/combinacion_por_caracter_prueba.cpp \
 											 ffx/combinacion_por_bloque_prueba.cpp \
 											 ffx/ronda_ffx_a10_prueba.cpp \
@@ -223,15 +226,30 @@ $(CARPETA_OBJETOS)/acceso_a_datos/acceso_mysql_prueba.o: \
 	mkdir -p $(CARPETA_OBJETOS)/acceso_a_datos
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
-$(CARPETA_OBJETOS)/drgb/aleatoriedad_trivial.o: \
-	drgb/aleatoriedad_trivial.cpp drgb/cabeceras/aleatoriedad_trivial.hh
-	mkdir -p $(CARPETA_OBJETOS)/drgb
+$(CARPETA_OBJETOS)/drbg/aleatoriedad_trivial.o: \
+	drbg/aleatoriedad_trivial.cpp drbg/cabeceras/aleatoriedad_trivial.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
-$(CARPETA_OBJETOS)/drgb/aleatoriedad_trivial_prueba.o: \
-	drgb/aleatoriedad_trivial_prueba.cpp \
-	drgb/cabeceras/aleatoriedad_trivial_prueba.hh
-	mkdir -p $(CARPETA_OBJETOS)/drgb
+$(CARPETA_OBJETOS)/drbg/aleatoriedad_trivial_prueba.o: \
+	drbg/aleatoriedad_trivial_prueba.cpp \
+	drbg/cabeceras/aleatoriedad_trivial_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drbg/drbg.o: \
+	drbg/drbg.cpp drbg/cabeceras/drbg.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drbg/hash_drbg.o: \
+	drbg/hash_drbg.cpp drbg/cabeceras/hash_drbg.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drbg/hash_drbg_prueba.o: \
+	drbg/hash_drbg_prueba.cpp drbg/cabeceras/hash_drbg_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/bps/cifrador_de_ronda.o: bps/cifrador_de_ronda.cpp \

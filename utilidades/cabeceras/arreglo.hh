@@ -118,12 +118,19 @@ class Arreglo
     /** \brief Operación de escritura. */
     virtual void colocar(int indice, tipo valor);
 
+    /** \brief Colocar una constante en todo el arreglo. */
+    void colocarConstante(tipo constante);
+
     /** \brief Regresa el tamaño del arreglo. */
     inline unsigned int obtenerNumeroDeElementos() const
       { return mNumeroDeElementos; }
 
     /** \brief Regresa una copia del arreglo interno. */
     tipo *obtenerCopiaDeArreglo() const;
+
+    /** \brief Regresa un apuntador al arreglo interno. */
+    inline const tipo *obtenerApuntador() const
+      { return mArregloInterno; }
 
     /** \brief Parte el arreglo según parámetros. */
     Arreglo<tipo> partir(int numeroDePartes, int parte,
@@ -457,6 +464,19 @@ void Arreglo<tipo>::colocar(
 )
 {
   mArregloInterno[indice] = valor;
+}
+
+/**
+ * Coloca la constante dada en todo el arreglo.
+ */
+
+template<typename tipo>
+void Arreglo<tipo>::colocarConstante(
+  tipo constante      /**< Valor a colocar en el arreglo. */
+)
+{
+  for (unsigned int i = 0; i < mNumeroDeElementos; i++)
+    mArregloInterno[i] = constante;
 }
 
 /**

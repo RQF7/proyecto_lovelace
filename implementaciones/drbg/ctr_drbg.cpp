@@ -1,25 +1,28 @@
 /**
  * \file
- * \brief Decaración de un DRGB basado en HMAC.
+ * \brief Definición de un DRBG basado en cifrador por bloques.
  *
  * Proyecto Lovelace.
  */
 
-#include "cabeceras/hmac_drgb.hh"
+#include "cabeceras/ctr_drgb.hh"
 #include "../../../utilidades/cabeceras/arreglo.hh"
 
+using namespace Implementaciones;
+using namespace std;
+
 /**
- * \param fuenteDeAlatoriedad     Apuntador a función generadora de entroía.
+ * \param fuenteDeAlatoriedad     Apuntador a función generadora de entropía.
  *                                (la clase no es respondable de esta memoria).
  * \param cadenaDePersonalizacion Cadena opcional de personalización.
  * \param nivelDeSeguridad        Máximo nivel de seguridad soportado.
  */
 
-HMACDRGB::HMACDRGB(
+CTRDRGB::CTRDRGB(
   FuenteDeAleatoriedad fuenteDeAlatoriedad,
   Arreglo<unsigned char> cadenaDePersonalizacion
   NivelDeSeguridad nivelDeSeguridad
 )
-: DRGB(fuenteDeAlatoriedad, cadenaDePersonalizacion, nivelDeSeguridad)
+: DRBG(fuenteDeAlatoriedad, cadenaDePersonalizacion, nivelDeSeguridad)
 {
 }

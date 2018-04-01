@@ -1,11 +1,11 @@
 /**
  * \file
- * \brief Implementación de un DRGB.
+ * \brief Implementación de un DRBG.
  *
  * Proyecto Lovelace.
  */
 
-#include "cabeceras/drgb.hh"
+#include "cabeceras/drbg.hh"
 #include "../../utilidades/cabeceras/arreglo.hh"
 #include <string>
 #include <vector>
@@ -29,7 +29,7 @@ using namespace std;
  *                                       \p longitudPersonalizacion.
  */
 
-DRGB::DRGB(
+DRBG::DRBG(
   /** Apuntador a función generadora de entroía.
    *  (la clase no es respondable de esta memoria). */
   FuenteDeAleatoriedad *fuenteDeAlatoriedad,
@@ -38,7 +38,7 @@ DRGB::DRGB(
   /** Máximo nivel de seguridad soportado. */
   NivelDeSeguridad nivelDeSeguridad,
   /** Longitud de la semilla. */
-  entero longitudSemilla,
+  unsigned int longitudSemilla,
   /** Longitud máxima de la cadena de personalización. */
   entero longitudPersonalizacion,
   /** Máximo número de bits disponibles por petición. */
@@ -54,13 +54,13 @@ DRGB::DRGB(
   mLongitudMaxima {longitudMaxima},
   mMaximoDePeticiones {maximoDePeticiones},
   mContadorDePeticiones {0},
-  mSemilla {mFuenteDeAlatoriedad.operar({
-    static_cast<unsigned int>(mNivelDeSeguridad)})}
+  mSemilla {mFuenteDeAlatoriedad->operar({mLongitudSemilla})}
 {
   if (mCadenaDePersonalizacion.obtenerNumeroDeElementos() >
     mLongitudPersonalizacion)
-    throw PersonalizacionDemasiadoGrande{"La cadena de personalización no debe "
-     + "exceder los" + mLongitudPersonalizacion + " bytes."};
+    throw PersonalizacionDemasiadoGrande{
+      string{"La cadena de personalización no debe exceder los"}
+      + to_string(mLongitudPersonalizacion) + string{" bytes."}};
 }
 
 /**
@@ -75,12 +75,12 @@ DRGB::DRGB(
  *                          seguridad provisto por la instanciación.
  */
 
-Arreglo<unsigned char> DRGB::operar(const vector<unsigned int>& entrada)
+Arreglo<unsigned char> DRBG::operar(const vector<unsigned int>& entrada)
 {
   if (entrada.size() == 2)
     if (entrada[1] > static_cast<unsigned int>(mNivelDeSeguridad))
       throw FuerzaNoSoportada{
-        "La instanciación no soporta ese nivel de seguridad."}
+        "La instanciación no soporta ese nivel de seguridad."};
 
   mContadorDePeticiones++;
   if (mContadorDePeticiones > mMaximoDePeticiones)
@@ -97,7 +97,7 @@ Arreglo<unsigned char> DRGB::operar(const vector<unsigned int>& entrada)
  * la función generadora (cuando se alcanza la vida útil de la semilla).
  */
 
-DRGB::cambiarSemilla()
+void DRBG::cambiarSemilla()
 {
   mContadorDePeticiones = 0;
 }
@@ -106,7 +106,7 @@ DRGB::cambiarSemilla()
  *
  */
 
-DRGB::desinstanciar()
+void DRBG::desinstanciar()
 {
   mSemilla.colocarConstante(0);
 }
@@ -115,7 +115,7 @@ DRGB::desinstanciar()
  *
  */
 
-// DRGB::probarSalud()
+// DRBG::probarSalud()
 // {
 //
 // }

@@ -7,7 +7,6 @@
 #include "cabeceras/prueba_SHA256.hh"
 #include <cryptopp/sha.h>
 #include <cryptopp/hex.h>
-#include <cryptopp/sha.h>
 #include <iostream>
 
 using namespace std;

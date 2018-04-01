@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Decaración de un DRGB basado en HMAC.
+ * \brief Decaración de un DRBG basado en HMAC.
  *
  * Proyecto Lovelace.
  */
@@ -8,7 +8,7 @@
 #ifndef __HMAC_DRGB__
 #define __HMAC_DRGB__
 
-#include "drgb.hh"
+#include "drbg.hh"
 #include "../../../utilidades/cabeceras/arreglo.hh"
 
 namespace Implementaciones
@@ -18,7 +18,7 @@ namespace Implementaciones
    *
    */
 
-  class HMACDRGB : public DRGB
+  class HMACDRGB : public DRBG
   {
     public:
 

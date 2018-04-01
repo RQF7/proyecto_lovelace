@@ -17,7 +17,7 @@ using namespace Implementaciones;
 using namespace CryptoPP;
 
 /**
- * Genera una llave pseudoaleatoria con un DRGB aprobado por el NIST.
+ * Genera una llave pseudoaleatoria con un DRBG aprobado por el NIST.
  *
  * \return Arreglo con llave psudoaleatoria.
  */
@@ -36,7 +36,7 @@ Arreglo<unsigned char> Implementaciones::generarLlave(
   RandomNumberSource fuenteDeAleatoriedad {generadorAleatorio,
     static_cast<int>(entropia.size()),
     new ArraySink{entropia, entropia.size()}};
-  /* Instanciación de DRGB con función hash. */
+  /* Instanciación de DRBG con función hash. */
   Hash_DRBG<SHA256, 128/8, 440/8> generadorPseudoaleatorio(entropia,
     32, entropia + 32, 16);
 

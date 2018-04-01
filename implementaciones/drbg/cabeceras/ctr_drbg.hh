@@ -1,7 +1,7 @@
 
 /**
  * \file
- * \brief Decaración de un DRGB basado en cifrador por bloques.
+ * \brief Decaración de un DRBG basado en cifrador por bloques.
  *
  * Proyecto Lovelace.
  */
@@ -9,7 +9,7 @@
 #ifndef __CTR_DRGB__
 #define __CTR_DRGB__
 
-#include "drgb.hh"
+#include "drbg.hh"
 #include "../../../utilidades/cabeceras/arreglo.hh"
 
 namespace Implementaciones
@@ -19,7 +19,7 @@ namespace Implementaciones
    *
    */
 
-  class CTRDRGB : public DRGB
+  class CTRDRGB : public DRBG
   {
     public:
 

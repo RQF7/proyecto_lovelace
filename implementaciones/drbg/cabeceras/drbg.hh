@@ -1,13 +1,14 @@
 /**
  * \file
- * \brief Declaración de un DRGB.
+ * \brief Declaración de un DRBG.
  *
  * Proyecto Lovelace.
  */
 
-#ifndef __DRGB__
-#define __DRGB__
+#ifndef __DRBG__
+#define __DRBG__
 
+//#include "hash_drbg_prueba.hh"
 #include "../../../utilidades/cabeceras/arreglo.hh"
 #include "../../../utilidades/cabeceras/error.hh"
 #include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
@@ -19,7 +20,7 @@ namespace Implementaciones
   /**
    * \brief Generador de bits pseudoaleatorios.
    *
-   * Implementación de un generador de bits pseudoaleatorios (DRGB) de acuerdo
+   * Implementación de un generador de bits pseudoaleatorios (DRBG) de acuerdo
    * a la (recomendación 800-90A del NIST)[]. El estándar especifíca el
    * generador en términos de 5 funciones:
    *
@@ -30,7 +31,8 @@ namespace Implementaciones
    * * Prueba de salud (probarSalud).
    */
 
-  class DRBG : public Funcion<Arreglo<unsigned char>, unsigned int>
+  class DRBG
+  : public Utilidades::Funcion<Arreglo<unsigned char>, unsigned int>
   {
     public:
 
@@ -64,10 +66,10 @@ namespace Implementaciones
         operar(const std::vector<unsigned int>& entrada) override;
 
       /** \brief */
-      cambiarSemilla();
+      void cambiarSemilla();
 
       /** \brief */
-      desinstanciar();
+      void desinstanciar();
 
       /** \brief */
       // probarSalud();
@@ -89,7 +91,7 @@ namespace Implementaciones
       DRBG(FuenteDeAleatoriedad *fuenteDeAlatoriedad,
         Arreglo<unsigned char> cadenaDePersonalizacion,
         NivelDeSeguridad nivelDeSeguridad,
-        entero longitudSemila, entero longitudPersonalizacion,
+        unsigned int longitudSemila, entero longitudPersonalizacion,
         entero longitudMaxima, entero maximoDePeticiones);
 
       /** \brief Apuntador a clase-función que genera entropía. */
@@ -114,7 +116,7 @@ namespace Implementaciones
        * «seedlen» en el documento del NIST.
        */
 
-      entero mLongitudSemilla;
+      unsigned int mLongitudSemilla;
 
       /**
        * \brief Longitud máxima de la cadena de personalización.
@@ -161,6 +163,9 @@ namespace Implementaciones
 
       /** \brief Función generadora de bits (definida por concretos). */
       virtual Arreglo<unsigned char> generarBits(unsigned int longitud) = 0;
+
+      /** \brief Clase de prueba como amiga. */
+      // friend bool ImplementacionesPruebas::HashDRBGPrueba::probarFuncionDeDerivacion();
   };
 }
 
