@@ -5,6 +5,7 @@
  */
 
 #include "acceso_a_datos/cabeceras/acceso_mysql_prueba.hh"
+#include "drgb/cabeceras/aleatoriedad_trivial_prueba.hh"
 #include "ffx/cabeceras/combinacion_por_bloque_prueba.hh"
 #include "ffx/cabeceras/combinacion_por_caracter_prueba.hh"
 #include "ffx/cabeceras/ffx_a10_prueba.hh"
@@ -51,7 +52,8 @@ int main()
       FuncionRNPrueba {},
       TKRPrueba {},
       AccesoMySQLPrueba {},
-      UtilidadesCriptograficasPrueba {}
+      UtilidadesCriptograficasPrueba {},
+      AleatoriedadTrivialPrueba {}
     }
   };
 }

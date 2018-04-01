@@ -14,6 +14,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 redes_feistel/red_feistel_prueba.cpp \
 											 redes_feistel/red_feistel_alternante_prueba.cpp \
 											 redes_feistel/red_feistel_desbalanceada_prueba.cpp \
+											 drgb/aleatoriedad_trivial.cpp \
+											 drgb/aleatoriedad_trivial_prueba.cpp \
 											 ffx/combinacion_por_caracter_prueba.cpp \
 											 ffx/combinacion_por_bloque_prueba.cpp \
 											 ffx/ronda_ffx_a10_prueba.cpp \
@@ -219,6 +221,17 @@ $(CARPETA_OBJETOS)/acceso_a_datos/acceso_mysql_prueba.o: \
 	acceso_a_datos/acceso_mysql_prueba.cpp \
 	acceso_a_datos/cabeceras/acceso_mysql_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)/acceso_a_datos
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drgb/aleatoriedad_trivial.o: \
+	drgb/aleatoriedad_trivial.cpp drgb/cabeceras/aleatoriedad_trivial.hh
+	mkdir -p $(CARPETA_OBJETOS)/drgb
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drgb/aleatoriedad_trivial_prueba.o: \
+	drgb/aleatoriedad_trivial_prueba.cpp \
+	drgb/cabeceras/aleatoriedad_trivial_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/drgb
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/bps/cifrador_de_ronda.o: bps/cifrador_de_ronda.cpp \
