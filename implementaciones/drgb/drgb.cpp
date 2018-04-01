@@ -6,59 +6,87 @@
  */
 
 #include "cabeceras/drgb.hh"
+#include "../../utilidades/cabeceras/arreglo.hh"
+#include <string>
 #include <vector>
 
 using namespace Implementaciones;
 using namespace std;
 
 /**
- *
  * La fuente de aleatoriedad y la cadena de personalización son usadas para
- * inicializar la samilla; el estándar del NIST también incñuye un nonce para
+ * inicializar la samilla; el estándar del NIST también incluye un nonce para
  * esto: pueden ser bits adicionales de la fuente de aleatoriedad, una marca de
  * tiempo o un contador; para simplificar las interfaces, en esta implementación
  * se utiliza la misma fuente de aleatoriedad para producir el nonce.
  *
- * \param nivelDeSeguridad Máximo nivel de seguridad soportado.
+ * De las interfaces que se manejan en el estándar solamente falta la bandera
+ * de predicción de resistencias; como no estoy seguro de que nuestras fuentes
+ * de aleatoriedad soporten eso, de momento no la incluyo.
+ *
+ * \throw PersonalizacionDemasiadoGrande Si la cadena de personzalización
+ *                                       excede lo dado en
+ *                                       \p longitudPersonalizacion.
  */
 
 DRGB::DRGB(
-  NivelDeSeguridad nivelDeSeguridad
+  /** Apuntador a función generadora de entroía.
+   *  (la clase no es respondable de esta memoria). */
+  FuenteDeAleatoriedad *fuenteDeAlatoriedad,
+  /** Cadena opcional de personalización. */
+  Arreglo<unsigned char> cadenaDePersonalizacion,
+  /** Máximo nivel de seguridad soportado. */
+  NivelDeSeguridad nivelDeSeguridad,
+  /** Longitud de la semilla. */
+  entero longitudSemilla,
+  /** Longitud máxima de la cadena de personalización. */
+  entero longitudPersonalizacion,
+  /** Máximo número de bits disponibles por petición. */
+  entero longitudMaxima,
+  /** Vida útil de una semilla. */
+  entero maximoDePeticiones
 )
-: mContadorDePeticiones {0}
+: mFuenteDeAlatoriedad {fuenteDeAlatoriedad},
+  mCadenaDePersonalizacion {cadenaDePersonalizacion},
+  mNivelDeSeguridad {nivelDeSeguridad},
+  mLongitudSemilla {longitudSemilla},
+  mLongitudPersonalizacion {longitudPersonalizacion},
+  mLongitudMaxima {longitudMaxima},
+  mMaximoDePeticiones {maximoDePeticiones},
+  mContadorDePeticiones {0},
+  mSemilla {mFuenteDeAlatoriedad.operar({
+    static_cast<unsigned int>(mNivelDeSeguridad)})}
 {
+  if (mCadenaDePersonalizacion.obtenerNumeroDeElementos() >
+    mLongitudPersonalizacion)
+    throw PersonalizacionDemasiadoGrande{"La cadena de personalización no debe "
+     + "exceder los" + mLongitudPersonalizacion + " bytes."};
 }
 
 /**
- *
- */
-
-DRGB::~DRGB()
-{
-
-}
-
-/**
- *
  * La fuerza de seguridad de la salida es el mínimo de entre la longitud
  * de la salida y el nivel de la instanciación.
  *
- * \param entrada El primer elemento del vector indica la fuerza de seguridad
- *                que se requiere para la salida.
+ * \param entrada El primer elemento indica la longitud deseada para la salida.
+ *                El segundo elemento (opcional) indica la fuera de seguridad
+ *                deseada. Si no se da, se supone la de la instancia.
  *
  * \throw FuerzaNoSoportada Si la fuerza solicitada es mayor que el nivel de
  *                          seguridad provisto por la instanciación.
  */
 
-DRGB::operar(const vector<unsigned int>& entrada)
+Arreglo<unsigned char> DRGB::operar(const vector<unsigned int>& entrada)
 {
-  if (entrada[0] > static_cast<unsigned int>(mNivelDeSeguridad))
-    throw FuerzaNoSoportada{
-      "La instanciación no soporta ese nivel de seguridad."}
+  if (entrada.size() == 2)
+    if (entrada[1] > static_cast<unsigned int>(mNivelDeSeguridad))
+      throw FuerzaNoSoportada{
+        "La instanciación no soporta ese nivel de seguridad."}
 
   mContadorDePeticiones++;
   if (mContadorDePeticiones > mMaximoDePeticiones)
     cambiarSemilla();
+
+  return generarBits(entrada[0]);
 }
 
 /**
@@ -80,14 +108,14 @@ DRGB::cambiarSemilla()
 
 DRGB::desinstanciar()
 {
-
+  mSemilla.colocarConstante(0);
 }
 
 /**
  *
  */
 
-DRGB::probarSalud()
-{
-
-}
+// DRGB::probarSalud()
+// {
+//
+// }
