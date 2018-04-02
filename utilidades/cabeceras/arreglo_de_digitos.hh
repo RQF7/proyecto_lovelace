@@ -9,6 +9,7 @@
 #include "arreglo.hh"
 #include "intermediario_de_arreglo_de_digitos.hh"
 #include "utilidades_matematicas.hh"
+#include <initializer_list>
 #include <ostream>
 #include <string>
 
@@ -33,8 +34,11 @@ class ArregloDeDigitos : public Arreglo<int>
     /** \brief Especialización de arreglo de enteros. */
     ArregloDeDigitos(const Arreglo<int>& arreglo, int base = 10);
 
+    /** \brief Construcción mediante lista de inicialización. */
+    ArregloDeDigitos(std::initializer_list<int> elementos);
+
     /** \brief Arreglo vacío, solo reserva memoria. */
-    ArregloDeDigitos(int numeroDeElementos, int base = 10);
+    ArregloDeDigitos(unsigned int numeroDeElementos, int base = 10);
 
     /** \brief Arreglo vacío, sin reserva de memoria. */
     ArregloDeDigitos();
@@ -42,12 +46,18 @@ class ArregloDeDigitos : public Arreglo<int>
     /** \brief Acceso con subíndice. */
     Utilidades::IntermediarioDeArregloDeDigitos operator[](int indice);
 
+    /** \brief Operación de subíndice (constante). */
+    int operator[](int indice) const override;
+
     /** \brief Operación de escritura. */
     [[deprecated]]
     void colocar(int indice, int valor) override;
 
     /** \brief Regresa la representación en cadena. */
     inline std::string obtenerCadena() const { return mCadena; }
+
+    /** \brief Regresa la cadena sin ceros a la izquierda. */
+    std::string obtenerCadenaEfectiva() const;
 
     /** \brief Regresa la representación numérica. */
     inline entero obtenerNumero() const { return mNumero; }

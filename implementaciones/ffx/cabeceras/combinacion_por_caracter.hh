@@ -31,7 +31,7 @@ namespace Implementaciones
     public:
 
       /** \brief Construcción de una combinación por caracter. */
-      CombinacionPorCaracter(tipo base = 10);
+      CombinacionPorCaracter(unsigned int base = 10);
 
       /** \brief Suma por caracter. */
       Arreglo<tipo> operar(
@@ -43,7 +43,7 @@ namespace Implementaciones
 
     private:
       /** \brief Base en la que operan la suma y la resta. */
-      tipo mBase;
+      unsigned int mBase;
   };
 
   /**
@@ -53,7 +53,7 @@ namespace Implementaciones
 
   template <typename tipo>
   CombinacionPorCaracter<tipo>::CombinacionPorCaracter(
-    tipo base               /**< Base de operaciones. */
+    unsigned int base               /**< Base de operaciones. */
   )
   : mBase {base}
   {
@@ -74,9 +74,9 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>> &entrada
   )
   {
-    int tamanio {entrada[0].obtenerNumeroDeElementos()};
+    unsigned int tamanio {entrada[0].obtenerNumeroDeElementos()};
     Arreglo<tipo> resultado(tamanio);
-    for (int i = 0; i < tamanio; i++)
+    for (unsigned int i = 0; i < tamanio; i++)
       resultado[i] = modulo<tipo>((entrada[0][i] + entrada[1][i]), mBase);
     return resultado;
   }
@@ -96,9 +96,9 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>> &entrada
   )
   {
-    int tamanio {entrada[0].obtenerNumeroDeElementos()};
+    unsigned int tamanio {entrada[0].obtenerNumeroDeElementos()};
     Arreglo<tipo> resultado(tamanio);
-    for (int i = 0; i < tamanio; i++)
+    for (unsigned int i = 0; i < tamanio; i++)
       resultado[i] = modulo<tipo>((entrada[0][i] - entrada[1][i]), mBase);
     return resultado;
   }

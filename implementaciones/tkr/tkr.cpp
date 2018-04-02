@@ -4,8 +4,10 @@
  */
 
 #include "cabeceras/tkr.hh"
+#include "../utilidades/cabeceras/utilidades_tarjetas.hh"
 #include "../acceso_a_datos/cabeceras/registro.hh"
 #include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
+#include "../../utilidades/cabeceras/utilidades_matematicas.hh"
 #include <iostream>
 
 using namespace Implementaciones;
@@ -52,8 +54,14 @@ ArregloDeDigitos TKR::tokenizar(
   Registro informacion = mBaseDeDatos->buscarPorPan(pan);
   if (informacion.obtenerToken() == Arreglo<int>{})
   {
-    ArregloDeDigitos temporal = mFuncionPseudoaleatoria->operar({});
-    informacion.colocarToken(temporal);
+    auto division = pan
+      / Arreglo<unsigned int>{6, pan.obtenerNumeroDeElementos() - 1};
+    ArregloDeDigitos temporal =
+      mFuncionPseudoaleatoria->operar(
+        {static_cast<ArregloDeDigitos>(division[1]).obtenerNumeroDeElementos()});
+    temporal = static_cast<ArregloDeDigitos>(division[0]) || temporal;
+    informacion.colocarToken(temporal
+      || ArregloDeDigitos{modulo(algoritmoDeLuhn(temporal) + 1, 10)});
     informacion.colocarPAN(pan);
     mBaseDeDatos->guardar(informacion);
   }
@@ -65,8 +73,6 @@ ArregloDeDigitos TKR::tokenizar(
  * PAN asociado al token dado.
  *
  * \return PAN asociado al token dado.
- *
- * \todo Lanzar excepción en caso de búsqueda infructuosa.
  */
 
 ArregloDeDigitos TKR::detokenizar(
@@ -74,5 +80,7 @@ ArregloDeDigitos TKR::detokenizar(
 )
 {
   Registro informacion = mBaseDeDatos->buscarPorToken(token);
+  if (informacion.obtenerPAN() == Arreglo<int>{})
+    throw TokenInexistente{"El token no está en la base de datos."};
   return informacion.obtenerPAN();
 }

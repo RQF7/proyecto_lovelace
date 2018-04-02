@@ -16,8 +16,6 @@ using namespace std;
 /**
  * Interpreta los caracteres de la cadena dada como un número en la base
  * dada. La cadena «564» pasa como constante 564ull y como arreglo {5, 6, 4}.
- *
- * \todo Lanzar excepción si el número interno se desborda.
  */
 
 ArregloDeDigitos::ArregloDeDigitos(
@@ -75,7 +73,29 @@ ArregloDeDigitos::ArregloDeDigitos(
   mCadena (mNumeroDeElementos, '0'),
   mBase {base}
 {
-  for (int i = 0; i < mNumeroDeElementos; i++)
+  for (unsigned int i = 0; i < mNumeroDeElementos; i++)
+    mCadena[i] = mArregloInterno[i] + 48;
+}
+
+/**
+ * Construye un arreglo de dígitos a partir de una lista de inicialización.
+ *
+ * \todo Hacer métodos de lectura y escritura para el atributo de la base
+ * (dado que no se puede pasar en este constructor) y armar representación
+ * numérica. Dada la construcción en dos pasos, el armado de las
+ * representaciones se debe separar del contructor (algún método cómo
+ * «recalcular»). Por lo mientras, los primeros constructores son
+ * los únicos en los que es segura la representación interna.
+ */
+
+ArregloDeDigitos::ArregloDeDigitos(
+  std::initializer_list<int> elementos   /**< Contenido del arreglo. */
+)
+: Arreglo<int>(elementos),
+  mCadena (mNumeroDeElementos, '0'),
+  mBase {10}
+{
+  for (unsigned int i = 0; i < mNumeroDeElementos; i++)
     mCadena[i] = mArregloInterno[i] + 48;
 }
 
@@ -87,14 +107,14 @@ ArregloDeDigitos::ArregloDeDigitos(
  */
 
 ArregloDeDigitos::ArregloDeDigitos(
-  int numeroDeElementos,              /**< Número de lementos del arreglo. */
+  unsigned int numeroDeElementos,     /**< Número de lementos del arreglo. */
   int base                            /**< Base de número. */
 )
 : Arreglo<int> (numeroDeElementos),
   mCadena (mNumeroDeElementos, '0'),
   mBase {base}
 {
-  for (int i = 0; i < mNumeroDeElementos; i++)
+  for (unsigned int i = 0; i < mNumeroDeElementos; i++)
     mArregloInterno[i] = 0;
 }
 
@@ -116,17 +136,39 @@ ArregloDeDigitos::ArregloDeDigitos()
  * porque la asignación debe modificar las representaciones internas. Tampoco
  * sobreescribe la operación equivalente de la superclase porque se necesita
  * es un intermediario específico. Lo que sí se puede hacer, es que el
- * intermediario del arreglo con dígitos hereda al intermediario normal; esto permite
- * reutilizar algunas operaciones comunes.
+ * intermediario del arreglo con dígitos hereda al intermediario normal; esto
+ * permite reutilizar algunas operaciones comunes.
  *
  * \return Instancia de intermediario asociado al índice dado.
+ *
+ * \throw AccesoFueraDeRango Si el índice dado no se encuentra en el rango del
+ * arreglo intenro.
  */
 
 Utilidades::IntermediarioDeArregloDeDigitos ArregloDeDigitos::operator[](
   int indice                             /**< Índice de elemento. */
 )
 {
-  return Utilidades::IntermediarioDeArregloDeDigitos(*this, indice);
+  return Utilidades::IntermediarioDeArregloDeDigitos(*this,
+    resolverIndice(indice));
+}
+
+/**
+ * Regresa el elemento que hay en el índice dado. A diferencia de
+ * operator[](int indice) esta operación solamente se utiliza cuando se trata
+ * con arreglos constantes.
+ *
+ * \return copia de elemento en el índice dado.
+ *
+ * \throw AccesoFueraDeRango Si el índice dado no se encuentra en el rango del
+ * arreglo intenro.
+ */
+
+int ArregloDeDigitos::operator[](
+  int indice                             /**< Índice de elemento. */
+) const
+{
+  return mArregloInterno[resolverIndice(indice)];
 }
 
 /**
@@ -167,4 +209,20 @@ ostream& operator<<(
 {
   flujo << arreglo.mCadena;
   return flujo;
+}
+
+/**
+ * Regresa un equivalente de la representación en cadena interna pero
+ * quitando los ceros a la izquierda.
+ *
+ * \retrun Cadena sin ceros a la izquierda.
+ */
+
+string ArregloDeDigitos::obtenerCadenaEfectiva() const
+{
+  string copia {mCadena};
+  unsigned int indice;
+  for (indice = 0; copia[indice] == '0'; indice++);
+  copia.erase(0, indice);
+  return copia;
 }

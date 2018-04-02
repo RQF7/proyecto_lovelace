@@ -14,10 +14,12 @@
 #ifndef __ARREGLO__
 #define __ARREGLO__
 
+#include "error.hh"
 #include "intermediario_de_arreglo.hh"
 #include "utilidades_matematicas.hh"
 #include <algorithm>
 #include <cmath>
+#include <cstring>
 #include <initializer_list>
 #include <memory>
 #include <ostream>
@@ -29,10 +31,18 @@
 template <typename tipo>
 std::ostream& operator<<(std::ostream& flujo, const Arreglo<tipo>& arreglo);
 
+/** \brief Impresión de un arreglo de bytes. */
+std::ostream& operator<<(std::ostream& flujo,
+  const Arreglo<unsigned char>& arreglo);
+
 /** \brief Concatenación de dos arreglos. */
 template <typename tipo>
-Arreglo<tipo> operator+(const Arreglo<tipo>& arregloUno,
+Arreglo<tipo> operator||(const Arreglo<tipo>& arregloUno,
   const Arreglo<tipo>& arregloDos);
+
+/** \brief Sumas entre arreglos de bytes */
+Arreglo<unsigned char> operator+(const Arreglo<unsigned char>& arregloUno,
+  const Arreglo<unsigned char>& arregloDos);
 
 /** \brief Comparación de igualdad entre arreglos. */
 template <typename tipo>
@@ -64,6 +74,14 @@ tipoDeNumero convertirANumero(
  * Esta clase encapsula las operaciones de bajo nivel (con apuntadores y de
  * manejo de memoria) para ofrecer una interfaz clara y de alto nivel.
  *
+ * \todo Integrar el arreglo con las clases de iteradores de la biblioteca
+ * estándar para poder escribir ciclos con la sintaxis de for-each:
+ * ```
+ * Arreglo<int> elementos {1, 2, 3};
+ * for (auto elemento : elementos)
+ *   cout << elemento << endl;
+ * ```
+ *
  * \tparam tipo Tipo de dato del contenedor.
  */
 
@@ -76,10 +94,13 @@ class Arreglo
     explicit Arreglo();
 
     /** \brief Construcción de arreglo del tamaño dado. */
-    explicit Arreglo(int numeroDeElementos);
+    explicit Arreglo(unsigned int numeroDeElementos);
 
     /** \brief Construcción mediante lista de inicialización. */
     Arreglo(std::initializer_list<tipo> elementos);
+
+		/** \brief Construcción por memoria ya existente. */
+		Arreglo(unsigned int numeroDeElementos, tipo* &&memoria);
 
     /** \brief Constructor de operación de copiado. */
     Arreglo(const Arreglo &arreglo);
@@ -100,31 +121,58 @@ class Arreglo
     Utilidades::IntermediarioDeArreglo<tipo> operator[](int indice);
 
     /** \brief Operación de subíndice (constante). */
-    tipo operator[](int indice) const;
+    virtual tipo operator[](int indice) const;
 
     /** \brief Operación de escritura. */
     virtual void colocar(int indice, tipo valor);
 
+    /** \brief Colocar una constante en todo el arreglo. */
+    void colocarConstante(tipo constante);
+
     /** \brief Regresa el tamaño del arreglo. */
-    inline int obtenerNumeroDeElementos() const { return mNumeroDeElementos; }
+    inline unsigned int obtenerNumeroDeElementos() const
+      { return mNumeroDeElementos; }
+
+    /** \brief Regresa una copia del arreglo interno. */
+    tipo *obtenerCopiaDeArreglo() const;
+
+    /** \brief Regresa un apuntador al arreglo interno. */
+    inline const tipo *obtenerApuntador() const
+      { return mArregloInterno; }
 
     /** \brief Parte el arreglo según parámetros. */
     Arreglo<tipo> partir(int numeroDePartes, int parte,
       int desviacion = 0) const;
 
+    /** \brief Operación de división entre arreglo de índices. */
+    Arreglo<Arreglo<tipo>> operator/(
+      const Arreglo<unsigned int> &marcasDivisorias) const;
+
+    /** \brief Error para representar un acceso ilegal. */
+    struct AccesoFueraDeRango : public Utilidades::Error
+    { inline AccesoFueraDeRango(std::string mensaje)
+      : Utilidades::Error{mensaje} {} };
+
   protected:
 
     /** \brief Tamaño del arreglo (entero mayor a cero). */
-    int mNumeroDeElementos;
+    unsigned int mNumeroDeElementos;
 
     /** \brief Apuntador a sección de memoria con el contenido del arreglo.*/
     tipo *mArregloInterno;
+
+    /** \brief Aplica una resolución al índice dado. */
+    int resolverIndice(int indice) const;
 
   private:
 
     /** \brief Función de impresión como amiga. */
     friend std::ostream& operator<< <tipo>(
       std::ostream& flujo, const Arreglo<tipo>& arreglo);
+
+    /** \brief Función de impresión especializada como amiga. */
+    friend std::ostream& operator<<(
+      std::ostream& flujo, const Arreglo<unsigned char>& arreglo);
 
     /** \brief Clase intermediario como amiga. */
     friend class Utilidades::IntermediarioDeArreglo<tipo>;
@@ -139,7 +187,7 @@ class Arreglo
 
 template<typename tipo>
 Arreglo<tipo>::Arreglo()
-: mNumeroDeElementos {0},
+: mNumeroDeElementos {0u},
   mArregloInterno {nullptr}
 {
 }
@@ -164,18 +212,15 @@ Arreglo<tipo>::Arreglo()
  * funcionPrueba(6);          // Error: no se puede hacer la conversión.
  * funcionPrueba({6});        // Bien: pasa un arreglo con un seis.
  * ```
- *
- * \todo comprobación de tamaño (máximo, mínimo).
  */
 
 template<typename tipo>
 Arreglo<tipo>::Arreglo(
-  int numeroDeElementos /**< Número de elementos del arreglo. */
+  unsigned int numeroDeElementos /**< Número de elementos del arreglo. */
 )
 : mNumeroDeElementos {numeroDeElementos},
   mArregloInterno {new tipo[mNumeroDeElementos]}
 {
-  //memset(mArregloInterno, 0, mNumeroDeElementos);
 }
 
 /**
@@ -213,6 +258,23 @@ Arreglo<tipo>::Arreglo(
 }
 
 /**
+ * Permite contruir un arreglo a partir de un apuntador a memoria ya reservada.
+ * Funciona de forma bastante similar al contructor por copia, excepto que en
+ * este caso la memoria de origen es un arreglo de bajo nivel.
+ */
+
+template <typename tipo>
+Arreglo<tipo>::Arreglo(
+	unsigned int numeroDeElementos,      /**< Número de elementos del arreglo. */
+	tipo* &&memoria                      /**< Apuntador a memoria reservada. */
+)
+: mNumeroDeElementos {numeroDeElementos},
+	mArregloInterno {memoria}
+{
+	memoria = nullptr;
+}
+
+/**
  * Contruye un nuevo arreglo a partir del dado. A diferencia de la
  * asignación por copia, en esta se reserva memoria para el nuevo objeto.
  *
@@ -235,10 +297,6 @@ Arreglo<tipo>::Arreglo(
  * funcionPrueba(b);      // Constructor por copia: b a «arreglo».
  * ```
  *
- * \todo :O Estoy accediendo a un objeto privado del otro arreglo (el fuente)
- * ¿Esto se puede hacer siempre que la variable sea de tipo «const»? ¿O es
- * una característica especial de los constructores por copia?
- *
  * \sa http://www.cplusplus.com/reference/memory/uninitialized_copy/
  */
 
@@ -253,13 +311,10 @@ Arreglo<tipo>::Arreglo(
 }
 
 /**
- * Copia el contenido del arreglo fuente en este arreglo; en este caso
- * la memoria ya debe de estar reservada.
+ * Copia el contenido del arreglo fuente en este arreglo. Para esto primero
+ * libera la memoria anterior y después reserva la necesaria para la copia.
  *
  * \return Referencia a sí mismo.
- *
- * \todo Comprobaciones de tamaño: si la fuente es más grande, lanzar
- * excepción, si es más pequeña, rellenar con valores por defecto.
  *
  * \sa http://www.cplusplus.com/reference/algorithm/copy/
  */
@@ -300,11 +355,6 @@ Arreglo<tipo>& Arreglo<tipo>::operator=(
  * operaciones de movimiento están hechas para manejar este tipo de
  * referencias, mientras que las operaciones de copia permiten manejar
  * referencias a *lvalue* (valor de lado izquierdo).
- *
- * \todo Hmmm... aquí el argumento no es constante y de todos modos se
- * accede al apuntador privado.
- * Creo que tiene que ver con el hecho de que es un rvalue (un objeto
- * que ya no se va a utilizar más).
  */
 
 template<typename tipo>
@@ -372,7 +422,8 @@ Arreglo<tipo>::~Arreglo()
  *
  * \return Instancia de intermediario asociado al índice dado.
  *
- * \todo Comprobación de índice válido.
+ * \throw AccesoFueraDeRango Si el índice dado no se encuentra en el rango del
+ * arreglo intenro.
  */
 
 template<typename tipo>
@@ -380,13 +431,18 @@ Utilidades::IntermediarioDeArreglo<tipo> Arreglo<tipo>::operator[](
   int indice                             /**< Índice de elemento. */
 )
 {
-  return Utilidades::IntermediarioDeArreglo<tipo>(*this, indice);
+  return Utilidades::IntermediarioDeArreglo<tipo>(*this, resolverIndice(indice));
 }
 
 /**
  * Regresa el elemento que hay en el índice dado. A diferencia de
  * operator[](int indice) esta operación solamente se utiliza cuando se trata
  * con arreglos constantes.
+ *
+ * \return Copia de elemento en índice.
+ *
+ * \throw AccesoFueraDeRango Si el índice dado no se encuentra en el rango del
+ * arreglo intenro.
  */
 
 template<typename tipo>
@@ -394,16 +450,15 @@ tipo Arreglo<tipo>::operator[](
   int indice                             /**< Índice de elemento. */
 ) const
 {
-  return mArregloInterno[indice];
+  return mArregloInterno[resolverIndice(indice)];
 }
 
 /**
  * Guarda el valor dado en la posición dada.
  *
- * \todo comprobación de índice válido.
- *
- * \deprecated A partir de este commit el intermediario de arreglo funciona
- * para hacer asignaciones:
+ * \deprecated A partir de
+ * [este commit](https://github.com/RQF7/proyecto_lovelace/commit/0785d61c33f6f8bfa84f5005337c8683894ddebf)
+ * el intermediario de arreglo funciona para hacer asignaciones:
  * ```
  * Arreglo<int> prueba {1, 2, 3};
  * prueba[0] = 9;
@@ -421,6 +476,35 @@ void Arreglo<tipo>::colocar(
 )
 {
   mArregloInterno[indice] = valor;
+}
+
+/**
+ * Coloca la constante dada en todo el arreglo.
+ */
+
+template<typename tipo>
+void Arreglo<tipo>::colocarConstante(
+  tipo constante      /**< Valor a colocar en el arreglo. */
+)
+{
+  for (unsigned int i = 0; i < mNumeroDeElementos; i++)
+    mArregloInterno[i] = constante;
+}
+
+/**
+ * Regresa una copia del arreglo interno.
+ *
+ * \warning El usuario es el encargado de liberar esta memoria. Se debe
+ * utilizar solo para interactuar con código viejo; La gestión de la memoria
+ * sólo se debería de encontrar en el sistema de contructores y destructores.
+ */
+
+template<typename tipo>
+tipo *Arreglo<tipo>::obtenerCopiaDeArreglo() const
+{
+  tipo *resultado = new tipo [mNumeroDeElementos];
+  memcpy(resultado, mArregloInterno, mNumeroDeElementos);
+  return resultado;
 }
 
 /**
@@ -445,11 +529,13 @@ void Arreglo<tipo>::colocar(
  *
  * \return Subarreglo número `parte`.
  *
- * \todo Soporte en los argumentos para solicitar varias partes a la vez.
- * \todo Validar coherencia en argumentos.
+ * \deprecated A partir de
+ * [este commit](https://github.com/RQF7/proyecto_lovelace/commit/b375defcd0070cf6537a793a7d73b7fcb9f38256),
+ * se utiliza la operación de división entre arreglos.
  */
 
 template<typename tipo>
+[[ deprecated("Se sustituye por operador de división entre arreglo") ]]
 Arreglo<tipo> Arreglo<tipo>::partir(
   int numeroDePartes, /**< Número de particiones a hacer. **/
   int parte,          /**< Número de partición deseada. **/
@@ -470,14 +556,83 @@ Arreglo<tipo> Arreglo<tipo>::partir(
 }
 
 /**
+ * Permite crear subarreglos a partir del propio. Parte el arreglo
+ * actual según los marcadores del divisor. Por ejemplo:
+ * [1, 2, 3, 4] / [1, 3] da como resultado
+ * [ [1], [2, 3], 4 ].
+ * Las marcas divisorias indican el índice posterior a la partición.
+ * Esto es, es un error incluir el 0 o NumeroDeElementos.
+ *
+ * Aunque con un formato en los argumentos un poco distinto, esta
+ * función sustituye casi por completo a Arreglo::partir (marcada como
+ * obsoleta). Los únicos casos en los que podría seguir siendo válido
+ * seguir utilizando Arreglo::partir es cuando el arreglo es muy grando
+ y solo se necesita una fracción pequeña de él (que sea ridículo calcular
+ * todas las particiones cuando solo es una la que se ocupa). De momento no
+ * existe el caso arriba mencionado, por lo que se quedará como obsoleta.
+ *
+ * \tparam marcasDivisorias Arreglo con marcas divisorias.
+ *
+ * \return Arreglo de arreglos con subpartes del original.
+ */
+
+template<typename tipo>
+Arreglo<Arreglo<tipo>> Arreglo<tipo>::operator/(
+  const Arreglo<unsigned int> &marcasDivisorias
+)
+const
+{
+  Arreglo<Arreglo<tipo>> resultado(
+    marcasDivisorias.obtenerNumeroDeElementos() + 1);
+  int acumulado = 0;
+  int marcaActual = marcasDivisorias[0];
+  for (unsigned int i = 0; i < resultado.obtenerNumeroDeElementos(); i++)
+  {
+    Arreglo<tipo> subArreglo(marcaActual - acumulado);
+    for (unsigned int j = 0; j < subArreglo.obtenerNumeroDeElementos(); j++)
+      subArreglo[j] = mArregloInterno[acumulado + j];
+    resultado[i] = subArreglo;
+    if (i == resultado.obtenerNumeroDeElementos() - 1)
+      break;
+    acumulado += subArreglo.obtenerNumeroDeElementos();
+    marcaActual = (i != resultado.obtenerNumeroDeElementos() - 2) ?
+      marcasDivisorias[i + 1] :
+      mNumeroDeElementos;
+  }
+  return resultado;
+}
+
+/**
+ * Verifica que el índice dado se encuentre en el rango de la memoria interna.
+ * Los índices negativos se resuelven de atrás hacia adelante (-1 representa
+ * al último elemento, -2 al penúltimo, etcétera).
+ *
+ * \return El índice después de la resolución.
+ *
+ * \throw AccesoFueraDeRango Si el índice dado no se encuentra en el rango del
+ * arreglo intenro.
+ */
+
+template<typename tipo>
+int Arreglo<tipo>::resolverIndice(
+  int indice                        /**< Índice a resolver. */
+) const
+{
+  if (indice < 0)
+    indice = mNumeroDeElementos + indice;
+  if (indice < 0 || static_cast<unsigned int>(indice) >= mNumeroDeElementos)
+    throw AccesoFueraDeRango{
+      "El índice no se encuentra en el rango del arreglo"};
+  return indice;
+}
+
+/**
  * Coloca en el flujo los elementos del arreglo separados por un
  * espacio. La disponibilidad de esta operación depende de la existencia
  * de una operación equivalente para un elemento del arreglo (error en
  * compilación).
  *
  * \return Referencia a flujo dado (para concatenar operaciones).
- *
- * \todo ¿Cómo hacer que el separador sea un parámetro más?
  */
 
 template <typename tipo>
@@ -486,7 +641,7 @@ std::ostream& operator<<(
   const Arreglo<tipo> &arreglo  /**< Arreglo a imprimir. */
 )
 {
-  for (int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
     flujo << arreglo.mArregloInterno[i] << " ";
   return flujo;
 }
@@ -496,11 +651,11 @@ std::ostream& operator<<(
  * espacio para concatenar a los dos arreglos dados y los coloca en el
  * orden dado (la operación no es conmutativa).
  *
- * \todo Validación de coherencia de tipos.
+ * \return Arreglo con los dos parámetros concatenados.
  */
 
 template <typename tipo>
-Arreglo<tipo> operator+(
+Arreglo<tipo> operator||(
   const Arreglo<tipo> &arregloUno,  /**< Primer arreglo de concatenación. */
   const Arreglo<tipo> &arregloDos   /**< Segundo arreglo de concatenación. */
 )
@@ -517,7 +672,7 @@ Arreglo<tipo> operator+(
  * Primero compara número de elemetos y después compara elemento a
  * elemento.
  *
- * \todo Validación de igualdad.
+ * \return Validación de igualdad.
  */
 
 template <typename tipo>
@@ -529,7 +684,7 @@ bool operator==(
   if (arregloUno.obtenerNumeroDeElementos() !=
     arregloDos.obtenerNumeroDeElementos())
     return false;
-  for (int i = 0; i < arregloUno.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arregloUno.obtenerNumeroDeElementos(); i++)
     if (arregloUno[i] != arregloDos[i])
       return false;
   return true;
@@ -538,7 +693,7 @@ bool operator==(
 /**
  * Simplemente hace el complemento de la validación de igualdad.
  *
- * \todo Validación de desigualdad.
+ * \return Validación de desigualdad.
  */
 
 template <typename tipo>
@@ -568,6 +723,7 @@ bool operator!=(
  */
 
 template <typename tipoDeArreglo, typename tipoDeNumero>
+[[ deprecated("Mejor usar arreglo de dígitos; tiene más sentido.") ]]
 Arreglo<tipoDeArreglo> convertirAArreglo(
   tipoDeNumero numero,        /**< Número a convertir. */
   int base,                   /**< Base de la conversión. */
@@ -603,13 +759,14 @@ Arreglo<tipoDeArreglo> convertirAArreglo(
  */
 
 template<typename tipoDeArreglo, typename tipoDeNumero>
+[[ deprecated("Mejor usar arreglo de dígitos; tiene más sentido.") ]]
 tipoDeNumero convertirANumero(
   const Arreglo<tipoDeArreglo> &arreglo,    /**< Referencia a arreglo. */
   int base                                  /**< Base de la conversión. */
 )
 {
   tipoDeNumero resultado {0};
-  for (int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
     resultado += arreglo[i] * potencia<tipoDeNumero>(base, i);
   return resultado;
 }

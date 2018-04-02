@@ -18,12 +18,13 @@
 #include <cryptopp/filters.h>
 
 using namespace std;
+using namespace Implementaciones;
 
 /* ========================================================================= */
 
 int probarMod(int mod, int cota)
 {
-  Utilidades util;
+  UtilidadesBPS util;
   for(int i = -cota; i < cota; i++)
     if(util.mod(i, mod) < 0 || util.mod(i, mod) >= mod)
       return 0;
@@ -34,7 +35,7 @@ int probarMod(int mod, int cota)
 
 int probarStringMpz(mpz_class num)
 {
-  Utilidades util;
+  UtilidadesBPS util;
   string cad = util.numeroACadena(num);
   mpz_class numx = util.cadenaANumero(cad);
   if(num == numx) return 1;

@@ -19,71 +19,74 @@
 #include <cryptopp/aes.h>
 #include <cryptopp/filters.h>
 
-class CifradorBC
+namespace Implementaciones
 {
-  private:
-    std::vector<char> mAlfabeto;             /* Alfabeto S. */
-    unsigned int      mCardinalidad;         /* Cardinalidad s. */
-    unsigned int      mTamBloque;            /* Tamaño de bloque b. */
-    unsigned int      mNumRondas;            /* Número de rondas w. */
-    Codificador       mCodificador;
-    CifradorDeRonda   mCifradorDeRonda;      /* Cifrador de ronda F. */
+  class CifradorBC
+  {
+    private:
+      std::vector<char> mAlfabeto;             /* Alfabeto S. */
+      unsigned int      mCardinalidad;         /* Cardinalidad s. */
+      unsigned int      mTamBloque;            /* Tamaño de bloque b. */
+      unsigned int      mNumRondas;            /* Número de rondas w. */
+      Codificador       mCodificador;
+      CifradorDeRonda   mCifradorDeRonda;      /* Cifrador de ronda F. */
 
-  public:
-    /** \brief Constructor de la clase sin argumentos. */
-    CifradorBC();
+    public:
+      /** \brief Constructor de la clase sin argumentos. */
+      CifradorBC();
 
-    /** \brief Constructor de la clase con argumentos de alfabeto, 
-    tamaño de bloque y número de rondas. */
-    CifradorBC(std::vector<char> alfabeto, unsigned int tamBloque,
-                                           unsigned int numRondas);
+      /** \brief Constructor de la clase con argumentos de alfabeto,
+      tamaño de bloque y número de rondas. */
+      CifradorBC(std::vector<char> alfabeto, unsigned int tamBloque,
+                                             unsigned int numRondas);
 
-    /** \brief Constructor de la clase con argumentos de alfabeto, 
-    tamaño de bloque, número de rondas y cifrador. */
-    CifradorBC(std::vector<char> alfabeto, unsigned int tamBloque,
-                    unsigned int numRondas, unsigned int cifrador);
+      /** \brief Constructor de la clase con argumentos de alfabeto,
+      tamaño de bloque, número de rondas y cifrador. */
+      CifradorBC(std::vector<char> alfabeto, unsigned int tamBloque,
+                      unsigned int numRondas, unsigned int cifrador);
 
-    /** \brief Método para generar el número resultante de la
-     *  composición de un mensaje en el dominio del alfabeto. */
-    mpz_class componer(std::string mensaje);
+      /** \brief Método para generar el número resultante de la
+       *  composición de un mensaje en el dominio del alfabeto. */
+      mpz_class componer(std::string mensaje);
 
-    /** \brief Método para generar la cadena resultante de la
-     *  descomposición de un número en el dominio del alfabeto. */
-    std::string descomponer(mpz_class numMensaje, unsigned int longitud);
+      /** \brief Método para generar la cadena resultante de la
+       *  descomposición de un número en el dominio del alfabeto. */
+      std::string descomponer(mpz_class numMensaje, unsigned int longitud);
 
-    /** \brief Método para cifrar un mensaje dada una llave y un tweak. */
-    std::string cifrar(std::string mensaje, CryptoPP::byte llave[],
-                                                   mpz_class tweak);
+      /** \brief Método para cifrar un mensaje dada una llave y un tweak. */
+      std::string cifrar(std::string mensaje, CryptoPP::byte llave[],
+                                                     mpz_class tweak);
 
-    /** \brief Método para descifrar un mensaje dada una llave y un tweak. */
-    std::string descifrar(std::string mensaje, CryptoPP::byte llave[],
-                                                      mpz_class tweak);
+      /** \brief Método para descifrar un mensaje dada una llave y un tweak. */
+      std::string descifrar(std::string mensaje, CryptoPP::byte llave[],
+                                                        mpz_class tweak);
 
-    /** \brief Método para obtener el alfabeto con que trabaja el cifrador. */
-    std::vector<char> obtenerAlfabeto();
+      /** \brief Método para obtener el alfabeto con que trabaja el cifrador. */
+      std::vector<char> obtenerAlfabeto();
 
-    /** \brief Método para obtener el tamaño de bloque del cifrador. */
-    unsigned int obtenerTamBloque();
+      /** \brief Método para obtener el tamaño de bloque del cifrador. */
+      unsigned int obtenerTamBloque();
 
-    /** \brief Método para obtener el numero de rondas del cifrador. */
-    unsigned int obtenerNumRondas();
+      /** \brief Método para obtener el numero de rondas del cifrador. */
+      unsigned int obtenerNumRondas();
 
-    /** \brief Método para obtener el cifrador de ronda interno. */
-    CifradorDeRonda obtenerCifradorDeRonda();
+      /** \brief Método para obtener el cifrador de ronda interno. */
+      CifradorDeRonda obtenerCifradorDeRonda();
 
-    /** \brief Método para cambiar el alfabeto con que trabaja el cifrador. */
-    void colocarAlfabeto(std::vector<char> alfabeto);
+      /** \brief Método para cambiar el alfabeto con que trabaja el cifrador. */
+      void colocarAlfabeto(std::vector<char> alfabeto);
 
-    /** \brief Método para cambiar el tamaño de bloque del cifrador. */
-    void colocarTamBloque(unsigned int tamBloque);
+      /** \brief Método para cambiar el tamaño de bloque del cifrador. */
+      void colocarTamBloque(unsigned int tamBloque);
 
-    /** \brief Método para cambiar el numero de rondas del cifrador. */
-    void colocarNumRondas(unsigned int numRondas);
+      /** \brief Método para cambiar el numero de rondas del cifrador. */
+      void colocarNumRondas(unsigned int numRondas);
 
-    /** \brief Método para cambiar el tipo de cifrador F. */
-    void colocarTipoCifrador(unsigned int tipo);
+      /** \brief Método para cambiar el tipo de cifrador F. */
+      void colocarTipoCifrador(unsigned int tipo);
 
-};
+  };
+}
 
 /* ========================================================================= */
 

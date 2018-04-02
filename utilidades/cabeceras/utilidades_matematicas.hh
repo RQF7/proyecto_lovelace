@@ -30,15 +30,21 @@ tipo potencia(int base, int exponente);
 template <typename tipo>
 int contarDigitos(tipo numero, int base);
 
+/** \brief Regresa el valor absoluto del número dado. */
+template <typename tipo>
+tipo valorAbsoluto(tipo numero);
+
 /**
  * Envolvente alrededor de la función de módulo normal para lidiar con
  * números negativos: si el primer operando es negativo, se regresa el
  * módulo del complemento.
  *
  * \return numeroUno % numeroDos
+ *
+ * \tparam tipo Tipo de operandos.
  */
 
-template <typename tipo>                 /**< Tipo de operandos. */
+template <typename tipo>
 tipo modulo(
   tipo numeroUno,                        /**< Primer operando. */
   tipo numeroDos                         /**< Segundo operando. */
@@ -54,9 +60,11 @@ tipo modulo(
  * el tipo de datos con el que se opera.
  *
  * \return operación de potencia.
+ *
+ * \tparam tipo Tipo de resultado.
  */
 
-template <typename tipo>                 /**< Tipo de resultado. */
+template <typename tipo>
 tipo potencia(
   int base,                              /**< Base de la operación. */
   int exponente                          /**< Exponente de la operación. */
@@ -70,9 +78,13 @@ tipo potencia(
 
 /**
  * Cuenta los dígitos del número dado en la base dada.
+ *
+ * \return Número de dígitos.
+ *
+ * \tparam tipo Tipo del número dado.
  */
 
-template <typename tipo>                 /**< Tipo de número dado. */
+template <typename tipo>
 int contarDigitos(
   tipo numero,                           /**< Número a analizar. */
   int base                               /**< Base de número dado. */
@@ -82,6 +94,25 @@ int contarDigitos(
   while ((numero /= base) != 0)
     resultado++;
   return resultado;
+}
+
+/**
+ * Calcula el valor absoluto del número dado.
+ *
+ * \return Valor absoluto de entrada.
+ *
+ * \tparam tipo Tipo del número dado.
+ */
+
+template <typename tipo>
+tipo valorAbsoluto(
+  tipo numero                            /**< Número de entrada. */
+)
+{
+  if (numero >= 0)
+    return numero;
+  else
+    return numero * -1;
 }
 
 #endif

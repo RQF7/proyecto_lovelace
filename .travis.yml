@@ -96,6 +96,10 @@ script:
 # - make -C pruebas_librerias correr
   - make -C implementaciones correr
   - make -C utilidades correr
+  - cd implementaciones
+  - chmod 770 lovelace_prueba.sh
+  - ./lovelace_prueba.sh 100
+  - cd ..
 
 # Generación de documentación #################################################
 after_success:

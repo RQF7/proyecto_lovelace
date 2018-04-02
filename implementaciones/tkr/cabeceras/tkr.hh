@@ -9,7 +9,7 @@
 #include "pseudoaleatorio_trivial.hh"
 #include "../../acceso_a_datos/cabeceras/cdv.hh"
 #include "../../acceso_a_datos/cabeceras/acceso_simulado.hh"
-#include "../../utilidades/cabeceras/algoritmo_tokenizador.hh"
+#include "../../utilidades/cabeceras/algoritmo_tokenizador_irreversible.hh"
 #include "../../../utilidades/cabeceras/arreglo.hh"
 #include "../../../utilidades/interfaces_comunes/funcion.hh"
 #include <vector>
@@ -24,12 +24,13 @@ namespace Implementaciones
    * la función pseudoaleatoria usada para generar tokens.
    */
 
-  class TKR : public AlgoritmoTokenizador
+  class TKR : public AlgoritmoTokenizadorIrreversible
   {
     public:
 
       /** \brief Alias para la función pseudoaleatoria. */
-      using FuncionPseudoaleatoria = Utilidades::Funcion<ArregloDeDigitos, int>;
+      using FuncionPseudoaleatoria =
+        Utilidades::Funcion<ArregloDeDigitos, unsigned int>;
 
       /* \brief Constructor de instancia. */
       TKR(FuncionPseudoaleatoria* funcionPseudoaleatoria =
@@ -40,11 +41,10 @@ namespace Implementaciones
       /** \brief Libearación de memoria. */
       ~TKR();
 
-      /** Operación de tokenización (declarada por la interfaz). */
-      ArregloDeDigitos tokenizar(const ArregloDeDigitos& pan) override;
-
-      /** Operación de detokenización (declarada por la interfaz). */
-      ArregloDeDigitos detokenizar(const ArregloDeDigitos& token) override;
+      /** \brief El token dado no existe. */
+      struct TokenInexistente : public Utilidades::Error {
+        inline TokenInexistente(std::string mensaje)
+        : Utilidades::Error{mensaje} {}};
 
     private:
 
@@ -53,6 +53,14 @@ namespace Implementaciones
 
       /** \brief Apuntador a una clase de acceso a datos. */
       CDV* mBaseDeDatos;
+
+      /** \brief Operación de tokenización (declarada por la interfaz). */
+      ArregloDeDigitos tokenizar(
+        const ArregloDeDigitos& oan) override;
+
+      /** \brief Operación de detokenización (declarada por la interfaz). */
+      ArregloDeDigitos detokenizar(
+        const ArregloDeDigitos& token) override;
   };
 }
 

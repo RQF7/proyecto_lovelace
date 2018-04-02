@@ -7,6 +7,7 @@ PROGRAMA_PRINCIPAL	:= programa_de_pruebas
 CARPETA_BINARIOS		:= binarios
 CARPETA_OBJETOS			:= objetos
 LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
+											 arreglo.cpp \
 											 arreglo_prueba.cpp \
 											 arreglo_de_digitos.cpp \
 											 intermediario_de_arreglo_de_digitos.cpp \
@@ -18,7 +19,7 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 conjunto_de_pruebas.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
-BANDERAS_GENERALES	:= -std=c++14 -Wall -ggdb
+BANDERAS_GENERALES	:= -std=c++14 -Wall -Werror -Wfatal-errors -ggdb
 BANDERAS_DE_LIGADO	:= -lcryptopp
 
 $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)
@@ -26,6 +27,10 @@ $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)
 	$(CXX) $(BANDERAS_GENERALES) $(LISTA_DE_OBJETOS) $(BANDERAS_DE_LIGADO) -o $@
 
 $(CARPETA_OBJETOS)/programa_de_pruebas.o: programa_de_pruebas.cpp
+	mkdir -p $(CARPETA_OBJETOS)
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/arreglo.o: arreglo.cpp cabeceras/arreglo.hh
 	mkdir -p $(CARPETA_OBJETOS)
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 

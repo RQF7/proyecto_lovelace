@@ -18,6 +18,7 @@
 #include <cryptopp/filters.h>
 
 using namespace std;
+using namespace Implementaciones;
 
 /* ========================================================================= */
 

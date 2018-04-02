@@ -21,10 +21,11 @@ ArregloPrueba::ArregloPrueba()
     "funcionalidad básica",
     ArregloPrueba::probarFuncionalidadBasica
   });
-  mListaDePruebas.push_back(FuncionDePrueba{
-    "generación de particiones",
-    ArregloPrueba::probarParticiones
-  });
+  /* Función de partir obsoleta. */
+  // mListaDePruebas.push_back(FuncionDePrueba{
+  //   "generación de particiones",
+  //   ArregloPrueba::probarParticiones
+  // });
   mListaDePruebas.push_back(FuncionDePrueba{
     "concatenación",
     ArregloPrueba::probarConcatenacion
@@ -40,6 +41,18 @@ ArregloPrueba::ArregloPrueba()
   mListaDePruebas.push_back(FuncionDePrueba{
     "conversiones numéricas",
     ArregloPrueba::probarConversionesNumericas
+  });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "control de acceso",
+    ArregloPrueba::probarControlDeAcceso
+  });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "división entre arreglo",
+    ArregloPrueba::probarDivisionEntreArreglo
+  });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "suma entre cadenas de bytes",
+    ArregloPrueba::probarSuma
   });
 }
 
@@ -102,76 +115,76 @@ bool ArregloPrueba::probarFuncionalidadBasica()
 
 bool ArregloPrueba::probarParticiones()
 {
-  Arreglo<int> arreglo (10);
-  for (int i = 0; i < 10; i++)
-    arreglo[i] = i + 1;
-
-  /* Partición exacta: 5 */
-  auto primerMedio = arreglo.partir(2, 0);
-  auto segundoMedio = arreglo.partir(2, 1);
-  cout << "Medios: " << endl
-       << primerMedio << endl
-       << segundoMedio << endl;
-  if (primerMedio[2] != 3 || segundoMedio[4] != 10)
-    return false;
-
-  /* Partición exacta: 2 */
-  auto segundoQuinto = arreglo.partir(5, 1);
-  auto quintoQuinto = arreglo.partir(5, 4);
-  cout << "Quintos: " << endl
-       << segundoQuinto << endl
-       << quintoQuinto << endl;
-  if (segundoQuinto[1] != 4 || quintoQuinto[0] != 9)
-    return false;
-
-  /* Partición con residuo: 2, 2, 2, 4 */
-  auto primerCuarto = arreglo.partir(4, 0);
-  auto cuartoCuarto = arreglo.partir(4, 3);
-  cout << "Cuartos: " << endl
-       << primerCuarto << endl
-       << cuartoCuarto << endl;
-  if (primerCuarto[0] != 1 || cuartoCuarto[1] != 8 || cuartoCuarto[3] != 10)
-    return false;
-
-  /* Partición par con desviación: 7, 3 y 3, 7 */
-  auto primerMedioCompuesto = arreglo.partir(2, 0, 2);
-  auto segundoMedioCompuesto = arreglo.partir(2, 1, 2);
-  cout << "Medio compuesto de 10 (+2): " << endl
-       << primerMedioCompuesto << endl
-       << segundoMedioCompuesto << endl;
-  if (primerMedioCompuesto != Arreglo<int>{1, 2, 3, 4, 5, 6, 7} ||
-    segundoMedioCompuesto != Arreglo<int>{8, 9, 10})
-    return false;
-  auto primerMedioCompuestoDos = arreglo.partir(2, 0, -2);
-  auto segundoMedioCompuestoDos = arreglo.partir(2, 1, -2);
-  cout << "Medio compuesto de 10 (-2): " << endl
-       << primerMedioCompuestoDos << endl
-       << segundoMedioCompuestoDos << endl;
-  if (primerMedioCompuestoDos != Arreglo<int>{1, 2, 3} ||
-    segundoMedioCompuestoDos != Arreglo<int>{4, 5, 6, 7, 8, 9, 10})
-    return false;
-
-  /* Partición impar con desviación: 5, 2 y 1, 6 */
-  Arreglo<int> arregloDos (7);
-  for (int i = 0; i < 7; i++)
-    arregloDos[i] = i + 1;
-
-  auto primerMedioCompuestoTres = arregloDos.partir(2, 0, 2);
-  auto segundoMedioCompuestoTres = arregloDos.partir(2, 1, 2);
-  cout << "Medio compuesto de 7 (+2): " << endl
-       << primerMedioCompuestoTres << endl
-       << segundoMedioCompuestoTres << endl;
-  if (primerMedioCompuestoTres != Arreglo<int>{1, 2, 3, 4, 5} ||
-    segundoMedioCompuestoTres != Arreglo<int>{6, 7})
-    return false;
-  auto primerMedioCompuestoCuatro = arregloDos.partir(2, 0, -2);
-  auto segundoMedioCompuestoCuatro = arregloDos.partir(2, 1, -2);
-  cout << "Medio compuesto de 7 (-2): " << endl
-       << primerMedioCompuestoCuatro << endl
-       << segundoMedioCompuestoCuatro << endl;
-  if (primerMedioCompuestoCuatro != Arreglo<int>{1} ||
-    segundoMedioCompuestoCuatro != Arreglo<int>{2, 3, 4, 5, 6, 7})
-    return false;
+//  Arreglo<int> arreglo (10);
+//  for (int i = 0; i < 10; i++)
+//    arreglo[i] = i + 1;
+//
+//  /* Partición exacta: 5 */
+//  auto primerMedio = arreglo.partir(2, 0);
+//  auto segundoMedio = arreglo.partir(2, 1);
+//  cout << "Medios: " << endl
+//       << primerMedio << endl
+//       << segundoMedio << endl;
+//  if (primerMedio[2] != 3 || segundoMedio[4] != 10)
+//    return false;
+//
+//  /* Partición exacta: 2 */
+//  auto segundoQuinto = arreglo.partir(5, 1);
+//  auto quintoQuinto = arreglo.partir(5, 4);
+//  cout << "Quintos: " << endl
+//       << segundoQuinto << endl
+//       << quintoQuinto << endl;
+//  if (segundoQuinto[1] != 4 || quintoQuinto[0] != 9)
+//    return false;
+//
+//  /* Partición con residuo: 2, 2, 2, 4 */
+//  auto primerCuarto = arreglo.partir(4, 0);
+//  auto cuartoCuarto = arreglo.partir(4, 3);
+//  cout << "Cuartos: " << endl
+//       << primerCuarto << endl
+//       << cuartoCuarto << endl;
+//  if (primerCuarto[0] != 1 || cuartoCuarto[1] != 8 || cuartoCuarto[3] != 10)
+//    return false;
+//
+//  /* Partición par con desviación: 7, 3 y 3, 7 */
+//  auto primerMedioCompuesto = arreglo.partir(2, 0, 2);
+//  auto segundoMedioCompuesto = arreglo.partir(2, 1, 2);
+//  cout << "Medio compuesto de 10 (+2): " << endl
+//       << primerMedioCompuesto << endl
+//       << segundoMedioCompuesto << endl;
+//  if (primerMedioCompuesto != Arreglo<int>{1, 2, 3, 4, 5, 6, 7} ||
+//    segundoMedioCompuesto != Arreglo<int>{8, 9, 10})
+//    return false;
+//  auto primerMedioCompuestoDos = arreglo.partir(2, 0, -2);
+//  auto segundoMedioCompuestoDos = arreglo.partir(2, 1, -2);
+//  cout << "Medio compuesto de 10 (-2): " << endl
+//       << primerMedioCompuestoDos << endl
+//       << segundoMedioCompuestoDos << endl;
+//  if (primerMedioCompuestoDos != Arreglo<int>{1, 2, 3} ||
+//    segundoMedioCompuestoDos != Arreglo<int>{4, 5, 6, 7, 8, 9, 10})
+//    return false;
+//
+//  /* Partición impar con desviación: 5, 2 y 1, 6 */
+//  Arreglo<int> arregloDos (7);
+//  for (int i = 0; i < 7; i++)
+//    arregloDos[i] = i + 1;
+//
+//  auto primerMedioCompuestoTres = arregloDos.partir(2, 0, 2);
+//  auto segundoMedioCompuestoTres = arregloDos.partir(2, 1, 2);
+//  cout << "Medio compuesto de 7 (+2): " << endl
+//       << primerMedioCompuestoTres << endl
+//       << segundoMedioCompuestoTres << endl;
+//  if (primerMedioCompuestoTres != Arreglo<int>{1, 2, 3, 4, 5} ||
+//    segundoMedioCompuestoTres != Arreglo<int>{6, 7})
+//    return false;
+//  auto primerMedioCompuestoCuatro = arregloDos.partir(2, 0, -2);
+//  auto segundoMedioCompuestoCuatro = arregloDos.partir(2, 1, -2);
+//  cout << "Medio compuesto de 7 (-2): " << endl
+//       << primerMedioCompuestoCuatro << endl
+//       << segundoMedioCompuestoCuatro << endl;
+//  if (primerMedioCompuestoCuatro != Arreglo<int>{1} ||
+//    segundoMedioCompuestoCuatro != Arreglo<int>{2, 3, 4, 5, 6, 7})
+//    return false;
 
   return true;
 }
@@ -191,8 +204,8 @@ bool ArregloPrueba::probarConcatenacion()
     arregloDos[i] = (i + 1) + 5;
     arregloTres[i] = (i + 1) + 10;
   }
-  auto compuestoUno = arregloUno + arregloDos;
-  auto compuestoDos = arregloUno + arregloDos + arregloTres;
+  auto compuestoUno = arregloUno || arregloDos;
+  auto compuestoDos = arregloUno || arregloDos || arregloTres;
   cout << compuestoUno << endl;
   cout << compuestoDos << endl;
   if (compuestoUno[1] != 2 || compuestoUno[7] != 8 || compuestoDos[13] != 14)
@@ -206,8 +219,6 @@ bool ArregloPrueba::probarConcatenacion()
  * de asignación (de copia y de movimiento).
  *
  * \return Estado de la prueba.
- *
- * \todo Probar los dos criterios de copiado (17.5.1.3).
  */
 
 bool ArregloPrueba::probarConstructores()
@@ -251,8 +262,6 @@ bool ArregloPrueba::probarConstructores()
 
 /**
  * Prueba las operaciones de comparación de los arreglos.
- *
- * \todo ¿Por qué el constructor de los arreglos tiene que ser explícito?
  *
  * \return Estado de la prueba.
  */
@@ -321,6 +330,111 @@ bool ArregloPrueba::probarConversionesNumericas()
        << "Arreglo, " << arregloTres << endl
        << "Copia, " << copiaTres << endl;
   if (numeroTres != copiaTres)
+    return false;
+
+  return true;
+}
+
+/**
+ * \return Estado de la prueba.
+ */
+
+bool ArregloPrueba::probarControlDeAcceso()
+{
+  Arreglo<int> prueba {1, 2, 3, 4, 5};
+  cout << "Prueba con acceso negativo: " << endl
+       << "-1: " << prueba[-1] << endl
+       << "-2: " << prueba[-2] << endl
+       << "-3: " << prueba[-3] << endl;
+  if (prueba[-1] != 5 || prueba[-2] != 4 || prueba[-3] != 3)
+    return false;
+
+  /* Prueba de excpeciones. */
+  try
+  {
+    cout << prueba[5];
+  }
+  catch (Arreglo<int>::AccesoFueraDeRango &error)
+  {
+    cout << "Prueba de acceso 1, exitosa." << endl;
+  }
+  catch (...)
+  {
+    cout << "Error en prueba de acceso 1." << endl;
+    return false;
+  }
+
+  try
+  {
+    cout << prueba[-10];
+  }
+  catch (Arreglo<int>::AccesoFueraDeRango &error)
+  {
+    cout << "Prueba de acceso 2, exitosa." << endl;
+  }
+  catch (...)
+  {
+    cout << "Error en prueba de acceso 2" << endl;
+    return false;
+  }
+
+  return true;
+}
+
+/**
+ * Prueba la operación de partición con el operador de división.
+ *
+ * \todo Por ahí leí que se podían definir literales personalizadas;
+ * estarían genial para los arreglo (evitarían tanta repetición de
+ * «Arreglo<int>»).
+ *
+ * \return Estado de la prueba.
+ */
+
+bool ArregloPrueba::probarDivisionEntreArreglo()
+{
+  Arreglo<int> pruebaUno {1, 2, 3, 4};
+  Arreglo<unsigned int> divisorUno {1, 3};
+  auto resultadoUno = pruebaUno / divisorUno;
+  cout << "Prueba uno: " << endl
+       << "Dividendo: " << pruebaUno << endl
+       << "Divisor: " << divisorUno << endl
+       << "Resultado: " << resultadoUno << endl;
+
+  if (resultadoUno !=
+    Arreglo<Arreglo<int>>{Arreglo<int>{1}, Arreglo<int>{2, 3}, Arreglo<int>{4}})
+    return false;
+
+  return true;
+}
+
+/**
+ * Prueba la operación de suma entre arreglos de bytes.
+ *
+ * \return Estado de la prueba.
+ */
+
+bool ArregloPrueba::probarSuma()
+{
+  /* 50 + (200 * 256) + (90 * 256^2) = 5 949 490. */
+  Arreglo<unsigned char> operandoUnoUno {50, 200, 90};
+  /* 27 + (155 * 256) + (178 * 256^2) = 11 705 115. */
+  Arreglo<unsigned char> operandoUnoDos {27, 155, 178};
+  /* 5 949 490 + 11 705 115 = 17 654 605 = {77 99 13 1} = {0x4d 0x63 0xd} */
+  Arreglo<unsigned char> resultadoUno = operandoUnoUno + operandoUnoDos;
+  cout << "Prueba uno:" << endl
+       << operandoUnoUno << " + " << operandoUnoDos << " = "
+       << resultadoUno << endl;
+  if (resultadoUno != Arreglo<unsigned char>{77, 99, 13})
+    return false;
+
+  Arreglo<unsigned char> operandoDosUno {50, 200, 90};
+  Arreglo<unsigned char> operandoDosDos {1};
+  Arreglo<unsigned char> resultadoDos = operandoDosUno + operandoDosDos;
+  cout << "Prueba dos:" << endl
+       << operandoDosUno << " + " << operandoDosDos << " = "
+       << resultadoDos << endl;
+  if (resultadoDos != Arreglo<unsigned char>{51, 200, 90})
     return false;
 
   return true;

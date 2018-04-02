@@ -9,6 +9,7 @@
 #define __RED_FEISTEL_ALTERNANTE__
 
 #include "red_feistel.hh"
+#include <string>
 
 namespace Implementaciones
 {
@@ -43,8 +44,8 @@ namespace Implementaciones
         typename RedFeistel<tipo>::FuncionDeCombinacion;
 
       /** \brief Construcción de red Feistel alternante. */
-      RedFeistelAlternante(int numeroDeRondas,
-        int tamanioDeBloque, int desbalanceo = 0,
+      RedFeistelAlternante(unsigned int numeroDeRondas,
+        unsigned int tamanioDeBloque, int desbalanceo = 0,
         FuncionDeRonda* funcionDeRondaPar =
           new FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>,
         FuncionDeRonda* funcionDeRondaImpar =
@@ -62,6 +63,10 @@ namespace Implementaciones
       /** \brief Operación de descifrado de la red. */
       Arreglo<tipo> deoperar(
         const std::vector<Arreglo<tipo>>& textoCifrado) override;
+
+      /** \brief Operación de escritura sobre la función de ronda par. */
+      inline void colocarFuncionDeRondaImpar(FuncionDeRonda *funcionDeRondaImpar)
+        { delete mFuncionDeRondaImpar; mFuncionDeRondaImpar = funcionDeRondaImpar; }
 
     private:
 
@@ -104,14 +109,14 @@ namespace Implementaciones
    * \param operadorSuma        Función para combinar bloques; por defecto
    *                            implementación trivial.
    *
-   * \todo Lanzar excepción cuando el desbalanceo no concuerde con el tamaño
+   * \throw BalanceInvalido Si el grado de desbalanceo dado se sale del tamaño
    * de bloque.
    */
 
   template <typename tipo>
   RedFeistelAlternante<tipo>::RedFeistelAlternante(
-    int numeroDeRondas,
-    int tamanioDeBloque,
+    unsigned int numeroDeRondas,
+    unsigned int tamanioDeBloque,
     int desbalanceo,
     FuncionDeRonda* funcionDeRondaPar,
     FuncionDeRonda* funcionDeRondaImpar,
@@ -122,6 +127,10 @@ namespace Implementaciones
     mDesbalanceo {desbalanceo},
     mFuncionDeRondaImpar {funcionDeRondaImpar}
   {
+    if (static_cast<unsigned int>(valorAbsoluto(desbalanceo)) >
+      tamanioDeBloque / 2)
+      throw BalanceInvalido{
+        "El desbalanceo se sale del tamaño de bloque."};
   }
 
   /**
@@ -144,8 +153,6 @@ namespace Implementaciones
    * La función de ronda usada depende de si esta es par, o impar.
    *
    * \return Bloque cifrado.
-   *
-   * \todo La operación de partición tendría que ser una sola función.
    */
 
   template <typename tipo>
@@ -153,22 +160,23 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>>& textoEnClaro     /**< Bloque a cifrar. */
   )
   {
-    Arreglo<tipo> parteIzquierda = textoEnClaro[0].partir(2, 0, mDesbalanceo);
-    Arreglo<tipo> parteDerecha = textoEnClaro[0].partir(2, 1, mDesbalanceo);
+    Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<unsigned int>{
+      (textoEnClaro[0].obtenerNumeroDeElementos() / 2) + mDesbalanceo};
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       if (mRondaActual % 2 == 0)
       {
-        parteIzquierda = std::move(mOperadorSuma->operar(
-          {parteIzquierda, mFuncionDeRonda->operar({parteDerecha})}));
+        partes[0] = std::move(mOperadorSuma->operar(
+          {partes[0], mFuncionDeRonda->operar({partes[1]})}));
       }
       else
       {
-        parteDerecha = std::move(mOperadorSuma->operar(
-          {parteDerecha, mFuncionDeRondaImpar->operar({parteIzquierda})}));
+        partes[1] = std::move(mOperadorSuma->operar(
+          {partes[1], mFuncionDeRondaImpar->operar({partes[0]})}));
       }
     }
-    return parteIzquierda + parteDerecha;
+    return static_cast<Arreglo<int>>(partes[0])
+      || static_cast<Arreglo<int>>(partes[1]);
   }
 
   /**
@@ -180,8 +188,6 @@ namespace Implementaciones
    * \return Bloque descifrado.
    *
    * \sa http://www.cplusplus.com/reference/utility/move/
-   *
-   * \todo Las particiones se tendrían que hacer en una sola función.
    */
 
   template <typename tipo>
@@ -189,22 +195,25 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>>& textoCifrado   /**< Bloque a descifrar. */
   )
   {
-    Arreglo<tipo> parteIzquierda = textoCifrado[0].partir(2, 0, mDesbalanceo);
-    Arreglo<tipo> parteDerecha = textoCifrado[0].partir(2, 1, mDesbalanceo);
+    Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<unsigned int>{
+      (textoCifrado[0].obtenerNumeroDeElementos() / 2) + mDesbalanceo};
     for (mRondaActual = mNumeroDeRondas - 1; mRondaActual >= 0; mRondaActual--)
     {
       if (mRondaActual % 2 == 0)
       {
-        parteIzquierda = std::move(mOperadorSuma->deoperar({
-          parteIzquierda, mFuncionDeRonda->operar({parteDerecha})}));
+        partes[0] = std::move(mOperadorSuma->deoperar({
+          partes[0], mFuncionDeRonda->operar({partes[1]})}));
       }
       else
       {
-        parteDerecha = std::move(mOperadorSuma->deoperar({
-          parteDerecha, mFuncionDeRondaImpar->operar({parteIzquierda})}));
+        partes[1] = std::move(mOperadorSuma->deoperar({
+          partes[1], mFuncionDeRondaImpar->operar({partes[0]})}));
       }
+      if (mRondaActual == 0)
+        break;
     }
-    return parteIzquierda + parteDerecha;
+    return static_cast<Arreglo<int>>(partes[0])
+      || static_cast<Arreglo<int>>(partes[1]);
   }
 
 }

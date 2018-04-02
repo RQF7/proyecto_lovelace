@@ -17,6 +17,7 @@
 
 using namespace std;
 using namespace CryptoPP;
+using namespace Implementaciones;
 
 /* ========================================================================= */
 
@@ -50,10 +51,10 @@ unsigned int CifradorDeRonda::obtenerCifrador()
 
 unsigned int CifradorDeRonda::obtenerTamBloque()
 {
-  if(tipo == BANDERA_AES) 
+  if(tipo == BANDERA_AES)
     return AES::DEFAULT_KEYLENGTH * 8;
-  else 
-    return DES_EDE2::DEFAULT_KEYLENGTH * 8; 
+  else
+    return DES_EDE2::DEFAULT_KEYLENGTH * 8;
 }
 
 /* ========================================================================= */

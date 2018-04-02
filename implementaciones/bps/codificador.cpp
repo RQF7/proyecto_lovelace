@@ -15,6 +15,7 @@
 #include <gmp.h>
 
 using namespace std;
+using namespace Implementaciones;
 
 /* ========================================================================= */
 
@@ -83,7 +84,7 @@ string Codificador::sumaMod(string cadenaA, string cadenaB)
   if(cadenaA == "") return cadenaB;
   if(cadenaB == "") return cadenaA;
 
-  Utilidades util;
+  UtilidadesBPS util;
   string salida{""};
   unsigned int tam, s;
   int a, b, offset;
@@ -118,7 +119,7 @@ string Codificador::restaMod(string cadenaA, string cadenaB)
   if(cadenaA == "") return cadenaB;
   if(cadenaB == "") return cadenaA;
 
-  Utilidades util;
+  UtilidadesBPS util;
   string salida{""};
   unsigned int tam, s;
   int a, b, offset;

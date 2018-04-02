@@ -4,25 +4,25 @@
  */
 
 #include "cabeceras/utilidades_criptograficas.hh"
+#include "../../utilidades/cabeceras/arreglo.hh"
 #include <cryptopp/drbg.h>
 #include <cryptopp/filters.h>
 #include <cryptopp/osrng.h>
 #include <cryptopp/secblock.h>
 #include <cryptopp/sha.h>
+#include <utility>
+#include <iostream>
 
 using namespace Implementaciones;
 using namespace CryptoPP;
 
 /**
- * Genera una llave pseudoaleatoria con un DRGB aprobado por el NIST.
- *
- * Importante: es responsabilidad del usuario de la función liberar la memoria
- * de la llave.
+ * Genera una llave pseudoaleatoria con un DRBG aprobado por el NIST.
  *
  * \return Arreglo con llave psudoaleatoria.
  */
 
-unsigned char* Implementaciones::generarLlave(
+Arreglo<unsigned char> Implementaciones::generarLlave(
   int longitud                      /**< Longitud en bytes. */
 )
 {
@@ -36,10 +36,12 @@ unsigned char* Implementaciones::generarLlave(
   RandomNumberSource fuenteDeAleatoriedad {generadorAleatorio,
     static_cast<int>(entropia.size()),
     new ArraySink{entropia, entropia.size()}};
-  /* Instanciación de DRGB con función hash. */
+  /* Instanciación de DRBG con función hash. */
   Hash_DRBG<SHA256, 128/8, 440/8> generadorPseudoaleatorio(entropia,
     32, entropia + 32, 16);
 
   generadorPseudoaleatorio.GenerateBlock(llave, longitud);
-  return llave;
+  Arreglo<unsigned char>resultado (longitud, std::move(llave));
+  delete[] llave;
+  return resultado;
 }

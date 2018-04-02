@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief
+ * \brief Declaración de pruebas para el codificador.
  *
  */
 

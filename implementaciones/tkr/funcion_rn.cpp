@@ -23,16 +23,16 @@ using namespace std;
  */
 
 FuncionRN::FuncionRN(
-  FuncionInterna* funcionInterna,   /**< Apuntador a primitiva interna. */
-  CDV* baseDeDatos,                 /**< Acceso a datos. */
-  int longitudDeCadena,             /**< Longitud de cadena resultado. */
-  int cardinalidadDeAlfabeto        /**< Cardinalidad del alfabeto usado. */
+  FuncionInterna* funcionInterna,      /**< Apuntador a primitiva interna. */
+  CDV* baseDeDatos,                    /**< Acceso a datos. */
+  unsigned int longitudDeCadena,       /**< Longitud de cadena resultado. */
+  unsigned int cardinalidadDeAlfabeto  /**< Cardinalidad del alfabeto usado. */
 )
 : mFuncionInterna {funcionInterna},
   mBaseDeDatos {baseDeDatos},
   mLongitudDeCadena {longitudDeCadena},
   mCardinalidadDeAlfabeto {cardinalidadDeAlfabeto},
-  mLongitudDeBits {static_cast<int>(ceil(log2(mCardinalidadDeAlfabeto)))},
+  mLongitudDeBits {static_cast<unsigned int>(ceil(log2(mCardinalidadDeAlfabeto)))},
   mContador {baseDeDatos->obtenerContador("contador de tkr")}
 {
 }
@@ -58,15 +58,15 @@ FuncionRN::~FuncionRN()
  * \return Arreglo pseudoaleatorio con \ref mLongitudDeBits de longitud.
  */
 
-ArregloDeDigitos FuncionRN::operar(const vector<int>& entrada)
+ArregloDeDigitos FuncionRN::operar(const vector<unsigned int>& entrada)
 {
   Arreglo<unsigned char> binarioAleatorio = mFuncionInterna->operar({mContador,
     static_cast<entero>(3 * mLongitudDeCadena * mLongitudDeBits)});
   Arreglo<unsigned char> binarioDistribuido = redistribuir(binarioAleatorio);
   ArregloDeDigitos resultado (mLongitudDeCadena);
-  for (int i = 0, j = 0; i < mLongitudDeCadena; j++)
+  for (unsigned int i = 0, j = 0; i < mLongitudDeCadena; j++)
   {
-    int numero = static_cast<int>(binarioDistribuido[j]);
+    unsigned int numero = static_cast<unsigned int>(binarioDistribuido[j]);
     if (numero < mCardinalidadDeAlfabeto)
       resultado[i++] = numero;
   }
@@ -97,7 +97,7 @@ Arreglo<unsigned char> FuncionRN::redistribuir(
   unsigned char mascara = 15;
   Arreglo<unsigned char> resultado(static_cast<int>(floor(
     (8.0 / mLongitudDeBits) * original.obtenerNumeroDeElementos())));
-  for (int i = 0, j = 0;
+  for (unsigned int i = 0, j = 0;
     i < resultado.obtenerNumeroDeElementos();
     j += (i % 2) ? 1 : 0, i++)
   {

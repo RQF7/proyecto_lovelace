@@ -32,7 +32,7 @@ namespace Implementaciones
     public:
 
       /** \brief Construcción de una combinación por bloque. */
-      CombinacionPorBloque(tipo base = 10);
+      CombinacionPorBloque(unsigned int base = 10);
 
       /** \brief Suma por bloque. */
       Arreglo<tipo> operar(
@@ -44,7 +44,7 @@ namespace Implementaciones
 
     private:
       /** \brief Base en la que operan la suma y la resta. */
-      tipo mBase;
+      unsigned int mBase;
   };
 
   /**
@@ -54,7 +54,7 @@ namespace Implementaciones
 
   template <typename tipo>
   CombinacionPorBloque<tipo>::CombinacionPorBloque(
-    tipo base               /**< Base de operaciones. */
+    unsigned int base               /**< Base de operaciones. */
   )
   : mBase {base}
   {
@@ -76,7 +76,7 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>> &entrada
   )
   {
-    int tamanio {entrada[0].obtenerNumeroDeElementos()};
+    unsigned int tamanio {entrada[0].obtenerNumeroDeElementos()};
     entero numeroUno {convertirANumero<tipo, entero>(entrada[0], mBase)};
     entero numeroDos {convertirANumero<tipo, entero>(entrada[1], mBase)};
     return convertirAArreglo<tipo, entero>(modulo((numeroUno + numeroDos),
@@ -99,7 +99,7 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>> &entrada
   )
   {
-    int tamanio {entrada[0].obtenerNumeroDeElementos()};
+    unsigned int tamanio {entrada[0].obtenerNumeroDeElementos()};
     enteroConSigno numeroUno {
       convertirANumero<tipo, enteroConSigno>(entrada[0], mBase)};
     enteroConSigno numeroDos {

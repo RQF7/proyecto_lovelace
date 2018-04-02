@@ -46,10 +46,10 @@ bool FuncionRNPrueba::probarRedistribucion()
   Arreglo<unsigned char> arreglo {255, 15, 240, 0};
   auto prueba = funcion.redistribuir(arreglo);
   cout << "Prueba uno: " << endl;
-  for (int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < arreglo.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(arreglo[i]) << " ";
   cout << endl;
-  for (int i = 0; i < prueba.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < prueba.obtenerNumeroDeElementos(); i++)
     cout << static_cast<int>(prueba[i]) << " ";
   cout << endl;
   if (prueba.obtenerNumeroDeElementos() != 8 ||

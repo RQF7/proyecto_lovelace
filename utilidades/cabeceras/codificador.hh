@@ -31,6 +31,9 @@ namespace Utilidades
    * un arreglo de bytes y regresa una cadena codificada. La decodificación
    * invierte los tipos de entrada y salida.
    *
+   * \todo Arreglar operación de los paddings para la base 32. Hay una
+   * excepción de acceso ilegal.
+   *
    * \sa https://tools.ietf.org/html/rfc4648
    */
 
@@ -58,44 +61,50 @@ namespace Utilidades
 
     private:
 
-      /** \brief */
+      /** \brief Tipo de base para codificar/decodificar. */
       Base mBase;
 
-      /** \brief */
+      /** \brief Indica el tamaño del buffer de origen. */
       int mTopeOrigen;
 
-      /** \brief */
+      /** \brief Indica el tamaño del buffer de destino. */
       int mTopeDestino;
 
-      /** \brief */
+      /** \brief Memoria para bytes de origen. */
       unsigned char* mBufferOrigen;
 
-      /** \brief */
+      /** \brief Memoria para bytes de destino. */
       unsigned char* mBufferDestino;
 
-      /** \brief */
+      /** \brief Apuntador a función de codificación. */
+      void (Codificador::*mFuncionCodificacion)();
+
+      /** \brief Apuntador a función de decodificación. */
+      void (Codificador::*mFuncionDecodificacion)();
+
+      /** \brief Operación interna de codificación. */
       void codificarBuffers(std::string &cadena, int limite);
 
-      /** \brief */
+      /** \brief Operación interna de decodificación. */
       void decodificarBuffers(Arreglo<unsigned char> &arreglo, int contador,
         int limite);
 
-      /** \brief */
+      /** \brief Codificación en base 64 mediante corrimientos de bits. */
       void codificarBase64();
 
-      /** \brief */
+      /** \brief Decodificación en base 64 mediante corrimientos de bits. */
       void decodificarBase64();
 
-      /** \brief */
+      /** \brief Codificación en base 32 mediante corrimientos de bits. */
       void codificarBase32();
 
-      /** \brief */
+      /** \brief Decodificación en base 32 mediante corrimientos de bits. */
       void decodificarBase32();
 
-      /** \brief */
+      /** \brief Codificación en base 16 mediante corrimientos de bits. */
       void codificarBase16();
 
-      /** \brief */
+      /** \brief Decodificación en base 16 mediante corrimientos de bits. */
       void decodificarBase16();
 
       /** \brief Alfabeto para el texto codificado. */

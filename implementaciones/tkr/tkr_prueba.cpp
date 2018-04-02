@@ -9,6 +9,7 @@
 #include "cabeceras/pseudoaleatorio_aes.hh"
 #include "cabeceras/tkr.hh"
 #include "cabeceras/tkr_prueba.hh"
+#include "../acceso_a_datos/cabeceras/acceso_simulado.hh"
 #include "../acceso_a_datos/cabeceras/acceso_mysql.hh"
 #include "../../utilidades/cabeceras/arreglo.hh"
 #include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
@@ -50,14 +51,17 @@ TKRPrueba::TKRPrueba()
 bool TKRPrueba::probarOperacionTrivial()
 {
   TKR tkr {};
-  ArregloDeDigitos panUno {123456789123456ull};
-  ArregloDeDigitos tokenUno = tkr.tokenizar(panUno);
-  ArregloDeDigitos panDos = tkr.detokenizar(tokenUno);
+  ArregloDeDigitos panUno (12345678912341ull);
+  ArregloDeDigitos tokenUno = tkr.operar({panUno});
+  cout << "Prueba uno: " << endl
+       << "PAN uno: " << panUno << endl
+       << "Token uno: " << tokenUno << endl;
+  ArregloDeDigitos panDos = tkr.deoperar({tokenUno});
   cout << "Prueba uno: " << endl
        << "PAN uno: " << panUno << endl
        << "Token uno: " << tokenUno << endl
        << "PAN dos: " << panDos << endl;
-  if (tokenUno.obtenerNumeroDeElementos() != 8)
+  if (tokenUno.obtenerNumeroDeElementos() != 14)
     return false;
 
   return true;
@@ -73,14 +77,15 @@ bool TKRPrueba::probarOperacionTrivial()
 
 bool TKRPrueba::probarOperacionNoTanTrivial()
 {
+  AccesoSimulado *acceso = new AccesoSimulado{};
   unsigned char *llave = new unsigned char[AES::DEFAULT_KEYLENGTH];
   PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
-  FuncionRN *funcion = new FuncionRN{aes};
+  FuncionRN *funcion = new FuncionRN{aes, acceso, 8};
   TKR tkr {funcion};
 
-  ArregloDeDigitos panUno {123456789123456ull};
-  ArregloDeDigitos tokenUno = tkr.tokenizar(panUno);
-  ArregloDeDigitos tokenDos = tkr.tokenizar(panUno);
+  ArregloDeDigitos panUno (123456789123458ull);
+  ArregloDeDigitos tokenUno = tkr.operar({panUno});
+  ArregloDeDigitos tokenDos = tkr.operar({panUno});
 
   cout << "PAN original: " << panUno << endl
        << "Token uno: " << tokenUno << endl
@@ -107,16 +112,16 @@ bool TKRPrueba::probarOperacionNormal()
   /* Instanciación de algoritmo. */
   PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
   CDV* accesoADatos = new AccesoMySQL {};
-  FuncionRN* funcion = new FuncionRN {aes, accesoADatos};
+  FuncionRN* funcion = new FuncionRN {aes, accesoADatos, 9};
   TKR tkr {funcion, accesoADatos};
 
   /* Prueba de tokenización y detokenización. */
-  ArregloDeDigitos panUno {1234567891234560ull};
-  ArregloDeDigitos panTres {5556667778765433ull};
-  ArregloDeDigitos tokenUno {tkr.tokenizar(panUno)};
-  ArregloDeDigitos tokenDos {tkr.tokenizar(panUno)};
-  ArregloDeDigitos tokenTres {tkr.tokenizar(panTres)};
-  ArregloDeDigitos panDos {tkr.detokenizar(tokenUno)};
+  ArregloDeDigitos panUno (1234567891234563ull);
+  ArregloDeDigitos panTres (5556667778765431ull);
+  ArregloDeDigitos tokenUno (tkr.operar({panUno}));
+  ArregloDeDigitos tokenDos (tkr.operar({panUno}));
+  ArregloDeDigitos tokenTres (tkr.operar({panTres}));
+  ArregloDeDigitos panDos (tkr.deoperar({tokenUno}));
   cout << "PAN: " << panUno << endl
        << "Token uno: " << tokenUno << endl
        << "Token dos: " << tokenDos << endl

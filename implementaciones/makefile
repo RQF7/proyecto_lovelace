@@ -14,6 +14,11 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 redes_feistel/red_feistel_prueba.cpp \
 											 redes_feistel/red_feistel_alternante_prueba.cpp \
 											 redes_feistel/red_feistel_desbalanceada_prueba.cpp \
+											 drbg/aleatoriedad_trivial.cpp \
+											 drbg/aleatoriedad_trivial_prueba.cpp \
+											 drbg/drbg.cpp \
+											 drbg/hash_drbg.cpp \
+											 drbg/hash_drbg_prueba.cpp \
 											 ffx/combinacion_por_caracter_prueba.cpp \
 											 ffx/combinacion_por_bloque_prueba.cpp \
 											 ffx/ronda_ffx_a10_prueba.cpp \
@@ -31,8 +36,11 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 utilidades/utilidades_criptograficas.cpp \
 											 utilidades/utilidades_criptograficas_prueba.cpp \
 											 utilidades/algoritmo_tokenizador.cpp \
+											 utilidades/algoritmo_tokenizador_reversible.cpp \
+											 utilidades/algoritmo_tokenizador_irreversible.cpp \
 											 utilidades/prueba.cpp \
 											 utilidades/conjunto_de_pruebas.cpp \
+											 utilidades/arreglo.cpp \
 											 utilidades/arreglo_de_digitos.cpp \
 											 utilidades/intermediario_de_arreglo_de_digitos.cpp
 FUENTES_DOS					:= lovelace.cpp \
@@ -49,13 +57,17 @@ FUENTES_DOS					:= lovelace.cpp \
 											 utilidades/utilidades_tarjetas.cpp \
 											 utilidades/utilidades_criptograficas.cpp \
 											 utilidades/algoritmo_tokenizador.cpp \
+											 utilidades/algoritmo_tokenizador_reversible.cpp \
+											 utilidades/algoritmo_tokenizador_irreversible.cpp \
+											 utilidades/arreglo.cpp \
 											 utilidades/arreglo_de_digitos.cpp \
-											 utilidades/intermediario_de_arreglo_de_digitos.cpp
+											 utilidades/intermediario_de_arreglo_de_digitos.cpp \
+											 utilidades/codificador.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
 OBJETOS_DOS		      := $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(FUENTES_DOS:.cpp=.o))
-BANDERAS_GENERALES	:= -std=c++14 -Wall -ggdb
+BANDERAS_GENERALES	:= -std=c++14 -Wall -Werror -Wfatal-errors -ggdb
 BANDERAS_DE_LIGADO	:= -lcryptopp -lmysqlcppconn -lgmpxx -lgmp
 
 $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)
@@ -142,6 +154,18 @@ $(CARPETA_OBJETOS)/utilidades/algoritmo_tokenizador.o: \
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
+$(CARPETA_OBJETOS)/utilidades/algoritmo_tokenizador_reversible.o: \
+	utilidades/algoritmo_tokenizador_reversible.cpp \
+	utilidades/cabeceras/algoritmo_tokenizador_reversible.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/algoritmo_tokenizador_irreversible.o: \
+	utilidades/algoritmo_tokenizador_irreversible.cpp \
+	utilidades/cabeceras/algoritmo_tokenizador_irreversible.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
 $(CARPETA_OBJETOS)/tkr/pseudoaleatorio_trivial.o: \
 	tkr/pseudoaleatorio_trivial.cpp \
 	tkr/cabeceras/pseudoaleatorio_trivial.hh
@@ -204,6 +228,32 @@ $(CARPETA_OBJETOS)/acceso_a_datos/acceso_mysql_prueba.o: \
 	mkdir -p $(CARPETA_OBJETOS)/acceso_a_datos
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
+$(CARPETA_OBJETOS)/drbg/aleatoriedad_trivial.o: \
+	drbg/aleatoriedad_trivial.cpp drbg/cabeceras/aleatoriedad_trivial.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drbg/aleatoriedad_trivial_prueba.o: \
+	drbg/aleatoriedad_trivial_prueba.cpp \
+	drbg/cabeceras/aleatoriedad_trivial_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drbg/drbg.o: \
+	drbg/drbg.cpp drbg/cabeceras/drbg.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drbg/hash_drbg.o: \
+	drbg/hash_drbg.cpp drbg/cabeceras/hash_drbg.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drbg/hash_drbg_prueba.o: \
+	drbg/hash_drbg_prueba.cpp drbg/cabeceras/hash_drbg_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
 $(CARPETA_OBJETOS)/bps/cifrador_de_ronda.o: bps/cifrador_de_ronda.cpp \
 	bps/cabeceras/cifrador_de_ronda.hh
 	mkdir -p $(CARPETA_OBJETOS)/bps
@@ -244,9 +294,21 @@ $(CARPETA_OBJETOS)/utilidades/arreglo_de_digitos.o: \
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
+$(CARPETA_OBJETOS)/utilidades/arreglo.o: \
+	../utilidades/arreglo.cpp \
+	../utilidades/cabeceras/arreglo.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
 $(CARPETA_OBJETOS)/utilidades/intermediario_de_arreglo_de_digitos.o: \
 	../utilidades/intermediario_de_arreglo_de_digitos.cpp \
 	../utilidades/cabeceras/intermediario_de_arreglo_de_digitos.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/codificador.o: \
+	../utilidades/codificador.cpp \
+	../utilidades/cabeceras/codificador.hh
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 

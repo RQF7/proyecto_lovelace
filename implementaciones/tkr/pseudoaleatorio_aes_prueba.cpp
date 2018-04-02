@@ -45,7 +45,7 @@ bool PseudoaleatorioAESPrueba::probarOperacion()
   PseudoaleatorioAES aes {llave};
   Arreglo<unsigned char> pruebaUno = aes.operar({13, 3 * 4 * 16});
   cout << "Prueba uno: " << pruebaUno.obtenerNumeroDeElementos() << endl;
-  for (int i = 0; i < pruebaUno.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < pruebaUno.obtenerNumeroDeElementos(); i++)
     cout << "0x" << hex << (0xFF & static_cast<byte>(pruebaUno[i])) << " ";
   cout << dec << endl;
   if (pruebaUno.obtenerNumeroDeElementos() != 32)
@@ -54,7 +54,7 @@ bool PseudoaleatorioAESPrueba::probarOperacion()
   PseudoaleatorioAES aesDos {llave};
   Arreglo<unsigned char> pruebaDos = aesDos.operar({105, 1056});
   cout << "Prueba uno: " << pruebaDos.obtenerNumeroDeElementos() << endl;
-  for (int i = 0; i < pruebaDos.obtenerNumeroDeElementos(); i++)
+  for (unsigned int i = 0; i < pruebaDos.obtenerNumeroDeElementos(); i++)
     cout << "0x" << hex << (0xFF & static_cast<byte>(pruebaDos[i])) << " ";
   cout << dec << endl;
   if (pruebaDos.obtenerNumeroDeElementos() != 144)

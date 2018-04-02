@@ -51,7 +51,7 @@ AccesoMySQL::~AccesoMySQL()
  * Busca registros por el PAN dado. Regresa la primera coincidencia (en una
  * base consistente, la única); si no hay, regresa un registro vacío.
  *
- * \return Instancia de \ref Registro con información de base de datos.
+ * \return Instancia de Registro con información de base de datos.
  */
 
 Registro AccesoMySQL::buscarPorPan(
@@ -79,7 +79,7 @@ Registro AccesoMySQL::buscarPorPan(
  * base comsistente, la única); si no hay coincidencias regresa un registro
  * vacío.
  *
- * \return Instancia de \ref Registro con información de base de datos.
+ * \return Instancia de Registro con información de base de datos.
  */
 
 Registro AccesoMySQL::buscarPorToken(

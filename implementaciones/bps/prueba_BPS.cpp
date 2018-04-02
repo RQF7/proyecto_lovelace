@@ -21,6 +21,7 @@
 
 using namespace std;
 using namespace CryptoPP;
+using namespace Implementaciones;
 
 /* ========================================================================= */
 
@@ -175,7 +176,7 @@ int main(int argc, char* argv[])
                << endl << "  Cadena: "  << valores[a][i] << endl
                << "  Llave: " << l << " " << "Tweak: " << t << endl;
 
-          resultado = probarCifradoDescifradoAES(valores[a][i], llave[l], 
+          resultado = probarCifradoDescifradoAES(valores[a][i], llave[l],
                                     tweak[t], alfabetos[a], numDeRondas);
 
           if(resultado == 0)
@@ -193,7 +194,7 @@ int main(int argc, char* argv[])
                << endl << "  Cadena: "  << valores[a][i] << endl
                << "  Llave: " << l << " " << "Tweak: " << t << endl;
 
-          resultado = probarCifradoDescifradoTDES(valores[a][i], llave[l], 
+          resultado = probarCifradoDescifradoTDES(valores[a][i], llave[l],
                                      tweak[t], alfabetos[a], numDeRondas);
 
           if(resultado == 0)

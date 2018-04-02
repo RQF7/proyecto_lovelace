@@ -14,6 +14,7 @@
 
 #include "funcion_de_ronda_trivial.hh"
 #include "funcion_de_combinacion_trivial.hh"
+#include "../../../utilidades/cabeceras/error.hh"
 #include "../../../utilidades/cabeceras/arreglo.hh"
 #include "../../../utilidades/interfaces_comunes/funcion.hh"
 #include "../../../utilidades/interfaces_comunes/funcion_con_inverso.hh"
@@ -30,10 +31,6 @@ namespace Implementaciones
    * red Feistel.
    *
    * \tparam tipo Tipo de dato con el que opera la red.
-   *
-   * \todo Excepciones de tamaños.
-   * \todo Argumentos de función de ronda. ¿Cómo pasarlos sin hacerlos miembro
-   * de esta clase.
    */
 
   template <typename tipo>
@@ -69,7 +66,7 @@ namespace Implementaciones
     public:
 
       /** \brief Construcción de red Feistel balanceada. */
-      RedFeistel(int numeroDeRondas, int tamanioDeBloque,
+      RedFeistel(unsigned int numeroDeRondas, unsigned int tamanioDeBloque,
         FuncionDeRonda* funcionDeRonda =
           new FuncionDeRondaTrivial<Arreglo<tipo>, Arreglo<tipo>>,
         FuncionDeCombinacion* operadorSuma =
@@ -89,13 +86,17 @@ namespace Implementaciones
       virtual Arreglo<tipo> deoperar(
         const std::vector<Arreglo<tipo>>& textoCifrado) override;
 
+      /** \brief Operación de escritura sobre la función de ronda. */
+      inline void colocarFuncionDeRonda(FuncionDeRonda *funcionDeRonda)
+        { delete mFuncionDeRonda; mFuncionDeRonda = funcionDeRonda; }
+
     protected:
 
       /** \brief Número de rondas de la red. */
-      int mNumeroDeRondas;
+      unsigned int mNumeroDeRondas;
 
       /** \brief Tamaño de los bloques. */
-      int mTamanioDeBloque;
+      unsigned int mTamanioDeBloque;
 
       /** \brief Función de ronda. */
       FuncionDeRonda* mFuncionDeRonda;
@@ -105,8 +106,13 @@ namespace Implementaciones
 
       /** \brief Ronda actual (pensando en implementaciones
        *  concurrentes). */
-      int mRondaActual;
+      unsigned int mRondaActual;
   };
+
+  /** \brief Balanceo inválido en generalizaciones. */
+  struct BalanceInvalido : public Utilidades::Error {
+    inline BalanceInvalido(std::string mensaje)
+    : Utilidades::Error{mensaje} {}};
 
   /* Definición **************************************************************/
 
@@ -131,8 +137,8 @@ namespace Implementaciones
 
   template <typename tipo>
   RedFeistel<tipo>::RedFeistel(
-    int numeroDeRondas,
-    int tamanioDeBloque,
+    unsigned int numeroDeRondas,
+    unsigned int tamanioDeBloque,
     FuncionDeRonda* funcionDeRonda,
     FuncionDeCombinacion* operadorSuma
   )
@@ -140,7 +146,7 @@ namespace Implementaciones
     mTamanioDeBloque {tamanioDeBloque},
     mFuncionDeRonda {funcionDeRonda},
     mOperadorSuma {operadorSuma},
-    mRondaActual {0}
+    mRondaActual {0u}
   {
   }
 
@@ -185,8 +191,6 @@ namespace Implementaciones
    * actualizan apuntadores.
    *
    * \sa http://www.cplusplus.com/reference/utility/move/
-   *
-   * \todo La operación de partición tendría que ser una sola función.
    */
 
   template <typename tipo>
@@ -194,18 +198,19 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>>& textoEnClaro      /**< Bloque a cifrar. */
   )
   {
-    Arreglo<tipo> parteIzquierda = textoEnClaro[0].partir(2, 0);
-    Arreglo<tipo> parteDerecha = textoEnClaro[0].partir(2, 1);
+    Arreglo<Arreglo<tipo>> partes = textoEnClaro[0] / Arreglo<unsigned int>{
+      textoEnClaro[0].obtenerNumeroDeElementos() / 2};
     Arreglo<tipo> auxiliar (mTamanioDeBloque / 2);
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
-      auxiliar = std::move(parteDerecha);
-      parteDerecha = std::move(
-        mOperadorSuma->operar({parteIzquierda,
+      auxiliar = std::move(partes[1]);
+      partes[1] = std::move(
+        mOperadorSuma->operar({partes[0],
           mFuncionDeRonda->operar({auxiliar})}));
-      parteIzquierda = std::move(auxiliar);
+      partes[0] = std::move(auxiliar);
     }
-    return parteIzquierda + parteDerecha;
+    return static_cast<Arreglo<int>>(partes[0])
+      || static_cast<Arreglo<int>>(partes[1]);
   }
 
   /**
@@ -221,8 +226,6 @@ namespace Implementaciones
    * \return Bloque descifrado.
    *
    * \sa http://www.cplusplus.com/reference/utility/move/
-   *
-   * \todo Las particiones se tendrían que hacer en una sola función.
    */
 
   template <typename tipo>
@@ -230,18 +233,19 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>>& textoCifrado   /**< Bloque a descifrar. */
   )
   {
-    Arreglo<tipo> parteIzquierda = textoCifrado[0].partir(2, 0);
-    Arreglo<tipo> parteDerecha = textoCifrado[0].partir(2, 1);
+    Arreglo<Arreglo<tipo>> partes = textoCifrado[0] / Arreglo<unsigned int>{
+      textoCifrado[0].obtenerNumeroDeElementos() / 2};
     Arreglo<tipo> auxiliar (mTamanioDeBloque / 2);
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
-      auxiliar = std::move(parteIzquierda);
-      parteIzquierda = std::move(
-        mOperadorSuma->deoperar({parteDerecha,
+      auxiliar = std::move(partes[0]);
+      partes[0] = std::move(
+        mOperadorSuma->deoperar({partes[1],
           mFuncionDeRonda->operar({auxiliar})}));
-      parteDerecha = std::move(auxiliar);
+      partes[1] = std::move(auxiliar);
     }
-    return parteIzquierda + parteDerecha;
+    return static_cast<Arreglo<int>>(partes[0])
+      || static_cast<Arreglo<int>>(partes[1]);
   }
 
 }
