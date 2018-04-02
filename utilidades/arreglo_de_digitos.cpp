@@ -210,3 +210,19 @@ ostream& operator<<(
   flujo << arreglo.mCadena;
   return flujo;
 }
+
+/**
+ * Regresa un equivalente de la representación en cadena interna pero
+ * quitando los ceros a la izquierda.
+ *
+ * \retrun Cadena sin ceros a la izquierda.
+ */
+
+string ArregloDeDigitos::obtenerCadenaEfectiva() const
+{
+  string copia {mCadena};
+  unsigned int indice;
+  for (indice = 0; copia[indice] == '0'; indice++);
+  copia.erase(0, indice);
+  return copia;
+}

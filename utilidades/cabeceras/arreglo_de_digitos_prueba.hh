@@ -26,6 +26,9 @@ namespace UtilidadesPruebas
 
       /** \brief Prueba la función de colocación. */
       static bool probarColocar();
+
+      /** \brief Prueba la obtención de una cadena efectiva. */
+      static bool probarCadenaEfectiva();
   };
 }
 

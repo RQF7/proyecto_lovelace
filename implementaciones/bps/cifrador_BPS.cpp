@@ -296,6 +296,8 @@ void CifradorBPS::colocarTipoCifrador(unsigned int tipo)
  * representación como entero: por alguna extraña razón la interfaz en c++ de
  * gmp no tiene conversiones automáticas desde long long int.
  *
+ * \sa ArregloDeDigitos::obtenerCadenaEfectiva
+ *
  * \return Token del número de cuenta dado.
  */
 
@@ -307,7 +309,7 @@ ArregloDeDigitos CifradorBPS::tokenizar(
 )
 {
   return ArregloDeDigitos{cifrar(numeroDeCuenta.obtenerCadena(),
-    mLlave, mpz_class{tweak.obtenerCadena()})};
+    mLlave, mpz_class{tweak.obtenerCadenaEfectiva()})};
 }
 
 /* ========================================================================= */
@@ -322,6 +324,8 @@ ArregloDeDigitos CifradorBPS::tokenizar(
  * representación como entero: por alguna extraña razón la interfaz en c++ de
  * gmp no tiene conversiones automáticas desde long long int.
  *
+ * \sa ArregloDeDigitos::obtenerCadenaEfectiva
+ *
  * \return PAN correspondiente al token dado.
  */
 
@@ -333,5 +337,5 @@ ArregloDeDigitos CifradorBPS::detokenizar(
 )
 {
   return ArregloDeDigitos{descifrar(numeroDeCuenta.obtenerCadena(),
-    mLlave, mpz_class{tweak.obtenerCadena()})};
+    mLlave, mpz_class{tweak.obtenerCadenaEfectiva()})};
 }

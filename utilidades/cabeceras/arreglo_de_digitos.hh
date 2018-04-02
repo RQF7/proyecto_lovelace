@@ -56,6 +56,9 @@ class ArregloDeDigitos : public Arreglo<int>
     /** \brief Regresa la representación en cadena. */
     inline std::string obtenerCadena() const { return mCadena; }
 
+    /** \brief Regresa la cadena sin ceros a la izquierda. */
+    std::string obtenerCadenaEfectiva() const;
+
     /** \brief Regresa la representación numérica. */
     inline entero obtenerNumero() const { return mNumero; }
 

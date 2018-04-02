@@ -40,6 +40,7 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 utilidades/algoritmo_tokenizador_irreversible.cpp \
 											 utilidades/prueba.cpp \
 											 utilidades/conjunto_de_pruebas.cpp \
+											 utilidades/arreglo.cpp \
 											 utilidades/arreglo_de_digitos.cpp \
 											 utilidades/intermediario_de_arreglo_de_digitos.cpp
 FUENTES_DOS					:= lovelace.cpp \
@@ -58,6 +59,7 @@ FUENTES_DOS					:= lovelace.cpp \
 											 utilidades/algoritmo_tokenizador.cpp \
 											 utilidades/algoritmo_tokenizador_reversible.cpp \
 											 utilidades/algoritmo_tokenizador_irreversible.cpp \
+											 utilidades/arreglo.cpp \
 											 utilidades/arreglo_de_digitos.cpp \
 											 utilidades/intermediario_de_arreglo_de_digitos.cpp \
 											 utilidades/codificador.cpp
@@ -289,6 +291,12 @@ $(CARPETA_OBJETOS)/utilidades/conjunto_de_pruebas.o: \
 $(CARPETA_OBJETOS)/utilidades/arreglo_de_digitos.o: \
 	../utilidades/arreglo_de_digitos.cpp \
 	../utilidades/cabeceras/arreglo_de_digitos.hh
+	mkdir -p $(CARPETA_OBJETOS)/utilidades
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/utilidades/arreglo.o: \
+	../utilidades/arreglo.cpp \
+	../utilidades/cabeceras/arreglo.hh
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 

@@ -65,7 +65,8 @@ bool HashDRBGPrueba::probarFuncionDeDerivacion()
     cout << "0x" << hex << (0xFF & generadorDos.mSemilla[i]) << " ";
   cout << endl;
   cout << "Valor de constante (" << dec
-       << generadorDos.mConstanteSemilla.obtenerNumeroDeElementos() << "): " << endl;
+       << generadorDos.mConstanteSemilla.obtenerNumeroDeElementos()
+       << "): " << endl;
   for (unsigned int i = 0;
     i < generadorDos.mConstanteSemilla.obtenerNumeroDeElementos(); i++)
     cout << "0x" << hex << (0xFF & generadorDos.mConstanteSemilla[i]) << " ";
