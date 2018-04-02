@@ -200,8 +200,8 @@ bool ArregloPrueba::probarConcatenacion()
     arregloDos[i] = (i + 1) + 5;
     arregloTres[i] = (i + 1) + 10;
   }
-  auto compuestoUno = arregloUno + arregloDos;
-  auto compuestoDos = arregloUno + arregloDos + arregloTres;
+  auto compuestoUno = arregloUno || arregloDos;
+  auto compuestoDos = arregloUno || arregloDos || arregloTres;
   cout << compuestoUno << endl;
   cout << compuestoDos << endl;
   if (compuestoUno[1] != 2 || compuestoUno[7] != 8 || compuestoDos[13] != 14)

@@ -176,7 +176,7 @@ namespace Implementaciones
       }
     }
     return static_cast<Arreglo<int>>(partes[0])
-      + static_cast<Arreglo<int>>(partes[1]);
+      || static_cast<Arreglo<int>>(partes[1]);
   }
 
   /**
@@ -213,7 +213,7 @@ namespace Implementaciones
         break;
     }
     return static_cast<Arreglo<int>>(partes[0])
-      + static_cast<Arreglo<int>>(partes[1]);
+      || static_cast<Arreglo<int>>(partes[1]);
   }
 
 }

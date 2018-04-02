@@ -27,9 +27,9 @@ ArregloDeDigitos AlgoritmoTokenizadorReversible::tokenizarIntermedio(
   auto division = pan
     / Arreglo<unsigned int>{6, pan.obtenerNumeroDeElementos() - 1};
   auto temporal = static_cast<ArregloDeDigitos>(division[0])
-    + tokenizar(static_cast<ArregloDeDigitos>(division[1]),
+    || tokenizar(static_cast<ArregloDeDigitos>(division[1]),
       static_cast<ArregloDeDigitos>(division[0]));
-  return temporal + ArregloDeDigitos{modulo(algoritmoDeLuhn(temporal) + 1, 10)};
+  return temporal || ArregloDeDigitos{modulo(algoritmoDeLuhn(temporal) + 1, 10)};
 }
 
 /**
@@ -48,7 +48,7 @@ ArregloDeDigitos AlgoritmoTokenizadorReversible::detokenizarIntermedio(
   auto division = token
     / Arreglo<unsigned int>{6, token.obtenerNumeroDeElementos() - 1};
   auto temporal = static_cast<ArregloDeDigitos>(division[0])
-    + detokenizar(static_cast<ArregloDeDigitos>(division[1]),
+    || detokenizar(static_cast<ArregloDeDigitos>(division[1]),
       static_cast<ArregloDeDigitos>(division[0]));
-  return temporal + ArregloDeDigitos{algoritmoDeLuhn(temporal)};
+  return temporal || ArregloDeDigitos{algoritmoDeLuhn(temporal)};
 }

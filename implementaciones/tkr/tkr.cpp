@@ -59,9 +59,9 @@ ArregloDeDigitos TKR::tokenizar(
     ArregloDeDigitos temporal =
       mFuncionPseudoaleatoria->operar(
         {static_cast<ArregloDeDigitos>(division[1]).obtenerNumeroDeElementos()});
-    temporal = static_cast<ArregloDeDigitos>(division[0]) + temporal;
+    temporal = static_cast<ArregloDeDigitos>(division[0]) || temporal;
     informacion.colocarToken(temporal
-      + ArregloDeDigitos{modulo(algoritmoDeLuhn(temporal) + 1, 10)});
+      || ArregloDeDigitos{modulo(algoritmoDeLuhn(temporal) + 1, 10)});
     informacion.colocarPAN(pan);
     mBaseDeDatos->guardar(informacion);
   }

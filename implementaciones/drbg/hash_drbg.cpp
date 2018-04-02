@@ -51,9 +51,9 @@ HashDRBG::HashDRBG(
     mFuncionHash = new SHA384;
   else
     mFuncionHash = new SHA512;
-  mSemilla = funcionDeDerivacion(mSemilla + mCadenaDePersonalizacion,
+  mSemilla = funcionDeDerivacion(mSemilla || mCadenaDePersonalizacion,
     mLongitudSemilla);
-  mConstanteSemilla = funcionDeDerivacion(Arreglo<unsigned char>{0} + mSemilla,
+  mConstanteSemilla = funcionDeDerivacion(Arreglo<unsigned char>{0} || mSemilla,
     mLongitudSemilla);
 }
 
@@ -68,8 +68,6 @@ HashDRBG::~HashDRBG()
 
 /**
  * Función de derivación de semilla basada en la función hash interna.
- *
- * \todo Definir el operador «+=» para un arreglo.
  */
 
 Arreglo<unsigned char> HashDRBG::funcionDeDerivacion(
@@ -86,12 +84,13 @@ Arreglo<unsigned char> HashDRBG::funcionDeDerivacion(
     unsigned char *salidaDura = new unsigned char[longitud];
     Arreglo<unsigned char> entrada =
       Arreglo<unsigned char>{static_cast<unsigned char>(i)}
-      + Arreglo<unsigned char>{static_cast<unsigned char>(longitudDeSalida)}
-      + cadenaDeEntrada;
+      || Arreglo<unsigned char>{static_cast<unsigned char>(longitudDeSalida)}
+      || cadenaDeEntrada;
     mFuncionHash->Update(entrada.obtenerApuntador(),
       entrada.obtenerNumeroDeElementos());
     mFuncionHash->Final(salidaDura);
-    resultado = resultado + Arreglo<unsigned char>(longitud, move(salidaDura));
+    resultado = move(resultado
+      || Arreglo<unsigned char>(longitud, move(salidaDura)));
   }
   return (resultado / Arreglo<unsigned int>{longitudDeSalida})[0];
 }

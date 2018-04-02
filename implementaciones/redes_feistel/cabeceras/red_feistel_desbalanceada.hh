@@ -133,7 +133,7 @@ namespace Implementaciones
       partes[0] = std::move(auxiliar);
 
       temporal = std::move(static_cast<Arreglo<int>>(partes[0])
-        + static_cast<Arreglo<int>>(partes[1]));
+        || static_cast<Arreglo<int>>(partes[1]));
     }
     return temporal;
   }
@@ -167,7 +167,7 @@ namespace Implementaciones
       partes[1] = std::move(auxiliar);
 
       temporal = std::move(static_cast<Arreglo<int>>(partes[0])
-        + static_cast<Arreglo<int>>(partes[1]));
+        || static_cast<Arreglo<int>>(partes[1]));
     }
     return temporal;
   }

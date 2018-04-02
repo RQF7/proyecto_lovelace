@@ -33,7 +33,7 @@ std::ostream& operator<<(std::ostream& flujo, const Arreglo<tipo>& arreglo);
 
 /** \brief Concatenación de dos arreglos. */
 template <typename tipo>
-Arreglo<tipo> operator+(const Arreglo<tipo>& arregloUno,
+Arreglo<tipo> operator||(const Arreglo<tipo>& arregloUno,
   const Arreglo<tipo>& arregloDos);
 
 /** \brief Comparación de igualdad entre arreglos. */
@@ -643,7 +643,7 @@ std::ostream& operator<<(
  */
 
 template <typename tipo>
-Arreglo<tipo> operator+(
+Arreglo<tipo> operator||(
   const Arreglo<tipo> &arregloUno,  /**< Primer arreglo de concatenación. */
   const Arreglo<tipo> &arregloDos   /**< Segundo arreglo de concatenación. */
 )
