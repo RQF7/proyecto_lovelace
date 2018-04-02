@@ -6,6 +6,7 @@
 
 #include "cabeceras/arreglo_prueba.hh"
 #include "cabeceras/arreglo.hh"
+#include "cabeceras/utilidades_matematicas.hh"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -54,6 +55,10 @@ ArregloPrueba::ArregloPrueba()
     "suma entre cadenas de bytes",
     ArregloPrueba::probarSuma
   });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "descomposición de entero en bytes",
+    ArregloPrueba::probarDescomposicion
+  });
 }
 
 /**
@@ -69,7 +74,7 @@ ArregloPrueba::ArregloPrueba()
 
 bool ArregloPrueba::probarFuncionalidadBasica()
 {
-  Arreglo<int> arreglo (10);
+  Arreglo<int> arreglo (10u);
   for (int i = 0; i < 10; i++)
     arreglo[i] = i + 1;
   cout << arreglo << endl;
@@ -435,6 +440,28 @@ bool ArregloPrueba::probarSuma()
        << operandoDosUno << " + " << operandoDosDos << " = "
        << resultadoDos << endl;
   if (resultadoDos != Arreglo<unsigned char>{51, 200, 90})
+    return false;
+
+  return true;
+}
+
+/**
+ * Esta operación permite descomponer un entero a su equivalente en
+ * bytes.
+ *
+ * \return Estado de la prueba.
+ */
+
+bool ArregloPrueba::probarDescomposicion()
+{
+  Arreglo<unsigned char> pruebaUno(1ull);
+  cout << "Prueba uno: " << pruebaUno << endl;
+  if (pruebaUno != Arreglo<unsigned char>{1, 0, 0, 0, 0, 0, 0, 0})
+    return false;
+
+  Arreglo<unsigned char> pruebaDos(potencia<entero>(2, 64) - 1);
+  cout << "Prueba dos: " << pruebaDos << endl;
+  if (pruebaDos != Arreglo<unsigned char>{255, 255, 255, 255, 255, 255, 255, 255})
     return false;
 
   return true;

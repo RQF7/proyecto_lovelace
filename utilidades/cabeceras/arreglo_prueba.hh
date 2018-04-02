@@ -49,6 +49,9 @@ namespace UtilidadesPruebas
 
       /** \brief Prueba la suma entre arreglos de bytes. */
       static bool probarSuma();
+
+      /** \brief Prueba la descomposición en bytes de un entero. */
+      static bool probarDescomposicion();
   };
 }
 

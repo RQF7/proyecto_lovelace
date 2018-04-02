@@ -10,7 +10,7 @@
 
 /* Para evitar referencias circulares. */
 template<typename tipo>
-class Arreglo;
+class ArregloBase;
 
 namespace Utilidades
 {
@@ -31,7 +31,7 @@ namespace Utilidades
     public:
 
       /** \brief Construcción de intermediario. */
-      IntermediarioDeArreglo(Arreglo<tipo> &arreglo, int indice);
+      IntermediarioDeArreglo(ArregloBase<tipo> &arreglo, int indice);
 
       /** \brief Sobrecarga de operador de asignación. */
       virtual tipo& operator=(tipo elemento);
@@ -95,7 +95,7 @@ namespace Utilidades
     protected:
 
       /** \brief Referencia a arreglo. */
-      Arreglo<tipo>& mArreglo;
+      ArregloBase<tipo>& mArreglo;
 
       /** \brief Índice de arreglo. */
       int mIndice;
@@ -107,8 +107,8 @@ namespace Utilidades
 
   template<typename tipo>
   IntermediarioDeArreglo<tipo>::IntermediarioDeArreglo(
-    Arreglo<tipo>& arreglo,     /** Referencia a arreglo. */
-    int indice                  /** Índice de arreglo. */
+    ArregloBase<tipo>& arreglo,     /** Referencia a arreglo. */
+    int indice                      /** Índice de arreglo. */
   )
   : mArreglo {arreglo},
     mIndice {indice}
