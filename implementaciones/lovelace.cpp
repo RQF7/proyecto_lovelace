@@ -216,26 +216,18 @@ ArregloDeDigitos tokenizar(
     PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
     FuncionRN* funcion = new FuncionRN {aes, accesoADatos, 9};
     algoritmoTokenizador = new TKR{funcion, accesoADatos};
-    ArregloDeDigitos token (algoritmoTokenizador->operar({pan}));
-    resultado = token;
   }
   else if (metodo == "FFX")
   {
     algoritmoTokenizador = new FFXA10<int>{llave, nullptr, 0, 9};
-    ArregloDeDigitos token (algoritmoTokenizador->operar({pan}));
-    resultado = token;
   }
   else if (metodo == "BPS")
   {
-    vector<char> alfabetoNumerico;
-    for (int i = 0; i < 10; i++)
-      alfabetoNumerico.push_back('0' + i);
-    CifradorBPS BPS(alfabetoNumerico, 8, CifradorDeRonda::BANDERA_AES);
-    ArregloDeDigitos token {BPS.cifrar(pan.obtenerCadena(), llave, 0)};
-    resultado = token;
+    algoritmoTokenizador = new CifradorBPS{8,
+      CifradorDeRonda::BANDERA_AES, llave};
   }
-  if (algoritmoTokenizador != nullptr)
-    delete algoritmoTokenizador;
+  resultado = algoritmoTokenizador->operar({pan});
+  delete algoritmoTokenizador;
   delete[] llave;
   return resultado;
 }
@@ -262,26 +254,18 @@ ArregloDeDigitos detokenizar(
     PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
     FuncionRN* funcion = new FuncionRN {aes, accesoADatos, 9};
     algoritmoTokenizador = new TKR{funcion, accesoADatos};
-    ArregloDeDigitos pan (algoritmoTokenizador->deoperar({token}));
-    resultado = pan;
   }
   else if (metodo == "FFX")
   {
     algoritmoTokenizador = new FFXA10<int>{llave, nullptr, 0, 9};
-    ArregloDeDigitos pan (algoritmoTokenizador->deoperar({token}));
-    resultado = pan;
   }
   else if (metodo == "BPS")
   {
-    vector<char> alfabetoNumerico;
-    for (int i = 0; i < 10; i++)
-      alfabetoNumerico.push_back('0' + i);
-    CifradorBPS BPS(alfabetoNumerico, 8, CifradorDeRonda::BANDERA_AES);
-    ArregloDeDigitos pan (BPS.descifrar(token.obtenerCadena(), llave, 0));
-    resultado = pan;
+    algoritmoTokenizador = new CifradorBPS{8,
+      CifradorDeRonda::BANDERA_AES, llave};
   }
-  if (algoritmoTokenizador != nullptr)
-    delete algoritmoTokenizador;
+  resultado = algoritmoTokenizador->deoperar({token});
+  delete algoritmoTokenizador;
   delete[] llave;
   return resultado;
 }

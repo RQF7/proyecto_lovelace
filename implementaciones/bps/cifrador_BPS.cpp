@@ -50,6 +50,32 @@ CifradorBPS::CifradorBPS(vector<char> alfabeto, unsigned int numRondas,
 /* ========================================================================= */
 
 /**
+ * Reconstrucción del segundo contructor pero con el argumento del alfabeto
+ * en último lugar. Esto permite definir un valor por defecto (el alfabeto
+ * numérico) para los objetos que ocupan este contructor.
+ *
+ * Además recibe un arreglo de bytes con la llave a ocupar en las operaciones
+ * de cifrado y descifrado (la interfaz del algoritmo tokenizador supone
+ * que esta ya se encuentra en el contexto del objeto).
+ */
+
+CifradorBPS::CifradorBPS(
+  unsigned int numRondas,   /**< Número de rondas a ocupar. */
+  unsigned int cifrador,    /**< Tipo de primitiva interna. */
+  unsigned char* llave,     /**< Llave a ocupar en cifrado/descifrado. */
+  vector<char> alfabeto     /**< Vector con alfabeto. */
+)
+: mNumRondas {numRondas},
+  mTipoCifrador {cifrador},
+  mLlave {llave},
+  mAlfabeto {move(alfabeto)}
+{
+  mCodificador.colocarAlfabeto(mAlfabeto);
+}
+
+/* ========================================================================= */
+
+/**
  * Este método sirve para cifrar la cadena dada con la llave y el tweak dados.
  * El funcionamiento de este método es el del modo de operación del algoritmo
  * de cifrado que preserva el formato BPS.
@@ -256,4 +282,56 @@ void CifradorBPS::colocarNumRondas(unsigned int numRondas)
 void CifradorBPS::colocarTipoCifrador(unsigned int tipo)
 {
   mTipoCifrador = tipo;
+}
+
+/* ========================================================================= */
+
+/**
+ * Operación definida por la interfaz de los algoritmos tokenizadores
+ * reversibles: recibe el número de cuenta de la tarjeta y un arreglo de
+ * dígitos con el tweak (usualmente el identificador del banco).
+ *
+ * Para convertir el arreglo de dígitos al entero de gmp que usa la función de
+ * CifradorBPS::cifrar se ocupa la representación en cadena, no la
+ * representación como entero: por alguna extraña razón la interfaz en c++ de
+ * gmp no tiene conversiones automáticas desde long long int.
+ *
+ * \return Token del número de cuenta dado.
+ */
+
+ArregloDeDigitos CifradorBPS::tokenizar(
+  /** Parte del PAN correspondiente al número de cuenta. */
+  const ArregloDeDigitos& numeroDeCuenta,
+  /** Arreglo de dígitos a usar como tweak. */
+  const ArregloDeDigitos& tweak
+)
+{
+  return ArregloDeDigitos{cifrar(numeroDeCuenta.obtenerCadena(),
+    mLlave, mpz_class{tweak.obtenerCadena()})};
+}
+
+/* ========================================================================= */
+
+/**
+ * Esta operación recibe lo mismo que la tokenización: el número de cuenta
+ * (el equivalente en el token) y un arreglo de dígitos con el tweak
+ * (usualmente el identificador del banco).
+ *
+ * Para convertir el arreglo de dígitos al entero de gmp que usa la función de
+ * CifradorBPS::descifrar se ocupa la representación en cadena, no la
+ * representación como entero: por alguna extraña razón la interfaz en c++ de
+ * gmp no tiene conversiones automáticas desde long long int.
+ *
+ * \return PAN correspondiente al token dado.
+ */
+
+ArregloDeDigitos CifradorBPS::detokenizar(
+  /** Parte del token correspondiente al número de cuenta. */
+  const ArregloDeDigitos& numeroDeCuenta,
+  /** Arreglo de dígitos a usar como tweak. */
+  const ArregloDeDigitos& tweak
+)
+{
+  return ArregloDeDigitos{descifrar(numeroDeCuenta.obtenerCadena(),
+    mLlave, mpz_class{tweak.obtenerCadena()})};
 }
