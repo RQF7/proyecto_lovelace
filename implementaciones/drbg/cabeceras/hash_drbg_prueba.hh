@@ -8,7 +8,6 @@
 #ifndef __HASH_DRBG_PRUEBA__
 #define __HASH_DRBG_PRUEBA__
 
-#include "hash_drbg.hh"
 #include "../../../utilidades/cabeceras/prueba.hh"
 
 namespace ImplementacionesPruebas
