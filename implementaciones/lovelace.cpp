@@ -209,7 +209,7 @@ ArregloDeDigitos tokenizar(
 {
   unsigned char *llave = leerLlave(nombreArchivoLlave);
   ArregloDeDigitos resultado;
-  AlgoritmoTokenizador* algoritmoTokenizador;
+  AlgoritmoTokenizador* algoritmoTokenizador {nullptr};
   if (metodo == "TKR")
   {
     CDV* accesoADatos = new AccesoMySQL {};
@@ -234,7 +234,8 @@ ArregloDeDigitos tokenizar(
     ArregloDeDigitos token {BPS.cifrar(pan.obtenerCadena(), llave, 0)};
     resultado = token;
   }
-  delete algoritmoTokenizador;
+  if (algoritmoTokenizador != nullptr)
+    delete algoritmoTokenizador;
   delete[] llave;
   return resultado;
 }
@@ -254,7 +255,7 @@ ArregloDeDigitos detokenizar(
 {
   unsigned char *llave = leerLlave(nombreArchivoLlave);
   ArregloDeDigitos resultado;
-  AlgoritmoTokenizador* algoritmoTokenizador;
+  AlgoritmoTokenizador* algoritmoTokenizador {nullptr};
   if (metodo == "TKR")
   {
     CDV* accesoADatos = new AccesoMySQL {};
@@ -279,7 +280,8 @@ ArregloDeDigitos detokenizar(
     ArregloDeDigitos pan (BPS.descifrar(token.obtenerCadena(), llave, 0));
     resultado = pan;
   }
-  delete algoritmoTokenizador;
+  if (algoritmoTokenizador != nullptr)
+    delete algoritmoTokenizador;
   delete[] llave;
   return resultado;
 }
