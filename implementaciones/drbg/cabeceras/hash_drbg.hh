@@ -10,7 +10,7 @@
 
 #include "aleatoriedad_trivial.hh"
 #include "drbg.hh"
-//#include "hash_drbg_prueba.hh"
+#include "hash_drbg_prueba.hh"
 #include "../../../utilidades/cabeceras/arreglo.hh"
 #include <cryptopp/cryptlib.h>
 
@@ -70,7 +70,7 @@ namespace Implementaciones
       CryptoPP::HashTransformation *mFuncionHash;
 
       /** \brief Clase de prueba como amiga. */
-      // friend bool ImplementacionesPruebas::HashDRBGPrueba::probarFuncionDeDerivacion();
+      friend class ImplementacionesPruebas::HashDRBGPrueba;
   };
 }
 
