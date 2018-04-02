@@ -31,10 +31,18 @@
 template <typename tipo>
 std::ostream& operator<<(std::ostream& flujo, const Arreglo<tipo>& arreglo);
 
+/** \brief Impresión de un arreglo de bytes. */
+std::ostream& operator<<(std::ostream& flujo,
+  const Arreglo<unsigned char>& arreglo);
+
 /** \brief Concatenación de dos arreglos. */
 template <typename tipo>
 Arreglo<tipo> operator||(const Arreglo<tipo>& arregloUno,
   const Arreglo<tipo>& arregloDos);
+
+/** \brief Sumas entre arreglos de bytes */
+Arreglo<unsigned char> operator+(const Arreglo<unsigned char>& arregloUno,
+  const Arreglo<unsigned char>& arregloDos);
 
 /** \brief Comparación de igualdad entre arreglos. */
 template <typename tipo>
@@ -161,6 +169,10 @@ class Arreglo
     /** \brief Función de impresión como amiga. */
     friend std::ostream& operator<< <tipo>(
       std::ostream& flujo, const Arreglo<tipo>& arreglo);
+
+    /** \brief Función de impresión especializada como amiga. */
+    friend std::ostream& operator<<(
+      std::ostream& flujo, const Arreglo<unsigned char>& arreglo);
 
     /** \brief Clase intermediario como amiga. */
     friend class Utilidades::IntermediarioDeArreglo<tipo>;

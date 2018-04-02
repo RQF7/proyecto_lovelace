@@ -46,6 +46,9 @@ namespace UtilidadesPruebas
 
       /** \brief Prueba la división entre arreglo. */
       static bool probarDivisionEntreArreglo();
+
+      /** \brief Prueba la suma entre arreglos de bytes. */
+      static bool probarSuma();
   };
 }
 

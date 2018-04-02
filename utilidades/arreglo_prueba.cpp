@@ -50,6 +50,10 @@ ArregloPrueba::ArregloPrueba()
     "división entre arreglo",
     ArregloPrueba::probarDivisionEntreArreglo
   });
+  mListaDePruebas.push_back(FuncionDePrueba{
+    "suma entre cadenas de bytes",
+    ArregloPrueba::probarSuma
+  });
 }
 
 /**
@@ -384,7 +388,7 @@ bool ArregloPrueba::probarControlDeAcceso()
  * estarían genial para los arreglo (evitarían tanta repetición de
  * «Arreglo<int>»).
  *
- * \ return Estado de la prueba.
+ * \return Estado de la prueba.
  */
 
 bool ArregloPrueba::probarDivisionEntreArreglo()
@@ -399,6 +403,38 @@ bool ArregloPrueba::probarDivisionEntreArreglo()
 
   if (resultadoUno !=
     Arreglo<Arreglo<int>>{Arreglo<int>{1}, Arreglo<int>{2, 3}, Arreglo<int>{4}})
+    return false;
+
+  return true;
+}
+
+/**
+ * Prueba la operación de suma entre arreglos de bytes.
+ *
+ * \return Estado de la prueba.
+ */
+
+bool ArregloPrueba::probarSuma()
+{
+  /* 50 + (200 * 256) + (90 * 256^2) = 5 949 490. */
+  Arreglo<unsigned char> operandoUnoUno {50, 200, 90};
+  /* 27 + (155 * 256) + (178 * 256^2) = 11 705 115. */
+  Arreglo<unsigned char> operandoUnoDos {27, 155, 178};
+  /* 5 949 490 + 11 705 115 = 17 654 605 = {77 99 13 1} = {0x4d 0x63 0xd} */
+  Arreglo<unsigned char> resultadoUno = operandoUnoUno + operandoUnoDos;
+  cout << "Prueba uno:" << endl
+       << operandoUnoUno << " + " << operandoUnoDos << " = "
+       << resultadoUno << endl;
+  if (resultadoUno != Arreglo<unsigned char>{77, 99, 13})
+    return false;
+
+  Arreglo<unsigned char> operandoDosUno {50, 200, 90};
+  Arreglo<unsigned char> operandoDosDos {1};
+  Arreglo<unsigned char> resultadoDos = operandoDosUno + operandoDosDos;
+  cout << "Prueba dos:" << endl
+       << operandoDosUno << " + " << operandoDosDos << " = "
+       << resultadoDos << endl;
+  if (resultadoDos != Arreglo<unsigned char>{51, 200, 90})
     return false;
 
   return true;
