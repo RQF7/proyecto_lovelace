@@ -43,6 +43,12 @@ namespace Implementaciones
       /** \brief Destructor de generador. */
       ~HashDRBG();
 
+      /** \brief Función de cambio de semilla. */
+      void cambiarSemilla() override;
+
+      /** \brief Función para eliminar información crítica. */
+      void desinstanciar() override;
+
     private:
 
       /** \brief Generación de bits (adquirida por contrato). */

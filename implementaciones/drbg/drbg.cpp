@@ -100,22 +100,15 @@ Arreglo<unsigned char> DRBG::operar(const vector<unsigned int>& entrada)
 void DRBG::cambiarSemilla()
 {
   mContadorDePeticiones = 0;
+  mSemilla = mFuenteDeAlatoriedad->operar({mLongitudSemilla});
 }
 
 /**
- *
+ * Elimina (pone en ceros) la información crítica que se mantiene en la
+ * esta clase: el valor de la semilla.
  */
 
 void DRBG::desinstanciar()
 {
   mSemilla.colocarConstante(0);
 }
-
-/**
- *
- */
-
-// DRBG::probarSalud()
-// {
-//
-// }

@@ -14,7 +14,7 @@ for i in `seq 1 $numeroDePruebas`
 do
 
   # Prueba de FFX #############################################################
-  echo "Prueba con FFX ==============================="
+  echo "Prueba $i con FFX ==============================="
 
   $ejecutable -k temporal.llave 16
   echo "Llave: "
@@ -40,7 +40,7 @@ do
   echo ""
 
   # Prueba de BPS #############################################################
-  echo "Prueba con BPS ==============================="
+  echo "Prueba $i con BPS ==============================="
 
   $ejecutable -k temporal.llave 16
   echo "Llave: "
@@ -66,7 +66,7 @@ do
   echo ""
 
   # Prueba de TKR #############################################################
-  echo "Prueba con TKR ==============================="
+  echo "Prueba $i con TKR ==============================="
 
   $ejecutable -k temporal.llave 16
   echo "Llave: "
