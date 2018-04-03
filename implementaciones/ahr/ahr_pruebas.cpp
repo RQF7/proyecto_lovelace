@@ -14,7 +14,7 @@ int main()
   CDV* accesoADatos = new AccesoMySQL {};
 
   AHR tokenizador = AHR(accesoADatos);
-  tokenizador.separarPAN("1234567890123456");
-  //tokenizador.tokenizarHibridamente(llave256, 5256981745955292, 5256781745900292);
+  tokenizador.separarPAN("1122334455667788");
+  tokenizador.tokenizarHibridamente(llave256);
   //cout << tokenizador.obtenerToken() << endl;
 }

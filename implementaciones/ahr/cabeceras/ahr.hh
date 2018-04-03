@@ -7,8 +7,6 @@
 /** \brief  Tamaño del bloque del cifrador en bytes: 16 bytes = 256 bits*/
 #define M 16
 
-//#define L 16
-
 namespace Implementaciones
 {
   class AHR{
@@ -22,7 +20,9 @@ namespace Implementaciones
     /** \brief  Entero que almacena el token generado. */
     unsigned long long int token;
 
-    /** \brief  Bloque que concatena la salida del SHA256 y la entradaX en binario. */
+    /** \brief  Bloque que concatena la salida del SHA256 y la entradaX en
+     *  binario.
+     */
     unsigned char *bloqueT;
 
     /** \brief  Bloque que contiene al bloque cifrado. */
@@ -36,10 +36,20 @@ namespace Implementaciones
     /** \brief  Número de digitos de la entrada X:  */
     int L;
 
-    /** \brief Pasa a binario entradaX y la almacena en los últimos N bits de bloqueT.*/
+    /** \brief Cadena que contiene el PAN obtenido. */
+    std::string nuevoPAN;
+
+    /** \brief Cadena que contiene el PAN original. */
+    std::string viejoPAN;
+
+    /** \brief Pasa a binario entradaX y la almacena en los últimos N bits de
+      * bloqueT.
+      */
     void obtenerBitsX();
 
-    /** \brief Concatena en T la salida truncada del SHA y la entradaX en binario.*/
+    /** \brief Concatena en T la salida truncada del SHA y la entradaX en
+      * binario.
+      */
     void crearBloqueT();
 
     /** \brief Guarda en token los últimos N bits de bloqueC en base 10. */
@@ -52,7 +62,9 @@ namespace Implementaciones
     CDV* accesoADatos;
 
   public:
-    /** \brief Constructor: recibe el número de bits para guardar a entradaX en base 2.*/
+    /** \brief Constructor: recibe la referencia a la interfaz con la base
+      * de datos que va a utilizar el algoritmo.
+      */
     AHR(CDV*);
 
     /** C\brief Constructor por copia. */
@@ -64,15 +76,17 @@ namespace Implementaciones
     /** \brief Destructor.*/
     ~AHR();
 
-    /** \brief Método que obtiene el token dada una llave, una entradaX y una entradaU.*/
-    void tokenizarHibridamente(unsigned char*, unsigned long int,
-      unsigned long int);
+    /** \brief Método que obtiene el token dada una llave.*/
+    void tokenizarHibridamente(unsigned char*);
 
     /** \brief Método que permite acceder a la variable token.*/
     unsigned long long int obtenerToken();
 
     /** \brief Obtener del PAN, el IIN y el número de cuenta */
     void separarPAN(char*);
+
+    /** \brief Al token obtenido se le concatena el IIN y el dígito verificador */
+    void completarToken();
   };
 }
 

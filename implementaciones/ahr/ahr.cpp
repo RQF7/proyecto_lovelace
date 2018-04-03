@@ -1,6 +1,7 @@
 #include "cabeceras/ahr.hh"
 #include "../aes_ensamblador/cabeceras/aes.hh"
 #include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
+#include "../utilidades/cabeceras/utilidades_tarjetas.hh"
 #include "../acceso_a_datos/cabeceras/registro.hh"
 #include <cryptopp/sha.h>
 #include <cryptopp/hex.h>
@@ -83,7 +84,9 @@ AHR::~AHR()
   */
 void AHR::separarPAN(char *PAN)
 {
+  viejoPAN = string(PAN);
   L = strlen(PAN) - 6 - 1;
+
   char *auxU = new char[6];
   char *auxX = new char[L];
 
@@ -93,14 +96,24 @@ void AHR::separarPAN(char *PAN)
   entradaU = stoull(auxU);
   entradaX = stoull(auxX);
 
-  N = ceil(log2(pow(10, L)));
+  N = ceil(ceil(log2(pow(10, L))) / 8.0);
 
-  cout << "Del PAN " << PAN << " se obtiene: " << endl;
-  cout  << "\t-> entradaU: " << entradaU << endl
-        << "\t-> entradaX: " << entradaX << endl
-        << "\t-> L: " << L << endl
-        << "\t-> N: " << N << endl;
+  delete [] auxU;
+  delete [] auxX;
+}
 
+/**
+  * Este método se encarga de completar el PAN una vez que se ha obtenido
+  * el token. Al IIN del PAN original le concatena el token obtenido y
+  * recalcula el dígito verificador mediante el algoritmo de Luhn desfasado
+  * por uno.
+  */
+void AHR::completarToken()
+{
+  nuevoPAN =  to_string(entradaU) + to_string(token);
+  ArregloDeDigitos temporal = ArregloDeDigitos(nuevoPAN);
+
+  nuevoPAN += to_string(algoritmoDeLuhn(temporal, false));
 }
 
 /**
@@ -198,7 +211,8 @@ void AHR::obtenerNumeroC()
  */
 bool AHR::existeToken()
 {
-  ArregloDeDigitos token_arreglo = ArregloDeDigitos(this->token);
+  completarToken();
+  ArregloDeDigitos token_arreglo = ArregloDeDigitos(this->nuevoPAN);
   Registro busqueda = accesoADatos->buscarPorToken(token_arreglo);
 
   if (busqueda.obtenerToken() != Arreglo<int>{})
@@ -213,7 +227,7 @@ bool AHR::existeToken()
     /* El token creado no existe en la base de datos.
      * Se guarda la relación token - pan en la base de datos.
      */
-    ArregloDeDigitos pan_arreglo = ArregloDeDigitos(this->entradaX);
+    ArregloDeDigitos pan_arreglo = ArregloDeDigitos(this->viejoPAN);
     busqueda.colocarToken(token_arreglo);
     busqueda.colocarPAN(pan_arreglo);
     accesoADatos->guardar(busqueda);
@@ -239,12 +253,8 @@ bool AHR::existeToken()
  *    paso 1, con la misma llave y la misma entrada entradaX, pero aumenta
  *    en uno la entrada entradaU.
  */
-void AHR::tokenizarHibridamente(unsigned char* llave,
-  unsigned long int entradaX, unsigned long int entradaU)
+void AHR::tokenizarHibridamente(unsigned char* llave)
 {
-  this->entradaX = entradaX;
-  this->entradaU = entradaU;
-
   AES cifrador = AES(AES_256);
   cifrador.ponerLlave(llave);
 
@@ -270,7 +280,9 @@ void AHR::tokenizarHibridamente(unsigned char* llave,
   /* Quinto paso del algoritmo: revisar si existe el token generado.*/
   if(existeToken())
   {
-    tokenizarHibridamente(llave, entradaX, entradaU+1);
+    /* Aumentar en uno la entradaU y volver a correr el algoritmo.*/
+    entradaU += 1;
+    tokenizarHibridamente(llave);
   }
 }
 
