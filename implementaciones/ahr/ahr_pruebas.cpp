@@ -13,7 +13,8 @@ int main()
 
   CDV* accesoADatos = new AccesoMySQL {};
 
-  AHR tokenizador = AHR(7, accesoADatos);
-  tokenizador.tokenizarHibridamente(llave256, 5256981745955292, 5256781745900292);
-  cout << tokenizador.obtenerToken() << endl;
+  AHR tokenizador = AHR(accesoADatos);
+  tokenizador.separarPAN("1234567890123456");
+  //tokenizador.tokenizarHibridamente(llave256, 5256981745955292, 5256781745900292);
+  //cout << tokenizador.obtenerToken() << endl;
 }

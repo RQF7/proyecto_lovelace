@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cmath>
 
 using namespace CryptoPP;
 using namespace Implementaciones;
@@ -17,8 +18,8 @@ using namespace std;
  * bloqueC. El único parámetro que recibe un entero N que indica el Número
  * de bits necesarios para poder almacenar la entradaX.
  */
-AHR::AHR(int longitudToken, CDV* baseDeDatos)
-: N{longitudToken}, accesoADatos{baseDeDatos}
+AHR::AHR(CDV* baseDeDatos)
+: accesoADatos{baseDeDatos}
 {
   bloqueT = new unsigned char[M];
   bloqueC = new unsigned char[M];
@@ -74,6 +75,32 @@ AHR::~AHR()
 {
   delete [] bloqueT;
   delete [] bloqueC;
+}
+
+/**
+  * Este método se encarga de <<romper>> el PAN y obtener el IIN, el número
+  * de cuenta y, tomándolos en cuenta, determina los valores de L y N.
+  */
+void AHR::separarPAN(char *PAN)
+{
+  L = strlen(PAN) - 6 - 1;
+  char *auxU = new char[6];
+  char *auxX = new char[L];
+
+  memcpy(auxU, PAN, 6);
+  memcpy(auxX, PAN+6, L);
+
+  entradaU = stoull(auxU);
+  entradaX = stoull(auxX);
+
+  N = ceil(log2(pow(10, L)));
+
+  cout << "Del PAN " << PAN << " se obtiene: " << endl;
+  cout  << "\t-> entradaU: " << entradaU << endl
+        << "\t-> entradaX: " << entradaX << endl
+        << "\t-> L: " << L << endl
+        << "\t-> N: " << N << endl;
+
 }
 
 /**
@@ -173,7 +200,7 @@ bool AHR::existeToken()
 {
   ArregloDeDigitos token_arreglo = ArregloDeDigitos(this->token);
   Registro busqueda = accesoADatos->buscarPorToken(token_arreglo);
-  
+
   if (busqueda.obtenerToken() != Arreglo<int>{})
   {
     /* El token creado ya existe en la base de datos.

@@ -7,8 +7,7 @@
 /** \brief  Tamaño del bloque del cifrador en bytes: 16 bytes = 256 bits*/
 #define M 16
 
-/** \brief  Número de digitos de la entrada X:  */
-#define L 16
+//#define L 16
 
 namespace Implementaciones
 {
@@ -34,6 +33,9 @@ namespace Implementaciones
       */
     int N;
 
+    /** \brief  Número de digitos de la entrada X:  */
+    int L;
+
     /** \brief Pasa a binario entradaX y la almacena en los últimos N bits de bloqueT.*/
     void obtenerBitsX();
 
@@ -51,7 +53,7 @@ namespace Implementaciones
 
   public:
     /** \brief Constructor: recibe el número de bits para guardar a entradaX en base 2.*/
-    AHR(int, CDV*);
+    AHR(CDV*);
 
     /** C\brief Constructor por copia. */
     AHR(AHR const&);
@@ -68,6 +70,9 @@ namespace Implementaciones
 
     /** \brief Método que permite acceder a la variable token.*/
     unsigned long long int obtenerToken();
+
+    /** \brief Obtener del PAN, el IIN y el número de cuenta */
+    void separarPAN(char*);
   };
 }
 
