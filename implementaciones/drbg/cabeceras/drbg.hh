@@ -8,7 +8,6 @@
 #ifndef __DRBG__
 #define __DRBG__
 
-//#include "hash_drbg_prueba.hh"
 #include "../../../utilidades/cabeceras/arreglo.hh"
 #include "../../../utilidades/cabeceras/error.hh"
 #include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
@@ -21,14 +20,21 @@ namespace Implementaciones
    * \brief Generador de bits pseudoaleatorios.
    *
    * Implementación de un generador de bits pseudoaleatorios (DRBG) de acuerdo
-   * a la (recomendación 800-90A del NIST)[]. El estándar especifíca el
-   * generador en términos de 5 funciones:
+   * a la
+   * (recomendación 800-90A del NIST)[https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf].
+   * El estándar especifíca el generador en términos de 5 funciones:
    *
    * * Instanciación (el contructor).
    * * Generación de bits (operar).
    * * Cambio de semilla (cambiarSemilla).
    * * Desinstanciacion (desinstanciar).
    * * Prueba de salud (probarSalud).
+   *
+   * Esta clase define el comportamiento genérico de cualquier generador. Para
+   * obtener un generador concreto es necesario implementar la operación
+   * generarBytes.
+   *
+   * \sa HashDRBG CTRDRBG HMACDRBG
    */
 
   class DRBG
