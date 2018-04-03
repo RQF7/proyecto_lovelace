@@ -86,7 +86,7 @@ Arreglo<unsigned char> DRBG::operar(const vector<unsigned int>& entrada)
   if (mContadorDePeticiones > mMaximoDePeticiones)
     cambiarSemilla();
 
-  return generarBits(entrada[0]);
+  return generarBytes(entrada[0]);
 }
 
 /**

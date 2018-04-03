@@ -95,6 +95,21 @@ void HashDRBG::desinstanciar()
 }
 
 /**
+ *
+ */
+
+Arreglo<unsigned char> HashDRBG::generarBytes(
+  unsigned int longitud
+)
+{
+  auto resultado = funcionDeGeneracion(longitud);
+  auto temporal = hash(Arreglo<unsigned char>{3} || mSemilla);
+  mSemilla = mSemilla + temporal
+    + mConstanteSemilla + Arreglo<unsigned char>(mContadorDePeticiones);
+  return resultado;
+}
+
+/**
  * Función de derivación de semilla basada en la función hash interna.
  */
 
@@ -127,7 +142,34 @@ Arreglo<unsigned char> HashDRBG::funcionDeDerivacion(
  *
  */
 
-Arreglo<unsigned char> HashDRBG::generarBits(unsigned int longitud)
+Arreglo<unsigned char> HashDRBG::funcionDeGeneracion(
+  unsigned int longitudDeSalida
+)
 {
-  return Arreglo<unsigned char>();
+  Arreglo<unsigned char> resultado;
+  unsigned int longitud = mFuncionHash->DigestSize();
+  unsigned int numeroDeBloques = ceil(
+    static_cast<double>(longitudDeSalida) / longitud);
+  Arreglo<unsigned char> datos {mSemilla};
+  for (unsigned int i = 0; i < numeroDeBloques; i++)
+  {
+    resultado = resultado + hash(datos);
+    datos = move(datos + Arreglo<unsigned char>{1});
+  }
+  return (resultado / Arreglo<unsigned int>{longitudDeSalida})[0];
+}
+
+/**
+ *
+ */
+
+Arreglo<unsigned char> HashDRBG::hash(
+  const Arreglo<unsigned char>& entrada
+)
+{
+  unsigned char* salidaDura = new unsigned char[mFuncionHash->DigestSize()];
+  mFuncionHash->Update(entrada.obtenerApuntador(),
+    entrada.obtenerNumeroDeElementos());
+  mFuncionHash->Final(salidaDura);
+  return Arreglo<unsigned char>(mFuncionHash->DigestSize(), move(salidaDura));
 }

@@ -631,8 +631,8 @@ const
 {
   Arreglo<Arreglo<tipo>> resultado(
     marcasDivisorias.obtenerNumeroDeElementos() + 1);
-  int acumulado = 0;
-  int marcaActual = marcasDivisorias[0];
+  unsigned int acumulado = 0;
+  unsigned int marcaActual = marcasDivisorias[0];
   for (unsigned int i = 0; i < resultado.obtenerNumeroDeElementos(); i++)
   {
     Arreglo<tipo> subArreglo(marcaActual - acumulado);
@@ -707,10 +707,10 @@ Arreglo<tipo> operator||(
   const Arreglo<tipo> &arregloDos   /**< Segundo arreglo de concatenación. */
 )
 {
-  int mitad = arregloUno.obtenerNumeroDeElementos();
-  int total = mitad + arregloDos.obtenerNumeroDeElementos();
+  unsigned int mitad = arregloUno.obtenerNumeroDeElementos();
+  unsigned int total = mitad + arregloDos.obtenerNumeroDeElementos();
   Arreglo<tipo> resultado (total);
-  for (int i = 0; i < total; i++)
+  for (unsigned int i = 0; i < total; i++)
     resultado[i] = (i < mitad) ? arregloUno[i] : arregloDos[i - mitad];
   return resultado;
 }

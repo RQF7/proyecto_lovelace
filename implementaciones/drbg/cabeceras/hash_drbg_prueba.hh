@@ -25,6 +25,9 @@ namespace ImplementacionesPruebas
 
       /** \brief Prueba la operación de la fuente. */
       static bool probarFuncionDeDerivacion();
+
+      /** \brief Prueba la operación normal del generador. */
+      static bool probarFuncionDeGeneracion();
   };
 }
 

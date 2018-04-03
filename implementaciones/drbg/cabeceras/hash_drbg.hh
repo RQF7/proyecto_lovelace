@@ -52,12 +52,18 @@ namespace Implementaciones
     private:
 
       /** \brief Generación de bits (adquirida por contrato). */
-      Arreglo<unsigned char> generarBits(unsigned int longitud) override;
+      Arreglo<unsigned char> generarBytes(unsigned int longitud) override;
 
       /** \brief Función de derivación. */
       Arreglo<unsigned char> funcionDeDerivacion(
         const Arreglo<unsigned char>& cadenaDeEntrada,
         unsigned int longitudDeSalida);
+
+      /** \brief Función de generación. */
+      Arreglo<unsigned char> funcionDeGeneracion(unsigned int longitudDeSalida);
+
+      /** \brief Interfaz con función hash de cryptopp. */
+      Arreglo<unsigned char> hash(const Arreglo<unsigned char>& entrada);
 
       /**
        * \brief Constante que depende de semilla (C).

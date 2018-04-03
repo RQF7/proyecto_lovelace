@@ -161,7 +161,7 @@ namespace Implementaciones
       Arreglo<unsigned char> mSemilla;
 
       /** \brief Función generadora de bits (definida por concretos). */
-      virtual Arreglo<unsigned char> generarBits(unsigned int longitud) = 0;
+      virtual Arreglo<unsigned char> generarBytes(unsigned int longitud) = 0;
   };
 }
 
