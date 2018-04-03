@@ -34,10 +34,10 @@ HashDRBG::HashDRBG(
   TipoDeFuncionHash tipoDeFuncionHash
 )
 : DRBG{fuenteDeAlatoriedad, cadenaDePersonalizacion, nivelDeSeguridad,
-    (static_cast<int>(tipoDeFuncionHash) <= 256) ? 440u : 880u,
-    34359738368ull,   /* Longitud de personalización: 2 ^ 35. */
-    524288ull,        /* Longitud máxima: 2 ^ 19. */
-    281474976710656,  /* Vida útil de semilla: 2 ^ 48. */
+    (static_cast<int>(tipoDeFuncionHash) <= 256) ? 440u / 8u : 880u / 8u,
+    34359738368ull / 8ull,   /* Longitud de personalización: 2 ^ 35 bits. */
+    524288ull / 8ull,        /* Longitud máxima: 2 ^ 19 bits. */
+    281474976710656,         /* Vida útil de semilla: 2 ^ 48. */
   },
   mTipoDeFuncionHash {mTipoDeFuncionHash}
 {
@@ -64,6 +64,49 @@ HashDRBG::HashDRBG(
 HashDRBG::~HashDRBG()
 {
   delete mFuncionHash;
+}
+
+/**
+ * Llama a la operación equivalente en la superclase y vuelve,
+ * basandose en la nueva entropía, vuelve a derivar el valor inicial de
+ * la semilla y de la costante (la información crítica).
+ */
+
+void HashDRBG::cambiarSemilla()
+{
+  auto valorAnterior(move(mSemilla));
+  DRBG::cambiarSemilla();
+  mSemilla = funcionDeDerivacion(Arreglo<unsigned char>{1} || valorAnterior
+    || mSemilla, mLongitudSemilla);
+  mConstanteSemilla = funcionDeDerivacion(Arreglo<unsigned char>{0}
+    || mSemilla, mLongitudSemilla);
+}
+
+/**
+ * Elimina (pone en ceros) la información crítica que se mantiene en la
+ * esta clase: el valor de la constante. Manda a llamar a la operación
+ * equivalente de la superclase.
+ */
+
+void HashDRBG::desinstanciar()
+{
+  DRBG::desinstanciar();
+  mConstanteSemilla.colocarConstante(0);
+}
+
+/**
+ *
+ */
+
+Arreglo<unsigned char> HashDRBG::generarBytes(
+  unsigned int longitud
+)
+{
+  auto resultado = funcionDeGeneracion(longitud);
+  auto temporal = hash(Arreglo<unsigned char>{3} || mSemilla);
+  mSemilla = mSemilla + temporal
+    + mConstanteSemilla + Arreglo<unsigned char>(mContadorDePeticiones);
+  return resultado;
 }
 
 /**
@@ -99,7 +142,34 @@ Arreglo<unsigned char> HashDRBG::funcionDeDerivacion(
  *
  */
 
-Arreglo<unsigned char> HashDRBG::generarBits(unsigned int longitud)
+Arreglo<unsigned char> HashDRBG::funcionDeGeneracion(
+  unsigned int longitudDeSalida
+)
 {
-  return Arreglo<unsigned char>();
+  Arreglo<unsigned char> resultado;
+  unsigned int longitud = mFuncionHash->DigestSize();
+  unsigned int numeroDeBloques = ceil(
+    static_cast<double>(longitudDeSalida) / longitud);
+  Arreglo<unsigned char> datos {mSemilla};
+  for (unsigned int i = 0; i < numeroDeBloques; i++)
+  {
+    resultado = resultado + hash(datos);
+    datos = move(datos + Arreglo<unsigned char>{1});
+  }
+  return (resultado / Arreglo<unsigned int>{longitudDeSalida})[0];
+}
+
+/**
+ *
+ */
+
+Arreglo<unsigned char> HashDRBG::hash(
+  const Arreglo<unsigned char>& entrada
+)
+{
+  unsigned char* salidaDura = new unsigned char[mFuncionHash->DigestSize()];
+  mFuncionHash->Update(entrada.obtenerApuntador(),
+    entrada.obtenerNumeroDeElementos());
+  mFuncionHash->Final(salidaDura);
+  return Arreglo<unsigned char>(mFuncionHash->DigestSize(), move(salidaDura));
 }

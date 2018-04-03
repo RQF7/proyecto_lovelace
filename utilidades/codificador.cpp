@@ -127,8 +127,8 @@ Arreglo<unsigned char> Codificador::deoperar(
     else if (contadorPaddings == 3) contadorPaddings = 2;
     else if (contadorPaddings == 2) contadorPaddings = 1;
   }
-  Arreglo<unsigned char> resultado(
-    (entrada[0].size() / mTopeDestino) * mTopeOrigen - contadorPaddings);
+  Arreglo<unsigned char> resultado(static_cast<unsigned int>((
+    entrada[0].size() / mTopeDestino) * mTopeOrigen - contadorPaddings));
   int contador = 0;
   int contadorDos = 0;
   /* Proceso normal. */

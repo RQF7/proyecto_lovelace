@@ -95,7 +95,7 @@ Arreglo<unsigned char> FuncionRN::redistribuir(
 )
 {
   unsigned char mascara = 15;
-  Arreglo<unsigned char> resultado(static_cast<int>(floor(
+  Arreglo<unsigned char> resultado(static_cast<unsigned int>(floor(
     (8.0 / mLongitudDeBits) * original.obtenerNumeroDeElementos())));
   for (unsigned int i = 0, j = 0;
     i < resultado.obtenerNumeroDeElementos();

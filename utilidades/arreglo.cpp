@@ -6,9 +6,27 @@
  */
 
 #include "cabeceras/arreglo.hh"
+#include "cabeceras/utilidades_matematicas.hh"
 #include <iostream>
 
 using namespace std;
+
+/**
+ * Construye un arreglo equivalente (en bytes) al entero dado.
+ * Esto se podría generalizar para cualquier tamaño de entero, con signo o sin
+ * signo; lamentablemente chocaría con otros constructores (para empezar,
+ * el que se está delegando).
+ */
+
+Arreglo<unsigned char>::Arreglo(
+  entero numero                   /**< Entero a convertir a bytes. */
+)
+: ArregloBase<unsigned char>(static_cast<unsigned int>(sizeof(entero)))
+{
+  for (unsigned int i = 0; i < mNumeroDeElementos; i++)
+    mArregloInterno[i] = static_cast<unsigned char>(numero >> (i * 8));
+}
+
 
 /**
  * Algoritmo de suma entre los dos arreglos de bytes dados. OJO: no se trata de

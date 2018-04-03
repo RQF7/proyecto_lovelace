@@ -27,22 +27,17 @@
 
 /* Declaración *************************************************************/
 
+template<typename tipo>
+class Arreglo;
+
 /** \brief Impresión de un arreglo. */
 template <typename tipo>
 std::ostream& operator<<(std::ostream& flujo, const Arreglo<tipo>& arreglo);
-
-/** \brief Impresión de un arreglo de bytes. */
-std::ostream& operator<<(std::ostream& flujo,
-  const Arreglo<unsigned char>& arreglo);
 
 /** \brief Concatenación de dos arreglos. */
 template <typename tipo>
 Arreglo<tipo> operator||(const Arreglo<tipo>& arregloUno,
   const Arreglo<tipo>& arregloDos);
-
-/** \brief Sumas entre arreglos de bytes */
-Arreglo<unsigned char> operator+(const Arreglo<unsigned char>& arregloUno,
-  const Arreglo<unsigned char>& arregloDos);
 
 /** \brief Comparación de igualdad entre arreglos. */
 template <typename tipo>
@@ -63,6 +58,32 @@ Arreglo<tipoDeArreglo> convertirAArreglo(tipoDeNumero numero,
 template<typename tipoDeArreglo, typename tipoDeNumero>
 tipoDeNumero convertirANumero(
   const Arreglo<tipoDeArreglo>& arreglo, int base);
+
+/**
+ * \brief Alias para ArregloBase.
+ *
+ * Esta clase es la cara «externa» de ArregloBase. En cualquier lugar
+ * en donde se ocupe un ArregloBase se debería poder ocupar un Arreglo.
+ *
+ * El por qué de este tipo de alias es para poder hacer especializaciones del
+ * arreglo que extiendan a la base; esto es, si se quieren hacer funciones
+ * especializadas para un tipo específico (por ejemplo, el arreglo de bytes)
+ * se puedan seguir usando las demás funcionalidades que no se
+ * sobreescriban.
+ */
+
+template<typename tipo>
+class Arreglo : public ArregloBase<tipo>
+{
+  public:
+    /** \brief Herencia de constructores. */
+    using ArregloBase<tipo>::ArregloBase;
+
+  private:
+    /** \brief Función de impresión como amiga. */
+    friend std::ostream& operator<< <tipo>(
+      std::ostream& flujo, const Arreglo<tipo>& arreglo);
+};
 
 /**
  * \brief Contenedor de datos secuencial.
@@ -86,36 +107,36 @@ tipoDeNumero convertirANumero(
  */
 
 template <typename tipo>
-class Arreglo
+class ArregloBase
 {
   public:
 
     /** \brief Construcción por defecto. */
-    explicit Arreglo();
+    explicit ArregloBase();
 
     /** \brief Construcción de arreglo del tamaño dado. */
-    explicit Arreglo(unsigned int numeroDeElementos);
+    explicit ArregloBase(unsigned int numeroDeElementos);
 
     /** \brief Construcción mediante lista de inicialización. */
-    Arreglo(std::initializer_list<tipo> elementos);
+    ArregloBase(std::initializer_list<tipo> elementos);
 
 		/** \brief Construcción por memoria ya existente. */
-		Arreglo(unsigned int numeroDeElementos, tipo* &&memoria);
+		ArregloBase(unsigned int numeroDeElementos, tipo* &&memoria);
 
     /** \brief Constructor de operación de copiado. */
-    Arreglo(const Arreglo &arreglo);
+    ArregloBase(const ArregloBase &arreglo);
 
     /** \brief Operación de asignación por copia. */
-    Arreglo& operator=(const Arreglo &arreglo);
+    ArregloBase& operator=(const ArregloBase &arreglo);
 
     /** \brief Constructor de operación de movimiento. */
-    Arreglo(Arreglo &&arreglo);
+    ArregloBase(ArregloBase &&arreglo);
 
     /** \brief Operación de asignación por movimiento */
-    Arreglo& operator=(Arreglo &&arreglo);
+    ArregloBase& operator=(ArregloBase &&arreglo);
 
     /** \brief Destructor de arreglo. */
-    ~Arreglo();
+    ~ArregloBase();
 
     /** \brief Operación de subíndice (no constante). */
     Utilidades::IntermediarioDeArreglo<tipo> operator[](int indice);
@@ -141,7 +162,7 @@ class Arreglo
       { return mArregloInterno; }
 
     /** \brief Parte el arreglo según parámetros. */
-    Arreglo<tipo> partir(int numeroDePartes, int parte,
+    ArregloBase<tipo> partir(int numeroDePartes, int parte,
       int desviacion = 0) const;
 
     /** \brief Operación de división entre arreglo de índices. */
@@ -166,16 +187,42 @@ class Arreglo
 
   private:
 
-    /** \brief Función de impresión como amiga. */
-    friend std::ostream& operator<< <tipo>(
-      std::ostream& flujo, const Arreglo<tipo>& arreglo);
+    /** \brief Clase intermediario como amiga. */
+    friend class Utilidades::IntermediarioDeArreglo<tipo>;
+};
+
+/* Arreglo de bytes *******************************************************/
+
+/** \brief Impresión de un arreglo de bytes. */
+std::ostream& operator<<(std::ostream& flujo,
+  const Arreglo<unsigned char>& arreglo);
+
+/** \brief Sumas entre arreglos de bytes */
+Arreglo<unsigned char> operator+(const Arreglo<unsigned char>& arregloUno,
+  const Arreglo<unsigned char>& arregloDos);
+
+/**
+ * \brief Especialización de Arreglo para bytes.
+ *
+ * Define operaciones únicas a los arreglos de bytes.
+ */
+
+template<>
+class Arreglo<unsigned char> : public ArregloBase<unsigned char>
+{
+  public:
+
+    /** \brief Herencia de constructores. */
+    using ArregloBase<unsigned char>::ArregloBase;
+
+    /** \brief Descomposición en bytes de entero. */
+    Arreglo<unsigned char>(entero numero);
+
+  private:
 
     /** \brief Función de impresión especializada como amiga. */
     friend std::ostream& operator<<(
       std::ostream& flujo, const Arreglo<unsigned char>& arreglo);
-
-    /** \brief Clase intermediario como amiga. */
-    friend class Utilidades::IntermediarioDeArreglo<tipo>;
 };
 
 /* Definición **************************************************************/
@@ -186,7 +233,7 @@ class Arreglo
  */
 
 template<typename tipo>
-Arreglo<tipo>::Arreglo()
+ArregloBase<tipo>::ArregloBase()
 : mNumeroDeElementos {0u},
   mArregloInterno {nullptr}
 {
@@ -215,7 +262,7 @@ Arreglo<tipo>::Arreglo()
  */
 
 template<typename tipo>
-Arreglo<tipo>::Arreglo(
+ArregloBase<tipo>::ArregloBase(
   unsigned int numeroDeElementos /**< Número de elementos del arreglo. */
 )
 : mNumeroDeElementos {numeroDeElementos},
@@ -248,10 +295,10 @@ Arreglo<tipo>::Arreglo(
  */
 
 template<typename tipo>
-Arreglo<tipo>::Arreglo(
+ArregloBase<tipo>::ArregloBase(
   std::initializer_list<tipo> elementos   /**< Contenido del arreglo. */
 )
-: Arreglo<tipo>(elementos.size())         /* Delegación de constructor. */
+: ArregloBase<tipo>(elementos.size())         /* Delegación de constructor. */
 {
   std::uninitialized_copy(elementos.begin(), elementos.end(),
     mArregloInterno);
@@ -264,7 +311,7 @@ Arreglo<tipo>::Arreglo(
  */
 
 template <typename tipo>
-Arreglo<tipo>::Arreglo(
+ArregloBase<tipo>::ArregloBase(
 	unsigned int numeroDeElementos,      /**< Número de elementos del arreglo. */
 	tipo* &&memoria                      /**< Apuntador a memoria reservada. */
 )
@@ -301,10 +348,10 @@ Arreglo<tipo>::Arreglo(
  */
 
 template<typename tipo>
-Arreglo<tipo>::Arreglo(
-  const Arreglo<tipo> &arreglo  /**< Arreglo fuente. */
+ArregloBase<tipo>::ArregloBase(
+  const ArregloBase<tipo> &arreglo  /**< ArregloBase fuente. */
 )
-: Arreglo<tipo>(arreglo.obtenerNumeroDeElementos())
+: ArregloBase<tipo>(arreglo.obtenerNumeroDeElementos())
 {
   std::uninitialized_copy(arreglo.mArregloInterno,
     arreglo.mArregloInterno + mNumeroDeElementos, mArregloInterno);
@@ -320,8 +367,8 @@ Arreglo<tipo>::Arreglo(
  */
 
 template<typename tipo>
-Arreglo<tipo>& Arreglo<tipo>::operator=(
-  const Arreglo<tipo> &arreglo  /**< Arreglo fuente. */
+ArregloBase<tipo>& ArregloBase<tipo>::operator=(
+  const ArregloBase<tipo> &arreglo  /**< ArregloBase fuente. */
 )
 {
   delete[] mArregloInterno;
@@ -358,8 +405,8 @@ Arreglo<tipo>& Arreglo<tipo>::operator=(
  */
 
 template<typename tipo>
-Arreglo<tipo>::Arreglo(
-  Arreglo<tipo> &&arreglo   /**< Arreglo fuente. */
+ArregloBase<tipo>::ArregloBase(
+  ArregloBase<tipo> &&arreglo   /**< Arreglo fuente. */
 )
 : mNumeroDeElementos {arreglo.mNumeroDeElementos},
   mArregloInterno {arreglo.mArregloInterno}
@@ -383,8 +430,8 @@ Arreglo<tipo>::Arreglo(
  */
 
 template<typename tipo>
-Arreglo<tipo>& Arreglo<tipo>::operator=(
-  Arreglo<tipo> &&arreglo   /**< Arreglo fuente. */
+ArregloBase<tipo>& ArregloBase<tipo>::operator=(
+  ArregloBase<tipo> &&arreglo   /**< ArregloBase fuente. */
 )
 {
   mNumeroDeElementos = arreglo.mNumeroDeElementos;
@@ -399,7 +446,7 @@ Arreglo<tipo>& Arreglo<tipo>::operator=(
  */
 
 template<typename tipo>
-Arreglo<tipo>::~Arreglo()
+ArregloBase<tipo>::~ArregloBase()
 {
   delete[] mArregloInterno;
 }
@@ -427,7 +474,7 @@ Arreglo<tipo>::~Arreglo()
  */
 
 template<typename tipo>
-Utilidades::IntermediarioDeArreglo<tipo> Arreglo<tipo>::operator[](
+Utilidades::IntermediarioDeArreglo<tipo> ArregloBase<tipo>::operator[](
   int indice                             /**< Índice de elemento. */
 )
 {
@@ -446,7 +493,7 @@ Utilidades::IntermediarioDeArreglo<tipo> Arreglo<tipo>::operator[](
  */
 
 template<typename tipo>
-tipo Arreglo<tipo>::operator[](
+tipo ArregloBase<tipo>::operator[](
   int indice                             /**< Índice de elemento. */
 ) const
 {
@@ -470,7 +517,7 @@ tipo Arreglo<tipo>::operator[](
 
 template<typename tipo>
 [[ deprecated("No es lo que se espera de un arreglo; mejor usar [].") ]]
-void Arreglo<tipo>::colocar(
+void ArregloBase<tipo>::colocar(
   int indice,                            /**< Posición del arreglo. */
   tipo valor                             /**< Valor a guardar. */
 )
@@ -483,7 +530,7 @@ void Arreglo<tipo>::colocar(
  */
 
 template<typename tipo>
-void Arreglo<tipo>::colocarConstante(
+void ArregloBase<tipo>::colocarConstante(
   tipo constante      /**< Valor a colocar en el arreglo. */
 )
 {
@@ -500,7 +547,7 @@ void Arreglo<tipo>::colocarConstante(
  */
 
 template<typename tipo>
-tipo *Arreglo<tipo>::obtenerCopiaDeArreglo() const
+tipo *ArregloBase<tipo>::obtenerCopiaDeArreglo() const
 {
   tipo *resultado = new tipo [mNumeroDeElementos];
   memcpy(resultado, mArregloInterno, mNumeroDeElementos);
@@ -536,7 +583,7 @@ tipo *Arreglo<tipo>::obtenerCopiaDeArreglo() const
 
 template<typename tipo>
 [[ deprecated("Se sustituye por operador de división entre arreglo") ]]
-Arreglo<tipo> Arreglo<tipo>::partir(
+ArregloBase<tipo> ArregloBase<tipo>::partir(
   int numeroDePartes, /**< Número de particiones a hacer. **/
   int parte,          /**< Número de partición deseada. **/
   int desviacion      /**< Desviación con respecto al corte (0 por defecto). **/
@@ -549,7 +596,7 @@ Arreglo<tipo> Arreglo<tipo>::partir(
   int fin = (parte == numeroDePartes - 1)
     ? mNumeroDeElementos
     : tamanioDeDivision * (parte + 1) + desviacion;
-  Arreglo<tipo> subArreglo (fin - inicio);
+  ArregloBase<tipo> subArreglo (fin - inicio);
   for (int i = inicio, j = 0; i < fin; i++, j++)
     subArreglo[j] = mArregloInterno[i];
   return subArreglo;
@@ -577,15 +624,15 @@ Arreglo<tipo> Arreglo<tipo>::partir(
  */
 
 template<typename tipo>
-Arreglo<Arreglo<tipo>> Arreglo<tipo>::operator/(
+Arreglo<Arreglo<tipo>> ArregloBase<tipo>::operator/(
   const Arreglo<unsigned int> &marcasDivisorias
 )
 const
 {
   Arreglo<Arreglo<tipo>> resultado(
     marcasDivisorias.obtenerNumeroDeElementos() + 1);
-  int acumulado = 0;
-  int marcaActual = marcasDivisorias[0];
+  unsigned int acumulado = 0;
+  unsigned int marcaActual = marcasDivisorias[0];
   for (unsigned int i = 0; i < resultado.obtenerNumeroDeElementos(); i++)
   {
     Arreglo<tipo> subArreglo(marcaActual - acumulado);
@@ -614,7 +661,7 @@ const
  */
 
 template<typename tipo>
-int Arreglo<tipo>::resolverIndice(
+int ArregloBase<tipo>::resolverIndice(
   int indice                        /**< Índice a resolver. */
 ) const
 {
@@ -660,10 +707,10 @@ Arreglo<tipo> operator||(
   const Arreglo<tipo> &arregloDos   /**< Segundo arreglo de concatenación. */
 )
 {
-  int mitad = arregloUno.obtenerNumeroDeElementos();
-  int total = mitad + arregloDos.obtenerNumeroDeElementos();
+  unsigned int mitad = arregloUno.obtenerNumeroDeElementos();
+  unsigned int total = mitad + arregloDos.obtenerNumeroDeElementos();
   Arreglo<tipo> resultado (total);
-  for (int i = 0; i < total; i++)
+  for (unsigned int i = 0; i < total; i++)
     resultado[i] = (i < mitad) ? arregloUno[i] : arregloDos[i - mitad];
   return resultado;
 }

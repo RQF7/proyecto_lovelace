@@ -65,15 +65,6 @@ namespace Implementaciones
       Arreglo<unsigned char>
         operar(const std::vector<unsigned int>& entrada) override;
 
-      /** \brief */
-      void cambiarSemilla();
-
-      /** \brief */
-      void desinstanciar();
-
-      /** \brief */
-      // probarSalud();
-
       /** \brief Error para representar una fuerza de seguiridad no soportada.*/
       struct FuerzaNoSoportada : public Utilidades::Error
       { inline FuerzaNoSoportada(std::string mensaje)
@@ -94,6 +85,12 @@ namespace Implementaciones
         unsigned int longitudSemila, entero longitudPersonalizacion,
         entero longitudMaxima, entero maximoDePeticiones);
 
+      /** \brief Función de cambio de semilla. */
+      virtual void cambiarSemilla();
+
+      /** \brief Función para eliminar información crítica. */
+      virtual void desinstanciar();
+
       /** \brief Apuntador a clase-función que genera entropía. */
       FuenteDeAleatoriedad *mFuenteDeAlatoriedad;
 
@@ -103,9 +100,10 @@ namespace Implementaciones
       /**
        * \brief Nivel de seguridad soportado por la instancia.
        *
-       * Forma parte de lo que en el NIST llaman «información administrativa» (que
-       * a su vez es parte del estado interno del generador). Este valor no es
-       * crítico: la seguridad no depende de que se mantenga en secreto o no.
+       * Forma parte de lo que en el NIST llaman «información administrativa»
+       * (que a su vez es parte del estado interno del generador). Este valor
+       * no es crítico: la seguridad no depende de que se mantenga en secreto
+       * o no.
        */
 
       NivelDeSeguridad mNivelDeSeguridad;
@@ -154,18 +152,16 @@ namespace Implementaciones
        * «cambiarSemilla»; después solo se encuentra la actualización que
        * las demás funciones hacen sobre la semilla.
        *
-       * Esto es lo que los documentos del NIST llaman valor «V». Junto con otros
-       * posibles valores de los implementadores, el valor d eeste arreglo es
-       * «crítico»: la seguridad de la implementación depende de que sea secreto.
+       * Esto es lo que los documentos del NIST llaman valor «V». Junto con
+       * otros posibles valores de los implementadores, el valor d eeste arreglo
+       * es «crítico»: la seguridad de la implementación depende de que sea
+       * secreto.
        */
 
       Arreglo<unsigned char> mSemilla;
 
       /** \brief Función generadora de bits (definida por concretos). */
-      virtual Arreglo<unsigned char> generarBits(unsigned int longitud) = 0;
-
-      /** \brief Clase de prueba como amiga. */
-      // friend bool ImplementacionesPruebas::HashDRBGPrueba::probarFuncionDeDerivacion();
+      virtual Arreglo<unsigned char> generarBytes(unsigned int longitud) = 0;
   };
 }
 
