@@ -15,7 +15,7 @@ using namespace std;
 
 /**
  * La fuente de aleatoriedad y la cadena de personalización son usadas para
- * inicializar la samilla; el estándar del NIST también incluye un nonce para
+ * inicializar la semilla; el estándar del NIST también incluye un nonce para
  * esto: pueden ser bits adicionales de la fuente de aleatoriedad, una marca de
  * tiempo o un contador; para simplificar las interfaces, en esta implementación
  * se utiliza la misma fuente de aleatoriedad para producir el nonce.
