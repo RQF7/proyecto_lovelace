@@ -201,6 +201,10 @@ std::ostream& operator<<(std::ostream& flujo,
 Arreglo<unsigned char> operator+(const Arreglo<unsigned char>& arregloUno,
   const Arreglo<unsigned char>& arregloDos);
 
+/** \brief Xor entre arreglos */
+Arreglo<unsigned char> operator^(const Arreglo<unsigned char>& arregloUno,
+  const Arreglo<unsigned char>& arregloDos);
+
 /**
  * \brief Especialización de Arreglo para bytes.
  *

@@ -71,6 +71,41 @@ Arreglo<unsigned char> operator+(
 }
 
 /**
+ * Calcula el xor entre los dos arreglos dados. En caso de longitudes
+ * distintas, se supone que el arreglo de menor tamaño tiene ceros a
+ * la izquierda (los suficientes para igualar la longitud del de
+ * mayor tamaño).
+ *
+ * \return Resultado de XOR.
+ */
+
+Arreglo<unsigned char> operator^(
+  const Arreglo<unsigned char>& arregloUno, /**< Primer operando. */
+  const Arreglo<unsigned char>& arregloDos  /**< Segundo operando. */
+)
+{
+  unsigned int longitudMax = (arregloUno.obtenerNumeroDeElementos() >
+    arregloDos.obtenerNumeroDeElementos()) ?
+    arregloUno.obtenerNumeroDeElementos() :
+    arregloDos.obtenerNumeroDeElementos();
+  unsigned int longitudMin = (arregloUno.obtenerNumeroDeElementos() <
+    arregloDos.obtenerNumeroDeElementos()) ?
+    arregloUno.obtenerNumeroDeElementos() :
+    arregloDos.obtenerNumeroDeElementos();
+  bool lado {(arregloUno.obtenerNumeroDeElementos() >
+    arregloDos.obtenerNumeroDeElementos()) ? true : false};
+  Arreglo<unsigned char> resultado(longitudMax);
+  for (unsigned int i = 0; i < longitudMax; i++)
+  {
+    if (i < longitudMin)
+      resultado[i] = arregloUno[i] ^ arregloDos[i];
+    else
+      resultado[i] = (lado ? arregloUno[i] : arregloDos[i]);
+  }
+  return resultado;
+}
+
+/**
  * Impresión de un arreglo de bits. No se aplica ningún modificador de
  * flujo (hex, dec), sino que se espera que el usuario lo aplque justo antes
  * de utilizar la función (para permitir flexibilidad).
