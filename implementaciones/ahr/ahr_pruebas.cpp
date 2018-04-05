@@ -1,3 +1,9 @@
+/*
+ * Proyecto Lovelace: este archivo es para pruebas con casi casi fuerza
+ * bruta, las pruebas bonitas se incluyen en los archivos
+ * ahr_prueba.cpp y cabeceras/ahr_prueba.hh
+ */
+
 #include "cabeceras/ahr.hh"
 #include "../utilidades/cabeceras/algoritmo_tokenizador.hh"
 #include "../../utilidades/cabeceras/arreglo_de_digitos.hh"

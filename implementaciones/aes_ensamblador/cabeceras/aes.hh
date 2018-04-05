@@ -31,62 +31,69 @@
 /** \brief Constante para indicar el tamaño de la llave al constructor */
 #define AES_256 3
 
-class AES
+namespace Implementaciones
 {
-  private:
-    /** \brief Arreglo donde se guarda el bloque en claro. */
-    unsigned char *bloqueTClaro;
 
-    /** \brief Arreglo donde se guarda el bloque cifrado. */
-    unsigned char *bloqueTCifrado;
+  class AES
+  {
+    private:
+      /** \brief Arreglo donde se guarda el bloque en claro. */
+      unsigned char *bloqueTClaro;
 
-    /** \brief Arreglo donde se guarda la llave que se está utilizando. */
-    unsigned char *vectorLlave;
+      /** \brief Arreglo donde se guarda el bloque cifrado. */
+      unsigned char *bloqueTCifrado;
 
-    /** \brief Contiene la longitud de la llave que se está utilizando. */
-    int tamLlave;
+      /** \brief Arreglo donde se guarda la llave que se está utilizando. */
+      unsigned char *vectorLlave;
 
-  public:
-    /** \brief Constructor que inicia el cifrador AES con una longitud de llave
-    de 192 bits. */
-    AES();
+      /** \brief Contiene la longitud de la llave que se está utilizando. */
+      int tamLlave;
 
-    /** \brief Constructor que recibe como parámetro el tamaño de llave a
-    utilizar */
-    AES(int);
+    public:
+      /** \brief Constructor que inicia el cifrador AES con una longitud de llave
+      de 192 bits. */
+      AES();
 
-    /** \brief Constructor por copia */
-    AES(AES const&);
+      /** \brief Constructor que recibe como parámetro el tamaño de llave a
+      utilizar */
+      AES(int);
 
-    /** \brief Operador de asignación */
-    AES& operator= (AES const& otro);
+      /** \brief Constructor por copia */
+      AES(AES const&);
 
-    /** \brief Destructor que libera la memoria utilizada */
-    ~AES();
+      /** \brief Operador de asignación */
+      AES& operator= (AES const& otro);
 
-    /** \brief Operación para cambiar el tamaño de la llave a utilizar */
-    void ponerTamanioLlave(int);
+      /** \brief Destructor que libera la memoria utilizada */
+      ~AES();
 
-    /** \brief Operación para obtener el tamaño de llave indicado en bytes */
-    int obtenerTamanioLlave();
+      /** \brief Operación para cambiar el tamaño de la llave a utilizar */
+      void ponerTamanioLlave(int);
 
-    /** \brief Operación para poner (o reemplazar) la llave actual */
-    void ponerLlave(unsigned char*);
+      /** \brief Operación para obtener el tamaño de llave indicado en bytes */
+      int obtenerTamanioLlave();
 
-    /** \brief Operación para obtener la llave actual */
-    unsigned char* obtenerLlave();
+      /** \brief Operación para poner (o reemplazar) la llave actual */
+      void ponerLlave(unsigned char*);
 
-    /** \brief Operación para obtener el bloque de texto claro*/
-    unsigned char* obtenerBloqueTClaro();
+      /** \brief Operación para obtener la llave actual */
+      unsigned char* obtenerLlave();
 
-     /** \brief Operación para obtener el bloque de texto cifrado*/
-    unsigned char* obtenerBloqueTCifrado();
+      /** \brief Operación para obtener el bloque de texto claro*/
+      unsigned char* obtenerBloqueTClaro();
 
-    /** \brief Operación que permite cifrar un bloque mediante AES*/
-    int cifrarBloque(unsigned char*);
+       /** \brief Operación para obtener el bloque de texto cifrado*/
+      unsigned char* obtenerBloqueTCifrado();
 
-    /** \brief Operación que permite descifrar un bloque mediante AES*/
-    int descifrarBloque(unsigned char*);
-};
+      /** \brief Operación que permite cifrar un bloque mediante AES*/
+      int cifrarBloque(unsigned char*);
 
+      /** \brief Operación que permite descifrar un bloque mediante AES*/
+      int descifrarBloque(unsigned char*);
+
+      /** \brief Revisar si se tienen las instrucciones en el procesador. */
+      int revisarInstrucciones();
+
+  };
+}
 #endif

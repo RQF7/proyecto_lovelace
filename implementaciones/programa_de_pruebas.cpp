@@ -19,6 +19,7 @@
 #include "tkr/cabeceras/pseudoaleatorio_aes_prueba.hh"
 #include "tkr/cabeceras/pseudoaleatorio_trivial_prueba.hh"
 #include "tkr/cabeceras/tkr_prueba.hh"
+#include "ahr/cabeceras/ahr_prueba.hh"
 #include "utilidades/cabeceras/utilidades_criptograficas_prueba.hh"
 #include "utilidades/cabeceras/utilidades_tarjetas_prueba.hh"
 #include "../utilidades/cabeceras/conjunto_de_pruebas.hh"
@@ -57,7 +58,8 @@ int main()
       UtilidadesCriptograficasPrueba {},
       AleatoriedadTrivialPrueba {},
       HashDRBGPrueba {},
-      CTRDRBGPrueba {}
+      CTRDRBGPrueba {},
+      AHRPrueba()
     }
   };
 }

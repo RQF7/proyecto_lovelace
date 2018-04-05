@@ -326,7 +326,8 @@ ArregloDeDigitos AHR::tokenizar (const ArregloDeDigitos& pan)
 {
   separarPAN(pan.obtenerCadenaEfectiva());
   tokenizarHibridamente();
-  return ArregloDeDigitos(mTokenCompleto);
+  ArregloDeDigitos resultado = ArregloDeDigitos(mTokenCompleto);
+  return resultado;
 }
 
 /**

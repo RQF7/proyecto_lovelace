@@ -33,6 +33,10 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 tkr/funcion_rn_prueba.cpp \
 											 tkr/tkr.cpp \
 											 tkr/tkr_prueba.cpp \
+											 aes_ensamblador/aes.cpp \
+											 aes_ensamblador/libaesni/libaes_lin64.o \
+											 ahr/ahr.cpp \
+											 ahr/ahr_prueba.cpp \
 											 utilidades/utilidades_tarjetas.cpp \
 											 utilidades/utilidades_tarjetas_prueba.cpp \
 											 utilidades/utilidades_criptograficas.cpp \
@@ -56,6 +60,9 @@ FUENTES_DOS					:= lovelace.cpp \
 											 tkr/pseudoaleatorio_aes.cpp \
 											 tkr/funcion_rn.cpp \
 											 tkr/tkr.cpp \
+											 aes_ensamblador/aes.cpp \
+											 aes_ensamblador/libaesni/libaes_lin64.o \
+											 ahr/ahr.cpp \
 											 utilidades/utilidades_tarjetas.cpp \
 											 utilidades/utilidades_criptograficas.cpp \
 											 utilidades/algoritmo_tokenizador.cpp \
@@ -211,6 +218,30 @@ $(CARPETA_OBJETOS)/tkr/tkr.o: tkr/tkr.cpp tkr/cabeceras/tkr.hh
 $(CARPETA_OBJETOS)/tkr/tkr_prueba.o: tkr/tkr_prueba.cpp \
 	tkr/cabeceras/tkr_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)/tkr
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/aes_ensamblador/aes.o: aes_ensamblador/aes.cpp \
+	aes_ensamblador/cabeceras/aes.hh
+	mkdir -p $(CARPETA_OBJETOS)/aes_ensamblador
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/aes_ensamblador/libaesni/libaes_lin64.o: \
+	aes_ensamblador/libaesni/iaes_asm_interface.h \
+	aes_ensamblador/libaesni/iaesni.h \
+	aes_ensamblador/libaesni/intel_aes.c
+	mkdir -p $(CARPETA_OBJETOS)/aes_ensamblador/libaesni
+	yasm -D__linux__ -f elf64 aes_ensamblador/libaesni/asm/iaesx64.s  -o $(CARPETA_OBJETOS)/aes_ensamblador/libaesni/iaesx64.o
+	yasm -D__linux__ -f elf64 aes_ensamblador/libaesni/asm/do_rdtsc.s -o $(CARPETA_OBJETOS)/aes_ensamblador/libaesni/do_rdtsc.o
+	gcc -Wall -fPIC -c aes_ensamblador/libaesni/intel_aes.c -o $(CARPETA_OBJETOS)/aes_ensamblador/libaesni/intel_aes.o
+	gcc -shared -o $@ $(CARPETA_OBJETOS)/aes_ensamblador/libaesni/*.o
+
+$(CARPETA_OBJETOS)/ahr/ahr.o: ahr/ahr.cpp ahr/cabeceras/ahr.hh
+	mkdir -p $(CARPETA_OBJETOS)/ahr
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/ahr/ahr_prueba.o: ahr/ahr_prueba.cpp \
+	ahr/cabeceras/ahr_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/ahr
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/acceso_a_datos/acceso_simulado.o: \

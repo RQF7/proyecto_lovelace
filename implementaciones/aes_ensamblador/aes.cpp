@@ -11,6 +11,7 @@
 #include <string.h>
 #include "libaesni/iaesni.h"
 
+using namespace Implementaciones;
 using namespace std;
 
 /**
@@ -242,4 +243,15 @@ int AES::descifrarBloque(unsigned char* bloqueTCifradoExterior)
       return 0;
   }
   return 1;
+}
+
+int AES::revisarInstrucciones()
+{
+  if(1 == check_for_aes_instructions())
+  {
+    return 1;
+  }
+  else{
+    return 0;
+  }
 }
