@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Declaración de pruebas de TKR2.
+ * \brief Declaración de pruebas de AHR.
  *
  * Proyecto Lovelace.
  */

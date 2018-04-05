@@ -36,7 +36,7 @@ namespace Implementaciones
 
   class AES
   {
-    private:
+  private:
       /** \brief Arreglo donde se guarda el bloque en claro. */
       unsigned char *bloqueTClaro;
 
@@ -49,7 +49,7 @@ namespace Implementaciones
       /** \brief Contiene la longitud de la llave que se está utilizando. */
       int tamLlave;
 
-    public:
+  public:
       /** \brief Constructor que inicia el cifrador AES con una longitud de llave
       de 192 bits. */
       AES();

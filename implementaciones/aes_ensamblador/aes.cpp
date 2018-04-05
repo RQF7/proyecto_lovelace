@@ -101,8 +101,8 @@ AES& AES::operator= (AES const& otro)
  */
 AES::~AES()
 {
-  delete [] bloqueTClaro;
-  delete [] bloqueTCifrado;
+//  delete [] bloqueTClaro;
+//  delete [] bloqueTCifrado;
   delete [] vectorLlave;
 }
 
