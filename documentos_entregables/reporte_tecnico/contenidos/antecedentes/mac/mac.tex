@@ -45,13 +45,13 @@ obtener \gls{gl:mac} en máquinas de 32 bits. El tiempo de ejecución
 es directamente proporcional a la longitud del mensaje y alrededor de cuatro
 veces más largo que el \gls{gl:md4}.
 
-\paragraph{\acrlong{gl:prf}}
+\paragraph{\texorpdfstring{\acrlong{gl:prf}}{Función pseudoaleatorioa}}
 Es posible generar códigos de verificación mediante el uso de funciones
 pseudoaleatorias \gls{gl:prf}. Se define en \ref{mac:1} el algoritmo para
 obtener el código de verificación y en \ref{mac:2} el algoritmo para verificar
 si es correcto o no el \gls{gl:mac}.
 
-\begin{pseudocodigo}[caption={MAC mediante \gls{gl:prf}, obtener código.},
+\begin{pseudocodigo}[caption={\gls{gl:mac} mediante \gls{gl:prf}, obtener código.},
   label={mac:1}]
     entrada:    llave $k$ y mensaje $m$
     salida:     código de autenticación $t$.
@@ -62,7 +62,7 @@ si es correcto o no el \gls{gl:mac}.
     fin
 \end{pseudocodigo}
 
-\begin{pseudocodigo}[caption={MAC mediante \gls{gl:prf}, verificar código.},
+\begin{pseudocodigo}[caption={\gls{gl:mac} mediante \gls{gl:prf}, verificar código.},
   label={mac:2}]
     entrada:    llave $k$, mensaje $m$, código $t$.
     salida:     resultado de la verificación $r$.
@@ -104,7 +104,7 @@ propuestos, tales como el \textit{eXtended CBC} o el \gls{gl:omac}.
   \end{center}
 \end{figure}
 
-\paragraph{\acrlong{gl:nmac}}
+\paragraph{\texorpdfstring{\acrlong{gl:nmac}}{Nested MAC}}
 \gls{gl:nmac} es muy parecido al CBC-MAC, sin embargo, este utiliza una
 función $F$ cuya salida se utiliza como la llave del siguiente bloque. Cuando
 se termina de procesar el mensaje, se le pone un relleno para completar el
@@ -123,7 +123,7 @@ original.
   \end{center}
 \end{figure}
 
-\paragraph{\acrlong{gl:cmac}}
+\paragraph{\texorpdfstring{\acrlong{gl:cmac}}{Cipher-based MAC}}
 Parecido al algoritmo CBC-MAC, \gls{gl:cmac} utiliza una función $F$ y dos
 llaves ($l_1$ y $l_2$); sin embargo, en vez de utilizar $l_2$ para el segundo
 cifrado, se concatena con el último bloque del mensaje (véase
@@ -142,7 +142,7 @@ convirtió en una recomendación por el \gls{gl:nist}.
   \end{center}
 \end{figure}
 
-\paragraph{\acrlong{gl:pmac}}
+\paragraph{\texorpdfstring{\acrlong{gl:pmac}}{Parallel MAC}}
 \Gls{gl:pmac} utiliza dos llaves ($l_1$ y $l_2$) y dos funciones
 ($F_p$ y $F_f$); además, a diferencia de los algoritmos descritos anteriormente,
 \gls{gl:pmac}, tal como lo indica su nombre, puede ser ejecutado paralelamente
@@ -168,9 +168,9 @@ Es importante que la función $F_p$ sea mucho más rápida que la función $F_f$
   \end{center}
 \end{figure}
 
-\paragraph{\textit{One-time} MAC}
+\paragraph{\texorpdfstring{\acrlong{gl:omac}}{One-time MAC}}
 Este algoritmo, similar a \gls{gl:libreta_de_un_solo_uso}, es, generalmente,
-más rápidos que los algoritmos basados en funciones \gls{gl:prf}. En~\ref{mac:3}
+más rápido que los algoritmos basados en funciones \gls{gl:prf}. En~\ref{mac:3}
 se define el algoritmo para obtener el código de autenticación. La verificación
 del código se realiza similar a como se mostró en el algoritmo~\ref{mac:2}.
 
@@ -187,7 +187,7 @@ del código se realiza similar a como se mostró en el algoritmo~\ref{mac:2}.
     fin
 \end{pseudocodigo}
 
-\paragraph{\acrlong{gl:hmac}}
+\paragraph{\texorpdfstring{\acrlong{gl:hmac}}{Keyed-Hashed MAC}}
 Similar a \gls{gl:nmac}, este algoritmo utiliza una función $h$ \gls{gl:owhf}
 para producir códigos de autenticación (véase figura~\ref{mac:hmac}).
 Tiene tres parámetros: $relleno_e$, $relleno_s$ y una llave $l$; los primeros
