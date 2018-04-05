@@ -14,18 +14,18 @@ using namespace Implementaciones;
 using namespace std;
 
 /**
- * Constructor por defecto. Se encarga de inicializar los bloques bloqueT y
- * bloqueC. Recibe como parámetros la referencia a la base de datos que
+ * Constructor por defecto. Se encarga de inicializar los bloques mBloqueT y
+ * mBloqueC. Recibe como parámetros la referencia a la base de datos que
  * se va a utilizar y la llave con la que se inicializará el cifrador.
  */
 AHR::AHR(CDV* baseDeDatos, unsigned char* llave)
-: accesoADatos{baseDeDatos}
+: mAccesoADatos{baseDeDatos}
 {
-  bloqueT = new unsigned char[M];
-  bloqueC = new unsigned char[M];
+  mBloqueT = new unsigned char[M];
+  mBloqueC = new unsigned char[M];
 
-  cifrador = AES(AES_256);
-  cifrador.ponerLlave(llave);
+  mCifrador = AES(AES_256);
+  mCifrador.ponerLlave(llave);
 }
 
 /**
@@ -34,24 +34,24 @@ AHR::AHR(CDV* baseDeDatos, unsigned char* llave)
  */
 AHR::AHR(AHR const& otro)
 {
-  bloqueT = new unsigned char[M];
-  memcpy(bloqueT, otro.bloqueT, M);
+  mBloqueT = new unsigned char[M];
+  memcpy(mBloqueT, otro.mBloqueT, M);
 
-  bloqueC = new unsigned char[M];
-  memcpy(bloqueC, otro.bloqueC, M);
+  mBloqueC = new unsigned char[M];
+  memcpy(mBloqueC, otro.mBloqueC, M);
 
-  entradaX = otro.entradaX;
-  entradaU = otro.entradaU;
-  token    = otro.token;
+  mEntradaX = otro.mEntradaX;
+  mEntradaU = otro.mEntradaU;
+  mToken    = otro.mToken;
 
-  N = otro.N;
-  L = otro.L;
+  mLongitudBytesEntradaX = otro.mLongitudBytesEntradaX;
+  mNumeroDigitosEntradaX = otro.mNumeroDigitosEntradaX;
 
-  nuevoPAN = string(otro.nuevoPAN);
-  viejoPAN = string(otro.viejoPAN);
+  mTokenCompleto = string(otro.mTokenCompleto);
+  mPANOriginal = string(otro.mPANOriginal);
 
-  accesoADatos = otro.accesoADatos;
-  cifrador = AES(otro.cifrador);
+  mAccesoADatos = otro.mAccesoADatos;
+  mCifrador = AES(otro.mCifrador);
 }
 
 /**
@@ -62,27 +62,27 @@ AHR::AHR(AHR const& otro)
 AHR& AHR::operator=(AHR const& otro)
 {
   unsigned char *auxiliar1 = new unsigned char[M];
-  memcpy(auxiliar1, otro.bloqueT, M);
-  delete [] bloqueT;
-  bloqueT = auxiliar1;
+  memcpy(auxiliar1, otro.mBloqueT, M);
+  delete [] mBloqueT;
+  mBloqueT = auxiliar1;
 
   unsigned char *auxiliar2 = new unsigned char[M];
-  memcpy(auxiliar2, otro.bloqueC, M);
-  delete [] bloqueC;
-  bloqueC = auxiliar2;
+  memcpy(auxiliar2, otro.mBloqueC, M);
+  delete [] mBloqueC;
+  mBloqueC = auxiliar2;
 
-  entradaX = otro.entradaX;
-  entradaU = otro.entradaU;
-  token    = otro.token;
+  mEntradaX = otro.mEntradaX;
+  mEntradaU = otro.mEntradaU;
+  mToken    = otro.mToken;
 
-  N = otro.N;
-  L = otro.L;
+  mLongitudBytesEntradaX = otro.mLongitudBytesEntradaX;
+  mNumeroDigitosEntradaX = otro.mNumeroDigitosEntradaX;
 
-  nuevoPAN = string(otro.nuevoPAN);
-  viejoPAN = string(otro.viejoPAN);
+  mTokenCompleto = string(otro.mTokenCompleto);
+  mPANOriginal = string(otro.mPANOriginal);
 
-  accesoADatos = otro.accesoADatos;
-  cifrador = AES(otro.cifrador);
+  mAccesoADatos = otro.mAccesoADatos;
+  mCifrador = AES(otro.mCifrador);
 
   return *this;
 }
@@ -92,29 +92,29 @@ AHR& AHR::operator=(AHR const& otro)
  */
 AHR::~AHR()
 {
-  delete [] bloqueT;
-  delete [] bloqueC;
+  delete [] mBloqueT;
+  delete [] mBloqueC;
 }
 
 /**
   * Este método se encarga de <<romper>> el PAN y obtener el IIN, el número
-  * de cuenta y, tomándolos en cuenta, determina los valores de L y N.
+  * de cuenta y, tomándolos en cuenta, determina los valores de mNumeroDigitosEntradaX y mLongitudBytesEntradaX.
   */
 void AHR::separarPAN(string PAN)
 {
-  viejoPAN = string(PAN);
-  L = PAN.length() - 6 - 1;
+  mPANOriginal = string(PAN);
+  mNumeroDigitosEntradaX = PAN.length() - 6 - 1;
 
   char *auxU = new char[6];
-  char *auxX = new char[L];
+  char *auxX = new char[mNumeroDigitosEntradaX];
 
   memcpy(auxU, PAN.c_str(), 6);
-  memcpy(auxX, PAN.c_str()+6, L);
+  memcpy(auxX, PAN.c_str()+6, mNumeroDigitosEntradaX);
 
-  entradaU = stoull(auxU);
-  entradaX = stoull(auxX);
+  mEntradaU = stoull(auxU);
+  mEntradaX = stoull(auxX);
 
-  N = ceil(ceil(log2(pow(10, L))) / 8.0);
+  mLongitudBytesEntradaX = ceil(ceil(log2(pow(10, mNumeroDigitosEntradaX))) / 8.0);
 
   delete [] auxU;
   delete [] auxX;
@@ -128,35 +128,35 @@ void AHR::separarPAN(string PAN)
   */
 void AHR::completarToken()
 {
-  nuevoPAN =  to_string(entradaU) + to_string(token);
-  ArregloDeDigitos temporal = ArregloDeDigitos(nuevoPAN);
+  mTokenCompleto =  to_string(mEntradaU) + to_string(mToken);
+  ArregloDeDigitos temporal = ArregloDeDigitos(mTokenCompleto);
 
-  nuevoPAN += to_string(modulo(algoritmoDeLuhn(temporal, false)+1, 10));
+  mTokenCompleto += to_string(modulo(algoritmoDeLuhn(temporal, false)+1, 10));
 }
 
 /**
-  * Este método se encarga de poner en los últimos N bytes del bloqueT
-  * la entradaX en binario. Utiliza una máscara que inicia con un uno en la
+  * Este método se encarga de poner en los últimos mLongitudBytesEntradaX bytes del mBloqueT
+  * la mEntradaX en binario. Utiliza una máscara que inicia con un uno en la
   * posición más significativa y va haciendo un corrimiento hacia la derecha,
-  * comparando con la entradaX; si encuentra un uno en la posición
+  * comparando con la mEntradaX; si encuentra un uno en la posición
   * correspondiente, mascaraByte se encarga de poner un uno en el bit j del
   * byte i correspondiente.
   */
 void AHR::obtenerBitsX()
 {
-  memset(bloqueT, 0x00, M);
+  memset(mBloqueT, 0x00, M);
   unsigned long long int mascara =
-    (unsigned long long int) pow((long double)2, (long double)(8*N)-1);
+    (unsigned long long int) pow((long double)2, (long double)(8*mLongitudBytesEntradaX)-1);
   unsigned char mascaraByte;
 
-  for(int i = M-N; i < M; i++)
+  for(int i = M-mLongitudBytesEntradaX; i < M; i++)
   {
     mascaraByte = 0x80;
     for(int j = 0; j < 8; j++)
     {
-      if(mascara & entradaX)
+      if(mascara & mEntradaX)
       {
-        bloqueT[i] = bloqueT[i]|mascaraByte;
+        mBloqueT[i] = mBloqueT[i]|mascaraByte;
       }
       mascaraByte = mascaraByte >> 1;
       mascara = mascara >> 1;
@@ -165,17 +165,17 @@ void AHR::obtenerBitsX()
 }
 
 /**
-  * Este método se encarga del primer paso del algoritmo: obtener el bloqueT
+  * Este método se encarga del primer paso del algoritmo: obtener el mBloqueT
   * que será utilizado como entrada para el cifrador por bloques. Primero
   * obtiene la salida de la función pública (SHA256 en este caso) de la entrada
-  * adicional entradaU. Luego llama a la función obtenerBitsX para llenar los
-  * últimos N bloques del bloqueT y, finalmente, le concatena al inicio los
+  * adicional mEntradaU. Luego llama a la función obtenerBitsX para llenar los
+  * últimos mLongitudBytesEntradaX bloques del mBloqueT y, finalmente, le concatena al inicio los
   * bytes más significativos de la salida del SHA para completar el tamaño
   * de bloque del cifrador.
   */
 void AHR::crearBloqueT()
 {
-  string cadenaU  = to_string(entradaU);
+  string cadenaU  = to_string(mEntradaU);
   SHA256 funcionF;
   byte salidaFCompleta[SHA256::DIGESTSIZE];
 
@@ -189,34 +189,34 @@ void AHR::crearBloqueT()
   obtenerBitsX();
 
   int j = 0;
-  for(int i=0; i < M - N; i++)
+  for(int i=0; i < M - mLongitudBytesEntradaX; i++)
   {
-    bloqueT[i] = salidaFCompleta[j];
+    mBloqueT[i] = salidaFCompleta[j];
     j++;
   }
 }
 
 /**
- * Se encarga de obtener la representación decimal de los últimos N bits del
- * bloqueC. Guarda el resultado en el entero token.
+ * Se encarga de obtener la representación decimal de los últimos mLongitudBytesEntradaX bits del
+ * mBloqueC. Guarda el resultado en el entero token.
  */
 void AHR::obtenerNumeroC()
 {
   unsigned char mascara;
   unsigned long long int auxiliar;
-  unsigned long long int auxiliar2 = (8*N)-1;
-  token = 0;
+  unsigned long long int auxiliar2 = (8*mLongitudBytesEntradaX)-1;
+  mToken = 0;
 
-  for(int i = M-N; i < M; i++)
+  for(int i = M-mLongitudBytesEntradaX; i < M; i++)
   {
     mascara = 0x80;
     for(int j = 8; j > 0; j--)
     {
-      if(mascara & bloqueC[i])
+      if(mascara & mBloqueC[i])
       {
         auxiliar =
           (unsigned long long int) pow((long double)2, (long double)auxiliar2);
-        token += auxiliar;
+        mToken += auxiliar;
       }
       mascara = mascara >> 1;
       auxiliar2 -= 1;
@@ -230,8 +230,8 @@ void AHR::obtenerNumeroC()
 bool AHR::existeToken()
 {
   completarToken();
-  ArregloDeDigitos token_arreglo = ArregloDeDigitos(this->nuevoPAN);
-  Registro busqueda = accesoADatos->buscarPorToken(token_arreglo);
+  ArregloDeDigitos token_arreglo = ArregloDeDigitos(this->mTokenCompleto);
+  Registro busqueda = mAccesoADatos->buscarPorToken(token_arreglo);
 
   if (busqueda.obtenerToken() != Arreglo<int>{})
   {
@@ -245,59 +245,57 @@ bool AHR::existeToken()
     /* El token creado no existe en la base de datos.
      * Se guarda la relación token - pan en la base de datos.
      */
-    ArregloDeDigitos pan_arreglo = ArregloDeDigitos(this->viejoPAN);
+    ArregloDeDigitos pan_arreglo = ArregloDeDigitos(this->mPANOriginal);
     busqueda.colocarToken(token_arreglo);
     busqueda.colocarPAN(pan_arreglo);
-    accesoADatos->guardar(busqueda);
+    mAccesoADatos->guardar(busqueda);
     return false;
   }
 
 }
 
 /**
- * Método principal que se encarga de crear el token. Primero inicializa las
- * entradas entradaX y entradaU, y pone la llave a utilizar en el cifrador.
- * Luego comienza con el algoritmo:
- * 1. Crea el bloqueT al concatenar la salida truncada del SHA256 (alimentada
- *    con entradaU) y la representación binaria de entradaX.
+ * Método principal que se encarga de crear el token:
+ * 1. Crea el mBloqueT al concatenar la salida truncada del SHA256 (alimentada
+ *    con mEntradaU) y la representación binaria de mEntradaX.
  * 2. Realiza al menos una vez los siguientes pasos:
- *  2.1 Cifrar el bloqueT mediante AES256 y lo guarda en el bloqueC.
- *  2.2 Obtiene la representación decimal de los últimos N bits del bloqueC
+ *  2.1 Cifrar el mBloqueT mediante AES256 y lo guarda en el mBloqueC.
+ *  2.2 Obtiene la representación decimal de los últimos mLongitudBytesEntradaX bits del mBloqueC
  *      y los guarda en token.
- *  2.3 Comprueba que el valor en token sea menor a 10^L: en otras palabras,
- *      verifica que tenga L dígitos. En caso de que no lo tenga, usa el método
- *      de la caminata cíclica al regresar al paso 2.1, pero cifrando el bloqueC
+ *  2.3 Comprueba que el valor en token sea menor a 10^mNumeroDigitosEntradaX: en otras palabras,
+ *      verifica que tenga mNumeroDigitosEntradaX dígitos. En caso de que no lo tenga, usa el método
+ *      de la caminata cíclica al regresar al paso 2.1, pero cifrando el mBloqueC
  *      actual.
  * 3. Verifica si existe el token en la base de datos. Si existe, regresa al
- *    paso 1, con la misma llave y la misma entrada entradaX, pero aumenta
- *    en uno la entrada entradaU.
+ *    paso 1, con la misma llave y la misma entrada mEntradaX, pero aumenta
+ *    en uno la entrada mEntradaU.
  */
 void AHR::tokenizarHibridamente()
 {
   unsigned long long int limiteS =
-    (unsigned long long int) pow((long double)10, (long double)L);
+    (unsigned long long int) pow((long double)10, (long double)mNumeroDigitosEntradaX);
 
   /* Primer paso del algoritmo. */
   crearBloqueT();
 
   /* Caminata cíclica para obtener un token dentro del dominio del mensaje. */
   do{
-    /* Segundo paso del algoritmo: cifrar el bloqueT y ponerlo en bloqueC. */
-    cifrador.cifrarBloque(bloqueT);
-    bloqueC = cifrador.obtenerBloqueTCifrado();
+    /* Segundo paso del algoritmo: cifrar el mBloqueT y ponerlo en mBloqueC. */
+    mCifrador.cifrarBloque(mBloqueT);
+    mBloqueC = mCifrador.obtenerBloqueTCifrado();
 
     /* Tercer y cuarto paso del algoritmo: verificar que esté dentro del dominio
      * del mensaje y pasarlo a su forma decimal.
      */
     obtenerNumeroC();
-    memcpy(bloqueT, bloqueC, M);
-  }while(token >= limiteS);
+    memcpy(mBloqueT, mBloqueC, M);
+  }while(mToken >= limiteS);
 
   /* Quinto paso del algoritmo: revisar si existe el token generado.*/
   if(existeToken())
   {
-    /* Aumentar en uno la entradaU y volver a correr el algoritmo.*/
-    entradaU += 1;
+    /* Aumentar en uno la mEntradaU y volver a correr el algoritmo.*/
+    mEntradaU += 1;
     tokenizarHibridamente();
   }
 }
@@ -307,25 +305,39 @@ void AHR::tokenizarHibridamente()
  */
 unsigned long long int AHR::obtenerToken()
 {
-  return token;
+  return mToken;
 }
-
+/**
+ * Este método se encarga de cambiar la llave que utiliza el cifrador AES.
+ */
 void AHR::cambiarLlave(unsigned char* llave)
 {
-  cifrador.ponerLlave(llave);
+  mCifrador.ponerLlave(llave);
   return;
 }
 
+/**
+ * Este método realiza la tokenización, recibe como argumento el PAN
+ * en un arreglo de dígitos. Primero descompone el PAN, luego aplica
+ * el algoritmo propuesto en el número de cuenta y, al final, regresa
+ * en un arreglo de dígitos el token creado.
+ */
 ArregloDeDigitos AHR::tokenizar (const ArregloDeDigitos& pan)
 {
   separarPAN(pan.obtenerCadenaEfectiva());
   tokenizarHibridamente();
-  return ArregloDeDigitos(nuevoPAN);
+  return ArregloDeDigitos(mTokenCompleto);
 }
 
+/**
+ * Este método se encarga de regresar el PAN que corresponde al
+ * token dado en el argumento. Como este es un algoritmo irreversible,
+ * busca en la base de datos el token dado y regresa el PAN asociado.
+ * En caso de no existir, lanza una excepción.
+ */
 ArregloDeDigitos AHR::detokenizar(const ArregloDeDigitos& token)
 {
-  Registro informacion = accesoADatos->buscarPorToken(token);
+  Registro informacion = mAccesoADatos->buscarPorToken(token);
   if (informacion.obtenerPAN() == Arreglo<int>{})
     throw TokenInexistente{"El token no está en la base de datos."};
   return informacion.obtenerPAN();

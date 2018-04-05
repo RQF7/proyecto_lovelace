@@ -1,3 +1,8 @@
+/**
+ * \file
+ * \brief Clase del algoritmo híbrido tokenizador AHR.
+ */
+
 #ifndef __AHRHH__
 #define __AHRHH__
 
@@ -11,45 +16,55 @@
 
 namespace Implementaciones
 {
+  /**
+   * \brief Algoritmo tokenizador AHR
+   *
+   * Propuesto por Longo, Aragona y Sala.
+   * El algoritmo requiere de un cifrador por bloque y una función criptográfica:
+   * en esta implementación se utiliza AES con una llave de 256 bits y SHA256.
+   * Requiere también acceso a la bóveda de datos de tarjeta para poder realizar
+   * el proceso de detokenización.
+   */
+
   class AHR : public AlgoritmoTokenizadorIrreversible
   {
   private:
     /** \brief  Entero con la entrada a tokenizar. */
-    unsigned long long int entradaX;
+    unsigned long long int mEntradaX;
 
     /** \brief  Entero con la entrada adicional (tweak). */
-    unsigned long long int entradaU;
+    unsigned long long int mEntradaU;
 
     /** \brief  Entero que almacena el token generado. */
-    unsigned long long int token;
+    unsigned long long int mToken;
 
     /** \brief  Bloque que concatena la salida del SHA256 y la entradaX en
      *  binario.
      */
-    unsigned char *bloqueT;
+    unsigned char *mBloqueT;
 
     /** \brief  Bloque que contiene al bloque cifrado. */
-    unsigned char *bloqueC;
+    unsigned char *mBloqueC;
 
     /** \brief  Número de bytes necesarios para almacenar la entradaX:
       * N = log2(10^L) <- en bits, hay que pasarlo a bytes.
       */
-    int N;
+    int mLongitudBytesEntradaX;
 
     /** \brief  Número de digitos de la entrada X:  */
-    int L;
+    int mNumeroDigitosEntradaX;
 
-    /** \brief Cadena que contiene el PAN obtenido. */
-    std::string nuevoPAN;
+    /** \brief Cadena que contiene el PAN obtenido mediante AHR. */
+    std::string mTokenCompleto;
 
     /** \brief Cadena que contiene el PAN original. */
-    std::string viejoPAN;
+    std::string mPANOriginal;
 
     /** \brief Apuntador a la clase de acceso a la base de datos. */
-    CDV* accesoADatos;
+    CDV* mAccesoADatos;
 
     /** \brief Cifrador AES para el proceso de tokenización */
-    AES cifrador;
+    AES mCifrador;
 
     /** \brief Pasa a binario entradaX y la almacena en los últimos N bits de
       * bloqueT.
@@ -69,29 +84,6 @@ namespace Implementaciones
     /** \brief Operación de tokenización (declarada por la interfaz). */
     ArregloDeDigitos tokenizar(const ArregloDeDigitos&) override;
 
-    /** \brief Operación de detokenización (declarada por la interfaz). */
-    ArregloDeDigitos detokenizar(const ArregloDeDigitos&) override;
-    
-  public:
-    /** \brief Constructor: recibe la referencia a la interfaz con la base
-      * de datos que va a utilizar el algoritmo.
-      */
-    AHR(CDV*, unsigned char*);
-
-    /** C\brief Constructor por copia. */
-    AHR(AHR const&);
-
-    /** \brief Operador de asignación. */
-    AHR& operator= (AHR const&);
-
-    /** \brief Destructor.*/
-    ~AHR();
-
-    /** \brief El token dado no existe. */
-    struct TokenInexistente : public Utilidades::Error {
-      inline TokenInexistente(std::string mensaje)
-      : Utilidades::Error{mensaje} {}};
-
     /** \brief Método que obtiene el token dada una llave.*/
     void tokenizarHibridamente();
 
@@ -106,6 +98,29 @@ namespace Implementaciones
 
     /** \brief Permite cambiar la llave que utiliza el cifrador por bloque. */
     void cambiarLlave(unsigned char*);
+
+    /** \brief Operación de detokenización (declarada por la interfaz). */
+    ArregloDeDigitos detokenizar(const ArregloDeDigitos&) override;
+
+  public:
+    /** \brief Constructor: recibe la referencia a la interfaz con la base
+      * de datos que va a utilizar el algoritmo.
+      */
+    AHR(CDV*, unsigned char*);
+
+    /** \brief Constructor por copia. */
+    AHR(AHR const&);
+
+    /** \brief Operador de asignación. */
+    AHR& operator= (AHR const&);
+
+    /** \brief Destructor.*/
+    ~AHR();
+
+    /** \brief El token dado no existe. */
+    struct TokenInexistente : public Utilidades::Error {
+      inline TokenInexistente(std::string mensaje)
+      : Utilidades::Error{mensaje} {}};
   };
 }
 
