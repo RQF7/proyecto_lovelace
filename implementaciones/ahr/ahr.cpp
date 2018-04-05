@@ -40,6 +40,13 @@ AHR::AHR(AHR const& otro)
 
   entradaX = otro.entradaX;
   entradaU = otro.entradaU;
+  token    = otro.token;
+
+  N = otro.N;
+  L = otro.L;
+
+  nuevoPAN = string(otro.nuevoPAN);
+  viejoPAN = string(otro.viejoPAN);
 
   accesoADatos = otro.accesoADatos;
 }
@@ -63,6 +70,13 @@ AHR& AHR::operator=(AHR const& otro)
 
   entradaX = otro.entradaX;
   entradaU = otro.entradaU;
+  token    = otro.token;
+
+  N = otro.N;
+  L = otro.L;
+
+  nuevoPAN = string(otro.nuevoPAN);
+  viejoPAN = string(otro.viejoPAN);
 
   accesoADatos = otro.accesoADatos;
 
@@ -233,6 +247,7 @@ bool AHR::existeToken()
     accesoADatos->guardar(busqueda);
     return false;
   }
+
 }
 
 /**

@@ -28,6 +28,9 @@ namespace Implementaciones
     /** \brief  Bloque que contiene al bloque cifrado. */
     unsigned char *bloqueC;
 
+    /** \brief  Bloque que contiene la llave con la que se está cifrando. */
+    unsigned char *llave;
+
     /** \brief  Número de bytes necesarios para almacenar la entradaX:
       * N = log2(10^L) <- en bits, hay que pasarlo a bytes.
       */
@@ -41,6 +44,9 @@ namespace Implementaciones
 
     /** \brief Cadena que contiene el PAN original. */
     std::string viejoPAN;
+
+    /** \brief Apuntador a la clase de acceso a la base de datos. */
+    CDV* accesoADatos;
 
     /** \brief Pasa a binario entradaX y la almacena en los últimos N bits de
       * bloqueT.
@@ -57,9 +63,6 @@ namespace Implementaciones
 
     /** \brief  Verifica si existen el token creado en la base de datos. */
     bool existeToken();
-
-    /** \brief Apuntador a la clase de acceso a la base de datos. */
-    CDV* accesoADatos;
 
   public:
     /** \brief Constructor: recibe la referencia a la interfaz con la base
