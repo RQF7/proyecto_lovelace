@@ -19,6 +19,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 drbg/drbg.cpp \
 											 drbg/hash_drbg.cpp \
 											 drbg/hash_drbg_prueba.cpp \
+											 drbg/ctr_drbg.cpp \
+											 drbg/ctr_drbg_prueba.cpp \
 											 ffx/combinacion_por_caracter_prueba.cpp \
 											 ffx/combinacion_por_bloque_prueba.cpp \
 											 ffx/ronda_ffx_a10_prueba.cpp \
@@ -251,6 +253,16 @@ $(CARPETA_OBJETOS)/drbg/hash_drbg.o: \
 
 $(CARPETA_OBJETOS)/drbg/hash_drbg_prueba.o: \
 	drbg/hash_drbg_prueba.cpp drbg/cabeceras/hash_drbg_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drbg/ctr_drbg.o: \
+	drbg/ctr_drbg.cpp drbg/cabeceras/ctr_drbg.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drbg/ctr_drbg_prueba.o: \
+	drbg/ctr_drbg_prueba.cpp drbg/cabeceras/ctr_drbg_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)/drbg
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
