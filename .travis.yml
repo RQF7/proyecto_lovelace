@@ -57,7 +57,7 @@ before_install:
   - unzip -qq -d ~/texmf tracklang.tds.zip
   - rm tracklang.tds.zip
   # bibtex
-  - wget --quiet https://newcontinuum.dl.sourceforge.net/project/biblatex/biblatex-3.9/biblatex-3.9.tds.tgz
+  - wget --quiet https://iweb.dl.sourceforge.net/project/biblatex/biblatex-3.9/biblatex-3.9.tds.tgz
   - tar -xf biblatex-3.9.tds.tgz -C ~/texmf
   - rm biblatex-3.9.tds.tgz
   # babel
