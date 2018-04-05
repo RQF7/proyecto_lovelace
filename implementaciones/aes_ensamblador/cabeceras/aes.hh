@@ -13,6 +13,8 @@
 #define __AES_HH__
 
 #include <iostream>
+#include <cryptopp/aes.h>
+#include <cryptopp/modes.h>
 
 /** \brief Tamaño del bloque: 16 bytes = 128 bits. */
 #define TAM_BLOQUE 16 //16 bytes = 128 bits
@@ -48,6 +50,15 @@ namespace Implementaciones
 
       /** \brief Contiene la longitud de la llave que se está utilizando. */
       int tamLlave;
+
+      /** \brief Permite saber si el procesador tiene las banderas de AES.*/
+      int usarEnsamblador;
+
+      /** \brief Cifrador de CryptoPP para cifrar si no se tienen las
+       *instrucciones.
+       */
+      CryptoPP::AES::Encryption aesCryptoPP;
+      CryptoPP::ECB_Mode_ExternalCipher::Encryption cifradoECB;
 
   public:
       /** \brief Constructor que inicia el cifrador AES con una longitud de llave

@@ -42,11 +42,7 @@ AHRPrueba::AHRPrueba()
 bool AHRPrueba::probarOperacion()
 {
   Implementaciones::AES cifrador = Implementaciones::AES();
-  if(!cifrador.revisarInstrucciones())
-  {
-    cout << "No se tienen instrucciones AES en el procesador." << endl;
-    return false;
-  }
+
   /* Generar llave aleatoria. */
   unsigned char *llave = new unsigned char[CryptoPP::AES::MAX_KEYLENGTH];
   Hash_DRBG<SHA256, 128/8, 440/8> generadorAleatorio{};

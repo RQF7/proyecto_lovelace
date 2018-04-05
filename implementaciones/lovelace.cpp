@@ -13,6 +13,7 @@
 #include "tkr/cabeceras/pseudoaleatorio_aes.hh"
 #include "tkr/cabeceras/pseudoaleatorio_trivial.hh"
 #include "tkr/cabeceras/tkr.hh"
+#include "ahr/cabeceras/ahr.hh"
 #include "utilidades/cabeceras/algoritmo_tokenizador.hh"
 #include "utilidades/cabeceras/utilidades_criptograficas.hh"
 #include "utilidades/cabeceras/utilidades_tarjetas.hh"
@@ -226,6 +227,11 @@ ArregloDeDigitos tokenizar(
     algoritmoTokenizador = new CifradorBPS{8,
       CifradorDeRonda::BANDERA_AES, llave};
   }
+  else if (metodo == "AHR")
+  {
+    CDV* accesoADatos = new AccesoMySQL {};
+    algoritmoTokenizador = new AHR{accesoADatos, llave};
+  }
   resultado = algoritmoTokenizador->operar({pan});
   delete algoritmoTokenizador;
   delete[] llave;
@@ -263,6 +269,11 @@ ArregloDeDigitos detokenizar(
   {
     algoritmoTokenizador = new CifradorBPS{8,
       CifradorDeRonda::BANDERA_AES, llave};
+  }
+  else if (metodo == "AHR")
+  {
+    CDV* accesoADatos = new AccesoMySQL {};
+    algoritmoTokenizador = new AHR{accesoADatos, llave};
   }
   resultado = algoritmoTokenizador->deoperar({token});
   delete algoritmoTokenizador;
