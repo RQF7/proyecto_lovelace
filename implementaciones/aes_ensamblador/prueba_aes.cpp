@@ -124,8 +124,5 @@ int main(int argc, char* argv[])
     }
   }
 
-  cout << "Constructor por copia funcionando correctamente." << endl;
-
-
   return 1;
 }

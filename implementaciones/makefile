@@ -34,6 +34,7 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 tkr/tkr.cpp \
 											 tkr/tkr_prueba.cpp \
 											 aes_ensamblador/aes.cpp \
+											 aes_ensamblador/aes_prueba.cpp \
 											 aes_ensamblador/libaesni/libaes_lin64.o \
 											 ahr/ahr.cpp \
 											 ahr/ahr_prueba.cpp \
@@ -222,6 +223,11 @@ $(CARPETA_OBJETOS)/tkr/tkr_prueba.o: tkr/tkr_prueba.cpp \
 
 $(CARPETA_OBJETOS)/aes_ensamblador/aes.o: aes_ensamblador/aes.cpp \
 	aes_ensamblador/cabeceras/aes.hh
+	mkdir -p $(CARPETA_OBJETOS)/aes_ensamblador
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/aes_ensamblador/aes_prueba.o: aes_ensamblador/aes_prueba.cpp \
+	aes_ensamblador/cabeceras/aes_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)/aes_ensamblador
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 

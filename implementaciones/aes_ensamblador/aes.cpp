@@ -5,11 +5,17 @@
  * \brief Implementación de AES mediante las instrucciones de Intel.
  *
  */
+
+#ifndef bool
+#define bool bool
+#endif
+
 #include "cabeceras/aes.hh"
 #include <fstream>
 #include <math.h>
 #include <string.h>
 #include "libaesni/iaesni.h"
+#include <cryptopp/filters.h>
 
 using namespace Implementaciones;
 using namespace std;
@@ -26,6 +32,8 @@ AES::AES()
 
   this->tamLlave = LLAVE_AES_192;
   vectorLlave = new unsigned char[LLAVE_AES_192];
+
+  usarEnsamblador = revisarInstrucciones();
 }
 
 /**
@@ -53,6 +61,8 @@ AES::AES(int tamLlave)
       vectorLlave = new unsigned char[LLAVE_AES_256];
       break;
   }
+
+  usarEnsamblador = revisarInstrucciones();
 }
 
 /**
@@ -64,9 +74,15 @@ AES::AES(AES const& copia)
   bloqueTCifrado = new unsigned char [TAM_BLOQUE];
 
   tamLlave = copia.tamLlave;
-  vectorLlave = new unsigned char[copia.tamLlave];
 
+  vectorLlave = new unsigned char[copia.tamLlave];
   memcpy(vectorLlave, copia.vectorLlave, copia.tamLlave);
+
+  usarEnsamblador = copia.usarEnsamblador;
+
+  aesCryptoPP = CryptoPP::AES::Encryption{copia.vectorLlave,
+    (long unsigned int) copia.tamLlave};
+  cifradoECB = CryptoPP::ECB_Mode_ExternalCipher::Encryption {aesCryptoPP};
 }
 
 /**
@@ -91,6 +107,11 @@ AES& AES::operator= (AES const& otro)
   vectorLlave = auxiliar3;
 
   tamLlave = otro.tamLlave;
+  usarEnsamblador = otro.usarEnsamblador;
+
+  aesCryptoPP = CryptoPP::AES::Encryption{otro.vectorLlave,
+    (long unsigned int) otro.tamLlave};
+  cifradoECB = CryptoPP::ECB_Mode_ExternalCipher::Encryption {aesCryptoPP};
 
   return *this;
 }
@@ -101,8 +122,8 @@ AES& AES::operator= (AES const& otro)
  */
 AES::~AES()
 {
-  delete [] bloqueTClaro;
-  delete [] bloqueTCifrado;
+//  delete [] bloqueTClaro;
+//  delete [] bloqueTCifrado;
   delete [] vectorLlave;
 }
 
@@ -151,6 +172,11 @@ int AES::obtenerTamanioLlave()
 void AES::ponerLlave(unsigned char* vectorLlaveExterior)
 {
   memcpy(vectorLlave, vectorLlaveExterior, tamLlave);
+  if(!usarEnsamblador)
+  {
+    aesCryptoPP = CryptoPP::AES::Encryption(vectorLlave, tamLlave);
+    cifradoECB = CryptoPP::ECB_Mode_ExternalCipher::Encryption {aesCryptoPP};
+  }
   return;
 }
 
@@ -198,21 +224,35 @@ unsigned char* AES::obtenerBloqueTCifrado()
 int AES::cifrarBloque(unsigned char* bloqueTClaroExterior)
 {
   bloqueTClaro = bloqueTClaroExterior;
-//  memcpy(bloqueTClaro, bloqueTClaroExterior, TAM_BLOQUE);
-  switch(tamLlave)
+  if(usarEnsamblador)
   {
-    case LLAVE_AES_128:
-      intel_AES_enc128(bloqueTClaro, bloqueTCifrado, vectorLlave, 1);
-      break;
-    case LLAVE_AES_192:
-      intel_AES_enc192(bloqueTClaro, bloqueTCifrado, vectorLlave, 1);
-      break;
-    case LLAVE_AES_256:
-      intel_AES_enc256(bloqueTClaro, bloqueTCifrado, vectorLlave, 1);
-      break;
-    default:
-      cout << "Tamaño de llave inválido." << endl;
-      return 0;
+    switch(tamLlave)
+    {
+      case LLAVE_AES_128:
+        intel_AES_enc128(bloqueTClaro, bloqueTCifrado, vectorLlave, 1);
+        break;
+      case LLAVE_AES_192:
+        intel_AES_enc192(bloqueTClaro, bloqueTCifrado, vectorLlave, 1);
+        break;
+      case LLAVE_AES_256:
+        intel_AES_enc256(bloqueTClaro, bloqueTCifrado, vectorLlave, 1);
+        break;
+      default:
+        cout << "Tamaño de llave inválido." << endl;
+        return 0;
+    }
+  }
+  else
+  {
+    string cadena;
+    CryptoPP::ECB_Mode_ExternalCipher::Encryption cifradoECB {aesCryptoPP};
+    CryptoPP::StreamTransformationFilter filtro(cifradoECB,
+      new CryptoPP::StringSink(cadena),
+      CryptoPP::StreamTransformationFilter::NO_PADDING
+    );
+    filtro.Put(bloqueTClaro, TAM_BLOQUE);
+    filtro.MessageEnd();
+    memcpy(bloqueTCifrado, cadena.c_str(), TAM_BLOQUE);
   }
   return 1;
 }
@@ -226,21 +266,35 @@ int AES::cifrarBloque(unsigned char* bloqueTClaroExterior)
 int AES::descifrarBloque(unsigned char* bloqueTCifradoExterior)
 {
   bloqueTCifrado = bloqueTCifradoExterior;
-//  memcpy(bloqueTCifrado, bloqueTCifradoExterior, TAM_BLOQUE);
-  switch(tamLlave)
+  if(usarEnsamblador)
   {
-    case LLAVE_AES_128:
-      intel_AES_dec128(bloqueTCifrado, bloqueTClaro, vectorLlave, 1);
-      break;
-    case LLAVE_AES_192:
-      intel_AES_dec192(bloqueTCifrado, bloqueTClaro, vectorLlave, 1);
-      break;
-    case LLAVE_AES_256:
-      intel_AES_dec256(bloqueTCifrado, bloqueTClaro, vectorLlave, 1);
-      break;
-    default:
-      cout << "Tamaño de llave inválido." << endl;
-      return 0;
+    switch(tamLlave)
+    {
+      case LLAVE_AES_128:
+        intel_AES_dec128(bloqueTCifrado, bloqueTClaro, vectorLlave, 1);
+        break;
+      case LLAVE_AES_192:
+        intel_AES_dec192(bloqueTCifrado, bloqueTClaro, vectorLlave, 1);
+        break;
+      case LLAVE_AES_256:
+        intel_AES_dec256(bloqueTCifrado, bloqueTClaro, vectorLlave, 1);
+        break;
+      default:
+        cout << "Tamaño de llave inválido." << endl;
+        return 0;
+    }
+  }
+  else
+  {
+    string cadena;
+    CryptoPP::ECB_Mode_ExternalCipher::Decryption cifradoECB {aesCryptoPP};
+    CryptoPP::StreamTransformationFilter filtro(cifradoECB,
+      new CryptoPP::StringSink(cadena),
+      CryptoPP::StreamTransformationFilter::NO_PADDING
+    );
+    filtro.Put(bloqueTCifrado, TAM_BLOQUE);
+    filtro.MessageEnd();
+    memcpy(bloqueTClaro, cadena.c_str(), TAM_BLOQUE);
   }
   return 1;
 }
