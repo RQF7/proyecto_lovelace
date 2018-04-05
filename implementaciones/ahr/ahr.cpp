@@ -1,5 +1,4 @@
 #include "cabeceras/ahr.hh"
-#include "../aes_ensamblador/cabeceras/aes.hh"
 #include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include "../utilidades/cabeceras/utilidades_tarjetas.hh"
 #include "../acceso_a_datos/cabeceras/registro.hh"
@@ -16,14 +15,17 @@ using namespace std;
 
 /**
  * Constructor por defecto. Se encarga de inicializar los bloques bloqueT y
- * bloqueC. El único parámetro que recibe un entero N que indica el Número
- * de bits necesarios para poder almacenar la entradaX.
+ * bloqueC. Recibe como parámetros la referencia a la base de datos que
+ * se va a utilizar y la llave con la que se inicializará el cifrador.
  */
-AHR::AHR(CDV* baseDeDatos)
+AHR::AHR(CDV* baseDeDatos, unsigned char* llave)
 : accesoADatos{baseDeDatos}
 {
   bloqueT = new unsigned char[M];
   bloqueC = new unsigned char[M];
+
+  cifrador = AES(AES_256);
+  cifrador.ponerLlave(llave);
 }
 
 /**
@@ -49,6 +51,7 @@ AHR::AHR(AHR const& otro)
   viejoPAN = string(otro.viejoPAN);
 
   accesoADatos = otro.accesoADatos;
+  cifrador = AES(otro.cifrador);
 }
 
 /**
@@ -79,6 +82,7 @@ AHR& AHR::operator=(AHR const& otro)
   viejoPAN = string(otro.viejoPAN);
 
   accesoADatos = otro.accesoADatos;
+  cifrador = AES(otro.cifrador);
 
   return *this;
 }
@@ -268,11 +272,8 @@ bool AHR::existeToken()
  *    paso 1, con la misma llave y la misma entrada entradaX, pero aumenta
  *    en uno la entrada entradaU.
  */
-void AHR::tokenizarHibridamente(unsigned char* llave)
+void AHR::tokenizarHibridamente()
 {
-  AES cifrador = AES(AES_256);
-  cifrador.ponerLlave(llave);
-
   unsigned long long int limiteS =
     (unsigned long long int) pow((long double)10, (long double)L);
 
@@ -297,7 +298,7 @@ void AHR::tokenizarHibridamente(unsigned char* llave)
   {
     /* Aumentar en uno la entradaU y volver a correr el algoritmo.*/
     entradaU += 1;
-    tokenizarHibridamente(llave);
+    tokenizarHibridamente();
   }
 }
 
@@ -307,4 +308,10 @@ void AHR::tokenizarHibridamente(unsigned char* llave)
 unsigned long long int AHR::obtenerToken()
 {
   return token;
+}
+
+void AHR::cambiarLlave(unsigned char* llave)
+{
+  cifrador.ponerLlave(llave);
+  return;
 }

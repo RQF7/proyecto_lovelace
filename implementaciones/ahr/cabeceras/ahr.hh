@@ -3,6 +3,7 @@
 
 #include "../../acceso_a_datos/cabeceras/cdv.hh"
 #include "../../acceso_a_datos/cabeceras/acceso_mysql.hh"
+#include "../../aes_ensamblador/cabeceras/aes.hh"
 
 /** \brief  Tamaño del bloque del cifrador en bytes: 16 bytes = 256 bits*/
 #define M 16
@@ -28,9 +29,6 @@ namespace Implementaciones
     /** \brief  Bloque que contiene al bloque cifrado. */
     unsigned char *bloqueC;
 
-    /** \brief  Bloque que contiene la llave con la que se está cifrando. */
-    unsigned char *llave;
-
     /** \brief  Número de bytes necesarios para almacenar la entradaX:
       * N = log2(10^L) <- en bits, hay que pasarlo a bytes.
       */
@@ -47,6 +45,9 @@ namespace Implementaciones
 
     /** \brief Apuntador a la clase de acceso a la base de datos. */
     CDV* accesoADatos;
+
+    /** \brief Cifrador AES para el proceso de tokenización */
+    AES cifrador;
 
     /** \brief Pasa a binario entradaX y la almacena en los últimos N bits de
       * bloqueT.
@@ -68,7 +69,7 @@ namespace Implementaciones
     /** \brief Constructor: recibe la referencia a la interfaz con la base
       * de datos que va a utilizar el algoritmo.
       */
-    AHR(CDV*);
+    AHR(CDV*, unsigned char*);
 
     /** C\brief Constructor por copia. */
     AHR(AHR const&);
@@ -80,7 +81,7 @@ namespace Implementaciones
     ~AHR();
 
     /** \brief Método que obtiene el token dada una llave.*/
-    void tokenizarHibridamente(unsigned char*);
+    void tokenizarHibridamente();
 
     /** \brief Método que permite acceder a la variable token.*/
     unsigned long long int obtenerToken();
@@ -88,8 +89,11 @@ namespace Implementaciones
     /** \brief Obtener del PAN, el IIN y el número de cuenta */
     void separarPAN(char*);
 
-    /** \brief Al token obtenido se le concatena el IIN y el dígito verificador */
+    /** \brief Se concatena el IIN y el dígito verificador al token obtenido. */
     void completarToken();
+
+    /** \brief Permite cambiar la llave que utiliza el cifrador por bloque. */
+    void cambiarLlave(unsigned char*);
   };
 }
 
