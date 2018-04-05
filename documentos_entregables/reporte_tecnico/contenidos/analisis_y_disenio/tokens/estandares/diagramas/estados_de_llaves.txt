@@ -1,0 +1,48 @@
+Posibles estados de una llave.
+NIST 800-57
+
+Proyecto Lovelace.
+================================================================================
+
+                                         /-\
+                                         |+| 1. Creación de llave.
+                                         \-/
+                                          |          3. Integridad
+            2. Llave innecesaria.   +-----------+       dudosa.
+        +---------------------------| Preactivo |----------------------+
+        |                           +-----------+                      |
+        |                                 |                            |
+        |                    4. Llave lista para su uso.               |
+        |                                 |                            |
+        |                                 v        6. Integridad       |
+        |  5. Fin de criptoperiodo.   +--------+      dudosa.          |
+        +------------+----------------| Activo |-----------------------+
+        |            |                +--------+                       |
+        | 7. Sin persepectivas          ^    |                         |
+        |    parciales de uso.          |    |                         |
+        |            |         10. Con persepectivas                   |
+        |            v             de uso.   |                         |
+        |      +-----------+            |    |                         |
+        |      | Supendido |------------+    |                         |
+        |      +-----------+                 |                         |
+        |       |        |                8. Sin perspectivas          |
+        |       |   12. Sin persepectivas    totales de uso.           |
+        |       |       totales de uso.      |                         |
+        |       |        |                   v                         |
+        |       |        |             +----------+                    |
+        |       |        +------------>| Inactivo |                    |
+        |       |                      +----------+   13. Integridad   |
+9. Fin de criptoperiodo;    14. Fin de   |      |         dudosa.      v
+   sin fallas detectadas.       criptoperiodo.  +------------->+--------------+
+        |       |                        |                     | Comprometido |
+        |       +------------------------(-------------------->+--------------+
+        |       11. Falla en integridad  |                             |
+        |           confirmada.           |                             |
+        |                                v                             |
+        |                              +-----------+                   |
+        +----------------------------->| Destruido |<------------------+
+                                       +-----------+     15. No se necesita
+                                             |               más.
+                                            /-\
+                                           ||+||
+                                            \-/

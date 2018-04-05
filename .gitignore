@@ -29,3 +29,6 @@ _site
 
 % Archivos de llaves
 *.llave
+
+% Como ahora uso visual studio:
+.vs
