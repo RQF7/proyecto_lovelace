@@ -1,12 +1,13 @@
 #include "cabeceras/ahr.hh"
-#include "../aes_ensamblador/cabeceras/aes.hh"
 #include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
+#include "../utilidades/cabeceras/utilidades_tarjetas.hh"
 #include "../acceso_a_datos/cabeceras/registro.hh"
 #include <cryptopp/sha.h>
 #include <cryptopp/hex.h>
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cmath>
 
 using namespace CryptoPP;
 using namespace Implementaciones;
@@ -14,14 +15,17 @@ using namespace std;
 
 /**
  * Constructor por defecto. Se encarga de inicializar los bloques bloqueT y
- * bloqueC. El único parámetro que recibe un entero N que indica el Número
- * de bits necesarios para poder almacenar la entradaX.
+ * bloqueC. Recibe como parámetros la referencia a la base de datos que
+ * se va a utilizar y la llave con la que se inicializará el cifrador.
  */
-AHR::AHR(int longitudToken, CDV* baseDeDatos)
-: N{longitudToken}, accesoADatos{baseDeDatos}
+AHR::AHR(CDV* baseDeDatos, unsigned char* llave)
+: accesoADatos{baseDeDatos}
 {
   bloqueT = new unsigned char[M];
   bloqueC = new unsigned char[M];
+
+  cifrador = AES(AES_256);
+  cifrador.ponerLlave(llave);
 }
 
 /**
@@ -38,8 +42,16 @@ AHR::AHR(AHR const& otro)
 
   entradaX = otro.entradaX;
   entradaU = otro.entradaU;
+  token    = otro.token;
+
+  N = otro.N;
+  L = otro.L;
+
+  nuevoPAN = string(otro.nuevoPAN);
+  viejoPAN = string(otro.viejoPAN);
 
   accesoADatos = otro.accesoADatos;
+  cifrador = AES(otro.cifrador);
 }
 
 /**
@@ -61,8 +73,16 @@ AHR& AHR::operator=(AHR const& otro)
 
   entradaX = otro.entradaX;
   entradaU = otro.entradaU;
+  token    = otro.token;
+
+  N = otro.N;
+  L = otro.L;
+
+  nuevoPAN = string(otro.nuevoPAN);
+  viejoPAN = string(otro.viejoPAN);
 
   accesoADatos = otro.accesoADatos;
+  cifrador = AES(otro.cifrador);
 
   return *this;
 }
@@ -74,6 +94,44 @@ AHR::~AHR()
 {
   delete [] bloqueT;
   delete [] bloqueC;
+}
+
+/**
+  * Este método se encarga de <<romper>> el PAN y obtener el IIN, el número
+  * de cuenta y, tomándolos en cuenta, determina los valores de L y N.
+  */
+void AHR::separarPAN(string PAN)
+{
+  viejoPAN = string(PAN);
+  L = PAN.length() - 6 - 1;
+
+  char *auxU = new char[6];
+  char *auxX = new char[L];
+
+  memcpy(auxU, PAN.c_str(), 6);
+  memcpy(auxX, PAN.c_str()+6, L);
+
+  entradaU = stoull(auxU);
+  entradaX = stoull(auxX);
+
+  N = ceil(ceil(log2(pow(10, L))) / 8.0);
+
+  delete [] auxU;
+  delete [] auxX;
+}
+
+/**
+  * Este método se encarga de completar el PAN una vez que se ha obtenido
+  * el token. Al IIN del PAN original le concatena el token obtenido y
+  * recalcula el dígito verificador mediante el algoritmo de Luhn desfasado
+  * por uno.
+  */
+void AHR::completarToken()
+{
+  nuevoPAN =  to_string(entradaU) + to_string(token);
+  ArregloDeDigitos temporal = ArregloDeDigitos(nuevoPAN);
+
+  nuevoPAN += to_string(modulo(algoritmoDeLuhn(temporal, false)+1, 10));
 }
 
 /**
@@ -171,9 +229,10 @@ void AHR::obtenerNumeroC()
  */
 bool AHR::existeToken()
 {
-  ArregloDeDigitos token_arreglo = ArregloDeDigitos(this->token);
+  completarToken();
+  ArregloDeDigitos token_arreglo = ArregloDeDigitos(this->nuevoPAN);
   Registro busqueda = accesoADatos->buscarPorToken(token_arreglo);
-  
+
   if (busqueda.obtenerToken() != Arreglo<int>{})
   {
     /* El token creado ya existe en la base de datos.
@@ -186,12 +245,13 @@ bool AHR::existeToken()
     /* El token creado no existe en la base de datos.
      * Se guarda la relación token - pan en la base de datos.
      */
-    ArregloDeDigitos pan_arreglo = ArregloDeDigitos(this->entradaX);
+    ArregloDeDigitos pan_arreglo = ArregloDeDigitos(this->viejoPAN);
     busqueda.colocarToken(token_arreglo);
     busqueda.colocarPAN(pan_arreglo);
     accesoADatos->guardar(busqueda);
     return false;
   }
+
 }
 
 /**
@@ -212,15 +272,8 @@ bool AHR::existeToken()
  *    paso 1, con la misma llave y la misma entrada entradaX, pero aumenta
  *    en uno la entrada entradaU.
  */
-void AHR::tokenizarHibridamente(unsigned char* llave,
-  unsigned long int entradaX, unsigned long int entradaU)
+void AHR::tokenizarHibridamente()
 {
-  this->entradaX = entradaX;
-  this->entradaU = entradaU;
-
-  AES cifrador = AES(AES_256);
-  cifrador.ponerLlave(llave);
-
   unsigned long long int limiteS =
     (unsigned long long int) pow((long double)10, (long double)L);
 
@@ -243,7 +296,9 @@ void AHR::tokenizarHibridamente(unsigned char* llave,
   /* Quinto paso del algoritmo: revisar si existe el token generado.*/
   if(existeToken())
   {
-    tokenizarHibridamente(llave, entradaX, entradaU+1);
+    /* Aumentar en uno la entradaU y volver a correr el algoritmo.*/
+    entradaU += 1;
+    tokenizarHibridamente();
   }
 }
 
@@ -253,4 +308,25 @@ void AHR::tokenizarHibridamente(unsigned char* llave,
 unsigned long long int AHR::obtenerToken()
 {
   return token;
+}
+
+void AHR::cambiarLlave(unsigned char* llave)
+{
+  cifrador.ponerLlave(llave);
+  return;
+}
+
+ArregloDeDigitos AHR::tokenizar (const ArregloDeDigitos& pan)
+{
+  separarPAN(pan.obtenerCadenaEfectiva());
+  tokenizarHibridamente();
+  return ArregloDeDigitos(nuevoPAN);
+}
+
+ArregloDeDigitos AHR::detokenizar(const ArregloDeDigitos& token)
+{
+  Registro informacion = accesoADatos->buscarPorToken(token);
+  if (informacion.obtenerPAN() == Arreglo<int>{})
+    throw TokenInexistente{"El token no está en la base de datos."};
+  return informacion.obtenerPAN();
 }
