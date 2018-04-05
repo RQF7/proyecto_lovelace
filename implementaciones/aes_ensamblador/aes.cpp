@@ -5,6 +5,11 @@
  * \brief Implementación de AES mediante las instrucciones de Intel.
  *
  */
+
+#ifndef bool
+#define bool bool
+#endif
+
 #include "cabeceras/aes.hh"
 #include <fstream>
 #include <math.h>
