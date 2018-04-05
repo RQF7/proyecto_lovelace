@@ -4,13 +4,15 @@
 #include "../../acceso_a_datos/cabeceras/cdv.hh"
 #include "../../acceso_a_datos/cabeceras/acceso_mysql.hh"
 #include "../../aes_ensamblador/cabeceras/aes.hh"
+#include "../../utilidades/cabeceras/algoritmo_tokenizador_irreversible.hh"
 
 /** \brief  Tamaño del bloque del cifrador en bytes: 16 bytes = 256 bits*/
 #define M 16
 
 namespace Implementaciones
 {
-  class AHR{
+  class AHR : public AlgoritmoTokenizadorIrreversible
+  {
   private:
     /** \brief  Entero con la entrada a tokenizar. */
     unsigned long long int entradaX;
@@ -64,7 +66,12 @@ namespace Implementaciones
 
     /** \brief  Verifica si existen el token creado en la base de datos. */
     bool existeToken();
+    /** \brief Operación de tokenización (declarada por la interfaz). */
+    ArregloDeDigitos tokenizar(const ArregloDeDigitos&) override;
 
+    /** \brief Operación de detokenización (declarada por la interfaz). */
+    ArregloDeDigitos detokenizar(const ArregloDeDigitos&) override;
+    
   public:
     /** \brief Constructor: recibe la referencia a la interfaz con la base
       * de datos que va a utilizar el algoritmo.
@@ -80,6 +87,11 @@ namespace Implementaciones
     /** \brief Destructor.*/
     ~AHR();
 
+    /** \brief El token dado no existe. */
+    struct TokenInexistente : public Utilidades::Error {
+      inline TokenInexistente(std::string mensaje)
+      : Utilidades::Error{mensaje} {}};
+
     /** \brief Método que obtiene el token dada una llave.*/
     void tokenizarHibridamente();
 
@@ -87,7 +99,7 @@ namespace Implementaciones
     unsigned long long int obtenerToken();
 
     /** \brief Obtener del PAN, el IIN y el número de cuenta */
-    void separarPAN(char*);
+    void separarPAN(std::string);
 
     /** \brief Se concatena el IIN y el dígito verificador al token obtenido. */
     void completarToken();

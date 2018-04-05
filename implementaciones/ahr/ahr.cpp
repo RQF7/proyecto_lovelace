@@ -100,16 +100,16 @@ AHR::~AHR()
   * Este método se encarga de <<romper>> el PAN y obtener el IIN, el número
   * de cuenta y, tomándolos en cuenta, determina los valores de L y N.
   */
-void AHR::separarPAN(char *PAN)
+void AHR::separarPAN(string PAN)
 {
   viejoPAN = string(PAN);
-  L = strlen(PAN) - 6 - 1;
+  L = PAN.length() - 6 - 1;
 
   char *auxU = new char[6];
   char *auxX = new char[L];
 
-  memcpy(auxU, PAN, 6);
-  memcpy(auxX, PAN+6, L);
+  memcpy(auxU, PAN.c_str(), 6);
+  memcpy(auxX, PAN.c_str()+6, L);
 
   entradaU = stoull(auxU);
   entradaX = stoull(auxX);
@@ -131,7 +131,7 @@ void AHR::completarToken()
   nuevoPAN =  to_string(entradaU) + to_string(token);
   ArregloDeDigitos temporal = ArregloDeDigitos(nuevoPAN);
 
-  nuevoPAN += to_string(algoritmoDeLuhn(temporal, false));
+  nuevoPAN += to_string(modulo(algoritmoDeLuhn(temporal, false)+1, 10));
 }
 
 /**
@@ -314,4 +314,19 @@ void AHR::cambiarLlave(unsigned char* llave)
 {
   cifrador.ponerLlave(llave);
   return;
+}
+
+ArregloDeDigitos AHR::tokenizar (const ArregloDeDigitos& pan)
+{
+  separarPAN(pan.obtenerCadenaEfectiva());
+  tokenizarHibridamente();
+  return ArregloDeDigitos(nuevoPAN);
+}
+
+ArregloDeDigitos AHR::detokenizar(const ArregloDeDigitos& token)
+{
+  Registro informacion = accesoADatos->buscarPorToken(token);
+  if (informacion.obtenerPAN() == Arreglo<int>{})
+    throw TokenInexistente{"El token no está en la base de datos."};
+  return informacion.obtenerPAN();
 }
