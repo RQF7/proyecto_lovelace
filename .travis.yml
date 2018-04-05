@@ -48,6 +48,7 @@ before_install:
     doxygen
     graphviz
     libmysqlcppconn-dev
+    yasm
   # glossaries
   - wget --quiet http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
   - unzip --qq -d ~/texmf glossaries.tds.zip
