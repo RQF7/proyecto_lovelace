@@ -1,0 +1,74 @@
+%
+% Diseño de programa tokenizador, capítulo de análisis y diseño.
+% Proyecto Lovelace.
+%
+
+\subsection{Diseño de programa tokenizador}
+
+En la sección anterior se enlistan los algoritmos tokenizadores que
+implementaremos. En esta se argumentan algunas de las decisiones tomadas
+con respecto a las tecnologías usadas y se usa el \gls{gl:uml} para
+describir los aspectos más significativos del programa.
+
+\subsubsection{Vista estática del programa}
+
+En el siguiente diagrama se muestra la estructura de clases del programa
+generador de tokens.
+
+%\begin{tikzpicture}
+%  \begin{umlpackage}{Utilidades}
+%    \umlinterface{Funcion}{}
+%    {
+%      \umlvirt{operar(entrada : U) : T}
+%    }
+%    \umlinterface{FuncionConInverso}{}
+%    {
+%      \umlvirt{deoperar(entrada : T) : U}
+%    }
+%    \umlinterface{FuncionConInversoSimetrico}{}
+%    {
+%      deoperar(entrada : T) : U
+%    }
+%  \end{umlpackage}
+%  \begin{umlpackage}{Implementaciones}
+%    \umlinterface{AlgoritmoTokenizador}{}
+%    {
+%    }
+%  \end{umlpackage}
+%\end{tikzpicture}
+
+\subsubsection{Selección de tecnologías}
+
+Las primeras decisiones tomadas con respecto a la implementación y al diseño
+fueron sobre el paradigma de programación y el lenguaje a utilizar. Para
+tomar estas decisiones se tomaron en cuenta varias consideraciones: primero,
+el paradigma orientado a objetos ofrece considerables ventajas con respecto
+a la programación estructurada, por lo que, dentro de lo posible, se buscaría
+un lenguaje con soporte a este paradigma; segudo, las implementaciones
+criptográficas tienen altos requerimientos de rendimiento, por lo que, de los
+posibles lenguajes, necesitabamos elegir uno que, si bien no el más rápido,
+sí se encontrara entre los de mayor velocidad.
+
+A lo largo de nuestra carrera hemos tenido contacto con bastantes lenguajes que,
+si bien no dominamos, sí poseemos una base firme como para ser usada: C, C++,
+Java, Python, Javascript y PHP. Por la cuestión del rendimiento, todos los
+lenguajes interpretados (Python, Javascript, PHP) quedaron fuera de
+consideración; la decisión (dentro de los lenguajes con soporte al paradigma
+orientado a objetos) quedó entre Java y C++: Java (aún en las últimas versiones,
+en donde se han hecho considerables progresos) es mucho más lento que C++,
+dado que el trabajo de la máquina virtual en tiempo de ejecución es bastante
+considerable; por lo tanto, si de un lenguaje orientado a objetos se trataba,
+sería C++. La última decisión se dió entre C y C++: orientación a objetos contra
+rendimiento. Al final se optó por la orientación a objetos: aún cuando C es
+más rápido que C++, la diferencia no es tan grande, mientras que un programa
+con un buen diseño orientado a objetos sí puede ser mucho más mantenible que
+uno con un enfoque estructurado.
+
+La verisón de C++ que utilizamos es C++14. Por razones de compatibilidad con
+algunas de nuestras dependencias (en particular, el conector de la base de
+datos) no pudimos utilizar la última versión al momento, C++17.
+
+El gestor de base de datos que más hemos utilizado en la carrera es MySQL,
+por lo que es el que seleccionamos para el programa tokenizador; en realidad,
+se trata de una bifurcación de MySQL: MariaDB, cuyo uso ha sido ampliamente
+difundido en varias distribuciones de Linux.

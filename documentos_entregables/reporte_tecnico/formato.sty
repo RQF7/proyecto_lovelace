@@ -135,6 +135,12 @@
 % http://mirrors.ibiblio.org/CTAN/macros/latex/required/graphics/rotating.pdf
 % Harramientas para rotar floats.
 \RequirePackage{rotating}
+% http://www.ensta-paristech.fr/~kielbasi/tikzuml/index.php?lang=en
+
+% Diagramas UML con Tikz.
+% \RequirePackage{tikz-uml}
+% \sloppy
+% \hyphenpenalty 10000000
 
 % Profundidad de contador
 % Hasta subsubsecciones
@@ -234,10 +240,10 @@
 \import{reporte_tecnico/plantillas/}{requerimiento.sty}
 
 % Archivo con entradas del glosario
-\import{reporte_tecnico/contenidos/}{glosario.tex}
+\input{reporte_tecnico/contenidos/glosario.tex}
 
 % Archivo con definición de siglas
-\import{reporte_tecnico/contenidos/siglas_y_acronimos/}{siglas_y_acronimos.tex}
+\input{reporte_tecnico/contenidos/siglas_y_acronimos/siglas_y_acronimos.tex}
 
 \makeatletter
 
