@@ -103,3 +103,14 @@ El gestor de base de datos que más hemos utilizado en la carrera es MySQL,
 por lo que es el que seleccionamos para el programa tokenizador; en realidad,
 se trata de una bifurcación de MySQL: MariaDB, cuyo uso ha sido ampliamente
 difundido en varias distribuciones de Linux.
+
+Otra decisión importante a tomar antes de hacer las implementaciones de los
+algoritmos tokenizadores fue la librería de funciones criptográficas que
+utilizaríamos. De todas las posibles librerías que están validadas
+por el \gls{gl:nist} y que cuentan con una licencia para el uso público, al
+final hicimos pruebas con dos: Openssl y Crypto++. Openssl está escrita
+en C y cuenta con un historial que le da mucha reputación (es la librería
+que utiliza Opengpg y Openssh). Cryptopp cuenta con una extensa red de
+colaboradores, implementa una gran cantidad de algoritmos y está escrita sólo
+en C++. De ambas, la que encontramos más fácil de usar fue Crypto++, por lo que
+es la que utilizamos en nuestras implementaciones.
