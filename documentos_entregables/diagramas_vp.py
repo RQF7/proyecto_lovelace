@@ -34,4 +34,4 @@ if __name__ == '__main__':
   archivo_temporal.close()
 
   os.system('mv temporal.svg ' + ruta_origen)
-  os.system('inkscape --export-width=1000 --export-png=' + ruta_destino + ' ' + ruta_origen)
+  os.system('inkscape --export-width=2000 --export-png=' + ruta_destino + ' ' + ruta_origen)
