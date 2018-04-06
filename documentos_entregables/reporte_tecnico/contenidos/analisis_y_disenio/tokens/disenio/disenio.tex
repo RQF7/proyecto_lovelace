@@ -33,13 +33,21 @@ programa. Las implementaciones muestran las interfaces que definen y clasifican
 a los algoritmos tokenizadores; también se muestra (por razones de espacio,
 solo el nombre) las clases concretas de los sistemas tokenizadores.
 
+Las interfaces de las funciones utilizan plantillas para definir las propias
+firmas de los métodos abstractos que declaran. Esta es una forma bastante
+efectiva para hacer diseños débilmente acoplados (ver
+\gls{gl:acomplamiento}): por ejemplo, las redes Fesitel necesitan
+de una función de ronda sobre la que \textit{no necesitan} saber nada en
+particular, solo necesitan saber que la clase define un método \textbf{operar},
+que es con lo que funciona el algoritmo definido por la red.
+
 El Arreglo es una implementacion propia de una estuctura de datos de
 almacenamiento secuencial. Es solamente una interfaz a una sección
 de memoria (un arreglo tradicional); sin embargo, lo importante de este es
 que imita el formato de las estructuras de la librería estándar de C++
 (esquema de constructores y destructores para gestión de memoria, uso
-de plantillas para programación genérica). El arreglo de dígitos es una
-especialización que mantiene una representación interna tanto en cadena como
+de plantillas para programación genérica, etcétera). El arreglo de dígitos es
+una especialización que mantiene una representación interna tanto en cadena como
 en número; este arreglo es el que ocupan para comunicarse todos los
 algoritmos tokenizadores. Por esta última razón es por la que se
 mantienen las dos representaciones internas: algunos métodos requieren
@@ -59,28 +67,6 @@ abstractos que los algoritmos concretos deben de implementar.
     \label{clases_general}
   \end{center}
 \end{figure}
-
-%\begin{tikzpicture}
-%  \begin{umlpackage}{Utilidades}
-%    \umlinterface{Funcion}{}
-%    {
-%      \umlvirt{operar(entrada : U) : T}
-%    }
-%    \umlinterface{FuncionConInverso}{}
-%    {
-%      \umlvirt{deoperar(entrada : T) : U}
-%    }
-%    \umlinterface{FuncionConInversoSimetrico}{}
-%    {
-%      deoperar(entrada : T) : U
-%    }
-%  \end{umlpackage}
-%  \begin{umlpackage}{Implementaciones}
-%    \umlinterface{AlgoritmoTokenizador}{}
-%    {
-%    }
-%  \end{umlpackage}
-%\end{tikzpicture}
 
 \subsubsection{Selección de tecnologías}
 
