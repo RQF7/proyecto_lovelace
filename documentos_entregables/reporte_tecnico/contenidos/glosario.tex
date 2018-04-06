@@ -404,6 +404,7 @@
 \newglossaryentry{gl:semilla}
 {
   name = semilla,
+  plural = semillas,
   description = {
     (\textit{Seed}) Cadena de bits que es utilizada como entrada para los
     los mecanismos \gls{gl:drbg}. Determina una parte del estado interno
@@ -520,6 +521,27 @@
     con una llave secreta que es, al menos, de la longitud del mensaje. Si es
     utillizado e implementado correctamente, este algoritmo es indescifrable. %
   }
+}
+
+\newglossaryentry{gl:registro_de_desplazamiento}
+{
+  name = registro de desplazamiento,
+  description = {
+    Es un arreglo de \textit{flip-flops} que se encarga de desplazar la 
+    información contenida en su estado actual, teniendo una entrada de un 
+    bit, para reemplazar el valor del primer \textit{flip-flop} del arreglo%
+  }
+}
+
+\newglossaryentry{gl:registro_de_desplazamiento_con_retroalimentación_lineal}
+{
+  name = registro de desplazamiento con retroalimentación lineal,
+  description = {
+    (\textit{Linear-feedback shift register (LFSR)}) Es un registro de 
+    desplazamiento en el que su bit de entrada es una función lineal de su 
+    estado anterior%
+  },
+  see={gl:registro_de_desplazamiento}
 }
 
 \glsaddall

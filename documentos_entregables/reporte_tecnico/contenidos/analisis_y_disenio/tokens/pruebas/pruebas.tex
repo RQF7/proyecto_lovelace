@@ -1,0 +1,364 @@
+%
+% Pruebas Estadísticas del NIST para los RNGs y PRNGs usados en 
+% aplicaciones criptográficas, capítulo de análisis y diseño para 
+% la generación de tokens.
+% Proyecto Lovelace.
+%
+
+\subsection{Pruebas para generadores de números aleatorios y pseudoaleatorios}
+\label{sec:pruebas_para_generadores}
+
+% NIST 800-22 R1A ---
+
+\subsubsection{Definiciones} %=================================================
+
+Existen dos tipos básicos de generador, los \gls{gl:rng}s y los \gls{gl:prng}s.
+
+\paragraph{RNGs} %-------------------------------------------------------------
+
+Este tipo de generador usa fuentes de \gls{gl:entropia} no determinísticas 
+para producir números aleatorios, dichas fuentes de \gls{gl:entropia} 
+normalmente consisten en la medición de eventos físicos, como el ruido 
+en un circuito eléctrico.
+
+La salidas de los \gls{gl:rng}s puede usarse directamente para obtener números 
+aleatorios, o como una entrada de un \gls{gl:prng}. En el primer caso, es 
+necesario que la salida satisfaga pruebas estadísticas para determinar que 
+dicha parece aleatoria.
+
+Los \gls{gl:rng}s que se usan con fines criptográficos tienen que ser 
+impredecibles (ver sección \ref{sec:impredecibilidad}), por lo cual es 
+recomendado combinar varias fuentes de \gls{gl:entropia}, dado que algunas 
+(como los vectores de tiempo) son demasiado predecibles. De cualquier forma, 
+en la mayoría de los casos es mejor usar \gls{gl:prng}s para obtener de manera 
+directa numeros aleatorios.
+
+\paragraph{PRNGs} %------------------------------------------------------------
+
+Estos son generadores de múltiples números aleatorios a partir de una o varias 
+entradas llamadas \gls{gls:semilla}. Cuando es necesario que la salida sea 
+impredecible la \gls{gl:semilla} debe ser aleatoria y también impredecible 
+por sí sola , razón por lo cual esta debe de obtener por medio de un 
+\gls{gl:rng}.
+
+La salida de los \gls{gl:prng}s normalmente son funciones determinísticas de 
+la \gls{gl:semilla}, por lo que la verdadera aleatoriedad queda en la 
+generación de esta misma, motivo por el que se usa el término de 
+\texit{pseudoaleatorio} y lo que causa la necesidad de mantener en secreto 
+la \gls{gl:semilla}.
+
+Las mejores cualidades de los \gls{gl:prng}s son que, al contrario de lo que 
+se creería por el nombre, suelen parecer más aleatorias que las \gls{gl:rng}s, 
+así como que producen números aleatorios más rápido.
+
+\paragraph{Aleatoriedad} %-----------------------------------------------------
+
+Una secuencia de bits aleatoria puede interpretarse como una secuencia en la 
+que el valor de cada bit es independiente, y los valores que lo conforman 
+están uniformemente distribuidos.
+
+\paragraph{Impredecibilidad} %-------------------------------------------------
+\label{sec:impredecibilidad}
+
+Los generadores aleatorios y pseudoaleatorios deben de ser impredecibles. 
+La impredecibilidad es la incapacidad de conocer la salida de un bit $n+1$ 
+aun conociendo los valores del bit $0$ al $n$ si la \gls{gl:semilla} es 
+desconocida. Esta también es la incapacidad de determinar la \gls{gl:semilla} 
+usando el conocimiento de los valores generados por la misma. 
+
+Hay que resaltar que conociendo tanto la \gls{gl:semilla} como el algoritmo 
+generador, el \gls{gl:prng} es completamente predecible, por lo cual en la 
+mayoría de los casos el algoritmo es público y la \gls{gl:semilla} se mantiene 
+secreta.
+
+\paragraph{Pruebas Estadísticas} %--------------------------------------------
+
+Estas sirven para determinar si la secuencia a evaluar puede ser considerada 
+una secuencia aleatoria. Existe una gran diversidad de pruebas estadísticas 
+para comparar y evaluar una secuencia generada por un \gls{gl:rng} o un 
+\gls{gl:prng} contra una secuencia verdaderamente aleatoria, cada una de 
+estás buscando la existencia o ausencia de patrones para poder indicar 
+si la secuencia parece o no aleatoria.
+
+Es necesario aclarar que ningún conjunto de pruebas puede ser considerado 
+completo, y que el resultado de determinada prueba es complementado por 
+otras, motivo por el cual los resultados obtenidos deben ser interpretados 
+cuidadosamente para no llegar a conclusiones incorrectas.
+
+En \cite{nist_pruebas} se determina que las pruebas estadísticas están 
+formuladas para determinar si una secuencia binaria cumple con la hipótesis 
+nula \texit{(H0)}, o la hipótesis alternativa \textit{(Ha)}, las cuales dicen 
+que la secuencia probada es aleatoria y no aleatoria respectivamente. Cada 
+prueba descrita en la sección \ref{sec:lista_pruebas} consiste en aceptar 
+alguna de las dos hipótesis mencionadas.
+
+Para cada prueba, es necesario elegir una medida estadística relevante de 
+aleatoriedad, para así establecer una \gls{gl:distribucion_probabilidad} y un 
+valor crítico que sirvan de referencia, y durante la prueba, se pueda 
+comparar el valor estadístico de la secuencia probada con el valor elegido; 
+aceptando la hipótesis nula en caso de que no se exceda del valor crítico y 
+rechazandola en caso contrario.
+
+De manera práctica, las pruebas estadísticas funcionan dado que la 
+\gls{gl:distribucion_probabilidad} de referencia y el valor crítico son 
+seleccionados asumiendo que la secuencia es aleatoria.
+
+Hay que mencionar que estas pruebas estadísticas pueden tener dos tipos de 
+errores, que la secuencia sea aleatoria y se concluya que no lo es 
+\textit{(error tipo I)}, y que la secuencia no sea aleatoria y se concluya 
+que si \textit{(error tipo II)}.
+
+La probabilidad de que ocurra el error de tipo I es normalmente llamada 
+\texit{nivel de significancia} de la prueba, y se denota como $\alpha$, este 
+valor dentro de la criptografía es común que ronde cerca de $0.01$.
+
+La probabilidad de que ocurra el error de tipo II se denota con $\beta$ y a 
+diferencia de $\alpha$, no es un valor fijo y es más difícil de calcular.
+
+Uno de los principales objetivos de las pruebas es minimizar la probabilidad 
+de $\beta$, por lo cual se selecciona un tamaño de muestra $n$ y un valor para 
+$\alpha$, para después establecer un valor crítico que produzca el valor 
+$\beta$ más pequeño. Esto es posible gracias a que las probabilidades $\alpha$ 
+y $\beta$ están relacionadas entre sí y con el tamaño de muestra $n$.
+
+Cada prueba se basa en un valor estadístico de prueba calculado, que es una 
+función de los mismos datos, por lo cual si el valor estadístico de prueba 
+es $S$ y el valor crítico es $t$, entonces:
+
+\begin{align}
+  \alpha &= P(S > t\: ||\: H0\: es\: verdadera) 
+          = P(rechazar\: H0\: ||\: H0\: es\: verdadero)\\
+  \beta  &= P(S \leq t\: ||\: H0\: es\: falso) 
+          = P(aceptar\: H0\: ||\: H0 es\: falso)
+\end{align}
+
+Las pruebas estadísticas calculan un valor $P$, que indica la probabilidad de 
+que un \gls{gl:rng} perfecto haya producido una secuencia menos aleatoria que 
+la secuencia que se probó, dado el tipo de aleatoriedad evaluada por la prueba. 
+
+En caso de que el valor de $P$ sea de $1$ en una prueba, se considera que la 
+secuencia parece tener una aleatoriedad perfecta y en caso de que el valor 
+sea $0$, la secuencia parece ser por completo no aleatoria.
+
+Eligiendo un nivel de significancia $\alpha$ para las pruebas, si $P \geq 
+\alpha$, entonces la hipótesis nula es aceptada, es decir, la secuencia 
+parece ser aleatoria; y si $P < \alpha$, entonces la hipótesis nula es 
+rechazada, es decir, la secuencia parece ser no aleatoria. Normalmente 
+el valor de $\alpha$ se elige en el rango de $[0.001,\: 0.01]$.
+
+\subsection{Pruebas} % ========================================================
+\label{sec:lista_pruebas}
+
+El paquete de pruebas descrito en el estándar del \gls{gl:nist} 
+\textit{800-22R1A: Statistical Suite for Random Number Generators}, disponible 
+en \cite{nist_pruebas}, es un conjunto de 15 pruebas que se encargan de probar 
+la aleatoriedad de secuencias binarias de longitudes arbitrariamente largas 
+producidas por \gls{gl:rng}s o \gls{gl:prng}s.
+
+\paragraph{Prueba de frecuencia} %---------------------------------------------
+\textit{(The frequency (Monobit) Test)}
+
+Esta prueba se encarga de medir la proporción de ceros y unos en toda la 
+secuencia binaria. Su propósito es determinar si la cantidad de ceros y de 
+unos es parecida a la que se esperaría en una secuencia verdaderamente 
+aleatoria. Algo a tener en cuenta es que todos las pruebas subsecuentes 
+dependen de pasar esta prueba.
+
+%Pseudocodigo excediéndose de los 80 para una correcta visualización el en pdf.
+%\begin{pseudocodigo}[caption={Proceso de la prueba de frecuencia.},
+%label={pp_frecuencia}]
+%    entrada:    una secuencia de bits generada por un RNG o PRNG $\epsilon$ de longitud $n$.
+%    salida:     valor $P$ y determinación de si la secuencia $\epsilon$ es aleatoria.
+%    inicio
+%      calcular $S_n = sum_{i=0}^{n-1 X_i}$; donde $X_i = 2\epsilon_i - 1$.
+%      calcular $S_{obs} = |S_n| / \sqrt{n}$.
+%      calcular $P = erfc(\frac{S_{obs}}{\sqrt{2}})$; donde $erfc$ es la función de error complementario.
+%      si $(P \geq \alpha)$ 
+%        la secuencia es aleatoria.
+%      si $(P < \alpha)$ 
+%        la secuencia no es aleatoria.
+%    fin
+%\end{pseudocodigo}
+
+%Se puede notar que cuando el valor de $P$ es muy pequeño es debido a que se 
+%tuvieron valores muy grandes de $|S_n|$ o $|S_obs|$ lo que significa que hubo 
+%una presencia muy desigual entre ceros y unos.
+
+%Se recomienda que las secuencias a analizar tengan una longitud mínima de 
+%100 bits. 
+
+\paragraph{Prueba de frecuencia en un bloque} %--------------------------------
+\textit{(Frequency Test within a Block)}
+
+Esta prueba se centra en medir la proporción de unos dentro de $N$ bloques de 
+M-bits de la secuencia a probar. El propósito de la prueba es saber si la 
+frecuencia de unos se aproxima a $M/2$ como sería de esperar de una secuencia 
+aleatoria.
+
+%Pseudocodigo excediéndose de los 80 para una correcta visualización el en pdf.
+%\begin{pseudocodigo}[caption={Proceso de la prueba de frecuencia en un bloque.},
+%label={pp_frecuencia_bloque}]
+%    entrada:    una secuencia de bits generada por un RNG o PRNG $\epsilon$ de longitud $n$ 
+%                y la longitud de bloque $M$.
+%    salida:     valor $P$ y determinación de si la secuencia $\epsilon$ es aleatoria.
+%    inicio
+%      partir $\epsilon$ en $N = |\frac{n}{M}|$ bloques que no se trastalpen, descartando los bits que no se usen.
+%      determinar la proporción $\pi_i$ de cada bloque usando la siguiente ecuación $\pi_i = \frac{\sum_{j=1}^{M}\epsilon_{i-1}M+j}{M}$, para $1 \leq i \leg N$.
+%      calcular $\chi^2(obs) = 4 M \sum_{i=1}^{N}{(\pi_i 1/2)}^2$.
+%      calcular $P = igamc(N/2, \chi(obs)/2)$; donde igamc es la función gamma incompleta.
+%      si $(P \geq \alpha)$ 
+%        la secuencia es aleatoria.
+%      si $(P < \alpha)$ 
+%        la secuencia no es aleatoria.
+%    fin
+%\end{pseudocodigo}
+
+%Se puede observar que un valor pequeño en $P$ significa que hay una diferencia 
+%grande entre el número de ceros y unos en al menos un bloque.
+
+%Por último es recomendable que las secuencias analizar tengan mínimo 100 bits, 
+%y que el valor de $M$ sea de al menos 20, mayor a $0.01n$ y menor a 100. 
+
+\paragraph{Prueba de carreras} %-----------------------------------------------
+\textit{(The Runs Test)}
+
+Esta prueba se encarga de calcular el número de carreras en la secuencia que 
+se está probando, donde una carrera es una subsecuencia ininterrumpida de 
+bits del mismo valor encerrada entre bits del valor opuesto. El objetivo de 
+la prueba es determinar si el número de carreras en la secuencia es parecido 
+al que se esperaría de una secuencia aleatoria, particularmente, establece si 
+la oscilación entre ceros y unos es muy rápida o muy lenta. Cabe resaltar que 
+la prueba tiene como requisito pasar la prueba de frecuencia.
+
+%Pseudocodigo excediéndose de los 80 para una correcta visualización el en pdf.
+%\begin{pseudocodigo}[caption={Proceso de la prueba de carreras.},
+%label={pp_carreras}]
+%    entrada:    una secuencia de bits generada por un RNG o PRNG $\epsilon$ de longitud $n$.
+%    salida:     valor $P$ y determinación de si la secuencia $\epsilon$ es aleatoria.
+%    inicio
+%      calcular la proporción de unos $\pi = \frac{\sum_{j=0}^{n}\epsilon_j}{n}$ de la secuencia.
+%      determinar si la prueba de frecuencia fue aprobada: 
+%        si se puede demostrar que $|\pi - 1/2| \geq \tau$, donde $\tau = 2/\sqrt{2}$, esta prueba no necesita realizarse.
+%      calcular el número total de carreras $V_n(obs) = \sum_{k=1}^{n-1}r(k)+1$; donde $r(k) = 0$ si $\epsilon_k=\epsilon_{k+1}$ y $r(k) = 1$ en otro caso.
+%      calcular el valor de $P = erfc(\frac{|V_n(obs) - 2n\pi(1-\pi)|}{2\sqrt{2n}\pi(1-\pi)})$.
+%      si $(P \geq \alpha)$ 
+%        la secuencia es aleatoria.
+%      si $(P < \alpha)$ 
+%        la secuencia no es aleatoria.
+%    fin
+%\end{pseudocodigo}
+
+%Se puede interpretar a $V_n(obs)$ como la velocidad de oscilación entre unos 
+%y ceros de la secuencia probada, por lo cual, debe ser un valor intermedio, 
+%dado que en una secuencia aleatoria no se espera que la oscilación sea muy 
+%rápida ni muy lenta. 
+
+%Al igual que en las pruebas previas se recomienda que la longitud de la 
+%secuencia $\epsilon$ sea de al menos 100 bits.
+
+\paragraph{Prueba de la carrera más larga en un bloque} %----------------------
+\textit{(Tests for the Longest-Run-of-Ones in a Block)}
+
+El propósito de esta prueba es determinar si la longitud de la carrera más 
+larga en la secuencia es consistente con la longitud de la carrera más larga 
+de una secuencia aleatoria. Se tiene que resaltar que encontrar una 
+irregularidad en la carrera más larga de unos implica una irregularidad en 
+la carrera más larga de ceros, por lo cual solo es necesario hacer la prueba 
+para la carrera más larga de unos.
+
+\paragraph{Prueba del rango de matriz binaria} %-------------------------------
+\textit{(The Binary Matrix Rank Test)}
+
+La prueba tiene como finalidad revisar si existen dependencias lineales entre 
+subcadenas de longitud fija de la secuencia a probar.
+
+\paragraph{Prueba Espectral} %-------------------------------------------------
+\textit{(The Discrete Fourier Transform (Spectral) Test)}
+
+Esta prueba se encarga de obtener los picos más altos la transformada 
+discreta de Fourier de la secuencia. Su propósito es detectar comportamientos 
+periódicos en la secuencia que puedan indicar que esta no puede asumirse como 
+aleatoria. De manera más precisa, la prueba detecta si el número de picos que 
+exceden un umbral del 95\% son significativamente diferentes al 5\%.
+
+\paragraph{Prueba de coincidencia sin superposición} %-------------------------
+\textit{(The Non-overlapping Template Matching Test)}
+
+La prueba tiene como finalidad detectar generadores que producen una gran 
+cantidad de ocurrencias de un patrón no periódico en sus secuencias de salida. 
+Para esta prueba se utiliza una ventana de $m$ bits que recorre la secuencia, 
+para buscar patrones específicos de $m$ bits. Dado que esta prueba es sin 
+traslape, en caso de que se encuentre el patrón se recorre la ventana m bits 
+y de lo contrario se recorre uno.
+
+\paragraph{Prueba de coincidencia con superposición} %-------------------------
+\textit{(The Overlapping Template Matching Test)}
+
+La prueba tiene como finalidad detectar generadores que producen una gran 
+cantidad de ocurrencias de un patrón no periódico en sus secuencias de salida. 
+Para esta prueba se utiliza una ventana de $m$ bits que recorre la secuencia, 
+para buscar patrones específicos de $m$ bits. Dado que esta prueba es con 
+traslape, independientemente de si se encontra o no un patrón la ventana se 
+recorre uno bit.
+
+\paragraph{Prueba estadística universal de Maurer} %---------------------------
+\textit{(Maurer’s “Universal Statistical” Test)}
+
+Esta prueba se centra en medir el número de bits existentes entre patrones 
+que coinciden, medida que se relaciona con el tamaño mínimo para comprimir 
+una secuencia. La prueba tiene como finalidad determinar si una secuencia 
+puede comprimirse de manera significativa sin perder información, lo cual 
+significa que no es aleatoria. 
+
+\paragraph{Prueba de complejidad lineal} %-------------------------------------
+\textit{(The Linear Complexity Test)}
+
+El objetivo de la prueba es determinar si la secuencia a probar es lo bastante 
+compleja como para considerarse aleatoria, esto por medio de medir el tamaño de 
+su \gls{gl:registro_de_desplazamiento_con_retroalimentación_lineal} 
+correspondiente, ya que las secuencias aleatorias se caracterizan por tener 
+valores altos en este parámetro.
+
+\paragraph{Prueba serial} %----------------------------------------------------
+\textit{(The Serial Test)}
+
+Esta prueba tiene como objetivo determinar si el número de ocurrencias de 
+$2^m$ patrones de $m$ bits son aproximadamente las mismas que se esperarían 
+de una cadena aleatoria, considerando que al ser una secuencia aleatoria, 
+es una secuencia uniforme, y cada patrón de $m$ bits tiene la misma 
+probabilidad de aparecer que los demás.
+
+\paragraph{Prueba de entropía aproximada} %------------------------------------
+\textit{(The Approximate Entropy Test)}
+
+La prueba se encarga de comparar la frecuencia de sobreponer dos bloques de 
+longitudes consecutivas con el resultado esperado de una secuencia que es 
+aleatoria. 
+
+\paragraph{Prueba de sumas acumulativas} %-------------------------------------
+\textit{(The Cumulative Sums (Cusums) Test)}
+
+Su objetivo es determinar si las sumas acumulativas de una secuencia parcial 
+de la secuencia probada son muy grandes o pequeñas con relación a las sumas 
+acumulativas de una secuencia aleatoria. Las sumas aculumativas son 
+consideradas como caminatas aleatorias, y para las secuencias aleatorias 
+la realización de una caminata aleatoria debe tener un valor cercano a cero. 
+
+% A esta no le entendí muy bien.
+\paragraph{Prueba de excursiones aleatorias} %---------------------------------
+\textit{(The Random Excursions Test)}
+
+Esta prueba tiene como finalidad determinar si el número de apariciones de un 
+estado $x$ en un ciclo es parecido al número que se esperaría de una secuencia 
+aleatoria. Esta prueba está conformada de 8 subpruebas, cada un para los 
+valores de estado $x$ de -4, -3, -2, -1, 1, 2, 3, 4.
+
+% A esta no le entendí muy bien.
+\paragraph{Prueba variante de excursiones aleatorias} %------------------------
+\textit{(The Random Excursions Variant Test)}
+
+La prueba se centra en calcular el número de veces que un estado en particular 
+ocurre en una suma acumulatica de una camita aleatoria. Su propósito, es 
+detectar desviaciones del número esperado de ocurrencias de varios estados 
+en una caminata aleatoria. Esta prueba está conformada de 18 subpruebas, cada 
+un para los valores de estado $x$ de -9 a de -1 y  1 a 9.
