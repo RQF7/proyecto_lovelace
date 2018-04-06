@@ -1,0 +1,113 @@
+%
+% Generador pseudoaleatorio como método tokenizador,
+% creación mediante funciones hash y cifrador por bloques.
+% Capítulo de análisis y diseño, reporte técnico.
+%
+% Proyecto Lovelace.
+%
+
+\subsubsection{Tokenización mediante generador de números pseudoaleatorios}
+
+En la sección \ref{sec:generadores_pseudoaleatorios} se habló sobre el
+estándar del \gls{gl:nist} para la generación de números aleatorios. En esta
+mostramos cómo estos métodos pueden ser utilizadas para tokenizar y detokenizar
+números de tarjetas. Primero se muestran dos posibles instanciaciones
+con \glspl{gl:primitiva_criptografica} del método general descrito en
+\ref{sec:generadores_pseudoaleatorios}: una basada en funciones hash
+(sección \ref{sec:hash}) y otra basada en cifradores por bloque (sección
+\ref{sec:bloques}); ambas presentadas en \cite{nist_aleatorios}.
+
+\paragraph{DRBG basado en funciones hash}
+
+El método genérico define un solo valor crítico (un valor que se debe mantener
+en secreto, pues la seguridad en generador depende de esto): la semilla, tanto
+al inicio, como su valor a lo largo de su vida útil. Este método introduce
+un segundo valor crítico: una constante $ C $ cuyo valor depende también de
+la entrada de entropía. Por tanto, las funciones de instanciación,
+cambio de semilla y desinstanciación se deben modificar para incluir
+a este segundo valor.
+
+En el pseudocódigo \ref{drbg_hash} se muestra la función de generación de bits
+pseudoaleatorios basada en una función hash. \textit{tamanioDeHash} regresa el
+tamaño de los \textit{digest} retornados por la función hash usada.
+
+\begin{pseudocodigo}[%
+    caption={Generación de bits pseudoaleatorios mediante función hash},
+    label={drbg_hash}%
+  ]
+    entrada: número $ n $ de bytes deseados.
+    salida:  arreglo de $ n $ bytes.
+    inicio
+      longitud $ \gets $ tamanioDeHash()
+      numeroDeBloques $ \gets $ $ \lceil \text{longitud} / n \rceil $
+      datos $ \gets $ semilla
+      para_todo i en numeroDeBloques:
+        resultado ||= hash(datos)
+        datos += 1
+      fin
+      regresar $ n $ bytes de resultado
+    fin
+\end{pseudocodigo}
+
+\paragraph{DRBG basado en cifrador por bloque}
+
+Al igual que el generador basado en funciones hash, este método también
+introduce un segundo valor crítico: el valor de la llave utilizada por el
+cifrador por bloque subyacente. Esta llave se genera a partir de la
+entrada de entropía y debe ser tratada de igual forma que la semilla por
+las funciones de instanciación, cambio de semilla y desinstanciación.
+
+En el pseudocódigo \ref{ctr_drbg} se muestra la función de generación de
+bits psudoaleatorios basada en un cifrador por bloques.
+
+\begin{pseudocodigo}[%
+    caption={Generación de bits pseudoaleatorios mediante cifrador por bloques},
+    label={ctr_drbg}%
+  ]
+    entrada: número $ n $ de bytes deseados.
+    salida:  arreglo de $ n $ bytes.
+    inicio
+      mientras longitud(resultado) $ \le n $:
+        semilla += 1
+        resultado ||= cifrar(semilla)
+      fin
+      regresar $ n $ bytes de resultado
+    fin
+\end{pseudocodigo}
+
+\paragraph{Uso como algoritmo tokenizador}
+
+Un \gls{gl:drbg} puede ser utilizado de manera bastante similar a la
+función RN del algoritmo TKR (sección \ref{sec:tkr}): en lugar de utlizar
+la función $ f $ como método para obtener bits pseudoaleatorios, se ocupa
+el generador pseudoaleatorio. El pseudocódigo para esto se muestra en
+\ref{tkr_drbg}; la función \textit{drbg} es una llamada a la operación
+de generación de bits pseudoaleatorios de cualquiera de los dos
+generadores presentados anteriormente.
+
+Al igual que con TKR, ambas operaciones (tokenización y detokenización)
+deben tener el soporte de una base de datos: al generar un nuevo \gls{gl:token}
+este se guarda en la base de datos, y la operación de detokenización es
+solamente una consulta en la base.
+
+\begin{pseudocodigo}[%
+    caption={Generación de \textit{tokens} mediante \gls{gl:drbg}},
+    label={tkr_drbg}%
+  ]
+    entrada: llave k
+    salida:  token
+    inicio
+      $X$ $\gets$ drbg()
+      $X_1, X_2, \dots, X_m$ $\gets$ cortar($X$, $\lambda$)
+      t $\gets$ ""
+      i $\gets$ 0
+      mientras $|t| \neq \mu$:
+        si entero(X_i) $\le$ $l$:
+          t $\gets$ t + entero(X_i)
+        fin
+        i $\gets$ i  + 1
+      fin
+      contador $\gets$ contador + 1
+      regresar t
+    fin
+\end{pseudocodigo}
