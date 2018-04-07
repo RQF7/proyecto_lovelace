@@ -33,7 +33,7 @@ AHRPrueba::AHRPrueba()
 
 /**
  * Prueba la operación normal de TKR: un primer proceso de tokenización debe
- * generar un nuevo token, mientras que la segunda ves se debe acceder al
+ * generar un nuevo token, mientras que la segunda vez se debe acceder al
  * anterior la detokenización es solamente una búsqueda en la base de datos.
  *
  * \return Estado de la prueba.
@@ -53,7 +53,7 @@ bool AHRPrueba::probarOperacion()
   AHR ahr {accesoADatos, llave};
 
   /* Prueba de tokenización y detokenización. */
-  ArregloDeDigitos panUno (887766322946577840ull);
+  ArregloDeDigitos panUno (1234567891233ull);
   ArregloDeDigitos tokenUno (ahr.operar({panUno}));
   ArregloDeDigitos rPanUno (ahr.deoperar({tokenUno}));
 
@@ -70,6 +70,10 @@ bool AHRPrueba::probarOperacion()
       << "\t Token 2 descifrado: " << rPanDos << endl;
 
   if (panUno != rPanUno || panDos != rPanDos)
+    return false;
+
+  if(panUno.obtenerNumeroDeElementos() != tokenUno.obtenerNumeroDeElementos()
+      || panDos.obtenerNumeroDeElementos() != tokenDos.obtenerNumeroDeElementos())
     return false;
   return true;
 }
