@@ -87,16 +87,17 @@ void CTRDRBG::desinstanciar()
  */
 
 Arreglo<unsigned char> CTRDRBG::generarBytes(
-  unsigned int longitud         /**< Longitud de salida. */
+  entero longitud         /**< Longitud de salida. */
 )
 {
+  unsigned int longitudLocal = static_cast<unsigned int>(longitud);
   Arreglo<unsigned char> resultado;
-  while (resultado.obtenerNumeroDeElementos() < longitud)
+  while (resultado.obtenerNumeroDeElementos() < longitudLocal)
   {
     mSemilla = ((mSemilla + 1ull) / Arreglo<unsigned int>{mLongitudBloque})[0];
     resultado = resultado || cifrarBloque(mSemilla);
   }
-  return (resultado / Arreglo<unsigned int>{longitud})[0];
+  return (resultado / Arreglo<unsigned int>{longitudLocal})[0];
 }
 
 /**

@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Interfza ejecutable a algoritmos tokenizadores.
+ * \brief Interfaz ejecutable a algoritmos tokenizadores.
  *
  * Proyecto Lovelace.
  */

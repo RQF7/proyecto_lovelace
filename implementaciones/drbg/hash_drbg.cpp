@@ -124,10 +124,10 @@ void HashDRBG::desinstanciar()
  */
 
 Arreglo<unsigned char> HashDRBG::generarBytes(
-  unsigned int longitud           /**< Número de bytes deseados. */
+  entero longitud           /**< Número de bytes deseados. */
 )
 {
-  auto resultado = funcionDeGeneracion(longitud);
+  auto resultado = funcionDeGeneracion(static_cast<unsigned int>(longitud));
   auto temporal = hash(Arreglo<unsigned char>{3} || mSemilla);
   mSemilla = mSemilla + temporal
     + mConstanteSemilla + Arreglo<unsigned char>(mContadorDePeticiones);
