@@ -68,6 +68,28 @@ abstractos que los algoritmos concretos deben de implementar.
   \end{center}
 \end{figure}
 
+\paragraph{Clases de FFX}
+
+En la figura \ref{clases_ffx} se muestran las clases que conforman al módulo de
+FFX. Sin contar a las tres interfaces de funciones (que forman parte del paquete
+de utilidades) todas las clases son del paquete de implementaciones.
+
+La clase de la red Feistel implementa la interfaz de una función con inverso
+(tiene tanto operación de ida, como de vuelta) y se compone (por medio de una
+relación de composición) de una función, utilizad como fucnión de ronda, y de
+una función con inverso, utilizada como operador de combinación. Ambas clases
+hijas (redes Feistel alternantes o desbalanceadas) contienen un indicador de
+desbalanceo, el cuál se utiliza en la funición de FFX. 
+
+\begin{sidewaysfigure}
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{diagramas/ffx.png}
+    \caption{Diagrama de clases de módulo de FFX.}
+    \label{clases_ffx}
+  \end{center}
+\end{sidewaysfigure}
+
+
 \subsubsection{Selección de tecnologías}
 
 Las primeras decisiones tomadas con respecto a la implementación y al diseño
