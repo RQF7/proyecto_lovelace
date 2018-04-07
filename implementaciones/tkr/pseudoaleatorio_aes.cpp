@@ -64,12 +64,12 @@ Arreglo<unsigned char> PseudoaleatorioAES::operar(
   const std::vector<entero>& entrada    /**< Contador y longitud de resultado. */
 )
 {
-  unsigned int numeroDeBloques = static_cast<unsigned int>(ceil(entrada[1] / 128.0));
+  unsigned int numeroDeBloques = static_cast<unsigned int>(ceil(entrada[0] / 128.0));
   Arreglo<unsigned char> resultado (numeroDeBloques * 16);
   unsigned char bufferUno[16];
   memset(bufferUno, 0, 16);
   for (int i = 0; i < 8; i++)
-    bufferUno[i] = static_cast<unsigned char>(entrada[0] >> (i * 8));
+    bufferUno[i] = static_cast<unsigned char>(entrada[1] >> (i * 8));
   unsigned char bufferDos[16];
   cifrar(bufferUno, bufferDos, 0);
   for (unsigned int i = 0; i < numeroDeBloques; i++)

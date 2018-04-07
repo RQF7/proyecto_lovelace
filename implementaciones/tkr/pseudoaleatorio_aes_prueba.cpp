@@ -43,7 +43,7 @@ bool PseudoaleatorioAESPrueba::probarOperacion()
   generadorAleatorio.GenerateBlock(llave, AES::DEFAULT_KEYLENGTH);
 
   PseudoaleatorioAES aes {llave};
-  Arreglo<unsigned char> pruebaUno = aes.operar({13, 3 * 4 * 16});
+  Arreglo<unsigned char> pruebaUno = aes.operar({3 * 4 * 16, 13});
   cout << "Prueba uno: " << pruebaUno.obtenerNumeroDeElementos() << endl;
   for (unsigned int i = 0; i < pruebaUno.obtenerNumeroDeElementos(); i++)
     cout << "0x" << hex << (0xFF & static_cast<byte>(pruebaUno[i])) << " ";
@@ -52,7 +52,7 @@ bool PseudoaleatorioAESPrueba::probarOperacion()
     return false;
 
   PseudoaleatorioAES aesDos {llave};
-  Arreglo<unsigned char> pruebaDos = aesDos.operar({105, 1056});
+  Arreglo<unsigned char> pruebaDos = aesDos.operar({1056, 105});
   cout << "Prueba uno: " << pruebaDos.obtenerNumeroDeElementos() << endl;
   for (unsigned int i = 0; i < pruebaDos.obtenerNumeroDeElementos(); i++)
     cout << "0x" << hex << (0xFF & static_cast<byte>(pruebaDos[i])) << " ";

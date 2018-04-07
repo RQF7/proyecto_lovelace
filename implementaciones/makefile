@@ -57,6 +57,9 @@ FUENTES_DOS					:= lovelace.cpp \
 											 bps/utilidades.cpp \
                        bps/cifrador_BPS.cpp \
 											 bps/codificador.cpp \
+											 drbg/aleatoriedad_trivial.cpp \
+											 drbg/drbg.cpp \
+											 drbg/hash_drbg.cpp \
 											 tkr/pseudoaleatorio_trivial.cpp \
 											 tkr/pseudoaleatorio_aes.cpp \
 											 tkr/funcion_rn.cpp \
@@ -236,9 +239,12 @@ $(CARPETA_OBJETOS)/aes_ensamblador/libaesni/libaes_lin64.o: \
 	aes_ensamblador/libaesni/iaesni.h \
 	aes_ensamblador/libaesni/intel_aes.c
 	mkdir -p $(CARPETA_OBJETOS)/aes_ensamblador/libaesni
-	yasm -D__linux__ -f elf64 aes_ensamblador/libaesni/asm/iaesx64.s  -o $(CARPETA_OBJETOS)/aes_ensamblador/libaesni/iaesx64.o
-	yasm -D__linux__ -f elf64 aes_ensamblador/libaesni/asm/do_rdtsc.s -o $(CARPETA_OBJETOS)/aes_ensamblador/libaesni/do_rdtsc.o
-	gcc -Wall -fPIC -c aes_ensamblador/libaesni/intel_aes.c -o $(CARPETA_OBJETOS)/aes_ensamblador/libaesni/intel_aes.o
+	yasm -D__linux__ -f elf64 aes_ensamblador/libaesni/asm/iaesx64.s  -o \
+		$(CARPETA_OBJETOS)/aes_ensamblador/libaesni/iaesx64.o
+	yasm -D__linux__ -f elf64 aes_ensamblador/libaesni/asm/do_rdtsc.s -o \
+		$(CARPETA_OBJETOS)/aes_ensamblador/libaesni/do_rdtsc.o
+	gcc -Wall -fPIC -c aes_ensamblador/libaesni/intel_aes.c -o \
+		$(CARPETA_OBJETOS)/aes_ensamblador/libaesni/intel_aes.o
 	gcc -shared -o $@ $(CARPETA_OBJETOS)/aes_ensamblador/libaesni/*.o
 
 $(CARPETA_OBJETOS)/ahr/ahr.o: ahr/ahr.cpp ahr/cabeceras/ahr.hh

@@ -117,5 +117,25 @@ do
   fi
   echo ""
 
+  # Prueba de DRBG ############################################################
+  echo "Prueba $i con DRBG ==============================="
+
+  panUno=$($ejecutable -r)
+  echo "PAN original: " $panUno
+
+  tokenUno=$($ejecutable -e DRBG $panUno)
+  echo "Token: " $tokenUno
+
+  panUnoDescifrado=$($ejecutable -d DRBG $tokenUno)
+  echo "Pan descifrado: " $panUnoDescifrado
+
+  if [ $panUno -eq $panUnoDescifrado ]; then
+    echo "Prueba de DRBG exitosa."
+  else
+    echo "Error en DRBG."
+    exit -1
+  fi
+  echo ""
+
 done
 exit 0

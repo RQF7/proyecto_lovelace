@@ -8,6 +8,8 @@
 #include "acceso_a_datos/cabeceras/acceso_mysql.hh"
 #include "bps/cabeceras/cifrador_de_ronda.hh"
 #include "bps/cabeceras/cifrador_BPS.hh"
+#include "drbg/cabeceras/aleatoriedad_trivial.hh"
+#include "drbg/cabeceras/hash_drbg.hh"
 #include "ffx/cabeceras/ffx_a10.hh"
 #include "tkr/cabeceras/funcion_rn.hh"
 #include "tkr/cabeceras/pseudoaleatorio_aes.hh"
@@ -141,7 +143,7 @@ void imprimirAyuda()
       << "-d MÉTODO TOKEN ARCHIVO_DE_LLAVE" << endl
       << "  Detokeniza el token dado con el método y la llave" << endl
       << "  especificados." << endl
-      << "MÉTODO := TKR | FFX | BPS | HAR" << endl
+      << "MÉTODO := TKR | FFX | BPS | HAR | DRBG" << endl
       << "-k" << endl
       << "  Imprime este mensaje." << endl
       << endl;
@@ -238,6 +240,15 @@ ArregloDeDigitos tokenizar(
     CDV* accesoADatos = new AccesoMySQL {};
     algoritmoTokenizador = new AHR{accesoADatos, llave};
   }
+  else if (metodo == "DRBG")
+  {
+    CDV* accesoADatos = new AccesoMySQL {};
+    AleatoriedadTrivial *aleatoriedad = new AleatoriedadTrivial;
+    DRBG *drbg = new HashDRBG{aleatoriedad, Arreglo<unsigned char>{1, 2, 3},
+      DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256};
+    FuncionRN* funcion = new FuncionRN {drbg, accesoADatos, longitud};
+    algoritmoTokenizador = new TKR{funcion, accesoADatos};
+  }
   resultado = algoritmoTokenizador->operar({pan});
   delete algoritmoTokenizador;
   delete[] llave;
@@ -280,6 +291,11 @@ ArregloDeDigitos detokenizar(
   {
     CDV* accesoADatos = new AccesoMySQL {};
     algoritmoTokenizador = new AHR{accesoADatos, llave};
+  }
+  else if (metodo == "DRBG")
+  {
+    CDV* accesoADatos = new AccesoMySQL {};
+    algoritmoTokenizador = new TKR{nullptr, accesoADatos};
   }
   resultado = algoritmoTokenizador->deoperar({token});
   delete algoritmoTokenizador;
