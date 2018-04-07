@@ -1,12 +1,20 @@
+/**
+ * \file
+ * \brief Implementación de AHR
+ *
+ * Proyecto Lovelace.
+ */
+
 #include "cabeceras/ahr.hh"
-#include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
-#include "../utilidades/cabeceras/utilidades_tarjetas.hh"
 #include "../acceso_a_datos/cabeceras/registro.hh"
+#include "../utilidades/cabeceras/utilidades_tarjetas.hh"
+#include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
+#include "../../utilidades/cabeceras/utilidades_matematicas.hh"
 #include <cryptopp/sha.h>
 #include <cryptopp/hex.h>
 #include <iostream>
-#include <string>
 #include <sstream>
+#include <string>
 #include <cmath>
 
 using namespace CryptoPP;
@@ -274,8 +282,7 @@ bool AHR::existeToken()
  */
 void AHR::tokenizarHibridamente()
 {
-  unsigned long long int limiteS =
-    (unsigned long long int) pow((long double)10, (long double)mNumeroDigitosEntradaX);
+  entero limiteS = potencia<entero>(10, mNumeroDigitosEntradaX);
 
   /* Primer paso del algoritmo. */
   crearBloqueT();
