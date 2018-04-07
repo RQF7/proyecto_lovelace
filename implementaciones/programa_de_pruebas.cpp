@@ -57,9 +57,9 @@ int main()
       TKRPrueba {},
       AccesoMySQLPrueba {},
       UtilidadesCriptograficasPrueba {},
-//      AleatoriedadTrivialPrueba {},
-//      HashDRBGPrueba {},
-//      CTRDRBGPrueba {},
+      AleatoriedadTrivialPrueba {},
+      HashDRBGPrueba {},
+      CTRDRBGPrueba {},
       AHRPrueba(),
       AESPrueba()
     }

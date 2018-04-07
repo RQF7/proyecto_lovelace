@@ -53,7 +53,7 @@ bool AHRPrueba::probarOperacion()
   AHR ahr {accesoADatos, llave};
 
   /* Prueba de tokenización y detokenización. */
-  ArregloDeDigitos panUno (1234567891233ull);
+  ArregloDeDigitos panUno ("0234567891234");
   ArregloDeDigitos tokenUno (ahr.operar({panUno}));
   ArregloDeDigitos rPanUno (ahr.deoperar({tokenUno}));
 
