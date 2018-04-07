@@ -19,6 +19,8 @@
 #include "utilidades/cabeceras/utilidades_tarjetas.hh"
 #include "../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include "../utilidades/cabeceras/codificador.hh"
+#include <ctime>
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -89,7 +91,7 @@ int main(int numeroDeArgumentos, char** argumentos)
   {
     string metodo {argumentos[2]};
     ArregloDeDigitos pan (string{argumentos[3]});
-    string nombreArchivoLlave {argumentos[4]};
+    string nombreArchivoLlave {(numeroDeArgumentos > 4) ? argumentos[4] : ""};
     ArregloDeDigitos token (tokenizar(metodo, nombreArchivoLlave, pan));
     cout << token << endl;
   }
@@ -98,7 +100,7 @@ int main(int numeroDeArgumentos, char** argumentos)
   {
     string metodo {argumentos[2]};
     ArregloDeDigitos token (string{argumentos[3]});
-    string nombreArchivoLlave {argumentos[4]};
+    string nombreArchivoLlave {(numeroDeArgumentos > 4) ? argumentos[4] : ""};
     ArregloDeDigitos pan (detokenizar(metodo, nombreArchivoLlave, token));
     cout << pan << endl;
   }
@@ -151,8 +153,10 @@ void imprimirAyuda()
 
 void generarPAN()
 {
+  srand(time(NULL));
   PseudoaleatorioTrivial generador {};
-  cout << generador.operar({16u}) << endl;
+  cout << generador.operar({static_cast<unsigned int>(rand() % 7 + 12)})
+       << endl;
 }
 
 /**
@@ -208,19 +212,21 @@ ArregloDeDigitos tokenizar(
   const ArregloDeDigitos& pan   /**< Arreglo de dígitos con el PAN. */
 )
 {
-  unsigned char *llave = leerLlave(nombreArchivoLlave);
+  unsigned char *llave = (nombreArchivoLlave != "") ?
+    leerLlave(nombreArchivoLlave) : nullptr;
   ArregloDeDigitos resultado;
   AlgoritmoTokenizador* algoritmoTokenizador {nullptr};
+  unsigned int longitud = pan.obtenerNumeroDeElementos() - 7;
   if (metodo == "TKR")
   {
     CDV* accesoADatos = new AccesoMySQL {};
     PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
-    FuncionRN* funcion = new FuncionRN {aes, accesoADatos, 9};
+    FuncionRN* funcion = new FuncionRN {aes, accesoADatos, longitud};
     algoritmoTokenizador = new TKR{funcion, accesoADatos};
   }
   else if (metodo == "FFX")
   {
-    algoritmoTokenizador = new FFXA10<int>{llave, nullptr, 0, 9};
+    algoritmoTokenizador = new FFXA10<int>{llave, nullptr, 0, longitud};
   }
   else if (metodo == "BPS")
   {
@@ -251,19 +257,19 @@ ArregloDeDigitos detokenizar(
   const ArregloDeDigitos& token
 )
 {
-  unsigned char *llave = leerLlave(nombreArchivoLlave);
+  unsigned char *llave = (nombreArchivoLlave != "") ?
+    leerLlave(nombreArchivoLlave) : nullptr;
   ArregloDeDigitos resultado;
   AlgoritmoTokenizador* algoritmoTokenizador {nullptr};
+  unsigned int longitud = token.obtenerNumeroDeElementos() - 7;
   if (metodo == "TKR")
   {
     CDV* accesoADatos = new AccesoMySQL {};
-    PseudoaleatorioAES* aes = new PseudoaleatorioAES {llave};
-    FuncionRN* funcion = new FuncionRN {aes, accesoADatos, 9};
-    algoritmoTokenizador = new TKR{funcion, accesoADatos};
+    algoritmoTokenizador = new TKR{nullptr, accesoADatos};
   }
   else if (metodo == "FFX")
   {
-    algoritmoTokenizador = new FFXA10<int>{llave, nullptr, 0, 9};
+    algoritmoTokenizador = new FFXA10<int>{llave, nullptr, 0, longitud};
   }
   else if (metodo == "BPS")
   {
