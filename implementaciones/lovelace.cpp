@@ -10,6 +10,7 @@
 #include "bps/cabeceras/cifrador_BPS.hh"
 #include "drbg/cabeceras/aleatoriedad_trivial.hh"
 #include "drbg/cabeceras/hash_drbg.hh"
+#include "drbg/cabeceras/pseudoaleatorio_drbg.hh"
 #include "ffx/cabeceras/ffx_a10.hh"
 #include "tkr/cabeceras/funcion_rn.hh"
 #include "tkr/cabeceras/pseudoaleatorio_aes.hh"
@@ -246,7 +247,8 @@ ArregloDeDigitos tokenizar(
     AleatoriedadTrivial *aleatoriedad = new AleatoriedadTrivial;
     DRBG *drbg = new HashDRBG{aleatoriedad, Arreglo<unsigned char>{1, 2, 3},
       DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256};
-    FuncionRN* funcion = new FuncionRN {drbg, accesoADatos, longitud};
+    PseudoaleatorioDRBG *puenteDRBG{new PseudoaleatorioDRBG{drbg}};
+    FuncionRN* funcion = new FuncionRN {puenteDRBG, accesoADatos, longitud};
     algoritmoTokenizador = new TKR{funcion, accesoADatos};
   }
   resultado = algoritmoTokenizador->operar({pan});
