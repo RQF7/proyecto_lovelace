@@ -38,6 +38,20 @@ AHR::AHR(CDV* baseDeDatos, unsigned char* llave)
 }
 
 /**
+ * Constructor por defecto. Se encarga de inicializar los bloques mBloqueT y
+ * mBloqueC. Recibe como parámetros la referencia a la base de datos que
+ * se va a utilizar y la llave con la que se inicializará el cifrador.
+ */
+AHR::AHR(CDV* baseDeDatos)
+: mAccesoADatos{baseDeDatos}
+{
+  mBloqueT = new unsigned char[M];
+  mBloqueC = new unsigned char[M];
+
+  mCifrador = AES(AES_256);
+}
+
+/**
  * Se encarga de crear un objeto a partir de
  * otro ya existente. Ambos objetos quedan utilizables.
  */

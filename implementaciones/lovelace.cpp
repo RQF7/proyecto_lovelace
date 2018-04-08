@@ -292,7 +292,7 @@ ArregloDeDigitos detokenizar(
   else if (metodo == "AHR")
   {
     CDV* accesoADatos = new AccesoMySQL {};
-    algoritmoTokenizador = new AHR{accesoADatos, llave};
+    algoritmoTokenizador = new AHR{accesoADatos};
   }
   else if (metodo == "DRBG")
   {

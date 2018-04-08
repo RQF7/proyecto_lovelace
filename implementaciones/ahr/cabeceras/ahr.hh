@@ -111,6 +111,8 @@ namespace Implementaciones
       */
     AHR(CDV*, unsigned char*);
 
+    AHR(CDV*);
+
     /** \brief Constructor por copia. */
     AHR(AHR const&);
 

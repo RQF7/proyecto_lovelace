@@ -94,7 +94,7 @@ do
   # Prueba de AHR #############################################################
   echo "Prueba $i con AHR ==============================="
 
-  $ejecutable -k temporal.llave 16
+  $ejecutable -k temporal.llave 32
   echo "Llave: "
   cat temporal.llave
   echo ""
@@ -105,7 +105,7 @@ do
   tokenUno=$($ejecutable -e AHR $panUno temporal.llave)
   echo "Token: " $tokenUno
 
-  panUnoDescifrado=$($ejecutable -d AHR $tokenUno temporal.llave)
+  panUnoDescifrado=$($ejecutable -d AHR $tokenUno)
   echo "Pan descifrado: " $panUnoDescifrado
 
   rm temporal.llave

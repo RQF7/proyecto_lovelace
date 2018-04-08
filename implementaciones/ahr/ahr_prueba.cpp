@@ -7,8 +7,8 @@
 #include "../tkr/cabeceras/pseudoaleatorio_aes.hh"
 #include "cabeceras/ahr.hh"
 #include "cabeceras/ahr_prueba.hh"
-#include "../acceso_a_datos/cabeceras/acceso_mysql.hh"
 #include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
+#include "../acceso_a_datos/cabeceras/acceso_mysql.hh"
 #include <cryptopp/aes.h>
 #include <cryptopp/drbg.h>
 #include <cryptopp/sha.h>
@@ -26,7 +26,7 @@ AHRPrueba::AHRPrueba()
 : Utilidades::Prueba{"pruebas de AHR"}
 {
   mListaDePruebas.push_back(Utilidades::FuncionDePrueba{
-    "operación completa con uso de base de datos",
+    "operación completa de tokenización y detokenización",
     AHRPrueba::probarOperacion
   });
 }
@@ -43,7 +43,6 @@ bool AHRPrueba::probarOperacion()
 {
   Implementaciones::AES cifrador = Implementaciones::AES();
 
-  /* Generar llave aleatoria. */
   unsigned char llave[33] = { 0xc4,0x7b,0x02,0x94,0xdb,0xbb,0xee,0x0f,
                       0xec,0x47,0x57,0xf2,0x2f,0xfe,0xee,0x35,0x87,0xca,0x47,
                       0x30,0xc3,0xd3,0x3b,0x69,0x1d,0xf3,0x8b,0xab,0x07,0x6b,
@@ -51,20 +50,21 @@ bool AHRPrueba::probarOperacion()
 
   /* Instanciación de algoritmo. */
   CDV* accesoADatos = new AccesoMySQL {};
-  AHR ahr {accesoADatos, llave};
+  AHR ahrTokenizador {accesoADatos, llave};
+  AHR ahrDetokenizador {accesoADatos};
 
   /* Prueba de tokenización y detokenización. */
   ArregloDeDigitos panUno ("432564228828");
-  ArregloDeDigitos tokenUno (ahr.operar({panUno}));
-  ArregloDeDigitos rPanUno (ahr.deoperar({tokenUno}));
+  ArregloDeDigitos tokenUno (ahrTokenizador.operar({panUno}));
+  ArregloDeDigitos rPanUno (ahrDetokenizador.deoperar({tokenUno}));
 
   cout << "PAN 1: " << panUno << endl
        << "\t Token 1: " << tokenUno << endl
        << "\t Token 1 descifrado: " << rPanUno << endl;
 
   ArregloDeDigitos panDos (1122333116565728ull);
-  ArregloDeDigitos tokenDos (ahr.operar({panDos}));
-  ArregloDeDigitos rPanDos (ahr.deoperar({tokenDos}));
+  ArregloDeDigitos tokenDos (ahrTokenizador.operar({panDos}));
+  ArregloDeDigitos rPanDos (ahrDetokenizador.deoperar({tokenDos}));
 
   cout << "PAN 2: " << panDos << endl
       << "\t Token 2: " << tokenDos << endl
