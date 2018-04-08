@@ -118,7 +118,7 @@ reversibles.
 
 En la figura \ref{clases_tkr} se muestran las clases relacionadas al módulo de
 TKR. Al igual que con el diagrama anterior, la gran mayoría de las clases
-pertenecen al paquete de implementaciones; la excepciones marcan el paquete al
+pertenecen al paquete de implementaciones; las excepciones marcan el paquete al
 que pertenecen.
 
 Este es el primer diagrama en donde es necesario mostrar el esquema de acceso a
@@ -149,11 +149,11 @@ de esta última función: una trivial, una basada en \gls{gl:aes} y la tercera
 basada en un \gls{gl:drbg} (costado izquierdo del diagrama). La trivial es una
 primera implementación que genera números pseudoaleatorios de un modo que no es
 criptográficamente seguro. La basada en \gls{gl:aes} es tal cuál se decribe en
-el artículo \ref{doc_sandra}. Por último, la basada en un \gls{gl:drbg_lista},
+el artículo \cite{doc_sandra}. Por último, la basada en un \gls{gl:drbg},
 es la que permite definir el algoritmo tokenizador que se describe en la sección
-\ref{sec:drbg}; para este algoritmo se ocupa la misma estructura que para TKR,
-sin embargo, lo que importa en esta implementación es la propia creación del
-generador, que se muestra en secciones posteriores.
+\ref{sec:drbg_lista}; para este algoritmo se ocupa la misma estructura que para
+TKR, sin embargo, lo que importa en esta implementación es la propia creación
+del generador, que se muestra en secciones posteriores.
 
 La relación entre la función RN y su mecanismo de generación interno está
 totalmente desacoplada: lo único que necesita la clase de la función RN es otra
