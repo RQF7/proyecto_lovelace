@@ -26,51 +26,13 @@ matrix:
 sudo: required
 dist: trusty
 
-#cache:
-#  directories:
-#    # Generales
-#    - ~/texmf
-#    # Texlive
-#    - /usr/share/bug/texlive
-#    - /usr/share/doc/texlive
-
 # Instalación de dependencias #################################################
 before_install:
   - eval "${MATRIX_EVAL}"
   - sudo apt-get -qq update
   - sudo apt-get -qq install
-    texlive
-    texlive-latex-recommended
-    texlive-latex-extra
-    texlive-lang-spanish
-    texlive-bibtex-extra
-    texlive-generic-extra
-    doxygen
-    graphviz
     libmysqlcppconn-dev
     yasm
-  # glossaries
-  - wget --quiet http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
-  - unzip --qq -d ~/texmf glossaries.tds.zip
-  - rm glossaries.tds.zip
-  # tracklang
-  - wget --quiet http://mirrors.ctan.org/install/macros/generic/tracklang.tds.zip
-  - unzip -qq -d ~/texmf tracklang.tds.zip
-  - rm tracklang.tds.zip
-  # bibtex
-  - wget --quiet https://iweb.dl.sourceforge.net/project/biblatex/biblatex-3.9/biblatex-3.9.tds.tgz
-  - tar -xf biblatex-3.9.tds.tgz -C ~/texmf
-  - rm biblatex-3.9.tds.tgz
-  # babel
-  - wget --quiet http://mirrors.ctan.org/install/macros/latex/required/babel-base.tds.zip
-  - unzip -qq -d ~/texmf babel-base.tds.zip
-  - rm babel-base.tds.zip
-  # biber
-  - wget --quiet https://phoenixnap.dl.sourceforge.net/project/biblatex-biber/biblatex-biber/current/binaries/Linux/biber-linux_x86_64.tar.gz
-  - mkdir ~/ejecutable_biber
-  - tar -xf biber-linux_x86_64.tar.gz -C ~/ejecutable_biber
-  - export PATH=~/ejecutable_biber/:$PATH
-  - rm biber-linux_x86_64.tar.gz
   # Cryptopp
   - wget --quiet https://cryptopp.com/cryptopp600.zip
   - unzip --qq -a -d cryptopp cryptopp600.zip
@@ -104,6 +66,7 @@ script:
 
 # Generación de documentación #################################################
 after_success:
+  - bash -v travis/dependencias_distribucion.sh
   # Compilación de archivos de LaTeX
   - make -B -C documentos_entregables
   - make -B -C documentos_entregables presentacion_fpe
