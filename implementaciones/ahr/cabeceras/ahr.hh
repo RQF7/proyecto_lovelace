@@ -121,6 +121,11 @@ namespace Implementaciones
     struct TokenInexistente : public Utilidades::Error {
       inline TokenInexistente(std::string mensaje)
       : Utilidades::Error{mensaje} {}};
+
+    /** \brief La llave no es de 32 bytes. */
+    struct LlaveInadecuada : public Utilidades::Error {
+      inline LlaveInadecuada(std::string mensaje)
+      : Utilidades::Error{mensaje} {}};
   };
 }
 
