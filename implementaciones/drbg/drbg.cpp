@@ -75,7 +75,7 @@ DRBG::DRBG(
  *                          seguridad provisto por la instanciación.
  */
 
-Arreglo<unsigned char> DRBG::operar(const vector<unsigned int>& entrada)
+Arreglo<unsigned char> DRBG::operar(const vector<entero>& entrada)
 {
   if (entrada.size() == 2)
     if (entrada[1] > static_cast<unsigned int>(mNivelDeSeguridad))

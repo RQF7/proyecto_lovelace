@@ -79,7 +79,7 @@ do
   tokenUno=$($ejecutable -e TKR $panUno temporal.llave)
   echo "Token: " $tokenUno
 
-  panUnoDescifrado=$($ejecutable -d TKR $tokenUno temporal.llave)
+  panUnoDescifrado=$($ejecutable -d TKR $tokenUno)
   echo "Pan descifrado: " $panUnoDescifrado
 
   rm temporal.llave
@@ -87,6 +87,52 @@ do
     echo "Prueba de TKR exitosa."
   else
     echo "Error en TKR."
+    exit -1
+  fi
+  echo ""
+
+  # Prueba de AHR #############################################################
+  echo "Prueba $i con AHR ==============================="
+
+  $ejecutable -k temporal.llave 16
+  echo "Llave: "
+  cat temporal.llave
+  echo ""
+
+  panUno=$($ejecutable -r)
+  echo "PAN original: " $panUno
+
+  tokenUno=$($ejecutable -e AHR $panUno temporal.llave)
+  echo "Token: " $tokenUno
+
+  panUnoDescifrado=$($ejecutable -d AHR $tokenUno temporal.llave)
+  echo "Pan descifrado: " $panUnoDescifrado
+
+  rm temporal.llave
+  if [ $panUno -eq $panUnoDescifrado ]; then
+    echo "Prueba de AHR exitosa."
+  else
+    echo "Error en AHR."
+    exit -1
+  fi
+  echo ""
+
+  # Prueba de DRBG ############################################################
+  echo "Prueba $i con DRBG ==============================="
+
+  panUno=$($ejecutable -r)
+  echo "PAN original: " $panUno
+
+  tokenUno=$($ejecutable -e DRBG $panUno)
+  echo "Token: " $tokenUno
+
+  panUnoDescifrado=$($ejecutable -d DRBG $tokenUno)
+  echo "Pan descifrado: " $panUnoDescifrado
+
+  if [ $panUno -eq $panUnoDescifrado ]; then
+    echo "Prueba de DRBG exitosa."
+  else
+    echo "Error en DRBG."
     exit -1
   fi
   echo ""

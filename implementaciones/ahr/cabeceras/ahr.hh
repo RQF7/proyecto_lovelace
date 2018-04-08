@@ -1,6 +1,8 @@
 /**
  * \file
  * \brief Clase del algoritmo híbrido tokenizador AHR.
+ *
+ * Proyecto Lovelace.
  */
 
 #ifndef __AHRHH__
@@ -10,6 +12,7 @@
 #include "../../acceso_a_datos/cabeceras/acceso_mysql.hh"
 #include "../../aes_ensamblador/cabeceras/aes.hh"
 #include "../../utilidades/cabeceras/algoritmo_tokenizador_irreversible.hh"
+#include "../../../utilidades/cabeceras/utilidades_matematicas.hh"
 
 /** \brief  Tamaño del bloque del cifrador en bytes: 16 bytes = 256 bits*/
 #define M 16
@@ -30,13 +33,13 @@ namespace Implementaciones
   {
   private:
     /** \brief  Entero con la entrada a tokenizar. */
-    unsigned long long int mEntradaX;
+    entero mEntradaX;
 
     /** \brief  Entero con la entrada adicional (tweak). */
-    unsigned long long int mEntradaU;
+    entero mEntradaU;
 
     /** \brief  Entero que almacena el token generado. */
-    unsigned long long int mToken;
+    entero mToken;
 
     /** \brief  Bloque que concatena la salida del SHA256 y la entradaX en
      *  binario.
@@ -117,7 +120,9 @@ namespace Implementaciones
     /** \brief Destructor.*/
     ~AHR();
 
-    /** \brief El token dado no existe. */
+    /** \brief El token dado no existe.
+     *
+     * \warning ¿!Esto no está duplicado!? TKR::TokenInexistente */
     struct TokenInexistente : public Utilidades::Error {
       inline TokenInexistente(std::string mensaje)
       : Utilidades::Error{mensaje} {}};

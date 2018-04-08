@@ -21,7 +21,7 @@ namespace Implementaciones
    *
    * Implementación de un generador de bits pseudoaleatorios (DRBG) de acuerdo
    * a la
-   * (recomendación 800-90A del NIST)[https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf].
+   * [recomendación 800-90A del NIST](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf).
    * El estándar especifíca el generador en términos de 5 funciones:
    *
    * * Instanciación (el contructor).
@@ -34,11 +34,11 @@ namespace Implementaciones
    * obtener un generador concreto es necesario implementar la operación
    * generarBytes.
    *
-   * \sa HashDRBG CTRDRBG HMACDRBG
+   * \sa HashDRBG y CTRDRBG.
    */
 
   class DRBG
-  : public Utilidades::Funcion<Arreglo<unsigned char>, unsigned int>
+  : public Utilidades::Funcion<Arreglo<unsigned char>, entero>
   {
     public:
 
@@ -69,7 +69,7 @@ namespace Implementaciones
 
       /** \brief Función generadora de bits pseudoaleatorios. */
       Arreglo<unsigned char>
-        operar(const std::vector<unsigned int>& entrada) override;
+        operar(const std::vector<entero>& entrada) override;
 
       /** \brief Error para representar una fuerza de seguiridad no soportada.*/
       struct FuerzaNoSoportada : public Utilidades::Error
@@ -167,7 +167,7 @@ namespace Implementaciones
       Arreglo<unsigned char> mSemilla;
 
       /** \brief Función generadora de bits (definida por concretos). */
-      virtual Arreglo<unsigned char> generarBytes(unsigned int longitud) = 0;
+      virtual Arreglo<unsigned char> generarBytes(entero longitud) = 0;
   };
 }
 

@@ -1,9 +1,17 @@
+/**
+ * \file
+ * \brief Implementación de CBC utilizando AES
+ *
+ * Proyecto Lovelace
+ */
+
 #include "cabeceras/cbc.hh"
 #include <iostream>
 #include <math.h>
 #include <string.h>
 #include "libaesni/iaesni.h"
 
+using namespace Implementaciones;
 using namespace std;
 
 /** El constructor inicia al cifrador de bloque con el tamaño de
@@ -82,7 +90,8 @@ void CBC::leerVectorIni(ifstream &archivoVI)
 
   if(tamVI != TAM_BLOQUE)
   {
-    cout << "Tamaño de vector de inicialización inválido ("  << tamVI << ")."  << endl;
+    cout << "Tamaño de vector de inicialización inválido ("  << tamVI << ")."
+         << endl;
     exit(0);
   }
 

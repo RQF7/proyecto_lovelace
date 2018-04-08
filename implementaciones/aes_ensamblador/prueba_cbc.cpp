@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+using namespace Implementaciones;
 using namespace std;
 
 char* obtenerNombreSalida(char* nombreOrigen)
@@ -68,6 +69,6 @@ int main(int argc, char* argv[])
   }
 
   cifrador.descifrarArchivoExacto(archivoCifrado, nombreArchivoDestino2);
-  
+
   return 1;
 }

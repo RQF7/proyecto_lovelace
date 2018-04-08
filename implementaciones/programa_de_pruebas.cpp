@@ -1,6 +1,7 @@
 /**
  * \file
  * \brief Archivo principal de pruebas de ffx y componentes.
+ *
  * Proyecto Lovelace.
  */
 

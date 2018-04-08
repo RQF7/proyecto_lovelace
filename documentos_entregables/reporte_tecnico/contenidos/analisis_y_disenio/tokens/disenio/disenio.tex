@@ -12,7 +12,7 @@ describir los aspectos más significativos del programa.
 
 \subsubsection{Vista estática del programa}
 
-En el diagrama de la figura \ref{clases_general} se muestran una vista estática
+En el diagrama de la figura \ref{clases_general} se muestra una vista estática
 general del programa. Las clases se dividen en dos paquetes: implementaciones
 y utilidades. Las utilidades abarcan estructuras de datos, interfaces,
 clases de excepciones y clases de prueba; todas ellas no tienen que ver
@@ -25,8 +25,8 @@ de este paquete, sí todo está relacionado o con criptografía o con un
 entorno bancario.
 
 Retornando al diagrama de \ref{clases_general}: muestra solamente las clases
-e interfaces directamente relacionadas con los algoritmos tokenizadores
-(en las próximas secciones se mostrarán algunas otras vistas). Las utilidades
+e interfaces directamente relacionadas con los algoritmos tokenizadores;
+en las próximas secciones se mostrarán algunas otras vistas. Las utilidades
 contienen las interfaces para definir los distintos tipos de funciones y la
 estructura de datos (Arreglo) que se usa de manera constante en todo el
 programa. Las implementaciones muestran las interfaces que definen y clasifican
@@ -68,7 +68,114 @@ abstractos que los algoritmos concretos deben de implementar.
   \end{center}
 \end{figure}
 
+\paragraph{Clases de FFX}
+
+En la figura \ref{clases_ffx} se muestran las clases que conforman al módulo de
+FFX. Sin contar a las tres interfaces de funciones (que forman parte del paquete
+de utilidades) todas las clases son del paquete de implementaciones.
+
+La clase de la red Feistel implementa la interfaz de una función con inverso
+(tiene tanto operación de ida, como de vuelta) y se compone (por medio de una
+relación de composición) de una función, utilizada como fucnión de ronda, y de
+una función con inverso, utilizada como operador de combinación. Ambas clases
+hijas (redes Feistel alternantes o desbalanceadas) contienen un indicador de
+desbalanceo y sobreescriben ambas operaciones de la superclase; la red feistel
+alternante (ver sección \ref{sec:red_feistel}) agrega una nueva función
+de ronda: una para las pares y otra para las impares.
+
+En la parte superior de diagrama se muestran las dos posibles operaciones de
+combinación que soporta ffx: una a nivel de bloque y la otra nivel de caracter.
+La única clase en donde estas dos opciones son reestrictivas es desde la
+construcción de FFXA10; el desacoplamiento dado por las interfaces permite que
+lo único que necesite saber la red es que tiene una función que recibe un
+arreglo y entrega un arreglo.
+
+Otra clase con la misma esructura que las dos anteriores es la de la función de
+ronda de FFXA10: implementa la interfaz de una función con inverso simétrico
+(que a su vez implementa un función con inverso); una instancia de esta clase
+en FFX es usada para construir a la red Feistel con la que se opera.
+
+La clase de FFX es solamente un medio de comunicación con la red Feistel
+interna, esto es, no agrega ninguna lógica extra a los procesos de operación y
+operación inversa. Lo mismo ocurre con FFXA10; solo que mientras el contructor
+de la superclase es abierto a personalizar la red (FFX debería servir para
+cualquier cifrado que preserva el formato, no solo para un alfabeto de
+dígitos), el contructor de FFXA10 tiene parámetros bastante limitados, y su
+construcción de la superclase y la red Feistel ya es predefinida según la
+descripción de esta colección hecha en la sección \ref{sec:ffx}. Es esta última
+clase (FFXA10) la que implementa la interfaz de los algoritmos tokenizadores
+reversibles.
+
+\begin{sidewaysfigure}
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{diagramas/ffx.png}
+    \caption{Diagrama de clases de módulo de FFX.}
+    \label{clases_ffx}
+  \end{center}
+\end{sidewaysfigure}
+
+\paragraph{Clases de TKR}
+
+En la figura \ref{clases_tkr} se muestran las clases relacionadas al módulo de
+TKR. Al igual que con el diagrama anterior, la gran mayoría de las clases
+pertenecen al paquete de implementaciones; las excepciones marcan el paquete al
+que pertenecen.
+
+Este es el primer diagrama en donde es necesario mostrar el esquema de acceso a
+una fuente de datos. Este es descrito por una interfaz llamada CDV
+(\acrlong{gl:cdv}), que define las operaciones que debe de proveer cualquier
+fuente de datos que se desee usar dentro del programa. En un primer esquema
+existen dos clases concretas que implementan esta interfaz: un acceso trivial y
+un acceso a MySQL (ver sección \ref{sec:tecnologias}). El acceso trivial permite
+definir métodos «de prueba» cuando se introduce una nueva operación en la
+interfaz; de esta forma, el código cliente puede ocupar esta implementación en
+lo que se desarrolla la verdadera, con conexión a base de datos. Esta manera de
+separar interfaz de implementación para el acceso a datos es un patrón de
+arquitectura conocido como \gls{gl:dao}; a grandes rasgos permite separar la
+definición de \textit{qué} datos necesita la aplicación, del \textit{cómo} los
+obtendrá; de esta manera, un cambio en el gestor de base de datos no debe
+afectar al código que usa la interfaz.
+
+En la parte inferior del diagrama se muestra la clase \textit{Registro}. Esta
+representa la única clase de datos del entorno del modelo; contiene la relación
+entre un \gls{gl:pan} y un \gls{gl:token}. Como aclaración, es la única clase de
+datos del modelo del módulo del programa tokenizador; la interfaz web
+introducirá muchas otras clases al modelo.
+
+TKR, como se explicó en la sección \ref{sec:tkr}, necesita de una función que
+genere tokens pseudoaleatorios (la función RN) la cuál necesita de una función
+proveedora de bits pseudoaleatorios. En el diagrama se muestran tres versiones
+de esta última función: una trivial, una basada en \gls{gl:aes} y la tercera
+basada en un \gls{gl:drbg} (costado izquierdo del diagrama). La trivial es una
+primera implementación que genera números pseudoaleatorios de un modo que no es
+criptográficamente seguro. La basada en \gls{gl:aes} es tal cuál se decribe en
+el artículo \cite{doc_sandra}. Por último, la basada en un \gls{gl:drbg},
+es la que permite definir el algoritmo tokenizador que se describe en la sección
+\ref{sec:drbg_lista}; para este algoritmo se ocupa la misma estructura que para
+TKR, sin embargo, lo que importa en esta implementación es la propia creación
+del generador, que se muestra en secciones posteriores.
+
+La relación entre la función RN y su mecanismo de generación interno está
+totalmente desacoplada: lo único que necesita la clase de la función RN es otra
+función que reciba enteros sin signo y entregue arreglos de bytes. Este modelo
+de desacoplamiento no se imitó en la relación entre la clase de TKR y la función
+RN porque la especificación de TKR es muy específica respecto a qué función
+usar.
+
+La clase de TKR implementa la interfaz de un algoritmo tokenizador irreversible,
+por lo que debe (programación por contrato) implementar los métodos para
+tokenizar y detokenizar.
+
+\begin{sidewaysfigure}
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{diagramas/tkr.png}
+    \caption{Diagrama de clases de módulo de TKR.}
+    \label{clases_tkr}
+  \end{center}
+\end{sidewaysfigure}
+
 \subsubsection{Selección de tecnologías}
+\label{sec:tecnologias}
 
 Las primeras decisiones tomadas con respecto a la implementación y al diseño
 fueron sobre el paradigma de programación y el lenguaje a utilizar. Para

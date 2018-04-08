@@ -70,7 +70,7 @@ namespace Implementaciones
     private:
 
       /** \brief Generación de bits (adquirida por contrato). */
-      Arreglo<unsigned char> generarBytes(unsigned int longitud) override;
+      Arreglo<unsigned char> generarBytes(entero longitud) override;
 
       /** \brief Función de derivación. */
       Arreglo<unsigned char> funcionDeDerivacion(

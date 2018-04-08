@@ -32,7 +32,7 @@ namespace Implementaciones
       using FuncionPseudoaleatoria =
         Utilidades::Funcion<ArregloDeDigitos, unsigned int>;
 
-      /* \brief Constructor de instancia. */
+      /** \brief Constructor de instancia. */
       TKR(FuncionPseudoaleatoria* funcionPseudoaleatoria =
           new PseudoaleatorioTrivial,
         CDV* baseDeDatos =
