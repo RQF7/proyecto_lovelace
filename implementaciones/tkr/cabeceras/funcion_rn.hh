@@ -8,6 +8,7 @@
 #ifndef __FUNCION_RN__
 #define __FUNCION_RN__
 
+#include "funcion_rn_prueba.hh"
 #include "pseudoaleatorio_aes.hh"
 #include "../../acceso_a_datos/cabeceras/acceso_simulado.hh"
 #include "../../../utilidades/cabeceras/arreglo_de_digitos.hh"
@@ -43,11 +44,12 @@ namespace Implementaciones
       /** \brief Generación de token pseudoaleatorio. */
       ArregloDeDigitos operar(const std::vector<unsigned int>& entrada) override;
 
+    private:
+
       /** \brief Redistribuye los bytes del arreglo dado. */
       Arreglo<unsigned char> redistribuir(
         const Arreglo<unsigned char> &original);
 
-    private:
       /** \brief Apuntador a primitiva subyacente. */
       FuncionInterna* mFuncionInterna;
 
@@ -65,6 +67,9 @@ namespace Implementaciones
 
       /** \brief Contador usado como estado para función interna. */
       entero mContador;
+
+      /** \breif Función de prueba como maiga. */
+      friend class ImplementacionesPruebas::FuncionRNPrueba;
   };
 }
 
