@@ -48,7 +48,7 @@ rm biber-linux_x86_64.tar.gz
 wget --quiet http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.14.linux.bin.tar.gz
 mkdir ~/ejecutable_doxygen
 tar -xf doxygen-1.8.14.linux.bin.tar.gz -C ~/ejecutable_doxygen
-export PATH=~/ejecutable_doxygen/doxygen-1.8.14/bin:$PATH
+export PATH=~/ejecutable_doxygen/doxygen-1.8.14/bin/:$PATH
 rm doxygen-1.8.14.linux.bin.tar.gz
 
 
