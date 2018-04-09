@@ -9,13 +9,13 @@
 
 # Desde repositorios de ubuntu:
 sudo apt-get -qq install \
-  \ texlive
-  \ texlive-latex-recommended
-  \ texlive-latex-extra
-  \ texlive-lang-spanish
-  \ texlive-bibtex-extra
-  \ texlive-generic-extra
-  \ graphviz
+  texlive \
+  texlive-latex-recommended \
+  texlive-latex-extra \
+  texlive-lang-spanish \
+  texlive-bibtex-extra \
+  texlive-generic-extra \
+  graphviz
 
 # glossaries
 wget --quiet http://mirrors.ctan.org/install/macros/latex/contrib/glossaries.tds.zip
@@ -48,7 +48,7 @@ rm biber-linux_x86_64.tar.gz
 wget --quiet http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.14.linux.bin.tar.gz
 mkdir ~/ejecutable_doxygen
 tar -xf doxygen-1.8.14.linux.bin.tar.gz -C ~/ejecutable_doxygen
-export PATH=~/ejecutable_doxygen/bin:$PATH
+export PATH=~/ejecutable_doxygen/doxygen-1.8.14/bin:$PATH
 rm doxygen-1.8.14.linux.bin.tar.gz
 
 
