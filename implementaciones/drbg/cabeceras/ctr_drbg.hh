@@ -66,7 +66,7 @@ namespace Implementaciones
       /** \brief Longitud de la llave interna. */
       unsigned int mLongitudLlave;
 
-      /** \breif Longitud de bloque. */
+      /** \brief Longitud de bloque. */
       unsigned int mLongitudBloque;
 
       /** \brief Longitud de contador. */
