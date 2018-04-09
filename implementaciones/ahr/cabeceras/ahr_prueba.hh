@@ -22,7 +22,7 @@ namespace ImplementacionesPruebas
       /** \brief Registro de pruebas en vector de funciones. */
       AHRPrueba();
 
-      /** \brief Prueba la operación con base de datos. */
+      /** \brief Prueba la operación del algoritmo AHR. */
       static bool probarOperacion();
   };
 }

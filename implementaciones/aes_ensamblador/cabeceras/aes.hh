@@ -85,7 +85,7 @@ namespace Implementaciones
       int obtenerTamanioLlave();
 
       /** \brief Operación para poner (o reemplazar) la llave actual */
-      void ponerLlave(unsigned char*);
+      bool ponerLlave(unsigned char*);
 
       /** \brief Operación para obtener la llave actual */
       unsigned char* obtenerLlave();

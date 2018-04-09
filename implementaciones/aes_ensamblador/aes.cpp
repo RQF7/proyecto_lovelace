@@ -169,7 +169,7 @@ int AES::obtenerTamanioLlave()
  * guardado actualmente, así que hay que actualizar primero el tamaño de la
  * llave y después poner la llave.
  */
-void AES::ponerLlave(unsigned char* vectorLlaveExterior)
+bool AES::ponerLlave(unsigned char* vectorLlaveExterior)
 {
   memcpy(vectorLlave, vectorLlaveExterior, tamLlave);
   if(!usarEnsamblador)
@@ -177,7 +177,7 @@ void AES::ponerLlave(unsigned char* vectorLlaveExterior)
     aesCryptoPP = CryptoPP::AES::Encryption(vectorLlave, tamLlave);
     cifradoECB = CryptoPP::ECB_Mode_ExternalCipher::Encryption {aesCryptoPP};
   }
-  return;
+  return true;
 }
 
 /**

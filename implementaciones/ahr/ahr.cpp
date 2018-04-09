@@ -37,6 +37,20 @@ AHR::AHR(CDV* baseDeDatos, unsigned char* llave)
 }
 
 /**
+ * Constructor por defecto. Se encarga de inicializar los bloques mBloqueT y
+ * mBloqueC. Recibe como parámetros la referencia a la base de datos que
+ * se va a utilizar y la llave con la que se inicializará el cifrador.
+ */
+AHR::AHR(CDV* baseDeDatos)
+: mAccesoADatos{baseDeDatos}
+{
+  mBloqueT = new unsigned char[M];
+  mBloqueC = new unsigned char[M];
+
+  mCifrador = AES(AES_256);
+}
+
+/**
  * Se encarga de crear un objeto a partir de
  * otro ya existente. Ambos objetos quedan utilizables.
  */
@@ -123,7 +137,8 @@ void AHR::separarPAN(string PAN)
   mEntradaU = stoull(auxU);
   mEntradaX = stoull(auxX);
 
-  mLongitudBytesEntradaX = ceil(ceil(log2(pow(10, mNumeroDigitosEntradaX))) / 8.0);
+  mLongitudBytesEntradaX = ceil(
+    ceil(log2(pow(10, mNumeroDigitosEntradaX))) / 8.0);
 
   delete [] auxU;
   delete [] auxX;
@@ -137,7 +152,7 @@ void AHR::separarPAN(string PAN)
   */
 void AHR::completarToken()
 {
-  mTokenCompleto =  to_string(mEntradaU) + to_string(mToken);
+  mTokenCompleto = mPANOriginal.substr(0, 6) + to_string(mToken);
   ArregloDeDigitos temporal = ArregloDeDigitos(mTokenCompleto);
 
   mTokenCompleto += to_string(modulo(algoritmoDeLuhn(temporal, false)+1, 10));
@@ -154,8 +169,10 @@ void AHR::completarToken()
 void AHR::obtenerBitsX()
 {
   memset(mBloqueT, 0x00, M);
-  unsigned long long int mascara =
-    (unsigned long long int) pow((long double)2, (long double)(8*mLongitudBytesEntradaX)-1);
+  unsigned long long int mascara = pow(
+    (long double)2,
+    (long double)(8*mLongitudBytesEntradaX)-1);
+
   unsigned char mascaraByte;
 
   for(int i = M-mLongitudBytesEntradaX; i < M; i++)
@@ -178,9 +195,9 @@ void AHR::obtenerBitsX()
   * que será utilizado como entrada para el cifrador por bloques. Primero
   * obtiene la salida de la función pública (SHA256 en este caso) de la entrada
   * adicional mEntradaU. Luego llama a la función obtenerBitsX para llenar los
-  * últimos mLongitudBytesEntradaX bloques del mBloqueT y, finalmente, le concatena al inicio los
-  * bytes más significativos de la salida del SHA para completar el tamaño
-  * de bloque del cifrador.
+  * últimos mLongitudBytesEntradaX bloques del mBloqueT y, finalmente, le
+  * concatena al inicio los bytes más significativos de la salida del SHA para
+  * completar el tamaño de bloque del cifrador.
   */
 void AHR::crearBloqueT()
 {
@@ -283,6 +300,7 @@ bool AHR::existeToken()
 void AHR::tokenizarHibridamente()
 {
   entero limiteS = potencia<entero>(10, mNumeroDigitosEntradaX);
+  entero limiteI = potencia<entero>(10, (mNumeroDigitosEntradaX-1)) - 1;
 
   /* Primer paso del algoritmo. */
   crearBloqueT();
@@ -298,7 +316,7 @@ void AHR::tokenizarHibridamente()
      */
     obtenerNumeroC();
     memcpy(mBloqueT, mBloqueC, M);
-  }while(mToken >= limiteS);
+  }while(mToken >= limiteS || mToken <= limiteI);
 
   /* Quinto paso del algoritmo: revisar si existe el token generado.*/
   if(existeToken())
