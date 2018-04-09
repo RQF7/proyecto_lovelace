@@ -67,6 +67,8 @@ script:
 # Generación de documentación #################################################
 after_success:
   - bash -v travis/dependencias_distribucion.sh
+  - export PATH=~/ejecutable_biber/:$PATH
+  - export PATH=~/ejecutable_doxygen/doxygen-1.8.14/bin/:$PATH
   # Compilación de archivos de LaTeX
   - make -B -C documentos_entregables
   - make -B -C documentos_entregables presentacion_fpe
