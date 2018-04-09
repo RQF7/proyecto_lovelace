@@ -33,8 +33,7 @@ AHR::AHR(CDV* baseDeDatos, unsigned char* llave)
   mBloqueC = new unsigned char[M];
 
   mCifrador = AES(AES_256);
-  if(!mCifrador.ponerLlave(llave))
-    throw LlaveInadecuada{"La llave no tiene 32 bits."};
+  mCifrador.ponerLlave(llave);
 }
 
 /**

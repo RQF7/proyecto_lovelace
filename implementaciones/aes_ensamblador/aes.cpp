@@ -171,14 +171,6 @@ int AES::obtenerTamanioLlave()
  */
 bool AES::ponerLlave(unsigned char* vectorLlaveExterior)
 {
-  int tamLlaveExterior = (int)strlen((char*)vectorLlaveExterior);
-
-  if( tamLlaveExterior != tamLlave){
-    cout << "El tamaño de la llave nueva [" << tamLlaveExterior
-         <<"] no corresponde con " << tamLlave << endl;
-    return false;
-  }
-
   memcpy(vectorLlave, vectorLlaveExterior, tamLlave);
   if(!usarEnsamblador)
   {
