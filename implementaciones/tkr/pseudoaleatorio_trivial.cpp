@@ -29,8 +29,10 @@ ArregloDeDigitos PseudoaleatorioTrivial::operar(
   random_device dispositivo;
   mt19937_64 generador{dispositivo()};
   uniform_int_distribution<int> distribucion(0, 9);
-  for (unsigned int i = 0; i < resultado.obtenerNumeroDeElementos() - 1; i++)
-    resultado[i] = modulo(distribucion(generador), 10);
+  uniform_int_distribution<int> distribucionInicial(1, 9);
+  resultado[0] = distribucionInicial(generador);
+  for (unsigned int i = 1; i < resultado.obtenerNumeroDeElementos() - 1; i++)
+    resultado[i] = distribucion(generador);
   resultado[resultado.obtenerNumeroDeElementos() - 1] =
     algoritmoDeLuhn(resultado, true);
   return resultado;
