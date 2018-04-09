@@ -5,11 +5,25 @@
 % Proyecto Lovelace.
 %
 
-\paragraph{Estructura de pruebas}
+\paragraph{Estructura de pruebas de unidades}
 
-En la figura \ref{clases_pruebas} se muestra la estructura de las clases de
+A la par que se implementa el programa descrito hasta ahora, se crearán
+\glspl{gl:prueba_de_unidad} y \glspl{gl:prueba_de_componente}. La idea de
+combinar el desarrollo de pruebas con el proceso de implementación es encontrar
+problemas en una etapa temprana, facilitar el cambio de código existente y
+simplificar la integración de nuevos componentes. La ejecución de las pruebas
+está ligada a un proceso de integración continua, de forma que con
+cada pequeño cambio (con cada \textit{commit}) se ejecute desde cero todo el
+proceso de compilación y pruebas.
+
+Algunos lenguajes (como Python) cuentan con un modelo de pruebas integrado;
+otros (como Java o Javascript) cuentan con librerías muy populares (JUnit o
+Karma). En el caso de C++ no hay ningún soporte desde el propio lenguaje, y
+entre las librerías existentes tampoco hay ninguna que se haya establecido como
+favorita. Es por eso que se decidió crear una estructura de pruebas propia:
+en la figura \ref{clases_pruebas} se muestra la estructura de las clases de
 pruebas para todo el programa. Este muestra a modo de ejemplo solamente algunas
-de las pruebas; todas las demás siguen el mismo esquema.
+de las clases; todas las demás siguen el mismo esquema.
 
 Las tres clases de la derecha, dentro del paquete de utilidades, son para
 agrupar y gestionar de una forma genérica a todas las pruebas. Un conjunto de
