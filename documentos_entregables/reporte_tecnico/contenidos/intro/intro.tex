@@ -5,6 +5,76 @@
 
 \chapter{Introducción}
 
-\section{Justificación}
+% Laura
+% Historia del comercio línea
+
+% Fraudes
+
+% Importancia de mantener segura la información
+
+% Hablar sobre la criptografía
+
+% PCI SSC y estándares (DSS)
+
+% Paradigma de tokens
 
 \section{Objetivos}
+
+\subsection{Objetivo general}
+
+Implementar algoritmos criptográficos y no criptográficos para generar
+\glspl{gl:token} con el propósito de proveer confidencialidad a los datos de las
+tarjetas bancarias\footnote{Tomando en cuenta la clasificación propuesta por el
+\gls{gl:pci} \gls{gl:ssc}}.
+
+\subsection{Objetivos específicos}
+
+\begin{itemize}
+  \item Revisar diversos algoritmos para la generación de \glspl{gl:token}.
+  \item Diseñar e implementar un servicio web que proporcione el servicio de
+    generación de \glspl{gl:token} de tarjetas bancarias a, al menos, una tienda
+    en línea.
+  \item Implementar una tienda web que use el servicio de generación de
+    \glspl{gl:token}.
+\end{itemize}
+
+\section{Justificación}
+
+%% TODO: Explicar a grandes rasgos, tienda por tienda, el método que proponen.
+
+En el estándar del PCI DSS se explica muy claramente lo que debe de cumplir un
+sistema tokenizado, sim embargo, no se explica cómo debe de hacerlo. Esto ha
+dado pie a que surjan soluciones que, a pesar de cumplir con el estándar, no
+son claros con respecto a su funcionamiento. Se hizo una investigación
+comparativa entre las principales soluciones que existen en el mercado.
+
+% Shift4
+% Ricardo
+
+% Merchant Link Payment Gateway,
+% Laura
+
+% Bluepay ToknShield,
+% Daniel
+
+% Braintree,
+% Ricardo
+
+% Jack Henry Card Processing Solution,
+% Laura
+
+% Thales Tokenization.
+% Daniel
+
+%TODO: citar ejemplos de las confusiones por algunas de las publicaciones:
+% ¿Qué es mejor criptografía vs. tokenización? Hay quién dice que no debes
+% utilizar una llave, porque es un modo de agregar reversibilidad (insuguro).
+% Ricardo
+
+% Conclusión
+% Ricardo
+
+\section{Organización del documento}
+% Daniel
+
+
