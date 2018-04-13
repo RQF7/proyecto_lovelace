@@ -190,10 +190,25 @@ en cada una.
     % Al parecer este si dice cómo es que funciona, usa FPE, mas especifico FF3
     % para tokenizar información basada en texto, y tablas de búsqueda para
     % información numérica de 9 a 19 dígitos.
-    % Aquí está la mayoría de la información: (no importa la calidad de las imágenes)
-    % http://go.thalesesecurity.com/rs/480-LWA-970/images/Fortrex_Vormetric_VTS_Token_Evaluation.PDF?aliId=59031373
+    % Aquí está la mayoría de la información:
+    % (no importa la calidad de las imágenes)
+    %http://go.thalesesecurity.com/rs/480-LWA-970/images/Fortrex_Vormetric_VTS_Token_Evaluation.PDF?aliId=59031373
 
 \end{description}
+
+La mayoría de las soluciones tratan a sus métodos como secretos de compañía: no
+explican la manera en que generan los \glspl{gl:token}, por lo que esperan que
+el trato entre cliente y proveedor esté basado en la confianza que tiene el
+primero por el segundo. El modelo basado en la confianza es común al
+funcionamiento de casi todas las transacciones monetarias hechas por internet:
+dos partes que quieran realizar una transacción necesitan de un tercero (la
+institución financiera) para llevarla a cabo. Un estado ideal eliminaría la
+necesidad de la tercera parte (es lo que intentan hacer
+\glspl{gl:criptomoneda} como \textit{bitcoin}~\cite{bitcoin}), sin embargo,
+mientras este estado no se alcance, el modelo basado en la confianza es un mal
+necesario, y como tal, debe ser reducido al máximo: un tercero proveedor del
+servicio de tokenización debería ser muy claro sobre lo que hace para
+tokenizar, permitiendo que sus clientes basen en esto su desición.
 
 %TODO: citar ejemplos de las confusiones por algunas de las publicaciones:
 % ¿Qué es mejor criptografía vs. tokenización? Hay quién dice que no debes
