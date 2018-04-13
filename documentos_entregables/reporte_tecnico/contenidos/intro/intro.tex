@@ -33,7 +33,7 @@ comercios qué es lo que hay que hacer para mantener los datos bancarios seguros
 mediante protocolos de seguridad, y se hizo obligatorio para todos aquellos que
 realizaran más de 20,000 transacciones anuales; aunque cada vez más compañías
 comenzaron a seguirlo e invertir para satisfacer el estándar, de nuevo fueron
-pocas las que alcanzaron a cumplir completamente el estándar, pues tiene una
+pocas las que alcanzaron a cumplirlo completamente, pues tiene una
 gran cantidad de requerimientos (controles estrictos de acceso,
 monitoreo regular de las redes, mantener programas de vulnerabilidaes y
 políticas de seguridad de información, etcétera) y las compañías tendían a
@@ -71,7 +71,7 @@ los comerciantes, se quedan solo con el \gls{gl:token}; así, si la seguridad de
 su sitio es violada, los datos siguen estando seguros, pues no se puede robar
 lo que no existe dentro del sistema.
 
-Dado que es un tema realivamente nuevo, la desinformación y la desconfianza
+Dado que es un tema relativamente nuevo, la desinformación y la desconfianza
 respecto a la generación de \glspl{gl:token} es latente aún, pues, por ejemplo,
 aunque el \gls{gl:pci}~\gls{gl:dss} describe los requerimientos que debe cumplir
 un sistema tokenizador, no indica qué hacer para satisfacerlos o deben generarse
@@ -153,27 +153,47 @@ en cada una.
     para procesar pagos con tarjetas de crédito. En \cite{braintree_uno}
     dan una definición de \gls{gl:token} que no es compatible con el
     \gls{gl:pci}~\gls{gl:ssc}: la única forma de generar \glspl{gl:token},
-    según su definición, es solamente por métodos aleatorios. Aún aceptando
+    según su definición, es por métodos aleatorios. Aún aceptando
     esa definición, no se ofrecen mayores explicaciones: los clientes no
     saben de qué forma se están generando los valores aleatorios.
 
+  \item[Merchant Link]
+    La solución de tokenización de Merchant Link es llamada TransactionVault. Su
+    página da tres puntos importantes respecto a la tokenización:
+    \begin{itemize}
+      \item Utilizan tecnología de la \textit{siguiente generación}.
+      \item Los \glspl{gl:token} son asociados con una tarjeta y una
+        transacción.
+      \item Todos los \glspl{gl:token} generados tienen una longitud de 16
+        dígitos y pasan los controles de validez de las tarjetas bancarias
+        (por ejemplo, el algoritmo de Luhn).
+      \end{itemize}
+      Aunque informan al cliente que los \glspl{gl:token} creados preservan el
+      formato en el tercer punto, no indican qué algoritmos son utilizados para
+      generarlos; aunado a esto, el segundo punto tampoco aporta mucha
+      información: sí, utilizan algoritmos reversibles, pues los
+      \glspl{gl:token} quedan ligados a una tarjeta o a una transacción,
+      pero siguen sin especificar sus métodos.
+
+    \item[Jack Henry Card Processing Solution]
+      La solución de tokenización ofrecida por Jack Henry Banks indica que se
+      encarga de sustituir el número de tarjeta con un \gls{gl:token} numérico
+      válido que pasa los controles de validez  de las tarjetas bancarias; sin
+      embargo, no dice qué métodos utiliza para generar los \glspl{gl:token}.
+      Indica también que parte de su plataforma está integrada con los servicios
+      de tokenización provistos por \gls{gl:mdes} y \gls{gl:vts}; sin embargo,
+      estos servicios tampoco indican cómo generan los tokens. Finalmente, no
+      queda claro quién se encarga de generar los \glspl{gl:token}, ¿lo hace
+      \gls{gl:mdes}, \gls{gl:vts} o Jack Henry?
+
+    % Thales Tokenization.
+    % Al parecer este si dice cómo es que funciona, usa FPE, mas especifico FF3
+    % para tokenizar información basada en texto, y tablas de búsqueda para
+    % información numérica de 9 a 19 dígitos.
+    % Aquí está la mayoría de la información: (no importa la calidad de las imágenes)
+    % http://go.thalesesecurity.com/rs/480-LWA-970/images/Fortrex_Vormetric_VTS_Token_Evaluation.PDF?aliId=59031373
+
 \end{description}
-
-% Merchant Link Payment Gateway,
-% Laura
-
-% Braintree,
-% Ricardo
-
-% Jack Henry Card Processing Solution,
-% Laura
-
-% Thales Tokenization.
-% Al parecer este si dice cómo es que funciona, usa FPE, mas especifico FF3
-% para tokenizar información basada en texto, y tablas de búsqueda para
-% información numérica de 9 a 19 dígitos.
-% Aquí está la mayoría de la información: (no importa la calidad de las imágenes)
-% http://go.thalesesecurity.com/rs/480-LWA-970/images/Fortrex_Vormetric_VTS_Token_Evaluation.PDF?aliId=59031373
 
 %TODO: citar ejemplos de las confusiones por algunas de las publicaciones:
 % ¿Qué es mejor criptografía vs. tokenización? Hay quién dice que no debes
