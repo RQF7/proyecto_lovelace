@@ -5,18 +5,89 @@
 
 \chapter{Introducción}
 
-% Laura
-% Historia del comercio línea
+A finales de los ochenta, el uso de las computadoras y el internet comenzó a
+popularizarse; compañías ya establecidas, como aerolíneas y tiendas
+departamentales, y comerciantes independientes vieron una oportunidad de
+expandirse y el comercio en línea comenzó a tomar fuerza; sin embargo, casi
+nadie previó el impacto y auge que iba a tener, por lo que la mayoría de los
+sitios no se encontraban preparados para los ataques y robos de información.
+Las principales emisoras de tarjetas (MasterCard, Visa) reportaron entre 1988 y
+1998 pérdidas de 750 millones de dólares debidas a fraudes con
+tarjetas bancarias: el crecimiento del comercio electrónico aunado a
+sistemas débilmente protegidos dio lugar a un rápido crecimiento de los
+fraudes relacionados con tarjetas bancarias; de hecho, para el año 2001,
+según \cite{wallethub}, se tuvieron pérdidas de 1.7 miles de millones de
+dólares y, para el siguiente año habían aumentado a 2.1 miles de millones de
+dólares. Las compañías emisoras de tarjetas comenzaron a proponer soluciones y,
+a finales de 1999, VISA publicó un estándar de seguridad para quienes realizaban
+transacciones en línea llamado \gls{gl:cisp}, este programa es el primer
+precursor del estándar actual \gls{gl:pci}~\gls{gl:dss}. Lamentablemente, las
+recomendaciones no estaban unificadas y había incosistencias entre ellas; fueron
+pocas las compañías que pudieron satisfacer completamente alguno de los
+estándares publicados. Fue hasta finales de 2004 cuando se publicó el primer
+estándar unificado, respaldado por las compañías emisoras de tarjetas más
+importantes: el \gls{gl:pci} \gls{gl:dss} 1.0, este estándar indica a los
+comercios qué es lo que hay que hacer para mantener los datos bancarios seguros
+mediante protocolos de seguridad, y se hizo obligatorio para todos aquellos que
+realizaran más de 20,000 transacciones anuales; aunque cada vez más compañías
+comenzaron a seguirlo e invertir para satisfacer el estándar, de nuevo fueron
+pocas las que alcanzaron a cumplir completamente el estándar, pues tiene una
+gran cantidad de requerimientos (controles estrictos de acceso,
+monitoreo regular de las redes, mantener programas de vulnerabilidaes y
+políticas de seguridad de información, etcétera) y las compañías tendían a
+subestimar los costos que implica seguir el
+estándar~\cite{uk_association, search_security}.
 
-% Fraudes
+A finales del 2006 ocurrió una de las primeras grandes violaciones de datos
+que puso en guardia a todos: hubo una intrusión en los servidores de la empresa
+americana TJX y piratas cibernéticos robaron información de tarjetas de crédito,
+débito y transacciones de 94 millones de clientes registrados en el sistema de
+la empresa. Ataques como este han continuado a lo largo de los años: la cadena
+de supermercados Hannaford Bros. sufrió una violación en 2008 y se vieron
+comprometidas 4.2 millones de cuentas, Target fue atacado en 2013 y 40 millones
+de cuentas fueron afectadas, y, al año siguiente la seguridad de Home Depot
+también fue violada y 56 millones de cuentas fueron afectadas tras el ataque.
 
-% Importancia de mantener segura la información
+Durante la primera década del siglo XXI, el enfoque que se tenía era
+salvaguardar la información sensible en todo el sistema; tómese por ejemplo el
+caso del sistema de una tienda en línea: el número de tarjeta queda registrado
+en el área de clientes, pues se puede asociar con un perfil y evita tener que
+estar ingresando continuamente toda la información de la tarjeta; también queda
+registrada en el área de ventas, pues queda asociada a una compra o transacción;
+la información sensible parece estar en todos lados (al menos, no está
+concentrada) y tener que protegerla constantemente resulta muy costoso. Pasados
+unos años, surge la idea de cambiar completamente el paradigma que se había
+estado utilizando hasta ahora: ¿por qué intentar proteger la información
+sensible en todos los lados donde sea que se encuentre, cuando se puede cambiar
+esa información por un valor sustituto y solo proteger esa pequeña parte del
+sistema? Así que, a mediados del 2011, el \gls{gl:pci}~\gls{gl:dss} publicó
+las guías de tokenización; a su vez, compañías comenzaron a ofrecer soluciones
+de tokenización que quitaban casi por completo el peso de cumplir con el
+\gls{gl:pci}~\gls{gl:dss} a los comerciantes, pues ellas se encargan de generar
+los \glspl{gl:token} y almacenar los datos sensibles; mientras que ellos,
+los comerciantes, se quedan solo con el \gls{gl:token}; así, si la seguridad de
+su sitio es violada, los datos siguen estando seguros, pues no se puede robar
+lo que no existe dentro del sistema.
 
-% Hablar sobre la criptografía
+Dado que es un tema realivamente nuevo, la desinformación y la desconfianza
+respecto a la generación de \glspl{gl:token} es latente aún, pues, por ejemplo,
+aunque el \gls{gl:pci}~\gls{gl:dss} describe los requerimientos que debe cumplir
+un sistema tokenizador, no indica qué hacer para satisfacerlos o deben generarse
+los \glspl{gl:token}.
 
-% PCI SSC y estándares (DSS)
-
-% Paradigma de tokens
+Aunque en este trabajo se hace especial referencia a la tokenización de los
+números de tarjetas, este proceso sirve para proteger otros datos como números
+de seguridad social, claves de registro, números de teléfono, etcétera. De
+hecho, la tokenización no está limitada al mundo digital y ha estado presente
+desde hace mucho tiempo, por ejemplo, los billetes y monedas, o las fichas en
+un casino: uno deposita dinero y obtiene su equivalente en fichas (este proceso
+es el de tokenización) para jugar; aunque las fichas (o \glspl{gl:token}) están
+vigiladas, si alguien las roba, el casino no pierde tanto (siempre y cuando no
+sean cambiadas por dinero, o sea, realizar el proceso de detokenización), pues
+es una mera representación, y no el dinero mismo. Lo mismo sucede con los
+\glspl{gl:token} digitales: sustituyen información valiosa, por valores que
+carecen de significado y que cuya pérdida no representa un peligro inminente o
+una violación de la privacidad.
 
 \section{Objetivos}
 
@@ -42,7 +113,7 @@ tarjetas bancarias\footnote{Tomando en cuenta la clasificación propuesta por el
 
 %% TODO: Explicar a grandes rasgos, tienda por tienda, el método que proponen.
 
-En el estándar del PCI DSS se explica muy claramente lo que debe de cumplir un
+En el estándar del \gls{gl:pci} \gls{gl:dss} se explica muy claramente lo que debe de cumplir un
 sistema tokenizado, sim embargo, no se explica cómo debe de hacerlo. Esto ha
 dado pie a que surjan soluciones que, a pesar de cumplir con el estándar, no
 son claros con respecto a su funcionamiento. Se hizo una investigación
@@ -76,5 +147,3 @@ comparativa entre las principales soluciones que existen en el mercado.
 
 \section{Organización del documento}
 % Daniel
-
-
