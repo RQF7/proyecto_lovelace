@@ -116,26 +116,31 @@ tarjetas bancarias\footnote{Tomando en cuenta la clasificación propuesta por el
 %% TODO: Explicar a grandes rasgos, tienda por tienda, el método que proponen.
 
 En el estándar del \gls{gl:pci} \gls{gl:dss} se explica muy claramente lo que
-debe de cumplir un sistema tokenizado, sim embargo, no se explica cómo debe de
+debe de cumplir un sistema tokenizador, sim embargo, no se explica cómo debe de
 hacerlo. Esto ha dado pie a que surjan soluciones que, a pesar de cumplir con
 el estándar, no son claros con respecto a su funcionamiento. Se hizo una
 investigación comparativa entre las principales soluciones que existen en el
-mercado.
+mercado. A continuación se muestran las principales deficiencias encontradas
+en cada una.
+
+\begin{description}
+
+  \item[Bluepay TokenShield]
+    En este servicio, a pesar de que se ofrecen dos formas distintas de
+    tokenizar, nunca se aclara cómo es que funciona alguno de estos procesos.
+    Además en una breve descripción del flujo de datos del servicio, se dice
+    que con el token se recupera y descifra la información bancaria sensible,
+    lo que genera confusión, pues no se sabe si la tokenización se hace por
+    medio de de cifrados que preservan el formato, o por medio de tablas que
+    contienen pares PAN-token.
+
+\end{description}
 
 % Shift4
 % Ricardo
 
 % Merchant Link Payment Gateway,
 % Laura
-
-Bluepay TokenShield:
-En este servicio, a pesar de que se ofrecen dos formas distintas de tokenizar,
-nunca se aclara cómo es que funciona alguno de estos procesos. Además en una
-breve descripción del flujo de datos del servicio, se dice que con el token
-se recupera y descifra la información bancaria sensible, lo que genera
-confusión, pues no se sabe si la tokenización es hace por medio de de cifrados
-que preservan el formato, o por medio de tablas que contienen un pares
-PAN-token.
 
 % Braintree,
 % Ricardo
@@ -176,7 +181,9 @@ la selección de tecnologías, y el diseño del propio programa.
 
 El capítulo \ref{sec:implementacion} contiene los fragmentos de código más
 importantes para entender el funcionamiento tanto de los algoritmos de
-tokenización como el programa de generación de \glspl{gl:token}.
+tokenización como el programa de generación de \glspl{gl:token}; también
+presenta los resultados de las comparaciones de desempeño entre los
+distintos algoritmos.
 
 Por último, en el capítulo \ref{sec:conclusiones} se concluyen los resultados
 del trabajo, hablando sobre los avances que se hicieron y el trabajo que aún
