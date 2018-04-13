@@ -125,6 +125,19 @@ en cada una.
 
 \begin{description}
 
+  \item[Shift4]
+    Esta compañía reclama el crédito de haber inventado el paradigma de
+    la tokenización, denuncia que otras compañías y el mismo
+    \gls{gl:pci}~\gls{gl:ssc} desvirtuaron el término; por esta razón, la
+    compañía se refiere a su propio método cómo \textit{TrueTokenization}.
+    Aunque mencionan en todas partes las supuestas ventajas de sus métodos,
+    lo único que dicen con claridad sobre la generación de \glspl{gl:token} es
+    que se trata de valores aleatorios, únicos y alfanuméricos. Esta descripción
+    no representa en modo alguno una garantía sobre la seguridad del
+    método: podrían estar utilizando métodos pseudoaleatorios que no son
+    criptográficamente seguros; o cualquier otro método cuya seguridad no esté
+    formalmente probada \cite{shif4_uno, shif4_dos}.
+
   \item[Bluepay TokenShield]
     En este servicio, a pesar de que se ofrecen dos formas distintas de
     tokenizar, nunca se aclara cómo es que funciona alguno de estos procesos.
@@ -132,12 +145,19 @@ en cada una.
     que con el token se recupera y descifra la información bancaria sensible,
     lo que genera confusión, pues no se sabe si la tokenización se hace por
     medio de de cifrados que preservan el formato, o por medio de tablas que
-    contienen pares PAN-token.
+    contienen pares \gls{gl:pan}-\gls{gl:token}.
+
+  \item[Braintree]
+    Compañía que ofrece distintos \gls{gl:sdk} (para dispositivos móviles y
+    para desarrollo web) que permiten interactuar con sus propios servidores
+    para procesar pagos con tarjetas de crédito. En \cite{braintree_uno}
+    dan una definición de \gls{gl:token} que no es compatible con el
+    \gls{gl:pci}~\gls{gl:ssc}: la única forma de generar \glspl{gl:token},
+    según su definición, es solamente por métodos aleatorios. Aún aceptando
+    esa definición, no se ofrecen mayores explicaciones: los clientes no
+    saben de qué forma se están generando los valores aleatorios.
 
 \end{description}
-
-% Shift4
-% Ricardo
 
 % Merchant Link Payment Gateway,
 % Laura
@@ -183,7 +203,7 @@ El capítulo \ref{sec:implementacion} contiene los fragmentos de código más
 importantes para entender el funcionamiento tanto de los algoritmos de
 tokenización como el programa de generación de \glspl{gl:token}; también
 presenta los resultados de las comparaciones de desempeño entre los
-distintos algoritmos.
+distintos algoritmos tokenizadores.
 
 Por último, en el capítulo \ref{sec:conclusiones} se concluyen los resultados
 del trabajo, hablando sobre los avances que se hicieron y el trabajo que aún
