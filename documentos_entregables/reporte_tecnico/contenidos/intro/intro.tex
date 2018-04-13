@@ -125,7 +125,21 @@ comparativa entre las principales soluciones que existen en el mercado.
 % Ricardo
 
 % Merchant Link Payment Gateway,
-% Laura
+La solución de tokenización de Merchant Link es llamada TransactionVault. Su
+página da tres puntos importantes respecto a la tokenización:
+\begin{itemize}
+  \item Utilizan tecnología de la \textit{siguiente generación}.
+  \item Los \glspl{gl:token} son asociados con una tarjeta y una transacción.
+  \item Todos los \glspl{gl:token} generados tienen una longitud de 16 dígitos y
+    pasan los controles de validez de las tarjetas bancarias (por ejemplo, el
+    algoritmo de Luhn).
+\end{itemize}
+
+Aunque informan al cliente que los \glspl{gl:token} creados preservan el
+formato en el tercer punto, no indican qué algoritmos son utilizados para
+generarlos; aunado a esto, el segundo punto tampoco aporta mucha información:
+sí, utilizan algoritmos reversibles, pues los \glspl{gl:token} quedan ligados a
+una tarjeta o a una transacción, pero podría siguen sin especificar sus métodos.
 
 % Bluepay ToknShield,
 % Daniel
@@ -134,7 +148,15 @@ comparativa entre las principales soluciones que existen en el mercado.
 % Ricardo
 
 % Jack Henry Card Processing Solution,
-% Laura
+La solución de tokenización ofrecida por Jack Henry Banks indica que se
+encarga de sustituir el número de tarjeta con un \gls{gl:token} numérico
+válido que pasa los controles de validez  de las tarjetas bancarias; sin
+embargo, no dice qué métodos utiliza para generar los \glspl{gl:token}. Indica
+también que parte de su plataforma está integrada con los servicios de
+tokenización provistos por \gls{gl:mdes} y \gls{gl:vts}; sin embargo, estos
+servicios tampoco indican cómo generan los tokens. Finalmente, no queda claro
+quién se encarga de generar los \glspl{gl:token}, ¿lo hace \gls{gl:mdes},
+\gls{gl:vts} o Jack Henry?
 
 % Thales Tokenization.
 % Daniel
