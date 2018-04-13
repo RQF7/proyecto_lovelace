@@ -15,15 +15,6 @@ dividen en criptográficos y en no criptográficos; mientras que los
 irreversibles se dividen en autenticables y no autenticables (figura
 \ref{fig:division_tokens}).
 
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.75\linewidth]{diagramas/clasificacion.png}
-    \caption{Clasificación de los \glspl{gl:token}
-      según \gls{gl:pci} \gls{gl:ssc}.}
-    \label{fig:division_tokens}
-  \end{center}
-\end{figure}
-
 Los \glspl{gl:token} irreversibles no pueden, bajo ninguna circunstancia, ser
 reconvertidos al \gls{gl:pan} original. Esta restricción aplica tanto para
 cualquier entidad en el entorno del negocio (comerciante, proveedor de
@@ -53,6 +44,15 @@ los métodos más comunes para esta categoría ocupan
 \glspl{gl:primitiva_criptografica} (p. ej. generadores pseudoaleatorios); además
 de que, en una implementación real, para poder cumplir con el \gls{gl:pci}
 \gls{gl:dss}, la propia base de datos debe de estar cifrada \cite{pci_dss}.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.75\linewidth]{diagramas/clasificacion.png}
+    \caption{Clasificación de los \glspl{gl:token}
+      según \gls{gl:pci} \gls{gl:ssc}.}
+    \label{fig:division_tokens}
+  \end{center}
+\end{figure}
 
 \subsection{Estándares del NIST}
 

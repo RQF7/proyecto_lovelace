@@ -32,14 +32,6 @@
   \import{reporte_tecnico/contenidos/implementacion/}{implementacion.tex}
   \import{reporte_tecnico/contenidos/conclusiones/}{conclusiones.tex}
 
-  \clearpage
-  \phantomsection
-  \addcontentsline{toc}{chapter}{Bibliografía}
-  \printbibliography[
-    heading=subbibliography,
-    title={Bibliografía}
-  ]
-
   \setglossarystyle{altlist}
   \printglossary[
     type=main,
@@ -73,9 +65,17 @@
     title={De instituciones y asociaciones}
   ]
 
-  \printglossary[
-    type=\acronymtype,
-    title={Misceláneos}
+  %\printglossary[
+  %  type=\acronymtype,
+  %  title={Misceláneos}
+  %]
+
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{Bibliografía}
+  \printbibliography[
+    heading=subbibliography,
+    title={Bibliografía}
   ]
 
   \newpage
