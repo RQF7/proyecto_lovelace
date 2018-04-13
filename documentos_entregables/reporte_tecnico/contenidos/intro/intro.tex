@@ -33,7 +33,7 @@ comercios qué es lo que hay que hacer para mantener los datos bancarios seguros
 mediante protocolos de seguridad, y se hizo obligatorio para todos aquellos que
 realizaran más de 20,000 transacciones anuales; aunque cada vez más compañías
 comenzaron a seguirlo e invertir para satisfacer el estándar, de nuevo fueron
-pocas las que alcanzaron a cumplir completamente el estándar, pues tiene una
+pocas las que alcanzaron a cumplirlo completamente, pues tiene una
 gran cantidad de requerimientos (controles estrictos de acceso,
 monitoreo regular de las redes, mantener programas de vulnerabilidaes y
 políticas de seguridad de información, etcétera) y las compañías tendían a
@@ -71,7 +71,7 @@ los comerciantes, se quedan solo con el \gls{gl:token}; así, si la seguridad de
 su sitio es violada, los datos siguen estando seguros, pues no se puede robar
 lo que no existe dentro del sistema.
 
-Dado que es un tema realivamente nuevo, la desinformación y la desconfianza
+Dado que es un tema relativamente nuevo, la desinformación y la desconfianza
 respecto a la generación de \glspl{gl:token} es latente aún, pues, por ejemplo,
 aunque el \gls{gl:pci}~\gls{gl:dss} describe los requerimientos que debe cumplir
 un sistema tokenizador, no indica qué hacer para satisfacerlos o deben generarse
@@ -115,51 +115,72 @@ tarjetas bancarias\footnote{Tomando en cuenta la clasificación propuesta por el
 
 %% TODO: Explicar a grandes rasgos, tienda por tienda, el método que proponen.
 
-En el estándar del \gls{gl:pci} \gls{gl:dss} se explica muy claramente lo que debe de cumplir un
-sistema tokenizado, sim embargo, no se explica cómo debe de hacerlo. Esto ha
-dado pie a que surjan soluciones que, a pesar de cumplir con el estándar, no
-son claros con respecto a su funcionamiento. Se hizo una investigación
-comparativa entre las principales soluciones que existen en el mercado.
+En el estándar del \gls{gl:pci} \gls{gl:dss} se explica muy claramente lo que
+debe de cumplir un sistema tokenizador, sim embargo, no se explica cómo debe de
+hacerlo. Esto ha dado pie a que surjan soluciones que, a pesar de cumplir con
+el estándar, no son claros con respecto a su funcionamiento. Se hizo una
+investigación comparativa entre las principales soluciones que existen en el
+mercado. A continuación se muestran las principales deficiencias encontradas
+en cada una.
+
+\begin{description}
+
+  \item[Bluepay TokenShield]
+    En este servicio, a pesar de que se ofrecen dos formas distintas de
+    tokenizar, nunca se aclara cómo es que funciona alguno de estos procesos.
+    Además en una breve descripción del flujo de datos del servicio, se dice
+    que con el token se recupera y descifra la información bancaria sensible,
+    lo que genera confusión, pues no se sabe si la tokenización se hace por
+    medio de de cifrados que preservan el formato, o por medio de tablas que
+    contienen pares PAN-token.
+
+\end{description}
 
 % Shift4
 % Ricardo
 
-% Merchant Link Payment Gateway,
-La solución de tokenización de Merchant Link es llamada TransactionVault. Su
-página da tres puntos importantes respecto a la tokenización:
-\begin{itemize}
-  \item Utilizan tecnología de la \textit{siguiente generación}.
-  \item Los \glspl{gl:token} son asociados con una tarjeta y una transacción.
-  \item Todos los \glspl{gl:token} generados tienen una longitud de 16 dígitos y
-    pasan los controles de validez de las tarjetas bancarias (por ejemplo, el
-    algoritmo de Luhn).
-\end{itemize}
-
-Aunque informan al cliente que los \glspl{gl:token} creados preservan el
-formato en el tercer punto, no indican qué algoritmos son utilizados para
-generarlos; aunado a esto, el segundo punto tampoco aporta mucha información:
-sí, utilizan algoritmos reversibles, pues los \glspl{gl:token} quedan ligados a
-una tarjeta o a una transacción, pero podría siguen sin especificar sus métodos.
-
-% Bluepay ToknShield,
-% Daniel
+\begin{description}
+  \item[Merchant Link]
+    La solución de tokenización de Merchant Link es llamada TransactionVault. Su
+    página da tres puntos importantes respecto a la tokenización:
+    \begin{itemize}
+      \item Utilizan tecnología de la \textit{siguiente generación}.
+      \item Los \glspl{gl:token} son asociados con una tarjeta y una transacción.
+      \item Todos los \glspl{gl:token} generados tienen una longitud de 16
+        dígitos y pasan los controles de validez de las tarjetas bancarias
+        (por ejemplo, el algoritmo de Luhn).
+      \end{itemize}
+      Aunque informan al cliente que los \glspl{gl:token} creados preservan el
+      formato en el tercer punto, no indican qué algoritmos son utilizados para
+      generarlos; aunado a esto, el segundo punto tampoco aporta mucha
+      información: sí, utilizan algoritmos reversibles, pues los
+      \glspl{gl:token} quedan ligados a una tarjeta o a una transacción,
+      pero siguen sin especificar sus métodos.
+\end{description}
 
 % Braintree,
 % Ricardo
 
 % Jack Henry Card Processing Solution,
-La solución de tokenización ofrecida por Jack Henry Banks indica que se
-encarga de sustituir el número de tarjeta con un \gls{gl:token} numérico
-válido que pasa los controles de validez  de las tarjetas bancarias; sin
-embargo, no dice qué métodos utiliza para generar los \glspl{gl:token}. Indica
-también que parte de su plataforma está integrada con los servicios de
-tokenización provistos por \gls{gl:mdes} y \gls{gl:vts}; sin embargo, estos
-servicios tampoco indican cómo generan los tokens. Finalmente, no queda claro
-quién se encarga de generar los \glspl{gl:token}, ¿lo hace \gls{gl:mdes},
-\gls{gl:vts} o Jack Henry?
+\begin{description}
+  \item[Jack Henry Card Processing Solution]
+    La solución de tokenización ofrecida por Jack Henry Banks indica que se
+    encarga de sustituir el número de tarjeta con un \gls{gl:token} numérico
+    válido que pasa los controles de validez  de las tarjetas bancarias; sin
+    embargo, no dice qué métodos utiliza para generar los \glspl{gl:token}.
+    Indica también que parte de su plataforma está integrada con los servicios
+    de tokenización provistos por \gls{gl:mdes} y \gls{gl:vts}; sin embargo,
+    estos servicios tampoco indican cómo generan los tokens. Finalmente, no
+    queda claro quién se encarga de generar los \glspl{gl:token}, ¿lo hace
+    \gls{gl:mdes}, \gls{gl:vts} o Jack Henry?
+\end{description}
 
 % Thales Tokenization.
-% Daniel
+% Al parecer este si dice cómo es que funciona, usa FPE, mas especifico FF3
+% para tokenizar información basada en texto, y tablas de búsqueda para
+% información numérica de 9 a 19 dígitos.
+% Aquí está la mayoría de la información: (no importa la calidad de las imágenes)
+% http://go.thalesesecurity.com/rs/480-LWA-970/images/Fortrex_Vormetric_VTS_Token_Evaluation.PDF?aliId=59031373
 
 %TODO: citar ejemplos de las confusiones por algunas de las publicaciones:
 % ¿Qué es mejor criptografía vs. tokenización? Hay quién dice que no debes
@@ -170,4 +191,27 @@ quién se encarga de generar los \glspl{gl:token}, ¿lo hace \gls{gl:mdes},
 % Ricardo
 
 \section{Organización del documento}
-% Daniel
+
+% NO se si tengo que ser más especifico.
+El capítulo \ref{sec:marco_teorico} provee un conjunto de resúmenes sobre los
+temas necesarios para la comprensión de este trabajo; adentrándose en la
+criptografía, sus objetivos y los métodos que emplea para la protección de
+información, tales como los cifradores por bloque y las funciones hash.
+
+En el capítulo \ref{sec:generacion_de_tokens} se describen algunos de los
+estándares pertinentes a la generación de \glspl{gl:token}, así como las
+descripciones de los algoritmos existentes para realizar esta labor.
+
+El capítulo \ref{sec:analisis_y_disenio} muestra el análisis técnico para
+la implementación del programa tokenizador; abordando sus requerimientos,
+la selección de tecnologías, y el diseño del propio programa.
+
+El capítulo \ref{sec:implementacion} contiene los fragmentos de código más
+importantes para entender el funcionamiento tanto de los algoritmos de
+tokenización como el programa de generación de \glspl{gl:token}; también
+presenta los resultados de las comparaciones de desempeño entre los
+distintos algoritmos.
+
+Por último, en el capítulo \ref{sec:conclusiones} se concluyen los resultados
+del trabajo, hablando sobre los avances que se hicieron y el trabajo que aún
+falta por hacerse.
