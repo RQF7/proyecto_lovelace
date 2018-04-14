@@ -241,6 +241,18 @@ comparativa de las principales soluciones que existen en el mercado.
       queda claro quién se encarga de generar los \glspl{gl:token}, ¿lo hace
       \gls{gl:mdes}, \gls{gl:vts} o Jack Henry?\cite{jack_henry, mdes_1, mdes_2}
 
+    \item[Securosis]
+      La publicación en \cite{securosis} tiene por objetivo esclarecer el papel
+      de la tokenización. Explica de forma bastante clara las ventajas del
+      paradigma y el flujo de datos entre tienda, sistema tokenizador y banco;
+      sin embargo, al igual que las empresas anteriores, carece de una
+      explicación sobre los propios \glspl{gl:token}, y algunas de las
+      referencias hacia estos solo consigue confundir. Por ejemplo, presentan
+      a la tokenización como una alternativa a la criptografía, hablando
+      de los \glspl{gl:token} como valores aleatorios que nada tienen que
+      ver con criptografía; después de todo, el problema de la generación
+      de números pseudoaleatorios es también una rama de la criptografía.
+
     % Thales Tokenization.
     % Al parecer este si dice cómo es que funciona, usa FPE, mas especifico FF3
     % para tokenizar información basada en texto, y tablas de búsqueda para
@@ -250,6 +262,18 @@ comparativa de las principales soluciones que existen en el mercado.
     %http://go.thalesesecurity.com/rs/480-LWA-970/images/Fortrex_Vormetric_VTS_Token_Evaluation.PDF?aliId=59031373
 
 \end{description}
+
+Muchas de las soluciones del mercado intentan argumentar que, como para ellos
+un \gls{gl:token} es un valor aleatorio, nada tiene que ver con criptografía;
+al parecer esta estrategia publicitaria tuvo mucho éxito, pues uno de los
+mensajes más comunes es que la criptografía es cosa del pasado, lo tokenización
+permite sustituirla. Mientras esto puede ser cierto para los posibles clientes
+de un sistema tokenizador (tiendas que procesan pagos en línea), es una mentira
+manifiesta cuando se considera a todos los  participantes. Otro error es pensar
+en la generación de números pseudoaleatorios como un tema no criptográfico;
+podría ser considerado así si se tratara de generadores realmente aleatorios
+(los cuales son raros y difíciles de  implementar), sin embargo, si se trata de
+números pseudoaleatorios, la relación con la criptografía es directa.
 
 La mayoría de las soluciones tratan a sus métodos como secretos de compañía: no
 explican la manera en que generan los \glspl{gl:token}, por lo que esperan que
@@ -265,10 +289,14 @@ necesario, y como tal, debe ser reducido al máximo: un tercero proveedor del
 servicio de tokenización debería ser muy claro sobre lo que hace para
 tokenizar, permitiendo que sus clientes basen en esto su desición.
 
-%TODO: citar ejemplos de las confusiones por algunas de las publicaciones:
-% ¿Qué es mejor criptografía vs. tokenización? Hay quién dice que no debes
-% utilizar una llave, porque es un modo de agregar reversibilidad (insuguro).
-% Ricardo
+La desinformación que hay alrededor del tema de la tokenización es la principal
+justificación para este trabajo: se busca implementar algoritmos públicos
+y presentar los resultado, permitiendo a los clientes de sistemas tokenizadores
+entender qué hay adentro de la caja negra. Parte de este combate a la
+desinformación consiste en dejar bien clara la relación entre la tokenización y
+la criptofrafía: la tokenización es una forma de criptografía, por lo que los
+métodos de tokenización deben ser analizados con la misma formalidad con la que
+se estudian todas las demás formas de cifrado.
 
 \section{Organización del documento}
 
