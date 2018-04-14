@@ -85,6 +85,13 @@ mismo. Lo mismo sucede con los \glspl{gl:token} digitales: sustituyen
 información valiosa, por valores que carecen de significado y que cuya pérdida
 no representa un peligro inminente o una violación de la privacidad.
 
+El problema de la protección de tarjetas bancarias cae enteramente en el
+área de estudio de la criptografía. Como quedará claro a lo largo de este
+trabajo, la mayoría de los métodos de tokenización están relacionados
+con algún aspecto de esta. Es por esto que todo el capítulo
+del marco teórico está dedicado a las ramas de la criptografía que se
+relacionan con los métodos para generar \glspl{gl:token}.
+
 La criptografía, entre otras cosas, permite proteger información de
 terceros no autorizados, esto es, permite obtener confidencialidad. La idea
 básica es transformar un mensaje de forma que solo el destinatario sea capaz
@@ -94,7 +101,7 @@ historia: el uso más antiguo del que se tiene noticia es en jeroglíficos
 egipcios de alrededor de 1900 a. C.; a partir de ahí, hay evidencias de su uso
 en muchas otras culturas antiguas~\cite{codebreakers}. La historia de la
 criptografía moderna está muy relacionada con la historia de la computación: en
-muchas ocasiones, la principal motivación para el desarrollo de máqunias más
+muchas ocasiones, la principal motivación para el desarrollo de máquinas más
 potentes fue la posibilidad de crear un método de cifrado infalible (o del
 método para romperlo); el ejemplo más claro de esto es el desarrollo de
 métodos para descifrar los mensajes de los nazis, durante la segunda guerra
@@ -132,19 +139,12 @@ de la criptografía: un valor que solo conocen las entidades autorizadas a leer
 el mensaje, sin el cuál no pueden descifrarlo; de esta forma la seguridad de un
 mensaje se basa tanto en el conocimiento del método, como en el conocimiento
 de la llave. En la mayoría de los métodos usados hoy en día, la seguridad se
-basa enteramente en la llave dejando el método abierto al escrutinio de todos.
+basa enteramente en la llave, dejando el método abierto al escrutinio de todos.
 Hacer esto presenta varias ventajas: una muestra de que el algoritmo está
 bien diseñado y es lo suficientemente fuerte es que no necesita mantenerse en
 secreto; cuando el algoritmo es público y es usado por muchas entidades (entre
 más mejor) son mayores las posibilidades de encontrar vulnerabilidades y
-más rápido el tiempo de respuesta en corregirlas.
-
-El problema de la protección de tarjetas bancarias cae enteramente en el
-área de estudio de la criptografía. Como quedará claro a lo largo de este
-trabajo, la mayoría de los métodos de tokenización están relacionados
-con algún aspecto de esta. Es por esto que todo el capítulo
-del marco teórico está dedicado a las ramas de la criptografía que se
-relacionan con los métodos para generar \glspl{gl:token}.
+el tiempo de respuesta de las correcciones es menor.
 
 \section{Objetivos}
 
@@ -190,7 +190,7 @@ comparativa de las principales soluciones que existen en el mercado.
     no representa en modo alguno una garantía sobre la seguridad del
     método: podrían estar utilizando métodos pseudoaleatorios que no son
     criptográficamente seguros; o cualquier otro método cuya seguridad no esté
-    formalmente probada \cite{shif4_uno, shif4_dos}.
+    formalmente probada~\cite{shif4_uno, shif4_dos}.
 
   \item[Bluepay TokenShield]
     En este servicio, a pesar de que se ofrecen dos formas distintas de
@@ -204,7 +204,7 @@ comparativa de las principales soluciones que existen en el mercado.
   \item[Braintree]
     Compañía que ofrece distintos \gls{gl:sdk} (para dispositivos móviles y
     para desarrollo web) que permiten interactuar con sus propios servidores
-    para procesar pagos con tarjetas de crédito. En \cite{braintree_uno}
+    para procesar pagos con tarjetas de crédito. En~\cite{braintree_uno}
     dan una definición de \gls{gl:token} que no es compatible con el
     \gls{gl:pci}~\gls{gl:ssc}: la única forma de generar \glspl{gl:token},
     según su definición, es por métodos aleatorios. Aún aceptando
