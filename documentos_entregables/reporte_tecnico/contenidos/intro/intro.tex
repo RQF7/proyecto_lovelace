@@ -71,25 +71,80 @@ los comerciantes, se quedan solo con el \gls{gl:token}; así, si la seguridad de
 su sitio es violada, los datos siguen estando seguros, pues no se puede robar
 lo que no existe dentro del sistema.
 
-Dado que es un tema relativamente nuevo, la desinformación y la desconfianza
-respecto a la generación de \glspl{gl:token} es latente aún, pues, por ejemplo,
-aunque el \gls{gl:pci}~\gls{gl:dss} describe los requerimientos que debe cumplir
-un sistema tokenizador, no indica qué hacer para satisfacerlos o deben generarse
-los \glspl{gl:token}.
-
 Aunque en este trabajo se hace especial referencia a la tokenización de los
-números de tarjetas, este proceso sirve para proteger otros datos como números
-de seguridad social, claves de registro, números de teléfono, etcétera. De
-hecho, la tokenización no está limitada al mundo digital y ha estado presente
-desde hace mucho tiempo, por ejemplo, los billetes y monedas, o las fichas en
-un casino: uno deposita dinero y obtiene su equivalente en fichas (este proceso
-es el de tokenización) para jugar; aunque las fichas (o \glspl{gl:token}) están
-vigiladas, si alguien las roba, el casino no pierde tanto (siempre y cuando no
-sean cambiadas por dinero, o sea, realizar el proceso de detokenización), pues
-es una mera representación, y no el dinero mismo. Lo mismo sucede con los
-\glspl{gl:token} digitales: sustituyen información valiosa, por valores que
-carecen de significado y que cuya pérdida no representa un peligro inminente o
-una violación de la privacidad.
+números de tarjetas, o \gls{gl:pan}, este proceso sirve para proteger otros
+datos, como números de seguridad social, claves de registro, números de
+teléfono, etcétera. De hecho, la tokenización no está limitada al mundo digital
+y ha estado presente desde hace mucho tiempo, por ejemplo, los billetes y
+monedas, o las fichas en un casino: uno deposita dinero y obtiene su
+equivalente en fichas (este proceso es el de tokenización) para jugar; aunque
+las fichas (o \glspl{gl:token}) están vigiladas, si alguien las roba, el casino
+no pierde tanto (siempre y cuando no sean cambiadas por dinero, o sea, realizar
+el proceso de detokenización), pues es una mera representación, y no el dinero
+mismo. Lo mismo sucede con los \glspl{gl:token} digitales: sustituyen
+información valiosa, por valores que carecen de significado y que cuya pérdida
+no representa un peligro inminente o una violación de la privacidad.
+
+La criptografía, entre otras cosas, permite proteger información de
+terceros no autorizados, esto es, permite obtener confidencialidad. La idea
+básica es transformar un mensaje de forma que solo el destinatario sea capaz
+de hacer la transformación inversa y leer el mensaje original. Aunque con
+métodos un poco distintos a los actuales, la criptografía tiene una larga
+historia: el uso más antiguo del que se tiene noticia es en jeroglíficos
+egipcios de alrededor de 1900 a. C.; a partir de ahí, hay evidencias de su uso
+en muchas otras culturas antiguas~\cite{codebreakers}. La historia de la
+criptografía moderna está muy relacionada con la historia de la computación: en
+muchas ocasiones, la principal motivación para el desarrollo de máqunias más
+potentes fue la posibilidad de crear un método de cifrado infalible (o del
+método para romperlo); el ejemplo más claro de esto es el desarrollo de
+métodos para descifrar los mensajes de los nazis, durante la segunda guerra
+mundial, lo que permitió a Alan Turing sentar las bases de la computación
+actual~\cite{simon_singht}. Esta dinámica de juego, en la cuál cada participante
+está siempre buscando un método que los adversarios no pueden romper,
+hace de la criptografía una ciencia en constante movimiento: una vez que
+se encuentra una nueva vulnerabilidad en algún método, se trabaja para
+corregirlo o para reemplazarlo.
+
+Uno de los aspectos más importantes de las herramientas criptográficas
+modernas es que buscan probar, dentro de los límites posibles, la
+seguridad de un algoritmo. Es por esto que hoy en día no basta con
+describir un nuevo método y esperar que sea lo suficientemente fuerte,
+sino que la presentación de un método debe de ir acompañada de los
+argumentos (las pruebas) que garantizan su seguridad. Hacer esto no es
+tarea sencilla (si lo fuera, el juego ya estaría ganado para uno de los
+bandos) pues involucra hacer suposiciones sobre las capacidades de
+los adversarios y, basándose en esto, garantizar que los recursos necesarios
+para romper el método probado se encuentran muy por encima de las capacidades
+supuestas en un inicio. En este contexto, las capacidades de un adversario
+se determinan por su poder de cómputo: ¿cuántas computadoras tiene a su
+disposición?, ¿qué tan rápidas son?, etcétera.
+
+Lo anterior nos lleva a otro principio muy importante de la criptografía
+moderna: la seguridad se encuentra en los datos, no en el método. La historia
+de la criptografía muestra que durante mucho tiempo, la seguridad de un método
+consistía totalmente en mantenerlo en secreto: mientras los adversarios
+no supieran cómo se estaba cifrando algo, los mensajes permanecerían seguros;
+sin embargo, si el método se filtraba, todos los mensajes cifrados con ese
+método se veían comprometidos. Este esquema presenta un serio problema,
+pues hace dependiente de un solo secreto, el método, la seguridad de todos
+los mensajes. Esto llevó a la introducción del concepto de la llave dentro
+de la criptografía: un valor que solo conocen las entidades autorizadas a leer
+el mensaje, sin el cuál no pueden descifrarlo; de esta forma la seguridad de un
+mensaje se basa tanto en el conocimiento del método, como en el conocimiento
+de la llave. En la mayoría de los métodos usados hoy en día, la seguridad se
+basa enteramente en la llave dejando el método abierto al escrutinio de todos.
+Hacer esto presenta varias ventajas: una muestra de que el algoritmo está
+bien diseñado y es lo suficientemente fuerte es que no necesita mantenerse en
+secreto; cuando el algoritmo es público y es usado por muchas entidades (entre
+más mejor) son mayores las posibilidades de encontrar vulnerabilidades y
+más rápido el tiempo de respuesta en corregirlas.
+
+El problema de la protección de tarjetas bancarias cae enteramente en el
+área de estudio de la criptografía. Como quedará claro a lo largo de este
+trabajo, la mayoría de los métodos de tokenización están relacionados
+con algún aspecto de esta. Es por esto que todo el capítulo
+del marco teórico está dedicado a las ramas de la criptografía que se
+relacionan con los métodos para generar \glspl{gl:token}.
 
 \section{Objetivos}
 
@@ -113,15 +168,14 @@ tarjetas bancarias\footnote{Tomando en cuenta la clasificación propuesta por el
 
 \section{Justificación}
 
-%% TODO: Explicar a grandes rasgos, tienda por tienda, el método que proponen.
-
-En el estándar del \gls{gl:pci} \gls{gl:dss} se explica muy claramente lo que
-debe de cumplir un sistema tokenizador, sim embargo, no se explica cómo debe de
-hacerlo. Esto ha dado pie a que surjan soluciones que, a pesar de cumplir con
-el estándar, no son claros con respecto a su funcionamiento. Se hizo una
-investigación comparativa entre las principales soluciones que existen en el
-mercado. A continuación se muestran las principales deficiencias encontradas
-en cada una.
+Dado que es un tema relativamente nuevo, la desinformación y la desconfianza
+respecto a la generación de \glspl{gl:token} es latente aún, pues, por ejemplo,
+aunque el \gls{gl:pci}~\gls{gl:dss} describe los requerimientos que debe cumplir
+un sistema tokenizador, no indica qué hacer para satisfacerlos. Muchas empresas
+se aprovechan de esta desinformación para promocionarse como sistema
+tokenizador sin ser claras sobre sus métodos. A continuación se muestran las
+principales deficiencias encontradas como resultado de una investigación
+comparativa de las principales soluciones que existen en el mercado.
 
 \begin{description}
 
@@ -141,7 +195,7 @@ en cada una.
   \item[Bluepay TokenShield]
     En este servicio, a pesar de que se ofrecen dos formas distintas de
     tokenizar, nunca se aclara cómo es que funciona alguno de estos procesos.
-    Además en una breve descripción del flujo de datos del servicio, se dice
+    Además, en una breve descripción del flujo de datos del servicio, se dice
     que con el token se recupera y descifra la información bancaria sensible,
     lo que genera confusión, pues no se sabe si la tokenización se hace por
     medio de de cifrados que preservan el formato, o por medio de tablas que
@@ -215,12 +269,8 @@ tokenizar, permitiendo que sus clientes basen en esto su desición.
 % utilizar una llave, porque es un modo de agregar reversibilidad (insuguro).
 % Ricardo
 
-% Conclusión
-% Ricardo
-
 \section{Organización del documento}
 
-% NO se si tengo que ser más especifico.
 El capítulo \ref{sec:marco_teorico} provee un conjunto de resúmenes sobre los
 temas necesarios para la comprensión de este trabajo; adentrándose en la
 criptografía, sus objetivos y los métodos que emplea para la protección de
