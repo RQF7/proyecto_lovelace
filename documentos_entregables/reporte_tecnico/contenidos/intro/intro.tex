@@ -192,14 +192,15 @@ comparativa de las principales soluciones que existen en el mercado.
     criptográficamente seguros; o cualquier otro método cuya seguridad no esté
     formalmente probada \cite{shif4_uno, shif4_dos}.
 
-  \item[Bluepay TokenShield]
-    En este servicio, a pesar de que se ofrecen dos formas distintas de
-    tokenizar, nunca se aclara cómo es que funciona alguno de estos procesos.
-    Además, en una breve descripción del flujo de datos del servicio, se dice
-    que con el token se recupera y descifra la información bancaria sensible,
-    lo que genera confusión, pues no se sabe si la tokenización se hace por
-    medio de de cifrados que preservan el formato, o por medio de tablas que
-    contienen pares \gls{gl:pan}-\gls{gl:token}.
+    \item[Bluepay TokenShield]
+     En este servicio, a pesar de que se ofrecen dos formas distintas de
+     tokenizar, nunca se aclara cómo es que funciona alguno de estos procesos.
+     Además, en \cite{bluepay_tokenshield} hay una breve descripción del flujo
+     de datos del servicio, donde se dice que con el \gls{gl:token} se recupera
+     y descifra la información bancaria sensible, lo que genera confusión, pues
+     no se sabe si la tokenización se hace por medio de de cifrados que
+     preservan el formato, o por medio de tablas que contienen pares
+     \gls{gl:pan}-\gls{gl:token}.
 
   \item[Braintree]
     Compañía que ofrece distintos \gls{gl:sdk} (para dispositivos móviles y
@@ -227,7 +228,7 @@ comparativa de las principales soluciones que existen en el mercado.
       generarlos; aunado a esto, el segundo punto tampoco aporta mucha
       información: sí, utilizan algoritmos reversibles, pues los
       \glspl{gl:token} quedan ligados a una tarjeta o a una transacción,
-      pero siguen sin especificar sus métodos.
+      pero siguen sin especificar sus métodos \cite{merchant_link}.
 
     \item[Jack Henry Card Processing Solution]
       La solución de tokenización ofrecida por Jack Henry Banks indica que se
@@ -238,7 +239,7 @@ comparativa de las principales soluciones que existen en el mercado.
       de tokenización provistos por \gls{gl:mdes} y \gls{gl:vts}; sin embargo,
       estos servicios tampoco indican cómo generan los tokens. Finalmente, no
       queda claro quién se encarga de generar los \glspl{gl:token}, ¿lo hace
-      \gls{gl:mdes}, \gls{gl:vts} o Jack Henry?
+      \gls{gl:mdes}, \gls{gl:vts} o Jack Henry?\cite{jack_henry, mdes_1, mdes_2}
 
     % Thales Tokenization.
     % Al parecer este si dice cómo es que funciona, usa FPE, mas especifico FF3
