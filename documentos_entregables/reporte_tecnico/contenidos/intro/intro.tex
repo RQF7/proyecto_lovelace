@@ -1,5 +1,7 @@
 %
-% Capítulo de introducción.
+% Capítulo de introducción,
+% reporte técnico.
+%
 % Proyecto Lovelace.
 %
 
@@ -26,18 +28,19 @@ transacciones en línea llamado \gls{gl:cisp}, este programa es el primer
 precursor del estándar actual \gls{gl:pci}~\gls{gl:dss}. Lamentablemente, las
 recomendaciones no estaban unificadas y había incosistencias entre ellas; fueron
 pocas las compañías que pudieron satisfacer completamente alguno de los
-estándares publicados. Fue hasta finales de 2004 cuando se publicó el primer
-estándar unificado, respaldado por las compañías emisoras de tarjetas más
-importantes: el \gls{gl:pci} \gls{gl:dss} 1.0, este estándar indica a los
-comercios qué es lo que hay que hacer para mantener los datos bancarios seguros
-mediante protocolos de seguridad, y se hizo obligatorio para todos aquellos que
-realizaran más de 20,000 transacciones anuales; aunque cada vez más compañías
-comenzaron a seguirlo e invertir para satisfacer el estándar, de nuevo fueron
-pocas las que alcanzaron a cumplirlo completamente, pues tiene una
-gran cantidad de requerimientos (controles estrictos de acceso,
-monitoreo regular de las redes, mantener programas de vulnerabilidaes y
-políticas de seguridad de información, etcétera) y las compañías tendían a
-subestimar los costos que implica seguir el
+estándares publicados.
+
+Fue hasta finales de 2004 cuando se publicó el primer estándar unificado,
+respaldado por las compañías emisoras de tarjetas más importantes: el
+\gls{gl:pci} \gls{gl:dss} 1.0, en el cuál se indica a los comercios cómo
+mantener los datos bancarios seguros mediante protocolos de seguridad, y se hizo
+obligatorio para todos aquellos que realizaran más de 20,000 transacciones
+anuales; aunque cada vez más compañías comenzar seguirlo e invertir para
+satisfacer el estándar, de nuevo fueron pocas las que alcanzaron a cumplirlo
+completamente, pues tiene una gran cantidad de requerimientos (controles
+estrictos de acceso, monitoreo regular de las redes, mantener programas de
+vulnerabilidaes y políticas de seguridad de información, etcétera) y las
+compañías tendían a subestimar los costos que implica seguir el
 estándar~\cite{uk_association, search_security}.
 
 A finales del 2006 ocurrió una de las primeras grandes violaciones de datos
@@ -63,13 +66,14 @@ estado utilizando hasta ahora: ¿por qué intentar proteger la información
 sensible en todos los lados donde sea que se encuentre, cuando se puede cambiar
 esa información por un valor sustituto y solo proteger esa pequeña parte del
 sistema? Así que, a mediados del 2011, el \gls{gl:pci}~\gls{gl:dss} publicó
-las guías de tokenización; a su vez, compañías comenzaron a ofrecer soluciones
-de tokenización que quitaban casi por completo el peso de cumplir con el
-\gls{gl:pci}~\gls{gl:dss} a los comerciantes, pues ellas se encargan de generar
-los \glspl{gl:token} y almacenar los datos sensibles; mientras que ellos,
-los comerciantes, se quedan solo con el \gls{gl:token}; así, si la seguridad de
-su sitio es violada, los datos siguen estando seguros, pues no se puede robar
-lo que no existe dentro del sistema.
+publicó un documento cuyo título en inglés es «\textit{PCI DSS tokenization
+guidelines}»; a su vez, varias compañías comenzaron a ofrecer soluciones de
+tokenización que quitaban casi por completo el peso de cumplir con el
+\gls{gl:pci}~\gls{gl:dss} a los comerciantes, pues ellas se encargan de
+generar los \glspl{gl:token} y almacenar los datos sensibles; mientras que
+ellos, los comerciantes, se quedan solo con el \gls{gl:token}; así, si la
+seguridad de su sitio es violada, los datos siguen estando seguros, pues no se
+puede robar lo que no existe dentro del sistema.
 
 Aunque en este trabajo se hace especial referencia a la tokenización de los
 números de tarjetas, o \gls{gl:pan}, este proceso sirve para proteger otros
