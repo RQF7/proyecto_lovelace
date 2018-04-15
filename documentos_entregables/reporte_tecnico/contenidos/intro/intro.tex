@@ -197,15 +197,17 @@ comparativa de las principales soluciones que existen en el mercado.
     criptográficamente seguros; o cualquier otro método cuya seguridad no esté
     formalmente probada~\cite{shif4_uno, shif4_dos}.
 
-    \item[Bluepay TokenShield]
-     En este servicio, a pesar de que se ofrecen dos formas distintas de
-     tokenizar, nunca se aclara cómo es que funciona alguno de estos procesos.
-     Además, en \cite{bluepay_tokenshield} hay una breve descripción del flujo
-     de datos del servicio, donde se dice que con el \gls{gl:token} se recupera
-     y descifra la información bancaria sensible, lo que genera confusión, pues
-     no se sabe si la tokenización se hace por medio de de cifrados que
-     preservan el formato, o por medio de tablas que contienen pares
-     \gls{gl:pan}-\gls{gl:token}.
+  \item[Bluepay TokenShield]
+    En este servicio, a pesar de que se ofrecen dos formas distintas de
+    tokenizar, nunca se aclara cómo es que funciona alguno de estos procesos.
+    Además, en \cite{bluepay_tokenshield} hay una breve descripción del flujo
+    de datos del servicio, donde se dice que con el \gls{gl:token} se recupera
+    y descifra la información bancaria sensible, lo que genera confusión, pues
+    no se sabe si la tokenización se hace por medio de de cifrados que
+    preservan el formato\footnote{Tipo de cifrado que permite que los mensajes
+    ya cifrados se vean parecidos a los originales. Este tema se abarca en la
+    sección \ref{sec:fpe} del presente documento}, o por medio de tablas que
+    contienen pares \gls{gl:pan}-\gls{gl:token}.
 
   \item[Braintree]
     Compañía que ofrece distintos \gls{gl:sdk} (para dispositivos móviles y
