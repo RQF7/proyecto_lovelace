@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Implementación de acceso a base de datos en MySQL.
+ * \brief Implementación de acceso a base de datos de pruebas en MySQL.
  */
 
 #include "cabeceras/acceso_mysql_pruebas.hh"
@@ -19,7 +19,8 @@ using namespace std;
 
 /**
  * Utiliza los parámetros dados para crear una nueva instancia de conexión
- * con la base de datos.
+ * con la base de datos. El parámetro de base está dado por defecto y es
+ * lovelace_pruebas.
  */
 
 AccesoMySQLPruebas::AccesoMySQLPruebas(
@@ -47,11 +48,10 @@ AccesoMySQLPruebas::~AccesoMySQLPruebas()
 }
 
 /**
- * Guarda el registro dado el base de datos. No hace ningún tipo de comprobacón
- * de duplicados: el token se inserta como viene; lo mismo para el PAN y el
- * token.
+ * Registra en la base de datos de pruebas el tiempo al algoritmo tokenizador
+ * [algoritmo] hacer [numTokenizaciones] tokenizaciones. Los posibles valores
+ * para los algoritmos están definidos mediante constantes en la cabecera.
  */
-
 void AccesoMySQLPruebas::registrarTiempoCifrado(
   const int algoritmo,
   const int tiempo,
@@ -68,6 +68,11 @@ void AccesoMySQLPruebas::registrarTiempoCifrado(
   return;
 }
 
+/**
+ * Registra en la base de datos de pruebas el tiempo al algoritmo tokenizador
+ * [algoritmo] hacer [numTokenizaciones] detokenizaciones. Los posibles valores
+ * para los algoritmos están definidos mediante constantes en la cabecera.
+ */
 void AccesoMySQLPruebas::registrarTiempoDescifrado(
   const int algoritmo,
   const int tiempo,

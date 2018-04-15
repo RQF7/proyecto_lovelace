@@ -1,5 +1,5 @@
 --
--- Construcción de estructura de base de datos.
+-- Construcción de estructura de base de datos de pruebas.
 -- Asume que la base ya está creada.
 --
 -- Proyecto Lovelace.
@@ -8,21 +8,22 @@
 --
 -- Referencias:
 -- CREATE TABLE: https://dev.mysql.com/doc/refman/5.7/en/create-table.html
--- CHAR:         https://dev.mysql.com/doc/refman/5.7/en/char.html
--- BIGINT:       https://dev.mysql.com/doc/refman/5.7/en/integer-types.html
--- DATE:         https://dev.mysql.com/doc/refman/5.7/en/datetime.html
---
 
--- Desactivar temporalmente las advertencias de que ya existe la tabla.
-SET sql_notes = 0;
+-- Elimina, si existen, las tablas anteriores.
+-- Elimina al último la de algoritmos tokenizadores para no tener
+-- problemas con las referencias existentes.
 
-CREATE TABLE IF NOT EXISTS algoritmos_tokenizadores
+DROP TABLE IF EXISTS desempenio_tokenizacion;
+DROP TABLE IF EXISTS desempenio_detokenizacion;
+DROP TABLE IF EXISTS algoritmos_tokenizadores;
+
+CREATE TABLE algoritmos_tokenizadores
 (
   identificador INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   algoritmo CHAR(24) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS desempenio_tokenizacion
+CREATE TABLE desempenio_tokenizacion
 (
   identificador INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   algoritmo INT NOT NULL,
@@ -32,7 +33,7 @@ CREATE TABLE IF NOT EXISTS desempenio_tokenizacion
   FOREIGN KEY (algoritmo) REFERENCES algoritmos_tokenizadores(identificador)
 );
 
-CREATE TABLE IF NOT EXISTS desempenio_detokenizacion
+CREATE TABLE desempenio_detokenizacion
 (
   identificador INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   algoritmo INT NOT NULL,
@@ -41,6 +42,3 @@ CREATE TABLE IF NOT EXISTS desempenio_detokenizacion
   num_operaciones INT NOT NULL,
   FOREIGN KEY (algoritmo) REFERENCES algoritmos_tokenizadores(identificador)
 );
-
--- Activar nuevamente las advertencias de que ya existe la tabla.
-SET sql_notes = 1;

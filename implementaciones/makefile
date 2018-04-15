@@ -5,6 +5,7 @@
 
 PROGRAMA_PRINCIPAL	:= programa_de_pruebas
 PROGRAMA_DOS				:= lovelace
+PRUEBA_DESEMP       := pruebas_desempenio
 CARPETA_BINARIOS		:= binarios
 CARPETA_OBJETOS			:= objetos
 LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
@@ -76,10 +77,38 @@ FUENTES_DOS					:= lovelace.cpp \
 											 utilidades/arreglo_de_digitos.cpp \
 											 utilidades/intermediario_de_arreglo_de_digitos.cpp \
 											 utilidades/codificador.cpp
+FUENTES_TRES        := pruebas_desempenio.cpp \
+											 acceso_a_datos/acceso_mysql_pruebas.cpp \
+											 acceso_a_datos/acceso_mysql.cpp \
+											 bps/cifrador_de_ronda.cpp \
+                       bps/cifrador_BC.cpp \
+											 bps/utilidades.cpp \
+                       bps/cifrador_BPS.cpp \
+											 bps/codificador.cpp \
+											 drbg/aleatoriedad_trivial.cpp \
+											 drbg/drbg.cpp \
+											 drbg/hash_drbg.cpp \
+											 tkr/pseudoaleatorio_trivial.cpp \
+											 tkr/pseudoaleatorio_aes.cpp \
+											 tkr/funcion_rn.cpp \
+											 tkr/tkr.cpp \
+											 aes_ensamblador/aes.cpp \
+											 aes_ensamblador/libaesni/libaes_lin64.o \
+											 ahr/ahr.cpp \
+											 utilidades/utilidades_tarjetas.cpp \
+											 utilidades/utilidades_criptograficas.cpp \
+											 utilidades/algoritmo_tokenizador.cpp \
+											 utilidades/algoritmo_tokenizador_reversible.cpp \
+											 utilidades/algoritmo_tokenizador_irreversible.cpp \
+											 utilidades/arreglo.cpp \
+											 utilidades/arreglo_de_digitos.cpp \
+											 utilidades/intermediario_de_arreglo_de_digitos.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
 OBJETOS_DOS		      := $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(FUENTES_DOS:.cpp=.o))
+OBJETOS_TRES        := $(addprefix $(CARPETA_OBJETOS)/, \
+                         $(FUENTES_TRES:.cpp=.o))
 BANDERAS_GENERALES	:= -std=c++14 -Wall -Werror -Wfatal-errors -ggdb
 BANDERAS_DE_LIGADO	:= -lcryptopp -lmysqlcppconn -lgmpxx -lgmp
 
@@ -91,11 +120,19 @@ $(CARPETA_BINARIOS)/$(PROGRAMA_DOS): $(OBJETOS_DOS)
 	mkdir -p $(CARPETA_BINARIOS)
 	$(CXX) $(BANDERAS_GENERALES) $(OBJETOS_DOS) $(BANDERAS_DE_LIGADO) -o $@
 
+$(CARPETA_BINARIOS)/$(PRUEBA_DESEMP): $(OBJETOS_TRES)
+	mkdir -p $(CARPETA_BINARIOS)
+	$(CXX) $(BANDERAS_GENERALES) $(OBJETOS_TRES) $(BANDERAS_DE_LIGADO) -o $@
+
 $(CARPETA_OBJETOS)/programa_de_pruebas.o: programa_de_pruebas.cpp
 	mkdir -p $(CARPETA_OBJETOS)
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/lovelace.o: lovelace.cpp
+	mkdir -p $(CARPETA_OBJETOS)
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/pruebas_desempenio.o: pruebas_desempenio.cpp
 	mkdir -p $(CARPETA_OBJETOS)
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
@@ -264,6 +301,12 @@ $(CARPETA_OBJETOS)/acceso_a_datos/acceso_simulado.o: \
 
 $(CARPETA_OBJETOS)/acceso_a_datos/acceso_mysql.o: \
 	acceso_a_datos/acceso_mysql.cpp acceso_a_datos/cabeceras/acceso_mysql.hh
+	mkdir -p $(CARPETA_OBJETOS)/acceso_a_datos
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/acceso_a_datos/acceso_mysql_pruebas.o: \
+	acceso_a_datos/acceso_mysql_pruebas.cpp \
+	acceso_a_datos/cabeceras/acceso_mysql_pruebas.hh
 	mkdir -p $(CARPETA_OBJETOS)/acceso_a_datos
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 

@@ -6,7 +6,7 @@
 -- Elimina bases de datos anteriores
 -- https://dev.mysql.com/doc/refman/5.7/en/drop-database.html
 
--- DROP DATABASE IF EXISTS lovelace_pruebas;
+DROP DATABASE IF EXISTS lovelace_pruebas;
 
 -- Crear base de datos:
 -- https://dev.mysql.com/doc/refman/5.7/en/create-database.html

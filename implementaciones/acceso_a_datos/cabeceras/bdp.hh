@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Declaración de interfaz de acceso a dao.
+ * \brief Declaración de interfaz de acceso a dao para pruebas.
  */
 
 #ifndef __BDP__
@@ -14,8 +14,7 @@
    * \brief Interfaz de acceso a los datos de pruebas.
    *
    * Definición de comunicación con una fuente de datos. Define las operaciones
-   * que cualquier clase concreta de acceso a datos debe de cumplir. Todo el
-   * código del espacio de implementaciones debe utilizar esta interfaz.
+   * que cualquier clase concreta de acceso a datos de pruebas debe de cumplir.
    */
 
 class BDP
@@ -26,14 +25,14 @@ class BDP
     {
     }
 
-    /** \brief Guarda el registro dado en la base de datos. */
+    /** \brief Registra el tiempo de tokenización. */
     virtual void registrarTiempoCifrado(
       const int Algoritmo,
       const int tiempo,
       const int numTokenizaciones
     ) = 0;
 
-    /** \brief Guarda el registro dado en la base de datos. */
+    /** \brief Registra el tiempo de tokenización. */
     virtual void registrarTiempoDescifrado(
       const int Algoritmo,
       const int tiempo,
