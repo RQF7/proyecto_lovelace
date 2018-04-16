@@ -23,20 +23,20 @@ dólares y, para el siguiente año habían aumentado a 2.1 miles de millones de
 dólares.
 
 Las compañías emisoras de tarjetas comenzaron a proponer soluciones y,
-a finales de 1999, Visa publicó un estándar de seguridad para quienes realizaban
-transacciones en línea llamado \gls{gl:cisp}, este programa es el primer
-precursor del estándar actual \gls{gl:pci}~\gls{gl:dss}. Lamentablemente, las
-recomendaciones no estaban unificadas y había incosistencias entre ellas; fueron
-pocas las compañías que pudieron satisfacer completamente alguno de los
-estándares publicados.
+a finales de 1999, Visa publicó un documento con una serie de recomendaciones
+de seguridad para quienes realizaban transacciones en línea llamado
+\gls{gl:cisp}, este programa es el primer precursor del estándar actual
+\gls{gl:pci}~\gls{gl:dss}. Lamentablemente, las recomendaciones no estaban
+unificadas y había incosistencias entre ellas, por lo que pocas compañías
+fueron capaces satisfacer completamente alguna de las normas publicadas.
 
 Fue hasta finales de 2004 cuando se publicó el primer estándar unificado,
 respaldado por las compañías emisoras de tarjetas más importantes: el
-\gls{gl:pci} \gls{gl:dss} 1.0, en el cuál se indica a los comercios cómo
+\gls{gl:pci}~\gls{gl:dss} 1.0, en el cuál se indica a los comercios cómo
 mantener los datos bancarios seguros mediante protocolos de seguridad, y se hizo
 obligatorio para todos aquellos que realizaran más de 20,000 transacciones
-anuales; aunque cada vez más compañías comenzar seguirlo e invertir para
-satisfacer el estándar, de nuevo fueron pocas las que alcanzaron a cumplirlo
+anuales; aunque cada vez más compañías comenzaron a seguirlo e invertir para
+satisfacerlo, de nuevo fueron pocas las que alcanzaron a cumplirlo
 completamente, pues tiene una gran cantidad de requerimientos (controles
 estrictos de acceso, monitoreo regular de las redes, mantener programas de
 vulnerabilidaes y políticas de seguridad de información, etcétera) y las
@@ -46,16 +46,16 @@ estándar~\cite{uk_association, search_security}.
 A finales del 2006 ocurrió una de las primeras grandes violaciones de datos
 que puso en guardia a todos: hubo una intrusión en los servidores de la empresa
 americana TJX y piratas cibernéticos robaron información de tarjetas de crédito,
-débito y transacciones de 94 millones de clientes registrados en el sistema de
-la empresa. Ataques como este han continuado a lo largo de los años: la cadena
-de supermercados Hannaford Bros. sufrió una violación en 2008 y se vieron
+débito y transacciones de 94 millones de clientes registrados en su sistema.
+Ataques como este han continuado a lo largo de los años: la cadena
+de supermercados Hannaford Bros. sufrió un embate en 2008 y se vieron
 comprometidas 4.2 millones de cuentas, Target fue atacado en 2013 y 40 millones
-de cuentas fueron afectadas, y, al año siguiente la seguridad de Home Depot
-también fue violada y 56 millones de cuentas fueron afectadas tras el ataque.
+de cuentas fueron afectadas, y, al año siguiente, arremetieron contra Home Depot
+y la información de 56 millones de usuarios fue robada.
 
 Durante la primera década del siglo XXI, el enfoque que se tenía era
 salvaguardar la información sensible en todo el sistema; tómese por ejemplo el
-caso del sistema de una tienda en línea: el número de tarjeta queda registrado
+caso de una tienda en línea: el número de tarjeta queda registrado
 en el área de clientes, pues se puede asociar con un perfil y evita tener que
 estar ingresando continuamente toda la información de la tarjeta; también queda
 registrada en el área de ventas, pues queda asociada a una compra o transacción;
@@ -68,12 +68,21 @@ esa información por un valor sustituto y solo proteger esa pequeña parte del
 sistema? Así que, a mediados del 2011, el \gls{gl:pci}~\gls{gl:dss} publicó
 publicó un documento cuyo título en inglés es «\textit{PCI DSS tokenization
 guidelines}»; a su vez, varias compañías comenzaron a ofrecer soluciones de
-tokenización que quitaban casi por completo el peso de cumplir con el
-\gls{gl:pci}~\gls{gl:dss} a los comerciantes, pues ellas se encargan de
+tokenización\footnotemark que quitaban casi por completo el peso de cumplir con
+el \gls{gl:pci}~\gls{gl:dss} a los comerciantes, pues ellas se encargan de
 generar los \glspl{gl:token} y almacenar los datos sensibles; mientras que
 ellos, los comerciantes, se quedan solo con el \gls{gl:token}; así, si la
 seguridad de su sitio es violada, los datos siguen estando seguros, pues no se
 puede robar lo que no existe dentro del sistema.
+
+\footnotetext{
+  El término \textit{tokenización} es un anglicismo y, en este documento,
+  se refiere a la acción y efecto de \textit{tokenizar}; es decir, dado un
+  valor, obtener un valor sustituto (\gls{gl:token}). La \textit{detokenización}
+  es el proceso inverso: dado el valor sustituto (\gls{gl:token}), obtener el
+  valor original. Estos préstamos lingüísticos se utilizan de manera constante
+  a lo largo de este reporte.
+}
 
 Aunque en este trabajo se hace especial referencia a la tokenización de los
 números de tarjetas, o \gls{gl:pan}, este proceso sirve para proteger otros
@@ -205,10 +214,13 @@ comparativa de las principales soluciones que existen en el mercado.
     de datos del servicio, donde se dice que con el \gls{gl:token} se recupera
     y descifra la información bancaria sensible, lo que genera confusión, pues
     no se sabe si la tokenización se hace por medio de de cifrados que
-    preservan el formato\footnote{Tipo de cifrado que permite que los mensajes
-    ya cifrados se vean parecidos a los originales. Este tema se abarca en la
-    sección \ref{sec:fpe}.}, o por medio de tablas que
+    preservan el formato\footnotemark, o por medio de tablas que
     contienen pares \gls{gl:pan}-\gls{gl:token}.
+
+    \footnotetext{
+      Tipo de cifrado que permite que los mensajes ya cifrados se vean parecidos
+      a los originales. Este tema se abarca en la sección \ref{sec:fpe}.
+    }
 
   \item[Braintree]
     Compañía que ofrece distintos \gls{gl:sdk} (para dispositivos móviles y
@@ -229,19 +241,28 @@ comparativa de las principales soluciones que existen en el mercado.
         transacción.
       \item Todos los \glspl{gl:token} generados tienen una longitud de 16
         dígitos y pasan los controles de validez de las tarjetas bancarias
-        (por ejemplo, el algoritmo de Luhn).
+        (por ejemplo, el algoritmo de Luhn\footnotemark).
       \end{itemize}
       Aunque informan al cliente que los \glspl{gl:token} creados preservan el
       formato en el tercer punto, no indican qué algoritmos son utilizados para
       generarlos; aunado a esto, el segundo punto tampoco aporta mucha
-      información: sí, utilizan algoritmos reversibles, pues los
+      información: sí, utilizan algoritmos reversibles\footnotemark, pues los
       \glspl{gl:token} quedan ligados a una tarjeta o a una transacción,
       pero siguen sin especificar sus métodos \cite{merchant_link}.
+
+      \footnotetext{
+        Este algoritmo es descrito en ~\ref{luhn:1}.
+      }
+
+      \footnotetext{
+        Algoritmos que, dados un \gls{gl:token}, pueden regresar al \gls{gl:pan}
+        correspondiente. Esta clasificación es explicada en~\ref{sec:pci_dss}.
+      }
 
     \item[Jack Henry Card Processing Solution]
       La solución de tokenización ofrecida por Jack Henry Banks indica que se
       encarga de sustituir el número de tarjeta con un \gls{gl:token} numérico
-      válido que pasa los controles de validez  de las tarjetas bancarias; sin
+      que pasa los controles de validez  de las tarjetas bancarias; sin
       embargo, no dice qué métodos utiliza para generar los \glspl{gl:token}.
       Indica también que parte de su plataforma está integrada con los servicios
       de tokenización provistos por \gls{gl:mdes} y \gls{gl:vts}; sin embargo,
