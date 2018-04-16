@@ -27,7 +27,7 @@ a finales de 1999, Visa publicó un documento con una serie de recomendaciones
 de seguridad para quienes realizaban transacciones en línea llamado
 \gls{gl:cisp}, este programa es el primer precursor del estándar actual
 \gls{gl:pci}~\gls{gl:dss}. Lamentablemente, las recomendaciones no estaban
-unificadas y había incosistencias entre ellas, por lo que pocas compañías
+unificadas y había inconsistencias entre ellas, por lo que pocas compañías
 fueron capaces satisfacer completamente alguna de las normas publicadas.
 
 Fue hasta finales de 2004 cuando se publicó el primer estándar unificado,
@@ -68,12 +68,20 @@ esa información por un valor sustituto y solo proteger esa pequeña parte del
 sistema? Así que, a mediados del 2011, el \gls{gl:pci}~\gls{gl:dss} publicó
 publicó un documento cuyo título en inglés es «\textit{PCI DSS tokenization
 guidelines}»; a su vez, varias compañías comenzaron a ofrecer soluciones de
-tokenización\footnotemark que quitaban casi por completo el peso de cumplir con
-el \gls{gl:pci}~\gls{gl:dss} a los comerciantes, pues ellas se encargan de
+tokenización\footnotemark{} que quitaban casi por completo el peso de cumplir
+con el \gls{gl:pci}~\gls{gl:dss} a los comerciantes, pues ellas se encargan de
 generar los \glspl{gl:token} y almacenar los datos sensibles; mientras que
 ellos, los comerciantes, se quedan solo con el \gls{gl:token}; así, si la
 seguridad de su sitio es violada, los datos siguen estando seguros, pues no se
 puede robar lo que no existe dentro del sistema.
+
+%
+% El grupo vacío después de «footnotemark» no es necesario por la sintaxis,
+% sin embargo, si no se pone, LaTeX deja un espacio muy corto entre el número
+% y la siguiente palabra. Extraño.
+%
+% https://tex.stackexchange.com/questions/42982/wrong-space-with-footnotemark
+%
 
 \footnotetext{
   El término \textit{tokenización} es un anglicismo y, en este documento,
@@ -196,16 +204,15 @@ comparativa de las principales soluciones que existen en el mercado.
 
   \item[Shift4]
     Esta compañía reclama el crédito de haber inventado el paradigma de
-    la tokenización, denuncia que otras compañías y el mismo
+    la tokenización. Denuncia que otras compañías y el mismo
     \gls{gl:pci}~\gls{gl:ssc} desvirtuaron el término; por esta razón, la
     compañía se refiere a su propio método cómo \textit{TrueTokenization}.
     Aunque mencionan en todas partes las supuestas ventajas de sus métodos,
     lo único que dicen con claridad sobre la generación de \glspl{gl:token} es
     que se trata de valores aleatorios, únicos y alfanuméricos. Esta descripción
-    no representa en modo alguno una garantía sobre la seguridad del
-    método: podrían estar utilizando métodos pseudoaleatorios que no son
-    criptográficamente seguros; o cualquier otro método cuya seguridad no esté
-    formalmente probada~\cite{shif4_uno, shif4_dos}.
+    no representa en modo alguno una garantía, pues podrían estar usando un
+    método cuya seguridad no esté formalmente
+    probada~\cite{shif4_uno, shif4_dos}.
 
   \item[Bluepay TokenShield]
     En este servicio, a pesar de que se ofrecen dos formas distintas de
@@ -214,8 +221,8 @@ comparativa de las principales soluciones que existen en el mercado.
     de datos del servicio, donde se dice que con el \gls{gl:token} se recupera
     y descifra la información bancaria sensible, lo que genera confusión, pues
     no se sabe si la tokenización se hace por medio de de cifrados que
-    preservan el formato\footnotemark, o por medio de tablas que
-    contienen pares \gls{gl:pan}-\gls{gl:token}.
+    preservan el formato\footnotemark, o por medio de bases de datos con tablas
+    que contienen pares \gls{gl:pan}-\gls{gl:token}.
 
     \footnotetext{
       Tipo de cifrado que permite que los mensajes ya cifrados se vean parecidos
@@ -242,20 +249,20 @@ comparativa de las principales soluciones que existen en el mercado.
       \item Todos los \glspl{gl:token} generados tienen una longitud de 16
         dígitos y pasan los controles de validez de las tarjetas bancarias
         (por ejemplo, el algoritmo de Luhn\footnotemark).
-      \end{itemize}
-      Aunque informan al cliente que los \glspl{gl:token} creados preservan el
-      formato en el tercer punto, no indican qué algoritmos son utilizados para
-      generarlos; aunado a esto, el segundo punto tampoco aporta mucha
+        \footnotetext{
+          Este algoritmo es descrito en ~\ref{luhn:1}.
+        }
+    \end{itemize}
+
+      Aunque en el tercer punto informan al cliente que los \glspl{gl:token}
+      creados preservan el formato, no indican cuáles algoritmos son utilizados
+      para generarlos; aunado a esto, el segundo punto tampoco aporta mucha
       información: sí, utilizan algoritmos reversibles\footnotemark, pues los
       \glspl{gl:token} quedan ligados a una tarjeta o a una transacción,
       pero siguen sin especificar sus métodos \cite{merchant_link}.
 
       \footnotetext{
-        Este algoritmo es descrito en ~\ref{luhn:1}.
-      }
-
-      \footnotetext{
-        Algoritmos que, dados un \gls{gl:token}, pueden regresar al \gls{gl:pan}
+        Algoritmos que, dado un \gls{gl:token}, pueden regresar al \gls{gl:pan}
         correspondiente. Esta clasificación es explicada en~\ref{sec:pci_dss}.
       }
 
@@ -271,7 +278,7 @@ comparativa de las principales soluciones que existen en el mercado.
       \gls{gl:mdes}, \gls{gl:vts} o Jack Henry?\cite{jack_henry, mdes_1, mdes_2}
 
     \item[Securosis]
-      La publicación en \cite{securosis} tiene por objetivo esclarecer el papel
+      La publicación en \cite{securosis} tiene por objeto esclarecer el papel
       de la tokenización. Explica de forma bastante clara las ventajas del
       paradigma y el flujo de datos entre tienda, sistema tokenizador y banco;
       sin embargo, al igual que las empresas anteriores, carece de una
@@ -279,8 +286,7 @@ comparativa de las principales soluciones que existen en el mercado.
       referencias hacia estos solo consigue confundir. Por ejemplo, presentan
       a la tokenización como una alternativa a la criptografía, hablando
       de los \glspl{gl:token} como valores aleatorios que nada tienen que
-      ver con criptografía; después de todo, el problema de la generación
-      de números pseudoaleatorios es también una rama de la criptografía.
+      ver con criptografía.
 
     % Thales Tokenization.
     % Al parecer este si dice cómo es que funciona, usa FPE, mas especifico FF3
@@ -292,17 +298,13 @@ comparativa de las principales soluciones que existen en el mercado.
 
 \end{description}
 
-Muchas de las soluciones del mercado intentan argumentar que, como para ellos
-un \gls{gl:token} es un valor aleatorio, nada tiene que ver con criptografía;
+Muchas de las soluciones del mercado intentan argumentar que un \gls{gl:token}
+es un valor aleatorio y, por tanto, nada tiene que ver con criptografía;
 al parecer esta estrategia publicitaria tuvo mucho éxito, pues uno de los
 mensajes más comunes es que la criptografía es cosa del pasado, la tokenización
 permite sustituirla. Mientras esto puede ser cierto para los posibles clientes
 de un sistema tokenizador (tiendas que procesan pagos en línea), es una mentira
-manifiesta cuando se considera a todos los  participantes. Otro error es pensar
-en la generación de números pseudoaleatorios como un tema no criptográfico;
-podría ser considerado así si se tratara de generadores realmente aleatorios
-(los cuales son raros y difíciles de  implementar), sin embargo, si se trata de
-números pseudoaleatorios, la relación con la criptografía es directa.
+manifiesta cuando se considera a todos los  participantes.
 
 La mayoría de las soluciones tratan a sus métodos como secretos de compañía: no
 explican la manera en que generan los \glspl{gl:token}, por lo que esperan que
@@ -314,18 +316,18 @@ institución financiera) para llevarla a cabo. Un estado ideal eliminaría la
 necesidad de la tercera parte (es lo que intentan hacer
 \glspl{gl:criptomoneda} como \textit{bitcoin}~\cite{bitcoin}), sin embargo,
 mientras este estado no se alcance, el modelo basado en la confianza es un mal
-necesario, y como tal, debe ser reducido al máximo: un tercero proveedor del
+necesario, y como tal, debe ser reducido al máximo: un proveedor del
 servicio de tokenización debería ser muy claro sobre lo que hace para
-tokenizar, permitiendo que sus clientes basen en esto su desición.
+tokenizar, permitiendo que sus clientes basen en esto su decisión.
 
 La desinformación que hay alrededor del tema de la tokenización es la principal
 justificación para este trabajo: se busca implementar algoritmos públicos
 y presentar los resultado, permitiendo a los clientes de sistemas tokenizadores
-entender qué hay adentro de la caja negra. Parte de este combate a la
+entender qué hay dentro de la caja negra. Parte de este combate a la
 desinformación consiste en dejar bien clara la relación entre la tokenización y
-la criptografía: la tokenización es una forma de criptografía, por lo que los
-métodos de tokenización deben ser analizados con la misma formalidad con la que
-se estudian todas las demás formas de cifrado.
+la criptografía: la tokenización es una aplicación de la criptografía, por lo
+que los métodos de tokenización deben ser analizados con la misma formalidad con
+la que se estudian todas las demás formas de cifrado.
 
 \section{Organización del documento}
 
