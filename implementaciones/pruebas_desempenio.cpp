@@ -30,7 +30,7 @@ tuple<AlgoritmoTokenizador*, int> parametrizarAlgoritmo(const char*);
 
 int main(int argc, char* argv[])
 {
-  int numPruebas = 100000;
+  int numPruebas = 10000;
 
   if(argc < 6)
   {
