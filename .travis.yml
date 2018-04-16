@@ -46,6 +46,7 @@ install:
   - make -C pruebas_librerias
   - make -C implementaciones
   - make -C implementaciones binarios/lovelace
+  - make -C implementaciones binarios/pruebas_desempenio
   - make -C utilidades
   - cd bases_de_datos
   - chmod 770 crear_base.sh
@@ -63,6 +64,7 @@ script:
   - chmod 770 lovelace_prueba.sh
   - ./lovelace_prueba.sh 100
   - cd ..
+  - bash -v travis/pruebas_desempenio.sh
 
 # Generación de documentación #################################################
 after_success:
