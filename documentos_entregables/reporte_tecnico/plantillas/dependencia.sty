@@ -1,0 +1,36 @@
+%
+% Plantilla para dependencias
+% Proyecto Lovelace.
+%
+
+% Contador de dependencias:
+\newcounter{contador_dependencias}[chapter]
+
+% Comando para definir una nueva dependencia:
+% 1. Nombre de categoría.
+% 2. Nombre de dependencia (con versión).
+% 3. Licencia.
+% 4. URL de página oficial.
+% 5. Descripción.
+%
+% TODO: El espacio vertical del inicio hace que los primeros de página se
+% vean extraños.
+
+\newcommand{\dependencia}[5]
+{
+  \refstepcounter{contador_dependencias}
+  \begin{unidadirrompible}
+    \vspace{0.5em}
+    \noindent
+    \textbf{DEP\formatearnumero{contador_dependencias} #1:} #2
+    \setlength{\parskip}{0em}
+    {\footnotesize
+    \begin{description}
+      \item[Licencia:] #3
+      \item[Página oficial:] \url{#4}
+    \end{description}}
+    \noindent
+    #5
+  \end{unidadirrompible}
+  \setlength{\parskip}{1.0em}
+}
