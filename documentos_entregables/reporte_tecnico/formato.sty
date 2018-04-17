@@ -89,6 +89,11 @@
 % http://mirrors.ctan.org/fonts/amsfonts/doc/amsfndoc.pdf
 \RequirePackage{array}
 
+% Centrado de celdas en tablas con ancho:
+% https://tex.stackexchange.com/questions/157389/how-to-center-column-
+% values-in-a-table
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
 % http://mirrors.ctan.org/macros/latex/contrib/makecell/makecell.pdf
 \RequirePackage{makecell}
 
