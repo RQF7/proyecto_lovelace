@@ -20,14 +20,11 @@ mediante un proceso de $r$ \glspl{gl:ronda}.
     fin
 \end{pseudocodigo}
 
-Donde cada subllave $K_i$ se obtiene de la llave $K$.
-
-Normalmente el número de rondas $r$ es mayor o igual a tres y par.
-Además, casi siempre intercambia el orden de los bloques de salida al
-revés en la última ronda: ($R_r, L_r$) en vez de ($L_r, R_r$).
-
-El descifrado se realiza utilizando el mismo proceso de cifrado pero
-con las llaves en el orden inverso (comenzando con $K_r$ hasta $K_1$).
+Cada subllave $K_i$ se obtiene de la llave $K$. Normalmente el número de rondas
+$r$ es mayor o igual a tres y par. Además, casi siempre intercambia el orden de
+los bloques de salida al revés en la última ronda: ($R_r, L_r$) en vez de
+($L_r, R_r$). El descifrado se realiza utilizando el mismo proceso de cifrado
+pero con las llaves en el orden inverso (comenzando con $K_r$ hasta $K_1$).
 
 \begin{figure}
   \begin{center}
