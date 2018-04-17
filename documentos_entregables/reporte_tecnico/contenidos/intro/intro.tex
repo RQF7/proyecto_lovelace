@@ -28,14 +28,14 @@ de seguridad para quienes realizaban transacciones en línea llamado
 \gls{gl:cisp}, este programa es el primer precursor del estándar actual
 \gls{gl:pci}~\gls{gl:dss}. Lamentablemente, las recomendaciones no estaban
 unificadas y había inconsistencias entre ellas, por lo que pocas compañías
-fueron capaces satisfacer completamente alguna de las normas publicadas.
+fueron capaces de satisfacer completamente alguna de las normas publicadas.
 
 Fue hasta finales de 2004 cuando se publicó el primer estándar unificado,
 respaldado por las compañías emisoras de tarjetas más importantes: el
 \gls{gl:pci}~\gls{gl:dss} 1.0, en el cuál se indica a los comercios cómo
 mantener los datos bancarios seguros mediante protocolos de seguridad, y se hizo
 obligatorio para todos aquellos que realizaran más de 20,000 transacciones
-anuales; aunque cada vez más compañías comenzaron a seguirlo e invertir para
+anuales. Aunque cada vez más compañías comenzaron a seguirlo e invertir para
 satisfacerlo, de nuevo fueron pocas las que alcanzaron a cumplirlo
 completamente, pues tiene una gran cantidad de requerimientos (controles
 estrictos de acceso, monitoreo regular de las redes, mantener programas de
@@ -66,7 +66,7 @@ estado utilizando hasta ahora: ¿por qué intentar proteger la información
 sensible en todos los lados donde sea que se encuentre, cuando se puede cambiar
 esa información por un valor sustituto y solo proteger esa pequeña parte del
 sistema? Así que, a mediados del 2011, el \gls{gl:pci}~\gls{gl:dss} publicó
-publicó un documento cuyo título en inglés es «\textit{PCI DSS tokenization
+un documento cuyo título en inglés es «\textit{PCI DSS tokenization
 guidelines}»; a su vez, varias compañías comenzaron a ofrecer soluciones de
 tokenización\footnotemark{} que quitaban casi por completo el peso de cumplir
 con el \gls{gl:pci}~\gls{gl:dss} a los comerciantes, pues ellas se encargan de
@@ -103,7 +103,7 @@ las fichas (o \glspl{gl:token}) están vigiladas, si alguien las roba, el casino
 no pierde tanto (siempre y cuando no sean cambiadas por dinero, o sea, realizar
 el proceso de detokenización), pues es una mera representación, y no el dinero
 mismo. Lo mismo sucede con los \glspl{gl:token} digitales: sustituyen
-información valiosa, por valores que carecen de significado y que cuya pérdida
+información valiosa, por valores que carecen de significado y cuya pérdida
 no representa un peligro inminente o una violación de la privacidad.
 
 Todos los métodos para generar \glspl{gl:token} que se presentan en este trabajo
@@ -275,7 +275,8 @@ comparativa de las principales soluciones que existen en el mercado.
       de tokenización provistos por \gls{gl:mdes} y \gls{gl:vts}; sin embargo,
       estos servicios tampoco indican cómo generan los tokens. Finalmente, no
       queda claro quién se encarga de generar los \glspl{gl:token}, ¿lo hace
-      \gls{gl:mdes}, \gls{gl:vts} o Jack Henry?\cite{jack_henry, mdes_1, mdes_2}
+      \gls{gl:mdes}, \gls{gl:vts} o Jack
+      Henry?~\cite{jack_henry, mdes_1, mdes_2}
 
     \item[Securosis]
       La publicación en \cite{securosis} tiene por objeto esclarecer el papel
