@@ -1,0 +1,147 @@
+%
+% Sección de justificación, capítulo de introducción,
+% reporte técnico.
+%
+% Proyecto Lovelace.
+%
+
+\section{Justificación}
+
+Dado que es un tema relativamente nuevo, la desinformación y la desconfianza
+respecto a la generación de \glspl{gl:token} es latente aún, pues, por ejemplo,
+aunque el \gls{gl:pci}~\gls{gl:dss} describe los requerimientos que debe cumplir
+un sistema tokenizador, no indica qué hacer para satisfacerlos. Muchas empresas
+se aprovechan de esta desinformación para promocionarse como sistema
+tokenizador sin ser claras sobre sus métodos. A continuación se muestran las
+principales deficiencias encontradas como resultado de una investigación
+comparativa de las principales soluciones que existen en el mercado.
+
+\begin{description}
+
+  \item[Shift4]
+    Esta compañía reclama el crédito de haber inventado el paradigma de
+    la tokenización. Denuncia que otras compañías y el mismo
+    \gls{gl:pci}~\gls{gl:ssc} desvirtuaron el término; por esta razón, la
+    compañía se refiere a su propio método cómo \textit{TrueTokenization}.
+    Aunque mencionan en todas partes las supuestas ventajas de sus métodos,
+    lo único que dicen con claridad sobre la generación de \glspl{gl:token} es
+    que se trata de valores aleatorios, únicos y alfanuméricos. Esta descripción
+    no representa en modo alguno una garantía, pues podrían estar usando un
+    método cuya seguridad no esté formalmente
+    probada~\cite{shif4_uno, shif4_dos}.
+
+  \item[Bluepay TokenShield]
+    En este servicio, a pesar de que se ofrecen dos formas distintas de
+    tokenizar, nunca se aclara cómo es que funciona alguno de estos procesos.
+    Además, en \cite{bluepay_tokenshield} hay una breve descripción del flujo
+    de datos del servicio, donde se dice que con el \gls{gl:token} se recupera
+    y descifra la información bancaria sensible, lo que genera confusión, pues
+    no se sabe si la tokenización se hace por medio de de cifrados que
+    preservan el formato\footnotemark, o por medio de bases de datos con tablas
+    que contienen pares \gls{gl:pan}-\gls{gl:token}.
+
+    \footnotetext{
+      Tipo de cifrado que permite que los mensajes ya cifrados se vean parecidos
+      a los originales. Este tema se abarca en la sección \ref{sec:fpe}.
+    }
+
+  \item[Braintree]
+    Compañía que ofrece distintos \gls{gl:sdk} (para dispositivos móviles y
+    para desarrollo web) que permiten interactuar con sus propios servidores
+    para procesar pagos con tarjetas de crédito. En~\cite{braintree_uno}
+    dan una definición de \gls{gl:token} que no es compatible con el
+    \gls{gl:pci}~\gls{gl:ssc}: la única forma de generar \glspl{gl:token},
+    según su definición, es por métodos aleatorios. Aún aceptando
+    esa definición, no se ofrecen mayores explicaciones: los clientes no
+    saben de qué forma se están generando los valores aleatorios.
+
+  \item[Merchant Link]
+    La solución de tokenización de Merchant Link es llamada TransactionVault. Su
+    página da tres puntos importantes respecto a la tokenización:
+    \begin{itemize}
+      \item Utilizan tecnología de la \textit{siguiente generación}.
+      \item Los \glspl{gl:token} son asociados con una tarjeta y una
+        transacción.
+      \item Todos los \glspl{gl:token} generados tienen una longitud de 16
+        dígitos y pasan los controles de validez de las tarjetas bancarias
+        (por ejemplo, el algoritmo de Luhn\footnotemark).
+        \footnotetext{
+          Este algoritmo es descrito en ~\ref{luhn:1}.
+        }
+    \end{itemize}
+
+      Aunque en el tercer punto informan al cliente que los \glspl{gl:token}
+      creados preservan el formato, no indican cuáles algoritmos son utilizados
+      para generarlos; aunado a esto, el segundo punto tampoco aporta mucha
+      información: sí, utilizan algoritmos reversibles\footnotemark, pues los
+      \glspl{gl:token} quedan ligados a una tarjeta o a una transacción,
+      pero siguen sin especificar sus métodos \cite{merchant_link}.
+
+      \footnotetext{
+        Algoritmos que, dado un \gls{gl:token}, pueden regresar al \gls{gl:pan}
+        correspondiente. Esta clasificación es explicada en~\ref{sec:pci_dss}.
+      }
+
+    \item[Jack Henry Card Processing Solution]
+      La solución de tokenización ofrecida por Jack Henry Banks indica que se
+      encarga de sustituir el número de tarjeta con un \gls{gl:token} numérico
+      que pasa los controles de validez  de las tarjetas bancarias; sin
+      embargo, no dice qué métodos utiliza para generar los \glspl{gl:token}.
+      Indica también que parte de su plataforma está integrada con los servicios
+      de tokenización provistos por \gls{gl:mdes} y \gls{gl:vts}; sin embargo,
+      estos servicios tampoco indican cómo generan los tokens. Finalmente, no
+      queda claro quién se encarga de generar los \glspl{gl:token}, ¿lo hace
+      \gls{gl:mdes}, \gls{gl:vts} o Jack
+      Henry?~\cite{jack_henry, mdes_1, mdes_2}
+
+    \item[Securosis]
+      La publicación en \cite{securosis} tiene por objeto esclarecer el papel
+      de la tokenización. Explica de forma bastante clara las ventajas del
+      paradigma y el flujo de datos entre tienda, sistema tokenizador y banco;
+      sin embargo, al igual que las empresas anteriores, carece de una
+      explicación sobre los propios \glspl{gl:token}, y algunas de las
+      referencias hacia estos solo consigue confundir. Por ejemplo, presentan
+      a la tokenización como una alternativa a la criptografía, hablando
+      de los \glspl{gl:token} como valores aleatorios que nada tienen que
+      ver con criptografía.
+
+    % Thales Tokenization.
+    % Al parecer este si dice cómo es que funciona, usa FPE, mas especifico FF3
+    % para tokenizar información basada en texto, y tablas de búsqueda para
+    % información numérica de 9 a 19 dígitos.
+    % Aquí está la mayoría de la información:
+    % (no importa la calidad de las imágenes)
+    %http://go.thalesesecurity.com/rs/480-LWA-970/images/Fortrex_Vormetric_VTS_Token_Evaluation.PDF?aliId=59031373
+
+\end{description}
+
+Muchas de las soluciones del mercado intentan argumentar que un \gls{gl:token}
+es un valor aleatorio y, por tanto, nada tiene que ver con criptografía;
+al parecer esta estrategia publicitaria tuvo mucho éxito, pues uno de los
+mensajes más comunes es que la criptografía es cosa del pasado, la tokenización
+permite sustituirla. Mientras esto puede ser cierto para los posibles clientes
+de un sistema tokenizador (tiendas que procesan pagos en línea), es una mentira
+manifiesta cuando se considera a todos los  participantes.
+
+La mayoría de las soluciones tratan a sus métodos como secretos de compañía: no
+explican la manera en que generan los \glspl{gl:token}, por lo que esperan que
+el trato entre cliente y proveedor esté basado en la confianza que tiene el
+primero por el segundo. El modelo basado en la confianza es común al
+funcionamiento de casi todas las transacciones monetarias hechas por internet:
+dos partes que quieran realizar una transacción necesitan de un tercero (la
+institución financiera) para llevarla a cabo. Un estado ideal eliminaría la
+necesidad de la tercera parte (es lo que intentan hacer
+\glspl{gl:criptomoneda} como \textit{bitcoin}~\cite{bitcoin}), sin embargo,
+mientras este estado no se alcance, el modelo basado en la confianza es un mal
+necesario, y como tal, debe ser reducido al máximo: un proveedor del
+servicio de tokenización debería ser muy claro sobre lo que hace para
+tokenizar, permitiendo que sus clientes basen en esto su decisión.
+
+La desinformación que hay alrededor del tema de la tokenización es la principal
+justificación para este trabajo: se busca implementar algoritmos públicos
+y presentar los resultado, permitiendo a los clientes de sistemas tokenizadores
+entender qué hay dentro de la caja negra. Parte de este combate a la
+desinformación consiste en dejar bien clara la relación entre la tokenización y
+la criptografía: la tokenización es una aplicación de la criptografía, por lo
+que los métodos de tokenización deben ser analizados con la misma formalidad con
+la que se estudian todas las demás formas de cifrado.
