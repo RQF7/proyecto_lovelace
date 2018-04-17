@@ -6,8 +6,8 @@
 \subsection{Requerimientos}
 \label{sec:requerimientos}
 
-\gls{gl:pci} \gls{gl:dss} define cuatro \textit{dominios} de seguridad para el
-proceso de tokenización:
+El \gls{gl:pci} \gls{gl:dss} define cuatro \textit{dominios} de seguridad para
+el proceso de tokenización:
 
 \begin{enumerate}
 
@@ -34,9 +34,10 @@ proceso de tokenización:
 
 \end{enumerate}
 
-En esta sección se explica cada una de las categorías y se analizan los
-requerimientos que deben tener. Para comenzar, se enlistan los requerimientos
-aplicables a todos los \glspl{gl:token}, sin importar su categoría:
+En esta sección se detallan los requerimientos que deben de satisfacer los
+\glspl{gl:token}. Para comenzar, se enlistan los requerimientos
+aplicables a todos, sin importar su categoría; después de esto, se agrupan los requerimientos correspondientes a cada una de las categorías presentadas en
+la sección \ref{sec:pci_dss}.
 
 % GT1
 \requerimiento[rq_pci:productos_de_hardware]
@@ -121,10 +122,10 @@ aplicables a todos los \glspl{gl:token}, sin importar su categoría:
 
 % GT10, RC2A, RN2B y RN3B
 \requerimiento[rq_pci:acceso_a_producto]
-{Acceso al proceso de tokenización}
+{Acceso al proceso detokenización}
 {
   Solo los usuarios autenticados y componentes del sistema tienen permitido
-  acceder al proceso de tokenización y de-tokenización. Los métodos utilizados
+  acceder al proceso de tokenización y detokenización. Los métodos utilizados
   deben ser al menos tan rigurosos como lo indicado en el requerimiento 8 del
   \gls{gl:pci} \gls{gl:dss} \cite{pci_dss}.
 
