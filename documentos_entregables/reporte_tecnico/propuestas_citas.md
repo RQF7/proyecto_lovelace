@@ -34,5 +34,12 @@ citas para cada uno.
 4. >Most good programmers do programming not because the expect to get paid or
     get adulation by the public, but because it is fun to program,
     Linus Torvalds
+5. >If 10 years from now, when you are doing something quick and dirty, you
+    suddenly visualize that I am looking over your shoulders and say to
+    yourself: 'Dijkstra would not have liked this', well that would be enough
+    immortality for me, Edsger Dijkstra.
 
 ## Conclusiones
+1. >The most important thing in the programming language is the name. A
+   language will not succeed without a good name. I have recently invented a
+   very good name and now I am looking for a suitable language, Donald Knuth.
