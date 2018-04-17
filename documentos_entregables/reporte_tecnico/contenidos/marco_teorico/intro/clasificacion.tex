@@ -64,7 +64,7 @@ Gran parte de los algoritmos de cifrado que caen en este tipo de criptografía
 están basados en las redes Feistel, que son un método de cifrado propuesto
 por el criptógrafo Horst Feistel, mismo que desarrolló el \gls{gl:des}
 (sección \ref{sec:des}) a principios de la década de los 70, que fue el
-cifrado usado por el gobierno estadounidense hasta 2002, año que el
+cifrado usado por el gobierno estadounidense hasta 2002, año en que el
 \gls{gl:aes} (sección \ref{sec:aes}) lo sustituyó.
 
 Ahora, adentrándose en la criptografía asimétrica, se tiene que su idea
@@ -94,55 +94,55 @@ distribución de llaves privadas segura y establecer métodos que garanticen
 la autenticación y el no repudio; por ejemplo, en las firmas y
 certificados digitales.
 
-El principal precursor de la criptografía asimétrica fue el método de
-intercambio de llaves de Diffie-Hellman, desarrollado y publicado por
-Whitfield Diffie y Martin Hellman, en 1976 en el artículo \textit{New
-Directions in Cryptography}\cite{diffie_hellman}, siendo la primera
-forma práctica para poder establecer una llave secreta compartida
-entre dos partes sin contacto previo por medio de un canal público
-para intercambiar mensajes.
+% El principal precursor de la criptografía asimétrica fue el método de
+% intercambio de llaves de Diffie-Hellman, desarrollado y publicado por
+% Whitfield Diffie y Martin Hellman, en 1976 en el artículo \textit{New
+% Directions in Cryptography}\cite{diffie_hellman}, siendo la primera
+% forma práctica para poder establecer una llave secreta compartida
+% entre dos partes sin contacto previo por medio de un canal público
+% para intercambiar mensajes.
 
-Otro precursor fue el sistema criptográfico \gls{gl:rsa} (nombre
-obtenido por las siglas de los apellidos de sus desarrolladores: Ron Rivest,
-Adi Shamir y Leonard Adleman), publicado en 1978\cite{rsa_publicacion} y que
-fue el primer sistema criptográfico capaz de servir tanto para cifrar
-mensajes, como para la implementación de firmas digitales. A pesar de que sus
-orígenes son de ya hace casi cuatro décadas, este sistema aún es uno de los
-más ampliamente usados.
+% Otro precursor fue el sistema criptográfico \gls{gl:rsa} (nombre
+% obtenido por las siglas de los apellidos de sus desarrolladores: Ron Rivest,
+% Adi Shamir y Leonard Adleman), publicado en 1978\cite{rsa_publicacion} y que
+% fue el primer sistema criptográfico capaz de servir tanto para cifrar
+% mensajes, como para la implementación de firmas digitales. A pesar de que sus
+% orígenes son de ya hace casi cuatro décadas, este sistema aún es uno de los
+% más ampliamente usados.
 
-Entre los motivos del éxito de \gls{gl:rsa} está que su funcionamiento
-se basa en la teoría elemental de números, ya que usa propiedades descritas
-en esta teoría; y en su seguridad, ya que se basa en la incapacidad de poder
-factorizar números grandes de forma eficiente.
+% Entre los motivos del éxito de \gls{gl:rsa} está que su funcionamiento
+% se basa en la teoría elemental de números, ya que usa propiedades descritas
+% en esta teoría; y en su seguridad, ya que se basa en la incapacidad de poder
+% factorizar números grandes de forma eficiente.
 
-El algoritmo de \gls{gl:rsa} consta de 3 partes, la generación de llaves,
-el cifrado y el descifrado. El proceso para poder generar un par de llaves
-(pública y privada) con \gls{gl:rsa} se muestra en el pseudocódigo
-\ref{rsa:1}.
+% El algoritmo de \gls{gl:rsa} consta de 3 partes, la generación de llaves,
+% el cifrado y el descifrado. El proceso para poder generar un par de llaves
+% (pública y privada) con \gls{gl:rsa} se muestra en el pseudocódigo
+% \ref{rsa:1}.
 
-% Me pasé de 80 caracteres porque dentro del pseudocódigo me marca el salto
-% de línea en el pdf.
-\begin{pseudocodigo}[caption={Proceso de generación de llaves de
-  \gls{gl:rsa}.}, label={rsa:1}]
-    entrada: ninguna.
-    salida:  llave pública $(n,e)$ y privada $(n,d)$.
-    inicio
-      Elegir de forma aleatoria 2 números primos $p$ y $q$, que sean de gran
-      magnitud y de una longitud parecida.
-      Calcular $n\: =\: p \:\cdot \:q$
-      Calcular $\varphi(n) \:= \:(p-1) \:(q-1)$.
-      Elegir un exponente de cifrado $e$ tal que $e \:< \:\varphi(n)$ y $mcd(e,\varphi(n)) \:= \:1$.
-      Encontrar el exponente de descifrado $d$ tal que $e \cdot d \:\mod \:\varphi(n) \:= \:1$.
-    fin
-\end{pseudocodigo}
+% % Me pasé de 80 caracteres porque dentro del pseudocódigo me marca el salto
+% % de línea en el pdf.
+% \begin{pseudocodigo}[caption={Proceso de generación de llaves de
+%   \gls{gl:rsa}.}, label={rsa:1}]
+%     entrada: ninguna.
+%     salida:  llave pública $(n,e)$ y privada $(n,d)$.
+%     inicio
+%       Elegir de forma aleatoria 2 números primos $p$ y $q$, que sean de gran
+%       magnitud y de una longitud parecida.
+%       Calcular $n\: =\: p \:\cdot \:q$
+%       Calcular $\varphi(n) \:= \:(p-1) \:(q-1)$.
+%       Elegir un exponente de cifrado $e$ tal que $e \:< \:\varphi(n)$ y $mcd(e,\varphi(n)) \:= \:1$.
+%       Encontrar el exponente de descifrado $d$ tal que $e \cdot d \:\mod \:\varphi(n) \:= \:1$.
+%     fin
+% \end{pseudocodigo}
 
-Las funciones de cifrado y descifrado, están definidas en las ecuaciones
-\ref{funcion_cifrado_rsa} y \ref{funcion_descifrado_rsa} respectivamente,
-y se aplican números enteros o bloques de bits, siendo funciones biyectivas
-e inversas entre sí.
-\begin{align}
-  \label{funcion_cifrado_rsa}
-  E: \mathbb{Z}_n \longrightarrow \mathbb{Z}_n, x \longmapsto x^e \\
-  \label{funcion_descifrado_rsa}
-  D: \mathbb{Z}_n \longrightarrow \mathbb{Z}_n, x \longmapsto x^d
-\end{align}
+% Las funciones de cifrado y descifrado, están definidas en las ecuaciones
+% \ref{funcion_cifrado_rsa} y \ref{funcion_descifrado_rsa} respectivamente,
+% y se aplican números enteros o bloques de bits, siendo funciones biyectivas
+% e inversas entre sí.
+% \begin{align}
+%   \label{funcion_cifrado_rsa}
+%   E: \mathbb{Z}_n \longrightarrow \mathbb{Z}_n, x \longmapsto x^e \\
+%   \label{funcion_descifrado_rsa}
+%   D: \mathbb{Z}_n \longrightarrow \mathbb{Z}_n, x \longmapsto x^d
+% \end{align}

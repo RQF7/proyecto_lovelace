@@ -6,9 +6,8 @@
 \subsubsection{\textit{Counter Mode} (CTR)}
 \label{sec:ctr}
 
-Este opera de manera un tanto distinta con respecto a los anteriores: toma a
-la entrada un \gls{gl:vector_de_inicializacion} y en cada iteración lo
-incrementa y lo cifra. El resultado se obtiene combinando el $ VI $ cifrado
+Este toma a la entrada un \gls{gl:vector_de_inicializacion} y en cada iteración
+lo incrementa y lo cifra. El resultado se obtiene combinando el $ VI $ cifrado
 con el bloque de texto cifrado (mediante una operación \verb|xor|). El proceso
 de cifrado y descifrado se detallan en el pseudocódigo \ref{ctr:1}.
 
@@ -28,8 +27,7 @@ de cifrado y descifrado se detallan en el pseudocódigo \ref{ctr:1}.
     fin
 \end{pseudocodigo}
 
-En términos de eficiencia, el \gls{gl:ctr} es mejor que \gls{gl:cbc},
-\gls{gl:cfb} o \gls{gl:ofb}, ya que sus operaciones (ambas) se pueden hacer
-en paralelo. La implementación es prácticamente la misma para el cifrado y
-descifrado (solamente se ocupa el cifrado del algoritmo por bloques
-subyacente).
+En términos de eficiencia, el \gls{gl:ctr} es mejor que \gls{gl:cbc}, ya que
+sus operaciones (ambas) se pueden hacer en paralelo. La implementación es
+prácticamente la misma para el cifrado y descifrado (solamente se ocupa el
+cifrado del algoritmo por bloques subyacente).

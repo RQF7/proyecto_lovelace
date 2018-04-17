@@ -104,88 +104,88 @@ propuestos, tales como el \textit{eXtended CBC} o el \gls{gl:omac}.
   \end{center}
 \end{figure}
 
-\paragraph{\texorpdfstring{\acrlong{gl:nmac}}{Nested MAC}}
-\gls{gl:nmac} es muy parecido al CBC-MAC, sin embargo, este utiliza una
-función $F$ cuya salida se utiliza como la llave del siguiente bloque. Cuando
-se termina de procesar el mensaje, se le pone un relleno para completar el
-bloque y se cifra una vez más, utilizando una llave $l_2$ (véase
-figura~\ref{mac:nmac}). Es importante cifrar el último bloque usando la
-llave~$l_2$, ya que, de lo contrario, un adversario podría agregar al final
-nuevos bloques a un mensaje interceptado, calculando un nuevo código de
-autenticación, dándole como entrada a la función $F$ el código de autenticación
-original.
+% \paragraph{\texorpdfstring{\acrlong{gl:nmac}}{Nested MAC}}
+% \gls{gl:nmac} es muy parecido al CBC-MAC, sin embargo, este utiliza una
+% función $F$ cuya salida se utiliza como la llave del siguiente bloque. Cuando
+% se termina de procesar el mensaje, se le pone un relleno para completar el
+% bloque y se cifra una vez más, utilizando una llave $l_2$ (véase
+% figura~\ref{mac:nmac}). Es importante cifrar el último bloque usando la
+% llave~$l_2$, ya que, de lo contrario, un adversario podría agregar al final
+% nuevos bloques a un mensaje interceptado, calculando un nuevo código de
+% autenticación, dándole como entrada a la función $F$ el código de autenticación
+% original.
 
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.9\linewidth]{diagramas/nmac.png}
-    \caption{Esquema de \gls{gl:nmac}.}
-    \label{mac:nmac}
-  \end{center}
-\end{figure}
+% \begin{figure}
+%   \begin{center}
+%     \includegraphics[width=0.9\linewidth]{diagramas/nmac.png}
+%     \caption{Esquema de \gls{gl:nmac}.}
+%     \label{mac:nmac}
+%   \end{center}
+% \end{figure}
 
-\paragraph{\texorpdfstring{\acrlong{gl:cmac}}{Cipher-based MAC}}
-Parecido al algoritmo CBC-MAC, \gls{gl:cmac} utiliza una función $F$ y dos
-llaves ($l_1$ y $l_2$); sin embargo, en vez de utilizar $l_2$ para el segundo
-cifrado, se concatena con el último bloque del mensaje (véase
-figura~\ref{mac:cmac}); entre estos dos elementos ($m_n$ y $l_2$), se agrega una
-secuencia de relleno para poder diferenciarlos. Este paso impide que nuevos
-bloques sean agregados.
+% \paragraph{\texorpdfstring{\acrlong{gl:cmac}}{Cipher-based MAC}}
+% Parecido al algoritmo CBC-MAC, \gls{gl:cmac} utiliza una función $F$ y dos
+% llaves ($l_1$ y $l_2$); sin embargo, en vez de utilizar $l_2$ para el segundo
+% cifrado, se concatena con el último bloque del mensaje (véase
+% figura~\ref{mac:cmac}); entre estos dos elementos ($m_n$ y $l_2$), se agrega una
+% secuencia de relleno para poder diferenciarlos. Este paso impide que nuevos
+% bloques sean agregados.
 
-El algoritmo \gls{gl:omac}1 es equivalente al \gls{gl:cmac} y, en 2005, se
-convirtió en una recomendación por el \gls{gl:nist}.
+% El algoritmo \gls{gl:omac}1 es equivalente al \gls{gl:cmac} y, en 2005, se
+% convirtió en una recomendación por el \gls{gl:nist}.
 
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.9\linewidth]{diagramas/cmac.png}
-    \caption{Esquema de \gls{gl:cmac}.}
-    \label{mac:cmac}
-  \end{center}
-\end{figure}
+% \begin{figure}
+%   \begin{center}
+%     \includegraphics[width=0.9\linewidth]{diagramas/cmac.png}
+%     \caption{Esquema de \gls{gl:cmac}.}
+%     \label{mac:cmac}
+%   \end{center}
+% \end{figure}
 
-\paragraph{\texorpdfstring{\acrlong{gl:pmac}}{Parallel MAC}}
-\Gls{gl:pmac} utiliza dos llaves ($l_1$ y $l_2$) y dos funciones
-($F_p$ y $F_f$); además, a diferencia de los algoritmos descritos anteriormente,
-\gls{gl:pmac}, tal como lo indica su nombre, puede ser ejecutado paralelamente
-mediante el uso de hilos, pues para procesar un bloque $b_x$ no es necesario
-$b_{x-1}$.
+% \paragraph{\texorpdfstring{\acrlong{gl:pmac}}{Parallel MAC}}
+% \Gls{gl:pmac} utiliza dos llaves ($l_1$ y $l_2$) y dos funciones
+% ($F_p$ y $F_f$); además, a diferencia de los algoritmos descritos anteriormente,
+% \gls{gl:pmac}, tal como lo indica su nombre, puede ser ejecutado paralelamente
+% mediante el uso de hilos, pues para procesar un bloque $b_x$ no es necesario
+% $b_{x-1}$.
 
-La llave $l_1$ y un contador $c_i$ se cifran utilizando la función
-$F_p$, la salida es agregada al mensaje $m_i$ con una $XOR$; después, se cifra
-esta salida mediante la función $F_f$ y la llave $l_2$. Cuando se han procesado
-todos los bloques, todas las salidas de $F_f$ se combinan mediante una operación
-$XOR$ y el resultado es cifrado nuevamente mediante $F_f$, que hace uso de
-$l_2$ (véase figura~\ref{mac:pmac})
+% La llave $l_1$ y un contador $c_i$ se cifran utilizando la función
+% $F_p$, la salida es agregada al mensaje $m_i$ con una $XOR$; después, se cifra
+% esta salida mediante la función $F_f$ y la llave $l_2$. Cuando se han procesado
+% todos los bloques, todas las salidas de $F_f$ se combinan mediante una operación
+% $XOR$ y el resultado es cifrado nuevamente mediante $F_f$, que hace uso de
+% $l_2$ (véase figura~\ref{mac:pmac})
 
-Una de las ventajas de \gls{gl:pmac}, es que permite actualizar un bloque $b_x$
-fácilmente, sin tener que recalcular la salida de $F_P$ para todos los demás.
-Es importante que la función $F_p$ sea mucho más rápida que la función $F_f$.
+% Una de las ventajas de \gls{gl:pmac}, es que permite actualizar un bloque $b_x$
+% fácilmente, sin tener que recalcular la salida de $F_P$ para todos los demás.
+% Es importante que la función $F_p$ sea mucho más rápida que la función $F_f$.
 
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.9\linewidth]{diagramas/pmac.png}
-    \caption{Esquema de \gls{gl:pmac}.}
-    \label{mac:pmac}
-  \end{center}
-\end{figure}
+% \begin{figure}
+%   \begin{center}
+%     \includegraphics[width=0.9\linewidth]{diagramas/pmac.png}
+%     \caption{Esquema de \gls{gl:pmac}.}
+%     \label{mac:pmac}
+%   \end{center}
+% \end{figure}
 
-\paragraph{\texorpdfstring{\acrlong{gl:omac}}{One-time MAC}}
-Este algoritmo, similar a \gls{gl:libreta_de_un_solo_uso}, es, generalmente,
-más rápido que los algoritmos basados en funciones \gls{gl:prf}. En~\ref{mac:3}
-se define el algoritmo para obtener el código de autenticación. La verificación
-del código se realiza similar a como se mostró en el algoritmo~\ref{mac:2}.
+% \paragraph{\texorpdfstring{\acrlong{gl:omac}}{One-time MAC}}
+% Este algoritmo, similar a \gls{gl:libreta_de_un_solo_uso}, es, generalmente,
+% más rápido que los algoritmos basados en funciones \gls{gl:prf}. En~\ref{mac:3}
+% se define el algoritmo para obtener el código de autenticación. La verificación
+% del código se realiza similar a como se mostró en el algoritmo~\ref{mac:2}.
 
-\begin{pseudocodigo}[caption={MAC mediante \textit{One-time} MAC.},
-  label={mac:3}]
-    entrada:    llaves $l_1$, $l_2$ que se encuentran en el intervalo $[1,q]$
-                mensaje $M = m_L m_L-1 \dots m_1$
-    salida:     código de autenticación $t$.
-    Sea $P$ una función tal que $P(m, x) = m_Lx^L + \dots + m_1x$.
-    Sea $q$ un primo de aproximadamente $2^{128}$.
-    inicio
-      $t := (P(m, l_1) + l_2) \mod q$
-      regresar $t$
-    fin
-\end{pseudocodigo}
+% \begin{pseudocodigo}[caption={MAC mediante \textit{One-time} MAC.},
+%   label={mac:3}]
+%     entrada:    llaves $l_1$, $l_2$ que se encuentran en el intervalo $[1,q]$
+%                 mensaje $M = m_L m_L-1 \dots m_1$
+%     salida:     código de autenticación $t$.
+%     Sea $P$ una función tal que $P(m, x) = m_Lx^L + \dots + m_1x$.
+%     Sea $q$ un primo de aproximadamente $2^{128}$.
+%     inicio
+%       $t := (P(m, l_1) + l_2) \mod q$
+%       regresar $t$
+%     fin
+% \end{pseudocodigo}
 
 \paragraph{\texorpdfstring{\acrlong{gl:hmac}}{Keyed-Hashed MAC}}
 Similar a \gls{gl:nmac}, este algoritmo utiliza una función $h$ \gls{gl:owhf}
