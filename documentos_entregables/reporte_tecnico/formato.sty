@@ -75,6 +75,14 @@
                 section=section
                 ]{glossaries}
 
+% Resetar la bandera de primer uso al ocurrir estos comandos.
+% https://tex.stackexchange.com/questions/153492/glossaries-emphasize-first-
+% occurrence-of-every-section#153494
+\pretocmd{\chapter}{\glsresetall}{}{}
+\pretocmd{\section}{\glsresetall}{}{}
+\pretocmd{\subsection}{\glsresetall}{}{}
+\pretocmd{\subsubsection}{\glsresetall}{}{}
+
 % http://mirrors.ctan.org/fonts/amsfonts/doc/amsfndoc.pdf
 \RequirePackage{amsfonts}
 
