@@ -12,7 +12,8 @@ CARPETA_REPORTE_TECNICO 	  := reporte_tecnico
 FUENTES_REPORTE_TECNICO     := \
 	$(shell find reporte_tecnico/ -type f -name '*.tex' -o -name '*.sty')
 
-COMPILACION_REPORTE_TECNICO := pdflatex -halt-on-error -file-line-error \
+COMPILACION_REPORTE_TECNICO := pdflatex -shell-escape \
+	-halt-on-error -file-line-error \
 	--output-dir $(CARPETA_TEMPORAL) \
 	$(CARPETA_REPORTE_TECNICO)/$(REPORTE_TECNICO).tex
 
