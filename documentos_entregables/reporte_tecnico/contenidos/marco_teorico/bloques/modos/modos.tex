@@ -29,10 +29,10 @@ completar el tamaño requerido. Este es, de hecho, uno de los modos de operació
 que existen, el \gls{gl:ecb}; su uso no es recomendado, pues es muy inseguro
 cuando el mensaje original es simétrico a nivel de bloque.
 
-A pesar de que existen más modos de operación, como \gls{gl:ecb}, \gls{gl:cfb}
+A pesar de que existen más modos de operación, como \gls{gl:cfb}
 u \gls{gl:ofb}, en este trabajo solo se describirá el funcionamiento de
-\gls{gl:cbc} y \gls{gl:ctr}, dado que son los modos de operación necesarios
-para el proceso de tokenización.
+\gls{gl:ecb}, \gls{gl:cbc} y \gls{gl:ctr}, dado que son los modos de operación
+necesarios para el proceso de tokenización.
 
 % También se enlistan otros tres modos, los cuales junto con
 % \gls{gl:ecb}, son los más comunes.
@@ -40,8 +40,8 @@ para el proceso de tokenización.
 % TODO: indagar un poco más en la inseguridad de ECB (dentro de su propia
 % scción).
 
-% \subimport{/}{ecb}
-% \subimport{/}{cfb}
-% \subimport{/}{ofb}
+\subimport{/}{ecb}
 \subimport{/}{cbc}
 \subimport{/}{ctr}
+% \subimport{/}{cfb}
+% \subimport{/}{ofb}
