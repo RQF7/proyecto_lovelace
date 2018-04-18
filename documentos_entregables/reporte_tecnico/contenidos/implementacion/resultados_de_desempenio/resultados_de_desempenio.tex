@@ -1,0 +1,136 @@
+%
+% Selección de comparación de desempeño.
+% Implementación de programa tokenizador, reporte técnico.
+%
+% Proyecto Lovelace.
+%
+
+\section{Comparación de desempeño}
+\label{sec:comparacion}
+
+Como se indicó en la introducció de este trabajo, la tokenización digital es un
+proceso relativamente nuevo y la mayoría de los proveedores de este servicio
+aprovechan la confusión y desinformación existente para atraer a clientes
+potenciales; pues pocos comparten la manera en que crean sus \glspl{gl:token}.
+Esta sección busca resarcir un poco el daño, presentado una comparación entre
+los tiempos de respuesta de tokenización y detokenización de los algoritmos
+implementados.
+
+En la tabla \ref{tabla:tiempos_tokenizacion} se puede observar el tiempo
+promedio que le toma a cada algoritmo hacer el número de tokenizaciones o
+detokenizaciones señaladas en el encabezado. Los algoritmos están
+divididos en reversibles y no reversibles, pues, dadas sus características, no
+sería muy parejo compararlos entre sí; por ejemplo, basta hacer una consulta
+en la base de datos para hacer la detokenización en los algoritmos
+irreversibles; mientras que en los reversibles hay que hacer el proceso inverso,
+o uno equivalente, para poder obtener de nuevo el \gls{gl:pan}.
+
+\begin{table}
+  \begin{center}
+  \begin{tabular}{cc|c|c|c|c|c|c|}
+    \cline{3-8}
+    & & \multicolumn{2}{|c|}{100 oper.} & \multicolumn{2}{|c|}{1K oper.}
+      & \multicolumn{2}{|c|}{10K oper.} \\
+      \cline{3-8}
+
+    & & Tok. & Detok. & Tok. & Detok. & Tok. & Detok. \\
+    \hline
+    \multicolumn{1}{|c }{ \multirow{2}{*}{Reversibles} } &
+    \multicolumn{1}{|c|}{BPS} & 7.247 $m$seg  & 6.990 $m$seg  & 68.514 $m$seg
+      & 68.566 $m$seg & 714.336 $m$seg & 674.571 $m$seg \\ \cline{2-8}
+    \multicolumn{1}{ |c  }{}                        &
+    \multicolumn{1}{|c|}{FFX} & 5.627 $m$seg  & 5.516 $m$seg  & 49.738 $m$seg
+      & 49.550 $m$seg & 487.529 $m$seg & 340.749 $m$seg \\
+    \hline
+
+    \multicolumn{1}{|c }{ \multirow{3}{*}{Irreversibles} } &
+    \multicolumn{1}{|c|}{TKR}   & 6.573 seg  & 37.623 $m$seg  & 70.116 seg
+      & 441.815$m$seg & 882.695 seg & 4.976 seg \\ \cline{2-8}
+    \multicolumn{1}{ |c  }{}                        &
+    \multicolumn{1}{|c|}{AHR}   & 6.053 seg  & 58.814 $m$seg  & 65.631 seg
+      & 420.729$m$seg & 735.405 seg & 5.269 seg \\ \cline{2-8}
+    \multicolumn{1}{ |c  }{}                        &
+    \multicolumn{1}{|c|}{DRBG}  & 6.718 seg  & 40.265 $m$seg  & 71.082 seg
+      & 436.753$m$seg & 826.403 seg & 7.226 seg \\ \hline
+  \end{tabular}
+
+  \caption{Comparación de tiempos de tokenización de los algoritmos implementados.}
+  \label{tabla:tiempos_tokenizacion}
+\end{center}
+\end{table}
+
+Los datos de la tabla \ref{tabla:tiempos_tokenizacion} fueron utilizados para
+crear una serie de gráficas: en la figura \ref{figura:tok_todos} se comparan los
+tiempos de tokenización y detokenización de todos los algoritmos, tanto
+reversibles como irreversibles; la velocidad de los algoritmos reversibles es
+notoria, en especial al momento de la operación de tokenización. Posteriormente,
+en la figura \ref{figura:tok_rev}, se compararon solo los algoritmos reversibles
+(\hyperref[sec:bps]{BPS} y \hyperref[sec:ffx]{FFX}), siendo el segundo el más
+rápido de los dos; especialmente cuando se realizan operaciones de
+detokenización. Finalmente, se compararon los tiempos para los algoritmos
+irreversibles en las gráficas de la figura \ref{figura:tok_irrev}: durante las
+operaciones de tokenización, aunque están relativamente cerrados los tiempos,
+\hyperref[sec:ahr]{AHR} queda como el más rápido de los tres, mientras que
+\hyperref[sec:drbg_lista]{DRBG} queda en segundo lugar; es menester recordar
+porqué estos algoritmos toman más tiempo: \hyperref[sec:ahr]{AHR} utiliza
+\gls{gl:cifrado_caminata_ciclica}, y, al generar un \gls{gl:token}, consulta la
+base de datos, pues permite tener más de un \gls{gl:token} por \gls{gl:pan};
+además, tanto \hyperref[sec:tkr]{TKR2} como \hyperref[sec:drbg_lista]{DRBG}
+necesitan bits pseudoaleatorios, y si el generador de bits pseudoaleatorios
+tarda en obtenerlos, los algoritmos se ven afectados; finalmente, en las
+operaciones de detokenización, \hyperref[sec:tkr]{TKR2} es el más rápido de
+todos, mientras que \hyperref[sec:drbg_lista]{DRBG} queda como el más lento.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}{1\textwidth}
+    \begin{center}
+      \includegraphics[width=1\linewidth]{diagramas/tok_todos}
+      \caption{Tiempos de tokenización.}
+    \end{center}
+  \end{subfigure}
+  \begin{subfigure}{0.9\textwidth}
+    \begin{center}
+      \includegraphics[width=1\linewidth]{diagramas/detok_todos}
+      \caption{Tiempos de detokenización.}
+    \end{center}
+  \end{subfigure}
+  \caption{Comparación de tiempos entre algoritmos tokenizadores.}
+  \label{figura:tok_todos}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \begin{subfigure}{1\textwidth}
+    \begin{center}
+      \includegraphics[width=1\linewidth]{diagramas/tok_rev}
+      \caption{Tiempos de tokenización.}
+    \end{center}
+  \end{subfigure}
+  \begin{subfigure}{0.9\textwidth}
+    \begin{center}
+      \includegraphics[width=1\linewidth]{diagramas/detok_rev}
+      \caption{Tiempos de detokenización.}
+    \end{center}
+  \end{subfigure}
+  \caption{Comparación de tiempos entre algoritmos tokenizadores reversibles.}
+  \label{figura:tok_rev}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \begin{subfigure}{1\textwidth}
+    \begin{center}
+      \includegraphics[width=1\linewidth]{diagramas/tok_irrev}
+      \caption{Tiempos de tokenización.}
+    \end{center}
+  \end{subfigure}
+  \begin{subfigure}{0.9\textwidth}
+    \begin{center}
+      \includegraphics[width=1\linewidth]{diagramas/detok_irrev}
+      \caption{Tiempos de detokenización.}
+    \end{center}
+  \end{subfigure}
+  \caption{Comparación de tiempos entre algoritmos tokenizadores irreversibles.}
+  \label{figura:tok_irrev}
+\end{figure}
