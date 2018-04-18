@@ -17,6 +17,10 @@ citas para cada uno.
     never desirable. Whitfield Diffie.
 3. >He that breaks a thing to find out what it is has left the path of wisdom.
     J. R. R. Tolkien.
+4. >Desvarío laborioso y empobrecedor el de componer vastos libros; el de
+    explayar en quinientas páginas una idea cuya perfecta exposición oral cabe
+    en pocos minutos. Mejor procedimiento es simular que esos libros ya existen
+    y ofrecer un resumen, un comentario, JLB
 
 ## Estándares y publicaciones sobre la generación de tokens
 1. >Anyone who attempts to generate random numbers by deterministic means is, of
@@ -36,6 +40,8 @@ citas para cada uno.
     goes wrong it usually turns out to be impossible to get at or repair,
     Douglas Adams.
 3. >When in doubt, use brute force. Ken Thomson.
+4. >La realidad no suele coincidir con las previsiones; con lógica perversa,
+    prever un detalle circunstancial es impedir que este suceda, JLB
 
 ## Implementación
 1. >It is a mistake to think you can solve any major problems just with
@@ -58,6 +64,8 @@ citas para cada uno.
 
 ## Conclusiones
 1. >Winter is comming. George R. R. Martin.
+2. >Mi empresa no es difícil, esencialmente" leo en otro lugar de la carta.
+    "Me bastaría ser inmortal para llevarla a cabo, JLB
 
 ## Sin clasificación
 1. >The most important thing in the programming language is the name. A
@@ -70,3 +78,13 @@ citas para cada uno.
     it yourself'. Yes, that's it. Linus Torvalds.
 5. >Microsoft isn't evil, they just make really crappy operating systems.
     Linus Torvalds.
+6. >Those who believe in telekinetics, raise my hand, Kurt Vonnegut.
+7. >Pensar, analizar, inventar... No son actos anómalos, son la normal
+    respiración de la inteligencia. Glorificar el ocasional cumplimiento de esa
+    función, atesorar antiguos y ajenos pensamientos, recordar con incrédulo
+    estupor lo que el doctor universalis pensó, es confesar nuestra languidez o
+    nuestra barbarie. Todo hombre debe ser capaz de todas las ideas y entiendo
+    que en el porvenir lo será, JLB
+8. >El universo es comparable a esas criptografías en las que no valen todos los
+    símbolos y que sólo es verdad lo que sucede cada trescientas noches, JLB
+9. >Babilonia no es otra cosa que un infinito juego de azares, JLB
