@@ -1,0 +1,20 @@
+%
+% Plantilla para títulos de capítulo,
+% Reporte técnico.
+%
+% Proyecto Lovelace.
+%
+
+% Comando para definir un capítulo
+% 1-> Título del capítulo.
+% 2 y 3 -> Cita y fuente.
+%
+% PD: Si se quiere poner varios epígrafes por capítulo, se tiene que sacar
+% el comándo de aquí, y que el contenido venga desde afuera.
+
+\newcommand{\capitulo}[3]
+{
+  \chapter{#1}
+  \epigraph{«\textit{#2}»}{#3}
+  \newpage
+}

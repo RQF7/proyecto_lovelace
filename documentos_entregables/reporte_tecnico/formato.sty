@@ -187,6 +187,17 @@
   linenos
 }
 
+% http://ctan.math.washington.edu/tex-archive/macros/latex/contrib/
+% epigraph/epigraph.pdf
+% Para mostrar epígrafes.
+\RequirePackage{epigraph}
+
+% Configuración del aspecto de los epígrafes
+\renewcommand{\textflush}{center}
+\renewcommand{\epigraphflush}{center}
+\renewcommand{\epigraphsize}{\normalsize}
+\setlength{\epigraphrule}{0pt}
+
 % Profundidad de contador
 % Hasta subsubsecciones
 \setcounter{secnumdepth}{3}
@@ -205,7 +216,7 @@
 {Capítulo \ \thechapter}                    % Etiqueta
 {0.5ex}                                     % Separación
 {}                                          % Antes de
-[\newpage]                                  % Después de
+[]                                          % Después de
 
 % izquierda, arriba, abajo
 \titlespacing*{\section}{0pc}{0pc}{0pc}
@@ -288,6 +299,7 @@
 \import{reporte_tecnico/plantillas/}{pseudocodigo.sty}
 \import{reporte_tecnico/plantillas/}{requerimiento.sty}
 \import{reporte_tecnico/plantillas/}{dependencia.sty}
+\import{reporte_tecnico/plantillas/}{capitulo.sty}
 
 % Archivo con entradas del glosario
 \input{reporte_tecnico/contenidos/glosario.tex}
