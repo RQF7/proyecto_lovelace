@@ -1,0 +1,668 @@
+%
+% Capítulo de Implementaciones,
+% Resultados de las pruebas estadisticas para los DRBG.
+% Reporte técnico.
+% Proyecto Lovelace.
+%
+
+\subsection{Resultados de las pruebas estadísticas a los DRGB}
+\label{sec:resultados_pruebas_estadisticas_drgb}
+
+% Aun falta la descripción de los resultados.
+% Pongo esto en lo mientras para que se vean bien las primeras tablas.
+\gls{gl:drbg}
+\gls{gl:aes}
+\gls{gl:sha}
+
+% Tablas con los resultados.
+% =============================================================================
+
+\begin{longtable}{| m{2.4in} | C{0.65in} | C{0.85in} |
+C{0.15in} | C{0.65in} | C{0.85in} | C{0.15in} |}
+
+  \hline
+  \multicolumn{7}{|c|}{\textbf{Pruebas Estadísticas para el \gls{gl:drbg}
+  basado en cifrados por bloque (\gls{gl:aes})}} \\
+  \hline
+  \textbf{Nivel de seguridad}        &
+  \multicolumn{3}{|c|}{\textbf{112}} &
+  \multicolumn{3}{|c|}{\textbf{128}} \\
+  \hline
+  \textbf{Prueba} &
+  Valor P         &
+  Proporción    & &
+  Valor P         &
+  Proporción    & \\
+  \hline
+  \endfirsthead
+
+  \hline
+  \multicolumn{7}{|c|}{\textit{Continuación}}\\
+  \hline
+  \textbf{Nivel de seguridad}        &
+  \multicolumn{3}{|c|}{\textbf{112}} &
+  \multicolumn{3}{|c|}{\textbf{128}} \\
+  \hline
+  \textbf{Prueba} &
+  Valor P         &
+  Proporción    & &
+  Valor P         &
+  Proporción    & \\
+  \hline
+  \endhead
+
+  \multicolumn{7}{|c|}{\textit{Continúa en siguiente página}}\\
+  \hline
+  \endfoot
+
+  \endlastfoot
+
+  De frecuencia &
+  0.991468 &   19/20   & \ding{51} &
+  0.437274 &   20/20   & \ding{51} \\\hline
+  
+  De frecuencia en un bloque &
+  0.017912 &   20/20   & \ding{51} &
+  0.048716 &   20/20   & \ding{51} \\\hline
+  
+  De sumas acumulativas &
+  0.872861 &   38/40   & \ding{51} &
+  0.356491 &   40/40   & \ding{51} \\\hline
+  
+  De carreras &
+  0.964295 &   20/20   & \ding{51} &
+  0.350485 &   20/20   & \ding{51} \\\hline
+  
+  De la carrera más larga en un bloque &
+  0.637119 &   20/20   & \ding{51} &
+  0.213309 &   20/20   & \ding{51} \\\hline
+  
+  Del rango de matriz binaria &
+  0.964295 &   20/20   & \ding{51} &
+  0.911413 &   20/20   & \ding{51} \\\hline
+  
+  Espectral &
+  0.637119 &   20/20   & \ding{51} &
+  0.213309 &   20/20   & \ding{51} \\\hline
+  
+  De coincidencia sin superposición &
+  0.475566 & 2925/2960 & \ding{51} &
+  0.513657 & 2930/2960 & \ding{51} \\\hline
+  
+  De coincidencia con superposición &
+  0.964295 &   20/20   & \ding{51} &
+  0.637119 &   20/20   & \ding{51} \\\hline
+  
+  Estadística universal de Maurer &
+  0.066882 &   20/20   & \ding{51} &
+  0.834308 &   19/20   & \ding{51} \\\hline
+  
+  De entropía aproximada &
+  0.739918 &   20/20   & \ding{51} &
+  0.834308 &   20/20   & \ding{51} \\\hline
+  
+  De excursiones aleatorias &
+  -------- &   70/72   & \ding{51} &
+  0.485432 &   96/96   & \ding{51} \\\hline
+  
+  Variante de excursiones aleatorias &
+  -------- &  159/162  & \ding{51} &
+  0.283322 &  215/216  & \ding{51} \\\hline
+  
+  Serial &
+  0.588596 &   40/40   & \ding{51} &
+  0.577037 &   40/40   & \ding{51} \\\hline
+  
+  De complejidad lineal &
+  0.122325 &   20/20   & \ding{51} &
+  0.090936 &   20/20   & \ding{51} \\\hline
+
+  \caption{Resultado de las pruebas estadísticas del \gls{gl:drbg} basado
+  en cifrados por bloque (\gls{gl:aes}) para los niveles de seguridad de
+  112 y 128.}
+  \label{resultados_pruebas_drbg_bloque_112_128}
+
+\end{longtable}
+
+% =============================================================================
+
+\begin{longtable}{| m{2.4in} | C{0.65in} | C{0.85in} |
+C{0.15in} | C{0.65in} | C{0.85in} | C{0.15in} |}
+
+  \hline
+  \multicolumn{7}{|c|}{\textbf{Pruebas Estadísticas para el \gls{gl:drbg}
+  basado en cifrados por bloque (\gls{gl:aes})}} \\
+  \hline
+  \textbf{Nivel de seguridad}        &
+  \multicolumn{3}{|c|}{\textbf{192}} &
+  \multicolumn{3}{|c|}{\textbf{256}} \\
+  \hline
+  \textbf{Prueba} &
+  Valor P         &
+  Proporción    & &
+  Valor P         &
+  Proporción    & \\
+  \hline
+  \endfirsthead
+
+  \hline
+  \multicolumn{7}{|c|}{\textit{Continuación}}\\
+  \hline
+  \textbf{Nivel de seguridad}        &
+  \multicolumn{3}{|c|}{\textbf{192}} &
+  \multicolumn{3}{|c|}{\textbf{256}} \\
+  \hline
+  \textbf{Prueba} &
+  Valor P         &
+  Proporción    & &
+  Valor P         &
+  Proporción    & \\
+  \hline
+  \endhead
+
+  \multicolumn{7}{|c|}{\textit{Continúa en siguiente página}}\\
+  \hline
+  \endfoot
+
+  \endlastfoot
+
+  De frecuencia &
+  0.964295 &   20/20   & \ding{51} &
+  0.162606 &   20/20   & \ding{51} \\\hline
+  
+  De frecuencia en un bloque &
+  0.739918 &   20/20   & \ding{51} &
+  0.162606 &   20/20   & \ding{51} \\\hline
+  
+  De sumas acumulativas &
+  0.637119 &   40/40   & \ding{51} &
+  0.325292 &   40/40   & \ding{51} \\\hline
+  
+  De carreras &
+  0.834308 &   19/20   & \ding{51} &
+  0.534146 &   20/20   & \ding{51} \\\hline
+  
+  De la carrera más larga en un bloque &
+  0.534146 &   19/20   & \ding{51} &
+  0.739918 &   20/20   & \ding{51} \\\hline
+  
+  Del rango de matriz binaria &
+  0.350485 &   20/20   & \ding{51} &
+  0.122325 &   20/20   & \ding{51} \\\hline
+  
+  Espectral &
+  0.637119 &   20/20   & \ding{51} &
+  0.637119 &   19/20   & \ding{51} \\\hline
+  
+  De coincidencia sin superposición &
+  0.496882 & 2925/2960 & \ding{51} &
+  0.495414 & 2923/2960 & \ding{51} \\\hline
+  
+  De coincidencia con superposición &
+  0.122325 &   20/20   & \ding{51} &
+  0.437274 &   19/20   & \ding{51} \\\hline
+  
+  Estadística universal de Maurer &
+  0.350485 &   20/20   & \ding{51} &
+  0.437274 &   20/20   & \ding{51} \\\hline
+  
+  De entropía aproximada &
+  0.834308 &   20/20   & \ding{51} &
+  0.534146 &   20/20   & \ding{51} \\\hline
+  
+  De excursiones aleatorias &
+  0.413551 &   87/88   & \ding{51} &
+  0.393867 &   88/88   & \ding{51} \\\hline
+  
+  Variante de excursiones aleatorias &
+  0.416464 &  198/198  & \ding{51} &
+  0.399044 &  197/198  & \ding{51} \\\hline
+  
+  Serial &
+  0.404927 &   39/40   & \ding{51} &
+  0.506506 &   40/40   & \ding{51} \\\hline
+  
+  De complejidad lineal &
+  0.350485 &   20/20   & \ding{51} &
+  0.534146 &   20/20   & \ding{51} \\\hline
+
+  \caption{Resultado de las pruebas estadísticas del \gls{gl:drbg} basado
+  en cifrados por bloque (\gls{gl:aes}) para los niveles de seguridad de
+  192 y 256.}
+  \label{resultados_pruebas_drbg_bloque_192_256}
+
+\end{longtable}
+
+% =============================================================================
+
+\begin{longtable}{| m{2.4in} | C{0.65in} | C{0.85in} |
+C{0.15in} | C{0.65in} | C{0.85in} | C{0.15in} |}
+
+  \hline
+  \multicolumn{7}{|c|}{\textbf{Pruebas Estadísticas para el \gls{gl:drbg}
+  basado en funciones hash (\gls{gl:sha}256)}} \\
+  \hline
+  \textbf{Nivel de seguridad}        &
+  \multicolumn{3}{|c|}{\textbf{112}} &
+  \multicolumn{3}{|c|}{\textbf{128}} \\
+  \hline
+  \textbf{Prueba} &
+  Valor P         &
+  Proporción    & &
+  Valor P         &
+  Proporción    & \\
+  \hline
+  \endfirsthead
+
+  \hline
+  \multicolumn{7}{|c|}{\textit{Continuación}}\\
+  \hline
+  \textbf{Nivel de seguridad}        &
+  \multicolumn{3}{|c|}{\textbf{112}} &
+  \multicolumn{3}{|c|}{\textbf{128}} \\
+  \hline
+  \textbf{Prueba} &
+  Valor P         &
+  Proporción    & &
+  Valor P         &
+  Proporción    & \\
+  \hline
+  \endhead
+
+  \multicolumn{7}{|c|}{\textit{Continúa en siguiente página}}\\
+  \hline
+  \endfoot
+
+  \endlastfoot
+
+  De frecuencia &
+  0.437274 &   20/20   & \ding{51} &
+  0.739918 &   20/20   & \ding{51} \\\hline
+  
+  De frecuencia en un bloque &
+  0.637119 &   20/20   & \ding{51} &
+  0.637119 &   19/20   & \ding{51} \\\hline
+  
+  De sumas acumulativas &
+  0.328236 &   40/40   & \ding{51} &
+  0.264105 &   40/40   & \ding{51} \\\hline
+  
+  De carreras &
+  0.006196 &   19/20   & \ding{51} &
+  0.739918 &   20/20   & \ding{51} \\\hline
+  
+  De la carrera más larga en un bloque &
+  0.275709 &   20/20   & \ding{51} &
+  0.739918 &   20/20   & \ding{51} \\\hline
+  
+  Del rango de matriz binaria &
+  0.350485 &   20/20   & \ding{51} &
+  0.637119 &   19/20   & \ding{51} \\\hline
+  
+  Espectral &
+  0.350485 &   19/20   & \ding{51} &
+  0.008879 &   20/20   & \ding{51} \\\hline
+  
+  De coincidencia sin superposición &
+  0.521362 & 2921/2960 & \ding{53} &
+  0.480227 & 2937/2960 & \ding{51} \\\hline
+  
+  De coincidencia con superposición &
+  0.637119 &   20/20   & \ding{51} &
+  0.911413 &   19/20   & \ding{51} \\\hline
+  
+  Estadística universal de Maurer &
+  0.637119 &   20/20   & \ding{51} &
+  0.048716 &   20/20   & \ding{51} \\\hline
+  
+  De entropía aproximada &
+  0.275709 &   20/20   & \ding{51} &
+  0.437274 &   20/20   & \ding{51} \\\hline
+  
+  De excursiones aleatorias &
+  0.407729 &  102/104  & \ding{51} &
+  -------- &   62/64   & \ding{51} \\\hline
+  
+  Variante de excursiones aleatorias &
+  0.376856 &  232/234  & \ding{51} &
+  -------- &  142/144  & \ding{51} \\\hline
+  
+  Serial &
+  0.404927 &   40/40   & \ding{51} &
+  0.637032 &   40/40   & \ding{51} \\\hline
+  
+  De complejidad lineal &
+  0.637119 &   20/20   & \ding{51} &
+  0.637119 &   20/20   & \ding{51} \\\hline
+
+  \caption{Resultado de las pruebas estadísticas del \gls{gl:drbg} basado en
+  funciones hash (\gls{gl:sha}256) para los niveles de seguridad de 112 y 128.}
+  \label{resultados_pruebas_drbg_sha256_112_128}
+
+\end{longtable}
+
+% =============================================================================
+
+\begin{longtable}{| m{2.4in} | C{0.65in} | C{0.85in} |
+C{0.15in} | C{0.65in} | C{0.85in} | C{0.15in} |}
+
+  \hline
+  \multicolumn{7}{|c|}{\textbf{Pruebas Estadísticas para el \gls{gl:drbg}
+  basado en funciones hash (\gls{gl:sha}256)}} \\
+  \hline
+  \textbf{Nivel de seguridad}        &
+  \multicolumn{3}{|c|}{\textbf{192}} &
+  \multicolumn{3}{|c|}{\textbf{256}} \\
+  \hline
+  \textbf{Prueba} &
+  Valor P         &
+  Proporción    & &
+  Valor P         &
+  Proporción    & \\
+  \hline
+  \endfirsthead
+
+  \hline
+  \multicolumn{7}{|c|}{\textit{Continuación}}\\
+  \hline
+  \textbf{Nivel de seguridad}        &
+  \multicolumn{3}{|c|}{\textbf{192}} &
+  \multicolumn{3}{|c|}{\textbf{256}} \\
+  \hline
+  \textbf{Prueba} &
+  Valor P         &
+  Proporción    & &
+  Valor P         &
+  Proporción    & \\
+  \hline
+  \endhead
+
+  \multicolumn{7}{|c|}{\textit{Continúa en siguiente página}}\\
+  \hline
+  \endfoot
+
+  \endlastfoot
+
+  De frecuencia &
+  0.739918 &   20/20   & \ding{51} &
+  0.006196 &   20/20   & \ding{51} \\\hline
+  
+  De frecuencia en un bloque &
+  0.437274 &   20/20   & \ding{51} &
+  0.162606 &   20/20   & \ding{51} \\\hline
+  
+  De sumas acumulativas &
+  0.899301 &   40/40   & \ding{51} &
+  0.688519 &   40/40   & \ding{51} \\\hline
+  
+  De carreras &
+  0.911413 &   17/20   & \ding{53} &
+  0.350485 &   20/20   & \ding{51} \\\hline
+  
+  De la carrera más larga en un bloque &
+  0.834308 &   20/20   & \ding{51} &
+  0.911413 &   20/20   & \ding{51} \\\hline
+  
+  Del rango de matriz binaria &
+  0.911413 &   20/20   & \ding{51} &
+  0.122325 &   20/20   & \ding{51} \\\hline
+  
+  Espectral &
+  0.035174 &   20/20   & \ding{51} &
+  0.437274 &   19/20   & \ding{51} \\\hline
+  
+  De coincidencia sin superposición &
+  0.504889 & 2937/2960 & \ding{51} &
+  0.507982 & 2928/2960 & \ding{51} \\\hline
+  
+  De coincidencia con superposición &
+  0.739918 &   20/20   & \ding{51} &
+  0.834308 &   20/20   & \ding{51} \\\hline
+  
+  Estadística universal de Maurer &
+  0.090936 &   20/20   & \ding{51} &
+  0.637119 &   20/20   & \ding{51} \\\hline
+  
+  De entropía aproximada &
+  0.739918 &   20/20   & \ding{51} &
+  0.637119 &   20/20   & \ding{51} \\\hline
+  
+  De excursiones aleatorias &
+  0.667135 &   78/80   & \ding{51} &
+  -------- &   72/72   & \ding{51} \\\hline
+  
+  Variante de excursiones aleatorias &
+  0.498556 &  174/180  & \ding{51} &
+  -------- &  162/162  & \ding{51} \\\hline
+  
+  Serial &
+  0.637032 &   39/40   & \ding{51} &
+  0.534146 &   38/40   & \ding{51} \\\hline
+  
+  De complejidad lineal &
+  0.911413 &   20/20   & \ding{51} &
+  0.350485 &   19/20   & \ding{51} \\\hline
+
+  \caption{Resultado de las pruebas estadísticas del \gls{gl:drbg} basado en
+  funciones hash (\gls{gl:sha}256) para los niveles de seguridad de 192 y 256.}
+  \label{resultados_pruebas_drbg_sha256_192_256}
+
+\end{longtable}
+
+% =============================================================================
+
+\begin{longtable}{| m{2.4in} | C{0.65in} | C{0.85in} |
+C{0.15in} | C{0.65in} | C{0.85in} | C{0.15in} |}
+
+  \hline
+  \multicolumn{7}{|c|}{\textbf{Pruebas Estadísticas para el \gls{gl:drbg}
+  basado en funciones hash (\gls{gl:sha}512)}} \\
+  \hline
+  \textbf{Nivel de seguridad}        &
+  \multicolumn{3}{|c|}{\textbf{112}} &
+  \multicolumn{3}{|c|}{\textbf{128}} \\
+  \hline
+  \textbf{Prueba} &
+  Valor P         &
+  Proporción    & &
+  Valor P         &
+  Proporción    & \\
+  \hline
+  \endfirsthead
+
+  \hline
+  \multicolumn{7}{|c|}{\textit{Continuación}}\\
+  \hline
+  \textbf{Nivel de seguridad}        &
+  \multicolumn{3}{|c|}{\textbf{112}} &
+  \multicolumn{3}{|c|}{\textbf{128}} \\
+  \hline
+  \textbf{Prueba} &
+  Valor P         &
+  Proporción    & &
+  Valor P         &
+  Proporción    & \\
+  \hline
+  \endhead
+
+  \multicolumn{7}{|c|}{\textit{Continúa en siguiente página}}\\
+  \hline
+  \endfoot
+
+  \endlastfoot
+
+  De frecuencia &
+  0.213309 &   20/20   & \ding{51} &
+  0.637119 &   20/20   & \ding{51} \\\hline
+  
+  De frecuencia en un bloque &
+  0.834308 &   20/20   & \ding{51} &
+  0.437274 &   20/20   & \ding{51} \\\hline
+  
+  De sumas acumulativas &
+  0.911413 &   40/40   & \ding{51} &
+  0.637032 &   40/40   & \ding{51} \\\hline
+  
+  De carreras &
+  0.534146 &   19/20   & \ding{51} &
+  0.739918 &   20/20   & \ding{51} \\\hline
+  
+  De la carrera más larga en un bloque &
+  0.911413 &   20/20   & \ding{51} &
+  0.122325 &   19/20   & \ding{51} \\\hline
+  
+  Del rango de matriz binaria &
+  0.834308 &   20/20   & \ding{51} &
+  0.834308 &   19/20   & \ding{51} \\\hline
+  
+  Espectral &
+  0.637119 &   20/20   & \ding{51} &
+  0.739918 &   19/20   & \ding{51} \\\hline
+  
+  De coincidencia sin superposición &
+  0.512787 & 2934/2960 & \ding{51} &
+  0.475790 & 2937/2960 & \ding{51} \\\hline
+  
+  De coincidencia con superposición &
+  0.437274 &   20/20   & \ding{51} &
+  0.275709 &   20/20   & \ding{51} \\\hline
+  
+  Estadística universal de Maurer &
+  0.739918 &   20/20   & \ding{51} &
+  0.275709 &   20/20   & \ding{51} \\\hline
+  
+  De entropía aproximada &
+  0.834308 &   20/20   & \ding{51} &
+  0.739918 &   20/20   & \ding{51} \\\hline
+  
+  De excursiones aleatorias &
+  -------- &   72/72   & \ding{51} &
+  0.442340 &   77/80   & \ding{51} \\\hline
+  
+  Variante de excursiones aleatorias &
+  -------- &  161/162  & \ding{51} &
+  0.523098 &  180/180  & \ding{51} \\\hline
+  
+  Serial &
+  0.493802 &   40/40   & \ding{51} &
+  0.585633 &   40/40   & \ding{51} \\\hline
+  
+  De complejidad lineal &
+  0.534146 &   20/20   & \ding{51} &
+  0.350485 &   20/20   & \ding{51} \\\hline
+
+  \caption{Resultado de las pruebas estadísticas del \gls{gl:drbg} basado en
+  funciones hash (\gls{gl:sha}512) para los niveles de seguridad de 112 y 128.}
+  \label{resultados_pruebas_drbg_sha512_112_128}
+
+\end{longtable}
+
+% =============================================================================
+
+\begin{longtable}{| m{2.4in} | C{0.65in} | C{0.85in} |
+C{0.15in} | C{0.65in} | C{0.85in} | C{0.15in} |}
+
+  \hline
+  \multicolumn{7}{|c|}{\textbf{Pruebas Estadísticas para el \gls{gl:drbg}
+  basado en funciones hash (\gls{gl:sha}512)}} \\
+  \hline
+  \textbf{Nivel de seguridad}        &
+  \multicolumn{3}{|c|}{\textbf{192}} &
+  \multicolumn{3}{|c|}{\textbf{256}} \\
+  \hline
+  \textbf{Prueba} &
+  Valor P         &
+  Proporción    & &
+  Valor P         &
+  Proporción    & \\
+  \hline
+  \endfirsthead
+
+  \hline
+  \multicolumn{7}{|c|}{\textit{Continuación}}\\
+  \hline
+  \textbf{Nivel de seguridad}        &
+  \multicolumn{3}{|c|}{\textbf{192}} &
+  \multicolumn{3}{|c|}{\textbf{256}} \\
+  \hline
+  \textbf{Prueba} &
+  Valor P         &
+  Proporción    & &
+  Valor P         &
+  Proporción    & \\
+  \hline
+  \endhead
+
+  \multicolumn{7}{|c|}{\textit{Continúa en siguiente página}}\\
+  \hline
+  \endfoot
+
+  \endlastfoot
+
+  De frecuencia &
+  0.162606 &   20/20   & \ding{51} &
+  0.534146 &   20/20   & \ding{51} \\\hline
+  
+  De frecuencia en un bloque &
+  0.739918 &   20/20   & \ding{51} &
+  0.739918 &   19/20   & \ding{51} \\\hline
+  
+  De sumas acumulativas &
+  0.336147 &   40/40   & \ding{51} &
+  0.637032 &   40/40   & \ding{51} \\\hline
+  
+  De carreras &
+  0.534146 &   20/20   & \ding{51} &
+  0.637119 &   20/20   & \ding{51} \\\hline
+  
+  De la carrera más larga en un bloque &
+  0.739918 &   20/20   & \ding{51} &
+  0.834308 &   20/20   & \ding{51} \\\hline
+  
+  Del rango de matriz binaria &
+  0.534146 &   20/20   & \ding{51} &
+  0.739918 &   20/20   & \ding{51} \\\hline
+  
+  Espectral &
+  0.066882 &   19/20   & \ding{51} &
+  0.275709 &   19/20   & \ding{51} \\\hline
+  
+  De coincidencia sin superposición &
+  0.489630 & 2934/2960 & \ding{51} &
+  0.484244 & 2929/2960 & \ding{51} \\\hline
+  
+  De coincidencia con superposición &
+  0.350485 &   20/20   & \ding{51} &
+  0.437274 &   20/20   & \ding{51} \\\hline
+  
+  Estadística universal de Maurer &
+  0.834308 &   20/20   & \ding{51} &
+  0.739918 &   19/20   & \ding{51} \\\hline
+  
+  De entropía aproximada &
+  0.275709 &   20/20   & \ding{51} &
+  0.964295 &   20/20   & \ding{51} \\\hline
+  
+  De excursiones aleatorias &
+  0.503591 &  104/104  & \ding{51} &
+  0.481113 &   78/80   & \ding{51} \\\hline
+  
+  Variante de excursiones aleatorias &
+  0.235885 &  234/234  & \ding{51} &
+  0.572188 &  178/180  & \ding{51} \\\hline
+  
+  Serial &
+  0.688519 &   39/40   & \ding{51} &
+  0.555009 &   37/40   & \ding{51} \\\hline
+  
+  De complejidad lineal &
+  0.637119 &   19/20   & \ding{51} &
+  0.739918 &   20/20   & \ding{51} \\\hline
+
+  \caption{Resultado de las pruebas estadísticas del \gls{gl:drbg} basado en
+  funciones hash (\gls{gl:sha}512) para los niveles de seguridad de 192 y 256.}
+  \label{resultados_pruebas_drbg_sha512_192_256}
+
+\end{longtable}
+
+% =============================================================================

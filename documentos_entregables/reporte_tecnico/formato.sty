@@ -35,6 +35,9 @@
 %http://ctan.math.illinois.edu/fonts/amsfonts/doc/amssymb.pdf
 \RequirePackage{amssymb}                  % Simbología extra.
 
+%http://ctan.math.washington.edu/tex-archive/macros/latex/required/psnfss/psnfss2e.pdf
+\RequirePackage{pifont}                   % Simbología extra.
+
 % http://mirrors.ctan.org/macros/latex/contrib/lastpage/lastpage.pdf
 \RequirePackage{lastpage}
 
@@ -478,5 +481,8 @@
   \baselineskip=\DT@baselineskip
   \let\strut\DT@strut
   }
+
+% Para poder centrar una columna especifica en una tabla.
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
 \makeatother
