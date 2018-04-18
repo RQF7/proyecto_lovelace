@@ -24,11 +24,15 @@ pagina_publica/documentacion_doxygen
 # Versión local de github pages
 _site
 
-% Archivos temporales de quién sabe qué
+# Archivos temporales de quién sabe qué
 *.fuse*
 
-% Archivos de llaves
+# Archivos de llaves
 *.llave
 
-% Como ahora uso visual studio:
+# Como ahora uso visual studio:
 .vs
+
+# Salida de minted (¡Debería ponerlo en la carpeta de temporales!)
+%_minted%
+

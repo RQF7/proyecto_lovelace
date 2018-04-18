@@ -9,6 +9,11 @@
 
 % Dependencias de librerías.
 
+% http://ftp.math.purdue.edu/mirrors/ctan.org/macros/latex/contrib/
+% morewrites/morewrites.pdf
+% Permite abrir más archivos para escritura.
+\RequirePackage{morewrites}
+
 % http://mirrors.ctan.org/macros/latex/required/graphics/grfguide.pdf
 \RequirePackage{graphicx}
 
@@ -169,9 +174,18 @@
 
 % http://mirrors.sorengard.com/ctan/macros/latex/contrib/minted/minted.pdf
 % Inserción de código.
-% \RequirePackage{minted}
-% 
-% \usemintedstyle{bw}
+\RequirePackage{minted}
+
+% Estilo
+\usemintedstyle{bw}
+
+% Configuraciones globales.
+\setminted{
+  framesep=2mm,
+  baselinestretch=1.2,
+  fontsize=\scriptsize,
+  linenos
+}
 
 % Profundidad de contador
 % Hasta subsubsecciones
@@ -256,6 +270,10 @@
   \renewcommand*{\seename}{véase también}   % En entradas de glosario
   \renewcommand*{\andname}{y}               % En listas de referencias cruzadas.
 }
+
+% Babel no define traducciones para esto. Por eso están afuera.
+\renewcommand\listingscaption{Código fuente}
+\renewcommand\listoflistingscaption{Lista de códigos fuentes}
 
 % Información de latex
 \title{\Titulo{}}
