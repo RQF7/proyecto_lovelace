@@ -1,0 +1,50 @@
+%
+% Selección de comparación de desempeño.
+% Implementación de programa tokenizador, reporte técnico.
+%
+% Proyecto Lovelace.
+%
+
+\section{Comparación de desempeño}
+\label{sec:comparacion}
+
+Como se indicó en la introducció de este trabajo, la tokenización digital es un
+proceso relativamente nuevo y la mayoría de los proveedores de este servicio
+aprovechan la confusión y desinformación existente para atraer a clientes
+potenciales; pues pocos comparten la manera en que crean sus \glspl{gl:token}.
+Esta sección busca resarcir un poco el daño, presentado una comparación entre
+los tiempos de respuesta de tokenización y detokenización de los algoritmos
+implementados.
+
+En la tabla \ref{tabla:tiempos_tokenizacion} se puede observar el tiempo
+promedio que le toma a cada algoritmo hacer el número de tokenizaciones o
+detokenizaciones señaladas en el encabezado. Los algoritmos están
+divididos en reversibles y no reversibles, pues, dadas sus características, no
+sería muy parejo compararlos entre sí; por ejemplo, basta hacer una consulta
+en la base de datos para hacer la detokenización en los algoritmos
+irreversibles; mientras que en los reversibles hay que hacer el proceso inverso,
+o uno equivalente, para poder obtener de nuevo el \gls{gl:pan}.
+
+\begin{table}
+  \begin{tabular}{cc|c|c|c|c|c|c|}
+    \cline{3-8}
+    & & \multicolumn{2}{|c|}{100 oper.} & \multicolumn{2}{|c|}{1K oper.} & \multicolumn{2}{|c|}{10K oper.} \\
+    \cline{3-8}
+    & & Tok. & Detok. & Tok. & Detok. & Tok. & Detok. \\
+    \hline
+    \multicolumn{1}{|c }{ \multirow{2}{*}{Reversibles} } &
+    \multicolumn{1}{|c|}{BPS} & 7247.333  & 6990.333  & 68514.666 & 68566     & 714336.666 & 674571 \\ \cline{2-8}
+    \multicolumn{1}{ |c  }{}                        &
+    \multicolumn{1}{|c|}{FFX} & 5627      & 5516.333  & 49738.666 & 49550.666 & 487529.33 & 340749.333 \\
+    \hline
+    \multicolumn{1}{|c }{ \multirow{3}{*}{Irreversibles} } &
+    \multicolumn{1}{|c|}{TKR} & 6573178.667  & 37623.333  & 70116095.333 & 441815.333 & 882695400.3 & 4975753.666 \\ \cline{2-8}
+    \multicolumn{1}{ |c  }{}                        &
+    \multicolumn{1}{|c|}{AHR} & 6053448.6    & 58814.8    & 65630619.666 & 420729.000 & 735405026.7 & 5269435.333 \\ \cline{2-8}
+    \multicolumn{1}{ |c  }{}                        &
+    \multicolumn{1}{|c|}{DRBG} & 6718093.333 & 40265.666  & 71082077.666 & 436753.333 & 826402703.0 & 7225974.666 \\ \hline
+  \end{tabular}
+
+  \caption{Comparación de tiempos de tokenización de los algoritmos implementados.}
+  \label{tabla:tiempos_tokenizacion}
+\end{table}
