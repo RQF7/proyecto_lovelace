@@ -8,11 +8,50 @@
 \subsection{Resultados de las pruebas estadísticas a los DRGB}
 \label{sec:resultados_pruebas_estadisticas_drgb}
 
-% Aun falta la descripción de los resultados.
-% Pongo esto en lo mientras para que se vean bien las primeras tablas.
-\gls{gl:drbg}
-\gls{gl:aes}
-\gls{gl:sha}
+En esta sección se pretende demostrar la aleatoriedad de los \gls{gl:drbg}
+que fueron implementaron, esto por medio del conjunto de pruebas del
+\gls{gl:nist}, pruebas de las que se habla más a fondo en la sección
+\ref{sec:pruebas_para_generadores}.
+
+En las siguientes 6 tablas
+(\ref{resultados_pruebas_drbg_bloque_112_128},
+\ref{resultados_pruebas_drbg_bloque_192_256},
+\ref{resultados_pruebas_drbg_sha256_112_128},
+\ref{resultados_pruebas_drbg_sha256_192_256},
+\ref{resultados_pruebas_drbg_sha512_112_128} y
+\ref{resultados_pruebas_drbg_sha512_192_256})
+se observan los resultados obtenidos para las 15 pruebas estadísticas
+descritas en \cite{nist_pruebas} para 3 tipos distintos de \gls{gl:drbg}
+(uno basado en \gls{gl:aes} y otros dos basados en \gls{gl:sha}) en cada
+uno de los niveles de seguridad que se tienen (112, 128, 192 y 256).
+
+Para poder comprende la información más claramente, es necesario establecer
+los siguientes puntos:
+
+\begin{itemize}
+
+  \item Las pruebas se realizaron con 10 millones de bits obtenidos por cada
+    tipo de \gls{gl:drbg}.
+
+  \item Cada prueba realizada consta de 20 ejecuciones, y cada ejecución usa
+    medio millón de bits.
+
+  \item Se puede resumir que el valor de P va de $0$ a $1$, y que mientras
+    mas grande sea este valor, el \gls{gl:drbg} probado es más aleatorio.
+
+  \item Las pruebas de sumas acumulativas, de coincidencia sin superposición,
+    de entropía aproximada, de excursiones aleatorias, y su variante constan
+    de varias subpruebas.
+
+  \item En las tablas, en las columnas de \textit{proporción}, se pone el
+    número de pruebas pasadas con respecto al número de pruebas (subpruebas
+    si existen) que se hicieron en total.
+
+  \item Posterior a las columnas de \textit{proporción} se pone un \ding{51}
+    en caso de que el \gls{gl:drbg} aprobara de forma general la prueba o un
+    \ding{53} en el caso contrario.
+
+\end{itemize}
 
 % Tablas con los resultados.
 % =============================================================================
@@ -341,6 +380,11 @@ C{0.15in} | C{0.65in} | C{0.85in} | C{0.15in} |}
 
 \end{longtable}
 
+En la tabla \ref{resultados_pruebas_drbg_sha256_112_128} se observa que la
+única prueba que no pasó el \gls{gl:drbg} basado en \gls{gl:sha}256 con nivel
+de seguridad de 112, fue la de coincidencias sin superposición, situación que
+viene de no haberse aprobado más del 90\% de una de las subpruebas.
+
 % =============================================================================
 
 \begin{longtable}{| m{2.4in} | C{0.65in} | C{0.85in} |
@@ -448,6 +492,11 @@ C{0.15in} | C{0.65in} | C{0.85in} | C{0.15in} |}
   \label{resultados_pruebas_drbg_sha256_192_256}
 
 \end{longtable}
+
+En la tabla \ref{resultados_pruebas_drbg_sha256_192_256} se observa que el
+\gls{gl:drbg} basado en \gls{gl:sha}256 con nivel de seguridad de 192, no
+aprobó de forma general la prueba de carreras, esto por no llegar a las 18
+ejecuciones aprobadas de 20.
 
 % =============================================================================
 
@@ -666,3 +715,9 @@ C{0.15in} | C{0.65in} | C{0.85in} | C{0.15in} |}
 \end{longtable}
 
 % =============================================================================
+
+Con base en los resultados de las pruebas estadísticas, se puede decir que
+los \gls{gl:drbg} implementados son aleatorios. Aunque hay que tomar en cuenta
+que el número de ejecuciones que se realizaron para las pruebas (20) es aun un
+número pequeño, pero hacer un mayor número de pruebas consumiría mas recursos
+de los que se tienen.
