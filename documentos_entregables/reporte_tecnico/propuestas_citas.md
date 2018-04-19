@@ -10,6 +10,7 @@ citas para cada uno.
     Nitwit! Blubber! Oddment! Tweak! J. K. Rowling
 3. >That brain of mine is something more than merely mortal, as time will show,
     Ada Lovelace
+
 ## Marco teórico
 1. >Human beings, who are almost unique in having the ability to learn from the
     experience of others, are also remarkable for their apparent disinclination
@@ -32,7 +33,7 @@ citas para cada uno.
     mind...and a mind needs books as a sword needs a whetstone if it is to keep
     its edge. That's why I read so much Jon Snow. George R. R. Martin.
 3. >"Not bad, not bad at all," Diotallevi said. "To arrive at the truth through
-    the painstaking reconstruction of a false text. Umberto Eco.
+    the painstaking reconstruction of a false text". Umberto Eco.
 
 ## Análisis y diseño
 1. >A common mistake that people make when trying to design something completely
@@ -47,6 +48,7 @@ citas para cada uno.
     prever un detalle circunstancial es impedir que este suceda, JLB
 5. >This wasn't just plain terrible, this was fancy terrible. This was terrible
     with raisins in it, Dorothy Parker.
+
 ## Implementación
 1. >It is a mistake to think you can solve any major problems just with
     potatoes, Douglas Adams.
@@ -72,12 +74,15 @@ citas para cada uno.
     trained people to do that, Grace Hopper
 10. >From then on, when anything went wrong with a computer, we said it had bugs
     in it, Grace Hopper
+
 ## Conclusiones
 1. >Winter is comming. George R. R. Martin.
 2. >Mi empresa no es difícil, esencialmente" leo en otro lugar de la carta.
     "Me bastaría ser inmortal para llevarla a cabo, JLB
 3. >Reserve your right to think, for even to think wrongly is better than not to
     think at all, Hypatia
+
+## Apéndice de administración de llaves.
 
 ## Sin clasificación
 1. >The most important thing in the programming language is the name. A

@@ -206,6 +206,10 @@
 \renewcommand{\epigraphsize}{\normalsize}
 \setlength{\epigraphrule}{0pt}
 
+% http://mirror.utexas.edu/ctan/macros/latex/contrib/appendix/appendix.pdf
+% Gestión de apéndices
+\RequirePackage{appendix}
+
 % Profundidad de contador
 % Hasta subsubsecciones
 \setcounter{secnumdepth}{3}
@@ -221,7 +225,7 @@
 % Formato de títulos
 \titleformat{\chapter}[display]
 {\bfseries\Huge\centering}                  % Formato
-{Capítulo \ \thechapter}                    % Etiqueta
+{\chaptertitlename \ \thechapter}           % Etiqueta
 {0.5ex}                                     % Separación
 {}                                          % Antes de
 []                                          % Después de
@@ -288,6 +292,9 @@
   \renewcommand*{\lstlistlistingname}{Lista de pseudocódigos}
   \renewcommand*{\seename}{véase también}   % En entradas de glosario
   \renewcommand*{\andname}{y}               % En listas de referencias cruzadas.
+  \renewcommand*\appendixname{Apéndice}
+  \renewcommand*\appendixtocname{Apéndice}
+  \renewcommand*\appendixpagename{Apéndices}
 }
 
 % Babel no define traducciones para esto. Por eso están afuera.
