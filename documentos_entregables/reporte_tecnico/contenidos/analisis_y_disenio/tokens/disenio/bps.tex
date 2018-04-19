@@ -1,0 +1,24 @@
+%
+% Clases de módulo de BPS.
+% Análisis y diseño de programa tokenizador, reporte técnico.
+%
+% Proyecto Lovelace.
+%
+
+\paragraph{Clases de BPS}
+
+Primero, se tiene que mencionar que a pesar de que BPS puede verse como una
+versión mas especifica de \gls{gl:ffx}, esta clase no se realizó de forma
+directa a partir de la clase de la red Feistel. 
+
+A BPS se le puede considerar como un modo de operación que usa un cifrador
+interno BC, que a su ves usa un cifrador de ronda, situación por la que BPS
+es una clase que implementa el modo de operación descrito en 
+\ref{sec:bps_modo_operacion}, que utiliza la clase BC, cuyo funcionamiento se
+describe en \ref{sec:bps_cifrador_interno_bc}, el cual se puede resumir como
+una red Feistel que opera sobre un cadenas construidas a partir de cualquier
+alfabeto, en ves de sobre cadenas binarias.
+
+En cuanto al cifrador de ronda, esta clase se construyó usando la librería de
+Cripto++, dando la posibilidad de usar \gls{gl:aes} o \gls{gl:des}.
+
