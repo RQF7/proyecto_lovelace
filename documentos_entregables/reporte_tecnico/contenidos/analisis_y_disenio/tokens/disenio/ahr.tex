@@ -1,0 +1,26 @@
+%
+% Clases de módulo de AHR.
+% Análisis y diseño de programa tokenizador, reporte técnico.
+%
+% Proyecto Lovelace.
+%
+
+\paragraph{Clases de AHR}
+
+AHR utiliza la interfaz \acrshort{gl:cdv} para poder interactuar con la base de
+datos y realizar el proceso de detokenización, pues es un algoritmo
+irreversible. Hace uso también de algunas utilidades como potencias y
+el cálculo del dígito verificador mediante el algoritmo de Luhn desfasado.
+Utiliza también la clase del registro al momento de agregar un nuevo token
+a la base de datos y la clase de \textit{Arreglo de dígitos} para implementar
+los métodos de \textit{tokenizar} y \textit{detokenizar} definidos por la
+interfaz \textit{Algoritmo tokenizador irreversible}.
+
+Ya que el algoritmo requiere de una función pública, se utiliza la clase SHA de
+la librería CryptoPP; de esta manera, se hace uso de SHA256 dentro uno de
+los métodos de AHR.
+
+Finalmente, se utiliza la clase AES para realizar el cifrado por bloque; esta
+clase es una interfaz y permite utilizar el cifrado de AES por hardware si
+el procesador tiene las instrucciones necesarias. En caso de no tenerlo,
+cifra mediante las funciones de CryptoPP.
