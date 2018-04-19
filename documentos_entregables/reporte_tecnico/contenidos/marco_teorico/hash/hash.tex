@@ -95,47 +95,47 @@ el que se tiene guardado. Realizar esto ayuda a evitar que las
 contraseñas sean conocidas para los usuarios con privilegios, como
 pueden ser los administradores.
 
-\subsection{Integridad de datos}
-
-Las funciones criptográficas hash también son conocidas como funciones
-\textit{procesadoras de mensajes} y el valor hash $h(m)$ de un mensaje
-$m$ dado es llamado \textit{huella} de $m$; ya que es una representación
-compacta de m y, dada la resistencia a la segunda \gls{gl:preimagen}, la huella
-es prácticamente única. Si el mensaje fuese modificado, el valor hash
-sería distinto; por lo que si se tienen almacenados los valores hash,
-basta con calcular su valor $h(m)$ y compararlo con el que se tiene
-guardado para detectar modificaciones. Por esta razón, las funciones
-hash también son llamadas códigos de detección de modificaciones (como el
-\gls{gl:mdc2}).
-
-\subsection{Firmas}
-
-Sea $(n, e)$ la llave pública \gls{gl:rsa} y $d$ el exponente decodificador
-secreto de Alice. En el esquema básico de firma \gls{gl:rsa}, Alice puede
-firmar mensajes que estén codificados por números $ m \in \{0, \dots, n-1\}$.
-Para firmar $m$, aplica el algoritmo de descifrado y obtiene la firma
-$\sigma = m^d$ $mod$ $n$ de $m$.
-Normalmente, $n$ es un número de 1024 bits y Alice puede firmar una
-cadena de bits $m$ tal que, cuando es interpretada como número, sea
-menor que $n$. Esto es una cadena de, máximo, 128 caracteres
-\gls{gl:ascii}: la mayoría de los documentos que se desean firmar suelen
-ser mucho más grandes. Este problema existe en todos los esquemas de firma
-digital y usualmente es resuelto al aplicar una función hash resistente a
-colisiones $h$. De esta forma, primero se obtiene el valor hash del mensaje
-$h(m)$ y esto es lo que se firma en lugar del mensaje mismo ($m$):
-\begin{equation}
-  \label{funcion_hash_sign}
-  \sigma = h(m)^d \quad mod \quad n
-\end{equation}
-
-Los mensajes que tengan el mismo valor hash tienen la misma firma. En
-este caso, es primordial que la función hash $h$ sea resistente a
-colisiones para garantizar el no repudio. De otra manera, Alice podría
-firmar el mensaje $m$ y después decir que había firmado un mensaje
-distinto ($n$).
-La resistencia a segundas preimágenes previene que un atacante Eve tome
-un mensaje $m$ firmado por Alice, genere un mensaje nuevo $n$ y utilice
-$\sigma$ como una firma válida de Alice para $n$.
+% \subsection{Integridad de datos}
+%
+% Las funciones criptográficas hash también son conocidas como funciones
+% \textit{procesadoras de mensajes} y el valor hash $h(m)$ de un mensaje
+% $m$ dado es llamado \textit{huella} de $m$; ya que es una representación
+% compacta de m y, dada la resistencia a la segunda \gls{gl:preimagen}, la huella
+% es prácticamente única. Si el mensaje fuese modificado, el valor hash
+% sería distinto; por lo que si se tienen almacenados los valores hash,
+% basta con calcular su valor $h(m)$ y compararlo con el que se tiene
+% guardado para detectar modificaciones. Por esta razón, las funciones
+% hash también son llamadas códigos de detección de modificaciones (como el
+% \gls{gl:mdc2}).
+%
+% \subsection{Firmas}
+%
+% Sea $(n, e)$ la llave pública \gls{gl:rsa} y $d$ el exponente decodificador
+% secreto de Alice. En el esquema básico de firma \gls{gl:rsa}, Alice puede
+% firmar mensajes que estén codificados por números $ m \in \{0, \dots, n-1\}$.
+% Para firmar $m$, aplica el algoritmo de descifrado y obtiene la firma
+% $\sigma = m^d$ $mod$ $n$ de $m$.
+% Normalmente, $n$ es un número de 1024 bits y Alice puede firmar una
+% cadena de bits $m$ tal que, cuando es interpretada como número, sea
+% menor que $n$. Esto es una cadena de, máximo, 128 caracteres
+% \gls{gl:ascii}: la mayoría de los documentos que se desean firmar suelen
+% ser mucho más grandes. Este problema existe en todos los esquemas de firma
+% digital y usualmente es resuelto al aplicar una función hash resistente a
+% colisiones $h$. De esta forma, primero se obtiene el valor hash del mensaje
+% $h(m)$ y esto es lo que se firma en lugar del mensaje mismo ($m$):
+% \begin{equation}
+%   \label{funcion_hash_sign}
+%   \sigma = h(m)^d \quad mod \quad n
+% \end{equation}
+%
+% Los mensajes que tengan el mismo valor hash tienen la misma firma. En
+% este caso, es primordial que la función hash $h$ sea resistente a
+% colisiones para garantizar el no repudio. De otra manera, Alice podría
+% firmar el mensaje $m$ y después decir que había firmado un mensaje
+% distinto ($n$).
+% La resistencia a segundas preimágenes previene que un atacante Eve tome
+% un mensaje $m$ firmado por Alice, genere un mensaje nuevo $n$ y utilice
+% $\sigma$ como una firma válida de Alice para $n$.
 
 \subsection{Message Digest-4 (MD4)}
 

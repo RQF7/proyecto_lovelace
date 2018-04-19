@@ -4,28 +4,28 @@
 % Proyecto Lovelace.
 %
 
-\subsubsection{Generación de llaves}
+\subsection{Generación de llaves}
 \label{sec:generacion_llaves}
 
 % NIST 800-133 ---
 
-\paragraph{Generación de llaves en general}
+\subsubsection{Generación de llaves en general}
 
-\subparagraph{Métodos para la generación de llaves}
+\paragraph{Métodos para la generación de llaves}
 La generación de llaves se puede hacer por medio del uso de generadores de
 bits aleatorios (\gls{gl:rbg}), de la derivación de llaves a partir de otras,
 de la derivación de llaves a partir de una contraseña, y del uso de un esquema
 de acuerdo entre llaves o \textit{key agreement}; pero todas, de forma directa
 o indirecta deben estar basadas en la salida de un \gls{gl:rbg}.
 
-\subparagraph{Donde generar las llaves}
+\paragraph{Donde generar las llaves}
 La generación de llaves criptográficas debe ir de acuerdo con el \gls{gl:fips}
 140 (descrito en \cite{nist_modulos_criptograficos}), y si es necesario que
 las llaves sean transferidas, se debe de hacer por medio de un canal seguro.
 Además, todos los valores aleatorios requeridos para la generación de las
 llaves deben ser generados dentro de un mismo módulo criptográfico.
 
-\subparagraph{Fuerza de la seguridad}
+\paragraph{Fuerza de la seguridad}
 La fuerza de la seguridad de un método es una medición de la complejidad
 asociada a la recuperación de información secreta o de la seguridad relativa
 a un algoritmo criptográfico a partir de datos conocidos.
@@ -49,7 +49,7 @@ requerida para la protección de la información.
 
 \end{itemize}
 
-\subparagraph{Usos de las salidas de los \gls{gl:rbg}}
+\paragraph{Usos de las salidas de los \gls{gl:rbg}}
 Suponiendo que $K$ es una llave simétrica o un valor aleatorio que sirve
 como entrada de un algoritmo generador de pares de llaves asimétricas, $K$
 debe ser una cadena de bits tal que:
@@ -64,7 +64,7 @@ $U$ y viceversa. La independencia entre $U$ y $V$ se requiere debido a que se
 tiene que evitar que el conocimiento de alguna de estas cadenas pueda usarse
 para obtener información de la otra.
 
-\subparagraph{Generación de pares de llaves asimétricas}
+\paragraph{Generación de pares de llaves asimétricas}
 Los pares de llaves solo pueden ser generados o por el propietario del las
 mismas llaves, o por un tercero de confianza capaz de proveerlas.
 
@@ -73,7 +73,7 @@ del propietario o de un tercero de confianza, además de que, si se tienen que
 transferir dichas llaves, se debe de garantizar que solo el propietario o la
 parte generadora puedan verlas en claro.
 
-\subparagraph{Generación de llaves simétricas}
+\paragraph{Generación de llaves simétricas}
 Las llaves deben de ser generadas por una o varias de las entidades que
 las compartirán, o por un tercero de confianza capaz de compartirlas de una
 manera segura.
@@ -123,7 +123,7 @@ completamente independiente de la anterior, para que el conocimiento de esta
 
 % NIST 800-108 ---
 
-\paragraph{Funciones Pseudoaleatorias (PRF)}
+\subsubsection{Funciones Pseudoaleatorias (PRF)}
 
 Las funciones pseudoaleatorias o \gls{gl:prf} (ver sección
 \ref{sec:generadores_pseudoaleatorios}) son funciones computables en
@@ -138,7 +138,7 @@ Cuando una llave criptográfica $K_I$ es usada como la \gls{gl:semilla} de una
 Para la derivación de llaves se tiene permitido el uso del \gls{gl:hmac} o
 del \gls{gl:cmac} como función pseudoaleatoria.
 
-\paragraph{Funciones de derivación de llaves (KDF)}
+\subsubsection{Funciones de derivación de llaves (KDF)}
 
 Las funciones de derivación de llaves o \gls{gl:kdf} son funciones que a
 partir de una llave dada como entrada, pueden generar
@@ -158,13 +158,13 @@ De forma general las \gls{gl:kdf} funcionan iterando $n$ veces una función
 pseudoaleatoria para concatenar sus salidas hasta que se alcance la longitud
 de bits deseada para el \gls{gl:material_de_llaves}.
 
-\paragraph{Modos de iteración}
+\subsubsection{Modos de iteración}
 
 Algo necesario para el funcionamiento de las \gls{gl:kdf} son los modos de
 iteración, ya que definen las entradas que se tendrán y el orden de los campos
 de salida en cada ciclo.
 
-\subparagraph{Counter mode}
+\paragraph{Counter mode}
 En la figura \ref{diagrama_counter_mode} se aprecia la forma de operación de
 este modo de iteración, en el que los datos de entrada son concatenados en una
 cadena binaria de la forma: $Label \parallel 0x00 \parallel Context \parallel
@@ -199,7 +199,7 @@ label={mi:1}]
     fin
 \end{pseudocodigo}
 
-\subparagraph{Feedback mode}
+\paragraph{Feedback mode}
 Este modo de iteración opera tomando la salida de la \gls{gl:prf} en la
 iteración anterior como parte los datos de entrada de la iteración actual.
 Cabe resaltar que como se muestra en la figura \ref{diagrama_feedback_mode},
@@ -233,7 +233,7 @@ label={mi:2}]
     fin
 \end{pseudocodigo}
 
-\subparagraph{Double pipeline mode}
+\paragraph{Double pipeline mode}
 Como su nombre lo indica y a diferencia de los otros dos modos de iteración
 mencionados, este usa dos flujos, donde un flujo es el encargado de generar
 valores secretos, y el otro usa como entradas las salidas del primero para
@@ -267,40 +267,40 @@ label={mi:3}]
     fin
 \end{pseudocodigo}
 
-\subparagraph{Jerarquía de llaves}
+\paragraph{Jerarquía de llaves}
 El \gls{gl:material_de_llaves} proveniente de una derivación puede ser usado
 una o más veces como llave de entrada de otras derivaciones subsecuentes, así,
 es posible establecer una jerarquía en la que las llaves tienen distintos
 niveles.
 
-\paragraph{Consideraciones de seguridad}
+\subsubsection{Consideraciones de seguridad}
 
-\subparagraph{Fuerza criptográfica}
+\paragraph{Fuerza criptográfica}
 La fuerza de seguridad de una \gls{gl:kdf} es medida por la cantidad de
 trabajo requerido para distinguir su cadena de salida de una cadena de bits
 que en verdad tenga una \gls{gl:distribucion_uniforme} y cuente con la misma
 longitud, suponiendo que la llave de entrada $K_I$, es la única entrada
 desconocida para la \gls{gl:kdf}.
 
-\subparagraph{La longitud de la llave de entrada}
+\paragraph{La longitud de la llave de entrada}
 En algunas \gls{gl:kdf} el tamaño de la llave $K_I$ está definido por la
 \gls{gl:prf} que usan internamente, por ejemplo cuando se usa el \gls{gl:cmac},
 pero igualmente, otras \gls{gl:kdf} pueden usar llaves de cualquier tamaño,
 como al usar el \gls{gl:hmac} como \gls{gl:prf}.
 
-\subparagraph{Transformación de material de llaves a llaves criptográficas.}
+\paragraph{Transformación de material de llaves a llaves criptográficas.}
 La longitud en bits del \gls{gl:material_de_llaves} está limitada tanto por
 el algoritmo relacionado a la salida de la \gls{gl:kdf}, como por el modo de
 iteración que se usa.
 
-\subparagraph{Codificación de los datos de entrada}
+\paragraph{Codificación de los datos de entrada}
 La información de entrada de una \gls{gl:kdf} consiste en diferentes campos
 de datos, estos deben de estar ordenados de forma específica y sin ambigüedad,
 de manera que se tenga un método de codificación capaz de mapear cada campo
 individualmente. Esto es necesario para poder detectar ataques a la
 \gls{gl:kdf} que dependan de la manipulación de esta información.
 
-\subparagraph{Separación entre llaves}
+\paragraph{Separación entre llaves}
 Las llaves provenientes del \gls{gl:material_de_llaves} deben de estar
 separadas criptográficamente, de tal manera que no se comprometa la seguridad
 de ninguna de estas llaves derivadas. Cuando el \gls{gl:material_de_llaves}
@@ -309,6 +309,6 @@ de entrada $K_I$, la \gls{gl:kdf} debe de garantizar que el
 \gls{gl:material_de_llaves} de una ejecución no comprometa al de cualquier
 otra.
 
-\subparagraph{Enlace de contexto}
+\paragraph{Enlace de contexto}
 Todo el \gls{gl:material_de_llaves} debe estar ligado a todas las entidades
 relacionadas para poder evitar errores de protocolo.
