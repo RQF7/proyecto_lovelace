@@ -6,13 +6,16 @@
 
 \label{sec:administracion_llaves}
 \capitulo{Administración de llaves}
-{
-  "Not bad, not bad at all," Diotallevi said. "To arrive at the truth through
-  the painstaking reconstruction of a false text"
+{%
+  ---No está mal, no está mal ---decía Diotallevi---. Encontrar la verdad
+  reconstruyendo exactamente un texto mendaz.%
 }
-{
-  Umberto Eco.
+{%
+  Umberto Eco.%
 }
+
+% Es una traducción medio rara de una versión que encontré en internet. No
+% tengo la mía en este momento.
 
 \section{Tipos de llaves}
 
@@ -74,47 +77,6 @@ asimétrico (i. e. públicas y privadas).
     entidad que provee acceso, como por la que desea acceder.
 
 \end{description}
-
-\begin{table}
-  \centering
-  \begin{tabular}{| c | l | c | c | c |}
-
-    \cline{3-5}
-    \multicolumn{2}{c |}{} &
-    \multicolumn{3}{ c |}{\textbf{Naturaleza}} \\
-    \cline{3-5}
-    \multicolumn{2}{c |}{} &
-    Simétrica &
-    Pública &
-    Privada \\
-    \hline
-
-    \multirow{10}{*}{\begin{sideways} \textbf{Funcionalidad} \end{sideways}}
-    & Para firmas                        &            & \checkmark & \checkmark
-    \\\cline{2-5}
-    & Para autenticación                 & \checkmark & \checkmark & \checkmark
-    \\\cline{2-5}
-    & Para cifrado de datos              & \checkmark &            &
-    \\\cline{2-5}
-    & Como envoltura de otras llaves     & \checkmark &            &
-    \\\cline{2-5}
-    & Para generadores aleatorios        & \checkmark &            &
-    \\\cline{2-5}
-    & Como llave maestra                 & \checkmark &            &
-    \\\cline{2-5}
-    & Para el transporte de llaves       &            & \checkmark & \checkmark
-    \\\cline{2-5}
-    & Para el acuerdo de llaves          & \checkmark & \checkmark & \checkmark
-    \\\cline{2-5}
-    & Efímeras para el acuerdo de llaves &            & \checkmark & \checkmark
-    \\\cline{2-5}
-    & De autorización                    & \checkmark & \checkmark & \checkmark
-    \\\hline
-
-  \end{tabular}
-  \caption{Clasificación de llaves criptográficas}
-  \label{clasificacion_llaves}
-\end{table}
 
 %Además de las llaves, existen algunos otros parámetros que comunmente se usan
 %en los algoritmos criptográficos, y que también necesitan ser tomados en
@@ -178,6 +140,47 @@ proceso provea de múltiples servicios. Por ejemplo, cuando una sola firma
 digital provee de autenticación de integridad y de autenticación de origen,
 o cuando una sola llave simétrica es usada para cifrar y para autenticar en
 una sola operación.
+
+\begin{table}
+  \centering
+  \begin{tabular}{| c | l | c | c | c |}
+
+    \cline{3-5}
+    \multicolumn{2}{c |}{} &
+    \multicolumn{3}{ c |}{\textbf{Naturaleza}} \\
+    \cline{3-5}
+    \multicolumn{2}{c |}{} &
+    Simétrica &
+    Pública &
+    Privada \\
+    \hline
+
+    \multirow{10}{*}{\begin{sideways} \textbf{Funcionalidad} \end{sideways}}
+    & Para firmas                        &            & \checkmark & \checkmark
+    \\\cline{2-5}
+    & Para autenticación                 & \checkmark & \checkmark & \checkmark
+    \\\cline{2-5}
+    & Para cifrado de datos              & \checkmark &            &
+    \\\cline{2-5}
+    & Como envoltura de otras llaves     & \checkmark &            &
+    \\\cline{2-5}
+    & Para generadores aleatorios        & \checkmark &            &
+    \\\cline{2-5}
+    & Como llave maestra                 & \checkmark &            &
+    \\\cline{2-5}
+    & Para el transporte de llaves       &            & \checkmark & \checkmark
+    \\\cline{2-5}
+    & Para el acuerdo de llaves          & \checkmark & \checkmark & \checkmark
+    \\\cline{2-5}
+    & Efímeras para el acuerdo de llaves &            & \checkmark & \checkmark
+    \\\cline{2-5}
+    & De autorización                    & \checkmark & \checkmark & \checkmark
+    \\\hline
+
+  \end{tabular}
+  \caption{Clasificación de llaves criptográficas}
+  \label{clasificacion_llaves}
+\end{table}
 
 \section{Criptoperiodos}
 
