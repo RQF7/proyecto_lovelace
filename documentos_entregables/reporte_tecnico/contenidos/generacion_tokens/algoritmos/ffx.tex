@@ -147,7 +147,8 @@ por la siguiente relación ($ n $ es la longitud del mensaje):
   \end{cases}
 \end{equation}
 
-La función de ronda concatena el \textit{tweak}, el mensaje de entrada y los
+En el pseudocódigo \ref{pc:ffx_a10} se describe a la función de ronda.
+Esta concatena el \textit{tweak}, el mensaje de entrada y los
 demás parámetros usados por la red en una sola cadena; esta cadena se cifra con
 \gls{gl:aes} \gls{gl:cbc} \gls{gl:mac}; la salida se parte en dos (mitad derecha
 y mitad izquierda) y es operada para que el número resultado tenga el mismo
@@ -165,3 +166,23 @@ la derecha):
 
 El valor de $ m $ corresponde al \textit{split} en la ronda actual; esto es
 la longitud de la cadena de entrada.
+
+\begin{pseudocodigo}[%
+    caption={\textit{FFX A10}, función de ronda},
+    label={pc:ffx_a10}%
+  ]
+    entrada: Arreglo número; llave k; tweak t; información adicional i
+    salida:  Arreglo salida
+    inicio
+      entradaPrimitiva $ \gets $ número || t || i
+      mac $ \gets $ CBC_MAC_AES(entradaPrimitiva, k)
+      $ y\prime \gets $ mac[1 ... 64]
+      $ y\prime\prime \gets $ mac[65 ... 128]
+      si m $ \leq 9 $ entonces:
+        z $ \gets y\prime\prime \mod 10^m $
+      sino:
+        z $ \gets (y\prime \mod 10^{m - 9}) \times 10^9 + (y\prime\prime \mod 10^m)$
+      fin
+      regresar z
+    fin
+\end{pseudocodigo}
