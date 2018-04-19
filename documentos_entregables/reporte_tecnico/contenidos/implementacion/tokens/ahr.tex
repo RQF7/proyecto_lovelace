@@ -1,0 +1,42 @@
+%
+% Explicación de código de AHR, reporte técnico.
+%
+% Proyecto Lovelace.
+%
+
+\subsection{Módulo de AHR}
+En esta sección se explica, de manera general, la implementación del algoritmo
+AHR, descrito en la sección \ref{sec:ahr}.
+
+Partiendo de lo general hacia lo particular, en la sección de código
+\ref{codigo:ahr_tok} se ve el método \textit{principal}; primero, dependiendo de
+la longitud del \gls{gl:pan} calcula los límites entre los cuales el
+\gls{gl:token} será válido. Posteriormente, mediante el método
+\textit{crearBloqueT}, descrito en \ref{codigo:ahr_tok1}, se concatena a la
+salida de la función SHA256 (que recibe como entrada el \gls{gl:iin}), la
+representación binaria de la entrada $X$, que es el número de cuenta que se
+va a tokenizar. Una vez que se tiene el bloque $T$, se cifra mediante
+\gls{gl:aes} con una llave de 256 bits y se obtiene la representación decimal
+de los últimos bits del bloque cifrado; el resultado de esta operación es
+el \gls{gl:token} candidato, pues aún falta revisar si el \gls{gl:token} se
+encuentra dentro de los límites obtenidos al principio; en caso de que no
+cumpla, se usa \gls{gl:cifrado_caminata_ciclica} hasta obtener un \gls{gl:token}
+válido. Finalmente, se revisa en la base de datos si el \gls{gl:token} creado
+existe (este algoritmo permite generar varios \glspl{gl:token} para un mismo
+\gls{gl:pan}): si no existe, guarda la relación \gls{gl:pan}-\gls{gl:token} en
+la base de datos; si sí, aumenta en uno el \gls{gl:iin} y vuelve a ejectuar
+el algoritmo desde el inicio.
+
+\begin{listing}
+  \inputminted[firstline=284, lastline=328]
+    {c++}{../implementaciones/ahr/ahr.cpp}
+  \caption{Tokenización mediante AHR.}
+  \label{codigo:ahr_tok}
+\end{listing}
+
+\begin{listing}
+  \inputminted[firstline=193, lastline=223]
+    {c++}{../implementaciones/ahr/ahr.cpp}
+  \caption{Primer paso para la tokenización con AHR.}
+  \label{codigo:ahr_tok1}
+\end{listing}
