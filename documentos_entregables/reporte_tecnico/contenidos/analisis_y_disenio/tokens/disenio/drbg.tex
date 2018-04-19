@@ -6,6 +6,7 @@
 %
 
 \paragraph{Clases de DRBG}
+\label{sec:drbg_disenio}
 
 Las clases relacionadas con el generador de números pseudoaleatorio se muestran
 en la figura \ref{clases_drbg}. Nuevamente, todas las clases pertenecen al
@@ -13,7 +14,7 @@ paquete de las implementaciones.
 
 Un \gls{gl:drbg} implementa la interfaz de una función que recibe enteros sin
 signo y entrega arreglos de bytes. Esta clase define la estructura general de un
-generador: las cinco funciones definidas por el estámdar del NIST (ver sección
+generador: las cinco funciones definidas por el estándar del NIST (ver sección
 \ref{sec:generadores_pseudoaleatorios}) y el conjunto de valores miembro que
 conforman el estado del generador. El \gls{gl:drbg} declara la función abstracta
 para generar bytes; todos los posibles generadores concretos deben implementar
