@@ -14,22 +14,33 @@
 }
 
 \noindent
-En este curso se da por terminado el primero de tres módulos que componen al
-trabajo: un programa generador de \textit{tokens}. Aunque de enunciado fácil,
-el desarrollo de este programa encierra toda la variedad de temas que se ha
-visto hasta el momento: estudio de los aspectos de criptografía involucrados,
-investigación de los algoritmos generadores de \textit{tokens} existentes,
-análisis de los estándares y recomendaciones oficiales relacionados,
-comparaciones de desempeño, pruebas de aleatoriedad, etcétera. Con esto se
-cumple, en gran medida, el objetivo general del trabajo: la implementación de
-algoritmos generadores de \textit{tokens} con el propósito de proveer
-confidencialidad a los datos de tarjetas bancarias. También se cubre en su
-totalidad el primero de los objetivos específicos: la revisión de diversos
-algoritmos para la generación de \textit{tokens}.
 
-Los planes a futuro, para trabajo terminal II, incluyen el desarrollo de los
-dos módulos restantes: la interfaz en red para utilizar el programa tokenizador
-y la tienda en línea como cliente de la interfaz en red. Esto permitirá que lo
-desarrollado en este semestre llegue hasta los usuarios finales, esto es, hasta
-los clientes de las tiendas en línea. De esta forma se cubren los otros dos
-objetivos específicos del trabajo.
+El principal resultado de este Trabajo Terminal I es el desarrollo del primer
+módulo del proyecto (descrito en \ref{sec:objetivos}): un programa generador de
+\glspl{gl:token} para proveer confidencialidad a los datos de las tarjetas
+bancarias. Para lograrlo, primero se estudiaron, como se expone en el capítulo
+\ref{sec:marco_teorico}, aspectos de la criptografía relacionados con la
+generación de \glspl{gl:token}; posteriormente, como se observa en el capítulo
+\ref{sec:generacion_de_tokens}, se revisaron los estándares y las
+recomendaciones asociadas al tema; en el mismo capítulo se describieron los
+algoritmos generadores de \glspl{gl:token} implementados.
+
+Además de la implementación de los algoritmos, que cubre el primer objetivo
+específico, se realizaron pruebas de comparación de desempeño en aras de
+disminuir la desinformación que rodea al tema de la tokenización.
+
+Otra parte importante del trabajo fue la implementación de un generador de
+números aleatorios capaz de satisfacer las pruebas estadísticas de aleatoriedad
+establecidas por el \gls{gl:nist}\footnotemark.
+
+\footnotetext{
+  Intituto norteamericano encargado de la publicación de estándares relacionados
+  con tecnología y computación.
+}
+
+La siguiente parte del proyecto, que será desarrollada en Trabajo Terminal II,
+consiste en la elaboración de los dos módulos siguientes: una interfaz en red
+que permita comunicarse con el programa tokenizador y una tienda en línea que la
+utilice. Esto permitirá que lo desarrollado en el primer módulo llegue hasta los
+usuarios finales, esto es, hasta los clientes de las tiendas en línea.
+De esta forma se cubrirán los otros dos objetivos específicos del trabajo.
