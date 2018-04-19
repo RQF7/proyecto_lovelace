@@ -130,7 +130,7 @@ namespace Implementaciones
 
   template<typename tipo>
   Arreglo<tipo> RondaFFXA10<tipo>::operar(
-    const std::vector<Arreglo<tipo>> &textoEnClaro    /**< Texto a cifrar- */
+    const std::vector<Arreglo<tipo>> &textoEnClaro    /**< Texto a cifrar. */
   )
   {
     /* Determinar longitud de entrada. La única longitud variable es la del

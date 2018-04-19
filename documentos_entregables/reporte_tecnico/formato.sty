@@ -35,8 +35,10 @@
 %http://ctan.math.illinois.edu/fonts/amsfonts/doc/amssymb.pdf
 \RequirePackage{amssymb}                  % Simbología extra.
 
-%http://ctan.math.washington.edu/tex-archive/macros/latex/required/psnfss/psnfss2e.pdf
-\RequirePackage{pifont}                   % Simbología extra.
+%http://ctan.math.washington.edu/tex-archive/macros/latex/required/
+%psnfss/psnfss2e.pdf
+% Simbología extra.
+\RequirePackage{pifont}
 
 % http://mirrors.ctan.org/macros/latex/contrib/lastpage/lastpage.pdf
 \RequirePackage{lastpage}
@@ -89,7 +91,7 @@
 \pretocmd{\chapter}{\glsresetall}{}{}
 \pretocmd{\section}{\glsresetall}{}{}
 \pretocmd{\subsection}{\glsresetall}{}{}
-\pretocmd{\subsubsection}{\glsresetall}{}{}
+%\pretocmd{\subsubsection}{\glsresetall}{}{}
 
 % http://mirrors.ctan.org/fonts/amsfonts/doc/amsfndoc.pdf
 \RequirePackage{amsfonts}
@@ -185,9 +187,12 @@
 % Configuraciones globales.
 \setminted{
   framesep=2mm,
-  baselinestretch=1.2,
+  frame=lines,
+  baselinestretch=1.0,
   fontsize=\scriptsize,
-  linenos
+  linenos,
+  numbersep=6pt,
+  samepage=true
 }
 
 % http://ctan.math.washington.edu/tex-archive/macros/latex/contrib/
@@ -484,5 +489,8 @@
 
 % Para poder centrar una columna especifica en una tabla.
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% Modifica el posicionamiento de los listings de minted
+\renewcommand{\fps@listing}{}
 
 \makeatother

@@ -34,5 +34,4 @@ _site
 .vs
 
 # Salida de minted (¡Debería ponerlo en la carpeta de temporales!)
-%_minted%
-
+documentos_entregables/_minted-reporte_tecnico/

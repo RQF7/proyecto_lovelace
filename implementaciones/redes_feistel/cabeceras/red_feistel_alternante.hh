@@ -165,15 +165,11 @@ namespace Implementaciones
     for (mRondaActual = 0; mRondaActual < mNumeroDeRondas; mRondaActual++)
     {
       if (mRondaActual % 2 == 0)
-      {
         partes[0] = std::move(mOperadorSuma->operar(
           {partes[0], mFuncionDeRonda->operar({partes[1]})}));
-      }
       else
-      {
         partes[1] = std::move(mOperadorSuma->operar(
           {partes[1], mFuncionDeRondaImpar->operar({partes[0]})}));
-      }
     }
     return static_cast<Arreglo<int>>(partes[0])
       || static_cast<Arreglo<int>>(partes[1]);
@@ -200,15 +196,11 @@ namespace Implementaciones
     for (mRondaActual = mNumeroDeRondas - 1; mRondaActual >= 0; mRondaActual--)
     {
       if (mRondaActual % 2 == 0)
-      {
         partes[0] = std::move(mOperadorSuma->deoperar({
           partes[0], mFuncionDeRonda->operar({partes[1]})}));
-      }
       else
-      {
         partes[1] = std::move(mOperadorSuma->deoperar({
           partes[1], mFuncionDeRondaImpar->operar({partes[0]})}));
-      }
       if (mRondaActual == 0)
         break;
     }
