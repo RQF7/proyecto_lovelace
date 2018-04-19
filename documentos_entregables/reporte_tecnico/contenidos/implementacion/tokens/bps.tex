@@ -10,38 +10,65 @@
 El funcionamiento de BPS se describe de forma mas amplia en la sección
 \ref{sec:bps}.
 
-A pesar de que no de que se puede ver a BPS como una versión más especifica de
-\gls{gl:ffx}, esta implementación se realizo de manera distinta.
+A pesar de que se puede ver a BPS como una versión más especifica de
+\gls{gl:ffx}, esta implementación se hizo independiente de la de \gls{gl:ffx}.
 
-Viendo de forma general, BPS consta de los 2 métodos principales, el de cifrar
-y el de descifrar, los cuales se usas en modo de operación utilizado por BPS
-y que se describe en la sección \ref{sec:bps_modo_operacion}.
+De forma general, el módulo de BPS consta de los 2 métodos principales, el
+de cifrar y el de descifrar, los cuales son la implementación del modo de
+operación utilizado por BPS y que se describe en la sección
+\ref{sec:bps_modo_operacion}. Estos métodos se muestran en los códigos
+\ref{codigo:bps_cifrado_1}, \ref{codigo:bps_cifrado_2},
+\ref{codigo:bps_descifrado_1} y \ref{codigo:bps_descifrado_2}.
+
 
 \begin{listing}
-  \inputminted[firstline=77, lastline=156]
+  \inputminted[firstline=77, lastline=116]
     {c++}{../implementaciones/bps/cifrador_BPS.cpp}
-  \caption{Función de cifrado de BPS}
-  \label{codigo:bps_cifrado}
+  \caption{Función de cifrado de BPS (parte 1).}
+  \label{codigo:bps_cifrado_1}
 \end{listing}
 
 \begin{listing}
-  \inputminted[firstline=158, lastline=250]
+  \inputminted[firstline=116, lastline=156]
     {c++}{../implementaciones/bps/cifrador_BPS.cpp}
-  \caption{Función de descifrado de BPS}
-  \label{codigo:bps_descifrado}
+  \caption{Función de cifrado de BPS (parte 2).}
+  \label{codigo:bps_cifrado_2}
+\end{listing}
+
+\begin{listing}
+  \inputminted[firstline=158, lastline=198]
+    {c++}{../implementaciones/bps/cifrador_BPS.cpp}
+  \caption{Función de descifrado de BPS (parte 1).}
+  \label{codigo:bps_descifrado_1}
+\end{listing}
+
+\begin{listing}
+  \inputminted[firstline=198, lastline=250]
+    {c++}{../implementaciones/bps/cifrador_BPS.cpp}
+  \caption{Función de descifrado de BPS (parte 2).}
+  \label{codigo:bps_descifrado_2}
 \end{listing}
 
 Otro parte crucial de BPS es el cifrador interno BC, por lo cual es importante
-mostrar su implementación. El código \ref{codigo:bps_cifrador_bc} esta basado
-en el pseudocódigo para el BC descrito en \ref{sec:bps_cifrador_interno_bc}
+mostrar su implementación. Los códigos \ref{codigo:bps_cifrador_bc_1} y
+\ref{codigo:bps_cifrador_bc_2} esta basado en el pseudocódigo para el cifrador
+BC descrito en \ref{sec:bps_cifrador_interno_bc}.
 
 \begin{listing}
-  \inputminted[firstline=111, lastline=218]
+  \inputminted[firstline=111, lastline=165]
     {c++}{../implementaciones/bps/cifrador_BC.cpp}
-  \caption{Cifrador interno BC de  BPS}
-  \label{codigo:bps_cifrador_bc}
+  \caption{Cifrador interno BC de  BPS (parte 2).}
+  \label{codigo:bps_cifrador_bc_1}
 \end{listing}
 
-Como se observa, el cifrador interno usa a su ves un cifrador de ronda, el cual
-es un cifrado por bloques (en este caso \gls{gl:aes} o \gls{gl:des}), que se
-realizo usando la librería de Crypto++.
+\begin{listing}
+  \inputminted[firstline=165, lastline=218]
+    {c++}{../implementaciones/bps/cifrador_BC.cpp}
+  \caption{Cifrador interno BC de  BPS (parte 2).}
+  \label{codigo:bps_cifrador_bc_2}
+\end{listing}
+
+Como se observa en el código \ref{codigo:bps_cifrador_bc_2}, el cifrador
+interno usa a su ves un cifrador de ronda, que es un cifrador por bloques
+(en este caso \gls{gl:aes} o \gls{gl:des}), el cual se hizo usando la
+librería de Crypto++.
