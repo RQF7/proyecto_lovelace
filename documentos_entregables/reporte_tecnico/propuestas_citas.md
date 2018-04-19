@@ -8,7 +8,8 @@ citas para cada uno.
 2. >Welcome to a new year at Hogwarts! Before we begin our banquet, I would  
     like to say a few words. And here they are:
     Nitwit! Blubber! Oddment! Tweak! J. K. Rowling
-
+3. >That brain of mine is something more than merely mortal, as time will show,
+    Ada Lovelace
 ## Marco teórico
 1. >Human beings, who are almost unique in having the ability to learn from the
     experience of others, are also remarkable for their apparent disinclination
@@ -21,6 +22,8 @@ citas para cada uno.
     explayar en quinientas páginas una idea cuya perfecta exposición oral cabe
     en pocos minutos. Mejor procedimiento es simular que esos libros ya existen
     y ofrecer un resumen, un comentario, JLB
+5. >Understand well as I may, my comprehension can only be an infinitesimal
+    fraction of all I want to understand, Ada Lovelace
 
 ## Estándares y publicaciones sobre la generación de tokens
 1. >Anyone who attempts to generate random numbers by deterministic means is, of
@@ -42,7 +45,8 @@ citas para cada uno.
 3. >When in doubt, use brute force. Ken Thomson.
 4. >La realidad no suele coincidir con las previsiones; con lógica perversa,
     prever un detalle circunstancial es impedir que este suceda, JLB
-
+5. >This wasn't just plain terrible, this was fancy terrible. This was terrible
+    with raisins in it, Dorothy Parker.
 ## Implementación
 1. >It is a mistake to think you can solve any major problems just with
     potatoes, Douglas Adams.
@@ -64,11 +68,16 @@ citas para cada uno.
 8. >There are two methods in software design. One is to make the program so
     simple, there are obviously no errors. The other is to make it so
     complicated, there are no obvious errors. Tony Hoare.
-
+9. >No computer is ever going to ask a new, reasonable question. It takes
+    trained people to do that, Grace Hopper
+10. >From then on, when anything went wrong with a computer, we said it had bugs
+    in it, Grace Hopper
 ## Conclusiones
 1. >Winter is comming. George R. R. Martin.
 2. >Mi empresa no es difícil, esencialmente" leo en otro lugar de la carta.
     "Me bastaría ser inmortal para llevarla a cabo, JLB
+3. >Reserve your right to think, for even to think wrongly is better than not to
+    think at all, Hypatia
 
 ## Sin clasificación
 1. >The most important thing in the programming language is the name. A
@@ -91,3 +100,7 @@ citas para cada uno.
 8. >El universo es comparable a esas criptografías en las que no valen todos los
     símbolos y que sólo es verdad lo que sucede cada trescientas noches, JLB
 9. >Babilonia no es otra cosa que un infinito juego de azares, JLB
+10. >Por supuesto que la paz es el respeto al derecho ajeno, en eso todos
+    estamos de acuerdo. En lo que nadie está de acuerdo es en cuál es el derecho
+    ajeno, Jorge Ibargüengoitia
+11. >How do people go to sleep? I'm afraid I've lost the knack, Dorothy Parker
