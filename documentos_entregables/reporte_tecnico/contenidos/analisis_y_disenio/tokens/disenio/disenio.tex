@@ -23,7 +23,13 @@ soporte) que están relacionadas con los algoritmos tokenizadores; en el caso
 de este paquete, sí todo está relacionado o con criptografía o con un
 entorno bancario.
 
-Retornando al diagrama de \ref{clases_general}: muestra solamente las clases
+La figura \ref{paquetes_general} muestra la dependencia entre los paquetes que
+componene al programa: las implementaciones importan el contenido de las
+utilidades; ambos paquetes cuentan con equivalentes de prueba (más adelante se
+detalla el funcionamiento de las pruebas), en donde cada uno importa el paquete
+que está probando.
+
+Retornando al diagrama \ref{clases_general}: muestra solamente las clases
 e interfaces directamente relacionadas con los algoritmos tokenizadores;
 en las próximas secciones se mostrarán algunas otras vistas. Las utilidades
 contienen las interfaces para definir los distintos tipos de funciones y la
@@ -64,6 +70,14 @@ abstractos que los algoritmos concretos deben de implementar.
     \includegraphics[width=1.0\linewidth]{diagramas/diagrama_general.png}
     \caption{Diagrama de clases general.}
     \label{clases_general}
+  \end{center}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{diagramas/paquetes.png}
+    \caption{Diagrama de dependencias entre paquetes.}
+    \label{paquetes_general}
   \end{center}
 \end{figure}
 
