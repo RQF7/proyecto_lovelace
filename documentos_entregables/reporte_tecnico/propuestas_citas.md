@@ -55,6 +55,9 @@ citas para cada uno.
     Torvalds.
 7. >Certainly not every good program is object-oriented, and not every
     object-oriented program is good. Bjarne Stroustrup.
+8. >There are two methods in software design. One is to make the program so
+    simple, there are obviously no errors. The other is to make it so
+    complicated, there are no obvious errors. Tony Hoare.
 
 ## Conclusiones
 1. >Winter is comming. George R. R. Martin.

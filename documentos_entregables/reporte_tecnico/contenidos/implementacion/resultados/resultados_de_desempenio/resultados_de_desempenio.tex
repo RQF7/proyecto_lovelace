@@ -5,13 +5,13 @@
 % Proyecto Lovelace.
 %
 
-\section{Comparación de desempeño}
+\subsection{Comparación de desempeño}
 \label{sec:comparacion}
 
-Como se indicó en la introducció de este trabajo, la tokenización digital es un
+Como se indicó en la introducción de este trabajo, la tokenización digital es un
 proceso relativamente nuevo y la mayoría de los proveedores de este servicio
 aprovechan la confusión y desinformación existente para atraer a clientes
-potenciales; pues pocos comparten la manera en que crean sus \glspl{gl:token}.
+potenciales, pues pocos comparten la manera en que crean sus \glspl{gl:token}.
 Esta sección busca resarcir un poco el daño, presentado una comparación entre
 los tiempos de respuesta de tokenización y detokenización de los algoritmos
 implementados.
@@ -29,8 +29,8 @@ o uno equivalente, para poder obtener de nuevo el \gls{gl:pan}.
   \begin{center}
   \begin{tabular}{cc|c|c|c|c|c|c|}
     \cline{3-8}
-    & & \multicolumn{2}{|c|}{100 oper.} & \multicolumn{2}{|c|}{1K oper.}
-      & \multicolumn{2}{|c|}{10K oper.} \\
+    & & \multicolumn{2}{c|}{100 oper.} & \multicolumn{2}{c|}{1K oper.}
+      & \multicolumn{2}{c|}{10K oper.} \\
       \cline{3-8}
 
     & & Tok. & Detok. & Tok. & Detok. & Tok. & Detok. \\
@@ -54,7 +54,8 @@ o uno equivalente, para poder obtener de nuevo el \gls{gl:pan}.
       & 436.753$m$s & 826.403 s & 7.226 s \\ \hline
   \end{tabular}
 
-  \caption{Comparación de tiempos de tokenización de los algoritmos implementados.}
+  \caption{Comparación de tiempos de tokenización de los
+    algoritmos implementados.}
   \label{tabla:tiempos_tokenizacion}
 \end{center}
 \end{table}
