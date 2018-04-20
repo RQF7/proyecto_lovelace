@@ -67,19 +67,40 @@ abstractos que los algoritmos concretos deben de implementar.
 
 \begin{figure}
   \begin{center}
+    \includegraphics[width=0.6\linewidth]{diagramas/paquetes.png}
+    \caption{Diagrama de dependencias entre paquetes.}
+    \label{paquetes_general}
+  \end{center}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
     \includegraphics[width=1.0\linewidth]{diagramas/diagrama_general.png}
     \caption{Diagrama de clases general.}
     \label{clases_general}
   \end{center}
 \end{figure}
 
-\begin{figure}
+El diagrama de la figura \ref{componentes_general} muestra la división en
+componentes del programa. El componente principal es el llamado
+\textit{Programa tokenizador}; este se comunica con el exterior mediante la
+interfaz de un algoritmo tokenizador (el puerto del costado derecho), y depende
+de un componente que implemente la interfaz de \gls{gl:cdv} (el puerto del
+costado inferior). Existen varios clientes del componente principal: un
+ejecutable para generar tokens, el programa de pruebas y el programa de
+comparación de desempeño. En el diagrama también se muestra la composición
+interna del componente principal: la interfaz pública se divide en otras dos
+interfaces: la de los algoritmos reversibles y la de los irreversibles. En las
+próximas secciones se muestran los detalles de cada uno de los componentes
+internos.
+
+\begin{sidewaysfigure}
   \begin{center}
-    \includegraphics[width=0.6\linewidth]{diagramas/paquetes.png}
-    \caption{Diagrama de dependencias entre paquetes.}
-    \label{paquetes_general}
+    \includegraphics[width=1.0\linewidth]{diagramas/componentes.png}
+    \caption{Diagrama de componentes de programa.}
+    \label{componentes_general}
   \end{center}
-\end{figure}
+\end{sidewaysfigure}
 
 \subimport{/}{ffx}
 \subimport{/}{bps}
