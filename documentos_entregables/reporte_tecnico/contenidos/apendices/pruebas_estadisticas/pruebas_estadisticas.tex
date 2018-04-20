@@ -5,16 +5,25 @@
 % Proyecto Lovelace.
 %
 
-\subsection{Pruebas para generadores de números aleatorios y pseudoaleatorios}
 \label{sec:pruebas_para_generadores}
+\capitulo{Pruebas estadísticas para generadores de números 
+aleatorios y pseudoaleatorios}
+{%
+  If you don't know who I am, then maybe your best course would be to
+  tread lightly.%
+}
+{%
+  Walter White.%
+}
+% :v
 
 % NIST 800-22 R1A ---
 
-\subsubsection{Definiciones} %=================================================
+\section{Definiciones} %=======================================================
 
 Existen dos tipos básicos de generadores, los \gls{gl:rng} y los \gls{gl:prng}.
 
-\paragraph{Generadores aleatorios} %-------------------------------------------
+\subsection{Generadores aleatorios} %------------------------------------------
 
 Este tipo de generador usa fuentes de \gls{gl:entropia} no determinísticas
 para producir números aleatorios, dichas fuentes de \gls{gl:entropia}
@@ -33,7 +42,7 @@ recomendado combinar varias fuentes de \gls{gl:entropia}, dado que algunas
 en la mayoría de los casos es mejor usar los \gls{gl:prng} para obtener de
 manera directa números aleatorios.
 
-\paragraph{Generadores pseudoaleatorios} %-------------------------------------
+\subsection{Generadores pseudoaleatorios} %------------------------------------
 
 Estos son generadores de múltiples números aleatorios a partir de una o varias
 entradas llamadas \gls{gl:semilla}. Cuando es necesario que la salida sea
@@ -51,13 +60,13 @@ Las mejores cualidades de los \gls{gl:prng} son que, al contrario de lo que
 se creería por el nombre, suelen parecer más aleatorias que las \gls{gl:rng},
 así como que producen números aleatorios más rápido.
 
-\paragraph{Aleatoriedad} %-----------------------------------------------------
+\subsection{Aleatoriedad} %----------------------------------------------------
 
 Una secuencia de bits aleatoria puede interpretarse como una secuencia en la
 que el valor de cada bit es independiente, y los valores que lo conforman
 están uniformemente distribuidos (ver \gls{gl:distribucion_uniforme}).
 
-\paragraph{Impredecibilidad} %-------------------------------------------------
+\subsection{Impredecibilidad} %------------------------------------------------
 \label{sec:impredecibilidad}
 
 Los generadores aleatorios y pseudoaleatorios deben de ser impredecibles.
@@ -71,7 +80,7 @@ generador, el \gls{gl:prng} es completamente predecible, por lo cual en la
 mayoría de los casos el algoritmo es público y la \gls{gl:semilla} se mantiene
 secreta.
 
-\paragraph{Pruebas estadísticas} %--------------------------------------------
+\subsection{Pruebas estadísticas} %--------------------------------------------
 
 Estas sirven para determinar si la secuencia a evaluar puede ser considerada
 una secuencia aleatoria. Existe una gran diversidad de pruebas estadísticas
@@ -82,7 +91,7 @@ si la secuencia parece o no aleatoria.
 
 Es necesario aclarar que ningún conjunto de pruebas puede ser considerado
 completo, y que el resultado de determinada prueba es complementado por
-otras, motivo por el cual los resultados obtenidos deben ser interpretados
+otros, motivo por el cual los resultados obtenidos deben ser interpretados
 cuidadosamente para no llegar a conclusiones incorrectas.
 
 En \cite{nist_pruebas} se determina que las pruebas estadísticas están
@@ -141,7 +150,7 @@ parece ser aleatoria; y si $P < \alpha$, entonces la hipótesis nula es
 rechazada, es decir, la secuencia parece ser no aleatoria. Normalmente
 el valor de $\alpha$ se elige en el rango de $[0.001,\: 0.01]$.
 
-\subsubsection{Pruebas} % =====================================================
+\section{Pruebas} % ===========================================================
 \label{sec:lista_pruebas}
 
 El paquete de pruebas descrito en el estándar del \gls{gl:nist}
@@ -150,7 +159,7 @@ en \cite{nist_pruebas}, es un conjunto de 15 algoritmos que se encargan de
 probar la aleatoriedad de secuencias binarias de longitudes arbitrariamente
 largas producidas por un \gls{gl:rng} o un \gls{gl:prng}.
 
-\paragraph{Prueba de frecuencia} %---------------------------------------------
+\subsection{Prueba de frecuencia} %--------------------------------------------
 \textit{(The frequency (Monobit) Test)}
 
 Esta prueba se encarga de medir la proporción de ceros y unos en toda la
@@ -182,7 +191,7 @@ dependen de pasar esta prueba.
 %Se recomienda que las secuencias a analizar tengan una longitud mínima de
 %100 bits.
 
-\paragraph{Prueba de frecuencia en un bloque} %--------------------------------
+\subsection{Prueba de frecuencia en un bloque} %-------------------------------
 \textit{(Frequency Test within a Block)}
 
 Esta prueba se centra en medir la proporción de unos dentro de $N$ bloques de
@@ -214,7 +223,7 @@ aleatoria.
 %Por último es recomendable que las secuencias analizar tengan mínimo 100 bits,
 %y que el valor de $M$ sea de al menos 20, mayor a $0.01n$ y menor a 100.
 
-\paragraph{Prueba de carreras} %-----------------------------------------------
+\subsection{Prueba de carreras} %----------------------------------------------
 \textit{(The Runs Test)}
 
 % ¿Porque el orden inverso en muchos lugares?
@@ -256,7 +265,7 @@ la prueba tiene como requisito pasar la prueba de frecuencia.
 %Al igual que en las pruebas previas se recomienda que la longitud de la
 %secuencia $\epsilon$ sea de al menos 100 bits.
 
-\paragraph{Prueba de la carrera más larga en un bloque} %----------------------
+\subsection{Prueba de la carrera más larga en un bloque} %---------------------
 \textit{(Tests for the Longest-Run-of-Ones in a Block)}
 
 El propósito de esta prueba es determinar si la longitud de la carrera más
@@ -266,24 +275,22 @@ irregularidad en la carrera más larga de unos implica una irregularidad en
 la carrera más larga de ceros, por lo cual solo es necesario hacer la prueba
 para la carrera más larga de unos.
 
-\paragraph{Prueba del rango de matriz binaria} %-------------------------------
+\subsection{Prueba del rango de matriz binaria} %------------------------------
 \textit{(The Binary Matrix Rank Test)}
 
-% ¿Y qué es una dependencia lineal?
+La prueba tiene como finalidad revisar si existen \glspl{gl:dependencia_lineal}
+entre subcadenas de longitud fija de la secuencia a probar.
 
-La prueba tiene como finalidad revisar si existen dependencias lineales entre
-subcadenas de longitud fija de la secuencia a probar.
-
-\paragraph{Prueba Espectral} %-------------------------------------------------
+\subsection{Prueba Espectral} %------------------------------------------------
 \textit{(The Discrete Fourier Transform (Spectral) Test)}
 
 Esta prueba se encarga de obtener los picos más altos de la transformada
 discreta de Fourier de la secuencia. Su propósito es detectar comportamientos
-periódicos en la secuencia que puedan indicar que esta no puede asumirse como
+periódicos en la secuencia que indiquen que esta no puede asumirse como
 aleatoria. De manera más precisa, la prueba detecta si el número de picos que
 exceden un umbral del 95\% son significativamente diferentes al 5\%.
 
-\paragraph{Prueba de coincidencia sin superposición} %-------------------------
+\subsection{Prueba de coincidencia sin superposición} %------------------------
 \textit{(The Non-overlapping Template Matching Test)}
 
 La prueba tiene como finalidad detectar generadores que producen una gran
@@ -293,7 +300,7 @@ para buscar patrones específicos de $m$ bits. Dado que esta prueba es sin
 traslape, en caso de que se encuentre el patrón se recorre la ventana m bits
 y de lo contrario se recorre uno.
 
-\paragraph{Prueba de coincidencia con superposición} %-------------------------
+\subsection{Prueba de coincidencia con superposición} %------------------------
 \textit{(The Overlapping Template Matching Test)}
 
 La prueba tiene como finalidad detectar generadores que producen una gran
@@ -303,7 +310,7 @@ para buscar patrones específicos de $m$ bits. Dado que esta prueba es con
 traslape, independientemente de si se encontra o no un patrón, la ventana se
 recorre un bit.
 
-\paragraph{Prueba estadística universal de Maurer} %---------------------------
+\subsection{Prueba estadística universal de Maurer} %--------------------------
 \textit{(Maurer’s “Universal Statistical” Test)}
 
 Esta prueba se centra en medir el número de bits existentes entre patrones
@@ -312,7 +319,7 @@ una secuencia. La prueba tiene como finalidad determinar si una secuencia
 puede comprimirse de manera significativa sin perder información, lo cual
 significa que no es aleatoria.
 
-\paragraph{Prueba de complejidad lineal} %-------------------------------------
+\subsection{Prueba de complejidad lineal} %------------------------------------
 \textit{(The Linear Complexity Test)}
 
 El objetivo de la prueba es determinar si la secuencia a probar es lo bastante
@@ -321,7 +328,7 @@ su \gls{gl:registro_de_desplazamiento_con_retroalimentacion_lineal}
 correspondiente, ya que las secuencias aleatorias se caracterizan por tener
 valores altos en este parámetro.
 
-\paragraph{Prueba serial} %----------------------------------------------------
+\subsection{Prueba serial} %---------------------------------------------------
 \textit{(The Serial Test)}
 
 Esta prueba tiene como objetivo determinar si el número de ocurrencias de
@@ -330,14 +337,14 @@ de una cadena aleatoria, considerando que al ser una secuencia aleatoria,
 es una secuencia uniforme, y cada patrón de $m$ bits tiene la misma
 probabilidad de aparecer que los demás.
 
-\paragraph{Prueba de entropía aproximada} %------------------------------------
+\subsection{Prueba de entropía aproximada} %-----------------------------------
 \textit{(The Approximate Entropy Test)}
 
 La prueba se encarga de comparar la frecuencia de sobreponer dos bloques de
 longitudes consecutivas con el resultado esperado de una secuencia que es
 aleatoria.
 
-\paragraph{Prueba de sumas acumulativas} %-------------------------------------
+\subsection{Prueba de sumas acumulativas} %------------------------------------
 \textit{(The Cumulative Sums (Cusums) Test)}
 
 Su objetivo es determinar si las sumas acumulativas de una secuencia parcial
@@ -347,7 +354,7 @@ consideradas como caminatas aleatorias, y para las secuencias aleatorias
 la realización de una caminata aleatoria debe tener un valor cercano a cero.
 
 % A esta no le entendí muy bien.
-\paragraph{Prueba de excursiones aleatorias} %---------------------------------
+\subsection{Prueba de excursiones aleatorias} %--------------------------------
 \textit{(The Random Excursions Test)}
 
 Esta prueba tiene como finalidad determinar si el número de apariciones de un
@@ -356,7 +363,7 @@ aleatoria. Esta prueba está conformada de 8 subpruebas, cada una para los
 valores de estado $x$ de -4, -3, -2, -1, 1, 2, 3, 4.
 
 % A esta no le entendí muy bien.
-\paragraph{Prueba variante de excursiones aleatorias} %------------------------
+\subsection{Prueba variante de excursiones aleatorias} %-----------------------
 \textit{(The Random Excursions Variant Test)}
 
 La prueba se centra en calcular el número de veces que un estado en particular
