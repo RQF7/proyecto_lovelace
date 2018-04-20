@@ -67,8 +67,9 @@ reversibles como irreversibles; la velocidad de los algoritmos reversibles es
 notoria, en especial al momento de la operación de tokenización. Posteriormente,
 en la figura \ref{figura:tok_rev}, se compararon solo los algoritmos reversibles
 (\hyperref[sec:bps]{BPS} y \hyperref[sec:ffx]{FFX}), siendo el segundo el más
-rápido de los dos; especialmente cuando se realizan operaciones de
-detokenización. Finalmente, se compararon los tiempos para los algoritmos
+rápido de los dos; la similitud del comportamiento de estos algoritmos en ambas
+operaciones se debe a que se realizan casi las mismas operaciones para cifrar
+como para cifrar. Finalmente, se compararon los tiempos para los algoritmos
 irreversibles en las gráficas de la figura \ref{figura:tok_irrev}: durante las
 operaciones de tokenización, aunque están relativamente cerrados los tiempos,
 \hyperref[sec:ahr]{AHR} queda como el más rápido de los tres, mientras que
@@ -79,8 +80,13 @@ base de datos, pues permite tener más de un \gls{gl:token} por \gls{gl:pan};
 además, tanto \hyperref[sec:tkr]{TKR2} como \hyperref[sec:drbg_lista]{DRBG}
 necesitan bits pseudoaleatorios, y si el generador de bits pseudoaleatorios
 tarda en obtenerlos, los algoritmos se ven afectados; finalmente, en las
-operaciones de detokenización, \hyperref[sec:tkr]{TKR2} es el más rápido de
-todos, mientras que \hyperref[sec:drbg_lista]{DRBG} queda como el más lento.
+operaciones de detokenización, \hyperref[sec:drbg_lista]{DRBG} es el más rápido
+de todos, mientras que \hyperref[sec:ahr]{AHR} queda como el más lento de los
+tres. En la figura \ref{figura:tok_comp} se puede ver la diferencia de tiempos
+entre las operaciones de tokenización y detokenización; los tiempos de los
+algoritmos reversibles son casi idénticos en ambas operaciones, mientras que
+se observa un cambio notorio entre los tiempos de tokenización y detokenización
+de los irreversibles.
 
 \begin{figure}
   \centering
@@ -134,4 +140,22 @@ todos, mientras que \hyperref[sec:drbg_lista]{DRBG} queda como el más lento.
   \end{subfigure}
   \caption{Comparación de tiempos entre algoritmos tokenizadores irreversibles.}
   \label{figura:tok_irrev}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \begin{subfigure}{1\textwidth}
+    \begin{center}
+      \includegraphics[width=1\linewidth]{diagramas/todo_irrev}
+      \caption{Algoritmos de tokenización irreversibles.}
+    \end{center}
+  \end{subfigure}
+  \begin{subfigure}{0.9\textwidth}
+    \begin{center}
+      \includegraphics[width=1\linewidth]{diagramas/todo_rev}
+      \caption{Algoritmos de tokenización reversibles.}
+    \end{center}
+  \end{subfigure}
+  \caption{Comparación de tiempos de tokenización y detokenización.}
+  \label{figura:tok_comp}
 \end{figure}
