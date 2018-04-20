@@ -210,6 +210,8 @@
 % Gestión de apéndices
 \RequirePackage{appendix}
 
+\RequirePackage{placeins}
+
 % Profundidad de contador
 % Hasta subsubsecciones
 \setcounter{secnumdepth}{3}
@@ -499,6 +501,6 @@
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
 % Modifica el posicionamiento de los listings de minted
-\renewcommand{\fps@listing}{}
+\renewcommand{\fps@listing}{htp}
 
 \makeatother
