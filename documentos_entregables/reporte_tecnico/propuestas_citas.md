@@ -88,7 +88,7 @@ citas para cada uno.
 1. >The most important thing in the programming language is the name. A
     language will not succeed without a good name. I have recently invented a
     very good name and now I am looking for a suitable language, Donald Knuth.
-2. >There is not need to call me 'sir', professor. J. K. Rowling.
+2. >There is no need to call me 'sir', professor. J. K. Rowling.
 3. >You know, Minister, I disagree with Dumbledore on many counts...but you
     cannot deny he's got style... J. K. Rowling.
 4. >The Linux philosophy is 'Laugh in the face of danger'. Oops. Wrong One. 'Do
