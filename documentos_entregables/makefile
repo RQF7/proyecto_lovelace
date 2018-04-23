@@ -75,6 +75,21 @@ referencias_fpe:
 	biber --input-directory $(CARPETA_TEMPORAL) \
 		$(CARPETA_TEMPORAL)/$(PRESENTACION_FPE).bcf
 
+# Presentación TT! ###########################################################
+
+PRESENTACION_TT1 					:= presentacion_tt_uno
+CARPETA_PRESENTACION_TT1 	:= presentacion_tt_uno
+
+$(PRESENTACION_TT1): \
+		$(CARPETA_PRESENTACION_TT1)/$(PRESENTACION_TT1).tex
+	mkdir -p $(CARPETA_TEMPORAL)
+	pdflatex -halt-on-error -file-line-error --output-dir $(CARPETA_TEMPORAL) $<
+	mv $(CARPETA_TEMPORAL)/$@.pdf ./$(CARPETA_PRESENTACION_TT1)/
+
+referencias_tt1:
+	biber --input-directory $(CARPETA_TEMPORAL) \
+		$(CARPETA_TEMPORAL)/$(PRESENTACION_TT1).bcf
+
 # Es necesario tener el ejecutable de hunspell en el PATH, y el diccionario
 # es_MX instalado. Este comando (ortografía) es ejecutado por Travis para
 # validar un push, si lo que se quiere es ejecutar de manera local, es más
