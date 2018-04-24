@@ -13,6 +13,12 @@
 % http://mirrors.ctan.org/macros/latex/contrib/caption/subcaption.pdf
 \RequirePackage{subcaption}
 
+\renewcommand{\Autor}{Daniel Ayala Zamorano \\\vspace{-2mm}
+                      {\tiny \texttt{daz23ayala@gmail.com}} \\
+                      Laura Natalia Borbolla Palacios \\\vspace{-2mm}
+                      {\tiny \texttt{ln.borbolla42@gmail.com}} \\
+                      Ricardo Quezada Figueroa \\\vspace{-2mm}
+                      {\tiny \texttt{qf7.ricardo@gmail.com}}}
 \title{\Titulo}
 \subtitle{\Subtitulo}
 \author{\Autor}
@@ -20,6 +26,25 @@
            Instituto Politécnico Nacional \\\vspace*{0.1  in}
            \includegraphics[scale=0.25]{imagenes/logos.png}}
 \date{\Fecha}
+
+% Plantilla de título.
+\defbeamertemplate*{title page}{customized}[1][]
+{
+  \begin{center}
+    \usebeamerfont{title}\inserttitle\par
+    \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
+    \bigskip
+    {\scriptsize Presentan}\par
+    \usebeamerfont{author}\insertauthor\par
+    \bigskip
+    {\scriptsize Directora}\par
+    \usebeamerfont{institute}Dra. Sandra Díaz Santiago\par
+    \bigskip
+    \usebeamerfont{institute}\insertdate\par
+    \bigskip
+    \usebeamerfont{institute}\insertinstitute\par
+  \end{center}
+}
 
 % Fuentes
 

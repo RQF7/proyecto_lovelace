@@ -72,10 +72,9 @@ after_success:
   - export PATH=~/ejecutable_biber/:$PATH
   # Compilación de archivos de LaTeX
   - make -B -C documentos_entregables
-  - make -B -C documentos_entregables presentacion_fpe
-  - make -B -C documentos_entregables referencias_fpe
-  - make -B -C documentos_entregables presentacion_fpe
-  - make -B -C documentos_entregables presentacion_fpe
+  - make -B -C documentos_entregables presentacion_fpe/presentacion_fpe.pdf
+  - make -B -C documentos_entregables
+    presentacion_tt_uno/presentacion_tt_uno.pdf
   # Documentación.
   - make documentación_doxygen
   - make -C pagina_publica/documentacion_doxygen/latex
@@ -91,6 +90,9 @@ before_deploy:
   - mkdir -p pagina_publica/documentos_entregables/presentacion_fpe
   - mv documentos_entregables/presentacion_fpe/presentacion_fpe.pdf
     pagina_publica/documentos_entregables/presentacion_fpe/
+  - mkdir -p pagina_publica/documentos_entregables/presentacion_tt_uno
+  - mv documentos_entregables/presentacion_tt_uno/presentacion_tt_uno.pdf
+    pagina_publica/documentos_entregables/presentacion_tt_uno/
 
 # Fase de despliegue
 deploy:

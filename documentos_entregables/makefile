@@ -4,6 +4,9 @@
 #
 
 CARPETA_TEMPORAL 					:= temporales_de_latex
+COMPILACION 							:= pdflatex -shell-escape \
+														 -halt-on-error -file-line-error \
+	                           --output-dir $(CARPETA_TEMPORAL)
 
 # Reporte técnico ##############################################################
 
@@ -11,14 +14,8 @@ REPORTE_TECNICO 					  := reporte_tecnico
 CARPETA_REPORTE_TECNICO 	  := reporte_tecnico
 FUENTES_REPORTE_TECNICO     := \
 	$(shell find reporte_tecnico/ -type f -name '*.tex' -o -name '*.sty')
-
-COMPILACION_REPORTE_TECNICO := pdflatex -shell-escape \
-	-halt-on-error -file-line-error \
-	--output-dir $(CARPETA_TEMPORAL) \
+COMPILACION_REPORTE_TECNICO := $(COMPILACION) \
 	$(CARPETA_REPORTE_TECNICO)/$(REPORTE_TECNICO).tex
-
-CONDICION_DE_REFERENCIAS		:= \
-	$(shell grep "Please (re)run Biber" salida.temporal)
 
 $(CARPETA_REPORTE_TECNICO)/$(REPORTE_TECNICO).pdf: $(FUENTES_REPORTE_TECNICO)
 	mkdir -p $(CARPETA_TEMPORAL)
@@ -40,7 +37,7 @@ $(CARPETA_REPORTE_TECNICO)/$(REPORTE_TECNICO).pdf: $(FUENTES_REPORTE_TECNICO)
 	else\
 		echo "Las referencias están al día.";\
 	fi
-	rm salida.temporal
+	rm -f salida.temporal
 	mv $(CARPETA_TEMPORAL)/$(REPORTE_TECNICO).pdf ./$(CARPETA_REPORTE_TECNICO)/
 
 # Es necesario tener el ejecutable de biber en el PATH.
@@ -54,7 +51,7 @@ referencias:
 		$(CARPETA_TEMPORAL)/$(REPORTE_TECNICO).bcf
 
 # Al igual que biber, si se modifican las entradas del glosario hay que hacer
-# operación sandwich: pdflatex, makeglossaries, pdflatex.
+# operación sándwich: pdflatex, makeglossaries, pdflatex.
 
 glosarios:
 	makeglossaries -d $(CARPETA_TEMPORAL) $(REPORTE_TECNICO)
@@ -64,12 +61,22 @@ glosarios:
 
 PRESENTACION_FPE 					:= presentacion_fpe
 CARPETA_PRESENTACION_FPE 	:= presentacion_fpe
+FUENTES_PRESENTACION_FPE     := \
+	$(shell find presentacion_fpe/ -type f -name '*.tex' -o -name '*.sty')
+COMPILACION_PRESENTACION_FPE := $(COMPILACION) \
+	$(CARPETA_PRESENTACION_FPE)/$(PRESENTACION_FPE).tex
 
-$(PRESENTACION_FPE): \
-		$(CARPETA_PRESENTACION_FPE)/$(PRESENTACION_FPE).tex
+$(CARPETA_PRESENTACION_FPE)/$(PRESENTACION_FPE).pdf: $(FUENTES_PRESENTACION_FPE)
 	mkdir -p $(CARPETA_TEMPORAL)
-	pdflatex -halt-on-error -file-line-error --output-dir $(CARPETA_TEMPORAL) $<
-	mv $(CARPETA_TEMPORAL)/$@.pdf ./$(CARPETA_PRESENTACION_FPE)/
+	$(COMPILACION_PRESENTACION_FPE) | tee salida.temporal
+	@if grep "Please (re)run Biber" salida.temporal; then\
+		make referencias_fpe;\
+		$(COMPILACION_PRESENTACION_FPE) | tee salida.temporal;\
+	else\
+		echo "La bibliografía están al día.";\
+	fi
+	rm -f salida.temporal
+	mv $(CARPETA_TEMPORAL)/$(PRESENTACION_FPE).pdf ./$(CARPETA_PRESENTACION_FPE)/
 
 referencias_fpe:
 	biber --input-directory $(CARPETA_TEMPORAL) \
@@ -79,12 +86,22 @@ referencias_fpe:
 
 PRESENTACION_TT1 					:= presentacion_tt_uno
 CARPETA_PRESENTACION_TT1 	:= presentacion_tt_uno
+FUENTES_PRESENTACION_TT1  := \
+	$(shell find presentacion_tt_uno/ -type f -name '*.tex' -o -name '*.sty')
+COMPILACION_PRESENTACION_TT1 := $(COMPILACION) \
+	$(CARPETA_PRESENTACION_TT1)/$(PRESENTACION_TT1).tex
 
-$(PRESENTACION_TT1): \
-		$(CARPETA_PRESENTACION_TT1)/$(PRESENTACION_TT1).tex
+$(CARPETA_PRESENTACION_TT1)/$(PRESENTACION_TT1).pdf: $(FUENTES_PRESENTACION_TT1)
 	mkdir -p $(CARPETA_TEMPORAL)
-	pdflatex -halt-on-error -file-line-error --output-dir $(CARPETA_TEMPORAL) $<
-	mv $(CARPETA_TEMPORAL)/$@.pdf ./$(CARPETA_PRESENTACION_TT1)/
+	$(COMPILACION_PRESENTACION_TT1) | tee salida.temporal
+	@if grep "Please (re)run Biber" salida.temporal; then\
+		make referencias_tt1;\
+		$(COMPILACION_PRESENTACION_TT1) | tee salida.temporal;\
+	else\
+		echo "La bibliografía están al día.";\
+	fi
+	rm -f salida.temporal
+	mv $(CARPETA_TEMPORAL)/$(PRESENTACION_TT1).pdf ./$(CARPETA_PRESENTACION_TT1)/
 
 referencias_tt1:
 	biber --input-directory $(CARPETA_TEMPORAL) \
