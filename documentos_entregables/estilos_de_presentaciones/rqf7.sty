@@ -1,0 +1,63 @@
+%
+% Estilo original de presentaciones
+%
+% Proyecto Lovelace
+%
+
+% Plantilla de título.
+\defbeamertemplate*{title page}{customized}[1][]
+{
+  \begin{center}
+    \usebeamerfont{title}\inserttitle\par
+    \bigskip
+    \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
+    \bigskip
+    {\scriptsize Presentan}\par
+    \usebeamerfont{author}\insertauthor\par
+    \bigskip
+    {\scriptsize Directora}\par
+    \usebeamerfont{institute}Dra. Sandra Díaz Santiago\par
+    \bigskip
+    \usebeamerfont{institute}\insertdate\par
+    \bigskip
+    \usebeamerfont{institute}\insertinstitute\par
+  \end{center}
+}
+
+% Fuentes
+
+% La fuente por defecto es Computer Modern (la normal de TeX), pero sin
+% serifa; con «usefonttheme» se puede regresar a la fuente normal.
+\usefonttheme{serif}
+% Los siguientes paquetes pueden cambiar la familia de fuentes usada;
+% es decir, dejar de usar a Computer Modern.
+%\RequirePackage{arev}
+%\RequirePackage{utopia/fourier}
+%\RequirePackage{tgbonum}
+%\RequirePackage{times}
+%\RequirePackage[T1]{fontenc}
+
+\setbeamerfont{title}{series=\scshape}
+\setbeamerfont{date}{series=\scshape}
+\setbeamerfont{author}{series=\scshape}
+\setbeamerfont{institute}{series=\scshape}
+\setbeamerfont{frametitle}{series=\scshape}
+
+% Colores
+
+% Para una referencia completa de las posibilidades, ver
+% https://github.com/josephwright/beamer/blob/master/base/themes/color/
+% beamercolorthemedefault.sty
+
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{structure}{fg=black}
+
+% Animaciones
+%\addtobeamertemplate{background canvas}{\transpush[duration=1.0]}{}
+
+% Número de diapositivas en pie.
+\setbeamertemplate{sidebar right}{}
+\setbeamertemplate{footline}{%
+\hfill\usebeamertemplate***{navigation symbols}
+\hspace{7.3cm} {\tiny \usebeamercolor[fg]{navigation symbols}
+\insertframenumber{}/\inserttotalframenumber}}

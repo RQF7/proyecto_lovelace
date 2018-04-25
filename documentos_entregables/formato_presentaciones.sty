@@ -4,8 +4,8 @@
 %
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{presentacion_fpe/formato}
-  [2017/10/13 Paquete para formato de presentación de FPE]
+\ProvidesPackage{formato_presentaciones}
+  [2017/10/13 Paquete para formato de presentaciones]
 
 % http://mirrors.ctan.org/macros/latex/contrib/caption/caption-eng.pdf
 \RequirePackage[labelformat=empty]{caption}
@@ -27,66 +27,15 @@
            \includegraphics[scale=0.25]{imagenes/logos.png}}
 \date{\Fecha}
 
-% Plantilla de título.
-\defbeamertemplate*{title page}{customized}[1][]
-{
-  \begin{center}
-    \usebeamerfont{title}\inserttitle\par
-    \bigskip
-    \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
-    \bigskip
-    {\scriptsize Presentan}\par
-    \usebeamerfont{author}\insertauthor\par
-    \bigskip
-    {\scriptsize Directora}\par
-    \usebeamerfont{institute}Dra. Sandra Díaz Santiago\par
-    \bigskip
-    \usebeamerfont{institute}\insertdate\par
-    \bigskip
-    \usebeamerfont{institute}\insertinstitute\par
-  \end{center}
-}
-
-% Fuentes
-
-% La fuente por defecto es Computer Modern (la normal de TeX), pero sin
-% serifa; con «usefonttheme» se puede regresar a la fuente normal.
-\usefonttheme{serif}
-% Los siguientes paquetes pueden cambiar la familia de fuentes usada;
-% es decir, dejar de usar a Computer Modern.
-%\RequirePackage{arev}
-%\RequirePackage{utopia/fourier}
-%\RequirePackage{tgbonum}
-%\RequirePackage{times}
-%\RequirePackage[T1]{fontenc}
-
-\setbeamerfont{title}{series=\scshape}
-\setbeamerfont{date}{series=\scshape}
-\setbeamerfont{author}{series=\scshape}
-\setbeamerfont{institute}{series=\scshape}
-\setbeamerfont{frametitle}{series=\scshape}
-
-% Colores
-
-% Para una referencia completa de las posibilidades, ver
-% https://github.com/josephwright/beamer/blob/master/base/themes/color/
-% beamercolorthemedefault.sty
-
-\setbeamercolor{title}{fg=black}
-\setbeamercolor{structure}{fg=black}
-
-% Animaciones
-%\addtobeamertemplate{background canvas}{\transpush[duration=1.0]}{}
-
 % Mostrar notas (para borradores).
-%\setbeameroption{show notes}
+\setbeameroption{show notes}
 
 % Mostrarlas en segunda pantalla; no estoy muy seguro de que evince o los
 % controladores de Linux soporten esto.
 % \setbeameroption{show notes on second screen}
 
 % Ocultar notas (para versión final)
-\setbeameroption{show notes}
+% \setbeameroption{hide notes}
 
 % Solo notas (en caso de querer generar un pdf de soporte)
 % \setbeameroption{show only notes}
@@ -103,15 +52,12 @@
   \setlength{\parskip}{0.5em}
 }
 
-% Número de diapositivas en pie.
-\setbeamertemplate{sidebar right}{}
-\setbeamertemplate{footline}{%
-\hfill\usebeamertemplate***{navigation symbols}
-\hspace{7.3cm} {\tiny \usebeamercolor[fg]{navigation symbols}
-\insertframenumber{}/\inserttotalframenumber}}
-
 % Redefinir comandos de índice para incluir números
 \newcounter{sectionpage}
+
+% Estilo de la presentación
+\import{estilos_de_presentaciones/}{rqf7.sty}
+% \import{estilos_de_presentaciones/}{dresden_lsc.sty}
 
 \makeatletter
 
