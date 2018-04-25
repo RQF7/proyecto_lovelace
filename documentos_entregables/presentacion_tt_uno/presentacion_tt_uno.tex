@@ -17,16 +17,12 @@
 
   \begin{frame}
     \frametitle{Contenido}
+    \setcounter{tocdepth}{1}
     \tableofcontents[pausesections]
   \end{frame}
 
   % Espacio entre párrafos
   \setlength{\parskip}{0.5em}
-
-  %\import{presentacion_fpe/contenidos/tarjetas/}{tarjetas}
-  %\import{presentacion_fpe/contenidos/fpe/}{fpe}
-  %\import{presentacion_fpe/contenidos/ffx/}{ffx}
-  %\import{presentacion_fpe/contenidos/bps/}{bps}
 
   \section{Planteamiento del problema}
 
@@ -40,11 +36,7 @@
 
   \end{frame}
 
-  \section{Algoritmos generadores de \textit{tokens}}
-
-  \begin{frame}{}
-
-  \end{frame}
+  \import{presentacion_tt_uno/contenidos/tokens/}{tokens}
 
   \section{Trabajo a futuro}
 
@@ -55,5 +47,11 @@
   \begin{frame}[allowframebreaks]{Bibliografía}
     \printbibliography
   \end{frame}
+
+  % Espacio entre párrafos
+  \setlength{\parskip}{0.0em}
+
+  {\setbeamertemplate{footline}{}
+  \frame{\titlepage}}
 
 \end{document}

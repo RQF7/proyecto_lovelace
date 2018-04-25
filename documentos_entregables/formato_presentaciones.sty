@@ -32,6 +32,7 @@
 {
   \begin{center}
     \usebeamerfont{title}\inserttitle\par
+    \bigskip
     \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
     \bigskip
     {\scriptsize Presentan}\par
@@ -85,7 +86,7 @@
 % \setbeameroption{show notes on second screen}
 
 % Ocultar notas (para versión final)
-\setbeameroption{hide notes}
+\setbeameroption{show notes}
 
 % Solo notas (en caso de querer generar un pdf de soporte)
 % \setbeameroption{show only notes}
@@ -96,7 +97,8 @@
   \setlength{\parskip}{0.0em}
   \begin{frame}
     \frametitle{Contenido}
-    \tableofcontents[currentsection]
+    \setcounter{tocdepth}{2}
+    \tableofcontents[currentsection,subsectionstyle=show/show/hide]
   \end{frame}
   \setlength{\parskip}{0.5em}
 }
@@ -105,8 +107,8 @@
 \setbeamertemplate{sidebar right}{}
 \setbeamertemplate{footline}{%
 \hfill\usebeamertemplate***{navigation symbols}
-\hspace{5.5cm} {\tiny \usebeamercolor[fg]{navigation symbols}
-Diapositiva \insertframenumber{} de \inserttotalframenumber}}
+\hspace{7.3cm} {\tiny \usebeamercolor[fg]{navigation symbols}
+\insertframenumber{}/\inserttotalframenumber}}
 
 % Redefinir comandos de índice para incluir números
 \newcounter{sectionpage}
