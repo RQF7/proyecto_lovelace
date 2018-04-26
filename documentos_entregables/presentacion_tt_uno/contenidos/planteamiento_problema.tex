@@ -13,7 +13,7 @@
       tomar importancia.
     \item Las empresas no estaban preparadas para el impacto que tuvieron y
       los fraudes relacionados con el comercio electrónico aumentaron
-      rápidamente.
+      rápidamente~\cite{search_security}.
       \begin{itemize}
         \item Visa y Mastercard reportaron, entre 1988 y 1998, pérdidas de 750
           millones de dólares.
@@ -32,12 +32,17 @@
     \item Las empresas intentaron adoptar las prácticas, pero era tremendamente
       complicado y costoso.
     \item Se aliaron las compañías y, en 2004, publicaron un estándar unificado:
-      PCI-DSS (Payment Card Industry - Data Security Standard).
+      PCI-DSS\footnotemark~\cite{pci_dss}.
       \begin{itemize}
         \item Se hizo obligatorio para quienes realizasen más de 20K
           transaccciones al año.
+        \item Tiene un gran número de requerimientos (y subrequerimientos), por
+          lo que es difícil de satisfacer.
       \end{itemize}
   \end{itemize}
+  \footnotetext{
+    Payment Card Industry - Data Security Standard
+  }
 \end{frame}
 
 \begin{frame}{Cambio de estrategia}
@@ -47,15 +52,16 @@
     \item Surge un nuevo enfoque: cambiar la información valiosa, por
       \textit{valores representativos} (tokens); es decir, la tokenización
       de la información.
-    \item En 2011, el PCI-SSC publicó las primeras guías para los procesos de
-      tokenización.
+    \item En 2011, el PCI-SSC\footnotemark publicó las primeras guías para los
+      procesos de tokenización~\cite{pci_tokens}.
       \begin{itemize}
         \item Aunque indica lo que debe satisfacer el sistema tokenizador,
           no dice cómo generar los tokens.
-        \item Tiene un gran número de requerimientos (y subrequerimientos), por
-          lo que es difícil de satisfacer.
       \end{itemize}
   \end{itemize}
+  \footnotetext{
+    Payment Card Industry - Security Standards Council
+  }
 \end{frame}
 
 \begin{frame}{Pero ¿por qué?}
