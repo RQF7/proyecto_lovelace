@@ -12,3 +12,6 @@ documentacion_doxygen/* linguist-documentation
 pagina_publica/plantillas_html/encabezado.html linguist-generated
 pagina_publica/plantillas_html/pie.html linguist-generated
 pagina_publica/plantillas_html/estilo.css linguist-generated
+
+# Estilos de beamer
+documentos_entregables/estilos_de_presentaciones/dresen_lsc/* linguist-vendored

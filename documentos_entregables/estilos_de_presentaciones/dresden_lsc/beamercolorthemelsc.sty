@@ -1,0 +1,41 @@
+\ProvidesPackageRCS $Header: /cvsroot/latex-beamer/latex-beamer/themes/color/beamercolorthemelsc.sty,v 1.7 2004/10/07 22:21:16 tantau Exp $
+
+% Copyright 2003 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+\mode<presentation>
+
+\definecolor{lscgreen}{RGB}{0,130,137}
+\definecolor{lscwhite}{RGB}{255,255,255}
+
+\setbeamercolor{structure}{fg=lscgreen}
+
+\setbeamercolor{palette primary}{fg=lscwhite,bg=lscgreen!70}
+\setbeamercolor{palette secondary}{fg=lscwhite,bg=lscgreen!80}
+\setbeamercolor{palette tertiary}{fg=lscwhite,bg=lscgreen!90}
+\setbeamercolor{palette quaternary}{fg=lscwhite,bg=lscgreen}
+
+\setbeamercolor{titlelike}{parent=palette quaternary}
+
+\setbeamercolor{block title}{fg=lscwhite,bg=lscgreen}
+\setbeamercolor{block title alerted}{use=alerted text,fg=black,bg=alerted text.fg!25!bg}
+\setbeamercolor{block title example}{use=example text,fg=black,bg=example text.fg!15!bg}
+
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!25!bg}
+\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!25!bg}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!25!bg}
+
+\setbeamercolor{sidebar}{bg=lscgreen!70}
+
+\setbeamercolor{palette sidebar primary}{fg=lscwhite}
+\setbeamercolor{palette sidebar secondary}{fg=lscwhite!75}
+\setbeamercolor{palette sidebar tertiary}{fg=lscwhite!75}
+\setbeamercolor{palette sidebar quaternary}{fg=lscwhite}
+
+\setbeamercolor*{separation line}{}
+\setbeamercolor*{fine separation line}{}
+
+\mode
+<all>
