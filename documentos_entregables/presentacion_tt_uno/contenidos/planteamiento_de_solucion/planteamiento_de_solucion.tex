@@ -22,13 +22,28 @@
 \subsection{Metodología del proyecto} % =======================================
 \begin{frame}{Metodología del proyecto}
 
-  Para el desarrollo de este proyecto se está usando una metodología de
-  prototipos, en la que cada prototipo usa como metodología interna SDL
-  (\textit{Security Development Lifecycle}).
+  \begin{columns}
 
-  SDL es una metodología especializada para software de seguridad desarrollada
-  por Microsoft, que se caracteriza por continuas fases de verificación de
-  seguridad y una primera etapa de estudio de los temas acordes al proyecto.
+    \begin{column}{0.5\textwidth}
+      Para el desarrollo de este proyecto se está usando una metodología de
+      prototipos, en la que cada prototipo usa como metodología interna SDL
+      (\textit{Security Development Lifecycle}) \cite{sdl}.
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+      \begin{figure}[H]
+        \begin{center}
+          \includegraphics[width=0.5\linewidth]{diagramas/metodologia.png}
+          \caption{Fases del trabajo terminal.}
+        \end{center}
+      \end{figure}
+    \end{column}
+
+  \end{columns}
+
+  % SDL es una metodología especializada para software de seguridad desarrollada
+  % por Microsoft, que se caracteriza por continuas fases de verificación de
+  % seguridad y una primera etapa de estudio de los temas acordes al proyecto.
 
   % Yo creo que nos podemos saltar la parte de quién la desarrolla.
 
@@ -48,26 +63,15 @@
 
 \end{frame}
 
-\subsection{Prototipo de generación de tokens} % ==============================
-\begin{frame}{Prototipo de generación de tokens}
-
-  En TT1 se planeó terminar el primer prototipo dado que es la parte
-  central del proyecto; situación que se consiguió, llegando a implementar
-  5 algoritmos distintos y realizar pruebas comparativas entre estos.
-  Además, en los algoritmos pertinentes, se realizaron pruebas de
-  aleatoriedad con el fin de respaldar la seguridad de la implementación.
-
-\end{frame}
-
-\subsection{Especificaciones técnicas del desarrollo} % ========================
-\begin{frame}{Especificaciones técnicas del desarrollo}
-
-  % ¿Combina mantenibilidad con «el nivel de rendimiento que ofrece»
-
-  La implementación de los algoritmos generadores de \textit{tokens} se hizo
-  en lenguaje C++, dado que combina mantenibilidad y rendimiento.
-
-  Para las implementaciones que hacen uso de una base de datos, se utilizó
-  el gestor MariaDB, el cual es una bifurcación de MySQL.
-
-\end{frame}
+% \subsection{Especificaciones técnicas del desarrollo} % =====================
+% \begin{frame}{Especificaciones técnicas del desarrollo}
+%
+%   % ¿Combina mantenibilidad con «el nivel de rendimiento que ofrece»
+%
+%   La implementación de los algoritmos generadores de \textit{tokens} se hizo
+%   en lenguaje C++, dado que combina mantenibilidad y rendimiento.
+%
+%   Para las implementaciones que hacen uso de una base de datos, se utilizó
+%   el gestor MariaDB, el cual es una bifurcación de MySQL.
+%
+% \end{frame}
