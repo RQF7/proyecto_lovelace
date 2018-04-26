@@ -27,37 +27,37 @@ o uno equivalente, para poder obtener de nuevo el \gls{gl:pan}.
 
 \begin{table}
   \begin{center}
-  \begin{tabular}{cc|c|c|c|c|c|c|}
-    \cline{3-8}
-    & & \multicolumn{2}{c|}{100 oper.} & \multicolumn{2}{c|}{1K oper.}
-      & \multicolumn{2}{c|}{10K oper.} \\
+    \begin{tabular}{cc|c|c|c|c|c|c|}
       \cline{3-8}
+      & & \multicolumn{2}{c|}{100 oper.} & \multicolumn{2}{c|}{1K oper.}
+        & \multicolumn{2}{c|}{10K oper.} \\
+        \cline{3-8}
 
-    & & Tok. & Detok. & Tok. & Detok. & Tok. & Detok. \\
-    \hline
-    \multicolumn{1}{|c }{ \multirow{2}{*}{Reversibles} } &
-    \multicolumn{1}{|c|}{BPS} & 7.247 $m$s  & 6.990 $m$s  & 68.514 $m$s
-      & 68.566 $m$s & 714.336 $m$s & 674.571 $m$s \\ \cline{2-8}
-    \multicolumn{1}{ |c  }{}                        &
-    \multicolumn{1}{|c|}{FFX} & 5.627 $m$s  & 5.516 $m$s  & 49.738 $m$s
-      & 49.550 $m$s & 487.529 $m$s & 340.749 $m$s \\
-    \hline
+      & & Tok. & Detok. & Tok. & Detok. & Tok. & Detok. \\
+      \hline
+      \multicolumn{1}{|c }{ \multirow{2}{*}{Reversibles} } &
+      \multicolumn{1}{|c|}{BPS} & 7.247 $m$s  & 6.990 $m$s  & 68.514 $m$s
+        & 68.566 $m$s & 714.336 $m$s & 674.571 $m$s \\ \cline{2-8}
+      \multicolumn{1}{ |c  }{}                        &
+      \multicolumn{1}{|c|}{FFX} & 5.627 $m$s  & 5.516 $m$s  & 49.738 $m$s
+        & 49.550 $m$s & 487.529 $m$s & 340.749 $m$s \\
+      \hline
 
-    \multicolumn{1}{|c }{ \multirow{3}{*}{Irreversibles} } &
-    \multicolumn{1}{|c|}{TKR}   & 6.573 s  & 37.623 $m$s  & 70.116 s
-      & 441.815$m$s & 882.695 s & 4.976 s \\ \cline{2-8}
-    \multicolumn{1}{ |c  }{}                        &
-    \multicolumn{1}{|c|}{AHR}   & 6.053 s  & 58.814 $m$s  & 65.631 s
-      & 420.729$m$s & 735.405 s & 5.269 s \\ \cline{2-8}
-    \multicolumn{1}{ |c  }{}                        &
-    \multicolumn{1}{|c|}{DRBG}  & 6.718 s  & 40.265 $m$s  & 71.082 s
-      & 436.753$m$s & 826.403 s & 7.226 s \\ \hline
-  \end{tabular}
+      \multicolumn{1}{|c }{ \multirow{3}{*}{Irreversibles} } &
+      \multicolumn{1}{|c|}{TKR}   & 6.573 s  & 37.623 $m$s  & 70.116 s
+        & 441.815$m$s & 882.695 s & 4.976 s \\ \cline{2-8}
+      \multicolumn{1}{ |c  }{}                        &
+      \multicolumn{1}{|c|}{AHR}   & 6.053 s  & 58.814 $m$s  & 65.631 s
+        & 420.729$m$s & 735.405 s & 5.269 s \\ \cline{2-8}
+      \multicolumn{1}{ |c  }{}                        &
+      \multicolumn{1}{|c|}{DRBG}  & 6.718 s  & 40.265 $m$s  & 71.082 s
+        & 436.753$m$s & 826.403 s & 7.226 s \\ \hline
+    \end{tabular}
 
-  \caption{Comparación de tiempos de tokenización de los
-    algoritmos implementados.}
-  \label{tabla:tiempos_tokenizacion}
-\end{center}
+    \caption{Comparación de tiempos de tokenización de los
+      algoritmos implementados.}
+    \label{tabla:tiempos_tokenizacion}
+  \end{center}
 \end{table}
 
 Los datos de la tabla \ref{tabla:tiempos_tokenizacion} fueron utilizados para
@@ -92,7 +92,8 @@ de los irreversibles.
   \centering
   \begin{subfigure}{1\textwidth}
     \begin{center}
-      \includegraphics[width=1\linewidth]{diagramas/tok_todos}
+      \includegraphics[width=1\linewidth]
+        {../../../../../diagramas_comunes/desempenio/tok_todos}
       \caption{Tiempos de tokenización.}
     \end{center}
   \end{subfigure}
@@ -110,7 +111,8 @@ de los irreversibles.
   \centering
   \begin{subfigure}{1\textwidth}
     \begin{center}
-      \includegraphics[width=1\linewidth]{diagramas/tok_rev}
+      \includegraphics[width=1\linewidth]
+        {../../../../../diagramas_comunes/desempenio/tok_rev}
       \caption{Tiempos de tokenización.}
     \end{center}
   \end{subfigure}
@@ -128,7 +130,8 @@ de los irreversibles.
   \centering
   \begin{subfigure}{1\textwidth}
     \begin{center}
-      \includegraphics[width=1\linewidth]{diagramas/tok_irrev}
+      \includegraphics[width=1\linewidth]
+        {../../../../../diagramas_comunes/desempenio/tok_irrev}
       \caption{Tiempos de tokenización.}
     \end{center}
   \end{subfigure}
