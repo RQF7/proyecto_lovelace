@@ -31,6 +31,9 @@
            \includegraphics[scale=0.25]{imagenes/logos.png}}
 \date{\Fecha}
 
+% Bibliografía numerada.
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
 % Mostrar notas (para borradores).
 \setbeameroption{show notes}
 
@@ -49,7 +52,7 @@
 {
   \setlength{\parskip}{0.0em}
   \begin{frame}
-    \frametitle{Contenido}
+    \frametitle{\insertsection, contenido}
     \setcounter{tocdepth}{2}
     \tableofcontents[currentsection,subsectionstyle=show/show/hide]
   \end{frame}
