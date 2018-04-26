@@ -10,12 +10,23 @@ En esta sección se documentan distintos algoritmos para generar
 \glspl{gl:token}; cada apartado incluye una descripción del
 algoritmo y su pseudocódigo. Antes de la documentación, se presentan
 dos clasificaciones de los algoritmos tokenizadores: la primera es la propuesta
-por el \gls{gl:pci} \gls{gl:ssc} y mencionada en la
-sección~\ref{sec:pci_tokens}; la segunda clasificación es propuesta por los
-autores de este documento, tomando en cuenta nociones criptográficas más
-estrictas.
+por el \gls{gl:pci} \gls{gl:ssc} y mencionada en la sección \ref{sec:pci_dss}
+(figura \ref{fig:division_tokens}); la segunda clasificación es propuesta por
+los autores de este documento, tomando en cuenta nociones criptográficas más
+estrictas (figura \ref{fig:division_propia}).
 
-\paragraph{Clasificación del \texorpdfstring{\acrlong{gl:pci}}{PCI} \texorpdfstring{\acrlong{gl:ssc}}{SSC}}
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.5\linewidth]
+      {../../../../diagramas_comunes/clasificacion/clasificacion_propia.png}
+    \caption{Clasificación propia.}
+    \label{fig:division_propia}
+  \end{center}
+\end{figure}
+
+\paragraph{Clasificación del
+  \texorpdfstring{\acrlong{gl:pci}}{PCI} \texorpdfstring{\acrlong{gl:ssc}}{SSC}}
+
 \begin{itemize}
   \item \Glspl{gl:token} reversibles:
     \begin{itemize}
@@ -47,6 +58,7 @@ la categoría de los criptográficos, pues se guardan las relaciones
 \gls{gl:pan}~-\gls{gl:token} en una base de datos.
 
 \paragraph{Clasificación propuesta}
+
 \begin{itemize}
   \item{Criptográficos}
     \begin{itemize}
