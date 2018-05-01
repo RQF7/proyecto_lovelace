@@ -7,3 +7,71 @@
 
 \subsection{Generación de números aleatorios}
 
+\begin{frame}{Generación de números aleatorios}
+
+  Existen dos maneras de generar números aleatorios:
+
+  \begin{itemize}
+
+    \item<2-> Mediante un generador no determinístico (\textit{Non-deterministic
+      Random Bit Generator}, NRBG).
+
+      \begin{itemize}
+        \item<3-> Están ligados a un proceso físico impredecible.
+        \item<4-> Son difíciles de implementar y no existe ningún estándar
+          aprobado.
+      \end{itemize}
+
+    \note<3>
+    {
+      Como con los volados: si tuvieramos manera de medir con precisión todos
+      los subprocesos involucrados (el tamaño y peso de la moneda, la forma de
+      mis dedos, la posición de la moneda con respecto a mis dedos, el punto de
+      impacto, la fuerza del impacto, la resistencia del aire, la fuerza de
+      gravedad en el punto de la tierra en cuetión, la presión atmosférica, etc)
+      los volados dejarían de ser aleatorios.
+
+      Estos generadores buscan este tipo de procesos para generar números. Por
+      ejemplo, la temperatura del procesador en un momento dado, los tiempos de
+      acceso a memoria, los tiempos de respuesta a través de una comunicación
+      por internet, la posición del mouse, etcétera.
+    }
+
+    \note<4>
+    {
+      Dada su naturaleza dependiente del hardware, son difíciles de implementar
+      y, por lo tanto, aún no existe ningún estándar al respecto.
+    }
+
+    \item<5-> Mediante un generador determinístico (\textit{Deterministic
+      Random Bit Generator}, DRBG).
+
+      \begin{itemize}
+        \item<6-> Utiliza un mecanismo claramente definido para producir
+          secuencias de bits a partir de un valor inicial.
+        \item<7-> Dada la naturaleza determinística, se dice que los números son
+          \textit{pseudoaleatorios}.
+      \end{itemize}
+
+    \note<6>
+    {
+      Este valor es conocido como semilla.
+    }
+
+    \note<7>
+    {
+      Dada la naturaleza determinística, alguien con el mismo valor inicial (con
+      la misma semilla) puede generar los mismos números pseudoaleatorios. En un
+      criptográfico se busca evitar esto, por lo que el valor de la semilla se
+      debe mantener en secreto.
+
+      Generalmente el valor inicial se obtiene a través de una fuente de
+      aleatoriedad (o de entropia). Estas, al igual que los NRBG, están ligadas
+      a un proceso físico, pero a diferencia de estos, con un valor pequeño
+      pueden generar muchos números pseudoaleatorios.
+    }
+
+  \end{itemize}
+
+\end{frame}
+
