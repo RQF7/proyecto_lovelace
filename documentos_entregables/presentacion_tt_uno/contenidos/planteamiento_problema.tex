@@ -26,13 +26,13 @@
 \begin{frame}{Un estándar para gobernarlos a todos}
   % One ring to rule them all.
   \begin{itemize}
-    \item A inicios del 2000, las grandes compañías emisoras de tarjetas
-      comenzaron a publicar, individualmente, \textit{buenas prácticas} de
-      seguridad.
+    \item A inicios del 2000, las grandes compañías emisoras de
+      tarjetas~\footnotemark{} comenzaron a publicar, individualmente,
+      \textit{buenas prácticas} de seguridad.
     \item Las empresas intentaron adoptar las prácticas, pero era tremendamente
       complicado y costoso.
-    \item Se aliaron las compañías y, en 2004, publicaron un estándar unificado:
-      PCI-DSS\footnotemark~\cite{pci_dss}.
+    \item Se aliaron las compañías emisoras y, en 2004, publicaron un estándar
+      unificado: PCI-DSS\footnotemark~\cite{pci_dss}.
       \begin{itemize}
         \item Se hizo obligatorio para quienes realizasen más de 20K
           transaccciones al año.
@@ -41,14 +41,17 @@
       \end{itemize}
   \end{itemize}
   \footnotetext{
+    VISA, MasterCard, American Express, entre otras.
+  }
+  \footnotetext{
     Payment Card Industry - Data Security Standard
   }
 
-  \note
-  {
-    Al mencionar el primer punto hay que poner ejemplos de estas compañías:
-    Visa, Master Card, American Express, etc.
-  }
+  % \note
+  % {
+  %   Al mencionar el primer punto hay que poner ejemplos de estas compañías:
+  %   Visa, Master Card, American Express, etc.
+  % }
 
 \end{frame}
 
@@ -59,7 +62,7 @@
     \item Surge un nuevo enfoque: cambiar la información valiosa, por
       \textit{valores representativos} (tokens); es decir, la tokenización
       de la información.
-    \item En 2011, el PCI-SSC\footnotemark{} publicó las primeras guías para los
+    \item En 2011, el PCI-SSC~\footnotemark{} publicó las primeras guías para los
       procesos de tokenización~\cite{pci_tokens}.
       \begin{itemize}
         \item Aunque indica lo que debe satisfacer el sistema tokenizador,
