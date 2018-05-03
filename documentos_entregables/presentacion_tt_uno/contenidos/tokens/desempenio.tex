@@ -8,30 +8,46 @@
 \subsection{Resultados}
 
 \begin{frame}{Resultados}{Comparaciones de desempeño}
-
   \only<1>
+  {
+    Las pruebas mostradas a continuación se realizaron en una computadora
+    Toshiba S55-B5289 con las siguientes especificaciones:
+    \begin{itemize}
+      \item Procesador Intel Core i7-4710HQ.
+      \begin{itemize}
+        \item 6M caché, hasta 3.50GHz.
+        \item 8 núcleos.
+      \end{itemize}
+      \item 8GB de RAM.
+      \item En los casos pertinentes, se utilizó AES-NI\footnotemark.
+      \item Se utilizó el compilador GCC versión 7.3.1.
+      \item Se utilizó GNU gprof 2.30 como herramienta para obtener los
+        perfiles de las funciones.
+    \end{itemize}
+    \footnotetext{
+      \textit{Intel Advanced Encryption Standard New Instructions}.
+    }
+  }
+  \only<2>
   {
     {\small
       \begin{table}
         \begin{center}
-          \begin{tabular}{c|c|c|c|c|}
-            \cline{2-5}
-            & \multicolumn{2}{c|}{100 oper.} & \multicolumn{2}{c|}{1K oper.} \\
-            \cline{2-5}
-
-            & Tok. & Detok. & Tok. & Detok. \\
+          \begin{tabular}{c|c|c|}
+            \cline{2-3}
+            & Tokenización & Detokenización \\
             \hline
-            \multicolumn{1}{|c|}{BPS} & 7.247 $m$s  & 6.990 $m$s  & 68.514 $m$s
-              & 68.566 $m$s \\\cline{1-5}
-            \multicolumn{1}{|c|}{FFX} & 5.627 $m$s  & 5.516 $m$s  & 49.738 $m$s
-              & 49.550 $m$s \\\hline
+            \multicolumn{1}{|c|}{BPS}
+              & 0.11   $m$s & 0.11 $m$s   \\\hline
+            \multicolumn{1}{|c|}{FFX}
+              & 0.12   $m$s & 0.12 $m$s   \\\hline
 
-            \multicolumn{1}{|c|}{TKR}   & 6.573 s  & 37.623 $m$s  & 70.116 s
-              & 441.815$m$s \\\cline{1-5}
-            \multicolumn{1}{|c|}{AHR}   & 6.053 s  & 58.814 $m$s  & 65.631 s
-              & 420.729$m$s \\ \cline{1-5}
-            \multicolumn{1}{|c|}{DRBG}  & 6.718 s  & 40.265 $m$s  & 71.082 s
-              & 436.753$m$s \\\hline
+            \multicolumn{1}{|c|}{TKR}
+              & 0.03   $m$s & 0.00 $m$s\footnotemark   \\\hline
+            \multicolumn{1}{|c|}{AHR}
+              & 48.16  $m$s & 5.80 $m$s   \\\hline
+            \multicolumn{1}{|c|}{DRBG}
+              & 118.24 $m$s & 10.84 $m$s  \\\hline
           \end{tabular}
 
           \caption{Comparación de tiempos de tokenización.}
@@ -39,9 +55,13 @@
         \end{center}
       \end{table}
     }
+    \footnotetext{
+      Debido a la resolución de GNU-profiler, la operación de tokenización de
+      TKR parece ser, incorrectamente, instánea.
+    }
   }
 
-  \only<2>
+  \only<3>
   {
     \begin{figure}[H]
       \begin{center}
@@ -52,7 +72,7 @@
     \end{figure}
   }
 
-  \only<3>
+  \only<4>
   {
     \begin{figure}[H]
       \begin{center}
@@ -63,7 +83,7 @@
     \end{figure}
   }
 
-  \only<4>
+  \only<5>
   {
     \begin{figure}[H]
       \begin{center}
@@ -123,7 +143,7 @@
     totalmente aleatorio, dado que falló en un par de pruebas. Sin embargo,
     el número de veces que se ejecutó el conjunto de pruebas (veinte) es
     un número relativamente pequeño (en comparación con lo recomendado por
-    el NIST); esto por los recursos de cómputo que las pruebas exigen. 
+    el NIST); esto por los recursos de cómputo que las pruebas exigen.
   }
 
 \end{frame}
