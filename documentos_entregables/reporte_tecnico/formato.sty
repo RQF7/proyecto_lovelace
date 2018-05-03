@@ -32,11 +32,12 @@
 % http://mirrors.ctan.org/macros/latex/required/amsmath/amsmath.pdf
 \RequirePackage{amsmath}
 
-%http://ctan.math.illinois.edu/fonts/amsfonts/doc/amssymb.pdf
-\RequirePackage{amssymb}                  % Simbología extra.
+% http://ctan.math.illinois.edu/fonts/amsfonts/doc/amssymb.pdf
+% Simbología extra.
+\RequirePackage{amssymb}
 
-%http://ctan.math.washington.edu/tex-archive/macros/latex/required/
-%psnfss/psnfss2e.pdf
+% http://ctan.math.washington.edu/tex-archive/macros/latex/required/
+% psnfss/psnfss2e.pdf
 % Simbología extra.
 \RequirePackage{pifont}
 
@@ -496,10 +497,18 @@
   \let\strut\DT@strut
   }
 
-% Para poder centrar una columna especifica en una tabla.
-\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+  % Para poder centrar una columna especifica en una tabla.
+  \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
-% Modifica el posicionamiento de los listings de minted
-\renewcommand{\fps@listing}{htp}
+  % Modifica el posicionamiento de los listings de minted
+  \renewcommand{\fps@listing}{htp}
+
+  % Redefinición de los epígrafes para aumentar el espaciado entre cita y
+  % fuente.
+  \renewcommand{\epigraph}[2]{\vspace{\beforeepigraphskip}
+    {\epigraphsize\begin{\epigraphflush}\begin{minipage}{\epigraphwidth}
+      \@epitext{#1}\\ \vspace{0.2em}\\ \@episource{#2}
+      \end{minipage}\end{\epigraphflush}
+      \vspace{\afterepigraphskip}}}
 
 \makeatother

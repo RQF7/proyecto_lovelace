@@ -44,7 +44,8 @@ utilizando únicamente una llave que permanece secreta.
 
 \begin{figure}
   \begin{center}
-    \includegraphics[width=0.8\linewidth]{diagramas/cripto_simetrica.png}
+    \includegraphics[width=0.8\linewidth]
+      {../../../../diagramas_comunes/marco_teorico/cripto_simetrica.png}
     \caption{Canal de comunicación con criptografía simétrica.}
     \label{cripto_simetrica}
   \end{center}
@@ -52,12 +53,12 @@ utilizando únicamente una llave que permanece secreta.
 
 En la figura \ref{cripto_simetrica} se puede observar el proceso para
 establecer una comunicación segura por medio de la criptografía simétrica.
-Primero, tanto Alice como Bob deben de establecer una llave única y
-compartida $k$, para que después, Alice, actuando como el emisor, cifre un
+Primero, tanto Alicia como Alberto deben de establecer una llave única y
+compartida $k$, para que después, Alicia, actuando como el emisor, cifre un
 mensaje $m$ usando la llave $k$ por medio del algoritmo de cifrado $E(k,m)$
-para obtener el mensaje cifrado $c$ y enviárselo a Bob. Posteriormente Bob,
-como receptor, se encarga de descifrar $c$ con ayuda de la llave $k$ por
-medio del algoritmo de descifrado $D(k,c)$ para obtener el mensaje original
+para obtener el mensaje cifrado $c$ y enviárselo a Alberto. Posteriormente
+Alberto, como receptor, se encarga de descifrar $c$ con ayuda de la llave $k$
+por medio del algoritmo de descifrado $D(k,c)$ para obtener el mensaje original
 $m$.
 
 Gran parte de los algoritmos de cifrado que caen en este tipo de criptografía
@@ -74,9 +75,9 @@ llave privada para descifrar, que se mantiene disponible solo para su
 propietario.
 
 El proceso para establecer una comunicación segura por medio de este tipo
-de criptografía es el siguiente: primero, Alice nuevamente como el emisor,
-cifra un mensaje $m$ con la llave pública de Bob $pk$, y usa el algoritmo de
-cifrado $E(pk,m)$ para obtener $c$ y enviarlo. Después Bob como receptor,
+de criptografía es el siguiente: primero, Alicia nuevamente como el emisor,
+cifra un mensaje $m$ con la llave pública de Alberto $pk$, y usa el algoritmo de
+cifrado $E(pk,m)$ para obtener $c$ y enviarlo. Después Alberto como receptor,
 se encarga de descifrar $c$ por medio del algoritmo de descifrado
 $D(sk,c)$ haciendo uso de su llave privada $sk$. Este proceso se refleja
 gráficamente el la figura \ref{cripto_asimetrica}.
