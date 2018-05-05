@@ -110,12 +110,6 @@ citas para cada uno.
     ajeno, Jorge Ibargüengoitia
 11. >How do people go to sleep? I'm afraid I've lost the knack, Dorothy Parker
 12. >Contrafactus, GEB:
-      * Aquiles: ¡Ajá! ¿Cuántas velocidades tiene? / Tortuga: Una, incluida la
-        marcha atrás. La mayoría de los modelos tienen menos, pero este es un
-        modelo especial.
-      * Sr. Perezoso: No no pude ir; lamento decirlo. Estaba participando en un
-        torneo de individuales mixtos de ping-ping. Fue muy emocionante, ya que
-        mi equipo empató en el primer lugar consigo mismo.
       * Cangrejo: ... un maravilloso concierto de piano para dos manos
         izquierdas. El penúltimo (y único) movimiento era una fuga a una voz.
         No puede imaginar lo intrincada que era. Como finale, tocamos la novena
