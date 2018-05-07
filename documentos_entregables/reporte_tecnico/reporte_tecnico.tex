@@ -33,18 +33,46 @@
   \import{reporte_tecnico/contenidos/conclusiones/}{conclusiones.tex}
   \import{reporte_tecnico/contenidos/apendices/}{apendices.tex}
 
+  % Nuevo formato de capítulos
+  \titleformat{\chapter}[display]
+  {\bfseries\Huge\centering}                  % Formato
+  {\thechapter}                               % Etiqueta
+  {0.5ex}                                     % Separación
+  {}                                          % Antes de
+  []                                          % Después de
+
+  \renewcommand{\capitulo}[3]
+  {
+    \chapter*{#1}
+    \label{#2}
+    #3
+    \newpage
+  }
+
   \setglossarystyle{altlist}
   \printglossary[
     type=main,
     entrycounter=true
   ]
 
-  \section*{Siglas y acrónimos}
   \phantomsection
   \addcontentsline{toc}{chapter}{Siglas y acrónimos}
+  \capitulo{Siglas y acrónimos}{sec:siglas}
+  {
+    \epigrafe
+    {%
+      Por supuesto que la paz es el respeto al derecho ajeno, en eso todos
+      estamos de acuerdo. En lo que nadie está de acuerdo es en cuál es el
+      derecho ajeno.%
+    }
+    {%
+      Instrucciones para vivir en México,
+      \textsc{Jorge Ibargüengoitia}.%
+    }
+  }
+
   \setglossarystyle{list}
   \renewcommand*{\glsgroupskip}{}
-  \setglossarysection{subsection}
 
   \printglossary[
     type=siglas_cripto,
@@ -71,11 +99,20 @@
   %  title={Misceláneos}
   %]
 
-  \clearpage
   \phantomsection
   \addcontentsline{toc}{chapter}{Bibliografía}
+  \capitulo{Bibliografía}{sec:referencias}
+  {
+    \epigrafe
+    {%
+      Those who believe in telekinetics, raise my hand.%
+    }
+    {%
+      \textsc{Kurt Vonnegut}.%
+    }
+  }
   \printbibliography[
-    heading=subbibliography,
+    heading=none,
     title={Bibliografía}
   ]
 

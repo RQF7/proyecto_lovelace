@@ -4,7 +4,8 @@ citas para cada uno.
 
 ## Introducción
 1. >In the beginning the Universe was created. This has made a lot of people
-    very angry and has been widely regarded as a bad move, Douglas Adams.
+    very angry and has been widely regarded as a bad move, Douglas Adams,
+    The Restaurant at the End of the Universe.
 2. >Welcome to a new year at Hogwarts! Before we begin our banquet, I would  
     like to say a few words. And here they are:
     Nitwit! Blubber! Oddment! Tweak! J. K. Rowling
@@ -22,7 +23,7 @@ citas para cada uno.
 4. >Desvarío laborioso y empobrecedor el de componer vastos libros; el de
     explayar en quinientas páginas una idea cuya perfecta exposición oral cabe
     en pocos minutos. Mejor procedimiento es simular que esos libros ya existen
-    y ofrecer un resumen, un comentario, JLB
+    y ofrecer un resumen, un comentario, Jorge Luis Borges, Ficciones.
 5. >Understand well as I may, my comprehension can only be an infinitesimal
     fraction of all I want to understand, Ada Lovelace
 
@@ -38,7 +39,7 @@ citas para cada uno.
 ## Análisis y diseño
 1. >A common mistake that people make when trying to design something completely
     foolproof is to underestimate the ingenuity of complete fools,
-    Douglas Adams.
+    Douglas Adams, Mostly Harmless.
 2. >The major difference between a thing that might go wrong and a thing that
     cannot possibly go wrong is that when a thing that cannot possibly go wrong
     goes wrong it usually turns out to be impossible to get at or repair,
@@ -73,14 +74,14 @@ citas para cada uno.
 9. >No computer is ever going to ask a new, reasonable question. It takes
     trained people to do that, Grace Hopper
 10. >From then on, when anything went wrong with a computer, we said it had bugs
-    in it, Grace Hopper
+    in it, Grace Hopper.
 
 ## Conclusiones
 1. >Winter is comming. George R. R. Martin.
 2. >Mi empresa no es difícil, esencialmente" leo en otro lugar de la carta.
     "Me bastaría ser inmortal para llevarla a cabo, JLB
 3. >Reserve your right to think, for even to think wrongly is better than not to
-    think at all, Hypatia
+    think at all, Hypatia.
 
 ## Apéndice de administración de llaves.
 
@@ -107,15 +108,9 @@ citas para cada uno.
 9. >Babilonia no es otra cosa que un infinito juego de azares, JLB
 10. >Por supuesto que la paz es el respeto al derecho ajeno, en eso tzodos
     estamos de acuerdo. En lo que nadie está de acuerdo es en cuál es el derecho
-    ajeno, Jorge Ibargüengoitia
+    ajeno, Jorge Ibargüengoitia, Instrucciones para vivir en México.
 11. >How do people go to sleep? I'm afraid I've lost the knack, Dorothy Parker
 12. >Contrafactus, GEB:
-      * Aquiles: ¡Ajá! ¿Cuántas velocidades tiene? / Tortuga: Una, incluida la
-        marcha atrás. La mayoría de los modelos tienen menos, pero este es un
-        modelo especial.
-      * Sr. Perezoso: No no pude ir; lamento decirlo. Estaba participando en un
-        torneo de individuales mixtos de ping-ping. Fue muy emocionante, ya que
-        mi equipo empató en el primer lugar consigo mismo.
       * Cangrejo: ... un maravilloso concierto de piano para dos manos
         izquierdas. El penúltimo (y único) movimiento era una fuga a una voz.
         No puede imaginar lo intrincada que era. Como finale, tocamos la novena
