@@ -38,26 +38,22 @@
             & Tokenización & Detokenización \\
             \hline
             \multicolumn{1}{|c|}{BPS}
-              & 0.11   $m$s & 0.11 $m$s   \\\hline
+              & 359.088   $\mu$s & 357.620 $\mu$s   \\\hline
             \multicolumn{1}{|c|}{FFX}
-              & 0.12   $m$s & 0.12 $m$s   \\\hline
+              & 274.905   $\mu$s & 275.147 $\mu$s   \\\hline
 
             \multicolumn{1}{|c|}{TKR}
-              & 0.03   $m$s & 0.00 $m$s\footnotemark   \\\hline
+              & 74.424  $m$s & 669.203 $\mu$s   \\\hline
             \multicolumn{1}{|c|}{AHR}
-              & 48.16  $m$s & 5.80 $m$s   \\\hline
+              & 70.041  $m$s & 719.729 $\mu$s   \\\hline
             \multicolumn{1}{|c|}{DRBG}
-              & 118.24 $m$s & 10.84 $m$s  \\\hline
+              & 75.247  $m$s & 696.643 $\mu$s  \\\hline
           \end{tabular}
 
           \caption{Comparación de tiempos de tokenización.}
           \label{tabla:tiempos_tokenizacion}
         \end{center}
       \end{table}
-    }
-    \footnotetext{
-      Debido a la resolución de GNU-profiler, la operación de tokenización de
-      TKR parece ser, incorrectamente, instantánea.
     }
   }
 

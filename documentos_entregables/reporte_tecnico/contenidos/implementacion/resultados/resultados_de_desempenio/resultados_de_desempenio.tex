@@ -17,45 +17,36 @@ los tiempos de respuesta de tokenización y detokenización de los algoritmos
 implementados.
 
 En la tabla \ref{tabla:tiempos_tokenizacion} se puede observar el tiempo
-promedio que le toma a cada algoritmo hacer el número de tokenizaciones o
-detokenizaciones señaladas en el encabezado. Los algoritmos están
-divididos en reversibles y no reversibles, pues, dadas sus características, no
-sería muy parejo compararlos entre sí; por ejemplo, basta hacer una consulta
-en la base de datos para hacer la detokenización en los algoritmos
-irreversibles; mientras que en los reversibles hay que hacer el proceso inverso,
-o uno equivalente, para poder obtener de nuevo el \gls{gl:pan}.
+promedio que le toma a cada algoritmo hacer una operación de tokenización
+y detokenización; estos valores se obtuvieron al ejecutar varias veces 15K
+operaciones de tokenización y detokenización, luego obtener el promedio
+y, finalmente, dividir entre 15K. Los algoritmos están divididos en reversibles
+y no reversibles, pues, dadas sus características, no sería muy parejo
+compararlos entre sí; por ejemplo, basta hacer una consulta en la base de datos
+para hacer la detokenización en los algoritmos irreversibles; mientras que en
+los reversibles hay que hacer el proceso inverso, o uno equivalente, para
+poder obtener de nuevo el \gls{gl:pan}.
 
 \begin{table}
   \begin{center}
-    \begin{tabular}{cc|c|c|c|c|c|c|}
-      \cline{3-8}
-      & & \multicolumn{2}{c|}{100 oper.} & \multicolumn{2}{c|}{1K oper.}
-        & \multicolumn{2}{c|}{10K oper.} \\
-        \cline{3-8}
-
-      & & Tok. & Detok. & Tok. & Detok. & Tok. & Detok. \\
+    \begin{tabular}{c|c|c|}
+      \cline{2-3}
+      & Tokenización & Detokenización \\
       \hline
-      \multicolumn{1}{|c }{ \multirow{2}{*}{Reversibles} } &
-      \multicolumn{1}{|c|}{BPS} & 7.247 $m$s  & 6.990 $m$s  & 68.514 $m$s
-        & 68.566 $m$s & 714.336 $m$s & 674.571 $m$s \\ \cline{2-8}
-      \multicolumn{1}{ |c  }{}                        &
-      \multicolumn{1}{|c|}{FFX} & 5.627 $m$s  & 5.516 $m$s  & 49.738 $m$s
-        & 49.550 $m$s & 487.529 $m$s & 340.749 $m$s \\
-      \hline
+      \multicolumn{1}{|c|}{BPS}
+        & 359.088   $\mu$s & 357.620 $\mu$s   \\\hline
+      \multicolumn{1}{|c|}{FFX}
+        & 274.905   $\mu$s & 275.147 $\mu$s   \\\hline
 
-      \multicolumn{1}{|c }{ \multirow{3}{*}{Irreversibles} } &
-      \multicolumn{1}{|c|}{TKR}   & 6.573 s  & 37.623 $m$s  & 70.116 s
-        & 441.815$m$s & 882.695 s & 4.976 s \\ \cline{2-8}
-      \multicolumn{1}{ |c  }{}                        &
-      \multicolumn{1}{|c|}{AHR}   & 6.053 s  & 58.814 $m$s  & 65.631 s
-        & 420.729$m$s & 735.405 s & 5.269 s \\ \cline{2-8}
-      \multicolumn{1}{ |c  }{}                        &
-      \multicolumn{1}{|c|}{DRBG}  & 6.718 s  & 40.265 $m$s  & 71.082 s
-        & 436.753$m$s & 826.403 s & 7.226 s \\ \hline
+      \multicolumn{1}{|c|}{TKR}
+        & 74.424  $m$s & 669.203 $\mu$s   \\\hline
+      \multicolumn{1}{|c|}{AHR}
+        & 70.041  $m$s & 719.729 $\mu$s   \\\hline
+      \multicolumn{1}{|c|}{DRBG}
+        & 75.247  $m$s & 696.643 $\mu$s  \\\hline
     \end{tabular}
 
-    \caption{Comparación de tiempos de tokenización de los
-      algoritmos implementados.}
+    \caption{Comparación de tiempos de tokenización.}
     \label{tabla:tiempos_tokenizacion}
   \end{center}
 \end{table}
