@@ -35,3 +35,6 @@ _site
 
 # Salida de minted (¡Debería ponerlo en la carpeta de temporales!)
 documentos_entregables/_minted-reporte_tecnico/
+
+# Archivos temporales de mac
+*.DS_Store
