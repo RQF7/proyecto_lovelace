@@ -17,12 +17,12 @@
       Random Bit Generator}, NRBG).
 
       \begin{itemize}
-        \item<3-> Están ligados a un proceso físico impredecible.
-        \item<4-> Son difíciles de implementar y no existe ningún estándar
+        \item Están ligados a un proceso físico impredecible.
+        \item Son difíciles de implementar y no existe ningún estándar
           aprobado.
       \end{itemize}
 
-    \note<3>
+    \note<2>
     {
       Como con los volados: si tuvieramos manera de medir con precisión todos
       los subprocesos involucrados (el tamaño y peso de la moneda, la forma de
@@ -35,31 +35,24 @@
       ejemplo, la temperatura del procesador en un momento dado, los tiempos de
       acceso a memoria, los tiempos de respuesta a través de una comunicación
       por internet, la posición del mouse, etcétera.
-    }
-
-    \note<4>
-    {
+    
       Dada su naturaleza dependiente del hardware, son difíciles de implementar
       y, por lo tanto, aún no existe ningún estándar al respecto.
     }
 
-    \item<5-> Mediante un generador determinístico (\textit{Deterministic
+    \item<3-> Mediante un generador determinístico (\textit{Deterministic
       Random Bit Generator}, DRBG).
 
       \begin{itemize}
-        \item<6-> Utiliza un mecanismo claramente definido para producir
+        \item Utiliza un mecanismo claramente definido para producir
           secuencias de bits a partir de un valor inicial.
-        \item<7-> Dada la naturaleza determinística, se dice que los números son
+        \item Dada la naturaleza determinística, se dice que los números son
           \textit{pseudoaleatorios}.
       \end{itemize}
 
-    \note<6>
+    \note<3>
     {
       Este valor es conocido como semilla.
-    }
-
-    \note<7>
-    {
       Dada la naturaleza determinística, alguien con el mismo valor inicial (con
       la misma semilla) puede generar los mismos números pseudoaleatorios. En un
       criptográfico se busca evitar esto, por lo que el valor de la semilla se

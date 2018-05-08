@@ -102,36 +102,36 @@
 
 \begin{frame}{Resultados}{Pruebas de aleatoriedad}
 
-  En \cite{nist_pruebas} el NIST describe un conjunto de pruebas estadísticas
-  que sirven para determinar la aleatoriedad de un generador pseudoaleatorio.
-  Se trata de 15 pruebas generales (algunas de ellas con subpruebas) que es
-  necesario ejecutar sobre los bits generados.
+  En \cite{nist_pruebas} el NIST describe un conjunto de 15 pruebas
+  estadísticas que sirven para determinar la aleatoriedad de un generador
+  pseudoaleatorio.
 
   Para cada instancia de los generadores implementados se ejecutó el conjunto
   de pruebas 20 veces, cada una con medio millón de bits (un total de veinte
   millones).
 
-  \only<1>
-  {
-    Resultados para generador basado en función hash:
-    \begin{itemize}
-      \item 112 bits de seguridad: 14 de 15.
-      \item 128 bits de seguridad: 15 de 15.
-      \item 192 bits de seguridad: 14 de 15.
-      \item 256 bits de seguridad: 15 de 15.
-    \end{itemize}
-  }
+\end{frame}
 
-  \only<2>
-  {
-    Resultados para generador basado en cifrador por bloques:
-    \begin{itemize}
-      \item 112 bits de seguridad: 15 de 15.
-      \item 128 bits de seguridad: 15 de 15.
-      \item 192 bits de seguridad: 15 de 15.
-      \item 256 bits de seguridad: 15 de 15.
-    \end{itemize}
-  }
+\begin{frame}{Resultados}{Pruebas de aleatoriedad}
+
+  Resultados de las pruebas de aleatoriedad para generadores basados en
+  funciones hash y cifrados por bloque:
+
+    \begin{table}
+      \begin{center}
+        \begin{tabular}{|c|c|c|}
+          \hline
+          Nivel de seguridad &
+          Funciones hash &
+          Cifrados por bloque \\\hline
+          112 bits & 14 de 15 & 15 de 15 \\\hline
+          128 bits & 15 de 15 & 15 de 15 \\\hline
+          192 bits & 14 de 15 & 15 de 15 \\\hline
+          256 bits & 15 de 15 & 15 de 15 \\\hline
+        \end{tabular}
+        \caption{Resultados de las pruebas de aleatoriedad.}
+      \end{center}
+    \end{table}
 
   \note
   {
