@@ -145,7 +145,7 @@ void imprimirAyuda()
       << "  Detokeniza el token dado con el método y la llave" << endl
       << "  especificados." << endl
       << "MÉTODO := TKR | FFX | BPS | HAR | DRBG" << endl
-      << "-k" << endl
+      << "-h" << endl
       << "  Imprime este mensaje." << endl
       << endl;
 }
