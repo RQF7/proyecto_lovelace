@@ -1,0 +1,151 @@
+%
+% Archivo principal de artículo.
+% Proyecto Lovelace.
+%
+
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+
+\title{A Survey of Tokenization Methods}
+\author{Daniel Ayala Zamorano
+   \and Laura Natalia Borbolla Palacios
+   \and Ricardo Quezada Figueroa}
+\date{June, 2018}
+
+% http://ctan.math.washington.edu/tex-archive/
+% macros/latex/contrib/import/import.pdf
+% Establece inputs relativos con respecto a una carpeta.
+\RequirePackage{import}
+
+% http://mirrors.ctan.org/macros/latex/contrib/xcolor/xcolor.pdf
+\RequirePackage{xcolor}
+
+% http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/manual.pdf
+\RequirePackage{hyperref}
+\hypersetup
+{
+  pdftitle={A Survey on Tokenization Methods},
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=1,
+  pdfstartview=Fit,
+  pdfpagemode=UseOutlines,
+  linktocpage=true,
+  breaklinks=true,
+  linkbordercolor=white,
+  citebordercolor=white,
+  filebordercolor=white,
+  menubordercolor=white,
+  urlbordercolor=white,
+  pdfborder={0 0 0}
+}
+
+% http://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/biblatex.pdf
+% Gestión de bibliografía.
+\RequirePackage[backend=biber,
+                style=numeric,
+                sorting=none,
+                citestyle=ieee,
+                backref=true
+                ]{biblatex}
+\addbibresource{referencias.bib}
+
+% http://mirrors.ctan.org/macros/latex/contrib/glossaries/glossariesbegin.pdf
+\RequirePackage[acronym,
+                section=section
+                ]{glossaries}
+\input{reporte_tecnico/contenidos/glosario.tex}
+\input{reporte_tecnico/contenidos/siglas_y_acronimos/siglas_y_acronimos.tex}
+
+\begin{document}
+
+  \maketitle
+
+  %
+  % Key points (abstract and introduction).
+  %
+  % Structure of abstract: first talk about the problematic, then about
+  % what we do/did/doing to face it.
+  %
+  % What is the problematic?
+  % A lot of misinformation around the tokenization problem. Companies
+  % using the misinformation to sell his products/services. The PCI providing
+  % and using a classification that don't help to clarify what tokenization is.
+  %
+  % To provide context:
+  % First, the internet commerce gains a lot of popularity. Then come a lot
+  % of frauds cards because the online stores weren't secured. Arises
+  % organizations to rule the functioning of the transactions; the PCI SSC,
+  % the winner organization, establishes a standard that all the entities related
+  % to card transactions must follow. The standard is hard and expensive to
+  % comply, especially to small stores. To help the stores to be PCI complience
+  % arise a new paradigm: the tokenization, i. e. the replacement of the
+  % sensitive information, the credit cards numbers, with surrogate useless
+  % (for an attacker) values, namely, the tokens.
+  %
+  % What we are doing?
+  % -> Explain what is tokenization and what is his relation to cryptography.
+  % -> Provide an alternative to the PCI classification.
+  % -> Enlist some of the more common methods.
+  % -> Explain the general functioning of each of the methods.
+  % -> Compare the performance of the algorithms.
+  % -> Discuss about the advantages and disadvantages of each category and,
+  %    in particular, of each method.
+  %
+
+  \begin{abstract}
+    When the online commerece begin to arise, the credit card frauds become a
+    very frequent problem. For this reason, the Payment Card Industry (PCI)
+    Secuirity Standard Council (SSC), did a standard for rule the function of
+    any entity related with the processing of payments through the internet.
+    This standard has a lot of requirements, and for a small store, it's hard
+    and expensive to be PCI compliance. In the last years, a process named
+    tokenization has become a very popular solution for online stores to
+    reduce their PCI scope. Regretabbly, there is a lot of misinformation
+    around this subject and the PCI guides to tokenization don't help to
+    clarify. In this paper we explain what tokenization is and its
+    relation to cryptography. Over this line, we point out what is the problem
+    with PCI DSS clasification and provide a more logic one. We analyze and
+    compare the more common tokenization methods and conclude with a discussion
+    on the advantages and disadvantages of each one.
+  \end{abstract}
+
+  \section{Introduction}
+
+  \section{Preliminaries}
+
+  \section{Reversible methods}
+
+  \subsection{\Glsentrytext{gl:ffx}}
+
+  References: \cite{ffx_1, ffx_2, sinopsis_rogaway}. \Gls{gl:ffx}.
+
+  \subsection{\Glsentrytext{gl:bps}}
+
+  References: \cite{bps}. \Gls{gl:bps}.
+
+  \section{Irreversible methods}
+
+  \subsection{TKR}
+
+  References: \cite{doc_sandra}.
+
+  \subsection{\Glsentrytext{gl:rha}}
+
+  References: \cite{aragona}. \Gls{gl:rha}.
+
+  \subsection{\Glsentrytext{gl:uto}}
+
+  References: \cite{DBLP:conf/fc/CachinCFL17}. \Gls{gl:uto}.
+
+  \subsection{\Glsentrytext{gl:drbg}}
+
+  References: \cite{nist_aleatorios}. \Gls{gl:drbg}.
+
+  \section{Experimental results}
+
+  \section{Conclusion}
+
+  \printbibliography
+
+\end{document}

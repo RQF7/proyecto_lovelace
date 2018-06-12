@@ -107,6 +107,31 @@ referencias_tt1:
 	biber --input-directory $(CARPETA_TEMPORAL) \
 		$(CARPETA_TEMPORAL)/$(PRESENTACION_TT1).bcf
 
+# Articulo ################################################################
+
+ARTICULO 									:= articulo
+CARPETA_ARTICULO 	        := articulo
+FUENTES_ARTICULO          := \
+	$(shell find articulo/ -type f -name '*.tex' -o -name '*.sty')
+COMPILACION_ARTICULO := $(COMPILACION) \
+	$(CARPETA_ARTICULO)/$(ARTICULO).tex
+
+$(CARPETA_ARTICULO)/$(ARTICULO).pdf: $(FUENTES_ARTICULO)
+	mkdir -p $(CARPETA_TEMPORAL)
+	$(COMPILACION_ARTICULO) | tee salida.temporal
+	@if grep "Please (re)run Biber" salida.temporal; then\
+		make referencias_articulo;\
+		$(COMPILACION_PRESENTACION_TT1) | tee salida.temporal;\
+	else\
+		echo "La bibliografía están al día.";\
+	fi
+	rm -f salida.temporal
+	mv $(CARPETA_TEMPORAL)/$(ARTICULO).pdf ./$(CARPETA_ARTICULO)/
+
+referencias_articulo:
+	biber --input-directory $(CARPETA_TEMPORAL) \
+		$(CARPETA_TEMPORAL)/$(ARTICULO).bcf
+
 # Es necesario tener el ejecutable de hunspell en el PATH, y el diccionario
 # es_MX instalado. Este comando (ortografía) es ejecutado por Travis para
 # validar un push, si lo que se quiere es ejecutar de manera local, es más
