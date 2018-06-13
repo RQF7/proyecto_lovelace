@@ -38,3 +38,12 @@ documentos_entregables/_minted-reporte_tecnico/
 
 # Archivos temporales de mac
 *.DS_Store
+
+# Entorno virtual de python
+entorno_virtual
+
+# Temporales de python
+__pycache__
+
+# Autogenerados por django
+migrations
