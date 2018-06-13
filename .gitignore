@@ -47,3 +47,6 @@ __pycache__
 
 # Autogenerados por django
 migrations
+
+# Compilados de python
+*.pyc
