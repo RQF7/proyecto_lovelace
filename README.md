@@ -30,8 +30,6 @@
   Generación de tokens para proteger los datos de tarjetas bancarias.
 </p>
 
-#
-
 ## Publicaciones
 
 Archivos publicados en la
