@@ -1,9 +1,8 @@
 /**
  * \file
- * \brief Prueba de implementaciones de entropía en hardware.
+ * \brief Prueba de implementaciones de entropía en hardware con intrínsecos.
  *
- * La que debe de funcionar es «rdseed»; en mi laptop no está implementada.
- * Compilar con la bandera «-march=native».
+ * La que debe de funcionar es «rdseed».
  */
 
 #include <immintrin.h>
