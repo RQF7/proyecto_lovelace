@@ -15,6 +15,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 redes_feistel/red_feistel_prueba.cpp \
 											 redes_feistel/red_feistel_alternante_prueba.cpp \
 											 redes_feistel/red_feistel_desbalanceada_prueba.cpp \
+											 drbg/aleatoriedad_hardware.cpp \
+											 drbg/aleatoriedad_hardware_prueba.cpp \
 											 drbg/aleatoriedad_trivial.cpp \
 											 drbg/aleatoriedad_trivial_prueba.cpp \
 											 drbg/drbg.cpp \
@@ -324,6 +326,17 @@ $(CARPETA_OBJETOS)/drbg/aleatoriedad_trivial.o: \
 $(CARPETA_OBJETOS)/drbg/aleatoriedad_trivial_prueba.o: \
 	drbg/aleatoriedad_trivial_prueba.cpp \
 	drbg/cabeceras/aleatoriedad_trivial_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drbg/aleatoriedad_hardware.o: \
+	drbg/aleatoriedad_hardware.cpp drbg/cabeceras/aleatoriedad_hardware.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drbg/aleatoriedad_hardware_prueba.o: \
+	drbg/aleatoriedad_hardware_prueba.cpp \
+	drbg/cabeceras/aleatoriedad_hardware_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)/drbg
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
