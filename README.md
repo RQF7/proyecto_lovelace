@@ -32,9 +32,6 @@
 
 #
 
-En el archivo de [reglas](reglas_de_estilo.md) se enlistan las reglas y
-recomendaciones a seguir en el proyecto.
-
 ## Publicaciones
 
 Archivos publicados en la

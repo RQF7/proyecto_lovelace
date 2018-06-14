@@ -85,7 +85,7 @@ after_success:
 # Antes del despliegue
 before_deploy:
   - mv README.md pagina_publica/
-  - mv reglas_de_estilo.md pagina_publica/
+#  - mv reglas_de_estilo.md pagina_publica/
   - mkdir -p pagina_publica/documentos_entregables/reporte_tecnico
   - mv documentos_entregables/reporte_tecnico/reporte_tecnico.pdf
     pagina_publica/documentos_entregables/reporte_tecnico/
