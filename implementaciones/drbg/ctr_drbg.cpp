@@ -45,7 +45,6 @@ CTRDRBG::CTRDRBG(
   mTipoDeCifrador {tipoDeCifrador},
   mLongitudLlave {static_cast<unsigned int>(mTipoDeCifrador)},
   mLongitudBloque {16u},
-  mLongitudContador {mLongitudBloque},
   mLlave (mLongitudLlave)
 {
   Arreglo<unsigned char> materialDeLlave = mSemilla ^ cadenaDePersonalizacion;

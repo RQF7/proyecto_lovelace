@@ -55,7 +55,7 @@ HashDRBG::HashDRBG(
     524288ull / 8ull,        /* Longitud máxima: 2 ^ 19 bits. */
     281474976710656ull,      /* Vida útil de semilla: 2 ^ 48. */
   },
-  mTipoDeFuncionHash {mTipoDeFuncionHash}
+  mTipoDeFuncionHash {tipoDeFuncionHash}
 {
   if (mTipoDeFuncionHash == TipoDeFuncionHash::SHA1)
     mFuncionHash = new SHA1;
@@ -158,7 +158,7 @@ Arreglo<unsigned char> HashDRBG::funcionDeDerivacion(
       || Arreglo<unsigned char>{static_cast<unsigned char>(longitudDeSalida)}
       || cadenaDeEntrada;
     auto salidaHash = hash(entrada);
-    resultado = move(resultado || salidaHash);
+    resultado = resultado || salidaHash;
   }
   return (resultado / Arreglo<unsigned int>{longitudDeSalida})[0];
 }
@@ -180,7 +180,7 @@ Arreglo<unsigned char> HashDRBG::funcionDeGeneracion(
   for (unsigned int i = 0; i < numeroDeBloques; i++)
   {
     resultado = resultado || hash(datos);
-    datos = move(datos || Arreglo<unsigned char>{1});
+    datos = datos || Arreglo<unsigned char>{1};
   }
   return (resultado / Arreglo<unsigned int>{longitudDeSalida})[0];
 }

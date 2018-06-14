@@ -109,7 +109,7 @@ OBJETOS_DOS		      := $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(FUENTES_DOS:.cpp=.o))
 OBJETOS_TRES        := $(addprefix $(CARPETA_OBJETOS)/, \
                          $(FUENTES_TRES:.cpp=.o))
-BANDERAS_GENERALES	:= -std=c++14 -Wall -Werror -Wfatal-errors -ggdb
+BANDERAS_GENERALES	:= -std=c++14 -Wall -ggdb
 BANDERAS_DE_LIGADO	:= -lcryptopp -lmysqlcppconn -lgmpxx -lgmp
 
 $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)
@@ -280,9 +280,9 @@ $(CARPETA_OBJETOS)/aes_ensamblador/libaesni/libaes_lin64.o: \
 		$(CARPETA_OBJETOS)/aes_ensamblador/libaesni/iaesx64.o
 	yasm -D__linux__ -f elf64 aes_ensamblador/libaesni/asm/do_rdtsc.s -o \
 		$(CARPETA_OBJETOS)/aes_ensamblador/libaesni/do_rdtsc.o
-	gcc -Wall -fPIC -c aes_ensamblador/libaesni/intel_aes.c -o \
+	gcc -M -Wall -fPIC -c aes_ensamblador/libaesni/intel_aes.c -o \
 		$(CARPETA_OBJETOS)/aes_ensamblador/libaesni/intel_aes.o
-	gcc -shared -o $@ $(CARPETA_OBJETOS)/aes_ensamblador/libaesni/*.o
+	gcc -M -shared -o $@ $(CARPETA_OBJETOS)/aes_ensamblador/libaesni/*.o
 
 $(CARPETA_OBJETOS)/ahr/ahr.o: ahr/ahr.cpp ahr/cabeceras/ahr.hh
 	mkdir -p $(CARPETA_OBJETOS)/ahr

@@ -70,7 +70,7 @@ namespace Implementaciones
       unsigned int mLongitudBloque;
 
       /** \brief Longitud de contador. */
-      unsigned int mLongitudContador;
+      //unsigned int mLongitudContador;
 
       /**
        * \brief Llave para cifrador por bloques.
