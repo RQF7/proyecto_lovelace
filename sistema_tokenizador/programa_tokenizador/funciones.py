@@ -24,13 +24,18 @@ def tokenizar(peticion):
   """
   Ejecuta la operación de tokenización y regresa el token asignado.
 
+  Ejemplo:
+  curl --header "Content-Type: application/json" \
+       --request POST \
+       --data '{"pan" : "28045869693113314", "metodo" : "FFX"}' \
+       http://127.0.0.1:8000/programa_tokenizador/tokenizar
+
   Documentación asociada:
   https://docs.python.org/3.5/library/subprocess.html#subprocess.run
   """
   objetoDePeticion = loads(peticion.body)
   pan = objetoDePeticion['pan']
   metodo = objetoDePeticion['metodo']
-  print('Nueva petición de tokenización: ', pan, metodo)
   resultado = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, pan, "llave.txt"],
     stdout=PIPE)
   return HttpResponse(resultado.stdout)
@@ -41,13 +46,21 @@ def detokenizar(peticion):
   """
   Ejecuta la operación de detokenización y regresa el pan asociado
 
+  Ejemplo:
+  curl --header "Content-Type: application/json" \
+       --request POST \
+       --data '{"token" : "28045851286256503", "metodo": "FFX"}' \
+       http://127.0.0.1:8000/programa_tokenizador/detokenizar
+
   Documentación asociada:
   https://docs.python.org/3.5/library/subprocess.html#subprocess.run
   """
   objetoDePeticion = loads(peticion.body)
-  objetoDePeticion['token']
-  objetoDePeticion['metodo']
-  return HttpResponse("¡Hola mundo!")
+  token = objetoDePeticion['token']
+  metodo = objetoDePeticion['metodo']
+  resultado = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, "llave.txt"],
+    stdout=PIPE)
+  return HttpResponse(resultado.stdout)
 
 
 @csrf_exempt
