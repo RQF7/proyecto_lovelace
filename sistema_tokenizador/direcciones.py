@@ -20,6 +20,9 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from .programa_tokenizador import funciones as programa_tokenizador
 
 urlpatterns = [
+  path('programa_tokenizador/tokenizar', programa_tokenizador.tokenizar),
+  path('programa_tokenizador/detokenizar', programa_tokenizador.detokenizar),
+  path('ejecutar', programa_tokenizador.ejecutar),
   path('', programa_tokenizador.hola_mundo)
 ]
 
