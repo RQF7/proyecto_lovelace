@@ -44,16 +44,17 @@ using namespace std;
  */
 
 HashDRBG::HashDRBG(
-  FuenteDeAleatoriedad *fuenteDeAlatoriedad,
   Arreglo<unsigned char> cadenaDePersonalizacion,
   NivelDeSeguridad nivelDeSeguridad,
-  TipoDeFuncionHash tipoDeFuncionHash
+  TipoDeFuncionHash tipoDeFuncionHash,
+  FuenteDeAleatoriedad *fuenteDeAlatoriedad
 )
-: DRBG{fuenteDeAlatoriedad, cadenaDePersonalizacion, nivelDeSeguridad,
+: DRBG{cadenaDePersonalizacion, nivelDeSeguridad,
     (static_cast<int>(tipoDeFuncionHash) <= 256) ? 440u / 8u : 880u / 8u,
     34359738368ull / 8ull,   /* Longitud de personalización: 2 ^ 35 bits. */
     524288ull / 8ull,        /* Longitud máxima: 2 ^ 19 bits. */
     281474976710656ull,      /* Vida útil de semilla: 2 ^ 48. */
+    fuenteDeAlatoriedad
   },
   mTipoDeFuncionHash {tipoDeFuncionHash}
 {

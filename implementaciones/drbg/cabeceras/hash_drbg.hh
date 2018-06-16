@@ -53,10 +53,10 @@ namespace Implementaciones
       };
 
       /** \brief Construcción de un generador basado en una función hash. */
-      HashDRBG(FuenteDeAleatoriedad *fuenteDeAlatoriedad,
-        Arreglo<unsigned char> cadenaDePersonalizacion,
+      HashDRBG(Arreglo<unsigned char> cadenaDePersonalizacion,
         NivelDeSeguridad nivelDeSeguridad = NivelDeSeguridad::nivel128,
-        TipoDeFuncionHash tipoDeFuncionHash = TipoDeFuncionHash::SHA256);
+        TipoDeFuncionHash tipoDeFuncionHash = TipoDeFuncionHash::SHA256,
+        FuenteDeAleatoriedad *fuenteDeAlatoriedad = nullptr);
 
       /** \brief Destructor de generador. */
       ~HashDRBG();

@@ -31,16 +31,17 @@ using namespace std;
  */
 
 CTRDRBG::CTRDRBG(
-  FuenteDeAleatoriedad *fuenteDeAlatoriedad,
   Arreglo<unsigned char> cadenaDePersonalizacion,
   NivelDeSeguridad nivelDeSeguridad,
-  TipoDeCifrador tipoDeCifrador
+  TipoDeCifrador tipoDeCifrador,
+  FuenteDeAleatoriedad *fuenteDeAlatoriedad
 )
-: DRBG{fuenteDeAlatoriedad, cadenaDePersonalizacion, nivelDeSeguridad,
+: DRBG{cadenaDePersonalizacion, nivelDeSeguridad,
     static_cast<unsigned int>(tipoDeCifrador) + 16u, /* Longitud de semilla. */
     static_cast<unsigned int>(tipoDeCifrador) + 16u, /* Personalización. */
     524288ull / 8ull,        /* Longitud máxima: 2 ^ 19 bits. */
     281474976710656ull,      /* Vida útil de semilla: 2 ^ 48. */
+    fuenteDeAlatoriedad
   },
   mTipoDeCifrador {tipoDeCifrador},
   mLongitudLlave {static_cast<unsigned int>(mTipoDeCifrador)},

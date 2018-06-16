@@ -16,7 +16,7 @@ using namespace std;
  * Inicializa la clase de Cryptopp y hace una prueba de operación. En caso de
  * que el procesador no tenga implementada esa función, lanza excepción.
  *
- * \throw SinEntropiaPorHardware Cuando no está implementado en el procesador.
+ * \throw Cryptopp::RDSEED_Err Cuando no está implementado en el procesador.
  */
 
 AleatoriedadHardware::AleatoriedadHardware()

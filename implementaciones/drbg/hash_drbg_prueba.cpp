@@ -36,10 +36,8 @@ HashDRBGPrueba::HashDRBGPrueba()
 
 bool HashDRBGPrueba::probarFuncionDeDerivacion()
 {
-  AleatoriedadTrivial *aleatoriedad = new AleatoriedadTrivial;
-
   /* Prueba con SHA256 */
-  HashDRBG generador {aleatoriedad, Arreglo<unsigned char>{1, 2, 3},
+  HashDRBG generador {Arreglo<unsigned char>{1, 2, 3},
     DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256};
   cout << "Longitud de semilla: " << dec << generador.mLongitudSemilla << endl;
   cout << "Valor de semilla (" << dec
@@ -57,7 +55,7 @@ bool HashDRBGPrueba::probarFuncionDeDerivacion()
   cout << endl;
 
   /* Prueba con SHA512 */
-  HashDRBG generadorDos {aleatoriedad, Arreglo<unsigned char>{1, 2, 3},
+  HashDRBG generadorDos {Arreglo<unsigned char>{1, 2, 3},
     DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA512};
   cout << "Longitud de semilla: " << dec << generadorDos.mLongitudSemilla
        << endl;
@@ -76,7 +74,6 @@ bool HashDRBGPrueba::probarFuncionDeDerivacion()
     cout << "0x" << hex << (0xFF & generadorDos.mConstanteSemilla[i]) << " ";
   cout << endl;
 
-  delete aleatoriedad;
   return true;
 }
 
@@ -89,8 +86,9 @@ bool HashDRBGPrueba::probarFuncionDeDerivacion()
 bool HashDRBGPrueba::probarFuncionDeGeneracion()
 {
   AleatoriedadTrivial *aleatoriedad = new AleatoriedadTrivial;
-  HashDRBG generador {aleatoriedad, Arreglo<unsigned char>{1, 2, 3},
-    DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256};
+  HashDRBG generador {Arreglo<unsigned char>{1, 2, 3},
+    DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256,
+    aleatoriedad};
 
   Arreglo<unsigned char> pruebaUno = generador.operar({10});
   cout << "Prueba uno: " << pruebaUno << endl;

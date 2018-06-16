@@ -38,10 +38,10 @@ namespace Implementaciones
       };
 
       /** \brief Construcción de un generador basado en un cifrador por bloque. */
-      CTRDRBG(FuenteDeAleatoriedad *fuenteDeAlatoriedad,
-        Arreglo<unsigned char> cadenaDePersonalizacion,
+      CTRDRBG(Arreglo<unsigned char> cadenaDePersonalizacion,
         NivelDeSeguridad nivelDeSeguridad = NivelDeSeguridad::nivel128,
-        TipoDeCifrador tipoDeCifrador = TipoDeCifrador::AES128);
+        TipoDeCifrador tipoDeCifrador = TipoDeCifrador::AES128,
+        FuenteDeAleatoriedad *fuenteDeAlatoriedad = nullptr);
 
       /** \brief Función de cambio de semilla. */
       void cambiarSemilla() override;

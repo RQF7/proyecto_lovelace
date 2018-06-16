@@ -60,6 +60,7 @@ FUENTES_DOS					:= lovelace.cpp \
 											 bps/utilidades.cpp \
                        bps/cifrador_BPS.cpp \
 											 bps/codificador.cpp \
+											 drbg/aleatoriedad_hardware.cpp \
 											 drbg/aleatoriedad_trivial.cpp \
 											 drbg/drbg.cpp \
 											 drbg/hash_drbg.cpp \
@@ -87,6 +88,7 @@ FUENTES_TRES        := pruebas_desempenio.cpp \
 											 bps/utilidades.cpp \
                        bps/cifrador_BPS.cpp \
 											 bps/codificador.cpp \
+											 drbg/aleatoriedad_hardware.cpp \
 											 drbg/aleatoriedad_trivial.cpp \
 											 drbg/drbg.cpp \
 											 drbg/hash_drbg.cpp \

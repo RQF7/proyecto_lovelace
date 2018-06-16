@@ -5,8 +5,11 @@
  * Proyecto Lovelace.
  */
 
+#include "cabeceras/aleatoriedad_hardware.hh"
+#include "cabeceras/aleatoriedad_trivial.hh"
 #include "cabeceras/drbg.hh"
 #include "../../utilidades/cabeceras/arreglo.hh"
+#include <cryptopp/rdrand.h>
 #include <string>
 #include <vector>
 
@@ -30,9 +33,6 @@ using namespace std;
  */
 
 DRBG::DRBG(
-  /** Apuntador a función generadora de entroía.
-   *  (la clase no es respondable de esta memoria). */
-  FuenteDeAleatoriedad *fuenteDeAlatoriedad,
   /** Cadena opcional de personalización. */
   Arreglo<unsigned char> cadenaDePersonalizacion,
   /** Máximo nivel de seguridad soportado. */
@@ -44,23 +44,50 @@ DRBG::DRBG(
   /** Máximo número de bits disponibles por petición. */
   entero longitudMaxima,
   /** Vida útil de una semilla. */
-  entero maximoDePeticiones
+  entero maximoDePeticiones,
+  /** Apuntador a función generadora de entroía. */
+  FuenteDeAleatoriedad *fuenteDeAlatoriedad
 )
-: mFuenteDeAlatoriedad {fuenteDeAlatoriedad},
-  mCadenaDePersonalizacion {cadenaDePersonalizacion},
+: mCadenaDePersonalizacion {cadenaDePersonalizacion},
   mNivelDeSeguridad {nivelDeSeguridad},
   mLongitudSemilla {longitudSemilla},
   mLongitudPersonalizacion {longitudPersonalizacion},
   mLongitudMaxima {longitudMaxima},
   mMaximoDePeticiones {maximoDePeticiones},
-  mContadorDePeticiones {0},
-  mSemilla {mFuenteDeAlatoriedad->operar({mLongitudSemilla})}
+  mFuenteDeAlatoriedad {fuenteDeAlatoriedad},
+  mContadorDePeticiones {0}
 {
   if (mCadenaDePersonalizacion.obtenerNumeroDeElementos() >
     mLongitudPersonalizacion)
     throw PersonalizacionDemasiadoGrande{
       string{"La cadena de personalización no debe exceder los"}
       + to_string(mLongitudPersonalizacion) + string{" bytes."}};
+
+  if (mFuenteDeAlatoriedad == nullptr)
+  {
+    mBanderaDeRecursos = true;
+    try
+    {
+      mFuenteDeAlatoriedad = new AleatoriedadHardware{};
+    }
+    catch(CryptoPP::RDSEED_Err &error)
+    {
+      mFuenteDeAlatoriedad = new AleatoriedadTrivial{};
+    }
+  }
+
+  mSemilla = mFuenteDeAlatoriedad->operar({mLongitudSemilla});
+}
+
+/**
+ * Libera la memoria que se reservó en el constructor. Si el apuntador de la
+ * fuente de aleatoriedad es externo, no se libera.
+ */
+
+DRBG::~DRBG()
+{
+  if (mBanderaDeRecursos)
+    delete mFuenteDeAlatoriedad;
 }
 
 /**
