@@ -14,6 +14,7 @@
 #include <string>
 #include <iostream>
 
+using namespace Implementaciones;
 using namespace sql;
 using namespace std;
 
