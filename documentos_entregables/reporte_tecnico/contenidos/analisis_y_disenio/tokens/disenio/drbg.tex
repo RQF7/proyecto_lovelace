@@ -24,8 +24,8 @@ La clase del generador necesita una fuente de entropía (o fuente de
 aleatoriedad). Siguiendo el esquema de débil acomplamiento dado por las
 interfaces de las funciones, la fuente de entropia es una función que recibe un
 entero y regresa un arreglo de bytes. En el costado izquierdo del diagrama se
-muestra una de las posibles fuentes de entropia (aleatoriedad trivial), la cual
-lee de un archivo la entropía.
+muestran dos de las posibles fuentes de entropia: aleatoriedad trivial y
+aleatoriedad por hardware (para más detalles, ver sección \ref{sec:intel}).
 
 Existen dos implementaciones concretas para el generador de números
 pseudoaleatorios: una basada en una función hash y la otra basada en un cifrador
