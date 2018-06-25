@@ -68,6 +68,11 @@
 
 \makeatletter
 
+% Colisión entre beamer y subfigure.
+% https://tex.stackexchange.com/questions/426088/
+% texlive-pretest-2018-beamer-and-subfig-collide/426090
+\let\@@magyar@captionfix\relax
+
 \def\beamer@subsection[#1]#2{%
   \beamer@savemode%
   \mode<all>%
