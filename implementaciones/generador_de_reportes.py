@@ -30,19 +30,33 @@ def generarGraficaTiemposUnitarios(tokenizacion, detokenizacion):
   barrasTokenizacion = ejes.bar(indices - ancho/2,
     tokenizacion,
     ancho,
-    color='#222222',
+    color='#444444',
     label='Tokenización')
   barrasDetokenizacion = ejes.bar(indices + ancho/2,
     detokenizacion,
     ancho,
-    color='#555555',
+    color='#777777',
     label='Detokenización')
   ejes.set_ylabel('Tiempos (microsegundos)')
+  ejes.yaxis.set_label_coords(-0.12,0.5)
   #ejes.set_title('Tiempos unitarios de tokenización y detokenización')
   ejes.set_xticks(indices)
   ejes.set_xticklabels(tuple(algoritmos))
-  ejes.legend()
-  figura.savefig(carpetaGeneral + "/tiempos_unitarios.png")
+  ejes.legend(frameon=False)
+  ejes.grid(axis='y',
+    which='both',
+    linewidth=0.2,
+    color='#000000',
+    alpha=1.0)
+  ejes.tick_params(
+    axis='both',          # changes apply to the x-axis
+    which='both',      # both major and minor ticks are affected
+    bottom=False,      # ticks along the bottom edge are off
+    top=False,         # ticks along the top edge are off
+    left=False,
+    labelbottom=True) # labels along the bottom edge are off
+  figura.savefig(carpetaGeneral + "/tiempos_unitarios.png",
+    dpi=500)
 
 
 def generarTiemposUnitarios():
