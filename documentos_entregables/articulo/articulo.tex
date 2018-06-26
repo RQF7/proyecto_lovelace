@@ -13,6 +13,11 @@
 % Soporte para lenguajes distintos del inglés.
 \RequirePackage[spanish, mexico, es-noindentfirst]{babel}
 
+% http://ctan.math.washington.edu/tex-archive/macros/latex/contrib/
+% import/import.pdf
+% Establece inputs relativos con respecto a una carpeta.
+\RequirePackage{import}
+
 \begin{document}
 
   \title{Estudio y comparación de métodos de tokenización}
@@ -71,7 +76,7 @@
 
   \subsection{Basados en DRBG (\textit{Deterministic Random Bit Generator})}
 
-  \section{Resultados de comparaciones de desempeño}
+  \import{articulo/contenidos/}{resultados}
 
   \section{Conlusiones}
 

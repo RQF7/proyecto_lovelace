@@ -41,7 +41,8 @@ int main(int argc, char* argv[])
 
   if(argc < 6)
   {
-    cout << "Uso: " << argv[0] << " [ip] [puerto] [usuario] [clave] [algoritmo]" << endl;
+    cout << "Uso: " << argv[0]
+      << " ip puerto usuario clave algoritmo [num_pruebas]" << endl;
     exit(1);
   }
   if(argc == 7)
