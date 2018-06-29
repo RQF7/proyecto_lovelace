@@ -1,0 +1,40 @@
+%
+% Sección de preliminares.
+% Artículo.
+% Proyecto Lovelace.
+%
+
+\section{Preliminares}
+
+% TODO: Usar notación de conjuntos para las fórmulas.
+% TODO: ¿qué más va en los preliminares? ¿AES?
+% TODO: Terminar de definir a los cifradores por bloque.
+% TODO: creo que cifrador no existe.
+
+\subsection{Notación}
+
+Denotaremos a todas las cadenas de bits de longitud $ n $ como $ \{ 0, 1 \}^n $. Un algoritmo tokenizador es una función $ E: X \rightarrow Y $ en donde los conjuntos $ X $ y $ Y $ son el espacio de números de tarjetas y el de tokens, respectivamente.
+
+\subsection{Algoritmo de Luhn}
+
+\subsection{Estructura de un número de tarjeta de crédito}
+
+\subsection{Cifradores por bloque}
+
+Un cifrador por bloque es un cifrador simétrico que se define por la función $  $
+
+\subsection{Cifrados que preservan el formato}
+
+% TODO: poner referencia a artículo de FPE. Al parecer no lo citamos en el
+% reporte técnico.
+% TODO: Coregir letra del contradominio de la función de FPE e investigar qué
+% demonios es.
+% TODO: ¿Tweak va en itálicas?
+
+Un cifrado que preserva el formato puede ser visto como un cifrador simétrico en donde el mensaje en claro y el mensaje cifrado mantienen un formato en común. Formalmente, de acuerdo a lo definido en \cite{}, se trata de una función $ E: K \times N \times T \times X \rightarrow X \sigma \{ q \} $, en donde los conjuntos $ K $, $ N $, $ T $, $ X $ corresponden al espacio de llaves, espacio de formatos, espacio de tweaks y el dominio, respectivamente. El proceso de cifrado de un elemento del dominio con respecto a una llave $ K $, un formato $ N $ y un tweak $ T $ se escribe como  $ E_K^{N,T}(X) $. El proceso inverso es también una función $ D: K \times N \times T \times X \rightarrow X \sigma \{ q \} $, en donde $ D_K^{N,T}\big( E_K^{N,T}(X) \big) = X $.
+
+% TODO: verificar longitud de formato.
+% TODO: ¿Hacer aclaración sobre la diferencia en los dígitos verificadores en
+% los espacios de orígen y destino.
+
+Para lo que a este trabajo respecta, el formato usado es el de las tarjetas de crédito: una cadena de entre 12 y 19 dígitos decimales. Esto es $ N = \{0, 1, \dots, 9\}^n $ en donde $ 12 \leq n \leq 19 $.
