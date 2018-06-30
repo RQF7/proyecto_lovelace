@@ -9,14 +9,16 @@
 La información que aquí se presenta puede ser consultada con mayor detalle en
 \cite{bps}.
 
-\textit{BPS} es uno de los algoritmos de cifrado que preservan el formato
+\Gls{gl:bps} es uno de los algoritmos de cifrado que preservan el formato
 existentes, y es capaz de cifrar cadenas de longitudes casi arbitrarias que
-estén formadas por cualquier conjunto de caracteres.
+estén formadas por cualquier conjunto de caracteres. El \gls{gl:nist} llama a
+este método FF3 en su estándar sobre los cifrados que preservan el
+formato\cite{nist_fpe}.
 
-\textit{BPS} está conformado por 2 partes fundamentales, un cifrado interno
+\Gls{gl:bps} está conformado por 2 partes fundamentales, un cifrado interno
 $BC$, encargado de cifrar bloques de longitud fija; y un modo de operación,
-encargado de extender la funcionalidad de el cifrador $BC$ y permitir que
-\textit{BPS} cifre cadenas de varias longitudes.
+encargado de extender la funcionalidad de el cifrado $BC$ y permitir que
+\gls{gl:bps} cifre cadenas de varias longitudes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -25,14 +27,14 @@ encargado de extender la funcionalidad de el cifrador $BC$ y permitir que
 
 %------------------------------------------------------------------------------
 
-El cifrado por bloques que usa \textit{BPS} internamente se define como
+El cifrado por bloques que usa \gls{gl:bps} internamente se define como
 \begin{equation}
   BC_{F,s,b,w}(X,K,T)
 \end{equation}
 
 Donde:
 \begin{itemize}
-  \item $F$ es un cifrador por bloques de $f$ bits de salida,
+  \item $F$ es un cifrado por bloques de $f$ bits de salida,
     por ejemplo: \gls{gl:tdes}, \gls{gl:aes}, \gls{gl:sha}-2.
   \item $s$ es la cardinalidad del conjunto de caracteres del bloque a cifrar.
   \item $b$ es la longitud del bloque a cifrar,
@@ -40,7 +42,7 @@ Donde:
   \item $w$ es el número (par) de rondas de la red Feistel interna
     (véase \ref{sec:red_feistel}).
   \item $X$ es la cadena o bloque de longitud $b$ a cifrar.
-  \item $K$ es una llave acorde al cifrador por bloques $F$.
+  \item $K$ es una llave acorde al cifrado por bloques $F$.
   \item $T$ es un \textit{tweak} de 64 bits.
 \end{itemize}
 
@@ -64,7 +66,7 @@ Para poder cifrar la cadena $X$:
     de que $b$ sea impar, $l$ va a ser igual a $(b+1)/2$ y $r$ igual a
     $(b-1)/2$.
 
-  \item Partiendo de que el cifrador $BC$ se compone de $w$ rondas de una red
+  \item Partiendo de que el cifrado $BC$ se compone de $w$ rondas de una red
     Feistel, se define $L_i$ y $R_i$ (parte izquierda y parte derecha de la
     red en la i-ésima ronda), y se inicializan en:
     \begin{align}
@@ -72,7 +74,7 @@ Para poder cifrar la cadena $X$:
       R_0\: &=\: \sum_{j=0}^{r-1} X_R[j] \cdot s^j
     \end{align}
 
-  \item Ahora por cada ronda $i\: <\: w$ y cifrando con el cifrador por
+  \item Ahora por cada ronda $i\: <\: w$ y procesando con el cifrado por
     bloques $E$.
 
     Si $i$ es par:
@@ -231,12 +233,15 @@ label={descifrado_BC}]
 \subsubsection{El modo de operación}
 \label{sec:bps_modo_operacion}
 
-En cuanto al modo de operación de \textit{BPS}, se puede decir que es un
-equivalente al modo de operación CBC (véase \ref{sec:cbc}), ya que el bloque
-$BC_n$ utiliza el texto cifrado de la salida del bloque $BC_{n-1}$, con la
+En cuanto al modo de operación de \gls{gl:bps}, se puede decir que es un
+equivalente al modo de operación \gls{gl:cbc} (véase \ref{sec:cbc}), ya que el
+bloque $BC_n$ utiliza el texto cifrado de la salida del bloque $BC_{n-1}$, con la
 distinción de que en lugar de aplicar operaciones \textit{xor} usa sumas
 modulares carácter por carácter, y de que no utiliza un
 \gls{gl:vector_de_inicializacion}, a pesar de soportar su uso.
+
+% Hmmm... no sé si es problema mio o cuestión generalizada en México: cuando me
+% refiero a un símbolo digo caracter, no carácter.
 
 Algo importante a resaltar de este modo de operación es que, en caso de que el
 texto en claro no tenga una longitud total que sea múltiplo de la longitud de
@@ -249,19 +254,19 @@ ver de forma gráfica en la figura \ref{cursor_BPS}.
     \includegraphics[width=0.8\linewidth]
     {../../../../diagramas_comunes/bps/cursor_bps}
     \caption{Corrimiento de cursor para la selección del último
-      bloque en el modo de operación de \textit{BPS}.}
+      bloque en el modo de operación de \gls{gl:bps}.}
     \label{cursor_BPS}
    \end{center}
 \end{figure}
 
 En la figura \ref{modo_de_operacion_BPS} se ve de manera gráfica el
-funcionamiento del modo de operación de \textit{BPS}.
+funcionamiento del modo de operación de \gls{gl:bps}.
 
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.85\linewidth]
     {../../../../diagramas_comunes/bps/modo_de_operacion_bps}
-    \caption{Modo de operación de \textit{BPS}.}
+    \caption{Modo de operación de \gls{gl:bps}.}
     \label{modo_de_operacion_BPS}
    \end{center}
 \end{figure}
@@ -270,39 +275,61 @@ Otra particularidad del modo de operación es el uso del contador $u$ de 16
 bits, que es utilizado para aplicar una operación \textit{xor} al
 \textit{tweak} $T$ que entra a cada uno de los bloques $BC$. Recordando que $T$
 es de 64 bits, el \textit{xor} se aplica a los 16 bits más significativos de
-ambas mitades de \textit{tweak}, esto debido a cada mitad de \textit{tweak}
-funciona de manera independiente en el cifrador $BC$, y a que no se desea un
+ambas mitades de \textit{tweak}, esto debido a que cada mitad de \textit{tweak}
+funciona de manera independiente en el cifrado $BC$, y a que no se desea un
 traslape entre el contador externo $u$ y el contador $i$ interno en $BC$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Características generales}
 
-Como se observó, \textit{BPS} está basado en las redes Feistel, lo cual puede
-verse como una ventaja, debido al amplio estudio que tienen. Además, usa
-algoritmos de cifrado o funciones hash estandarizadas de forma interna, lo
+% ¿No sería más lógico poner las características generales al inicio de la
+% sección? Por ejemplo, el segundo párrafo comienza diciendo que BPS es un
+% cifrado que preserva el formato capaz de tal tal y tal... cuando realmente
+% ya se describieron antes el funcionamiento de BPS.
+
+% Esta sección suena demasiado a lo que los autores de BPS dirían sobre su
+% algoritmo:
+% * Se puede hablar de las redes Feistel en términos de ventajas y desventajas
+%   solamente si existieran alternativas, pero cuando menos aquí no se presentan.
+%   Una manera de arrglar estro sería incluyendo a las Redes Feistel en la
+%   siguiente oración, junto con los algoritmos de cifrado y las funciones hash.
+% * Algo parecido pasa con el párrafo que dice que BPS es eficiente. ¿Hay
+%   alternativas para que la llave no sea constante? Solamente conocemos otro
+%   cifrado que preserva el formato (FFX) y pues se supone que las comparaciones
+%   entre ellos van hasta la sección de resultados.
+
+Como se observó, \gls{gl:bps} está basado en las redes Feistel, lo cual puede
+verse como una ventaja, debido al amplio estudio que tienen. Además, usa de
+forma interna algoritmos de cifrado o funciones hash estandarizadas, lo
 cual hace más comprensible y fácil su implementación.
 
-\textit{BPS} es un cifrado que preserva el formato capaz de cifrar cadenas de
+\Gls{gl:bps} es un cifrado que preserva el formato capaz de cifrar cadenas de
 un longitud de $2$ hasta $max(b) \cdot 2^{b}$ caracteres (donde $max(b)$ es el
 tamaño máximo de bloque), formadas por cualquier conjunto.
 
-Se puede considerar que \textit{BPS} es eficiente, debido a que la llave $K$
+Se puede considerar que \gls{gl:bps} es eficiente, debido a que la llave $K$
 usada en cada bloque $BC$ es constante, y a que además usa un número reducido
 de operaciones internas en comparación con otros algoritmos de cifrado que
 preservan el formato.
 
 Por último, se puede resaltar que el uso de \textit{tweaks} protege a
-\textit{BPS} de ataques de diccionario, los cuales son fáciles de cometer cuando
+\gls{gl:bps} de ataques de diccionario, los cuales son fáciles de cometer cuando
 el dominio de la cadena a cifrar es muy pequeño.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Recomendaciones}
 
+% El balance entre seguridad y eficiencia es una cuestión abierta para casi
+% todos los algoritmos en la criptografía: decir así como así que 8 es
+% eficiente suena de nuevo a oración publicitaria y no a dato objetivo; de hecho
+% entre menos rondas, más eficiente. Creo que yo pondŕia mejor algo como «el
+% mínimo número de rondas para el cual la seguridad se mantiene es 8».
+
 Se recomienda que el número de rondas $w$ de la red Feistel sea $8$, dado
-que es una número de rondas eficiente, y se ha estudiado la seguridad de
-\textit{BPS} con este $w$.
+que es un número de rondas eficiente, y se ha estudiado la seguridad de
+\gls{gl:bps} con este $w$.
 
 Es recomendable que como \textit{tweak} se use la salida truncada de una función
 hash, en donde la entrada de la función puede ser cualquier información

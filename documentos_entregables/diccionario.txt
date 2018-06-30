@@ -52,8 +52,8 @@ Tecnicismos y extranjerismos
 ===============================================================================
 @AddRoundKey
 @buffer
-@cifrador
-@cifradores
+@cifrado
+@cifrados
 @detokenización
 @hash
 @inv

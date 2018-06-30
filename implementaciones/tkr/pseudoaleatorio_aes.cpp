@@ -20,7 +20,7 @@ using namespace CryptoPP;
 using namespace std;
 
 /**
- * Inicializa los objetos comunes a todas las iteraciones del cifrador:
+ * Inicializa los objetos comunes a todas las iteraciones del cifrado:
  * una objeto de aes, un objeto de ecb y una referencia al bloque de
  * la llave.
  *
@@ -31,7 +31,7 @@ using namespace std;
  */
 
 PseudoaleatorioAES::PseudoaleatorioAES(
-  unsigned char* llave                  /**< llave para cifrador por bloques. */
+  unsigned char* llave                  /**< llave para cifrado por bloques. */
 )
 : mLlave {llave},
   mCifradoAES {mLlave, AES::DEFAULT_KEYLENGTH},
@@ -55,7 +55,7 @@ PseudoaleatorioAES::~PseudoaleatorioAES()
  * tamaño de bloque de AES (128 bits) más cercano hacia arriba.
  *
  * Este es el algoritmo propuesto en el artículo de TKR para instanciar f
- * con un cifrador por bloques.
+ * con un cifrado por bloques.
  *
  * \return Arreglo de bytes con contenido del cifrado.
  */

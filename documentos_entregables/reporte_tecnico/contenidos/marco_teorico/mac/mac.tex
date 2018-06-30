@@ -15,7 +15,7 @@ integridad de los mensajes. Dependen de unas llaves secretas que son
 compartidas entre las partes que se van a comunicar; cada una de las
 partes puede producir el \gls{gl:mac} correspondiente para un mensaje
 dado. Como se explica a continuación, los \gls{gl:mac} pueden ser
-obtenidos mediante cifradores de bloque, cifradores de flujo o de funciones
+obtenidos mediante cifrados de bloque, cifrados de flujo o de funciones
 hash criptográficas.
 
 Las funciones hash con llave cuyo propósito específico es la
@@ -29,7 +29,7 @@ un mensaje de longitud $n$.
   h_k: \{0, 1\}^* \longrightarrow \{0,1\}^n
 \end{equation}
 
-El algoritmo \gls{gl:mac} más usado basado en un cifrador de bloque
+El algoritmo \gls{gl:mac} más usado basado en un cifrado de bloque que
 utiliza el modo de operación \gls{gl:cbc} (véase sección \ref{sec:cbc}).
 Cuando \gls{gl:des} es utilizado como el cifrado de bloque $E$, el tamaño
 de bloque es de 64 bits y la llave \gls{gl:mac} es de 56 bits.
@@ -76,7 +76,7 @@ si es correcto o no el \gls{gl:mac}.
 
 \paragraph{CBC-MAC}
 Este algoritmo está basado en el modo de operación \gls{gl:cbc} y una función
-$F$ que puede ser, por ejemplo, un cifrador por bloques. Se encarga de
+$F$ que puede ser, por ejemplo, un cifrado por bloques. Se encarga de
 cifrar con una llave $l_1$ todo el mensaje $m$, pero lo único que se toma en
 cuenta es el último bloque, que es tomado como el código de autenticación
 (véase figura \ref{mac:cbc1}). En algunos casos, se cifra de nuevo, con la misma
@@ -84,7 +84,7 @@ función $F$, pero utilizando una llave $l_2$ distinta (véase
 figura~\ref{mac:cbc2}).
 
 CBC-MAC es considerado seguro cuando el mensaje $m$ tiene una longitud
-múltiplo del tamaño de bloque del cifrador por bloques. Como se le han
+múltiplo del tamaño de bloque del cifrado por bloques. Como se le han
 encontrado varias vulnerabilidades, algoritmos basados en CBC-MAC han sido
 propuestos, tales como el \textit{eXtended CBC} o el \gls{gl:omac}.
 

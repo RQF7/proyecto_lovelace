@@ -6,18 +6,20 @@
 \subsection{Algoritmo FFX}
 \label{sec:ffx}
 
-\Gls{gl:ffx} es un cifrador que preserva el formato presentado en \cite{ffx_1}
+\Gls{gl:ffx} es un cifrado que preserva el formato presentado en \cite{ffx_1}
 por Mihir Bellare, Phillip Rogaway y Terence Spies.  En su forma más general,
 el algoritmo se compone de 9 parámetros que permiten cifrar cadenas de
 cualquier longitud en cualquier alfabeto; los autores también proponen dos
 formas más específicas (dos colecciones de parámetros) para alfabetos binarios
-y alfabetos decimales: A2 y A10, respectivamente.
+y alfabetos decimales: A2 y A10, respectivamente. El \gls{gl:nist} llama a este
+método FF1 en su estándar sobre los cifrados que preservan el
+formato\cite{nist_fpe}.
 
 \Gls{gl:ffx} ocupa redes Feistel (ver sección \ref{sec:red_feistel}) junto con
 \glspl{gl:primitiva_criptografica} adaptadas (usadas como función de ronda) para
 lograr preservar el formato. La idea general para las posibles funciones de
-ronda es interpretar la salida binaria de una primitiva (p. ej. un cifrador por
-bloques, una función hash, un cifrador de flujo) de forma que tenga el formato
+ronda es interpretar la salida binaria de una primitiva (p. ej. un cifrado por
+bloques, una función hash, un cifrado de flujo) de forma que tenga el formato
 deseado; esto es, que tenga la misma longitud y se encuentre en el mismo
 alfabeto que la entrada. Es importante notar que esta función no tiene por qué
 ser invertible: las redes Feistel ocupan la misma operación tanto para cifrar
@@ -95,7 +97,7 @@ De las dos colecciones de parámetros presentadas en \cite{ffx_2}, la que se
 adapta mejor al dominio de los números de tarjetas de crétdito es A10, por lo
 que es la única que se presenta aquí. En la tabla \ref{ffx_a10} se muestran los
 valores con los que la colección \gls{gl:ffx} A10 inicializa FFX para crear un
-cifrador en el dominio decimal.
+cifrado en el dominio decimal.
 
 \begin{table}
   \centering

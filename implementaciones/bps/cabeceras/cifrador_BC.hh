@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Definición de la clase del cifrador BC.
+ * \brief Definición de la clase del cifrado BC.
  * Proyecto Lovelace.
  */
 
@@ -41,7 +41,7 @@ namespace Implementaciones
                                              unsigned int numRondas);
 
       /** \brief Constructor de la clase con argumentos de alfabeto,
-      tamaño de bloque, número de rondas y cifrador. */
+      tamaño de bloque, número de rondas y cifrado. */
       CifradorBC(std::vector<char> alfabeto, unsigned int tamBloque,
                       unsigned int numRondas, unsigned int cifrador);
 
@@ -61,28 +61,28 @@ namespace Implementaciones
       std::string descifrar(std::string mensaje, CryptoPP::byte llave[],
                                                         mpz_class tweak);
 
-      /** \brief Método para obtener el alfabeto con que trabaja el cifrador. */
+      /** \brief Método para obtener el alfabeto con que trabaja el cifrado. */
       std::vector<char> obtenerAlfabeto();
 
-      /** \brief Método para obtener el tamaño de bloque del cifrador. */
+      /** \brief Método para obtener el tamaño de bloque del cifrado. */
       unsigned int obtenerTamBloque();
 
-      /** \brief Método para obtener el numero de rondas del cifrador. */
+      /** \brief Método para obtener el numero de rondas del cifrado. */
       unsigned int obtenerNumRondas();
 
-      /** \brief Método para obtener el cifrador de ronda interno. */
+      /** \brief Método para obtener el cifrado de ronda interno. */
       CifradorDeRonda obtenerCifradorDeRonda();
 
-      /** \brief Método para cambiar el alfabeto con que trabaja el cifrador. */
+      /** \brief Método para cambiar el alfabeto con que trabaja el cifrado. */
       void colocarAlfabeto(std::vector<char> alfabeto);
 
-      /** \brief Método para cambiar el tamaño de bloque del cifrador. */
+      /** \brief Método para cambiar el tamaño de bloque del cifrado. */
       void colocarTamBloque(unsigned int tamBloque);
 
-      /** \brief Método para cambiar el numero de rondas del cifrador. */
+      /** \brief Método para cambiar el numero de rondas del cifrado. */
       void colocarNumRondas(unsigned int numRondas);
 
-      /** \brief Método para cambiar el tipo de cifrador F. */
+      /** \brief Método para cambiar el tipo de cifrado F. */
       void colocarTipoCifrador(unsigned int tipo);
 
   };

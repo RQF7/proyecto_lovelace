@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Implementación de la clase del cifrador de ronda.
+ * \brief Implementación de la clase del cifrado de ronda.
  *
  * Proyecto Lovelace.
  */

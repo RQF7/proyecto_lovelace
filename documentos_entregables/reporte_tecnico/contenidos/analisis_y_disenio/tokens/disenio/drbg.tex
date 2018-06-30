@@ -28,12 +28,12 @@ muestran dos de las posibles fuentes de entropia: aleatoriedad trivial y
 aleatoriedad por hardware (para más detalles, ver sección \ref{sec:intel}).
 
 Existen dos implementaciones concretas para el generador de números
-pseudoaleatorios: una basada en una función hash y la otra basada en un cifrador
+pseudoaleatorios: una basada en una función hash y la otra basada en un cifrado
 por bloques (sección \ref{sec:drbg_lista}). Ambos agregan sus propios datos
 miembro al estado del generador, sobrecargan las funciones de cambio de semilla
 y desintanciación e implementan el método abstracto de la superclase. También se
 utilizan enumeraciones para indicar al código cliente cuales son las distintas
-funciones hash y cifradores por bloque que pueden ser ocupados.
+funciones hash y cifrados por bloque que pueden ser ocupados.
 
 \begin{sidewaysfigure}
   \begin{center}

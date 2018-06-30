@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Definición de la clase del cifrador de ronda.
+ * \brief Definición de la clase del cifrado de ronda.
  *
  * Proyecto Lovelace.
  */
@@ -36,13 +36,13 @@ namespace Implementaciones
       /** \brief Constructor de la clase con argumentos. */
       CifradorDeRonda(unsigned int cifrador);
 
-      /** \brief Método para cambiar el tipo de cifrador que se usa. */
+      /** \brief Método para cambiar el tipo de cifrado que se usa. */
       void colocarCifrador(unsigned int cifrador);
 
-      /** \brief Método para obtener el tipo de cifrador que se usa. */
+      /** \brief Método para obtener el tipo de cifrado que se usa. */
       unsigned int obtenerCifrador();
 
-      /** \brief Método para obtener el tamaño de bloque del cifrador. */
+      /** \brief Método para obtener el tamaño de bloque del cifrado. */
       unsigned int obtenerTamBloque();
 
       /** \brief Método para cifrar un mensaje con la llave dada. */

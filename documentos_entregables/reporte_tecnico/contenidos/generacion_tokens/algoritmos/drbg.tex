@@ -1,6 +1,6 @@
 %
 % Generador pseudoaleatorio como método tokenizador,
-% creación mediante funciones hash y cifrador por bloques.
+% creación mediante funciones hash y cifrado por bloques.
 % Capítulo de análisis y diseño, reporte técnico.
 %
 % Proyecto Lovelace.
@@ -15,7 +15,7 @@ mostramos cómo estos métodos pueden ser utilizadas para tokenizar y detokeniza
 números de tarjetas. Primero se muestran dos posibles instanciaciones
 con \glspl{gl:primitiva_criptografica} del método general descrito en
 \ref{sec:generadores_pseudoaleatorios}: una basada en funciones hash
-(sección \ref{sec:hash}) y otra basada en cifradores por bloque (sección
+(sección \ref{sec:hash}) y otra basada en cifrados por bloque (sección
 \ref{sec:bloques}); ambas presentadas en \cite{nist_aleatorios}.
 
 \subsubsection{DRBG basado en funciones hash}
@@ -50,19 +50,19 @@ tamaño de los \textit{digest} retornados por la función hash usada.
     fin
 \end{pseudocodigo}
 
-\subsubsection{DRBG basado en cifrador por bloque}
+\subsubsection{DRBG basado en cifrado por bloque}
 
 Al igual que el generador basado en funciones hash, este método también
 introduce un segundo valor crítico: el valor de la llave utilizada por el
-cifrador por bloque subyacente. Esta llave se genera a partir de la
+cifrado por bloque subyacente. Esta llave se genera a partir de la
 entrada de entropía y debe ser tratada de igual forma que la semilla por
 las funciones de instanciación, cambio de semilla y desinstanciación.
 
 En el pseudocódigo \ref{ctr_drbg} se muestra la función de generación de
-bits psudoaleatorios basada en un cifrador por bloques.
+bits psudoaleatorios basada en un cifrado por bloques.
 
 \begin{pseudocodigo}[%
-    caption={Generación de bits pseudoaleatorios mediante cifrador por bloques},
+    caption={Generación de bits pseudoaleatorios mediante cifrado por bloques},
     label={ctr_drbg}%
   ]
     entrada: número $ n $ de bytes deseados.

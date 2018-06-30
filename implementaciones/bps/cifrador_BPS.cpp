@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Implementación de la clase del cifrador BPS.
+ * \brief Implementación de la clase del cifrado BPS.
  *
  * Proyecto Lovelace.
  */
@@ -87,18 +87,18 @@ string CifradorBPS::cifrar(string mensaje, byte llave[], mpz_class tweak)
   BC.colocarTipoCifrador(mTipoCifrador);
   int tamCifradorDeRonda = BC.obtenerCifradorDeRonda().obtenerTamBloque();
 
-  /* Obtención del tamaño máximo de bloque del cifrador interno BC */
+  /* Obtención del tamaño máximo de bloque del cifrado interno BC */
   unsigned int tamTotal, tamMax;
   tamTotal  = mensaje.size();
   tamMax = 2 * ((tamCifradorDeRonda - 32) * log(2)) / log(mAlfabeto.size());
 
-  /* Configuración del cifrador interno BC */
+  /* Configuración del cifrado interno BC */
   BC.colocarAlfabeto(mAlfabeto);
   BC.colocarTamBloque(tamMax);
   BC.colocarNumRondas(mNumRondas);
 
   /* En caso de que la cadena dada tenga una longitud menor al tamaño máximo
-  del cifrador BC, simplemente se cifra la cadena con BC */
+  del cifrado BC, simplemente se cifra la cadena con BC */
   if(tamTotal <= tamMax)
   {
     BC.colocarTamBloque(tamTotal);
@@ -115,14 +115,14 @@ string CifradorBPS::cifrar(string mensaje, byte llave[], mpz_class tweak)
   mpz_class tweakU = 0;
 
   /* En caso de que la cadena dada tenga una longitud mayor al tamaño máximo
-  del cifrador BC, se van cifrando bloques x de longitud igual a la longitud
+  del cifrado BC, se van cifrando bloques x de longitud igual a la longitud
   máxima de BC, donde x es igual a la suma modular de un bloque i con un
   bloque i-1 */
   BC.colocarTamBloque(tamMax);
   for (unsigned int i = 0; i < numBloques; i++)
   {
     /* Xor del contador u = 2^16 + 2^48 con el tweak que entrara
-    al cifrador BC */
+    al cifrado BC */
     contadorU = i;
     contadorU = (contadorU << 16) + (contadorU << 48);
     tweakU = tweak^contadorU;
@@ -139,7 +139,7 @@ string CifradorBPS::cifrar(string mensaje, byte llave[], mpz_class tweak)
   if(tamUltimoBloque != 0)
   {
     /* Xor del contador u = 2^16 + 2^48 con el tweak que entrará
-    al cifrador BC */
+    al cifrado BC */
     BC.colocarTamBloque(tamUltimoBloque);
     contadorU = numBloques;
     contadorU = (contadorU << 16) + (contadorU << 48);
@@ -168,18 +168,18 @@ string CifradorBPS::descifrar(string mensaje, byte llave[], mpz_class tweak)
   BC.colocarTipoCifrador(mTipoCifrador);
   int tamCifradorDeRonda = BC.obtenerCifradorDeRonda().obtenerTamBloque();
 
-  /* Obtención del tamaño máximo de bloque del cifrador interno BC */
+  /* Obtención del tamaño máximo de bloque del cifrado interno BC */
   unsigned int tamTotal, tamMax;
   tamTotal = mensaje.size();
   tamMax = 2 * ((tamCifradorDeRonda - 32) * log(2)) / log(mAlfabeto.size());
 
-  /* Configuración del cifrador interno BC */
+  /* Configuración del cifrado interno BC */
   BC.colocarAlfabeto(mAlfabeto);
   BC.colocarTamBloque(tamMax);
   BC.colocarNumRondas(mNumRondas);
 
   /* En caso de que la cadena dada tenga una longitud menor al tamaño máximo
-  del cifrador BC, simplemente se descifra la cadena con BC */
+  del cifrado BC, simplemente se descifra la cadena con BC */
   if(tamTotal <= tamMax)
   {
     BC.colocarTamBloque(tamTotal);
@@ -202,7 +202,7 @@ string CifradorBPS::descifrar(string mensaje, byte llave[], mpz_class tweak)
   if(tamUltimoBloque != 0)
   {
     /* Xor del contador u = 2^16 + 2^48 con el tweak que entrara
-    al cifrador BC */
+    al cifrado BC */
     BC.colocarTamBloque(tamUltimoBloque);
     contadorU = numBloques;
     contadorU = (contadorU << 16) + (contadorU << 48);
@@ -218,14 +218,14 @@ string CifradorBPS::descifrar(string mensaje, byte llave[], mpz_class tweak)
   }
 
   /* En caso de que la cadena dada tenga una longitud mayor al tamaño máximo
-  del cifrador BC, se van obteniendo bloques descifrados x de longitud igual
+  del cifrado BC, se van obteniendo bloques descifrados x de longitud igual
   a la longitud máxima de BC, donde x es igual a la resta modular del
   resultado de descifrar un bloque un bloque i con un bloque i-1 */
   BC.colocarTamBloque(tamMax);
   for(int i = numBloques - 1; i > 0; i--)
   {
     /* Xor del contador u = 2^16 + 2^48 con el tweak que entrara
-    al cifrador BC */
+    al cifrado BC */
     contadorU = i;
     contadorU = (contadorU << 16) + (contadorU << 48);
     tweakU = tweak ^ contadorU;
@@ -240,7 +240,7 @@ string CifradorBPS::descifrar(string mensaje, byte llave[], mpz_class tweak)
   }
 
   /* Descifrado del primer bloque en caso de que la cadena dada fuese de una
-  longitud mayor al tamaño máximo del cifrador BC */
+  longitud mayor al tamaño máximo del cifrado BC */
   bloqueA = mensaje.substr(0, tamMax);
   salida = BC.descifrar(bloqueA, llave, tweak);
   salidaFinal = salida + salidaFinal;

@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Declaración de la clase del cifrador BPS.
+ * \brief Declaración de la clase del cifrado BPS.
  *
  * Proyecto Lovelace.
  */
@@ -56,7 +56,7 @@ namespace Implementaciones
       /** \brief Constructor de la clase. */
       CifradorBPS(std::vector<char> alfabeto, unsigned int numRondas);
 
-      /** \brief Constructor de la clase con tipo de cifrador como argumento. */
+      /** \brief Constructor de la clase con tipo de cifrado como argumento. */
       CifradorBPS(std::vector<char> alfabeto, unsigned int numRondas,
                                               unsigned int cifrador);
 
@@ -73,19 +73,19 @@ namespace Implementaciones
       std::string descifrar(std::string mensaje, CryptoPP::byte llave[],
                                                        mpz_class tweak);
 
-      /** \brief Método para obtener el alfabeto con que trabaja el cifrador. */
+      /** \brief Método para obtener el alfabeto con que trabaja el cifrado. */
       std::vector<char> obtenerAlfabeto();
 
-      /** \brief Método para obtener el numero de rondas del cifrador. */
+      /** \brief Método para obtener el numero de rondas del cifrado. */
       unsigned int obtenerNumRondas();
 
-      /** \brief Método para cambiar el alfabeto con que trabaja el cifrador. */
+      /** \brief Método para cambiar el alfabeto con que trabaja el cifrado. */
       void colocarAlfabeto(std::vector<char> alfabeto);
 
-      /** \brief Método para cambiar el numero de rondas del cifrador. */
+      /** \brief Método para cambiar el numero de rondas del cifrado. */
       void colocarNumRondas(unsigned int numRondas);
 
-      /** \brief Método para cambiar el tipo de cifrador F. */
+      /** \brief Método para cambiar el tipo de cifrado F. */
       void colocarTipoCifrador(unsigned int tipo);
 
     private:

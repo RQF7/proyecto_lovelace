@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Definición de un DRBG basado en cifrador por bloques.
+ * \brief Definición de un DRBG basado en cifrado por bloques.
  *
  * Proyecto Lovelace.
  */
@@ -23,7 +23,7 @@ using namespace std;
  *                                (la clase no es respondable de esta memoria).
  * \param cadenaDePersonalizacion Cadena opcional de personalización.
  * \param nivelDeSeguridad        Máximo nivel de seguridad soportado.
- * \param tipoDeCifrador          Tipo de cifrador por bloque a usar.
+ * \param tipoDeCifrador          Tipo de cifrado por bloque a usar.
  *
  * \throw PersonalizacionDemasiadoGrande Si la cadena de personzalización
  *                                       excede lo dado en
@@ -103,7 +103,7 @@ Arreglo<unsigned char> CTRDRBG::generarBytes(
 /**
  * Operación de actualización de estado. En el estándar corresponde a
  * CTR_DRBG_Update (sección 10.2.1.2). Calcula un nuevo valor para
- * la semilla y para la llave del cifrador por bloques.
+ * la semilla y para la llave del cifrado por bloques.
  */
 
 void CTRDRBG::actualizarEstado(
@@ -123,7 +123,7 @@ void CTRDRBG::actualizarEstado(
 }
 
 /**
- * Interfaz con cifrador por bloques de cryptopp. Cifra el bloque dado.
+ * Interfaz con cifrado por bloques de cryptopp. Cifra el bloque dado.
  *
  * \todo Hacer integración con AESNI.
  *
