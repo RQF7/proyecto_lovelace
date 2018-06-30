@@ -15,15 +15,31 @@
 
 \subsection{Notación}
 
-Denotaremos a todas las cadenas de bits de longitud $ n $ como $ \{ 0, 1 \}^n $. Un algoritmo tokenizador es una función $ E: X \rightarrow Y $ en donde los conjuntos $ X $ y $ Y $ son el espacio de números de tarjetas y el de tokens, respectivamente.
+Denotaremos a todas las cadenas de bits de longitud $ n $ como $ \{ 0, 1 \}^n $.
+Un algoritmo tokenizador es una función $ E: \mathcal{X} \rightarrow
+\mathcal{Y} $ en donde los conjuntos $ X $ y $ Y $ son el espacio de números de
+tarjetas y el de tokens, respectivamente.
 
 \subsection{Algoritmo de Luhn}
 
 \subsection{Estructura de un número de tarjeta de crédito}
 
-\subsection{Cifrado por bloque}
+\subsection{Cifrado por bloques}
 
-Un cifrado por bloque es un cifrado simétrico que se define por la función $  $
+Un cifrado por bloques es un cifrado simétrico que se define por la función $ E:
+\mathcal{M} \times \mathcal{K} \rightarrow \mathcal{C} $ en donde $ \mathcal{M} $
+es el espacio de textos en claro, $ \mathcal{K} $ es el espacio de llaves y $
+\mathcal{C} $ es el espacio de mensajes cifrados. Tanto los mensajes en claro
+como los cifrados tienen una misma longitud $ n $, que representa el tamaño del
+bloque \cite{menezes}.
+
+Los cifrados por bloque son un elemento de construcción fundamental para otras
+primitivas criptográficas. Muchos de los algoritmos tokenizadores que se
+presentan en este trabajo los ocupan de alguna forma. Las definiciones de los
+algoritmos son flexibles en el sentido de que permiten instanciar cada
+implementación con el cifrado por bloques que se quiera; en el caso de las
+implementaciones hechas para este trabajo se ocupó AES (\textit{Advanced
+Encryption Standard}) en la mayoría de los casos.
 
 \subsection{Cifrado que preserva el formato}
 
@@ -61,4 +77,4 @@ crédito: una cadena de entre 12 y 19 dígitos decimales. Esto es $ N = \{0, 1,
 \dots, 9\}^n $ en donde $ 12 \leq n \leq 19 $.
 
 % TODO: Hmmmm... técnicamente al FPE solo le damos el identificador de la
-% persona, por lo que los dígitos son menos. 
+% persona, por lo que los dígitos son menos.
