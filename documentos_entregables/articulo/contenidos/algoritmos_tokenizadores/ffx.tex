@@ -1,58 +1,8 @@
 %
-% Sección de algoritmos tokenizadores.
+% Sección de FFX.
 % Artículo.
 % Proyecto Lovelace.
 %
-
-\section{Algoritmos tokenizadores}
-
-Como el enfoque de este artículo es ver a la tokenización como un servicio, la
-interfaz para los procesos de tokenización y detokenización, desde el punto de
-vista de los usuarios del servicio, es sumamente simple: el proceso de
-tokenización es una función $ E: \mathcal{X} \rightarrow \mathcal{Y} $ y el de
-detokenización es  simplemente la función inversa $ D: \mathcal{Y} \rightarrow
-\mathcal{X} $, en donde $ \mathcal{X} $ y $ \mathcal{Y} $ son los espacios de
-números de tarjetas y tokens, respectivamente. Ambos conjuntos son cadenas de
-dígitos de entre 12 y 19 caracteres. Los números de tarjeta cuentan con un
-dígito verificador que hace que \texttt{algoritmoDeLuhn(X) = 0}; los tokens
-cuentan con un dígito verificador que hace que \texttt{algoritmoDeLuhn(Y) = 1}.
-El último punto es con el propósito de que sea posible distinguir entre un
-número de tarjeta y un token.
-
-El PCI SSC (\textit{Payment Card Industry Security Standard Council}) establece
-en sus guías de tokenización la siguiente clasificación para los algoritmos
-tokenizadores\cite{pci_tokens}:
-
-% TODO: explicar cada una.
-
-\begin{itemize}
-  \item Métodos reversibles:
-  \begin{itemize}
-    \item Criptográficos.
-    \item No criptográficos.
-  \end{itemize}
-  \item Métodos irreversibles:
-  \begin{itemize}
-    \item Autenticable.
-    \item No autenticable.
-  \end{itemize}
-\end{itemize}
-
-La denominación \textit{no criptográficos} resulta totalmente confusa, pues en
-realidad todos los métodos conocidos que caen en las categorías de arriba ocupan
-primitivas criptográficas. % TODO: decir que los irreversibles son inútiles.
-Por lo anterior, en este trabajo se propone una clasificación distinta:
-
-% TODO: explicar cada una.
-
-\begin{itemize}
-  \item Métodos criptográficos:
-  \begin{itemize}
-    \item Reversibles.
-    \item Irreversibles.
-  \end{itemize}
-  \item Métodos no criptográficos:
-\end{itemize}
 
 \subsection{FFX (\textit{Format-preserving Feistel-based Encryption})}
 
@@ -133,9 +83,3 @@ esto es la longitud de la cadena de entrada.
 Con la clasificación del NIST, este método cae en los reversibles
 criptográficos. Con la clasificación propuesta en este trabajo, se trata de un
 criptográfico reversible.
-
-\subsection{TKR}
-
-%\subsection{BPS}
-%
-%\subsection{AHR}
