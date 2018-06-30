@@ -115,4 +115,4 @@ if __name__ == '__main__':
   """
   run(['mkdir', '-p', carpetaGeneral])
   generarTiemposUnitarios()
-  generarGraficaTiemposMultiples()
+  #generarGraficaTiemposMultiples()

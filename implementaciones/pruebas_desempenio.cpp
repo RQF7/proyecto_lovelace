@@ -26,6 +26,7 @@
 #include <chrono>
 #include <string>
 #include <tuple>
+#include <ctime>
 
 using namespace Implementaciones;
 using namespace std;
@@ -55,7 +56,7 @@ int main(int argc, char* argv[])
   string usuario = string(argv[3]);
   string contrasenia = string(argv[4]);
 
-  high_resolution_clock::time_point tiempoInicial, tiempoFinal;
+  clock_t tiempoInicial, tiempoFinal;
   auto duracionCifrado = 0;
   auto duracionDescifrado = 0;
 
@@ -73,18 +74,18 @@ int main(int argc, char* argv[])
     pan = generarPAN();
 
     /* Tomar tiempo de cifrado. */
-    tiempoInicial = high_resolution_clock::now();
+    tiempoInicial = clock();
     token = algoritmoTokenizador->operar({pan});
-    tiempoFinal = high_resolution_clock::now();
-    duracionCifrado += duration_cast<microseconds>
-      (tiempoFinal - tiempoInicial).count();
+    tiempoFinal = clock();
+    duracionCifrado += (double)(tiempoInicial - tiempoFinal)
+        / CLOCKS_PER_SEC;
 
     /* Tomar tiempo de descifrado. */
-    tiempoInicial = high_resolution_clock::now();
+    tiempoInicial = clock();
     pan = algoritmoTokenizador->deoperar({token});
-    tiempoFinal = high_resolution_clock::now();
-    duracionDescifrado += duration_cast<microseconds>
-      (tiempoFinal - tiempoInicial).count();
+    tiempoFinal = clock();
+    duracionDescifrado += (double)(tiempoInicial - tiempoFinal)
+        / CLOCKS_PER_SEC;
   }
 
   cout << "\tTiempo total en cifrado (en microsegundos): "
