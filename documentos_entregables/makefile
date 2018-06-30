@@ -129,8 +129,7 @@ $(CARPETA_ARTICULO)/$(ARTICULO).pdf: $(FUENTES_ARTICULO)
 	mv $(CARPETA_TEMPORAL)/$(ARTICULO).pdf ./$(CARPETA_ARTICULO)/
 
 referencias_articulo:
-	biber --input-directory $(CARPETA_TEMPORAL) \
-		$(CARPETA_TEMPORAL)/$(ARTICULO).bcf
+	bibtex $(CARPETA_TEMPORAL)/$(ARTICULO).aux
 
 # Es necesario tener el ejecutable de hunspell en el PATH, y el diccionario
 # es_MX instalado. Este comando (ortografía) es ejecutado por Travis para
