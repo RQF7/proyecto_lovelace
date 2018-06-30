@@ -1,0 +1,114 @@
+%
+% Sección de TKR.
+% Artículo.
+% Proyecto Lovelace.
+%
+
+\subsection{TKR}
+
+En \cite{doc_sandra} se analiza formalmente el problema de la generación de
+tokens y se propone un algoritmo que no está basado en cifrados que preservan el
+formato. Hasta antes de la publicación de este documento, los únicos métodos
+para generar tokens cuya seguridad estaba formalmente demostrada eran los
+basados en cifrados que preservan el formato.
+
+El algoritmo propuesto usa un cifrado por bloques para generar tokens
+pseudoaleatorios y almacena en una base de datos la relación original de estos
+con los números de tarjetas. En la figura \ref{tkr_cifrado} se muestra el
+proceso de tokenización, mientras que en \ref{tkr_descifrado} está la
+detokenización.
+
+\begin{figure}
+  \begin{center}
+    \begin{tabular}{|l|}
+      \hline
+      \begin{minipage}{220pt}
+        \begin{tabbing}
+          \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
+          \ \kill \\
+          \ \ \ \ {\bf Algoritmo} TKR-tokenización($ x $, $ k $) \ \ \ \ \\
+          \> 1. \> $ q \gets $ \texttt{buscarTarjeta($ x $)} \\
+          \> 2. \> {\bf si} $ q = 0 $ {\bf entonces}: \\
+          \> 3. \> \> $ y \gets $ \texttt{RN($ k $)} \\
+          \> 4. \> \> \texttt{insertar($ x $, $ y $)} \\
+          \> 5. \> {\bf sino:} \\
+          \> 6. \> \> $ y \gets q $ \\
+          \> 7. \> {\bf regresar} $ y $ \\
+        \end{tabbing}
+        \end{minipage}\\
+        \hline
+      \end{tabular}
+    \end{center}
+    \caption{\label{tkr_cifrado} Método de tokenización de TKR}
+\end{figure}
+
+% TODO: juntar ambos (tokenización y detokenización) en una sola figura.
+
+\begin{figure}
+  \begin{center}
+    \begin{tabular}{|l|}
+      \hline
+      \begin{minipage}{220pt}
+        \begin{tabbing}
+          \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
+          \ \kill \\
+          \ \ \ \ {\bf Algoritmo} TKR-detokenización($ y $, $ k $) \ \ \ \ \\
+          \> 1. \> $ q \gets $ \texttt{buscarToken($ t $)} \\
+          \> 2. \> {\bf si} $ q = 0 $ {\bf entonces}: \\
+          \> 3. \> \> {\bf regresar error} \\
+          \> 4. \> {\bf sino:} \\
+          \> 5. \> \> {\bf regresar} $ q $ \\
+        \end{tabbing}
+        \end{minipage}\\
+        \hline
+      \end{tabular}
+    \end{center}
+    \caption{\label{tkr_descifrado} Método de detokenización de TKR}
+\end{figure}
+
+Las funciones \texttt{buscarTarjeta}, \texttt{buscarToken} e \texttt{insertar}
+sirven para interactuar con la base de datos. Lo único que queda por esclarecer
+es el el contenido de la función generadora de tokens pseudoaleatorios, la
+función \texttt{RN()}. El algoritmo de esta función se muestra en la figura
+\ref{tkr_rn}. Idealmente, esta función debe regresar un elemento uniformemente
+aleatorio del espacio de tokens. La variable \textit{contador} mantiene un
+estado del algoritmo (mantiene su valor a lo largo de las distintas llamadas);
+el espacio de tokens contiene cadenas de longitud fija $ \mu $ de un alfabeto
+$ AL $ cuya cardinalidad es $ l $; el número de bits necesarios para enumerar a
+todo el alfabeto se guardan en $ \lambda = \lceil \log_2 l \rceil$.
+
+\begin{figure}
+  \begin{center}
+    \begin{tabular}{|l|}
+      \hline
+      \begin{minipage}{220pt}
+        \begin{tabbing}
+          \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
+          \ \kill \\
+          \ \ \ \ {\bf Algoritmo} TKR-RN($ k $) \\
+          \> 1. \> $ x \gets $ \texttt{f($ k $, contador)} \\
+          \> 2. \> $ x_1, x_2, \dots, x_m \gets $
+                    \texttt{cortar($ x $, $ \lambda $)} \ \ \ \ \\
+          \> 3. \> $ t \gets $ "", $ i \gets 0 $ \\
+          \> 4. \> {\bf mientras} $ |t| \neq \mu $: \\
+          \> 5. \> \> {\bf si} \texttt{entero($ x_i $)} {\bf entonces}: \\
+          \> 6. \> \> \> $ t \gets t + $ \texttt{entero($ X_i $)} \\
+          \> 7. \> \> $ i \gets i + 1 $ \\
+          \> 8. \> \texttt{contador $\gets$ contador $ + 1 $} \\
+          \> 9. \> {\bf regresar} $ t $ \\
+        \end{tabbing}
+        \end{minipage}\\
+        \hline
+      \end{tabular}
+    \end{center}
+    \caption{\label{tkr_rn} Generación de tokens pseudoaleatorios en TKR}
+\end{figure}
+
+Existen varios candidatos viables para la función $ f $: un cifrado de flujo,
+pues el flujo de llave de estos produce cadenas de aspecto aleatorio, o un 
+cifrado por bloques con un modo de operación de contador. En la implementación
+de este trabajo se ocupa esta última opción.
+
+Con la clasificación del PCI, este método cae, contradictoriamente, en los
+reversibles no criptográficos. Con la clasificación propuesta en este trabajo se
+encuentra dentro de los criptográficos irreversibles.
