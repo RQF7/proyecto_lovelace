@@ -6,11 +6,10 @@
 
 \section{Preliminares}
 
-% TODO: ¿Qué más va en los preliminares? ¿AES? ¿Redes Feistel?
-
-% Creo que cifrador no existe.
-% Hasta donde he visto, cuando menos en algunas entradas de wikipedia, es que
-% usan «cifrado» (¿escrito con cifras?) en su lugar.
+% TODO: ¿Qué más va en los preliminares? Candidatos:
+% AES
+% Redes Feistel
+% CBC MAC
 
 \subsection{Notación}
 
@@ -60,18 +59,19 @@ Encryption Standard}) en la mayoría de los casos.
 % la pronunciación en inglés; cuando menos ahora no se me ocurre una palabra
 % en español que tenga «tw».
 
-Un cifrado que preserva el formato puede ser visto como un cifrado simétrico en
-donde el mensaje en claro y el mensaje cifrado mantienen un formato en común.
-Formalmente, de acuerdo a lo definido en \cite{DBLP:conf/sacrypt/BellareRRS09},
-se trata de una función $ E: \mathcal{K} \times \mathcal{N} \times \mathcal{T}
-\times \mathcal{X} \rightarrow \mathcal{X} $, en donde los conjuntos $
-\mathcal{K} $, $ \mathcal{N} $, $ \mathcal{T} $, $ \mathcal{X} $ corresponden al
-espacio de llaves, espacio de formatos, espacio de \textit{tweaks} y el dominio,
+Un cifrado que preserva el formato (en inglés \textit{Format-preserving
+Encryption}, FPE) puede ser visto como un cifrado simétrico en donde el mensaje
+en claro y el mensaje cifrado mantienen un formato en común. Formalmente, de
+acuerdo a lo definido en \cite{DBLP:conf/sacrypt/BellareRRS09}, se trata de una
+función $ E: \mathcal{K} \times \mathcal{N} \times \mathcal{T} \times
+\mathcal{X} \rightarrow \mathcal{X} $, en donde los conjuntos $ \mathcal{K} $, $
+\mathcal{N} $, $ \mathcal{T} $, $ \mathcal{X} $ corresponden al espacio de
+llaves, espacio de formatos, espacio de \textit{tweaks} y el dominio,
 respectivamente. El proceso de cifrado de un elemento del dominio con respecto a
 una llave $ K $, un formato $ N $ y un \textit{tweak} $ T $ se escribe como  $
 E_K^{N,T}(X) $. El proceso inverso es también una función $ D: \mathcal{K}
-\times \mathcal{N} \times \mathcal{T} \times \mathcal{X} \rightarrow
-\mathcal{X} $, en donde $ D_K^{N,T}\big( E_K^{N,T}(X) \big) = X $.
+\times \mathcal{N} \times \mathcal{T} \times \mathcal{X} \rightarrow \mathcal{X}
+$, en donde $ D_K^{N,T}\big( E_K^{N,T}(X) \big) = X $.
 
 % ¿Hacer aquí aclaración sobre la diferencia en los dígitos verificadores
 % en los espacios de orígen y destino?
@@ -84,3 +84,10 @@ crédito: una cadena de entre 12 y 19 dígitos decimales. Esto es $ N = \{0, 1,
 
 % TODO: Hmmmm... técnicamente al FPE solo le damos el identificador de la
 % persona, por lo que los dígitos son menos.
+
+En marzo de 2016 el NIST (\textit{National Institute of Standards and
+Technology}) publicó un estándar referente a los cifrados que preservan el
+formato\cite{nist_fpe}. En él se definen dos posibles métodos: FF1 (lo que en
+este trabajo es FFX) y FF3 (lo que en este trabajo es BPS).
+
+% TODO: ¿Hablar también sobre la clasificación que hace Rogaway?
