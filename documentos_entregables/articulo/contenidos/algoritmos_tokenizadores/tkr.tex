@@ -14,15 +14,14 @@ basados en cifrados que preservan el formato.
 
 El algoritmo propuesto usa un cifrado por bloques para generar tokens
 pseudoaleatorios y almacena en una base de datos la relación original de estos
-con los números de tarjetas. En la figura \ref{tkr_cifrado} se muestra el
-proceso de tokenización, mientras que en \ref{tkr_descifrado} está la
-detokenización.
+con los números de tarjetas. En la figura \ref{tkr_metodos} se muestra el
+proceso de tokenización y detokenización.
 
 \begin{figure}
   \begin{center}
     \begin{tabular}{|l|}
       \hline
-      \begin{minipage}{220pt}
+      \begin{minipage}{.5\textwidth}
         \begin{tabbing}
           \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
           \ \kill \\
@@ -35,20 +34,9 @@ detokenización.
           \> 6. \> \> $ y \gets q $ \\
           \> 7. \> {\bf regresar} $ y $ \\
         \end{tabbing}
-        \end{minipage}\\
-        \hline
-      \end{tabular}
-    \end{center}
-    \caption{\label{tkr_cifrado} Método de tokenización de TKR}
-\end{figure}
-
-% TODO: juntar ambos (tokenización y detokenización) en una sola figura.
-
-\begin{figure}
-  \begin{center}
-    \begin{tabular}{|l|}
+      \end{minipage}\\
       \hline
-      \begin{minipage}{220pt}
+      \begin{minipage}{.5\textwidth}
         \begin{tabbing}
           \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
           \ \kill \\
@@ -59,11 +47,11 @@ detokenización.
           \> 4. \> {\bf sino:} \\
           \> 5. \> \> {\bf regresar} $ q $ \\
         \end{tabbing}
-        \end{minipage}\\
-        \hline
-      \end{tabular}
-    \end{center}
-    \caption{\label{tkr_descifrado} Método de detokenización de TKR}
+      \end{minipage}\\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{\label{tkr_metodos} Tokenización y detokenización de TKR}
 \end{figure}
 
 Las funciones \texttt{buscarTarjeta}, \texttt{buscarToken} e \texttt{insertar}
@@ -97,15 +85,15 @@ todo el alfabeto se guardan en $ \lambda = \lceil \log_2 l \rceil$.
           \> 8. \> \texttt{contador $\gets$ contador $ + 1 $} \\
           \> 9. \> {\bf regresar} $ t $ \\
         \end{tabbing}
-        \end{minipage}\\
-        \hline
-      \end{tabular}
-    \end{center}
-    \caption{\label{tkr_rn} Generación de tokens pseudoaleatorios en TKR}
+      \end{minipage}\\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{\label{tkr_rn} Generación de tokens pseudoaleatorios en TKR}
 \end{figure}
 
 Existen varios candidatos viables para la función $ f $: un cifrado de flujo,
-pues el flujo de llave de estos produce cadenas de aspecto aleatorio, o un 
+pues el flujo de llave de estos produce cadenas de aspecto aleatorio, o un
 cifrado por bloques con un modo de operación de contador. En la implementación
 de este trabajo se ocupa esta última opción.
 
