@@ -92,19 +92,19 @@ bool HashDRBGPrueba::probarFuncionDeGeneracion()
 
   Arreglo<unsigned char> pruebaUno = generador.operar({10});
   cout << "Prueba uno: " << pruebaUno << endl;
-  Arreglo<unsigned char> pruebaDos = generador.operar({100});
+  Arreglo<unsigned char> pruebaDos = generador.operar({20});
   cout << "Prueba dos: " << pruebaDos << endl;
   Arreglo<unsigned char> pruebaTres = generador.operar({32});
   cout << "Prueba tres: " << pruebaTres << endl;
   if (pruebaUno.obtenerNumeroDeElementos() != 10
-      || pruebaDos.obtenerNumeroDeElementos() != 100
+      || pruebaDos.obtenerNumeroDeElementos() != 20
       || pruebaTres.obtenerNumeroDeElementos() != 32)
     return false;
 
   generador.cambiarSemilla();
-  Arreglo<unsigned char> pruebaCuatro = generador.operar({50});
+  Arreglo<unsigned char> pruebaCuatro = generador.operar({10});
   cout << "Prueba cuatro: " << pruebaCuatro << endl;
-  if (pruebaCuatro.obtenerNumeroDeElementos() != 50)
+  if (pruebaCuatro.obtenerNumeroDeElementos() != 10)
     return false;
 
 
