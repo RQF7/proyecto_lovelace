@@ -6,6 +6,8 @@
 PROGRAMA_PRINCIPAL	:= programa_de_pruebas
 PROGRAMA_DOS				:= lovelace
 PRUEBA_DESEMP       := pruebas_desempenio
+PROGRAMA_DEMONIO		:= demonio_tokenizacion
+PROGRAMA_CLIENTE		:= cliente_tokenizacion
 CARPETA_BINARIOS		:= binarios
 CARPETA_OBJETOS			:= objetos
 LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
@@ -107,14 +109,35 @@ FUENTES_TRES        := pruebas_desempenio.cpp \
 											 utilidades/arreglo.cpp \
 											 utilidades/arreglo_de_digitos.cpp \
 											 utilidades/intermediario_de_arreglo_de_digitos.cpp
+FUENTES_CUATRO			:= demonio_tokenizacion.cpp \
+											 acceso_a_datos/acceso_mysql.cpp \
+											 drbg/aleatoriedad_hardware.cpp \
+											 drbg/aleatoriedad_trivial.cpp \
+											 drbg/drbg.cpp \
+											 drbg/hash_drbg.cpp \
+											 tkr/pseudoaleatorio_aes.cpp \
+											 utilidades/algoritmo_tokenizador.cpp \
+											 utilidades/arreglo.cpp \
+											 utilidades/arreglo_de_digitos.cpp \
+											 utilidades/intermediario_de_arreglo_de_digitos.cpp \
+											 utilidades/utilidades_tarjetas.cpp
+FUENTES_CINCO			  := cliente_tokenizacion.cpp \
+											 utilidades/arreglo_de_digitos.cpp \
+											 utilidades/intermediario_de_arreglo_de_digitos.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
 OBJETOS_DOS		      := $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(FUENTES_DOS:.cpp=.o))
 OBJETOS_TRES        := $(addprefix $(CARPETA_OBJETOS)/, \
                          $(FUENTES_TRES:.cpp=.o))
+OBJETOS_CUATRO      := $(addprefix $(CARPETA_OBJETOS)/, \
+                        $(FUENTES_CUATRO:.cpp=.o))
+OBJETOS_CINCO       := $(addprefix $(CARPETA_OBJETOS)/, \
+                        $(FUENTES_CINCO:.cpp=.o))
 BANDERAS_GENERALES	:= -std=c++14 -Wall -ggdb
 BANDERAS_DE_LIGADO	:= -lcryptopp -lmysqlcppconn -lgmpxx -lgmp
+
+# LIGADO ######################################################################
 
 $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)
 	mkdir -p $(CARPETA_BINARIOS)
@@ -128,6 +151,16 @@ $(CARPETA_BINARIOS)/$(PRUEBA_DESEMP): $(OBJETOS_TRES)
 	mkdir -p $(CARPETA_BINARIOS)
 	$(CXX) $(BANDERAS_GENERALES) $(OBJETOS_TRES) $(BANDERAS_DE_LIGADO) -o $@
 
+$(CARPETA_BINARIOS)/$(PROGRAMA_DEMONIO): $(OBJETOS_CUATRO)
+	mkdir -p $(CARPETA_BINARIOS)
+	$(CXX) $(BANDERAS_GENERALES) $(OBJETOS_CUATRO) $(BANDERAS_DE_LIGADO) -o $@
+
+$(CARPETA_BINARIOS)/$(PROGRAMA_CLIENTE): $(OBJETOS_CINCO)
+	mkdir -p $(CARPETA_BINARIOS)
+	$(CXX) $(BANDERAS_GENERALES) $(OBJETOS_CINCO) $(BANDERAS_DE_LIGADO) -o $@
+
+# COMPILACIÓN DE PRINCIPALES ##################################################
+
 $(CARPETA_OBJETOS)/programa_de_pruebas.o: programa_de_pruebas.cpp
 	mkdir -p $(CARPETA_OBJETOS)
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
@@ -139,6 +172,16 @@ $(CARPETA_OBJETOS)/lovelace.o: lovelace.cpp
 $(CARPETA_OBJETOS)/pruebas_desempenio.o: pruebas_desempenio.cpp
 	mkdir -p $(CARPETA_OBJETOS)
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/demonio_tokenizacion.o: demonio_tokenizacion.cpp
+	mkdir -p $(CARPETA_OBJETOS)
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/cliente_tokenizacion.o: cliente_tokenizacion.cpp
+	mkdir -p $(CARPETA_OBJETOS)
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+# COMPILACIÓN DE LIBRERÍAS ####################################################
 
 $(CARPETA_OBJETOS)/redes_feistel/red_feistel_prueba.o: \
 	redes_feistel/red_feistel_prueba.cpp redes_feistel/cabeceras/red_feistel.hh
@@ -424,6 +467,8 @@ $(CARPETA_OBJETOS)/utilidades/codificador.o: \
 	../utilidades/cabeceras/codificador.hh
 	mkdir -p $(CARPETA_OBJETOS)/utilidades
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+# OBJETIVOS PHONY #############################################################
 
 correr: $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL)
 	./$<
