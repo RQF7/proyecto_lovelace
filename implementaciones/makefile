@@ -109,7 +109,7 @@ OBJETOS_DOS		      := $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(FUENTES_DOS:.cpp=.o))
 OBJETOS_TRES        := $(addprefix $(CARPETA_OBJETOS)/, \
                          $(FUENTES_TRES:.cpp=.o))
-BANDERAS_GENERALES	:= -std=c++14 -Wall -Werror -Wfatal-errors -ggdb
+BANDERAS_GENERALES	:= -std=c++14 -Wall -Werror -Wfatal-errors -ggdb -pg
 BANDERAS_DE_LIGADO	:= -lcryptopp -lmysqlcppconn -lgmpxx -lgmp
 
 $(CARPETA_BINARIOS)/$(PROGRAMA_PRINCIPAL): $(LISTA_DE_OBJETOS)

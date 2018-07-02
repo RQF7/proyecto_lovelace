@@ -47,9 +47,9 @@ int main(int argc, char* argv[])
   string usuario = string(argv[3]);
   string contrasenia = string(argv[4]);
 
-  high_resolution_clock::time_point tiempoInicial, tiempoFinal;
-  auto duracionCifrado = 0;
-  auto duracionDescifrado = 0;
+  steady_clock::time_point tiempoInicial, tiempoFinal;
+  entero duracionCifrado = 0;
+  entero duracionDescifrado = 0;
 
   ArregloDeDigitos token;
   ArregloDeDigitos pan;
@@ -65,16 +65,16 @@ int main(int argc, char* argv[])
     pan = generarPAN();
 
     /* Tomar tiempo de cifrado. */
-    tiempoInicial = high_resolution_clock::now();
+    tiempoInicial = steady_clock::now();
     token = algoritmoTokenizador->operar({pan});
-    tiempoFinal = high_resolution_clock::now();
+    tiempoFinal = steady_clock::now();
     duracionCifrado += duration_cast<microseconds>
       (tiempoFinal - tiempoInicial).count();
 
     /* Tomar tiempo de descifrado. */
-    tiempoInicial = high_resolution_clock::now();
+    tiempoInicial = steady_clock::now();
     pan = algoritmoTokenizador->deoperar({token});
-    tiempoFinal = high_resolution_clock::now();
+    tiempoFinal = steady_clock::now();
     duracionDescifrado += duration_cast<microseconds>
       (tiempoFinal - tiempoInicial).count();
   }
