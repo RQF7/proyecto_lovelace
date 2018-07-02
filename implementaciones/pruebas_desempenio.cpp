@@ -118,7 +118,8 @@ tuple<AlgoritmoTokenizador*, int> parametrizarAlgoritmo(const char* algoritmo)
     cout << "Iniciando algoritmo BPS" << endl;
     Arreglo<unsigned char> llaveA = generarLlave(16);
     unsigned char* llave = llaveA.obtenerCopiaDeArreglo();
-    return make_tuple(new CifradorBPS{8,CifradorDeRonda::BANDERA_AES, llave}, ID_BPS);
+    return make_tuple(
+      new CifradorBPS{8,CifradorDeRonda::BANDERA_AES, llave}, ID_BPS);
   }
   else if(!strcmp(algoritmo, "TKR"))
   {
