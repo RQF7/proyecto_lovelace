@@ -12,6 +12,7 @@
 #include "drbg/cabeceras/hash_drbg.hh"
 #include "drbg/cabeceras/pseudoaleatorio_drbg.hh"
 #include "ffx/cabeceras/ffx_a10.hh"
+#include "tkr/cabeceras/funcion_drbg.hh"
 #include "tkr/cabeceras/funcion_rn.hh"
 #include "tkr/cabeceras/pseudoaleatorio_aes.hh"
 #include "tkr/cabeceras/pseudoaleatorio_trivial.hh"
@@ -246,8 +247,7 @@ ArregloDeDigitos tokenizar(
     CDV* accesoADatos = new AccesoMySQL {};
     DRBG *drbg = new HashDRBG{Arreglo<unsigned char>{1, 2, 3},
       DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256};
-    PseudoaleatorioDRBG *puenteDRBG{new PseudoaleatorioDRBG{drbg}};
-    FuncionRN* funcion = new FuncionRN {puenteDRBG, accesoADatos, longitud};
+    FuncionDRBG* funcion = new FuncionDRBG{drbg};
     algoritmoTokenizador = new TKR{funcion, accesoADatos};
   }
   resultado = algoritmoTokenizador->operar({pan});
