@@ -6,19 +6,20 @@
 
 \subsection{BPS}
 
-% Borrador de la sección de BPS (v1)
+% Borrador de la sección de BPS (v2)
 
 Algoritmo de cifrado que preserva el formato capaz de cifrar cadenas formadas
-por cualquier conjunto de caracteres, cuyo nombre proviene de las siglas de sus
-autores Eric Brier, Thomas Peyrin y Jacques Stern; y que en el estándar
-\cite{nist_fpe}, el NIST nombra como FF3.
+por cualquier conjunto de caracteres, descrito en \cite{bps} y cuyo nombre
+proviene de las iniciales de los apellidos de sus autores Eric Brier, Thomas
+Peyrin y Jacques Stern, a pesar de que en el estándar \cite{nist_fpe}, el NIST
+nombra como FF3.
 
 BPS se conforma de 2 partes: un cifrado interno $BC$ que se encarga de cifrar
-bloques de longitud fija, usando a su ves un cifrado por bloques $F$; y un modo
+bloques de longitud fija, usando a su vez un cifrado por bloques $F$; y un modo
 de operación especial, encargado de extender la funcionalidad del cifrado $BC$
-y permitir cifrar cadenas de un longitud de hasta $max_b . 2^{16}$ caracteres,
-donde $max_b$ es la longitud máxima que puede tener una cadena para cifrarse
-con $BC$.
+y permitir cifrar cadenas de un longitud de hasta $max_b \cdot 2^{16}$
+caracteres, donde $max_b$ es la longitud máxima que puede tener una cadena
+para cifrarse con $BC$.
 
 El cifrado interno utiliza una red Feistel y se define como $BC_{F,s,b,w}
 (X,K,T)$ teniendo el proceso de cifrado descrito en la figura \ref{proceso_bc}.
@@ -69,7 +70,7 @@ este valor, en el último bloque, $BC$ se tendrá que instanciar con una longitu
 igual a la de ese bloque.
 
 El modo de operación de BPS es un variación de CBC, con la diferencia de que
-usa sumas modulares caracter por caracter en lugar de aplicar operaciones
+usa sumas modulares carácter por carácter en lugar de aplicar operaciones
 \textit{xor}, además de que no emplea un vector de inicialización.
 Otra característica es que utiliza un contador $u$ para aplicar una \textit{xor}
 al \textit{tweak} $T$ que utiliza BPS.
@@ -84,3 +85,8 @@ El funcionamiento del modo de operación se describe en la figura \ref{modo_bps}
     \label{modo_bps}
    \end{center}
 \end{figure}
+
+El PCI clasifica a este algoritmo dentro de los método de de generación de
+tokens reversibles criptográficos, pero desde el punto de vista de este
+trabajo se tiene que es un método criptográfico reversible.
+
