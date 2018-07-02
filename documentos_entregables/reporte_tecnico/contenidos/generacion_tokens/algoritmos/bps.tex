@@ -127,7 +127,7 @@ label={cifrado_BC}]
     salida:     La cadena cifrada $Y$.
     inicio
       calcular $T_R\: =\: T\: \mod\: 2^{32}$ y $T_L\: =\: (T\: -\: T_R) / 2^{32}$
-      asignar $l = r = b/2$
+      asignar $l = \lceil b/2 \rceil$ y $r = \lfloor b/2 \rfloor$
       inicializar $L_0\: =\: \sum_{j=0}^{l-1}\: X[j] \cdot s^j$
       inicializar $R_0\: =\: \sum_{j=0}^{r-1}\: X[j+l] \cdot s^j$
       para $i=0$ hasta $i=w-1$
@@ -207,7 +207,7 @@ label={descifrado_BC}]
     salida:     La cadena $X$.
     inicio
       calcular $T_R\: =\: T\: \mod\: 2^{32}$ y $T_L\: =\: (T\: -\: T_R) / 2^{32}$
-      asignar $l = r = b/2$
+      asignar $l = \lceil b/2 \rceil$ y $r = \lfloor b/2 \rfloor$
       inicializar $L_w\: =\: \sum_{j=0}^{l-1}\: Y[j] \cdot s^j$
       inicializar $R_w\: =\: \sum_{j=0}^{r-1}\: Y[j+l] \cdot s^j$
       para $i=w-1$ hasta $i=0$
