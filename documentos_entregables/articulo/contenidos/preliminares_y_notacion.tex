@@ -17,10 +17,10 @@
 % hasta la sección de los algoritmos tokenizadores. El problema es que el
 % párrafo de notación se queda casi vacío.
 
+% TODO: Revisar todas las fórmulas y pseudocódigos y poner las cuestiones
+% relacionadas de notación en este párrafo.
+
 Denotaremos a todas las cadenas de bits de longitud $ n $ como $ \{ 0, 1 \}^n $.
-Un algoritmo tokenizador es una función $ E: \mathcal{X} \rightarrow
-\mathcal{Y} $ en donde los conjuntos $ X $ y $ Y $ son el espacio de números de
-tarjetas y el de tokens, respectivamente.
 
 \subsection{Algoritmo de Luhn}
 
@@ -91,3 +91,36 @@ formato\cite{nist_fpe}. En él se definen dos posibles métodos: FF1 (lo que en
 este trabajo es FFX) y FF3 (lo que en este trabajo es BPS).
 
 % TODO: ¿Hablar también sobre la clasificación que hace Rogaway?
+
+\subsection{Generadores de números pseudoaleatorios}
+
+Existen dos maneras de generar bits aleatorios: la primera es producir bits de
+manera no determinística, donde el estado de cada uno (uno o cero) está
+determinado por un proceso físico impredecible. Este tipo de generadores se
+conocen como \textit{no determinísticos} (NRBG, \textit{Non-deterministic Random
+Bit Generator}) o \textit{realmente aleatorios} (TRBG, \textit{Truly Random Bit
+Generator}). La segunda manera, que es la que se explicará a detalle en esta
+sección, es calcular los bits de forma determinística mediante un algoritmo.
+Este tipo de generadores se conocen como \textit{determinísticos} (DRBG,
+\textit{Deterministic Random Bit Generator}), y por lo tanto, los números que
+genera se denominan \textit{pseudoaleatorios}.
+
+En \cite{nist_aleatorios} el NIST establece un estándar para dos generadores
+pseudoaleatorios: uno basado en funciones hash y el otro en cifrados por bloque.
+La idea general para ambos es la misma: a partir de un valor inicial, llamado
+semilla, usar el mecanismo interno (la función hash o el cifrado por bloque) a
+lo largo de las distintas peticiones sobre el generador para producir cadenas de
+bits de aspecto aleatorio. Las producciones del generador son impredecibles
+mientras la semilla se mantenga en secreto. La mejor práctica es que la semilla
+sea producto de un generador no determinístico.
+
+% El documento del NIST tiene 110 páginas. Lo que realmente importa es lo del
+% párrafo de abajo.
+
+El método para generar bits pseudoaleatorios con una función hash consiste en ir
+concatenando de forma consecutiva los valores hash derivados de la semilla hasta
+alcanzar el número de bytes deseados. Primero se genera un hash de la semilla y
+después se incrementa su valor; de esta forma nunca se obtiene el mismo hash dos
+veces. Por otra parte, el método basado en un cifrado por bloques consiste en
+usar el modo de operación de contador con un cifrado por bloques estándar (AES o
+TDES), en donde la semilla juega el papel del vector de inicialización.
