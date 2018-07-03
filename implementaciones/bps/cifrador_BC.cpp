@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Implementación de la clase del cifrador BC.
+ * \brief Implementación de la clase del cifrado BC.
  *
  * Proyecto Lovelace.
  */
@@ -111,7 +111,7 @@ string CifradorBC::descomponer(mpz_class numMensaje, unsigned int longitud)
 
 /**
  * Este método sirve para cifrar la cadena dada con la llave y el tweak dados.
- * El funcionamiento de este método es el del cifrador interno BC del
+ * El funcionamiento de este método es el del cifrado interno BC del
  * algoritmo de cifrado que preserva el formato BPS.
  */
 
@@ -169,7 +169,7 @@ string CifradorBC::cifrar(string mensaje, byte llave[], mpz_class tweak)
     if (i % 2 == 0)
     {
       /* Corrimiento a la izquierda de f-32 bits del subtweak derecho
-      xor con el contador, donde f es el tamaño de bloque del cifrador
+      xor con el contador, donde f es el tamaño de bloque del cifrado
       de ronda */
       tweakDerAux = (tweakDer ^ i) << (tamCifradorDeRonda - 32);
 
@@ -189,7 +189,7 @@ string CifradorBC::cifrar(string mensaje, byte llave[], mpz_class tweak)
     else
     {
       /* Corrimiento a la izquierda de f-32 bits del subtweak izquierdo
-      xor con el contador, donde f es el tamaño de bloque del cifrador
+      xor con el contador, donde f es el tamaño de bloque del cifrado
       de ronda */
       tweakIzqAux = (tweakIzq ^ i) << (tamCifradorDeRonda - 32);
 
@@ -220,7 +220,7 @@ string CifradorBC::cifrar(string mensaje, byte llave[], mpz_class tweak)
 
 /**
  * Este método sirve para descifrar la cadena dada con la llave y tweak dados.
- * El funcionamiento de este método es el del cifrador interno BC del
+ * El funcionamiento de este método es el del cifrado interno BC del
  * algoritmo de cifrado que preserva el formato BPS.
  */
 
@@ -278,7 +278,7 @@ string CifradorBC::descifrar(string mensaje, byte llave[], mpz_class tweak)
     if (i % 2 == 0)
     {
       /* Corrimiento a la izquierda de f-32 bits del subtweak derecho
-      xor con el contador, donde f es el tamaño de bloque del cifrador
+      xor con el contador, donde f es el tamaño de bloque del cifrado
       de ronda */
       tweakDerAux = (tweakDer ^ i) << (tamCifradorDeRonda - 32);
 
@@ -298,7 +298,7 @@ string CifradorBC::descifrar(string mensaje, byte llave[], mpz_class tweak)
     else
     {
       /* Corrimiento a la izquierda de f-32 bits del subtweak izquierdo
-      xor con el contador, donde f es el tamaño de bloque del cifrador
+      xor con el contador, donde f es el tamaño de bloque del cifrado
       de ronda */
       tweakIzqAux = (tweakIzq ^ i) << (tamCifradorDeRonda - 32);
 

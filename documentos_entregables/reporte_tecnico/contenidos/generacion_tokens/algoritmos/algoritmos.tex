@@ -31,16 +31,16 @@ estrictas (figura \ref{fig:division_propia}).
   \item \Glspl{gl:token} reversibles:
     \begin{itemize}
       \item \Glspl{gl:token} criptográficos:
-        \begin{enumerate}
-          \item BPS (véase sección~\ref{sec:bps}).
-          \item FFX (véase sección~\ref{sec:ffx}).
-        \end{enumerate}
+        \begin{itemize}
+          \item \Gls{gl:ffx} (véase sección~\ref{sec:ffx}).
+          \item \Gls{gl:bps} (véase sección~\ref{sec:bps}).
+        \end{itemize}
       \item \Glspl{gl:token} no criptográficos:
-        \begin{enumerate}
-          \item AHR (véase sección~\ref{sec:ahr}).
+        \begin{itemize}
           \item TKR (véase sección~\ref{sec:tkr}).
-          \item \gls{gl:drbg}
-        \end{enumerate}
+          \item AHR (véase sección~\ref{sec:ahr}).
+          \item \Gls{gl:drbg} (véase sección~\ref{sec:drbg_lista}).
+        \end{itemize}
     \end{itemize}
 \end{itemize}
 
@@ -63,38 +63,38 @@ la categoría de los criptográficos, pues se guardan las relaciones
   \item{Criptográficos}
     \begin{itemize}
       \item Reversibles:
-        \begin{enumerate}
-          \item BPS (véase sección~\ref{sec:bps}).
-          \item FFX (véase sección~\ref{sec:ffx}).
-        \end{enumerate}
+        \begin{itemize}
+          \item \Gls{gl:ffx} (véase sección~\ref{sec:ffx}).
+          \item \Gls{gl:bps} (véase sección~\ref{sec:bps}).
+        \end{itemize}
       \item Irreversibles:
-        \begin{enumerate}
-          \item AHR (véase sección~\ref{sec:ahr}).
+        \begin{itemize}
           \item TKR (véase sección~\ref{sec:tkr}).
-          \item \gls{gl:drbg}.
-        \end{enumerate}
+          \item AHR (véase sección~\ref{sec:ahr}).
+          \item \Gls{gl:drbg} (véase sección~\ref{sec:drbg_lista}).
+        \end{itemize}
     \end{itemize}
   \item No criptográficos:
-    \begin{enumerate}
+    \begin{itemize}
       \item \gls{gl:nrbg}.
-    \end{enumerate}
+    \end{itemize}
 \end{itemize}
 
 La clasificación propuesta divide primeramente entre los que utilizan
 criptografía y los que no; se pone como ejemplo a los item \gls{gl:nrbg} como
-algoritmos no criptográficos, ya que su aleatoriedad depende de fenómenos físicos.
-Luego, dentro de los criptográficos, se divide a su vez entre algoritmos
+algoritmos no criptográficos, ya que su aleatoriedad depende de fenómenos
+físicos. Luego, dentro de los criptográficos, se divide a su vez entre algoritmos
 reversibles e irreversibles: los primeros, al igual que en el
 \gls{gl:pci} \gls{gl:ssc}, son aquellos algoritmos que, dados el \gls{gl:token}
 y la llave, pueden regresar y obtener el \gls{gl:pan}; los algoritmos
 pertenecientes a la segunda subcategoría (irreversible) son aquellos que
 necesitan guardar la relación \gls{gl:pan}~-\gls{gl:token} para poder obtener
 el \gls{gl:pan} perteneciente a un \gls{gl:token}. Dado que, de acuerdo con el
-\gls{gl:nist}, los \gls{gl:drbg} utilizan funciones hash o cifradores por
+\gls{gl:nist}, los \gls{gl:drbg} utilizan funciones hash o cifrados por
 bloque, pertenecen también a la categoría de los criptográficos irreversibles.
 
-\subimport{ffx/}{ffx}
-\subimport{bps/}{bps}
+\subimport{/}{ffx}
+\subimport{/}{bps}
 \subimport{/}{tkr}
 \subimport{/}{rht}
 \subimport{/}{drbg}

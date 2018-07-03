@@ -5,6 +5,7 @@
 %
 
 \subsection{Módulo de DRBG}
+\label{sec:implementacion_drbg}
 
 En la sección \ref{sec:generadores_pseudoaleatorios} se resume el estándar del
 \gls{gl:nist} para la  creación de un \gls{gl:drbg}. En \ref{sec:drbg_lista} se
@@ -26,6 +27,8 @@ nombre viene dado por el contrato con la interfaz de una función que
 recibe enteros y regresa arreglos de bytes. El código fuente \ref{codigo:drbg}
 muestra esta implementación, la cuál depende de \texttt{generarBytes}, que
 dentro del contexto de un \gls{gl:drbg} genérico, es abstracta.
+
+De acuerdo a lo explicado en la sección \ref{}, el comportamiento por defecto del constructor de un DRBG es determinar, en tiempo de ejecución, si el soportador actual soporta la instrucción de ensamblador RD-SEED. En caso positivo, la fuente de entropía es una instancia de la clase de aleatoriedad por hardware. En caso negativo, la entropía es una instancia de la clase de aleatoriedad trivial. También existe la posibilidad de que el constructor reciba una fuente de aleatoriedad creada con anterioridad; en este caso, el DRBG no es responsable de la gestión de la memoria. Esta segunda característica permite instanciar varios generadores con una misma fuente de aleatoriedad.
 
 \begin{listing}
   \inputminted[firstline=117, lastline=135]

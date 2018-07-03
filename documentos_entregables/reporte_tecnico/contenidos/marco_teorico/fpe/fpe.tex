@@ -9,7 +9,7 @@
 El objetivo de los cifrados que preservan el formato (en inglés, \gls{gl:fpe})
 está bastante bien definido: lograr que los mensajes cifrados \textit{se vean}
 igual que los mensajes en claro. Obviamente para que esto tenga sentido hay que
-definir qué es lo que hace que un mensaje se parezca a otro; los cifradores
+definir qué es lo que hace que un mensaje se parezca a otro; los cifrados
 tradicionales, como \gls{gl:aes}, reciben cadenas binarias y entregan cadenas
 binarias, por lo que, en cierto sentido, son ya un tipo de cifrados
 que preservan el formato. En una clase más general de algoritmos \gls{gl:fpe}
@@ -22,7 +22,7 @@ de dígitos decimales se logra que los \textit{tokens} y los \gls{gl:pan} tengan
 el mismo aspecto. De las posibles soluciones presentadas en la sección
 \ref{sec:algoritmos}, \gls{gl:fpe} es la que presenta un esquema más tradicional
 dentro de la criptografía, ya que el proceso de cifrado y descifrado es el mismo
-que un cifrador simétrico.
+que un cifrado simétrico.
 
 La utilidad de los cifrados que preservan el formato se centra principalmente
 en \textit{agregar} seguridad a sistemas y protocolos que ya se encuentran
@@ -92,6 +92,11 @@ mensajes ($ N = |X| $):
 
 Como se puede observar de los ejemplos dados, el problema de la tokenización
 de números de tarjetas de crédito es un problema de espacios pequeños.
+
+En marzo de 2016 el \gls{gl:nist} publicó un estándar referente a los cifrados
+que preservan el formato\cite{nist_fpe}. En él se definen dos posibles métodos:
+FF1 (lo que en este documento es \gls{gl:ffx}, sección \ref{sec:ffx}) y FF3
+(\gls{gl:bps}, sección \ref{sec:bps}).
 
 \begin{pseudocodigo}[%
   caption={\textit{Knuth shuffle}, \cite{DBLP:books/aw/Knuth69}.},

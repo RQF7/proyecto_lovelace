@@ -1,3 +1,10 @@
+/**
+ * \file
+ * \brief Ejecutable de pruebas de desempeño.
+ *
+ * Proyecto Lovelace.
+ */
+
 #include "acceso_a_datos/cabeceras/acceso_mysql_pruebas.hh"
 #include "acceso_a_datos/cabeceras/acceso_mysql.hh"
 #include "bps/cabeceras/cifrador_de_ronda.hh"
@@ -34,7 +41,8 @@ int main(int argc, char* argv[])
 
   if(argc < 6)
   {
-    cout << "Uso: " << argv[0] << " [ip] [puerto] [usuario] [clave] [algoritmo]" << endl;
+    cout << "Uso: " << argv[0]
+      << " ip puerto usuario clave algoritmo [num_pruebas]" << endl;
     exit(1);
   }
   if(argc == 7)
@@ -141,8 +149,7 @@ tuple<AlgoritmoTokenizador*, int> parametrizarAlgoritmo(const char* algoritmo)
   {
     cout << "Iniciando algoritmo DRBG" << endl;
     CDV* accesoADatos = new AccesoMySQL {};
-    AleatoriedadTrivial *aleatoriedad = new AleatoriedadTrivial;
-    DRBG *drbg = new HashDRBG{aleatoriedad, Arreglo<unsigned char>{1, 2, 3},
+    DRBG *drbg = new HashDRBG{Arreglo<unsigned char>{1, 2, 3},
       DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256};
     PseudoaleatorioDRBG *puenteDRBG{new PseudoaleatorioDRBG{drbg}};
     FuncionRN* funcion = new FuncionRN {puenteDRBG, accesoADatos, 9};

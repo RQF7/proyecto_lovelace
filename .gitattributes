@@ -16,3 +16,6 @@ pagina_publica/plantillas_html/estilo.css linguist-generated
 
 # Estilos de beamer
 documentos_entregables/estilos_de_presentaciones/dresen_lsc/* linguist-vendored
+
+# Clase de artículos de Springer
+documentos_entregables/llncs.cls

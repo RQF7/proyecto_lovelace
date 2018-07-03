@@ -75,6 +75,9 @@ after_success:
   - make -B -C documentos_entregables presentacion_fpe/presentacion_fpe.pdf
   - make -B -C documentos_entregables
     presentacion_tt_uno/presentacion_tt_uno.pdf
+  - make -B -C documentos_entregables articulo/articulo.pdf
+  - make -B -C documentos_entregables referencias_articulo
+  - make -B -C documentos_entregables articulo/articulo.pdf
   # Documentación.
   - make documentación_doxygen
   - make -C pagina_publica/documentacion_doxygen/latex
@@ -83,7 +86,7 @@ after_success:
 # Antes del despliegue
 before_deploy:
   - mv README.md pagina_publica/
-  - mv reglas_de_estilo.md pagina_publica/
+#  - mv reglas_de_estilo.md pagina_publica/
   - mkdir -p pagina_publica/documentos_entregables/reporte_tecnico
   - mv documentos_entregables/reporte_tecnico/reporte_tecnico.pdf
     pagina_publica/documentos_entregables/reporte_tecnico/
@@ -93,6 +96,9 @@ before_deploy:
   - mkdir -p pagina_publica/documentos_entregables/presentacion_tt_uno
   - mv documentos_entregables/presentacion_tt_uno/presentacion_tt_uno.pdf
     pagina_publica/documentos_entregables/presentacion_tt_uno/
+  - mkdir -p pagina_publica/documentos_entregables/articulo
+  - mv documentos_entregables/articulo/articulo.pdf
+    pagina_publica/documentos_entregables/articulo/
 
 # Fase de despliegue
 deploy:

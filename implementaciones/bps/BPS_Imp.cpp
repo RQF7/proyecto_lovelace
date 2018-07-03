@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
 
   else
   {
-    cout << "Especifica uno de los siguentes cifrador "
+    cout << "Especifica uno de los siguentes cifrados "
          << "como primer argumento" << endl
          << "AES"  << endl
          << "TDES" << endl;

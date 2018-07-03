@@ -1,11 +1,12 @@
 /**
  * \file
- * \brief Archivo principal de pruebas de ffx y componentes.
+ * \brief Archivo principal de pruebas de implementaciones.
  *
  * Proyecto Lovelace.
  */
 
 #include "acceso_a_datos/cabeceras/acceso_mysql_prueba.hh"
+#include "drbg/cabeceras/aleatoriedad_hardware_prueba.hh"
 #include "drbg/cabeceras/aleatoriedad_trivial_prueba.hh"
 #include "drbg/cabeceras/ctr_drbg_prueba.hh"
 #include "drbg/cabeceras/hash_drbg_prueba.hh"
@@ -25,8 +26,8 @@
 #include "utilidades/cabeceras/utilidades_criptograficas_prueba.hh"
 #include "utilidades/cabeceras/utilidades_tarjetas_prueba.hh"
 #include "../utilidades/cabeceras/conjunto_de_pruebas.hh"
-#include <iostream>
 #include "../utilidades/cabeceras/prueba.hh"
+#include <iostream>
 #include <vector>
 
 using namespace ImplementacionesPruebas;
@@ -61,8 +62,9 @@ int main()
       AleatoriedadTrivialPrueba {},
       HashDRBGPrueba {},
       CTRDRBGPrueba {},
-      AHRPrueba(),
-      AESPrueba()
+      AHRPrueba {},
+      AESPrueba {},
+      AleatoriedadHardwarePrueba {}
     }
   };
 }

@@ -145,7 +145,7 @@ void imprimirAyuda()
       << "  Detokeniza el token dado con el método y la llave" << endl
       << "  especificados." << endl
       << "MÉTODO := TKR | FFX | BPS | HAR | DRBG" << endl
-      << "-k" << endl
+      << "-h" << endl
       << "  Imprime este mensaje." << endl
       << endl;
 }
@@ -244,8 +244,7 @@ ArregloDeDigitos tokenizar(
   else if (metodo == "DRBG")
   {
     CDV* accesoADatos = new AccesoMySQL {};
-    AleatoriedadTrivial *aleatoriedad = new AleatoriedadTrivial;
-    DRBG *drbg = new HashDRBG{aleatoriedad, Arreglo<unsigned char>{1, 2, 3},
+    DRBG *drbg = new HashDRBG{Arreglo<unsigned char>{1, 2, 3},
       DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256};
     PseudoaleatorioDRBG *puenteDRBG{new PseudoaleatorioDRBG{drbg}};
     FuncionRN* funcion = new FuncionRN {puenteDRBG, accesoADatos, longitud};

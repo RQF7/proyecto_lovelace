@@ -85,20 +85,20 @@ namespace Implementaciones
     protected:
 
       /** \brief Construcción de una nueva instancia. */
-      DRBG(FuenteDeAleatoriedad *fuenteDeAlatoriedad,
-        Arreglo<unsigned char> cadenaDePersonalizacion,
+      DRBG(Arreglo<unsigned char> cadenaDePersonalizacion,
         NivelDeSeguridad nivelDeSeguridad,
         unsigned int longitudSemila, entero longitudPersonalizacion,
-        entero longitudMaxima, entero maximoDePeticiones);
+        entero longitudMaxima, entero maximoDePeticiones,
+        FuenteDeAleatoriedad *fuenteDeAlatoriedad = nullptr);
+
+      /** \brief Liberación de recursos. */
+      ~DRBG();
 
       /** \brief Función de cambio de semilla. */
       virtual void cambiarSemilla();
 
       /** \brief Función para eliminar información crítica. */
       virtual void desinstanciar();
-
-      /** \brief Apuntador a clase-función que genera entropía. */
-      FuenteDeAleatoriedad *mFuenteDeAlatoriedad;
 
       /** \brief Cadena opcional de personalización. */
       Arreglo<unsigned char> mCadenaDePersonalizacion;
@@ -146,6 +146,9 @@ namespace Implementaciones
 
       entero mMaximoDePeticiones;
 
+      /** \brief Apuntador a clase-función que genera entropía. */
+      FuenteDeAleatoriedad *mFuenteDeAlatoriedad;
+
       /** \brief Contador de peticiones desde la última instanciación de la
        *  semilla. */
       entero mContadorDePeticiones;
@@ -165,6 +168,15 @@ namespace Implementaciones
        */
 
       Arreglo<unsigned char> mSemilla;
+
+      /**
+       * \brief Control de reservación de recursos.
+       *
+       * Se encuentra en verdadero cuando la gestión de la memoria de la
+       * fuente de aleatoria es responsabilidad de esta clase.
+       */
+
+      bool mBanderaDeRecursos = false;
 
       /** \brief Función generadora de bits (definida por concretos). */
       virtual Arreglo<unsigned char> generarBytes(entero longitud) = 0;

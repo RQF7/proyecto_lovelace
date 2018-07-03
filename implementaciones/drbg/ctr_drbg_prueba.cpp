@@ -31,8 +31,7 @@ CTRDRBGPrueba::CTRDRBGPrueba()
 
 bool CTRDRBGPrueba::probarFuncionDeGeneracion()
 {
-  AleatoriedadTrivial *aleatoriedad = new AleatoriedadTrivial;
-  CTRDRBG generador {aleatoriedad, Arreglo<unsigned char>{1, 2, 3},
+  CTRDRBG generador {Arreglo<unsigned char>{1, 2, 3},
     DRBG::NivelDeSeguridad::nivel128};
 
   Arreglo<unsigned char> pruebaUno = generador.operar({10});
@@ -52,6 +51,5 @@ bool CTRDRBGPrueba::probarFuncionDeGeneracion()
   if (pruebaCuatro.obtenerNumeroDeElementos() != 50)
     return false;
 
-  delete aleatoriedad;
   return true;
 }

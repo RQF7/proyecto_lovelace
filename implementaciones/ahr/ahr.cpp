@@ -24,7 +24,7 @@ using namespace std;
 /**
  * Constructor por defecto. Se encarga de inicializar los bloques mBloqueT y
  * mBloqueC. Recibe como parámetros la referencia a la base de datos que
- * se va a utilizar y la llave con la que se inicializará el cifrador.
+ * se va a utilizar y la llave con la que se inicializará el cifrado.
  */
 AHR::AHR(CDV* baseDeDatos, unsigned char* llave)
 : mAccesoADatos{baseDeDatos}
@@ -39,7 +39,7 @@ AHR::AHR(CDV* baseDeDatos, unsigned char* llave)
 /**
  * Constructor por defecto. Se encarga de inicializar los bloques mBloqueT y
  * mBloqueC. Recibe como parámetros la referencia a la base de datos que
- * se va a utilizar y la llave con la que se inicializará el cifrador.
+ * se va a utilizar y la llave con la que se inicializará el cifrado.
  */
 AHR::AHR(CDV* baseDeDatos)
 : mAccesoADatos{baseDeDatos}
@@ -192,12 +192,12 @@ void AHR::obtenerBitsX()
 
 /**
   * Este método se encarga del primer paso del algoritmo: obtener el mBloqueT
-  * que será utilizado como entrada para el cifrador por bloques. Primero
+  * que será utilizado como entrada para el cifrado por bloques. Primero
   * obtiene la salida de la función pública (SHA256 en este caso) de la entrada
   * adicional mEntradaU. Luego llama a la función obtenerBitsX para llenar los
   * últimos mLongitudBytesEntradaX bloques del mBloqueT y, finalmente, le
   * concatena al inicio los bytes más significativos de la salida del SHA para
-  * completar el tamaño de bloque del cifrador.
+  * completar el tamaño de bloque del cifrado.
   */
 void AHR::crearBloqueT()
 {
@@ -335,7 +335,7 @@ unsigned long long int AHR::obtenerToken()
   return mToken;
 }
 /**
- * Este método se encarga de cambiar la llave que utiliza el cifrador AES.
+ * Este método se encarga de cambiar la llave que utiliza el cifrado AES.
  */
 void AHR::cambiarLlave(unsigned char* llave)
 {

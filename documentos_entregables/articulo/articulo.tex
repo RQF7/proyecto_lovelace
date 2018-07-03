@@ -1,0 +1,95 @@
+%
+% Archivo principal de artículo.
+% Proyecto Lovelace.
+%
+
+\documentclass[11pt]{llncs}
+
+% http://mirrors.ctan.org/macros/latex/base/inputenc.pdf
+% Soporte para distintas codificaciones.
+% \usepackage[utf8]{inputenc}
+
+% http://mirrors.ctan.org/macros/latex/required/babel/base/babel.pdf
+% Soporte para lenguajes distintos del inglés.
+\usepackage[spanish, mexico, es-noindentfirst]{babel}
+
+% http://ctan.math.washington.edu/tex-archive/macros/latex/contrib/
+% import/import.pdf
+% Establece inputs relativos con respecto a una carpeta.
+\usepackage{import}
+
+% http://mirrors.ctan.org/macros/latex/required/graphics/grfguide.pdf
+\usepackage{graphicx}
+
+% http://mirrors.ctan.org/macros/latex/required/amsmath/amsmath.pdf
+\usepackage{amsmath}
+
+% http://ctan.math.illinois.edu/fonts/amsfonts/doc/amssymb.pdf
+% Simbología extra.
+\usepackage{amssymb}
+
+\begin{document}
+
+  \title{Estudio y comparación de métodos de tokenización}
+  \author{Daniel Ayala Zamorano,
+     Laura Natalia Borbolla Palacios, \\
+     Ricardo Quezada Figueroa}
+  \institute{Escuela Superior de Cómputo,
+    Instituto Politécnico Nacional\\
+    \email{daz23ayala@gmail.com,
+      laura@ejemplo.com,
+      qf7.ricardo@gmail.com}}
+  % :O ¿Por qué el email va dentro de la institución?
+  \maketitle
+
+  \begin{abstract}
+    La tokenización consiste en el reemplazo de información sensible por valores
+    sustitutos, llamados tokens, en donde el camino de regreso, del  token a la
+    información sensible, no es factible. En los últimos años este proceso se ha
+    vuelto muy popular entre los comercios en línea, pues les permite descargar
+    parte de las responsabilidades de seguridad adquiridas al manejar números de
+    tarjetas de crédito en un tercero, proveedor de servicios de tokenización.
+    Lamentablemente, existe una gran cantidad de desinformación alrededor de
+    cómo generar los tokens, principalmente producida por las estrategias
+    publicitarias de las empresas tokenizadoras, en donde cada una intenta
+    convencer al comprador de que su sistema es el mejor, sin explicar realmente
+    qué es lo que hacen para generar tokens. Uno de los mensajes más comunes
+    entre la publicidad es que la criptografía y la tokenización son cosas
+    distintas, y la segunda es mucho más segura. En este trabajo se explica a
+    detalle en qué consiste la tokenización y cuál es su relación con la
+    criptografía; se revisan y comparan los desempeños de los métodos más comunes
+    para tokenizar; para terminar se concluye con una discusión alrededor de las
+    ventajas y desventajas de cada uno.
+  \end{abstract}
+
+  \import{articulo/contenidos/}{introduccion}
+  \import{articulo/contenidos/}{preliminares_y_notacion}
+  \import{articulo/contenidos/algoritmos_tokenizadores/}
+    {algoritmos_tokenizadores}
+  %\import{articulo/contenidos/}{resultados}
+  %\import{articulo/contenidos/}{conclusiones}
+
+%  \section{Clasificación de los algoritmos tokenizadores}
+%
+%  \section{Métodos reversibles}
+%
+%  \subsection{FFX (\textit{Format-preserving Feistel-based Encryption})}
+%
+%  \subsection{BPS (Brier, Peyrin, Stern)}
+%
+%  \section{Métodos irreversibles}
+%
+%  \subsection{TKR}
+%
+%  \subsection{RHA (\textit{Reversile Hybrid Algorithm})}
+%  % Creo que tenemos un problema con el nombre de este.
+%  % ¿reversible o irreversible?
+%
+%  \subsection{UTO (\textit{Updatable Tokenization})}
+%
+%  \subsection{Basados en DRBG (\textit{Deterministic Random Bit Generator})}
+
+  \bibliographystyle{abbrv}
+  \bibliography{referencias}
+
+\end{document}

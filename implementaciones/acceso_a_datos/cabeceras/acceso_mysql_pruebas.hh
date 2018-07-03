@@ -26,7 +26,8 @@
 /** Constante para algoritmo tokenizador DRBG.*/
 #define ID_DRBG 5
 
-
+namespace Implementaciones
+{
   /**
    * \brief Implmentación de DAO para acceder a la base de datos de pruebas
   *   mediante MySQL.
@@ -34,35 +35,36 @@
    * Encapsula la conexión al servidor de MySQL.
    */
 
-class AccesoMySQLPruebas : public BDP
-{
-  public:
-    /** \brief Inicia la conexión con la base de datos. */
-    AccesoMySQLPruebas(std::string ip, int puerto,
-      std::string usuario,
-      std::string contrasenia,
-      std::string = "lovelace_pruebas");
+  class AccesoMySQLPruebas : public BDP
+  {
+    public:
+      /** \brief Inicia la conexión con la base de datos. */
+      AccesoMySQLPruebas(std::string ip, int puerto,
+        std::string usuario,
+        std::string contrasenia,
+        std::string = "lovelace_pruebas");
 
-    /** \brief Cierra la conexión con la base. */
-    ~AccesoMySQLPruebas();
+      /** \brief Cierra la conexión con la base. */
+      ~AccesoMySQLPruebas();
 
-    /** \brief Registra el tiempo de tokenización. */
-    void registrarTiempoCifrado(
-      const int algoritmo,
-      const int tiempo,
-      const int numTokenizaciones) override;
+      /** \brief Registra el tiempo de tokenización. */
+      void registrarTiempoCifrado(
+        const int algoritmo,
+        const int tiempo,
+        const int numTokenizaciones) override;
 
-    /** \brief Registra el tiempo de detokenización. */
-    void registrarTiempoDescifrado(
-      const int algoritmo,
-      const int tiempo,
-      const int numTokenizaciones) override;
+      /** \brief Registra el tiempo de detokenización. */
+      void registrarTiempoDescifrado(
+        const int algoritmo,
+        const int tiempo,
+        const int numTokenizaciones) override;
 
-  private:
-    /** \brief Controlador de conexiones. */
-    sql::Driver *mControlador;
-    /** \brief Instancia de conexión. */
-    sql::Connection *mConexion;
-};
+    private:
+      /** \brief Controlador de conexiones. */
+      sql::Driver *mControlador;
+      /** \brief Instancia de conexión. */
+      sql::Connection *mConexion;
+  };
+}
 
 #endif

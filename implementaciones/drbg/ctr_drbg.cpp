@@ -1,6 +1,6 @@
 /**
  * \file
- * \brief Definición de un DRBG basado en cifrador por bloques.
+ * \brief Definición de un DRBG basado en cifrado por bloques.
  *
  * Proyecto Lovelace.
  */
@@ -23,7 +23,7 @@ using namespace std;
  *                                (la clase no es respondable de esta memoria).
  * \param cadenaDePersonalizacion Cadena opcional de personalización.
  * \param nivelDeSeguridad        Máximo nivel de seguridad soportado.
- * \param tipoDeCifrador          Tipo de cifrador por bloque a usar.
+ * \param tipoDeCifrador          Tipo de cifrado por bloque a usar.
  *
  * \throw PersonalizacionDemasiadoGrande Si la cadena de personzalización
  *                                       excede lo dado en
@@ -31,21 +31,21 @@ using namespace std;
  */
 
 CTRDRBG::CTRDRBG(
-  FuenteDeAleatoriedad *fuenteDeAlatoriedad,
   Arreglo<unsigned char> cadenaDePersonalizacion,
   NivelDeSeguridad nivelDeSeguridad,
-  TipoDeCifrador tipoDeCifrador
+  TipoDeCifrador tipoDeCifrador,
+  FuenteDeAleatoriedad *fuenteDeAlatoriedad
 )
-: DRBG{fuenteDeAlatoriedad, cadenaDePersonalizacion, nivelDeSeguridad,
+: DRBG{cadenaDePersonalizacion, nivelDeSeguridad,
     static_cast<unsigned int>(tipoDeCifrador) + 16u, /* Longitud de semilla. */
     static_cast<unsigned int>(tipoDeCifrador) + 16u, /* Personalización. */
     524288ull / 8ull,        /* Longitud máxima: 2 ^ 19 bits. */
     281474976710656ull,      /* Vida útil de semilla: 2 ^ 48. */
+    fuenteDeAlatoriedad
   },
   mTipoDeCifrador {tipoDeCifrador},
   mLongitudLlave {static_cast<unsigned int>(mTipoDeCifrador)},
   mLongitudBloque {16u},
-  mLongitudContador {mLongitudBloque},
   mLlave (mLongitudLlave)
 {
   Arreglo<unsigned char> materialDeLlave = mSemilla ^ cadenaDePersonalizacion;
@@ -103,7 +103,7 @@ Arreglo<unsigned char> CTRDRBG::generarBytes(
 /**
  * Operación de actualización de estado. En el estándar corresponde a
  * CTR_DRBG_Update (sección 10.2.1.2). Calcula un nuevo valor para
- * la semilla y para la llave del cifrador por bloques.
+ * la semilla y para la llave del cifrado por bloques.
  */
 
 void CTRDRBG::actualizarEstado(
@@ -123,7 +123,7 @@ void CTRDRBG::actualizarEstado(
 }
 
 /**
- * Interfaz con cifrador por bloques de cryptopp. Cifra el bloque dado.
+ * Interfaz con cifrado por bloques de cryptopp. Cifra el bloque dado.
  *
  * \todo Hacer integración con AESNI.
  *
