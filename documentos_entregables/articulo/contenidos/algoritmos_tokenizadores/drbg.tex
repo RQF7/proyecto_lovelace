@@ -1,0 +1,47 @@
+%
+% Sección de DRBG.
+% Artículo.
+% Proyecto Lovelace.
+%
+
+\subsection{Algoritmo basado en generador pseudoaleatorio}
+
+Probablemente este método es el más directo para generar tokens. La idea es
+producir una cadena binaria aleatoria con un DRBG e interpretarla para que
+tenga el formato de un token. El funcionamiento general es el mismo que en TKR
+(figura \ref{tkr_metodos}): la operación de tokenización primero verifica en la
+base de datos que el número de tarjeta no se encuentre ya asociado a un token;
+de ser este el caso, se regresa el token asociado previamente; en caso contrario
+se genera un nuevo token aleatorio, se guarda en la base de datos y se regresa.
+La detokenización es simplemente una consulta en la base de datos.  En la figura
+\ref{drbg_generacion} se muestra uno de los posibles métodos para generar un
+token a partir de una cadena binaria ($ n $ es la longitud que debe tener el
+token generado).
+
+\begin{figure}
+  \begin{center}
+    \begin{tabular}{|l|}
+      \hline
+      \begin{minipage}{220pt}
+        \begin{tabbing}
+          \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
+          \ \kill \\
+          \ \ \ \ {\bf Algoritmo} DRBG-tokenización($ n $) \\
+          \> 1. \> \texttt{token} $ \gets $ \texttt{""} \\
+          \> 2. \> \texttt{cadena\_aleatoria} $ \gets $
+                   \texttt{drbg.generar($ n $)} \\
+          \> 3. \> {\bf para} $ i = 0 $ {\bf hasta} $ n - 1 $: \\
+          \> 4. \> \> \texttt{token[$ i $]} $ \gets $
+                      \texttt{cadena\_aleatoria[$ i $]} $ \mod 10$ \ \ \ \ \\
+          \> 5. \> {\bf regresar} token \\
+        \end{tabbing}
+      \end{minipage}\\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{\label{drbg_generacion} Generación de tokens a partir
+    de cadena binaria aleatoria.}
+\end{figure}
+
+% TODO: ¿decir aquí que, probablemente, este método es el que ocupan todos los
+% locos que te dicen que no ocupes criptgrafía porque es insegura?
