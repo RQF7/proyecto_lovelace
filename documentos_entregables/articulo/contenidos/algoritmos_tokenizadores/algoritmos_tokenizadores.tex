@@ -6,22 +6,30 @@
 
 \section{Algoritmos tokenizadores}
 
-Como el enfoque de este artículo es ver a la tokenización como un servicio, la
-interfaz para los procesos de tokenización y detokenización, desde el punto de
-vista de los usuarios del servicio, es sumamente simple: el proceso de
-tokenización es una función $ E: \mathcal{X} \rightarrow \mathcal{Y} $ y el de
-detokenización es  simplemente la función inversa $ D: \mathcal{Y} \rightarrow
-\mathcal{X} $, en donde $ \mathcal{X} $ y $ \mathcal{Y} $ son los espacios de
-números de tarjetas y tokens, respectivamente. Ambos conjuntos son cadenas de
-dígitos de entre 12 y 19 caracteres. Los números de tarjeta cuentan con un
-dígito verificador que hace que \texttt{algoritmoDeLuhn(X) = 0}; los tokens
-cuentan con un dígito verificador que hace que \texttt{algoritmoDeLuhn(Y) = 1}.
-El último punto es con el propósito de que sea posible distinguir entre un
-número de tarjeta y un token.
+Como el enfoque de este artículo es ver a la tokenización como un servicio
+(figura \ref{gigura:arquitectura_tokenizacion}), la interfaz para los procesos
+de tokenización y detokenización, desde el punto de vista de los usuarios del
+servicio, es sumamente simple: el proceso de tokenización es una función $ E:
+\mathcal{X} \rightarrow \mathcal{Y} $ y el de detokenización es  simplemente la
+función inversa $ D: \mathcal{Y} \rightarrow \mathcal{X} $, en donde $
+\mathcal{X} $ y $ \mathcal{Y} $ son los espacios de números de tarjetas y
+tokens, respectivamente. Ambos conjuntos son cadenas de dígitos de entre 12 y 19
+caracteres. Los números de tarjeta cuentan con un dígito verificador que hace
+que \texttt{algoritmoDeLuhn(X) = 0}; los tokens cuentan con un dígito
+verificador que hace que \texttt{algoritmoDeLuhn(Y) = 1}. El último punto es con
+el propósito de que sea posible distinguir entre un número de tarjeta y un token.
 
 El PCI SSC (\textit{Payment Card Industry Security Standard Council}) establece
 en sus guías de tokenización la siguiente clasificación para los algoritmos
 tokenizadores~\cite{pci_tokens}:
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=1.0\linewidth]{diagramas/sistema_tokenizador.png}
+    \caption{Arquitectura típica de un sistema tokenizador.}
+    \label{figura:arquitectura_tokenizacion}
+  \end{center}
+\end{figure}
 
 \begin{itemize}
   \item Métodos reversibles. Aquellos para los cuales es posible regresar al
