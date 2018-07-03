@@ -5,6 +5,8 @@
 
 \documentclass[11pt]{llncs}
 
+\newcommand{\Titulo}{Estudio y comparación de métodos de tokenización}
+
 % http://mirrors.ctan.org/macros/latex/base/inputenc.pdf
 % Soporte para distintas codificaciones.
 % \usepackage[utf8]{inputenc}
@@ -28,9 +30,53 @@
 % Simbología extra.
 \usepackage{amssymb}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bloque temporal: no es parte de llncs. Simplemente agrega configuraciones
+% que permiten ver al artículo como algo indepnediente, no como parte de
+% una compilación de artículos.
+
+% http://mirrors.ctan.org/macros/latex/contrib/xcolor/xcolor.pdf
+\usepackage{xcolor}
+
+% https://tex.stackexchange.com/questions/47383/
+% no-pdf-bookmarks-when-using-llncs-class#47406
+\usepackage{etoolbox}
+\makeatletter
+\let\llncs@addcontentsline\addcontentsline
+\patchcmd{\maketitle}{\addcontentsline}{\llncs@addcontentsline}{}{}
+\patchcmd{\maketitle}{\addcontentsline}{\llncs@addcontentsline}{}{}
+\patchcmd{\maketitle}{\addcontentsline}{\llncs@addcontentsline}{}{}
+\setcounter{tocdepth}{2}
+\makeatother
+
+% http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/manual.pdf
+\usepackage{hyperref}
+\hypersetup
+{
+  pdftitle={\Titulo},
+  bookmarks=true,
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=4,
+  pdfstartview=Fit,
+  pdfpagemode=UseOutlines,
+  linktocpage=true,
+  breaklinks=true,
+  linkbordercolor=white,
+  citebordercolor=white,
+  filebordercolor=white,
+  menubordercolor=white,
+  urlbordercolor=white,
+  pdfborder={0 0 0},
+  frenchlinks
+}
+
+% Termina bloque temporal.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
 
-  \title{Estudio y comparación de métodos de tokenización}
+  \title{\Titulo}
   \author{Daniel Ayala Zamorano,
      Laura Natalia Borbolla Palacios, \\
      Ricardo Quezada Figueroa}
@@ -66,7 +112,7 @@
   \import{articulo/contenidos/}{preliminares_y_notacion}
   \import{articulo/contenidos/algoritmos_tokenizadores/}
     {algoritmos_tokenizadores}
-  %\import{articulo/contenidos/}{resultados}
+  \import{articulo/contenidos/}{resultados}
   %\import{articulo/contenidos/}{conclusiones}
 
 %  \section{Clasificación de los algoritmos tokenizadores}

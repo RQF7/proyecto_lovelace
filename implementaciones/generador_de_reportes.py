@@ -44,11 +44,19 @@ def generarGraficaTiemposUnitarios(tokenizacion, detokenizacion):
     color='#777777',
     label='Detokenización')
   ejes.set_ylabel('Tiempos (microsegundos)')
-  ejes.yaxis.set_label_coords(-0.12, 0.5)
+  ejes.yaxis.set_label_coords(-0.15, 0.5)
   #ejes.set_title('Tiempos unitarios de tokenización y detokenización')
   ejes.set_xticks(indices)
   ejes.set_xticklabels(tuple(algoritmos))
-  ejes.legend(frameon=False)
+  caja = ejes.get_position()
+  ejes.set_position([caja.x0 + 0.05,
+    caja.y0 + 0.05,
+    caja.width,
+    caja.height])
+  ejes.legend(frameon=False,
+    loc='lower center',
+    bbox_to_anchor=(0.5, -0.2),
+    ncol=2)
   ejes.grid(axis='y',
     which='both',
     linewidth=0.2,

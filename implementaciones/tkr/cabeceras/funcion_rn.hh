@@ -25,8 +25,8 @@ namespace Implementaciones
    * artículo de TKR.
    */
 
-  class FuncionRN : public Utilidades::Funcion<ArregloDeDigitos,
-    unsigned int>
+  class FuncionRN
+  : public Utilidades::Funcion<ArregloDeDigitos, unsigned int>
   {
     public:
       /** \brief Alias para función interna. */

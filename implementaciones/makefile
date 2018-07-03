@@ -34,6 +34,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 tkr/pseudoaleatorio_trivial_prueba.cpp \
 											 tkr/pseudoaleatorio_aes.cpp \
 											 tkr/pseudoaleatorio_aes_prueba.cpp \
+											 tkr/funcion_drbg.cpp \
+											 tkr/funcion_drbg_prueba.cpp \
 											 tkr/funcion_rn.cpp \
 											 tkr/funcion_rn_prueba.cpp \
 											 tkr/tkr.cpp \
@@ -68,6 +70,7 @@ FUENTES_DOS					:= lovelace.cpp \
 											 drbg/hash_drbg.cpp \
 											 tkr/pseudoaleatorio_trivial.cpp \
 											 tkr/pseudoaleatorio_aes.cpp \
+											 tkr/funcion_drbg.cpp \
 											 tkr/funcion_rn.cpp \
 											 tkr/tkr.cpp \
 											 aes_ensamblador/aes.cpp \
@@ -96,6 +99,7 @@ FUENTES_TRES        := pruebas_desempenio.cpp \
 											 drbg/hash_drbg.cpp \
 											 tkr/pseudoaleatorio_trivial.cpp \
 											 tkr/pseudoaleatorio_aes.cpp \
+											 tkr/funcion_drbg.cpp \
 											 tkr/funcion_rn.cpp \
 											 tkr/tkr.cpp \
 											 aes_ensamblador/aes.cpp \
@@ -285,6 +289,18 @@ $(CARPETA_OBJETOS)/tkr/pseudoaleatorio_aes.o: \
 $(CARPETA_OBJETOS)/tkr/pseudoaleatorio_aes_prueba.o: \
 	tkr/pseudoaleatorio_aes_prueba.cpp \
 	tkr/cabeceras/pseudoaleatorio_aes_prueba.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/funcion_drbg.o: \
+	tkr/funcion_drbg.cpp \
+	tkr/cabeceras/funcion_drbg.hh
+	mkdir -p $(CARPETA_OBJETOS)/tkr
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/tkr/funcion_drbg_prueba.o: \
+	tkr/funcion_drbg_prueba.cpp \
+	tkr/cabeceras/funcion_drbg_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)/tkr
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
