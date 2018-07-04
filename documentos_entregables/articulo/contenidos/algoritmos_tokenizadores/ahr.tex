@@ -1,0 +1,74 @@
+%
+% Sección de FFX.
+% Artículo.
+% Proyecto Lovelace.
+%
+
+\subsection{AHR (Algoritmo híbrido reversible}
+En 2017, Longo, Aragona y Sala~\cite{aragona} propusieron un algoritmo híbrido
+reversible basado en un cifrador por bloques, una llave secreta y una entrada
+adicional. Las entradas del algoritmo son la parte del PAN a cifrar y una
+entrada adicional (por ejemplo, la fecha) que permite que se tengan varios
+tokens relacionados con la misma tarjeta.
+
+El algoritmo necesita una función $ f $ pública que se encarga de poner el relleno
+en la entrada para obtener el bloque completo para el cifrador, pues, dada una
+cadena de longitud $ m $ regrese una de longitud $ n $; requiere también que
+solo se utilicen cifrados cuyo tamaño de bloque sea, mínimo, de 128 bits.
+Finalmente, como es un algoritmo reversible, se necesita una base de datos
+segura para almacenar los pares PAN-token.
+
+Como se desea obtener un token que tenga el mismo número de dígitos que el PAN
+ingresado, se utiliza un método llamado \textit{cycle-walking} para asegurarse
+de que el texto cifrado pertenezca el espacio del texto en claro.
+
+A continuación se definen una serie de notaciones que se utilizarán en el
+algoritmo:
+\begin{itemize}
+  \item $ M $ Tamaño de bloque del cifrado por bloques que se usará.
+  \item $ l $ Longitud de la entrada. En este caso, $13 \geq l \geq 19$.
+  \item $ n $ Número de bits necesarios para representar a la entrada:
+    $n = log_2(10^l)$.
+  \item $ [y]^s_b $ Indica que $y$ es menor que $b^s$: $y < b^s$.
+  \item $\bar{x}$ Representación de $x$ en una cadena binaria cuando $x$ es
+    representado en su forma decimal y viceversa.
+\end{itemize}
+
+El primer paso es obtener el valor del bloque $ t $; es decir, concatenar los
+bytes más significativos de la salida de $ f (u,p) $ con la representación
+binaria de $ p $. Después, se cifra el bloque $ t $ con la llave $ K $ y se
+guarda en $ c $ la representación decimal de los  últimos bits del bloque
+cifrado; aquí es donde se utiliza la caminata cíclica, pues si los dígitos de
+$ c $ son menores a los que le corresponden con $ p $, se guarda $ t $ en $ c $
+y se regresa al paso del cifrado. Finalmente, cuando se obtiene un token válido,
+se comprueba que no esté registrado en la base de datos (si lo está, se regresa
+al inicio, pero aumentando la entrada adicional $ u $ en $ 1 $) y se registra
+el nuevo par PAN-token.
+El pseudocódigo del algoritmo de tokenización se puede observar en~\ref{cod_ahr}.
+\begin{figure}
+  \begin{center}
+    \begin{tabular}{|l|}
+      \hline
+      \begin{minipage}{220pt}
+        \begin{tabbing}
+          \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
+          \ \kill \\
+          \ \ \ \ {\bf Algoritmo} AHR($ p $, $ u $, $ k $)\\
+          \> 1. \> $t = f(u, p) || [\bar{p}]^s_b$  \\
+          \> 2. \> $c = E(k, t)$ \\
+          \> 3. \> {\bf si} $(\bar{c} \mod 2^n) \geq 10^l$ {\bf entonces}:\\
+          \> 4. \> \> $t = c$ \\
+          \> 5. \> \> Regresar a 2. \\
+          \> 5. \> $token = {[\bar{c} \mod 2^n]}^l_{10}$ \\
+          \> 5. \> {\bf si} $comprobar(token) =$ verdadero {\bf entonces}: \\
+          \> 6. \> \> $u = u + 1$ \\
+          \> 6. \> \> Regresar al paso 1. \\
+          \> 7. \> {\bf sino}: \\
+          \> 9. \> {\bf regresar} $token$ \\
+        \end{tabbing}
+      \end{minipage}\\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{\label{cod_ahr} Algoritmo híbrido reversible.}
+\end{figure}
