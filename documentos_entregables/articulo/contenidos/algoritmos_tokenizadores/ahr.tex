@@ -4,23 +4,23 @@
 % Proyecto Lovelace.
 %
 
-\subsection{AHR (Algoritmo híbrido reversible}
+\subsection{AHR (Algoritmo híbrido reversible)}
 En 2017, Longo, Aragona y Sala~\cite{aragona} propusieron un algoritmo híbrido
 reversible basado en un cifrador por bloques, una llave secreta y una entrada
 adicional. Las entradas del algoritmo son la parte del PAN a cifrar y una
 entrada adicional (por ejemplo, la fecha) que permite que se tengan varios
 tokens relacionados con la misma tarjeta.
 
-El algoritmo necesita una función $ f $ pública que se encarga de poner el relleno
-en la entrada para obtener el bloque completo para el cifrador, pues, dada una
-cadena de longitud $ m $ regrese una de longitud $ n $; requiere también que
-solo se utilicen cifrados cuyo tamaño de bloque sea, mínimo, de 128 bits.
-Finalmente, como es un algoritmo reversible, se necesita una base de datos
+El algoritmo necesita una función $ f $ pública que se encarga de poner el
+relleno en la entrada para obtener el bloque completo para el cifrador, pues,
+dada una cadena de longitud $ m $ regrese una de longitud $ n $; requiere
+también que solo se utilicen cifrados cuyo tamaño de bloque sea, mínimo, de 128
+bits. Finalmente, como es un algoritmo reversible, se necesita una base de datos
 segura para almacenar los pares PAN-token.
 
 Como se desea obtener un token que tenga el mismo número de dígitos que el PAN
 ingresado, se utiliza un método llamado \textit{cycle-walking} para asegurarse
-de que el texto cifrado pertenezca el espacio del texto en claro.
+de que el texto cifrado pertenezca al espacio del texto en claro.
 
 A continuación se definen una serie de notaciones que se utilizarán en el
 algoritmo:
@@ -59,12 +59,12 @@ El pseudocódigo del algoritmo de tokenización se puede observar en~\ref{cod_ah
           \> 3. \> {\bf si} $(\bar{c} \mod 2^n) \geq 10^l$ {\bf entonces}:\\
           \> 4. \> \> $t = c$ \\
           \> 5. \> \> Regresar a 2. \\
-          \> 5. \> $token = {[\bar{c} \mod 2^n]}^l_{10}$ \\
-          \> 5. \> {\bf si} $comprobar(token) =$ verdadero {\bf entonces}: \\
-          \> 6. \> \> $u = u + 1$ \\
-          \> 6. \> \> Regresar al paso 1. \\
-          \> 7. \> {\bf sino}: \\
-          \> 9. \> {\bf regresar} $token$ \\
+          \> 6. \> $token = {[\bar{c} \mod 2^n]}^l_{10}$ \\
+          \> 7. \> {\bf si} $comprobar(token) =$ verdadero {\bf entonces}: \\
+          \> 8. \> \> $u = u + 1$ \\
+          \> 9. \> \> Regresar al paso 1. \\
+          \> 10. \> {\bf sino}: \\
+          \> 11. \> \> {\bf regresar} $token$ \\
         \end{tabbing}
       \end{minipage}\\
       \hline
