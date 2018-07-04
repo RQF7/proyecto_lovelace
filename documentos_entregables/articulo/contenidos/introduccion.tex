@@ -66,6 +66,34 @@ bancarias.
 
 % Muestra del problema: ejemplos de discursos publicitarios comunes.
 
+Desde sus inicios, la tokenización se ha visto rodeada por una nube de desinformación: cada empresa usaba la palabra tokenización sin que existiera una definición formal, acordada por todos. En 2011, el PCI SSC (\textit{Payment Card Industry Security Standard Council}) publicó unas guías de tokenización \cite{pci_tokens} con la idea de ayudar tanto a comerciantes en línea como a proveedores de servicios de tokenización a esclarecer qué es la tokenización y qué requerimientos debe de cumplir. Lamentablemente, el PCI no indicó cómo satisfacer los requerimientos, lo que dio pie a que muchas empresas se siguieran publicitando como tokenizadoras, sin que los usuarios pudieran saber qué es lo que pasa adentro de la caja negra.
+
+Una de las consecuencias de esta desinformación es un mensaje bastante común
+entre las páginas de las empresas tokenizadoras: la tokenización y la
+criptografía son cosas distintas; la tokenización es una alternativa de la
+criptografía. Por ejemplo, lo único que \textit{Shift4} dice con claridad sobre
+sus tokens es que se trata de valores aleatorios, únicos y alfanuméricos
+\cite{shif4_uno} \cite{shif4_dos}; para \textit{Braintree}, la única manera de
+generar tokens es por métodos aleatorios \cite{braintree_uno}; para
+\textit{Securosis} los tokens son valores aleatorios que nada tienen que ver con
+la criptografía \cite{securosis}; \textit{Jack Henry Card Processing Solution},
+\textit{Merchant Link} y \textit{Bluepay TokenShield} no mencionan nunca cómo es
+que generan sus tokens. La mayoría de las soluciones tratan a sus métodos como
+secretos de compañía; esperan que el trato entre cliente y proveedor esté basado
+en la confianza y no en la comparación de los propios métodos.
+
 % Establecer relación entre criptografía y tokenización.
 
+Como se verá por la exposición de algunos métodos tokenizadores, la tokenización
+es una aplicación de la criptografía y, como tal, debe ser analizada con la
+misma formalidad que las demás herramientas criptográficas. Por ejemplo, uno de
+los errores más comunes entre las empresas tokenizadoras es considerar a la
+generación de números aleatorios como fuera del campo de la criptografía.
+
 % Estructura del artículo.
+
+En la sección dos de este trabajo se tocan algunos temas preliminares necesarios
+para presentar, en la sección 3, algunos de los métodos de tokenización. En la
+sección 4 se presentan los resultados de las comparaciones de desempeño
+realizadas, y en la sección 5 se concluye con una discusión acerca de las
+ventajas y desventajas de cada método.
