@@ -60,6 +60,8 @@ FuncionRN::~FuncionRN()
 
 ArregloDeDigitos FuncionRN::operar(const vector<unsigned int>& entrada)
 {
+
+//  Versión original:
   Arreglo<unsigned char> binarioAleatorio = mFuncionInterna->operar({
     static_cast<entero>(3 * mLongitudDeCadena * mLongitudDeBits), mContador});
   Arreglo<unsigned char> binarioDistribuido = redistribuir(binarioAleatorio);
@@ -72,6 +74,16 @@ ArregloDeDigitos FuncionRN::operar(const vector<unsigned int>& entrada)
   }
   mContador++;
   return resultado;
+
+// Versión económica:
+//  Arreglo<unsigned char> binarioAleatorio =
+//    mFuncionInterna->operar({mLongitudDeCadena, mContador});
+//  ArregloDeDigitos resultado (mLongitudDeCadena);
+//  for (unsigned int i = 0; i < mLongitudDeBits; i++)
+//    resultado[i] = binarioAleatorio[i] % 10;
+//  mContador++;
+//  return resultado;
+
 }
 
 /**
