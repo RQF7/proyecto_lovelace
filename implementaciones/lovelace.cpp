@@ -9,6 +9,7 @@
 #include "bps/cabeceras/cifrador_de_ronda.hh"
 #include "bps/cabeceras/cifrador_BPS.hh"
 #include "drbg/cabeceras/aleatoriedad_trivial.hh"
+#include "drbg/cabeceras/drbg_cryptopp.hh"
 #include "drbg/cabeceras/hash_drbg.hh"
 #include "drbg/cabeceras/pseudoaleatorio_drbg.hh"
 #include "ffx/cabeceras/ffx_a10.hh"
@@ -245,8 +246,9 @@ ArregloDeDigitos tokenizar(
   else if (metodo == "DRBG")
   {
     CDV* accesoADatos = new AccesoMySQL {};
-    DRBG *drbg = new HashDRBG{Arreglo<unsigned char>{1, 2, 3},
-      DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256};
+    //DRBG *drbg = new HashDRBG{Arreglo<unsigned char>{1, 2, 3},
+    //  DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256};
+    DRBGCryptopp *drbg = new DRBGCryptopp{};
     FuncionDRBG* funcion = new FuncionDRBG{drbg};
     algoritmoTokenizador = new TKR{funcion, accesoADatos};
   }

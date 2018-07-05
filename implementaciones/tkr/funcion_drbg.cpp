@@ -17,7 +17,7 @@ using namespace std;
  */
 
 FuncionDRBG::FuncionDRBG(
-  DRBG *drbg              /**< Referencia a generador pseudoaleatorio. */
+  GeneradorPseudoaleatorio *drbg  /**< Referencia a generador. */
 )
 : mDrbg {drbg}
 {

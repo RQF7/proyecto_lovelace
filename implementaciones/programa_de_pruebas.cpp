@@ -9,6 +9,7 @@
 #include "drbg/cabeceras/aleatoriedad_hardware_prueba.hh"
 #include "drbg/cabeceras/aleatoriedad_trivial_prueba.hh"
 #include "drbg/cabeceras/ctr_drbg_prueba.hh"
+#include "drbg/cabeceras/drbg_cryptopp_prueba.hh"
 #include "drbg/cabeceras/hash_drbg_prueba.hh"
 #include "ffx/cabeceras/combinacion_por_bloque_prueba.hh"
 #include "ffx/cabeceras/combinacion_por_caracter_prueba.hh"
@@ -66,7 +67,8 @@ int main()
       AHRPrueba {},
       AESPrueba {},
       AleatoriedadHardwarePrueba {},
-      FuncionDRBGPrueba {}
+      FuncionDRBGPrueba {},
+      DRBGCryptoppPrueba {}
     }
   };
 }

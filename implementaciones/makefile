@@ -22,6 +22,8 @@ LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
 											 drbg/aleatoriedad_trivial.cpp \
 											 drbg/aleatoriedad_trivial_prueba.cpp \
 											 drbg/drbg.cpp \
+											 drbg/drbg_cryptopp.cpp \
+											 drbg/drbg_cryptopp_prueba.cpp \
 											 drbg/hash_drbg.cpp \
 											 drbg/hash_drbg_prueba.cpp \
 											 drbg/ctr_drbg.cpp \
@@ -67,6 +69,7 @@ FUENTES_DOS					:= lovelace.cpp \
 											 drbg/aleatoriedad_hardware.cpp \
 											 drbg/aleatoriedad_trivial.cpp \
 											 drbg/drbg.cpp \
+											 drbg/drbg_cryptopp.cpp \
 											 drbg/hash_drbg.cpp \
 											 tkr/pseudoaleatorio_trivial.cpp \
 											 tkr/pseudoaleatorio_aes.cpp \
@@ -95,6 +98,7 @@ FUENTES_TRES        := pruebas_desempenio.cpp \
 											 bps/codificador.cpp \
 											 drbg/aleatoriedad_hardware.cpp \
 											 drbg/aleatoriedad_trivial.cpp \
+											 drbg/drbg_cryptopp.cpp \
 											 drbg/drbg.cpp \
 											 drbg/hash_drbg.cpp \
 											 tkr/pseudoaleatorio_trivial.cpp \
@@ -134,7 +138,6 @@ OBJETOS_DOS		      := $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(FUENTES_DOS:.cpp=.o))
 OBJETOS_TRES        := $(addprefix $(CARPETA_OBJETOS)/, \
                          $(FUENTES_TRES:.cpp=.o))
-
 OBJETOS_CUATRO      := $(addprefix $(CARPETA_OBJETOS)/, \
                         $(FUENTES_CUATRO:.cpp=.o))
 OBJETOS_CINCO       := $(addprefix $(CARPETA_OBJETOS)/, \
@@ -404,6 +407,16 @@ $(CARPETA_OBJETOS)/drbg/aleatoriedad_hardware_prueba.o: \
 
 $(CARPETA_OBJETOS)/drbg/drbg.o: \
 	drbg/drbg.cpp drbg/cabeceras/drbg.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drbg/drbg_cryptopp.o: \
+	drbg/drbg_cryptopp.cpp drbg/cabeceras/drbg_cryptopp.hh
+	mkdir -p $(CARPETA_OBJETOS)/drbg
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/drbg/drbg_cryptopp_prueba.o: \
+	drbg/drbg_cryptopp_prueba.cpp drbg/cabeceras/drbg_cryptopp_prueba.hh
 	mkdir -p $(CARPETA_OBJETOS)/drbg
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 

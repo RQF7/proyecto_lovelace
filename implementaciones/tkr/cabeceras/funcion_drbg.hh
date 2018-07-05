@@ -29,8 +29,12 @@ namespace Implementaciones
   {
     public:
 
+      /** \brief Alias para generador pseudoaleatorio. */
+      using GeneradorPseudoaleatorio =
+        Utilidades::Funcion<Arreglo<unsigned char>, entero>;
+
       /** \brief Inicialización de DRBG interno. */
-      FuncionDRBG(DRBG *drbg);
+      FuncionDRBG(GeneradorPseudoaleatorio *drbg);
 
       /** \brief Operación de función. */
       ArregloDeDigitos operar(const std::vector<unsigned int>& entrada) override;
@@ -38,7 +42,7 @@ namespace Implementaciones
     private:
 
       /** \brief Apuntador a generador pseudoaleatorio. */
-      DRBG *mDrbg;
+      GeneradorPseudoaleatorio *mDrbg;
   };
 }
 
