@@ -18,55 +18,56 @@
 
 Se denotarán a todas las cadenas de bits de longitud $ n $ como $ \{ 0, 1 \}^n $.
 
-% Cambio el título a <<Estructura de un número de tarjeta bancaria>>, los
-% números de las tarjetas de débido también tiene la misma composición.
-\subsection{Estructura de un número de tarjeta bancaria}
-También llamado PAN por sus siglas en inglés, se refiere al número de una
-tarjeta bancaria, está compuesto por tres partes:
-
-\begin{enumerate}
-  \item IIN
-  \item Número de cuenta
-  \item Dígito verificador
-\end{enumerate}
-
-La longitud del número de tarjeta puede variar entre 12 y 19 dígitos y el
-primero conjunto de números está regido bajo el estándar ISO/IEC-7812.
-
-El IIN (\textit{Número de identificación del emisor} por sus siglas en
-inglés), está compuesto por los primeros seis dígitos de la tarjeta; permite
-identificar el banco emisor, el tipo de la tarjeta, la marca (Visa,
-AmericanExpress) y el nivel de la tarjeta (Clásica, Gold).  El primer dígito
-del IIN es conocido como MII (\textit{Identificador principal de la Industria}
-por sus siglas en inglés) y su función es señalar la rama de la industria a la
-que pertenece la entidad que emitió la tarjeta; por ejemplo, los bancos y la
-industria financiera tienen asignados los números 4 y 5~\cite{iso_7812}.
-
-Los dígitos que le siguen al INN, excepto el último, son los que componen el
-número de cuenta y su tamaño varía dependiendo de la longitud del PAN; la
-longitud máxima, sin embargo, es de 12 dígitos, por lo que cada emisor tiene
-$10^{12}$ posibles números de cuenta.
-
-El dígito verificador es calculado mediante el algoritmo de Luhn y su
-propósito es ayudar a distinguir entre un PAN válido y un PAN inválido.
-El algoritmo se describe a continuación.
-
-\subsection{Algoritmo de Luhn}
-
-La especificación de este algoritmo se encuentra en~\cite{iso_7812}. Se tiene
-como entrada un número de tarjeta $ x = \{x_n, x_{n-1}, \dots, x_2, x_1\}$ de
-longitud $ n $; para calcular el dígito verificador se hace lo siguiente:
-\begin{enumerate}
-  \item Obtener los conjuntos $x_{par} = \{x_2, x_4, \dots\}$ y
-    $x_{impar} = \{x_3, x_5, \dots\}$.
-  \item Obtener el doble de cada uno de los elementos del conjunto $x_{par}$.
-    $x_{par\_doble} = \{2 \times x_2, 2 \times x_4, \dots\}$.
-    $\forall x_i \in x_{par\_doble} (x_i > 9 \rightarrow
-    x_i = (x_i \mod 10) + 1)$.
-  \item Obtener la suma $ S $ de los elementos de los conjuntos $x_{par\_doble}$
-    y $x_{impar}$.
-  \item Finalmente, $x_1 = (S \times 9) \mod 10$
-\end{enumerate}
+%
+%  % Cambio el título a <<Estructura de un número de tarjeta bancaria>>, los
+%  % números de las tarjetas de débido también tiene la misma composición.
+%  \subsection{Estructura de un número de tarjeta bancaria}
+%  También llamado PAN por sus siglas en inglés, se refiere al número de una
+%  tarjeta bancaria, está compuesto por tres partes:
+%
+%  \begin{enumerate}
+%    \item IIN
+%    \item Número de cuenta
+%    \item Dígito verificador
+%  \end{enumerate}
+%
+%  La longitud del número de tarjeta puede variar entre 12 y 19 dígitos y el
+%  primero conjunto de números está regido bajo el estándar ISO/IEC-7812.
+%
+%  El IIN (\textit{Número de identificación del emisor} por sus siglas en
+%  inglés), está compuesto por los primeros seis dígitos de la tarjeta; permite
+%  identificar el banco emisor, el tipo de la tarjeta, la marca (Visa,
+%  AmericanExpress) y el nivel de la tarjeta (Clásica, Gold).  El primer dígito
+%  del IIN es conocido como MII (\textit{Identificador principal de la Industria}
+%  por sus siglas en inglés) y su función es señalar la rama de la industria a la
+%  que pertenece la entidad que emitió la tarjeta; por ejemplo, los bancos y la
+%  industria financiera tienen asignados los números 4 y 5~\cite{iso_7812}.
+%
+%  Los dígitos que le siguen al INN, excepto el último, son los que componen el
+%  número de cuenta y su tamaño varía dependiendo de la longitud del PAN; la
+%  longitud máxima, sin embargo, es de 12 dígitos, por lo que cada emisor tiene
+%  $10^{12}$ posibles números de cuenta.
+%
+%  El dígito verificador es calculado mediante el algoritmo de Luhn y su
+%  propósito es ayudar a distinguir entre un PAN válido y un PAN inválido.
+%  El algoritmo se describe a continuación.
+%
+%  \subsection{Algoritmo de Luhn}
+%
+%  La especificación de este algoritmo se encuentra en~\cite{iso_7812}. Se tiene
+%  como entrada un número de tarjeta $ x = \{x_n, x_{n-1}, \dots, x_2, x_1\}$ de
+%  longitud $ n $; para calcular el dígito verificador se hace lo siguiente:
+%  \begin{enumerate}
+%    \item Obtener los conjuntos $x_{par} = \{x_2, x_4, \dots\}$ y
+%      $x_{impar} = \{x_3, x_5, \dots\}$.
+%    \item Obtener el doble de cada uno de los elementos del conjunto $x_{par}$.
+%      $x_{par\_doble} = \{2 \times x_2, 2 \times x_4, \dots\}$.
+%      $\forall x_i \in x_{par\_doble} (x_i > 9 \rightarrow
+%      x_i = (x_i \mod 10) + 1)$.
+%    \item Obtener la suma $ S $ de los elementos de los conjuntos $x_{par\_doble}$
+%      y $x_{impar}$.
+%    \item Finalmente, $x_1 = (S \times 9) \mod 10$
+%  \end{enumerate}
 
 \subsection{Cifrado por bloques}
 
