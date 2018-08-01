@@ -23,7 +23,7 @@ token generado).
     \begin{tabular}{|l|}
       \hline
       \begin{minipage}{220pt}
-        \begin{tabbing}
+        {\scriptsize\begin{tabbing}
           \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
           \ \kill \\
           \ \ \ \ {\bf Algoritmo} DRBG-tokenización($ n $) \\
@@ -34,7 +34,7 @@ token generado).
           \> 4. \> \> \texttt{token[$ i $]} $ \gets $
                       \texttt{cadena\_aleatoria[$ i $]} $ \mod 10$ \ \ \ \ \\
           \> 5. \> {\bf regresar} token \\
-        \end{tabbing}
+        \end{tabbing}}
       \end{minipage}\\
       \hline
     \end{tabular}
@@ -48,6 +48,6 @@ token generado).
 
 Según la clasificación del PCI, este método tendría que ser reversible no
 criptográfico; con la clasificación de este trabajo, se trata de un
-criptográfico irreversible. Al igual que con TKR, la denominación bajo la 
+criptográfico irreversible. Al igual que con TKR, la denominación bajo la
 clasificación del PCI resulta contradictoria: los generadores pseudoaleatorios
 son posibles debido a herramientas criptográficas.

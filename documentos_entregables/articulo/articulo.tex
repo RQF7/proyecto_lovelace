@@ -6,32 +6,45 @@
 % TODO: Revisar apariciones de siglas, esto es, que siempre aparezcan
 % de forma explícita en la primera ocasión.
 
-\documentclass[11pt]{llncs}
+\documentclass[conference]{IEEEtran}
 
-\newcommand{\Titulo}{Estudio y comparación de métodos de tokenización}
+% Propios
+\usepackage[spanish, mexico, es-noindentfirst]{babel}
+\usepackage{import}
+
+% Parte de plantilla de IEEE.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
 
 % http://mirrors.ctan.org/macros/latex/base/inputenc.pdf
 % Soporte para distintas codificaciones.
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}
 
 % http://mirrors.ctan.org/macros/latex/required/babel/base/babel.pdf
 % Soporte para lenguajes distintos del inglés.
-\usepackage[spanish, mexico, es-noindentfirst]{babel}
+%\usepackage[spanish, mexico, es-noindentfirst]{babel}
 
 % http://ctan.math.washington.edu/tex-archive/macros/latex/contrib/
 % import/import.pdf
 % Establece inputs relativos con respecto a una carpeta.
-\usepackage{import}
+%\usepackage{import}
 
 % http://mirrors.ctan.org/macros/latex/required/graphics/grfguide.pdf
-\usepackage{graphicx}
+%\usepackage{graphicx}
 
 % http://mirrors.ctan.org/macros/latex/required/amsmath/amsmath.pdf
-\usepackage{amsmath}
+%\usepackage{amsmath}
 
 % http://ctan.math.illinois.edu/fonts/amsfonts/doc/amssymb.pdf
 % Simbología extra.
-\usepackage{amssymb}
+%\usepackage{amssymb}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Bloque temporal: no es parte de llncs. Simplemente agrega configuraciones
@@ -39,56 +52,89 @@
 % una compilación de artículos.
 
 % http://mirrors.ctan.org/macros/latex/contrib/xcolor/xcolor.pdf
-\usepackage{xcolor}
+%\usepackage{xcolor}
 
 % https://tex.stackexchange.com/questions/47383/
 % no-pdf-bookmarks-when-using-llncs-class#47406
-\usepackage{etoolbox}
-\makeatletter
-\let\llncs@addcontentsline\addcontentsline
-\patchcmd{\maketitle}{\addcontentsline}{\llncs@addcontentsline}{}{}
-\patchcmd{\maketitle}{\addcontentsline}{\llncs@addcontentsline}{}{}
-\patchcmd{\maketitle}{\addcontentsline}{\llncs@addcontentsline}{}{}
-\setcounter{tocdepth}{2}
-\makeatother
-
-% http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/manual.pdf
-\usepackage{hyperref}
-\hypersetup
-{
-  pdftitle={\Titulo},
-  bookmarks=true,
-  bookmarksnumbered=true,
-  bookmarksopen=true,
-  bookmarksopenlevel=4,
-  pdfstartview=Fit,
-  pdfpagemode=UseOutlines,
-  linktocpage=true,
-  breaklinks=true,
-  linkbordercolor=white,
-  citebordercolor=white,
-  filebordercolor=white,
-  menubordercolor=white,
-  urlbordercolor=white,
-  pdfborder={0 0 0},
-  frenchlinks
-}
+%\usepackage{etoolbox}
+%\makeatletter
+%\let\llncs@addcontentsline\addcontentsline
+%\patchcmd{\maketitle}{\addcontentsline}{\llncs@addcontentsline}{}{}
+%\patchcmd{\maketitle}{\addcontentsline}{\llncs@addcontentsline}{}{}
+%\patchcmd{\maketitle}{\addcontentsline}{\llncs@addcontentsline}{}{}
+%\setcounter{tocdepth}{2}
+%\makeatother
+%
+%% http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/manual.pdf
+%\usepackage{hyperref}
+%\hypersetup
+%{
+%  pdftitle={\Titulo},
+%  bookmarks=true,
+%  bookmarksnumbered=true,
+%  bookmarksopen=true,
+%  bookmarksopenlevel=4,
+%  pdfstartview=Fit,
+%  pdfpagemode=UseOutlines,
+%  linktocpage=true,
+%  breaklinks=true,
+%  linkbordercolor=white,
+%  citebordercolor=white,
+%  filebordercolor=white,
+%  menubordercolor=white,
+%  urlbordercolor=white,
+%  pdfborder={0 0 0},
+%  frenchlinks
+%}
 
 % Termina bloque temporal.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
-  \title{\Titulo}
-  \author{Daniel Ayala Zamorano,
-     Laura Natalia Borbolla Palacios, \\
-     Ricardo Quezada Figueroa}
-  \institute{Escuela Superior de Cómputo,
-    Instituto Politécnico Nacional\\
-    \email{daz23ayala@gmail.com,
-      laura@ejemplo.com,
-      qf7.ricardo@gmail.com}}
-  % :O ¿Por qué el email va dentro de la institución?
+  \title{Estudio y comparación de métodos de tokenización}
+
+  % Modo compacto.
+  %\author{%
+  %  \IEEEauthorblockN{%
+  %    1\textsuperscript{o} Ricardo Quezada Figueroa}
+  %  \IEEEauthorblockA{%
+  %    \textit{ESCOM IPN}\\
+  %    Ciudad de México, México \\
+  %    qf7.ricardo@gmail.com}
+  %  \and
+  %  \IEEEauthorblockN{%
+  %    2\textsuperscript{o} Laura Natalia Borbolla Palacios}
+  %  \IEEEauthorblockA{%
+  %    \textit{ESCOM IPN}\\
+  %    Ciudad de México, México \\
+  %    ln.borbolla.42@gmail.com}
+  %  \and
+  %  \IEEEauthorblockN{%
+  %    3\textsuperscript{o} Daniel Ayala Zamorano}
+  %  \IEEEauthorblockA{%
+  %    \textit{ESCOM IPN}\\
+  %    Ciudad de México, México \\
+  %    daz23ayala@gmail.com}}
+
+  % Modo extendido.
+  \author{%
+    \IEEEauthorblockN{%
+      Ricardo Quezada Figueroa\IEEEauthorrefmark{1},
+      Laura Natalia Borbolla Palacios\IEEEauthorrefmark{1},
+      Daniel Ayala Zamorano\IEEEauthorrefmark{1}}
+    \IEEEauthorblockA{%
+      \IEEEauthorrefmark{1} Escuela Superior de Cómputo,
+      Instituto Politécnico Nacional\\
+      Ciudad de México, México\\
+      qf7.ricardo@gmail.com, ln.borbolla.42@gmail.com, daz23ayala@gmail.com}}
+
+  % En el manual recomiendan el modo extendido solo cuando son más de tres
+  % autores o la longitud del bloque toma maś de dos filas. Tendrían que
+  % agregar el caso de cuando hay instituciones en común (como en este caso).
+  % Si se deja el modo compacto resulta repetitivo que los tres tengan
+  % la misma institución.
+
   \maketitle
 
   \begin{abstract}
@@ -110,6 +156,13 @@
     para tokenizar; para terminar se concluye con una discusión alrededor de las
     ventajas y desventajas de cada uno.
   \end{abstract}
+
+  % TODO:
+  % Agregar a babel traducciones para esto.
+  % Revisar lista de términos definidos por la IEEE (no la encuentro).
+  \begin{IEEEkeywords}
+    tokenización, criptografía, seguridad web
+  \end{IEEEkeywords}
 
   \import{articulo/contenidos/}{introduccion}
   \import{articulo/contenidos/}{preliminares_y_notacion}

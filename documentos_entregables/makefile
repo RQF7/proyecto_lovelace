@@ -121,7 +121,7 @@ $(CARPETA_ARTICULO)/$(ARTICULO).pdf: $(FUENTES_ARTICULO)
 	$(COMPILACION_ARTICULO) | tee salida.temporal
 	@if grep "Please (re)run Biber" salida.temporal; then\
 		make referencias_articulo;\
-		$(COMPILACION_PRESENTACION_TT1) | tee salida.temporal;\
+		$(COMPILACION_ARTICULO) | tee salida.temporal;\
 	else\
 		echo "La bibliografía están al día.";\
 	fi
