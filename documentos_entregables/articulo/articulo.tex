@@ -12,6 +12,14 @@
 \usepackage[spanish, mexico, es-noindentfirst]{babel}
 \usepackage{import}
 
+% Agregados a las traducciones de babel.
+% Técnicamente esto tenría que venir desde INAOE, para
+% estandarizar.
+\addto\captionsspanish
+{
+  \renewcommand*\IEEEkeywordsname{Palabras clave}
+}
+
 % Parte de plantilla de IEEE.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
@@ -89,9 +97,8 @@
     ventajas y desventajas de cada uno.
   \end{abstract}
 
-  % TODO:
-  % Agregar a babel traducciones para esto.
-  % Revisar lista de términos definidos por la IEEE (no la encuentro).
+  % ¿Ciberseguridad? De dónde surgió esto. No le veo mucha relación con lo que
+  % se supone que es la cibernética...
   \begin{IEEEkeywords}
     tokenización, criptografía, seguridad web
   \end{IEEEkeywords}
