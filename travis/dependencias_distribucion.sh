@@ -10,6 +10,7 @@
 # Desde repositorios de ubuntu:
 sudo apt-get -qq install \
   texlive \
+  texlive-science \
   texlive-latex-recommended \
   texlive-latex-extra \
   texlive-lang-spanish \
