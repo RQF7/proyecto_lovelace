@@ -11,6 +11,8 @@
 % Propios
 \usepackage[spanish, mexico, es-noindentfirst]{babel}
 \usepackage{import}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 % Agregados a las traducciones de babel.
 % Técnicamente esto tenría que venir desde INAOE, para
@@ -20,10 +22,33 @@
   \renewcommand*\IEEEkeywordsname{Palabras clave}
 }
 
+% Traducciones que no define babel:
+\makeatletter
+  \renewcommand{\ALG@name}{Algoritmo}
+
+  % Renombrar términos de algpseudocode:
+  \algrenewcommand\algorithmicend{\textbf{fin}}
+  \algrenewcommand\algorithmicdo{\textbf{hacer}}
+  \algrenewcommand\algorithmicwhile{\textbf{mientras}}
+  \algrenewcommand\algorithmicfor{\textbf{para}}
+  \algrenewcommand\algorithmicforall{\textbf{para todos}}
+  \algrenewcommand\algorithmicprocedure{\textbf{procedimiento}}
+  \algrenewcommand\algorithmicfunction{\textbf{función}}
+  \algrenewcommand\algorithmicif{\textbf{si}}
+  \algrenewcommand\algorithmicthen{\textbf{entonces}}
+  \algrenewcommand\algorithmicelse{\textbf{sino}}
+  \algrenewcommand\algorithmicreturn{\textbf{regresar}}
+\makeatother
+
+% Interesante... si la traducción de algoritmo no va entre el par
+% «makeatletter» - «makeatother», la compilación muere. Creo que
+% es momento de aumentar conocimientos de LaTeX. Por ejemplo,
+% tampoco sé cuál es la diferencia entre «renewcommand» y
+% «renewcommand*».
+
 % Parte de plantilla de IEEE.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
-\usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}

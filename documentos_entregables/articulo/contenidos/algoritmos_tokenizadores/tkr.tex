@@ -17,42 +17,56 @@ pseudoaleatorios y almacena en una base de datos la relación original de estos
 con los números de tarjetas. En la figura \ref{tkr_metodos} se muestra el
 proceso de tokenización y detokenización.
 
-\begin{figure}
-  \begin{center}
-    \begin{tabular}{|l|}
-      \hline
-      \begin{minipage}{.5\textwidth}
-        {\scriptsize\begin{tabbing}
-          \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
-          \ \kill \\
-          \ \ \ \ {\bf Algoritmo} TKR-tokenización($ x $, $ k $) \ \ \ \ \\
-          \> 1. \> $ q \gets $ \texttt{buscarTarjeta($ x $)} \\
-          \> 2. \> {\bf si} $ q = 0 $ {\bf entonces}: \\
-          \> 3. \> \> $ y \gets $ \texttt{RN($ k $)} \\
-          \> 4. \> \> \texttt{insertar($ x $, $ y $)} \\
-          \> 5. \> {\bf sino:} \\
-          \> 6. \> \> $ y \gets q $ \\
-          \> 7. \> {\bf regresar} $ y $ \\
-        \end{tabbing}}
-      \end{minipage}\\
-      \hline
-      \begin{minipage}{.5\textwidth}
-        {\scriptsize\begin{tabbing}
-          \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
-          \ \kill \\
-          \ \ \ \ {\bf Algoritmo} TKR-detokenización($ y $, $ k $) \ \ \ \ \\
-          \> 1. \> $ q \gets $ \texttt{buscarToken($ t $)} \\
-          \> 2. \> {\bf si} $ q = 0 $ {\bf entonces}: \\
-          \> 3. \> \> {\bf regresar error} \\
-          \> 4. \> {\bf sino:} \\
-          \> 5. \> \> {\bf regresar} $ q $ \\
-        \end{tabbing}}
-      \end{minipage}\\
-      \hline
-    \end{tabular}
-  \end{center}
-  \caption{\label{tkr_metodos} Tokenización y detokenización de TKR}
-\end{figure}
+% \begin{figure}
+%   \begin{center}
+%     \begin{tabular}{|l|}
+%       \hline
+%       \begin{minipage}{.5\textwidth}
+%         {\scriptsize\begin{tabbing}
+%           \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
+%           \ \kill \\
+%           \ \ \ \ {\bf Algoritmo} TKR-tokenización($ x $, $ k $) \ \ \ \ \\
+%           \> 1. \> $ q \gets $ \texttt{buscarTarjeta($ x $)} \\
+%           \> 2. \> {\bf si} $ q = 0 $ {\bf entonces}: \\
+%           \> 3. \> \> $ y \gets $ \texttt{RN($ k $)} \\
+%           \> 4. \> \> \texttt{insertar($ x $, $ y $)} \\
+%           \> 5. \> {\bf sino:} \\
+%           \> 6. \> \> $ y \gets q $ \\
+%           \> 7. \> {\bf regresar} $ y $ \\
+%         \end{tabbing}}
+%       \end{minipage}\\
+%       \hline
+%       \begin{minipage}{.5\textwidth}
+%         {\scriptsize\begin{tabbing}
+%           \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
+%           \ \kill \\
+%           \ \ \ \ {\bf Algoritmo} TKR-detokenización($ y $, $ k $) \ \ \ \ \\
+%           \> 1. \> $ q \gets $ \texttt{buscarToken($ t $)} \\
+%           \> 2. \> {\bf si} $ q = 0 $ {\bf entonces}: \\
+%           \> 3. \> \> {\bf regresar error} \\
+%           \> 4. \> {\bf sino:} \\
+%           \> 5. \> \> {\bf regresar} $ q $ \\
+%         \end{tabbing}}
+%       \end{minipage}\\
+%       \hline
+%     \end{tabular}
+%   \end{center}
+%   \caption{\label{tkr_metodos} Tokenización y detokenización de TKR}
+% \end{figure}
+
+\begin{algorithm}
+  \caption{\label{tkr_metodos} Tokenización de TKR}
+  \begin{algorithmic}[1]
+    \Procedure{Euclides}{$ a, b $}
+      \State $ r \gets a \bmod b $
+      \While{$ r \not = 0 $}
+        \State $ a \gets b $
+        \State $ b \gets r $
+        \State $ r \gets a \bmod b $
+      \EndWhile
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
 
 Las funciones \texttt{buscarTarjeta}, \texttt{buscarToken} e \texttt{insertar}
 sirven para interactuar con la base de datos. Lo único que queda por esclarecer
