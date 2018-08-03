@@ -25,12 +25,12 @@ alternante:
     L_{i} &=
     \begin{cases}
       F_k(R_{i - 1}) \oplus L_{i - 1},  & \text{si } i \text{ es par} \\
-      L_{i - 1},                          & \text{si } i \text{ es impar}
+      L_{i - 1},                        & \text{si } i \text{ es impar}
     \end{cases}
     \\
     R_{i} &=
     \begin{cases}
-      R_{i - 1},                          & \text{si } i \text{ es par} \\
+      R_{i - 1},                        & \text{si } i \text{ es par} \\
       F_k(L_{i - 1}) \oplus R_{i - 1},  & \text{si } i \text{ es impar}
     \end{cases}
   \end{split}
@@ -43,42 +43,27 @@ consiste en interpretar la salida de AES CBC MAC de forma que tenga el formato
 deseado. El valor de $ m $ corresponde al \textit{split} en la ronda actual,
 esto es, la longitud de la cadena de entrada.
 
-% Esto está terrible ¿Para qué son las plantillas de Springer si se termina con
-% este tipo de cosas?
-
-% IMPORTANTE. Para darle un margen en el costado derecho a la minipágina:
-% compilan una primera vez, identifican la línea más larga, le agregan cuatro
-% espacios al final (\ \ \ \). En este caso es la línea 8.
-
 % TODO: ¿Pongo toda la concatenación de parámetros inútiles?
 % Así se ve más limpio todo, claro que estrictamente hablando, no es FFX A10.
 
-\begin{figure}
-  \begin{center}
-    \begin{tabular}{|l|}
-      \hline
-      \begin{minipage}{220pt}
-        {\scriptsize\begin{tabbing}
-          \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
-          \ \kill \\
-          \ \ \ \ {\bf Algoritmo} FFX-AES-CBC-MAC($ x $, $ k $, $ t $)\\
-          \> 1. \> $ a \gets x \ || \ t $ \\
-          \> 2. \> $ b \gets $ \texttt{aes\_cbc\_mac($ a $, $ k $)} \\
-          \> 3. \> $ y\prime \gets $ a[1 ... 64] \\
-          \> 4. \> $ y\prime\prime \gets $ a[65 ... 128] \\
-          \> 5. \> {\bf si} m $ \leq 9 $ {\bf entonces}: \\
-          \> 6. \> \> c $ \gets y\prime\prime \mod 10^m $ \\
-          \> 7. \> {\bf sino}: \\
-          \> 8. \> \> c $ \gets (y\prime \mod 10^{m - 9})
-                          \times 10^9 + (y\prime\prime \mod 10^m)$ \ \ \ \  \\
-          \> 9. \> {\bf regresar} c \\
-        \end{tabbing}}
-      \end{minipage}\\
-      \hline
-    \end{tabular}
-  \end{center}
-  \caption{\label{ffx_ronda} Función de ronda de FFX A10.}
-\end{figure}
+\begin{algorithm}
+  \caption{\label{ffx_ronda} Función de ronda de FFX A10}
+  \begin{algorithmic}[1]
+    \Function{FFX-AES-CBC-MAC}{$ x, k, t $}
+      \State $ a \gets x \ || \ t $
+      \State $ b \gets $ \Call{aes\_cbc\_mac}{$ a, k $}
+      \State $ y\prime \gets a[1 ... 64] $,
+        $ y\prime\prime \gets a[65 ... 128] $
+      \If{$ m \leq 9 $}
+        \State $ c \gets y\prime\prime \mod 10^m $
+      \Else
+        \State $ c \gets (y\prime \mod 10^{m - 9})
+          \times 10^9 + (y\prime\prime \mod 10^m) $
+      \EndIf
+      \State \Return{$ c $}
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
 
 % Esto suena a broma, solo cambiamos el orden.
 

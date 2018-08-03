@@ -14,97 +14,68 @@ basados en cifrados que preservan el formato.
 
 El algoritmo propuesto usa un cifrado por bloques para generar tokens
 pseudoaleatorios y almacena en una base de datos la relación original de estos
-con los números de tarjetas. En la figura \ref{tkr_metodos} se muestra el
-proceso de tokenización y detokenización.
-
-% \begin{figure}
-%   \begin{center}
-%     \begin{tabular}{|l|}
-%       \hline
-%       \begin{minipage}{.5\textwidth}
-%         {\scriptsize\begin{tabbing}
-%           \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
-%           \ \kill \\
-%           \ \ \ \ {\bf Algoritmo} TKR-tokenización($ x $, $ k $) \ \ \ \ \\
-%           \> 1. \> $ q \gets $ \texttt{buscarTarjeta($ x $)} \\
-%           \> 2. \> {\bf si} $ q = 0 $ {\bf entonces}: \\
-%           \> 3. \> \> $ y \gets $ \texttt{RN($ k $)} \\
-%           \> 4. \> \> \texttt{insertar($ x $, $ y $)} \\
-%           \> 5. \> {\bf sino:} \\
-%           \> 6. \> \> $ y \gets q $ \\
-%           \> 7. \> {\bf regresar} $ y $ \\
-%         \end{tabbing}}
-%       \end{minipage}\\
-%       \hline
-%       \begin{minipage}{.5\textwidth}
-%         {\scriptsize\begin{tabbing}
-%           \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
-%           \ \kill \\
-%           \ \ \ \ {\bf Algoritmo} TKR-detokenización($ y $, $ k $) \ \ \ \ \\
-%           \> 1. \> $ q \gets $ \texttt{buscarToken($ t $)} \\
-%           \> 2. \> {\bf si} $ q = 0 $ {\bf entonces}: \\
-%           \> 3. \> \> {\bf regresar error} \\
-%           \> 4. \> {\bf sino:} \\
-%           \> 5. \> \> {\bf regresar} $ q $ \\
-%         \end{tabbing}}
-%       \end{minipage}\\
-%       \hline
-%     \end{tabular}
-%   \end{center}
-%   \caption{\label{tkr_metodos} Tokenización y detokenización de TKR}
-% \end{figure}
+con los números de tarjetas. A continuación se muestran los procesos para
+tokenizar y detokenizar.
 
 \begin{algorithm}
-  \caption{\label{tkr_metodos} Tokenización de TKR}
+  \caption{\label{tkr_tokenizacion} Tokenización de TKR}
   \begin{algorithmic}[1]
-    \Procedure{Euclides}{$ a, b $}
-      \State $ r \gets a \bmod b $
-      \While{$ r \not = 0 $}
-        \State $ a \gets b $
-        \State $ b \gets r $
-        \State $ r \gets a \bmod b $
-      \EndWhile
-    \EndProcedure
+    \Function{TKR-tokenización}{$ x, k $}
+      \State $ q \gets $ \Call{buscarTarjeta}{$ x $}
+      \If{$ q = 0 $}
+        \State $ y \gets $ \Call{RN}{$ k $}
+        \State \Call{insertar}{$ x, y $}
+      \Else
+        \State $ y \gets q $
+      \EndIf
+      \State \Return{$ y $}
+    \EndFunction
   \end{algorithmic}
 \end{algorithm}
 
-Las funciones \texttt{buscarTarjeta}, \texttt{buscarToken} e \texttt{insertar}
+\begin{algorithm}
+  \caption{\label{tkr_detokenizacion} Detokenización de TKR}
+  \begin{algorithmic}[1]
+    \Function{TKR-detokenización}{$ y $}
+      \State $ q \gets $ \Call{buscarToken}{$ y $}
+      \If{$ q = 0 $}
+        \State \Return{error}
+      \Else
+        \State \Return{$ q $}
+      \EndIf
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+Las funciones \textsc{buscarTarjeta}, \textsc{buscarToken} e \textsc{insertar}
 sirven para interactuar con la base de datos. Lo único que queda por esclarecer
 es el el contenido de la función generadora de tokens pseudoaleatorios, la
-función \texttt{RN}. El algoritmo de esta función se muestra en la figura
-\ref{tkr_rn}. Idealmente, esta función debe regresar un elemento uniformemente
-aleatorio del espacio de tokens. La variable \textit{contador} mantiene un
+función \textsc{RN}. El algoritmo de esta función se muestra en la figura
+\ref{tkr_rn}. Idealmente esta función debe regresar un elemento uniformemente
+aleatorio del espacio de tokens. La variable \textit{cnt} mantiene un
 estado del algoritmo (mantiene su valor a lo largo de las distintas llamadas);
 el espacio de tokens contiene cadenas de longitud fija $ \mu $ de un alfabeto
 $ AL $ cuya cardinalidad es $ l $; el número de bits necesarios para enumerar a
 todo el alfabeto se guardan en $ \lambda = \lceil \log_2 l \rceil$.
 
-\begin{figure}
-  \begin{center}
-    \begin{tabular}{|l|}
-      \hline
-      \begin{minipage}{220pt}
-        {\scriptsize\begin{tabbing}
-          \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
-          \ \kill \\
-          \ \ \ \ {\bf Algoritmo} TKR-RN($ k $) \\
-          \> 1. \> $ x \gets $ \texttt{f($ k $, contador)} \\
-          \> 2. \> $ x_1, x_2, \dots, x_m \gets $
-                    \texttt{cortar($ x $, $ \lambda $)} \ \ \ \ \\
-          \> 3. \> $ t \gets $ "", $ i \gets 0 $ \\
-          \> 4. \> {\bf mientras} $ |t| \neq \mu $: \\
-          \> 5. \> \> {\bf si} \texttt{entero($ x_i $)} {\bf entonces}: \\
-          \> 6. \> \> \> $ t \gets t + $ \texttt{entero($ X_i $)} \\
-          \> 7. \> \> $ i \gets i + 1 $ \\
-          \> 8. \> \texttt{contador $\gets$ contador $ + 1 $} \\
-          \> 9. \> {\bf regresar} $ t $ \\
-        \end{tabbing}}
-      \end{minipage}\\
-      \hline
-    \end{tabular}
-  \end{center}
+\begin{algorithm}
   \caption{\label{tkr_rn} Generación de tokens pseudoaleatorios en TKR}
-\end{figure}
+  \begin{algorithmic}[1]
+    \Function{TKR-RN}{$ k $}
+      \State $ x \gets $ \Call{f}{$ k, cnt $}
+      \State $ x_1, x_2, \dots, x_m \gets $
+        \Call{cortar}{$ x $, $ \lambda $}
+      \State $ t \gets $ "", $ i \gets 0 $
+      \While{$ |t| \neq \mu $}
+        \If{\Call{entero}{$ X_i $} $ \leq l $}
+          \State $ t \gets t || $ \Call{entero}{$ X_i $}
+        \EndIf
+        \State $ i \gets i + 1 $
+      \EndWhile
+      \State $ cnt \gets cnt + 1 $
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
 
 Existen varios candidatos viables para la función $ f $: un cifrado de flujo,
 pues el flujo de llave de estos produce cadenas de aspecto aleatorio, o un
