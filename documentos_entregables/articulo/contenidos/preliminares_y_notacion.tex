@@ -18,7 +18,7 @@
 
 Se denotarán a todas las cadenas de bits de longitud $ n $ como $ \{ 0, 1 \}^n $.
 
-\subsection{Cifrado por bloques}
+\subsection{Primitivas criptográficas}
 
 Un cifrado por bloques es un cifrado simétrico que se define por la función $ E:
 \mathcal{M} \times \mathcal{K} \rightarrow \mathcal{C} $ en donde $ \mathcal{M} $
@@ -27,15 +27,13 @@ es el espacio de textos en claro, $ \mathcal{K} $ es el espacio de llaves y $
 como los cifrados tienen una misma longitud $ n $, que representa el tamaño del
 bloque \cite{menezes}.
 
-Los cifrados por bloque son un elemento de construcción fundamental para otras
-primitivas criptográficas. Muchos de los algoritmos tokenizadores que se
-presentan en este trabajo los ocupan de alguna forma. Las definiciones de los
-algoritmos son flexibles en el sentido de que permiten instanciar cada
-implementación con el cifrado por bloques que se quiera; en el caso de las
-implementaciones hechas para este trabajo se ocupó AES (\textit{Advanced
-Encryption Standard}) en la mayoría de los casos.
-
-\subsection{Cifrado que preserva el formato}
+% Los cifrados por bloque son un elemento de construcción fundamental para otras
+% primitivas criptográficas. Muchos de los algoritmos tokenizadores que se
+% presentan en este trabajo los ocupan de alguna forma. Las definiciones de los
+% algoritmos son flexibles en el sentido de que permiten instanciar cada
+% implementación con el cifrado por bloques que se quiera; en el caso de las
+% implementaciones hechas para este trabajo se ocupó AES (\textit{Advanced
+% Encryption Standard}) en la mayoría de los casos.
 
 % Coregir letra del contradominio de la función de FPE e investigar qué
 % demonios es.
@@ -68,51 +66,43 @@ $, en donde $ D_K^{N,T}\big( E_K^{N,T}(X) \big) = X $.
 % Creo que en realidad eso le aplica a todos los esquemas, por lo que mejor lo
 % ponemos en el propio desarrollo.
 
-Para lo que a este trabajo respecta, el formato usado es el de las tarjetas de
-crédito: una cadena de entre 12 y 19 dígitos decimales. Esto es $ N = \{0, 1,
-\dots, 9\}^n $ en donde $ 12 \leq n \leq 19 $.
+% Para lo que a este trabajo respecta, el formato usado es el de las tarjetas de
+% crédito: una cadena de entre 12 y 19 dígitos decimales. Esto es $ N = \{0, 1,
+% \dots, 9\}^n $ en donde $ 12 \leq n \leq 19 $.
 
 % TODO: Hmmmm... técnicamente al FPE solo le damos el identificador de la
 % persona, por lo que los dígitos son menos.
 % ¿Pero no en un cifradro de esos utilizan la otra parte de la tarjeta como
 % tweak o algo así?
 
-En marzo de 2016 el NIST (\textit{National Institute of Standards and
-Technology}) publicó un estándar referente a los cifrados que preservan el
-formato\cite{nist_fpe}. En él se definen dos posibles métodos: FF1 (lo que en
-este trabajo es FFX) y FF3 (lo que en este trabajo es BPS).
+% En marzo de 2016 el NIST (\textit{National Institute of Standards and
+% Technology}) publicó un estándar referente a los cifrados que preservan el
+% formato\cite{nist_fpe}. En él se definen dos posibles métodos: FF1 (lo que en
+% este trabajo es FFX) y FF3 (lo que en este trabajo es BPS).
 
 % TODO: ¿Hablar también sobre la clasificación que hace Rogaway?
 
-\subsection{Generadores de números pseudoaleatorios}
+% Existen dos maneras de generar bits aleatorios: la primera es producir bits de
+% manera no determinística, donde el estado de cada uno (uno o cero) está
+% determinado por un proceso físico impredecible. Este tipo de generadores se
+% conocen como \textit{no determinísticos} (NRBG,
+% \textit{Non-deterministic Random
+% Bit Generator}) o \textit{realmente aleatorios} (TRBG, \textit{Truly Random Bit
+% Generator}). La segunda manera, que es la que se explicará a detalle en esta
+% sección, es calcular los bits de forma determinística mediante un algoritmo.
+% Este tipo de generadores se conocen como \textit{determinísticos} (DRBG,
+% \textit{Deterministic Random Bit Generator}), y por lo tanto, los números que
+% genera se denominan \textit{pseudoaleatorios}.
 
-Existen dos maneras de generar bits aleatorios: la primera es producir bits de
-manera no determinística, donde el estado de cada uno (uno o cero) está
-determinado por un proceso físico impredecible. Este tipo de generadores se
-conocen como \textit{no determinísticos} (NRBG, \textit{Non-deterministic Random
-Bit Generator}) o \textit{realmente aleatorios} (TRBG, \textit{Truly Random Bit
-Generator}). La segunda manera, que es la que se explicará a detalle en esta
-sección, es calcular los bits de forma determinística mediante un algoritmo.
-Este tipo de generadores se conocen como \textit{determinísticos} (DRBG,
-\textit{Deterministic Random Bit Generator}), y por lo tanto, los números que
-genera se denominan \textit{pseudoaleatorios}.
-
-En \cite{nist_aleatorios} el NIST establece un estándar para dos generadores
-pseudoaleatorios: uno basado en funciones hash y el otro en cifrados por bloque.
-La idea general para ambos es la misma: a partir de un valor inicial, llamado
-semilla, usar el mecanismo interno (la función hash o el cifrado por bloque) a
-lo largo de las distintas peticiones sobre el generador para producir cadenas de
-bits de aspecto aleatorio. Las producciones del generador son impredecibles
-mientras la semilla se mantenga en secreto. La mejor práctica es que la semilla
-sea producto de un generador no determinístico.
-
-% El documento del NIST tiene 110 páginas. Lo que realmente importa es lo del
-% párrafo de abajo.
-
-El método para generar bits pseudoaleatorios con una función hash consiste en ir
-concatenando de forma consecutiva los valores hash derivados de la semilla hasta
-alcanzar el número de bytes deseados. Primero se genera un hash de la semilla y
-después se incrementa su valor; de esta forma nunca se obtiene el mismo hash dos
-veces. Por otra parte, el método basado en un cifrado por bloques consiste en
-usar el modo de operación de contador con un cifrado por bloques estándar (AES o
-TDES), en donde la semilla juega el papel del vector de inicialización.
+Un generador determinístico de números aleatorios (DRBG,
+\textit{Deterministic Random Bit Generator}) utiliza un mecanismo interno,
+generalmente una función hash o un cifrador por bloques, y un valor inicial
+llamado semilla, para producir bits de aspecto aleatorio. Dada la naturaleza
+determinísitca del proceso, a los números generados se les conoce como
+\textit{pseudoaletorios}. El método que utiliza como mecanismo interno a una
+función hash consiste en ir concatenando de forma consecutiva los valores hash
+derivados de la semilla e ir incrementando el valor de esta. El método basado en
+un cifrador por bloques utiliza el modo de operación de contador,
+en donde la semilla juega el papel de vector de inicialización. En ambos casos,
+la seguridad se basa en que la semilla sea un valor secreto
+\cite{nist_aleatorios}.
