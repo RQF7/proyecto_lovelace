@@ -143,10 +143,6 @@ namespace Implementaciones
     mEntrada[5] = static_cast<unsigned char>(mDesbalanceo);
     mEntrada[6] = static_cast<unsigned char>(mNumeroDeRondas);
     mEntrada[7] = 0;
-
-    /* Tweak. */
-    for (unsigned int i = 0, j = 8; i < mLongitudTweak; i++, j++)
-      mEntrada[j] = mTweak[i];
   }
 
   /**
@@ -170,6 +166,10 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>> &textoEnClaro    /**< Texto a cifrar. */
   )
   {
+    /* Tweak. */
+    for (unsigned int i = 0, j = 8; i < mLongitudTweak; i++, j++)
+      mEntrada[j] = mTweak[i];
+    
     /* Representación numérica de mensaje. */
     entero representacionNumero = convertirANumero<tipo, entero>(
       textoEnClaro[0], mRadix);
