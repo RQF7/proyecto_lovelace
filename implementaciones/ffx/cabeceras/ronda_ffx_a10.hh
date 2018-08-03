@@ -130,7 +130,8 @@ namespace Implementaciones
     mLongitud{longitud},
     mDesbalanceo{desbalanceo},
     mNumeroDeRondas{numeroDeRondas},
-    mLongitudEntrada{8 + mLongitudTweak + sizeof(int)},
+    mLongitudEntrada{8 + mLongitudTweak
+      + static_cast<unsigned int>(sizeof(int))},
     mEntrada{new unsigned char[mLongitudEntrada]}
   {
     /* Datos fijos. */
