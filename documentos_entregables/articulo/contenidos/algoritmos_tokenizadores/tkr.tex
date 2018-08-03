@@ -50,8 +50,8 @@ tokenizar y detokenizar.
 Las funciones \textsc{buscarTarjeta}, \textsc{buscarToken} e \textsc{insertar}
 sirven para interactuar con la base de datos. Lo único que queda por esclarecer
 es el el contenido de la función generadora de tokens pseudoaleatorios, la
-función \textsc{RN}. El algoritmo de esta función se muestra en la figura
-\ref{tkr_rn}. Idealmente esta función debe regresar un elemento uniformemente
+función \textsc{RN}. El algoritmo de esta función se muestra en \ref{tkr_rn}.
+Idealmente esta función debe regresar un elemento uniformemente
 aleatorio del espacio de tokens. La variable \textit{cnt} mantiene un
 estado del algoritmo (mantiene su valor a lo largo de las distintas llamadas);
 el espacio de tokens contiene cadenas de longitud fija $ \mu $ de un alfabeto
@@ -68,7 +68,7 @@ todo el alfabeto se guardan en $ \lambda = \lceil \log_2 l \rceil$.
       \State $ t \gets $ "", $ i \gets 0 $
       \While{$ |t| \neq \mu $}
         \If{\Call{entero}{$ X_i $} $ \leq l $}
-          \State $ t \gets t || $ \Call{entero}{$ X_i $}
+          \State $ t \gets t \ || $ \Call{entero}{$ X_i $}
         \EndIf
         \State $ i \gets i + 1 $
       \EndWhile
