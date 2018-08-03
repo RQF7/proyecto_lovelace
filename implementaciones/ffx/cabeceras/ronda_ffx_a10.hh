@@ -27,9 +27,6 @@ namespace Implementaciones
    * ronda es que depende mucho del nivel superior, de los parámetros de FFX.
    * Me parecería más elegante una función de ronda que no se preocupe por
    * cosas como el tipo de red, o el tipo de suma; cuando menos más modular.
-   *
-   * \todo Poner en el constructor la inicialización de los datos fijos, para
-   * hacer más corta la función de ronda.
    */
 
   template <typename tipo>
@@ -43,6 +40,9 @@ namespace Implementaciones
         unsigned int longitudTweak, int tipoDeRed, int tipoDeSuma,
         unsigned int radix, unsigned int longitud, int desbalanceo,
         unsigned int numeroDeRondas);
+
+      /** \brief Liberación de memoria. */
+      ~RondaFFXA10();
 
       /** \brief Función de ronda. */
       Arreglo<tipo> operar(const std::vector<Arreglo<tipo>> &entrada) override;
@@ -79,6 +79,12 @@ namespace Implementaciones
 
       /** \brief Número de rondas. */
       unsigned int mNumeroDeRondas;
+
+      /** \brief Longitud del arreglo de entrada a primitiva. */
+      unsigned int mLongitudEntrada;
+
+      /** \brief Entrada a primitiva. */
+      unsigned char *mEntrada;
   };
 
   /**
@@ -86,6 +92,11 @@ namespace Implementaciones
    * decorativos: se usan solo para rellenar el bloque de entrada del MAC. En
    * una implementación completa (junto con una entidad de FFX superior), estos
    * parámetros serán constantes a lo largo de las iteraciones de la red.
+   *
+   * En la versión original, la inicialización del arreglo de entrada (el
+   * cuerpo de este constructor) se encuentra en la función de ronda. En
+   * esta implementación se cambió de lugar buscando optimizar un poco la
+   * ejecución.
    *
    * \param llave           Llave de 64 bits (AES).
    * \param tweak           Tweak (longitud variable).
@@ -118,8 +129,33 @@ namespace Implementaciones
     mRadix{radix},
     mLongitud{longitud},
     mDesbalanceo{desbalanceo},
-    mNumeroDeRondas{numeroDeRondas}
+    mNumeroDeRondas{numeroDeRondas},
+    mLongitudEntrada{8 + mLongitudTweak + sizeof(int)},
+    mEntrada{new unsigned char[mLongitudEntrada]}
   {
+    /* Datos fijos. */
+    mEntrada[0] = 0;
+    mEntrada[1] = static_cast<unsigned char>(mTipoDeRed);
+    mEntrada[2] = static_cast<unsigned char>(mTipoDeSuma);
+    mEntrada[3] = static_cast<unsigned char>(mRadix);
+    mEntrada[4] = static_cast<unsigned char>(mLongitud);
+    mEntrada[5] = static_cast<unsigned char>(mDesbalanceo);
+    mEntrada[6] = static_cast<unsigned char>(mNumeroDeRondas);
+    mEntrada[7] = 0;
+
+    /* Tweak. */
+    for (unsigned int i = 0, j = 8; i < mLongitudTweak; i++, j++)
+      mEntrada[j] = mTweak[i];
+  }
+
+  /**
+   * Libera el arreglo de entrada a la primitiva.
+   */
+
+  template<typename tipo>
+  RondaFFXA10<tipo>::~RondaFFXA10()
+  {
+    delete[] mEntrada;
   }
 
   /**
@@ -133,35 +169,16 @@ namespace Implementaciones
     const std::vector<Arreglo<tipo>> &textoEnClaro    /**< Texto a cifrar. */
   )
   {
-    /* Determinar longitud de entrada. La única longitud variable es la del
-     * tweak. */
-    int longitudEntrada = 8 + mLongitudTweak + sizeof(int);
-    unsigned char entrada[longitudEntrada];
-
-    /* Datos fijos. */
-    entrada[0] = 0;
-    entrada[1] = static_cast<unsigned char>(mTipoDeRed);
-    entrada[2] = static_cast<unsigned char>(mTipoDeSuma);
-    entrada[3] = static_cast<unsigned char>(mRadix);
-    entrada[4] = static_cast<unsigned char>(mLongitud);
-    entrada[5] = static_cast<unsigned char>(mDesbalanceo);
-    entrada[6] = static_cast<unsigned char>(mNumeroDeRondas);
-    entrada[7] = 0;
-
-    /* Tweak. */
-    for (unsigned int i = 0, j = 8; i < mLongitudTweak; i++, j++)
-      entrada[j] = mTweak[i];
-
     /* Representación numérica de mensaje. */
     entero representacionNumero = convertirANumero<tipo, entero>(
       textoEnClaro[0], mRadix);
     for (int i = 0; i < 8; i++)
-      entrada[7 + mLongitudTweak + i + 1] =
+      mEntrada[7 + mLongitudTweak + i + 1] =
         static_cast<unsigned char>(representacionNumero >> (8 + i));
 
     /* Generar MAC */
     CryptoPP::CBC_MAC<CryptoPP::AES> cbcmac {mLlave};
-    cbcmac.Update(entrada, longitudEntrada);
+    cbcmac.Update(mEntrada, mLongitudEntrada);
     unsigned char mac[cbcmac.DigestSize()];
     cbcmac.TruncatedFinal(mac, cbcmac.DigestSize());
 
