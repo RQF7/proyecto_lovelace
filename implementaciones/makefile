@@ -8,6 +8,7 @@ PROGRAMA_DOS				:= lovelace
 PRUEBA_DESEMP       := pruebas_desempenio
 PROGRAMA_DEMONIO		:= demonio_tokenizacion
 PROGRAMA_CLIENTE		:= cliente_tokenizacion
+PRUEBA_DOS					:= pruebas_tokenizacion
 CARPETA_BINARIOS		:= binarios
 CARPETA_OBJETOS			:= objetos
 LISTA_DE_FUENTES		:= programa_de_pruebas.cpp \
@@ -132,6 +133,41 @@ FUENTES_CUATRO			:= demonio_tokenizacion.cpp \
 FUENTES_CINCO			  := cliente_tokenizacion.cpp \
 											 utilidades/arreglo_de_digitos.cpp \
 											 utilidades/intermediario_de_arreglo_de_digitos.cpp
+FUENTES_SEIS 				:= pruebas_tokenizacion.cpp \
+											 acceso_a_datos/acceso_mysql.cpp \
+											 bps/cifrador_de_ronda.cpp \
+											 bps/cifrador_BC.cpp \
+											 bps/utilidades.cpp \
+											 bps/cifrador_BPS.cpp \
+											 bps/codificador.cpp \
+											 drbg/aleatoriedad_hardware.cpp \
+											 drbg/aleatoriedad_hardware_prueba.cpp \
+											 drbg/aleatoriedad_trivial.cpp \
+											 drbg/aleatoriedad_trivial_prueba.cpp \
+											 drbg/drbg.cpp \
+											 drbg/drbg_cryptopp.cpp \
+											 drbg/drbg_cryptopp_prueba.cpp \
+											 drbg/hash_drbg.cpp \
+											 drbg/hash_drbg_prueba.cpp \
+											 drbg/ctr_drbg.cpp \
+											 drbg/ctr_drbg_prueba.cpp \
+											 tkr/pseudoaleatorio_trivial.cpp \
+											 tkr/pseudoaleatorio_aes.cpp \
+											 tkr/funcion_drbg.cpp \
+											 tkr/funcion_rn.cpp \
+											 tkr/tkr.cpp \
+											 ahr/ahr.cpp \
+											 aes_ensamblador/aes.cpp \
+											 aes_ensamblador/aes_prueba.cpp \
+											 aes_ensamblador/libaesni/libaes_lin64.o \
+											 utilidades/utilidades_tarjetas.cpp \
+											 utilidades/utilidades_criptograficas.cpp \
+											 utilidades/algoritmo_tokenizador.cpp \
+											 utilidades/algoritmo_tokenizador_reversible.cpp \
+											 utilidades/algoritmo_tokenizador_irreversible.cpp \
+											 utilidades/arreglo.cpp \
+											 utilidades/arreglo_de_digitos.cpp \
+											 utilidades/intermediario_de_arreglo_de_digitos.cpp
 LISTA_DE_OBJETOS		:= $(addprefix $(CARPETA_OBJETOS)/, \
 												 $(LISTA_DE_FUENTES:.cpp=.o))
 OBJETOS_DOS		      := $(addprefix $(CARPETA_OBJETOS)/, \
@@ -142,6 +178,8 @@ OBJETOS_CUATRO      := $(addprefix $(CARPETA_OBJETOS)/, \
                         $(FUENTES_CUATRO:.cpp=.o))
 OBJETOS_CINCO       := $(addprefix $(CARPETA_OBJETOS)/, \
                         $(FUENTES_CINCO:.cpp=.o))
+OBJETOS_SEIS        := $(addprefix $(CARPETA_OBJETOS)/, \
+                        $(FUENTES_SEIS:.cpp=.o))
 BANDERAS_GENERALES	:= -std=c++14 -Wall -ggdb
 BANDERAS_DE_LIGADO	:= -lcryptopp -lmysqlcppconn -lgmpxx -lgmp
 
@@ -167,6 +205,10 @@ $(CARPETA_BINARIOS)/$(PROGRAMA_CLIENTE): $(OBJETOS_CINCO)
 	mkdir -p $(CARPETA_BINARIOS)
 	$(CXX) $(BANDERAS_GENERALES) $(OBJETOS_CINCO) $(BANDERAS_DE_LIGADO) -o $@
 
+$(CARPETA_BINARIOS)/$(PRUEBA_DOS): $(OBJETOS_SEIS)
+	mkdir -p $(CARPETA_BINARIOS)
+	$(CXX) $(BANDERAS_GENERALES) $(OBJETOS_SEIS) $(BANDERAS_DE_LIGADO) -o $@
+
 # COMPILACIÓN DE PRINCIPALES ##################################################
 
 $(CARPETA_OBJETOS)/programa_de_pruebas.o: programa_de_pruebas.cpp
@@ -186,6 +228,10 @@ $(CARPETA_OBJETOS)/demonio_tokenizacion.o: demonio_tokenizacion.cpp
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 
 $(CARPETA_OBJETOS)/cliente_tokenizacion.o: cliente_tokenizacion.cpp
+	mkdir -p $(CARPETA_OBJETOS)
+	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
+
+$(CARPETA_OBJETOS)/pruebas_tokenizacion.o: pruebas_tokenizacion.cpp
 	mkdir -p $(CARPETA_OBJETOS)
 	$(CXX) $(BANDERAS_GENERALES) -c $< -o $@
 

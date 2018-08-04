@@ -73,13 +73,52 @@ def generarGraficaTiemposUnitarios(tokenizacion, detokenizacion):
     dpi=900)
 
 
+def generarGraficaTokenizacion(tiempos):
+  """"""
+  indices = arange(len(tiempos))
+  ancho = 0.35
+  figura, ejes = pyplot.subplots()
+  barras = ejes.bar(indices,
+    tiempos,
+    ancho,
+    color='#444444',
+    label='Generación de tokens')
+  ejes.set_ylabel('Tiempos (microsegundos)')
+  ejes.yaxis.set_label_coords(-0.15, 0.5)
+  ejes.set_xticks(indices)
+  ejes.set_xticklabels(tuple(algoritmos))
+  caja = ejes.get_position()
+  ejes.set_position([caja.x0 + 0.05,
+    caja.y0 + 0.05,
+    caja.width,
+    caja.height])
+  ejes.legend(frameon=False,
+    loc='lower center',
+    bbox_to_anchor=(0.5, -0.2),
+    ncol=2)
+  ejes.grid(axis='y',
+    which='both',
+    linewidth=0.2,
+    color='#000000',
+    alpha=1.0)
+  ejes.tick_params(
+    axis='both',
+    which='both',
+    bottom=False,
+    top=False,
+    left=False,
+    labelbottom=True)
+  figura.savefig(carpetaGeneral + "/tiempos_tokenizacion.png",
+    dpi=900)
+
+
 def generarTiemposUnitarios():
   """Genera un archivo .tex con el contenido de la tabla con tiempos
      unitarios para cada algoritmo."""
   archivo = open(carpetaGeneral + '/tiempos_unitarios.tex', 'w')
   tiemposTokenizacion, tiemposDetokenizacion = (), ()
   for algoritmo in algoritmos:
-    resultado = run(argumentosGenerales + [algoritmo, '1'], stdout=PIPE)
+    resultado = run(argumentosGenerales + [algoritmo, '1'], stdout = PIPE)
     archivo.write(algoritmo + ' & ')
     for linea in resultado.stdout.decode('UTF-8').splitlines():
       print(linea)
@@ -91,6 +130,22 @@ def generarTiemposUnitarios():
         archivo.write(linea.split()[-1] + " \\\\\\hline \n")
 
   generarGraficaTiemposUnitarios(tiemposTokenizacion, tiemposDetokenizacion)
+
+
+def generarTiemposTokenizacion():
+  """Corre el programa de tiempos de tokenización"""
+  archivo = open(carpetaGeneral + '/tiempos_tokenizacion.tex', 'w')
+  tiempos = ();
+  for algoritmo in algoritmos:
+    resultado = run(["binarios/pruebas_tokenizacion", algoritmo], stdout = PIPE)
+    archivo.write(algoritmo + ' & ')
+    for linea in resultado.stdout.decode('UTF-8').splitlines():
+      print(linea)
+      archivo.write(linea.split()[-1] + " \\\\\\hline \n")
+      tiempos += tuple([int(linea.split()[-1])])
+
+  print("Resultado", tiempos)
+  generarGraficaTokenizacion(tiempos)
 
 
 def generarGraficaTiemposMultiples():
@@ -123,4 +178,5 @@ if __name__ == '__main__':
   """
   run(['mkdir', '-p', carpetaGeneral])
   generarTiemposUnitarios()
+  generarTiemposTokenizacion()
   #generarGraficaTiemposMultiples()
