@@ -14,6 +14,8 @@ proviene de las iniciales de los apellidos de sus autores Eric Brier, Thomas
 Peyrin y Jacques Stern, aunque en el estándar \cite{nist_fpe}, el NIST lo
 nombra como FF3.
 
+% ¿Lo nombra? No me gusta.
+
 BPS se conforma de 2 partes: un cifrado interno $BC$ que se encarga de cifrar
 bloques de longitud fija, usando a su vez un cifrado por bloques $F$; y un modo
 de operación especial, encargado de extender la funcionalidad de $BC$ y permitir
@@ -29,69 +31,66 @@ un \textit{tweak} de 64 bits.
 
 El funcionamiento del cifrado $BC$ es descrito en la figura \ref{proceso_bc}.
 
-\begin{figure}
-  \begin{center}
-    \begin{tabular}{|l|}
-      \hline
-      \begin{minipage}{0.5\textwidth}
-        {\scriptsize\begin{tabbing}
-          \ \ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \ \ \=\ \ \
-          \ \kill \\
-          \ \ \ \ {\bf Algoritmo} Cifrado $BC_{F,s,b,w}$($X$,$K$,$T$)\\
-          \>  1. \> $T_R\: \gets\: T\: \mod\: 2^{32}$ y
-                    $T_L\: \gets\: (T\: -\: T_R) / 2^{32}$ \\
-          \>  2. \> $l \gets \lceil b/2 \rceil$ \\
-          \>  3. \> $r \gets \lfloor b/2 \rfloor$ \\
-          \>  4. \> $L_0\: \gets\: \sum_{j=0}^{l-1}\: X[j] \cdot s^j$ \\
-          \>  5. \> $R_0\: \gets\: \sum_{j=0}^{r-1}\: X[j+l] \cdot s^j$ \\
-          \>  6. \> {\bf para} $i=0$ {\bf hasta} $i=w-1$: \\
-          \>  7. \> \> {\bf si} $i$ es par: \\
-          \>  8. \> \> \> $L_{i+1}\: \gets\: L_i\: \boxplus\: F_K((T_R \oplus i)
-                          \cdot 2^{f-32}\: +\: R_i)\quad (mod\ s^l)$ \ \ \ \ \\
-          \>  9. \> \> \> $R_{i+1}\: \gets\: R_i$ \\
-          \> 10. \> \> {\bf si} $i$ es impar: \\
-          \> 11. \> \> \> $R_{i+1}\: \gets\: R_i\: \boxplus\: F_K((T_L \oplus i)
-                          \cdot 2^{f-32}\: +\: L_i)\quad (mod\ s^r)$ \ \ \ \ \\
-          \> 12. \> \> \> $L_{i+1}\: \gets\: L_i$ \\
-          \> 13. \> {\bf para} $i=0$ {\bf hasta} $i=l-1$: \\
-          \> 14. \> \> $Y_L[i] \gets L_w\ mod\ s$ \\
-          \> 15. \> \> $L_w \gets (L_w - Y_L[i])/s$ \\
-          \> 16. \> {\bf para} $i=l$ {\bf hasta} $i=r-1$: \\
-          \> 17. \> \> $Y_R[i] \gets R_w\ mod\ s$ \\
-          \> 18. \> \> $R_w \gets (R_w - Y_R[i])/s$ \\
-          \> 19. \> $Y \gets Y_L \parallel Y_R$ \\
-        \end{tabbing}}
-        \end{minipage}\\
-        \hline
-      \end{tabular}
-    \end{center}
-    \caption{\label{proceso_bc} Cifrado interno BC.}
-\end{figure}
+\begin{algorithm}
+  \caption{\label{proceso_bc} Cifrado interno BC.}
+  \begin{algorithmic}[1]
+    \Function{Cifrado $ BC_{F,s,b,w} $}{$ X, K, T$}
+      \State $ T_R \gets T \mod 2^{32} $,
+        $ T_L \gets (T - T_R) / 2^{32} $
+      \State $ l \gets \lceil b/2 \rceil $,
+        $ r \gets \lfloor b/2 \rfloor $
+      \State $ L_0 \gets \sum_{j=0}^{l-1} X[j] \cdot s^j $,
+        $ R_0 \gets \sum_{j=0}^{r-1} X[j+l] \cdot s^j $
+      \For{$ i = 0 \dots w - 1 $}
+        \If{$ i \% 2 = 0 $}
+          \State $ L_{i+1} \gets L_i \boxplus F_K((T_R \oplus i)
+            \cdot 2^{f-32} + R_i)\quad (mod\ s^l) $
+          \State $ R_{i+1} \gets R_i $
+        \Else
+          \State $ R_{i+1} \gets R_i \boxplus F_K((T_L \oplus i)
+            \cdot 2^{f-32} + L_i)\quad (\mod s^r) $
+          \State $ L_{i+1} \gets L_i $
+        \EndIf
+      \EndFor
+      \For{$ i = 0 \dots l - 1 $}
+        \State $ Y_L[i] \gets L_w \mod s $
+        \State $ L_w \gets (L_w - Y_L[i])/s $
+      \EndFor
+      \For{$ i = l \dots r - 1$}
+        \State $ Y_R[i] \gets R_w \mod s $
+        \State $ R_w \gets (R_w - Y_R[i])/s $
+      \EndFor
+      \State \Return{$ Y_L \parallel Y_R $}
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+% TODO: acortar este algoritmo.
 
 Para cada bloque a cifrar, el cifrado $BC$ debe instanciarse con una longitud
 de $max_b = 2 \cdot log_s(2^{f-32})$ caracteres, y cuando la longitud total
 del mensaje a cifrar no sea múltiplo de este valor, en el último bloque $BC$
 se tendrá que instanciar con una longitud igual a la de ese bloque.
 
-El modo de operación de BPS es un variación de CBC, con la diferencia de que
-usa sumas modulares carácter por carácter en lugar de aplicar operaciones
-\textit{xor}, además de que no emplea un vector de inicialización.
-
-Otra característica de este modo de operación es que utiliza un contador $u$
-para aplicar un \textit{xor} a los 16 bits más significativos de cada mitad
-del \textit{tweak} $T$ que utiliza BPS, por lo cual este se puede ver como
-una función $u(n) = n \cdot (2^{16} + 2^{48})$.
-
-El funcionamiento del modo de operación se describe en la figura \ref{modo_bps}.
-
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.85\linewidth]
-    {../../../diagramas_comunes/bps/modo_de_operacion_bps}
-    \caption{Modo de operación de BPS.}
-    \label{modo_bps}
-   \end{center}
-\end{figure}
+% El modo de operación de BPS es un variación de CBC, con la diferencia de que
+% usa sumas modulares carácter por carácter en lugar de aplicar operaciones
+% \textit{xor}, además de que no emplea un vector de inicialización.
+%
+% Otra característica de este modo de operación es que utiliza un contador $u$
+% para aplicar un \textit{xor} a los 16 bits más significativos de cada mitad
+% del \textit{tweak} $T$ que utiliza BPS, por lo cual este se puede ver como
+% una función $u(n) = n \cdot (2^{16} + 2^{48})$.
+%
+% El funcionamiento del modo de operación se describe en la figura \ref{modo_bps}.
+%
+% \begin{figure}
+%   \begin{center}
+%     \includegraphics[width=0.85\linewidth]
+%     {../../../diagramas_comunes/bps/modo_de_operacion_bps}
+%     \caption{Modo de operación de BPS.}
+%     \label{modo_bps}
+%    \end{center}
+% \end{figure}
 
 El PCI clasifica a este algoritmo dentro de los método de de generación de
 tokens reversibles criptográficos, pero desde el punto de vista de este
