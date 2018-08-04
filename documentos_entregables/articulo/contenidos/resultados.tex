@@ -28,23 +28,24 @@ tokens reversibles involucra más operaciones; es por esto que en la figura
 \ref{figura:tiempos_tokenizacion} se muestran los tiempos de la generación de
 tokens solamente, sin tomar en cuenta tiempos de acceso a base de datos.
 
-Además de los tiempos de ejecución, también es importante señalar que los
-irreversibles, al operar como funciones de un solo sentido, son un poco más
-seguros que los reversibles: un atacante con acceso a la llave de cifrado puede
-obtener el número de tarjeta correspondiente si se trata de un método
-reversible, mientras que con un método irreversible necesita también acceso a la
-base de datos.
+% Además de los tiempos de ejecución, también es importante señalar que los
+% irreversibles, al operar como funciones de un solo sentido, son un poco más
+% seguros que los reversibles: un atacante con acceso a la llave de cifrado puede
+% obtener el número de tarjeta correspondiente si se trata de un método
+% reversible, mientras que con un método irreversible necesita también acceso a la
+% base de datos.
 
 \begin{table}
-  %\tiny
+  \renewcommand{\arraystretch}{1.3}
   \centering
   \caption{Comparación de tiempos de tokenización.}
   \label{tabla:tiempos_tokenizacion}
-  \begin{tabular}{c|c|c}
+  \begin{tabular}{c c c}
     \hline
-    Algoritmo & Tokenización ($\mu$s) & Detokenización ($\mu$s) \\
+     & Tokenización ($\mu$s) & Detokenización ($\mu$s) \\
     \hline
     \input{../implementaciones/reportes/tiempos_unitarios.tex}
+    \hline
   \end{tabular}
 \end{table}
 

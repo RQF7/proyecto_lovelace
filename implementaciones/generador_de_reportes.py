@@ -127,7 +127,7 @@ def generarTiemposUnitarios():
         archivo.write(linea.split()[-1] + ' & ')
       elif ' descifrado' in linea:
         tiemposDetokenizacion += tuple([int(linea.split()[-1])])
-        archivo.write(linea.split()[-1] + " \\\\\\hline \n")
+        archivo.write(linea.split()[-1] + " \\\\ \n")
 
   generarGraficaTiemposUnitarios(tiemposTokenizacion, tiemposDetokenizacion)
 
