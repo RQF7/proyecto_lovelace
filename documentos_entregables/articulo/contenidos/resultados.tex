@@ -8,7 +8,7 @@
 \section{Resultados y conclusiones}
 
 En la tabla \ref{tabla:tiempos_tokenizacion} y la figura
-\ref{figura:tiempos_tokenizacion} se muestran los resultados en tiempo de
+\ref{figura:tiempos_unitarios} se muestran los resultados en tiempo de
 las ejecuciones de los algoritmos presentados en secciones
 anteriores\footnote{También se hizo la implementación de un DRBG como lo
 describe el NIST en \cite{nist_aleatorios}}. Estos se llevaron a cabo en una
@@ -21,34 +21,46 @@ computadora con las siguientes características:
   \item \textbf{Compilador:} GCC 8.1.1
 \end{itemize}
 
-% Que los irreversibles sean más lentos resulta contraintuitivo: uno esperaría
-% que como los reversibles deben de poder hacer la operación inversa por sí
-% solos, entonces su operación sea más compleja. En realidad sospecho que así
-% es, sin embargo la operaciones con la base de dato son muy lentas.
-% Creo que antes de escribir la conclusión en serio, voy a tomar tiempos
-% sin base de datos, solo de tokenización.
+La comparación de los tiempos de tokenización y detokenización muestra como los
+algoritmos reversibles son considerablemente más rápidos que los irreversibles.
+Este resultado puede resultar un poco contraintuitivo, pues la generación de
+tokens reversibles involucra más operaciones; es por esto que en la figura
+\ref{figura:tiempos_tokenizacion} se muestran los tiempos de la generación de
+tokens solamente, sin tomar en cuenta tiempos de acceso a base de datos.
 
-Claramente se puede notar que los métodos reversibles son más rápidos que los
-irreversibles. 
+Además de los tiempos de ejecución, también es importante señalar que los
+irreversibles, al operar como funciones de un solo sentido, son un poco más
+seguros que los reversibles: un atacante con acceso a la llave de cifrado puede
+obtener el número de tarjeta correspondiente si se trata de un método
+reversible, mientras que con un método irreversible necesita también acceso a la
+base de datos.
 
 \begin{table}
-  \begin{center}
-    \caption{Comparación de tiempos de tokenización.}
-    \label{tabla:tiempos_tokenizacion}
-    \begin{tabular}{|c|c|c|}
-      \hline
-      Algoritmo & Tokenización ($\mu$s) & Detokenización ($\mu$s) \\
-      \hline
-      \input{../implementaciones/reportes/tiempos_unitarios.tex}
-    \end{tabular}
-  \end{center}
+  %\tiny
+  \centering
+  \caption{Comparación de tiempos de tokenización.}
+  \label{tabla:tiempos_tokenizacion}
+  \begin{tabular}{c|c|c}
+    \hline
+    Algoritmo & Tokenización ($\mu$s) & Detokenización ($\mu$s) \\
+    \hline
+    \input{../implementaciones/reportes/tiempos_unitarios.tex}
+  \end{tabular}
 \end{table}
 
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=1.0\linewidth]
+\begin{figure}[!t]
+  \centering
+  \subfloat[Tokenización y detokenización]{
+    \includegraphics[width=1.62in]
       {../implementaciones/reportes/tiempos_unitarios.png}
-    \caption{Comparación de tiempos de tokenización.}
+    \label{figura:tiempos_unitarios}
+  }
+  \hfil
+  \subfloat[Generación de tokens]{
+    \includegraphics[width=1.62in]
+      {../implementaciones/reportes/tiempos_tokenizacion.png}
     \label{figura:tiempos_tokenizacion}
-  \end{center}
+  }
+  \caption{Comparaciones de tiempos.}
+  \label{fig_sim}
 \end{figure}
