@@ -60,33 +60,19 @@ este trabajo se propone una clasificación distinta:
 
 \begin{itemize}
   \item Métodos criptográficos. Todos aquellos que ocupan herramientas
-    critográficas para operar.
+    critográficas.
     \begin{itemize}
       \item Reversibles. Ocupan un esquema de cifrado simétrico: el número
         de tarjeta y una llave entran al mecanismo de tokenización para obtener
         un token; el token y la misma llave entran al mecanismo de
-        detokenización para obtener el número de tarjeta original. El término
-        \textit{reversible} es porque se puede regresar al número de tarjeta sin
-        ayuda de herramientas externas, como una base de datos.
+        detokenización para obtener el número de tarjeta original.
       \item Irreversibles. Ocupan herramientas criptográficas para generar el
-        token de un número de tarjeta. Operan como funciones de un solo sentido:
-        la única manera de regresar al número de tarjeta a partir de un token es
-        mediante un ataque por fuerza bruta o mediante herramientas externas,
-        como una base de datos.
+        token de un número de tarjeta. Ocupan herraminetas externas, como una base de datos, para guardar las relaciones entre tokens y números de tarjetas.
     \end{itemize}
   \item Métodos no criptográficos. Aquellos posibles métodos que no ocupen
     herramientas relacionadas con la criptografía; por ejemplo, un generador de
     números realmente aleatorio (TRNG, \textit{True Random Number Generator}).
 \end{itemize}
-
-La clasificación de los \textit{no criptográficos} solamente se propone para
-abarcar métodos de los cuales realmente se pueda decir que no se relacionan con
-la criptografía. En este trabajo no se presenta ningún método que clasifique en
-esa categoría.
-
-A continuación se presentan algunos de los algoritmos tokenizadores más comunes.
-Al final de cada sección se explica en qué categoría cae según las dos
-clasificaciones anteriores.
 
 \subimport{/}{tkr}
 \subimport{/}{ffx}

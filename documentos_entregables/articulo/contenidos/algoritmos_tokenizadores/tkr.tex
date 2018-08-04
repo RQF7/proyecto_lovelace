@@ -14,8 +14,8 @@ basados en cifrados que preservan el formato.
 
 El algoritmo propuesto usa un cifrado por bloques para generar tokens
 pseudoaleatorios y almacena en una base de datos la relación original de estos
-con los números de tarjetas. A continuación se muestran los procesos para
-tokenizar y detokenizar.
+con los números de tarjetas. A continuación se muestra el proceso de
+tokenización.
 
 \begin{algorithm}
   \caption{\label{tkr_tokenizacion} Tokenización de TKR}
@@ -33,30 +33,10 @@ tokenizar y detokenizar.
   \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}
-  \caption{\label{tkr_detokenizacion} Detokenización de TKR}
-  \begin{algorithmic}[1]
-    \Function{TKR-detokenización}{$ y $}
-      \State $ q \gets $ \Call{buscarToken}{$ y $}
-      \If{$ q = 0 $}
-        \State \Return{error}
-      \Else
-        \State \Return{$ q $}
-      \EndIf
-    \EndFunction
-  \end{algorithmic}
-\end{algorithm}
-
-Las funciones \textsc{buscarTarjeta}, \textsc{buscarToken} e \textsc{insertar}
-sirven para interactuar con la base de datos. Lo único que queda por esclarecer
-es el el contenido de la función generadora de tokens pseudoaleatorios, la
-función \textsc{RN}. El algoritmo de esta función se muestra en \ref{tkr_rn}.
-Idealmente esta función debe regresar un elemento uniformemente
-aleatorio del espacio de tokens. La variable \textit{cnt} mantiene un
-estado del algoritmo (mantiene su valor a lo largo de las distintas llamadas);
-el espacio de tokens contiene cadenas de longitud fija $ \mu $ de un alfabeto
-$ AL $ cuya cardinalidad es $ l $; el número de bits necesarios para enumerar a
-todo el alfabeto se guardan en $ \lambda = \lceil \log_2 l \rceil$.
+Las funciones \textsc{buscarTarjeta} e \textsc{insertar} sirven para interactuar
+con la base de datos. El proceso de detokenización es simplemente una consulta
+sobre la base de datos. A continuación se describe el funcionamiento de la
+función \textsc{RN}.
 
 \begin{algorithm}
   \caption{\label{tkr_rn} Generación de tokens pseudoaleatorios en TKR}
