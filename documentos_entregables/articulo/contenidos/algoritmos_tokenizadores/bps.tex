@@ -22,14 +22,15 @@ de operación especial, encargado de extender la funcionalidad de $BC$ y permiti
 cifrar cadenas de un longitud de hasta $max_b \cdot 2^{16}$ caracteres, donde
 $max_b$ es la longitud máxima que puede tener una cadena para cifrarse con $BC$.
 
-Este cifrado interno utiliza una red Feistel alternante y se define como
+% ¿Por qué el modo de operación es especial?
+
+El cifrado interno utiliza una red Feistel alternante y se define como
 $BC_{F,s,b,w}(X,K,T)$, donde: $F$ es un cifrado por bloques con $f$ bits de
 salida, como puede ser TDES o AES; $s$ es la cardinalidad del alfabeto de la
 cadena a cifrar, $b$ es su longitud, $w$ es el número de rondas de la red
 Feistel, $X$ es la cadena, $K$ es una llave acorde al cifrado $F$, y $T$ es
-un \textit{tweak} de 64 bits.
-
-El funcionamiento del cifrado $BC$ es descrito en la figura \ref{proceso_bc}.
+un \textit{tweak} de 64 bits. A continuación se describe el funcionamiento del
+cifrado $BC$.
 
 \begin{algorithm}
   \caption{\label{proceso_bc} Cifrado interno BC.}

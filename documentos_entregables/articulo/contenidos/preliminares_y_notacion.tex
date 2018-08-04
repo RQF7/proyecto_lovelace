@@ -99,15 +99,15 @@ $, en donde $ D_K^{N,T}\big( E_K^{N,T}(X) \big) = X $.
 % \textit{Deterministic Random Bit Generator}), y por lo tanto, los números que
 % genera se denominan \textit{pseudoaleatorios}.
 
-Un generador determinístico de números aleatorios (DRBG,
-\textit{Deterministic Random Bit Generator}) utiliza un mecanismo interno,
-generalmente una función hash o un cifrador por bloques, y un valor inicial
-llamado semilla, para producir bits de aspecto aleatorio. Dada la naturaleza
-determinísitca del proceso, a los números generados se les conoce como
-\textit{pseudoaletorios}. El método que utiliza como mecanismo interno a una
-función hash consiste en ir concatenando de forma consecutiva los valores hash
-derivados de la semilla e ir incrementando el valor de esta. El método basado en
-un cifrador por bloques utiliza el modo de operación de contador,
-en donde la semilla juega el papel de vector de inicialización. En ambos casos,
-la seguridad se basa en que la semilla sea un valor secreto
-\cite{nist_aleatorios}.
+% Un generador determinístico de números aleatorios (DRBG,
+% \textit{Deterministic Random Bit Generator}) utiliza un mecanismo interno,
+% generalmente una función hash o un cifrador por bloques, y un valor inicial
+% llamado semilla, para producir bits de aspecto aleatorio. Dada la naturaleza
+% determinísitca del proceso, a los números generados se les conoce como
+% \textit{pseudoaletorios}. El método que utiliza como mecanismo interno a una
+% función hash consiste en ir concatenando de forma consecutiva los valores hash
+% derivados de la semilla e ir incrementando el valor de esta. El método basado en
+% un cifrador por bloques utiliza el modo de operación de contador,
+% en donde la semilla juega el papel de vector de inicialización. En ambos casos,
+% la seguridad se basa en que la semilla sea un valor secreto
+% \cite{nist_aleatorios}.
