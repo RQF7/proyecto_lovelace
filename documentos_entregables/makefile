@@ -17,7 +17,8 @@ FUENTES_REPORTE_TECNICO     := \
 COMPILACION_REPORTE_TECNICO := $(COMPILACION) \
 	$(CARPETA_REPORTE_TECNICO)/$(REPORTE_TECNICO).tex
 
-$(CARPETA_REPORTE_TECNICO)/$(REPORTE_TECNICO).pdf: $(FUENTES_REPORTE_TECNICO)
+$(CARPETA_REPORTE_TECNICO)/$(REPORTE_TECNICO).pdf: $(FUENTES_REPORTE_TECNICO) \
+																									 referencias.bib
 	mkdir -p $(CARPETA_TEMPORAL)
 	$(COMPILACION_REPORTE_TECNICO) | tee salida.temporal
 	@if grep "has been referenced but does not exist" salida.temporal; then\
@@ -30,7 +31,7 @@ $(CARPETA_REPORTE_TECNICO)/$(REPORTE_TECNICO).pdf: $(FUENTES_REPORTE_TECNICO)
 		make referencias;\
 		$(COMPILACION_REPORTE_TECNICO) | tee salida.temporal;\
 	else\
-		echo "La bibliografía están al día.";\
+		echo "La bibliografía está al día.";\
 	fi
 	@if grep "Rerun to get cross-references right" salida.temporal; then\
 		$(COMPILACION_REPORTE_TECNICO) | tee salida.temporal;\
