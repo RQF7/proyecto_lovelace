@@ -27,10 +27,23 @@
   \mainmatter
   \import{reporte_tecnico/contenidos/intro/}{intro.tex}
   \import{reporte_tecnico/contenidos/marco_teorico/}{marco_teorico.tex}
+
+  \part{Generación de tokens}
   \import{reporte_tecnico/contenidos/generacion_tokens/}{generacion_tokens.tex}
   \import{reporte_tecnico/contenidos/analisis_y_disenio/}
     {analisis_y_disenio.tex}
   \import{reporte_tecnico/contenidos/implementacion/}{implementacion.tex}
+
+  \part{Interfaz en red}
+  \chapter{Análisis y diseño}
+  \chapter{Implementación}
+
+  \part{Caso de prueba: tienda en línea}
+  \chapter{Análisis y diseño}
+  \chapter{Implementación}
+
+  % Coloca a las conclusiones afuera de cualquier parte
+  \bookmarksetup{startatroot}
   \import{reporte_tecnico/contenidos/conclusiones/}{conclusiones.tex}
   \import{reporte_tecnico/contenidos/apendices/}{apendices.tex}
 
@@ -49,6 +62,9 @@
     #3
     \newpage
   }
+
+  % Coloca glosarios afuera de los apéndices
+  \bookmarksetup{startatroot}
 
   \setglossarystyle{altlist}
   \printglossary[
