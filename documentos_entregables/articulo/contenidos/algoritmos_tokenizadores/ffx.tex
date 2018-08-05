@@ -11,15 +11,14 @@ Phillip Rogaway y Terence Spies.  En su forma más general, el algoritmo se
 compone de 9 parámetros que permiten cifrar cadenas de cualquier longitud en
 cualquier alfabeto; los autores también proponen dos formas más específicas (dos
 colecciones de parámetros) para alfabetos binarios y alfabetos decimales: A2 y
-A10, respectivamente. De aquí en adelante se hablará solamente de la colección
-A10.
+A10, respectivamente.
 
 % TODO: Poner significado de AES CBC MAC, ¿en los preliminares?
 
 FFX ocupa una red Feistel alternante junto con una adaptación de AES-CBC-MAC
 (usada como función de ronda) para lograr preservar el formato. La operación
 general del algoritmo se describe completamente por la operación de una red
-alternante:
+Feistel alternante:
 \begin{equation}
   \begin{split}
     L_{i} &=
