@@ -1,0 +1,75 @@
+%
+% Explicación de código de TKR, reporte técnico.
+%
+% Proyecto Lovelace.
+%
+
+\subsection{Módulo de TKR}
+
+La descripción de los algoritmos que componen a este método se hizo en la
+sección \ref{sec:tkr}. En la sección \ref{sec:tkr_disenio} se mostró la vista
+estática que tiene este módulo. En esta sección se muestran los aspectos más
+importantes de su implementación.
+
+\begin{listing}
+  \inputminted[firstline=41, lastline=69]
+    {c++}{../implementaciones/tkr/tkr.cpp}
+  \caption{Proceso de cifrado de TKR.}
+  \label{codigo:tkr_cifrado}
+\end{listing}
+
+\begin{listing}
+  \inputminted[firstline=71, lastline=86]
+    {c++}{../implementaciones/tkr/tkr.cpp}
+  \caption{Proceso de descifrado de TKR.}
+  \label{codigo:tkr_descifrado}
+\end{listing}
+
+Los códigos fuentes \ref{codigo:tkr_cifrado} y \ref{codigo:tkr_descifrado}
+mustran los procesos de cifrado y descifrado, respectivamente. Estas operaciones
+están descritas por los pseudocódigos \ref{tkr2_cifrado} y
+\ref{tkr2_descifrado}. La operación de cifrado depende de una función
+psudoaleatorioa; dentro del contexto de la clase TKR, esta es cualquier
+otra clase que implemente a una función que recibe enteros y regresa
+arreglos de dígitos. La operación de descifrado es simplemente una consulta
+en la base de datos; en caso de una búsqueda infructuosa, se lanza una
+excepción.
+
+Como se muestra en el diagrama \ref{clases_tkr}, TKR implementa la interfaz
+de un algoritmo tokenizador irreversible (que a su vez implementa a un
+algoritmo tokenizador), por lo que los métodos mostrados en los códigos
+fuente \ref{codigo:tkr_cifrado} y \ref{codigo:tkr_descifrado} son
+los definidos por la interfaz. Al tratarse de un método irreversible,
+ambos procesos (tokenización y detokenización) reciben el \gls{gl:pan} o el
+\gls{gl:token} completos, según sea el caso.
+
+\begin{listing}
+  \inputminted[firstline=53, lastline=75]
+    {c++}{../implementaciones/tkr/funcion_rn.cpp}
+  \caption{Función RN.}
+  \label{codigo:funcion_rn}
+\end{listing}
+
+La función del código fuente \ref{codigo:funcion_rn} es la implementación del
+pseudocódigo descrito en \ref{tkr2_rn}. Esta clase implementa la
+interfaz de una función que recibe enteros y regresa arreglos de dígitos
+(siguiendo el modelo de débil acomplamiento dado por las interfaces de
+las funciones). Básicamente, se trata de la transformación de
+los bytes aleatorios dados por la función interna en el número de
+dígitos pedidos. En el contexto de esta clase, la función interna tiene
+el mismo aspecto: una función que recibe enteros y regresa arreglos de bytes.
+
+\begin{listing}
+  \inputminted[firstline=51, lastline=82]
+    {c++}{../implementaciones/tkr/pseudoaleatorio_aes.cpp}
+  \caption{Generación de bytes pseudoaleatorios basado en \acrshort{gl:aes}.}
+  \label{codigo:pseudoaleatorio_aes}
+\end{listing}
+
+Por último, el código fuente \ref{codigo:pseudoaleatorio_aes} muestra
+cómo se puede ocupar un cifrado de bloques (\gls{gl:aes} de 128 bits, en
+este caso) para producir arreglos de bytes con aspecto aleatorio. La
+operación de esta función es análoga al modo de operación \gls{gl:ctr}
+(sección \ref{sec:ctr})
+
+%\FloatBarrier

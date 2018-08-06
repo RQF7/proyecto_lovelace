@@ -1,0 +1,82 @@
+%
+% Implementación de programa de tokens,
+% Reporte técnico.
+%
+% Proyecto Lovelace.
+%
+
+\section{Programa para generar \textit{tokens}}
+
+A continuación se explican las partes más importantes del programa:
+las implementaciones de los algoritmos tokenizadores mostrados en la
+sección \ref{sec:algoritmos}.
+
+En un intento por no complicar demasiado la exposición del programa, se  redujo
+al máximo la aparición de código en el documento. Aquí solo se muestran las
+implementaciones de los algoritmos tokenizadores, y aún en estos casos,
+solamente se muestran las fracciones más relevantes. Al día de hoy, el programa
+cuenta con alrededor de 16000 líneas de código (contando comentarios y líneas
+en blanco), por lo que cualquier intento de incluir aquí a todo el programa
+resultaría en un documento de dimensiones estratosféricas. Si lo que se busca
+es una implementación en específico que no aparezca aquí, o mayor detalle en el
+código, se puede consultar la documentación en línea:
+\url{https://rqf7.github.io/proyecto_lovelace/documentacion_doxygen/html/index.html}.
+Durante el desarrollo del programa se han hecho muchos esfuerzos para
+mantenerla completa.
+
+Antes de iniciar con la explicación sobre las implementaciones sería
+comveniente aclarar un par de puntos sobre las reglas que sigue el formato del
+código, para facilitar la lectura: todos los identificadores se encuentran en
+español (el conjunto permitido por los caracteres \gls{gl:ascii}); las clases y
+espacios de nombres siguen \texttt{EsteFormato} mientras que las variables y
+funciones siguen \texttt{esteOtroFormato}; las variables miembro de una clase
+llevan simepre en el nombre una «m» como prefijo. Se pueden encontrar mayores
+detalles en:
+\url{https://rqf7.github.io/proyecto_lovelace/reglas_de_estilo.html}.
+
+%\begin{figure}
+%  \begin{center}
+%    \begin{varwidth}{\textwidth}
+%      \dirtree{%
+%      .0 /.
+%      .1 implementaciones.
+%      .2 acceso\_a\_datos.
+%      .2 aes\_ensamblador.
+%      .2 ahr.
+%      .2 bps.
+%      .2 drbg.
+%      .2 ffx.
+%      .2 redes\_feistel.
+%      .2 tkr.
+%      .2 utilidades.
+%      .1 utilidades.
+%      .2 algoritmo\_tokenizador.
+%      .2 algoritmo\_tokenizador\_reversible.
+%      .2 algoritmo\_tokenizador\_irreversible.
+%      .2 utilidades\_criptograficas.
+%      .2 utilidades\_tarjetas.
+%      .2 interfaces\_comunes.
+%      .3 funcion.
+%      .3 funcion\_con\_inverso.
+%      .3 funcion\_con\_inverso\_simetrico.
+%      .2 arreglo.
+%      .2 arreglo\_de\_digitos.
+%      .2 codificador.
+%      .2 conjunto\_de\_pruebas.
+%      .2 error.
+%      .2 intermediario\_de\_arreglo.
+%      .2 intermediario\_de\_arreglo\_de\_digitos.
+%      .2 prueba.
+%      .2 utilidades\_matematicas.
+%      }
+%    \end{varwidth}
+%    \caption{Distribución general del código}
+%    \label{arbol:distribucion_general}
+%  \end{center}
+%\end{figure}
+
+\subimport{/}{ffx}
+\subimport{/}{bps}
+\subimport{/}{tkr}
+\subimport{/}{ahr}
+\subimport{/}{drbg}

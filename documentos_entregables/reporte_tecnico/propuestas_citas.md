@@ -116,3 +116,9 @@ citas para cada uno.
         No puede imaginar lo intrincada que era. Como finale, tocamos la novena
         Zenfonía de Beethoven. Cuando terminó, toda la audiencia se puso de pie
         y aplaudió con una mano. Fue sobrecogedor.
+
+# Segunda ronda (TT2)
+
+1. >We live in a society exquisitely dependent on science and technology, in
+    which hardly anyone knows anything about science and technology. Cosmos,
+    Carl Sagan.

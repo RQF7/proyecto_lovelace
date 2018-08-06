@@ -1,0 +1,146 @@
+%
+% Requerimientos para tokens no criptográficos reversibles,
+% análisis y diseño de generación de tokens.
+% Proyecto Lovelace.
+%
+
+\subsection{No criptográficos reversibles}
+
+% RN 1A
+\requerimiento[rq_pci:nc_generacion_y_almacenamiento]
+{Generación y almacenamiento de tokens (no criptográficos)}
+{
+  La generación de un \gls{gl:token} debe realizarse independientemente de
+  su \gls{gl:pan}, y la relación entre un \gls{gl:pan} y su \gls{gl:token}
+  sólo tiene que estar almacenada en la base de datos (\gls{gl:cdv})
+  establecida.
+}
+
+% RN 1B
+\requerimiento[rq_pci:nc_seguridad]
+{Probabilidad de encontrar un PAN (no criptográficos)}
+{
+  La probabilidad de encontrar un \gls{gl:pan} a partir de su respectivo
+  \gls{gl:token} debe de ser menor que $1$ en $10^6$.
+
+  % RN 1B-1
+  \subrequerimiento[rq_pci:nc_distribucion_equiprobable]
+  {Distribución equiprobable (no criptográficos)}
+  {
+    Para un \gls{gl:pan} dado, todos sus \glspl{gl:token} respectivos
+    deben ser \glspl{gl:equiprobable}, esto es que el sistema
+    \textit{tokenizador} no debe exhibir patrones probabilísticos que
+    lo vulneren a un ataque estadístico.
+  }
+
+  % RN 1B-2
+  \subrequerimiento[rq_pci:nc_permutaciones_aleatorias]
+  {Permutaciones aleatorias (no criptográficos)}
+  {
+    El método de tokenización debe actuar como una familia de
+    \glspl{gl:permutacion} aleatoria en el espacio efectivo de los
+    \glspl{gl:pan} al espacio de \glspl{gl:token}.
+  }
+
+  % RN 1B-3
+  \subrequerimiento[rq_pci:nc_parametros_de_tokenizacion]
+  {Parámetros de tokenización (no criptográficos)}
+  {
+    El método de tokenización debe incluir parámetros tales que, un
+    cambio en estos parámetros resulte en un \gls{gl:token} diferente;
+    por ejemplo, un cambio en la instancia del proceso debe derivar en
+    una secuencia de \glspl{gl:token} distintos, incluso cuando es usada
+    la misma secuencia de \glspl{gl:token}.
+  }
+
+  % RN 1B-4
+  % Contradoctoria con RN 1A, si el token es independiete, no debe
+  % reflejar cambios.
+  %\subrequerimiento{Reflejo de cambios}
+  %{
+  %  Al cambiar parte de un \gls{gl:pan}, debe cambiar su \gls{gl:token}
+  %  resultante.
+  %}
+
+  % RN 1B-5
+  \subrequerimiento[rq_pci:nr_aleatoriedad_digitos]
+  {Verificación de la aleatoriedad (no criptográficos)}
+  {
+    Se debe tener un medio para verificar de forma práctica la aleatorización
+    de dígitos, de acuerdo a lo establecido en \gls{gl:nist} 800-90A
+    \cite{nist_aleatorios}.
+  }
+}
+
+En \cite{pci_tokens} se establece un subrequerimiento más de
+\hipervinculo{rq_pci:nc_seguridad}: \textit{Al cambiar parte de un
+\gls{gl:pan}, debe cambiar su \gls{gl:token} resultante}. Es un requerimiento
+análogo a \hipervinculo{rq_pci:cr_cambio_de_pan}, sin embargo en el contexto
+de los  no criptográficos reversibles, tal restricción no tiene sentido, dado
+que  la generación del \gls{gl:token} es independiente del \gls{gl:pan}
+(requerimiento \hipervinculo{rq_pci:nc_generacion_y_almacenamiento}).
+
+% RN 1C
+% TODO: ¿Diferencias con RB1B-1?
+\requerimiento[rq_pci:nc_distribucion_imparcial]
+{Distribución imparcial (no criptográficos)}
+{
+  El proceso de generación de \glspl{gl:token} debe garantizar una
+  distribución de \glspl{gl:token} imparcial, esto significa que la
+  probabilidad de cualquier par \gls{gl:pan}/\gls{gl:token} debe ser igual.
+}
+
+% RN 1D
+\requerimiento[rq_pci:nc_independencia_estadistica]
+{Instancias estadísticamente independientes (no criptográficos)}
+{
+  Si varias o diferentes instancias de la bases de datos (\gls{gl:cdv}) son
+  usadas, cada una de estas debe ser \glspl{gl:estidisticamente_independiente}.
+}
+
+% RN 2A
+\requerimiento[rq_pci:nc_proceso_detokenizacion]
+{Proceso de detokenización (no criptográficos)}
+{
+  El proceso de detokenización debe realizarse por medio de una búsqueda de
+  datos o un índice dentro de la base de datos (\gls{gl:cdv}), y no por medio
+  de métodos criptográficos.
+
+  % RN 2A-1
+  %\subrequerimiento{Asignación probabilísticamente independiente}
+  %{
+  %  El \gls{gl:pan} y el \gls{gl:token} debe ser probabilísticamente
+  %  independientes. Cualquier método lógico o matemático no debe ser
+  %  usado para \textit{tokenizar} el \gls{gl:pan} o \textit{detokenizar}
+  %  el \gls{gl:token}.
+  %}
+}
+
+Un subrequerimiento de \hipervinculo{rq_pci:nc_proceso_detokenizacion} que
+aquí se omite establece: «\textit{El \gls{gl:pan} y el \gls{gl:token} debe ser
+probabilísticamente independientes. Cualquier método lógico o matemático no
+debe ser usado para \textit{tokenizar} el \gls{gl:pan} o \textit{detokenizar}
+el \gls{gl:token}}». La independencia entre \gls{gl:pan} y \gls{gl:token} ya
+se establece en \hipervinculo{rq_pci:nc_generacion_y_almacenamiento}. No es
+clara la ascepción de \textit{método lógico matemático}; una solución
+común para generar \glspl{gl:token} no criptográficos es usar \gls{gl:prng},
+los cuales son métodos matemáticos.
+
+% RN3A
+\requerimiento[rq_pci:nc_cifrado_de_base]
+{Cifrado de la base de datos (no criptográficos)}
+{
+  Dentro de la base de datos (\gls{gl:cdv}), los \gls{gl:pan} deben ser
+  cifrados con una llave de mínimo 128 bits de \gls{gl:fuerza_efectiva}.
+}
+
+% RN4A
+\requerimiento[rq_pci:nc_administracion_llaves]
+{Seguridad de la administración de llaves (no criptográficos)}
+{
+  Todas la operaciones sobre la administración de las llaves criptográficas
+  deben realizarse en un dispositivo criptográfico seguro y aprobado: el
+  \gls{gl:pci} \gls{gl:ssc} se encarga de hacer validaciones; también puede ser
+  cualquier dispositivo validado por \gls{gl:fips} 140-2 nivel 3 o superior
+  \cite{nist_modulos_criptograficos} o por la \gls{gl:iso} 13491-1.
+}

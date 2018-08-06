@@ -1,0 +1,79 @@
+%
+% Diagrama de clases general.
+% Análisis y diseño de programa tokenizador, reporte técnico.
+%
+% Proyecto Lovelace.
+%
+
+\documentclass{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{tikz-uml}
+
+\tikzumlset
+{
+  fill class=white,
+  fill package=white
+}
+
+%
+% El tipo de retorno de la división entre arreglos no tendría que tener
+% espacios: el problema es que si aparecen juntos, LaTeX pone una comilla de
+% cierre española.
+%
+
+\begin{document}
+  \begin{tikzpicture}
+    \begin{umlpackage}{Utilidades}
+
+      \umlclass[x=12, template=tipo]{Arreglo}
+      {
+        \# mArregloInterno : tipo* = nullptr \\
+        \# mNumeroDeElementos : unsigned int = 0
+      }
+      {
+        + Arreglo(numeroDeElementos : unsigned int) \\
+        + operator[](indice : unsigned int) : IntermediarioDeArreglo<tipo> \\
+        + operator/(marcasDivisorias : Arreglo<unsigned int>\&)
+          : Arreglo< Arreglo<tipo> > \\
+        + obtenerNumeroDeElementos() : unsigned int \\
+        + obtenerCopiaDeArreglo() : tipo* \\
+        + obtenerApuntador() : const tipo* \\
+        + colocarErrores(constante : tipo) : void
+      }
+
+      \umlclass[x=12, y=-6]{ArregloDeDigitos}
+      {
+        -- mCadena : string \\
+        -- mNumero : entero \\
+        -- mBase : unsigned int = 10
+      }
+      {
+        + ArregloDeDigitos(cadena : string) \\
+        + ArregloDeDigitos(numero : entero) \\
+        + operator[](indice : unsigned int) : IntermediarioDeArregloDeDigitos \\
+        + obtenerCadena() : string \\
+        + obtenerCadenaEfectiva() : string \\
+        + obtenerNumero() : entero
+      }
+
+      \umlclass[template=tipo]{IntermediarioDeArreglo}
+      {
+        \# mArreglo : Arreglo\& \\
+        \# mIndice : unisgned int
+      }
+      {
+        + operator=(elemento : tipo) : tipo
+      }
+
+      \umlclass[y=-6]{IntermediarioDeArregloDeDigitos}
+      {}
+      {
+        + operator=(elemento : tipo) : tipo
+      }
+
+      \umlinherit{ArregloDeDigitos}{Arreglo}
+      \umlinherit{IntermediarioDeArregloDeDigitos}{IntermediarioDeArreglo}
+
+    \end{umlpackage}
+  \end{tikzpicture}
+\end{document}
