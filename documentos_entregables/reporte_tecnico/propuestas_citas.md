@@ -6,7 +6,7 @@ citas para cada uno.
 1. >In the beginning the Universe was created. This has made a lot of people
     very angry and has been widely regarded as a bad move, Douglas Adams,
     The Restaurant at the End of the Universe.
-2. >Welcome to a new year at Hogwarts! Before we begin our banquet, I would  
+2. >Welcome to a new year at Hogwarts! Before we begin our banquet, I would
     like to say a few words. And here they are:
     Nitwit! Blubber! Oddment! Tweak! J. K. Rowling
 3. >That brain of mine is something more than merely mortal, as time will show,
@@ -122,3 +122,6 @@ citas para cada uno.
 1. >We live in a society exquisitely dependent on science and technology, in
     which hardly anyone knows anything about science and technology. Cosmos,
     Carl Sagan.
+2. >You don't understand anything until you learn it more than one way. Marvin
+    Minsky.
+
