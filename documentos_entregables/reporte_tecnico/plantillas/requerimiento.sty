@@ -4,32 +4,53 @@
 %
 
 % Contadores de requerimientos
-\newcounter{contador_requerimientos_tokens}[chapter]
+\newcounter{contador_requerimientos}[chapter]
 \newcounter{contador_subrequerimientos}[chapter]
 
 % Comando para requerimientos.
-% #1 -> etiqueta (opcional).
-% #2 -> Título del requerimiento.
-% #3 -> Descripción.
+% #1 -> Etiqueta (opcional).
+% #2 -> Prefijo para numeración (opcional, por defecto PCI).
+% #3 -> Título del requerimiento.
+% #4 -> Descripción.
 % TODO:
-%   - guardar en variable temporal separación inicial entre párrafos.
-%   - Prefijo según el módulo (tokens, api, tienda).
+%   - Guardar en variable temporal separación inicial entre párrafos.
 %   - Los tamaños de indentación deben tomar como base la identación de
 %     todo el documento.
+%   - La única razoón de ser para el valor por defecto del segunddo
+%     argumento es para mantener compatibilidad con coódigo
+%     antiguo: hay que quitar ese comportamiento actualizando el
+%     código antiguo. Lo mismo para el caso de los subrequerimientos.
+%
+% Para comandos con más de un parámetro:
+% https://texfaq.org/FAQ-twooptarg
+% La idea general consiste en definir un comando externo que tome
+% un primer argumento opcional y redirigirlo a un segundo comando interno
+% que tome un segundo comando por defecto.
+% Lo anterior es porque «newcommand» solo soporta un solo argumento
+% opcional... Parece que LaTeX está lleno de este tipo de parches, en lugar
+% de reimplementaciones sobre el código central.
+% Los paquetes «twoopt» o «xarg» automatizan esta técnica.
 
-\newcommand{\requerimiento}[3]
-[rq:\formatearnumero{contador_requerimientos_tokens}]
+\newcommand{\requerimiento}[1]
+[rq:\formatearnumero{contador_requerimientos}]
+{
+  \def\primerArgumentoRequerimiento{{#1}}
+  \releDeRequerimento
+}
+
+\newcommand{\releDeRequerimento}[3]
+[PCI]
 {
   % Configuración
-  \refstepcounter{contador_requerimientos_tokens}
+  \refstepcounter{contador_requerimientos}
   \setcounter{contador_subrequerimientos}{0}
   \setlength{\parskip}{0em}
 
   % Código efectivo
   \vspace{1.0em}
   \noindent
-  \textbf{\hypertarget{#1}
-    {REQPCI-\formatearnumero{contador_requerimientos_tokens} #2}.}
+  \textbf{\hypertarget{\primerArgumentoRequerimiento}
+    {REQ#1-\formatearnumero{contador_requerimientos} #2}.}
   \par
   \begin{hangparas}{2em}{0}
     #3
@@ -37,26 +58,35 @@
 
   % Regresar a estado previo
   \setlength{\parskip}{1.0em}
+
 }
 
 % Comando para subrequerimientos.
-% #1 -> etiqueta (opcional).
-% #2 -> Título del subrequerimiento.
-% #3 -> Descripción.
+% #1 -> Etiqueta (opcional).
+% #2 -> Prefijo para numeración (opcional, por defecto PCI).
+% #3 -> Título del subrequerimiento.
+% #4 -> Descripción.
 % ATENCIÓN:  Los subrequerimientos siempre deben estar dentro de la
 % descripción de un requerimiento.
 
-\newcommand{\subrequerimiento}[3]
-[rq:\formatearnumero{contador_requerimientos_tokens}_%
+\newcommand{\subrequerimiento}[1]
+[rq:\formatearnumero{contador_requerimientos}_%
   \arabic{contador_subrequerimientos}]
+{
+  \def\primerArgumentoSubrequerimiento{{#1}}
+  \releDeSubrequerimiento
+}
+
+\newcommand{\releDeSubrequerimiento}[3]
+[PCI]
 {
   % Configuración
   \refstepcounter{contador_subrequerimientos}
 
   % Código efectivo
   \vspace{1.0em}
-  \textbf{\hypertarget{#1}
-    {SUBREQPCI-\formatearnumero{contador_requerimientos_tokens}%
+  \textbf{\hypertarget{\primerArgumentoSubrequerimiento}
+    {SUBREQ#1-\formatearnumero{contador_requerimientos}%
       /\arabic{contador_subrequerimientos} #2}.}
   \par
   \begin{hangparas}{4em}{0}
