@@ -50,3 +50,9 @@ migrations
 
 # Compilados de python
 *.pyc
+
+# Modulos de npm
+node_modules
+
+# Compilados por grunt
+compilados
