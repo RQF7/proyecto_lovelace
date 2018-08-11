@@ -22,15 +22,11 @@ definido en \cite{mozilla_er}.
   \hipervinculo{rn:formato_token}.
 }
 
-% TODO:
-% El caracter de inicio de cadena, en la expresión regular, no se está mostrado
-% como debería.
-
 \reglaDeNegocio[rn:formato_numero_de_tarjeta]{API}
 {Composición de números de tarjeta}
 {
   Un número de tarjeta queda definido por la expresión regular
-  \texttt{\^[0-9]\{12, 19\}\$}. El número se divide en tres partes: el
+  \texttt{[0-9]\{12, 19\}}. El número se divide en tres partes: el
   identificador del emisor (primeros 6 dígitos), el número de cuenta y el dígito
   verificador (último dígito). Para más detalles sobre este tema consultar la
   sección \ref{sec:composicion_tarjeta}. El dígito verificador se obtiene de tal
