@@ -4,6 +4,7 @@
 %
 
 \section{Composición del número de una tarjeta}
+\label{sec:composicion_tarjeta}
 
 La información presentada a continuación puede consultarse con más detalle en
 los siguientes documentos~\cite{iso_7812, iso_9362, pci_definitive_guide}.
@@ -56,6 +57,8 @@ comprende 12 dígitos, por lo que cada emisor tiene $10^{12}$ posibles números
 de cuenta.
 
 \subsection{Dígito verificador}
+\label{sec:algoritmo_luhn}
+
 Finalmente, se tiene el dígito verificador; este toma en cuenta todos los
 dígitos anteriores y se calcula mediante el algoritmo de Luhn, que se describe
 en~\ref{luhn:1}.

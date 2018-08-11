@@ -334,8 +334,13 @@
     dependiendo del símbolo leído y del estado en el que se encuentra, la
     máquina realiza las siguientes tres acciones: primero, pasa a un nuevo
     estado; segundo, imprime un símbolo en el lugar del que acaba de leer;
-    y, tercero, se desplaza hacia la derecha, hacia la izquierda o se detiene%
-  }
+    y, tercero, se desplaza hacia la derecha, hacia la izquierda o se detiene.
+    De forma más concreta, una máquina de Turing puede ser vista como una
+    máquina de estados finitos con un método de almacenamiento asociado (la
+    cinta infinita) \cite{minsky, DBLP:books/daglib/0023088,
+    DBLP:books/daglib/0032222}%
+  },
+  see={gl:maquina_de_estados_finitos}
 }
 
 \newglossaryentry{gl:distribucion_probabilidad}
@@ -629,6 +634,30 @@
     dependencias lineales%
   },
   see={gl:combinacion_lineal}
+}
+
+\newglossaryentry{gl:expresion_regular}
+{
+  name = expresión regular,
+  plural = expresiones regulares,
+  description = {
+    Forma algebraica de definir patrones. El conjunto de patrones que puede ser
+    expresado mediante las expresiones regulares es exactamente el mismo que el
+    conjunto de patrones que puede ser descrito por las transiciones de una
+    máquina de estados finitos \cite{DBLP:books/crc/AU1992}%
+  },
+  see={gl:maquina_de_estados_finitos}
+}
+
+\newglossaryentry{gl:maquina_de_estados_finitos}
+{
+  name = máquina de estados finitos,
+  plural = máquinas de estados finitos,
+  description = {
+   Modelo idealizado de una máquina que opera en tiempos discretos. La operación
+   completa de la máquina se define por un conjunto finito de estados junto con
+   las reglas de cambios entre estados \cite{minsky}%
+  }
 }
 
 \glsaddall

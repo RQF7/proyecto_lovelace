@@ -1,15 +1,26 @@
 %
-% Lista de requerimientos para sistema tokenizador
-% Capítulo de análisis y diseño de api web
-% Prpyecto Lovelace.
+% Lista de requerimientos para sistema tokenizador,
+% Capítulo de análisis y diseño de api web.
+% Proyecto Lovelace.
 %
 
 \subsection{Requerimientos}
 
-\requerimiento[rqapi:prueba]{API}
-{Prueba}
+\requerimiento[rq_api:usuarios]{API}
+{Sobre los usuarios del sistema}
 {
-  Esta es una prueba. Este requerimiento está relacionado con el caso de uso
-  \hipervinculo{cu:prueba}.
+  El programa debe contemplar las acciones de tres tipos de actores: un
+  \textit{visitante}, que representa a los posibles usuarios que visitan la
+  página de promoción del sistema; un \textit{usuario}, que utiliza la interfaz
+  web del servicio de tokenización; un \textit{administrador}, que representa a
+  la entidad (empresa u organización) que ofrece el servicio de tokenización
+  (ver regla de negocio \hipervinculo{rn:servicio_tokenizacion}).
+
+  \subrequerimiento[rq_api:visitante]{API}
+  {Sobre los visitantes}
+  {
+    Los visitantes deben poder acceder solamente a dos páginas de la aplicación:
+    \hipervinculo{iu:bienvenida} y \hipervinculo{iu:documentacion}.
+  }
 }
 

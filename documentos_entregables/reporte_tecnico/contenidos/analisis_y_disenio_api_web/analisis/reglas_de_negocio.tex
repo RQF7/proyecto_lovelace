@@ -1,17 +1,50 @@
 %
 % Reglas de negocio de sistema tokenizador,
-% Capítulo de anaálisis y diseño de api web.
+% Capítulo de análisis y diseño de api web.
 % Proyecto Lovelace
 %
 
 \subsection{Reglas de negocio}
 
-\reglaDeNegocio[rn:prueba]{API}
-{Prueba}
+El formato de las \glspl{gl:expresion_regular}, por cuestiones de optimización
+en tiempos de desarrollo, se presenta según el formato de \textit{java script},
+definido en \cite{mozilla_er}.
+
+\reglaDeNegocio[rn:servicio_tokenizacion]{API}
+{Servicio de tokenizacion}
 {
-  Esta es una prueba.
-  $$ \lnot \exists (a^n + b^n = c^n \ \forall n \geq 2) $$
-  Y la ecuación de arriba expresa el último teorema de Fermat.
+  El servicio de tokenización abarca dos operaciones básicas:
+  \textit{tokenización}, esto es, dado un número de tarjeta, regresar el token
+  correspondiente; y \textit{detokenización}, que es el proceso inverso, dado un
+  token, regresar el número de tarjeta asociado.
+
+  Esta regla está asociada a \hipervinculo{rn:formato_numero_de_tarjeta} y
+  \hipervinculo{rn:formato_token}.
+}
+
+% TODO:
+% El caracter de inicio de cadena, en la expresión regular, no se está mostrado
+% como debería.
+
+\reglaDeNegocio[rn:formato_numero_de_tarjeta]{API}
+{Composición de números de tarjeta}
+{
+  Un número de tarjeta queda definido por la expresión regular
+  \texttt{\^[0-9]\{12, 19\}\$}. El número se divide en tres partes: el
+  identificador del emisor (primeros 6 dígitos), el número de cuenta y el dígito
+  verificador (último dígito). Para más detalles sobre este tema consultar la
+  sección \ref{sec:composicion_tarjeta}. El dígito verificador se obtiene de tal
+  forma que el algoritmo de Luhn (sección \ref{sec:algoritmo_luhn}) dé como
+  resultado cero.
+}
+
+\reglaDeNegocio[rn:formato_token]{API}
+{Composición de tokens}
+{
+  El formato de un token es el mismo que para un número de tarjeta
+  (\hipervinculo{rn:formato_numero_de_tarjeta}) con la única excepción de que el
+  último dígito, el dígito verificador, se calcule de forma que el algoritmo de
+  Luhn (sección \ref{sec:algoritmo_luhn}) dé como resultado un uno.
 }
 
 
