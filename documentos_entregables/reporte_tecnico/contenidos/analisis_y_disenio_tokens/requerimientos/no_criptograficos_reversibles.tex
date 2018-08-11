@@ -8,7 +8,7 @@
 
 % RN 1A
 \requerimiento[rq_pci:nc_generacion_y_almacenamiento]
-{Generación y almacenamiento de tokens (no criptográficos)}
+{PCI}{Generación y almacenamiento de tokens (no criptográficos)}
 {
   La generación de un \gls{gl:token} debe realizarse independientemente de
   su \gls{gl:pan}, y la relación entre un \gls{gl:pan} y su \gls{gl:token}
@@ -18,14 +18,14 @@
 
 % RN 1B
 \requerimiento[rq_pci:nc_seguridad]
-{Probabilidad de encontrar un PAN (no criptográficos)}
+{PCI}{Probabilidad de encontrar un PAN (no criptográficos)}
 {
   La probabilidad de encontrar un \gls{gl:pan} a partir de su respectivo
   \gls{gl:token} debe de ser menor que $1$ en $10^6$.
 
   % RN 1B-1
   \subrequerimiento[rq_pci:nc_distribucion_equiprobable]
-  {Distribución equiprobable (no criptográficos)}
+  {PCI}{Distribución equiprobable (no criptográficos)}
   {
     Para un \gls{gl:pan} dado, todos sus \glspl{gl:token} respectivos
     deben ser \glspl{gl:equiprobable}, esto es que el sistema
@@ -35,7 +35,7 @@
 
   % RN 1B-2
   \subrequerimiento[rq_pci:nc_permutaciones_aleatorias]
-  {Permutaciones aleatorias (no criptográficos)}
+  {PCI}{Permutaciones aleatorias (no criptográficos)}
   {
     El método de tokenización debe actuar como una familia de
     \glspl{gl:permutacion} aleatoria en el espacio efectivo de los
@@ -44,7 +44,7 @@
 
   % RN 1B-3
   \subrequerimiento[rq_pci:nc_parametros_de_tokenizacion]
-  {Parámetros de tokenización (no criptográficos)}
+  {PCI}{Parámetros de tokenización (no criptográficos)}
   {
     El método de tokenización debe incluir parámetros tales que, un
     cambio en estos parámetros resulte en un \gls{gl:token} diferente;
@@ -64,7 +64,7 @@
 
   % RN 1B-5
   \subrequerimiento[rq_pci:nr_aleatoriedad_digitos]
-  {Verificación de la aleatoriedad (no criptográficos)}
+  {PCI}{Verificación de la aleatoriedad (no criptográficos)}
   {
     Se debe tener un medio para verificar de forma práctica la aleatorización
     de dígitos, de acuerdo a lo establecido en \gls{gl:nist} 800-90A
@@ -83,7 +83,7 @@ que  la generación del \gls{gl:token} es independiente del \gls{gl:pan}
 % RN 1C
 % TODO: ¿Diferencias con RB1B-1?
 \requerimiento[rq_pci:nc_distribucion_imparcial]
-{Distribución imparcial (no criptográficos)}
+{PCI}{Distribución imparcial (no criptográficos)}
 {
   El proceso de generación de \glspl{gl:token} debe garantizar una
   distribución de \glspl{gl:token} imparcial, esto significa que la
@@ -92,7 +92,7 @@ que  la generación del \gls{gl:token} es independiente del \gls{gl:pan}
 
 % RN 1D
 \requerimiento[rq_pci:nc_independencia_estadistica]
-{Instancias estadísticamente independientes (no criptográficos)}
+{PCI}{Instancias estadísticamente independientes (no criptográficos)}
 {
   Si varias o diferentes instancias de la bases de datos (\gls{gl:cdv}) son
   usadas, cada una de estas debe ser \glspl{gl:estidisticamente_independiente}.
@@ -100,7 +100,7 @@ que  la generación del \gls{gl:token} es independiente del \gls{gl:pan}
 
 % RN 2A
 \requerimiento[rq_pci:nc_proceso_detokenizacion]
-{Proceso de detokenización (no criptográficos)}
+{PCI}{Proceso de detokenización (no criptográficos)}
 {
   El proceso de detokenización debe realizarse por medio de una búsqueda de
   datos o un índice dentro de la base de datos (\gls{gl:cdv}), y no por medio
@@ -128,7 +128,7 @@ los cuales son métodos matemáticos.
 
 % RN3A
 \requerimiento[rq_pci:nc_cifrado_de_base]
-{Cifrado de la base de datos (no criptográficos)}
+{PCI}{Cifrado de la base de datos (no criptográficos)}
 {
   Dentro de la base de datos (\gls{gl:cdv}), los \gls{gl:pan} deben ser
   cifrados con una llave de mínimo 128 bits de \gls{gl:fuerza_efectiva}.
@@ -136,7 +136,7 @@ los cuales son métodos matemáticos.
 
 % RN4A
 \requerimiento[rq_pci:nc_administracion_llaves]
-{Seguridad de la administración de llaves (no criptográficos)}
+{PCI}{Seguridad de la administración de llaves (no criptográficos)}
 {
   Todas la operaciones sobre la administración de las llaves criptográficas
   deben realizarse en un dispositivo criptográfico seguro y aprobado: el

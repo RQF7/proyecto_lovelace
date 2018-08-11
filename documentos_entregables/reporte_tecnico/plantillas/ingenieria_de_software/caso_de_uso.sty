@@ -1,0 +1,146 @@
+%
+% Plantilla para definición de casos de uso y asociados.
+% Proyecto Lovelace.
+%
+
+% Contador
+\newcounter{contador_casos_de_uso}[chapter]
+\newcounter{contador_trayectorias_alternativas}[chapter]
+
+% Comando para casos de uso
+% #1 -> Etiqueta (opcional).
+% #2 -> Prefijo para numeración.
+% #3 -> Título.
+% #4 -> Contenido.
+
+\newcommand{\casoDeUso}[4]
+[cu:\formatearnumero{contador_casos_de_uso}]
+{
+  % Configuración
+  \refstepcounter{contador_casos_de_uso}
+  \setcounter{contador_trayectorias_alternativas}{0}
+  \setlength{\parskip}{0em}
+
+  % Código efectivo
+  \vspace{1.0em}
+  \noindent
+  \textbf{\hypertarget{#1}
+    {CU#2-\formatearnumero{contador_casos_de_uso} #3}.}
+  \par
+  \vspace{1.0em}
+  \begin{hangparas}{2em}{0}
+    #4
+  \end{hangparas}
+
+  % Estado previo
+  \setlength{\parskip}{1.0em}
+}
+
+% Entorno para trayectorias principales
+%
+% Un poco de contexto sobre las trayectorias principales y las secundarias:
+% * El título de la trayectoria está dentro de un «itemize» sin márgenes
+%   y sin marca para poder conservar el espacio (2 em) que introduce (o debería
+%   introducir) el entorno de «hangparas». Lo que pasa es que «hangparas» y los
+%   entornos de listas no son compatibles, esto es, no se debería definir
+%   una lista dentro de un «hangparas», pues chocan entre sí. Poner los
+%   títulos adentro de otra lista es una especie de parche para mantenerlos
+%   en el mismo margen.
+% * Los «item» de una trayectoria principal reciben un argumento opcional
+%   para definir una etiqueta a ese paso. Dentro del mismo caso de uso
+%   se puede ocupar esa referencia para referirse al paso; por ejemplo, al
+%   finalizar una trayectoria alternativa es común decir «regresa al paso tal de
+%   la trayectoria principal»; para no caer en pasadillas de actualización de
+%   referencias al introducir pasos, el «tal» debe ser una referencia a la
+%   etiqueta definida para ese paso (referencia local, por supuesto, para que no
+%   haya choques entre casos de uso: «referenciaLocal»).
+% * Como cuestión didáctica: al inicio de la enumeración de los pasos de la
+%   trayectoria se está redefiniendo el comando «item». Esto es la redifinición
+%   de un comando dentro de la definición de un entorno. Para hacer la
+%   resolución de argumentos se colocan distintos hashtags; en el caso de
+%   esa redefinición se ocupa ##1 para hacer referencia al primer argumento.
+%
+
+\newenvironment{trayectoriaPrincipal}
+{
+  \vspace{1.0em}
+  \noindent
+  \begin{itemize}[
+    topsep=0em]
+    \item[] \textbf{Trayectoria principal}
+  \end{itemize}
+  \begin{enumerate}[
+    itemindent=2em,
+    itemsep=0em]
+    \let\viejoitem\item
+    \renewcommand\item[1]
+      [referencia]
+      {\viejoitem \label{\etiquetaLocal{##1}}}
+}
+{
+  \end{enumerate}
+}
+
+% Entorno para trayectorias alternativas
+% #1 -> Etiqueta (opcional).
+% #2 -> Título.
+%
+% IMPORTANTE: Las etiquetas de las trayectorias alternativas se definen de forma
+% local (con «etiquetaLocal»), por lo que para hacer referencia a ellas
+% dentro del mismo caso de uso se debe de ocupar «hipervinculoLocal».
+
+\newenvironment{trayectoriaAlternativa}[2]
+[ta:\formatearnumero{contador_casos_de_uso}_
+  \formatearnumero{contador_trayectorias_alternativas}]
+{
+  % Configuración
+  \refstepcounter{contador_trayectorias_alternativas}
+
+  % Código efectivo
+  \vspace{1.0em}
+  \noindent
+  \begin{itemize}[
+    topsep=0em]
+    \item[] \textbf{Trayectoria alternativa
+      \hypertarget{\etiquetaLocal{#1}}{%
+      \formatearnumero{contador_casos_de_uso}%
+      \Alph{contador_trayectorias_alternativas}: #2}}
+  \end{itemize}
+  \begin{enumerate}[
+    itemindent=2em,
+    itemsep=0em]
+}
+{
+  \end{enumerate}
+}
+
+% Comando para etiquetas locales.
+% Agrega a la etiqueta dada un prefijo único entre casos
+% de uso. De esta forma se se definen etiquetas en el contexto de un caso de
+% uso (por o tanto puede haber etiquetas con el mismo nombre en
+% dos casos de uso distintos).
+
+\newcommand{\etiquetaLocal}[1]
+{%
+  cu_\formatearnumero{contador_casos_de_uso}_#1%
+}
+
+% Envoltura para hipervínculos locales.
+% Traducción de un vínculo local a un vínculo global. Con este comando se hace
+% referencia a alago definido adentro del contexto del caso de uso.
+
+\newcommand{\hipervinculoLocal}[1]
+{%
+  \hipervinculo{\etiquetaLocal{#1}}%
+}
+
+% Envoltura para referencias locales.
+% Traducción de una referencia local a una referencia global. Mismo caso que con
+% los hipervículos, solo que en este caso se ocupa el par tradicional de
+% «label-ref».
+
+\newcommand{\referenciaLocal}[1]
+{%
+  \ref{\etiquetaLocal{#1}}%
+}
+

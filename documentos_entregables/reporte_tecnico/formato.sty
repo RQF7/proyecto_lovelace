@@ -214,6 +214,11 @@
 % Gestión de apéndices
 \RequirePackage{appendix}
 
+% http://ctan.math.utah.edu/ctan/tex-archive/macros/latex/contrib/
+% enumitem/enumitem.pdf
+% Control sobre aspecto de listas numeradas.
+\RequirePackage{enumitem}
+
 
 % Profundidad de contador
 % Hasta subsubsecciones
@@ -317,10 +322,11 @@
 \import{reporte_tecnico/plantillas/}{formato_numeros.sty}
 \import{reporte_tecnico/plantillas/}{portada.sty}
 \import{reporte_tecnico/plantillas/}{pseudocodigo.sty}
-\import{reporte_tecnico/plantillas/}{requerimiento.sty}
 \import{reporte_tecnico/plantillas/}{dependencia.sty}
 \import{reporte_tecnico/plantillas/}{capitulo.sty}
 \import{reporte_tecnico/plantillas/}{epigrafe.sty}
+\import{reporte_tecnico/plantillas/ingenieria_de_software/}
+  {ingenieria_de_software.sty}
 
 % Archivo con entradas del glosario
 \input{reporte_tecnico/contenidos/glosario.tex}

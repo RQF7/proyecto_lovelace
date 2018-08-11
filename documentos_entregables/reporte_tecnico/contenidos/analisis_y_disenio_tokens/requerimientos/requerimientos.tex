@@ -42,7 +42,7 @@ la sección \ref{sec:pci_dss}.
 
 % GT1
 \requerimiento[rq_pci:productos_de_hardware]
-{Validación de productos de hardware}
+{PCI}{Validación de productos de hardware}
 {
   Si se usa un producto de hardware para la tokenización, este debe de ser
   validado por \gls{gl:fips} 140-2 nivel 3 o superior (descrito en
@@ -52,7 +52,7 @@ la sección \ref{sec:pci_dss}.
 % GT2 se lo chutaron.
 % GT3
 \requerimiento[rq_pci:productos_de_software]
-{Validación de productos de software}
+{PCI}{Validación de productos de software}
 {
   Si se usa un producto de software para la tokenización, este debe de ser
   validado por \gls{gl:fips} 140-2 nivel 2 o superior (descrito en
@@ -61,7 +61,7 @@ la sección \ref{sec:pci_dss}.
 
 % GT4
 \requerimiento[rq_pci:resistencia_texto_claro_conocido]
-{Resistencia a texto claro conocido}
+{PCI}{Resistencia a texto claro conocido}
 {
   Un atacante con acceso a múltiples pares de \glspl{gl:token} y
   \gls{gl:pan} no debe de ser capaz de determinar otros \gls{gl:pan} a partir
@@ -78,7 +78,7 @@ la sección \ref{sec:pci_dss}.
 % Creo que ya había leído esto mismo en alguno de los artículos que nos pasó
 % Sandra.
 \requerimiento[rq_pci:resistencia_solo_texto_cifrado]
-{Resistencia a sólo texto cifrado}
+{PCI}{Resistencia a sólo texto cifrado}
 {
   Recuperar un \gls{gl:pan} a partir de un \gls{gl:token} debe de ser
   \gls{gl:computacionalmente_no_factible} (resistencia a ataques con sólo
@@ -87,7 +87,7 @@ la sección \ref{sec:pci_dss}.
 
 % GT6
 \requerimiento[rq_pci:deteccion_anomalias]
-{Detección de anomalías}
+{PCI}{Detección de anomalías}
 {
   Se deben de implementar disparadores que permitan detectar
   irregularidades en el sistema (anomalías, funcionamientos erróneos,
@@ -97,7 +97,7 @@ la sección \ref{sec:pci_dss}.
 
 % GT7
 \requerimiento[rq_pci:distincion_token_pan]
-{Distinción entre \glspl{gl:token} y \gls{gl:pan}}
+{PCI}{Distinción entre \glspl{gl:token} y \gls{gl:pan}}
 {
   Se debe contar con un mecanismo para distinguir entre \glspl{gl:token}
   y \gls{gl:pan}. Los proveedores del servicio de tokenización deben
@@ -107,7 +107,7 @@ la sección \ref{sec:pci_dss}.
 
 % GT8
 \requerimiento[rq_pci:guia_de_instalacion]
-{Guía de instalación}
+{PCI}{Guía de instalación}
 {
   Se debe de contar con una guía de instalación y uso para el correcto
   funcionamiento del producto de tokenización.
@@ -115,7 +115,7 @@ la sección \ref{sec:pci_dss}.
 
 % GT9
 \requerimiento[rq_pci:integridad_ejecutables]
-{Integridad del proceso de tokenización}
+{PCI}{Integridad del proceso de tokenización}
 {
   Deben de implementarse mecanismos que garanticen la integridad del proceso
   de generación de \glspl{gl:token}.
@@ -123,7 +123,7 @@ la sección \ref{sec:pci_dss}.
 
 % GT10, RC2A, RN2B y RN3B
 \requerimiento[rq_pci:acceso_a_producto]
-{Acceso al proceso detokenización}
+{PCI}{Acceso al proceso detokenización}
 {
   Solo los usuarios autenticados y componentes del sistema tienen permitido
   acceder al proceso de tokenización y detokenización. Los métodos utilizados
@@ -132,7 +132,7 @@ la sección \ref{sec:pci_dss}.
 
   % GT10.1, RC2A-1, RC2A-2, RN2B, RN3B
   \subrequerimiento[rq_pci:control_de_peticiones]
-  {Control de peticiones}
+  {PCI}{Control de peticiones}
   {
     Todas las peticiones deben pasar a través de una \gls{gl:api} que controle
     todos los intentos de acceso y aplique de manera uniforma reglas de
@@ -141,7 +141,7 @@ la sección \ref{sec:pci_dss}.
 
   % GT10.2
   \subrequerimiento[rq_pci:registros_de_acceso]
-  {Registros de acceso}
+  {PCI}{Registros de acceso}
   {
     Se deben registrar todos los eventos de acceso, de tokenización y
     de detokenización. Esta funcionalidad debe ser configurable de manera
@@ -151,7 +151,7 @@ la sección \ref{sec:pci_dss}.
 
   % GT10.3
   \subrequerimiento[rq_pci:autenticacion_multifactor]
-  {\Gls{gl:autenticacion_multifactor}}
+  {PCI}{\Gls{gl:autenticacion_multifactor}}
   {
     El sistema debe soportar \gls{gl:autenticacion_multifactor} para todos
     los tipos de usuario: accesos administrativos, operaciones de tokenización
@@ -160,7 +160,7 @@ la sección \ref{sec:pci_dss}.
 
   % GT10.4
   \subrequerimiento[rq_pci:acceso_de_sistema]
-  {Accesos a nivel de sistema}
+  {PCI}{Accesos a nivel de sistema}
   {
     Todos los accesos a nivel de sistema deben soportar
     \gls{gl:autenticacion_mutua}, incluyendo a las peticiones de tokenización
@@ -169,7 +169,7 @@ la sección \ref{sec:pci_dss}.
 
   % GT10.5
   \subrequerimiento[rq_pci:acceso_administrativo]
-  {Accesos administrativos}
+  {PCI}{Accesos administrativos}
   {
     Se debe utilizar \gls{gl:criptografia_fuerte} para todos los accesos
     administrativos que no se hagan desde consola.
@@ -178,7 +178,7 @@ la sección \ref{sec:pci_dss}.
 
 % GT11
 \requerimiento[rq_pci:token_a_token_prohibido]
-{Mapeos de \gls{gl:token} a \gls{gl:token} prohibidos}
+{PCI}{Mapeos de \gls{gl:token} a \gls{gl:token} prohibidos}
 {
   No se debe poder pasar de un primer \gls{gl:token} válido a un segundo,
   también válido; forzosamente debe existir un estado intermedio: del primer
@@ -188,7 +188,7 @@ la sección \ref{sec:pci_dss}.
 
 % GT12
 \requerimiento[rq_pci:vulnerabilidades_comunes]
-{Protección contra vulnerabilidades comunes}
+{PCI}{Protección contra vulnerabilidades comunes}
 {
   Se deben implementar medidas en contra de las vulnerabilidades de
   seguridad más comunes (\cite{dss_pa}, requerimiento 5.2). Algunas de estas
@@ -198,7 +198,7 @@ la sección \ref{sec:pci_dss}.
 
 % GT13
 \requerimiento[rq_pci:primitivas_usadas]
-{Primitivas criptográficas usadas}
+{PCI}{Primitivas criptográficas usadas}
 {
   Las primitivas criptográficas que se usen deben estar basadas en
   estándares nacionales (referentes a Estados Unidos) o internacionales (p. ej.
@@ -213,7 +213,7 @@ la sección \ref{sec:pci_dss}.
 
 % IT4A, RC4B, RN4B
 \requerimiento[rq_pci:manejo_de_llaves]
-{Sobre el manejo adecuado de llaves}
+{PCI}{Sobre el manejo adecuado de llaves}
 {
   En donde se usen llaves para la generación y protección de \gls{gl:token},
   se deben seguir buenas prácticas criptográficas para la administración de
@@ -222,7 +222,7 @@ la sección \ref{sec:pci_dss}.
 
   % IT4A-1, RC4B-1
   \subrequerimiento[rq_pci:ciclo_de_vida_llaves]
-  {Sobre el ciclo de vida}
+  {PCI}{Sobre el ciclo de vida}
   {
     La llave tokenizadora debe seguir la política de los ciclos de llaves
     descritos en el \acrshort{gl:iso}/\acrshort{gl:iec} 115681 (ver
@@ -231,7 +231,7 @@ la sección \ref{sec:pci_dss}.
 
   % IT4A-2, RC4B-2
   \subrequerimiento[rq_pci:periodo_llaves]
-  {Descripción del periodo criptográfico activo}
+  {PCI}{Descripción del periodo criptográfico activo}
   {
     La política sobre el tiempo de vida de la llave debe incluir una
     descripción sobre el periodo criptográfico activo de la llave
@@ -240,7 +240,7 @@ la sección \ref{sec:pci_dss}.
 
   % IT4A-3, RC4B-3
   \subrequerimiento[rq_pci:destruccion_de_llaves]
-  {Sobre la destrucción de las llaves}
+  {PCI}{Sobre la destrucción de las llaves}
   {
    	El proveedor debe incorporar una función que permita la destrucción
    	de sus llaves criptográficas sin tener que alterar o abrir el
@@ -249,7 +249,7 @@ la sección \ref{sec:pci_dss}.
 
   % RC1A-1
   \subrequerimiento[rq_pci:exportar_llaves_en_claro]
-  {Exportar llave en claro prohibido}
+  {PCI}{Exportar llave en claro prohibido}
   {
     Las llaves usadas para generar \glspl{gl:token} no se deben poder
     exportar en claro desde el programa.
@@ -258,7 +258,7 @@ la sección \ref{sec:pci_dss}.
   % RC1A-2
   % TODO: ¿Cómo funciona la entropía de una fuente generadora?
   \subrequerimiento[rq_pci:entropia_generacion_llaves]
-  {Entropía de generación de llaves}
+  {PCI}{Entropía de generación de llaves}
   {
     La fuente generadora de llaves debe tener, al menos, 128 bits de
     \gls{gl:entropia}.
@@ -266,7 +266,7 @@ la sección \ref{sec:pci_dss}.
 
   % RC1A-3
   \subrequerimiento[rq_pci:llaves_de_uso_unico]
-  {Llaves de uso único}
+  {PCI}{Llaves de uso único}
   {
     Las llaves criptográficas usadas para generar \glspl{gl:token} no
     deben ser usadas para ningún otro fin.

@@ -1,0 +1,35 @@
+%
+% Plantilla para definición de reglas de negocio.
+% Proyecto Lovelace.
+%
+
+% Contador
+\newcounter{contador_reglas_de_negocio}[chapter]
+
+% Comando para reglas de negocio
+% #1 -> Etiqueta (opcional)
+% #2 -> Prefijo para numeración.
+% #3 -> Título de la regla.
+% #4 -> Descripción.
+
+\newcommand{\reglaDeNegocio}[4]
+[rn:\formatearnumero{contador_reglas_de_negocio}]
+{
+  % Configuración
+  \refstepcounter{contador_reglas_de_negocio}
+  \setlength{\parskip}{0em}
+
+  % Código efectivo
+  \vspace{1.0em}
+  \noindent
+  \textbf{\hypertarget{#1}
+    {RN#2-\formatearnumero{contador_reglas_de_negocio} #3}.}
+  \par
+  \begin{hangparas}{2em}{0}
+    #4
+  \end{hangparas}
+
+  % Estado previo
+  \setlength{\parskip}{1.0em}
+}
+

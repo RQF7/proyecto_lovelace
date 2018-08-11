@@ -1,0 +1,28 @@
+%
+% Plantilla para definición de interfaces de usuario.
+% Proyecto Lovelace.
+%
+
+% Contador
+\newcounter{contador_de_interfaces}[chapter]
+
+% Comando para interfaces de usuario.
+% #1 -> Etiqueta (opcional)
+% #2 -> Prefijo para numeración.
+% #3 -> Título de la interfaz.
+% #4 -> URL de archivo.
+
+\newcommand{\interfazDeUsuario}[4]
+[iu:\formatearnumero{contador_de_interfaces}]
+{
+  % Configuración
+  \refstepcounter{contador_de_interfaces}
+
+  \begin{figure}
+    \begin{center}
+      \includegraphics[width=0.8\linewidth]{#4}\par
+      \hypertarget{#1}{UI#2-\formatearnumero{contador_de_interfaces} #3}
+    \end{center}
+  \end{figure}
+}
+

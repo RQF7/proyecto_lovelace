@@ -1,0 +1,35 @@
+%
+% Plantilla para definición de un mensaje.
+% Proyecto Lovelace.
+%
+
+% Contador
+\newcounter{contador_de_mensajes}[chapter]
+
+% Comando para reglas de negocio
+% #1 -> Etiqueta (opcional).
+% #2 -> Prefijo para numeración.
+% #3 -> Título de mensaje
+% #4 -> Contenido.
+
+\newcommand{\mensaje}[4]
+[msj:\formatearnumero{contador_de_mensajes}]
+{
+  % Configuración
+  \refstepcounter{contador_de_mensajes}
+  \setlength{\parskip}{0em}
+
+  % Código efectivo
+  \vspace{1.0em}
+  \noindent
+  \textbf{\hypertarget{#1}
+    {MSJ#2-\formatearnumero{contador_de_mensajes} #3}.}
+  \par
+  \begin{hangparas}{2em}{0}
+    #4
+  \end{hangparas}
+
+  % Estado previo
+  \setlength{\parskip}{1.0em}
+}
+
