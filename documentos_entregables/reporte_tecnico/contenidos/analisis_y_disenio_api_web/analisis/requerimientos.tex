@@ -6,10 +6,17 @@
 
 \subsection{Requerimientos}
 
+% Estos son los requerimientos que el analista «deduce» de su plática con el
+% cliente. Teóricamente antes de estos tendrían que ir lo de «alto nivel»,
+% en donde se exprese directamente las palabras del cliente, pero como eso
+% pasó en mi mente, o no pasó en absoluto, van directamente los de bajo
+% nivel.
+% Requerimientos de bajo nivel:
+
 \requerimiento[rq_api:actores]{API}
 {Sobre los actores del sistema}
 {
-  El programa debe contemplar las acciones de tres tipos de actores: un
+  La aplicación debe contemplar las acciones de tres tipos de actores: un
   \textit{visitante}, que representa a los posibles usuarios que visitan la
   página de promoción del sistema; un \textit{usuario}, que utiliza la interfaz
   web del servicio de tokenización; un \textit{administrador}, que representa a
@@ -19,8 +26,71 @@
   \subrequerimiento[rq_api:visitante]{API}
   {Sobre los visitantes}
   {
-    Los visitantes deben poder acceder solamente a dos páginas de la aplicación:
-    \hipervinculo{iu:bienvenida} y \hipervinculo{iu:documentacion}.
+    Los \textit{visitantes} deben poder acceder solamente al sitio público de la
+    aplicación: \hipervinculo{iu:bienvenida}, \hipervinculo{iu:documentacion},
+    \hipervinculo{iu:iniciar_sesion}, \hipervinculo{iu:registrarse}.
+  }
+
+  \subrequerimiento[rq_api:usuario]{API}
+  {Sobre los usuarios}
+  {
+    Los \textit{usuarios} deben poder acceder al sitio público de la aplicación
+    (\hipervinculo{rq_api:visitante}) y al sitio de administración de tokens:
+    \hipervinculo{iu:inicio_usuario}, \textit{}
+  }
+
+  \subrequerimiento[rq_api:administrador]{API}
+  {Sobre los administradores}
+  {
+
+  }
+
+  \subrequerimiento[rq_api:cambios_de_actores]{API}
+  {Flujos de actores en la aplicación}
+  {
+
   }
 }
 
+% Depende de rq_api:actores
+\requerimiento[rq_api:interfaces_de_usuario]{API}
+{Sobre las interfaces gráficas del sistema}
+{
+  La aplicación web debe contar con las interfaces especificadas en los
+  siguientes subrequerimientos.
+
+  \subrequerimiento[rq_api:sitio_publico]{API}
+  {Sitio público de aplicación}
+  {
+    Estas páginas deben ser accesibles para los tres actores definidos en
+    \hipervinculo{rq_api:actores}.
+
+    \subsubrequerimiento[rq_api:inicio_sitio_publico]{API}
+    {Inicio de sitio público}
+    {
+      Página que debe promocionar el servicio de tokenización. Debe de explicar
+      qué es la tokenización y qué es lo que hace el servicio ofrecido. Esta
+      interfaz se muestra en \hipervinculo{iu:bienvenida}.
+    }
+
+    \subsubrequerimiento[rq_api:documentacion]{API}
+    {Documentación}
+    {
+      Página que debe explicar como utilizar la \gls{gl:api} web del
+      servicio de tokenización. Esta interfaz se muestra en
+      \hipervinculo{iu:documentacion}.
+    }
+  }
+
+  \subrequerimiento[rq_api:administracion_de_tokens]{API}
+  {Sitio de administración de tokens}
+  {
+
+  }
+
+  \subrequerimiento[rq_api:administracion_de_usuarios]{API}
+  {Sitio de administración general}
+  {
+
+  }
+}
