@@ -2,20 +2,21 @@
 % Plantilla para definición de requerimientos.
 % Proyecto Lovelace.
 %
+% TODO: Los únicos comandos que deberían de recibir el prefijo son los
+% requerimientos. Los subrequerimientos y subsubrequerimientos deberían
+% tomar el prefijo del padre y del abuelo, respectivamente.
+%
 
-% Contadores de requerimientos
+% Contadores de requerimientos y variables auxiliares
 \newcounter{contador_requerimientos}[chapter]
 \newcounter{contador_subrequerimientos}[chapter]
+\newcounter{contador_subsubrequerimientos}[chapter]
 
 % Comando para requerimientos.
 % #1 -> Etiqueta (opcional).
 % #2 -> Prefijo para numeración.
 % #3 -> Título del requerimiento.
 % #4 -> Descripción.
-% TODO:
-%   - Guardar en variable temporal separación inicial entre párrafos.
-%   - Los tamaños de indentación deben tomar como base la identación de
-%     todo el documento.
 %
 % Para comandos con más de un parámetro:
 % https://texfaq.org/FAQ-twooptarg
@@ -33,6 +34,7 @@
   % Configuración
   \refstepcounter{contador_requerimientos}
   \setcounter{contador_subrequerimientos}{0}
+  \setlength{\separacionAnterior}{\parskip}
   \setlength{\parskip}{0em}
 
   % Código efectivo
@@ -46,7 +48,7 @@
   \end{hangparas}
 
   % Regresar a estado previo
-  \setlength{\parskip}{1.0em}
+  \setlength{\parskip}{\separacionAnterior}
 }
 
 % Comando para subrequerimientos.
@@ -62,6 +64,7 @@
   \arabic{contador_subrequerimientos}]
 {
   % Configuración
+  \setcounter{contador_subsubrequerimientos}{0}
   \refstepcounter{contador_subrequerimientos}
 
   % Código efectivo
@@ -75,3 +78,29 @@
   \end{hangparas}
 }
 
+% Comando para subsubrequerimientos.
+% #1 -> Etiqueta (opcional).
+% #2 -> Prefijo para numeración.
+% #3 -> Título del subsubrequerimiento.
+% #4 -> Descripción.
+% ATENCIÓN:  Los subsubrequerimientos siempre deben estar dentro de la
+% descripción de un subrequerimiento.
+
+\newcommand{\subsubrequerimiento}[4]
+[rq:\formatearnumero{contador_requerimientos}_%
+  \arabic{contador_subrequerimientos}\Alph{contador_subsubrequerimientos}]
+{
+  % Configuración
+  \refstepcounter{contador_subsubrequerimientos}
+
+  % Código efectivo
+  \vspace{1.0em}
+  \textbf{\hypertarget{#1}
+    {SUBSUBREQ#2-\formatearnumero{contador_requerimientos}%
+      /\arabic{contador_subrequerimientos}%
+      \Alph{contador_subsubrequerimientos} #3}.}
+  \par
+  \begin{hangparas}{6em}{0}
+    #4
+  \end{hangparas}
+}

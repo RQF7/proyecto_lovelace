@@ -19,6 +19,7 @@
   % Configuración
   \refstepcounter{contador_casos_de_uso}
   \setcounter{contador_trayectorias_alternativas}{0}
+  \setlength{\separacionAnterior}{\parskip}
   \setlength{\parskip}{0em}
 
   % Código efectivo
@@ -33,7 +34,7 @@
   \end{hangparas}
 
   % Estado previo
-  \setlength{\parskip}{1.0em}
+  \setlength{\parskip}{\separacionAnterior}
 }
 
 % Entorno para trayectorias principales
@@ -143,4 +144,3 @@
 {%
   \ref{\etiquetaLocal{#1}}%
 }
-

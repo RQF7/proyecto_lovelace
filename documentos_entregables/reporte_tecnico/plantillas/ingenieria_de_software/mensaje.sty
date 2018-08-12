@@ -17,6 +17,7 @@
 {
   % Configuración
   \refstepcounter{contador_de_mensajes}
+  \setlength{\separacionAnterior}{\parskip}
   \setlength{\parskip}{0em}
 
   % Código efectivo
@@ -30,6 +31,5 @@
   \end{hangparas}
 
   % Estado previo
-  \setlength{\parskip}{1.0em}
+  \setlength{\parskip}{\separacionAnterior}
 }
-
