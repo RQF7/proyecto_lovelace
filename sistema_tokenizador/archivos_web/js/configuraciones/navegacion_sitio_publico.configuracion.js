@@ -19,5 +19,7 @@ sistemaTokenizador.config(function($routeProvider, $locationProvider){
     templateUrl: 'estaticos/html/documentacion.html',
     controller: 'controladorDocumentacion'
   });
-  
+
+  $locationProvider.html5Mode(true);
+
 });

@@ -4,7 +4,7 @@
  * Proyecto Lovelace.
  */
 
-sistemaTokenizador.controller('controladorDocumentación', [
+sistemaTokenizador.controller('controladorDocumentacion', [
   '$scope',
   function (
     $scope
