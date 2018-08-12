@@ -17,13 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+from .general import funciones as general
 from .programa_tokenizador import funciones as programa_tokenizador
 
 urlpatterns = [
+  path('', general.inicio),
+  path('documentación', general.inicio),
   path('programa_tokenizador/tokenizar', programa_tokenizador.tokenizar),
   path('programa_tokenizador/detokenizar', programa_tokenizador.detokenizar),
-  path('ejecutar', programa_tokenizador.ejecutar),
-  path('', programa_tokenizador.hola_mundo)
+  path('ejecutar', programa_tokenizador.ejecutar)
 ]
 
 urlpatterns += staticfiles_urlpatterns()

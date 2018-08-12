@@ -43,25 +43,16 @@ module.exports = function (grunt)
         ],
         dest: cc + 'compilados/js/librerias.min.js'
       },
-      scripts_js: {
-        src: [
-          cc + 'js/sistema_tokenizador.aplicacion.js',
-          cc + 'js/*.servicio.js',
-          cc + 'js/*.configuracion.js',
-          cc + 'js/controladores/*.controlador.js',
-          cc + 'js/controladores/secundarios/*.controlador.js',
-          cc + 'js/componentes/*.componente.js',
-          cc + 'js/directivas/*.directiva.js'
-        ],
-        dest: cc + 'compilados/js/scripts.js'
-      },
       sitio_publico: {
         src: [
           cc + 'js/sistema_tokenizador.aplicacion.js',
-          cc + 'js/tema.configuracion.js',
-          cc + 'js/controladores/pagina_principal.controlador.js'
+          cc + 'js/configuraciones/tema.configuracion.js',
+          cc + 'js/configuraciones/navegacion_sitio_publico.configuracion.js',
+          cc + 'js/controladores/sitio_publico.controlador.js',
+          cc + 'js/controladores/inicio_sitio_publico.controlador.js',
+          cc + 'js/controladores/documentacion.controlador.js'
         ],
-        dest: cc + 'compilados/js/sitio_publico.js'
+        dest: cc + 'compilados/js/scripts_sitio_publico.js'
       }
     },
 
@@ -75,10 +66,8 @@ module.exports = function (grunt)
           sourceMap: true
         },
         files: {
-          'sistema_tokenizador/archivos_web/compilados/js/scripts.min.js':
-            [cc + 'compilados/js/scripts.js'],
-          'sistema_tokenizador/archivos_web/compilados/js/sitio_publico.min.js':
-            [cc + 'compilados/js/sitio_publico.js']
+          'sistema_tokenizador/archivos_web/compilados/js/scripts_sitio_publico.min.js':
+            [cc + 'compilados/js/scripts_sitio_publico.js']
         }
       }
     },
@@ -102,8 +91,8 @@ module.exports = function (grunt)
             dest: cc + 'compilados/imagenes/icono.png'
           },
           {
-            src: [cc + 'sass/generales.sass'],
-            dest: cc + 'compilados/css/sistema_tokenizador/archivos_web/sass/generales.sass'
+            src: [cc + 'sass/sitio_publico.sass'],
+            dest: cc + 'compilados/css/sistema_tokenizador/archivos_web/sass/sitio_publico.sass'
           },
           {
             expand: true,
@@ -167,7 +156,6 @@ module.exports = function (grunt)
           cc + 'js/**/**/*.js'
         ],
         tasks: [
-          "concat:scripts_js",
           "concat:sitio_publico",
           "uglify"
         ]
@@ -202,8 +190,8 @@ module.exports = function (grunt)
       dist: {
         files:
         {
-          'sistema_tokenizador/archivos_web/compilados/css/estilos.css':
-            cc + 'sass/generales.sass'
+          'sistema_tokenizador/archivos_web/compilados/css/estilos_sitio_publico.css':
+            cc + 'sass/sitio_publico.sass'
         }
       }
     }

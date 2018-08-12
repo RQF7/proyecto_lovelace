@@ -12,6 +12,7 @@ import os
 # Configuraciones propias #####################################################
 
 EJECUTABLE_TOKENIZADOR = 'implementaciones/binarios/lovelace'
+DIRECTORIO_BASE = ''
 
 # Configuraciones generales ###################################################
 
@@ -19,7 +20,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'pdm$49m@g!kedc&f!t+tem!hex-t4p^3+id(4v354lmog3su0c'
 DEBUG = True
 ALLOWED_HOSTS = [
-  "rqf7",
   "127.0.0.1"
 ]
 
@@ -27,6 +27,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
   'sistema_tokenizador.programa_tokenizador.configuracion.Configuracion',
+  'sistema_tokenizador.general.configuracion.Configuracion',
   'django.contrib.admin',
   'django.contrib.auth',
   'django.contrib.contenttypes',
@@ -39,7 +40,10 @@ MIDDLEWARE = [
   'django.middleware.security.SecurityMiddleware',
   'django.contrib.sessions.middleware.SessionMiddleware',
   'django.middleware.common.CommonMiddleware',
-  'django.middleware.csrf.CsrfViewMiddleware',
+#  Protección contra ataques CSRF: un sitio pequeño y más de prueba que otra
+#  cosa no lo necesita... lo que tendría sentido es que nosotros hicieramos los
+#  ataques.
+#  'django.middleware.csrf.CsrfViewMiddleware',
   'django.contrib.auth.middleware.AuthenticationMiddleware',
   'django.contrib.messages.middleware.MessageMiddleware',
   'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -122,7 +126,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'archivos_estaticos')
 
 STATIC_URL = '/estaticos/'
 STATICFILES_DIRS = [
-  os.path.join(BASE_DIR, 'sistema_tokenizador/archivos_cliente/compilados')
+  os.path.join(BASE_DIR, 'sistema_tokenizador/archivos_web/compilados')
 ]
 
 # En teoría, para desactivar la caché en esta versión de desarrollo

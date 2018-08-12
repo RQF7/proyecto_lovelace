@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+  Html principal de sitio público,
+  Aplicación web de sistema tokenizador.
+  Proyecto Lovelace.
+-->
+<html
+  ng-app="sistemaTokenizador"
+  ng-controller="controladorSitioPublico as ctrl"
+  lang="es">
+  <head>
+    <meta charset="utf-8"/>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"/>
+    <link
+      rel="icon"
+      href="estaticos/imagenes/icono.png">
+    <title>Sistema tokenizador</title>
+    <link
+      rel="stylesheet"
+      href="estaticos/css/librerias.min.css"/>
+    <link
+      rel="stylesheet"
+      href="estaticos/css/estilos_sitio_publico.css"/>
+    <script src="estaticos/js/librerias.min.js"></script>
+    <script src="estaticos/js/scripts_sitio_publico.min.js"></script>
+    <base href="/">
+  </head>
+  <body
+    layout="column"
+    ng-cloak>
+    <h1>¡Hola, mundo!</h1>
+    <md-button flex="none" href="/">
+      Inicio
+    </md-button>
+    <md-button flex="none" href="/documentación">
+      Documentación
+    </md-button>
+    <div
+      id="contenidos-internos"
+      flex="none"
+      ng-view
+      layout="column">
+    </div>
+  </body>
+</html>
