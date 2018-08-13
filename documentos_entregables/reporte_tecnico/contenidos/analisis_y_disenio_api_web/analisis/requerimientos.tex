@@ -48,9 +48,31 @@
   \subrequerimiento[rq_api:cambios_de_actores]{API}
   {Flujos de actores en la aplicación}
   {
+    En la figura \ref{estados_actores} se muestra un diagrama de estados con
+    la relación de los actores con la aplicación. Las transiciones representan
+    los casos de uso que hacen cambiar al tipo de actor.
 
+    Al abrir la aplicación toda persona es un \textit{visitante}. Los
+    \textit{usuarios} y los \textit{administradores} necesitan iniciar sesión
+    para ser identificados como tal por el sistema. Un \textit{visitante} puede
+    pasar a ser actor mediante el caso de uso \hipervinculo{cu:registrarse}.
+
+    Este requerimiento está relacionado con las reestricciones impuestas por los
+    requerimientos \hipervinculo{rq_api:registro_de_actores} y
+    \hipervinculo{rq_api:identificacion_de_actores}.
   }
 }
+
+% TODO:
+% Poner numeración a los casos de uso de las transiciones.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.8\linewidth]{diagramas/flujo_de_actores.png}
+    \caption{Diagrama de estados de actores.}
+    \label{estados_actores}
+  \end{center}
+\end{figure}
 
 % Depende de rq_api:actores
 \requerimiento[rq_api:interfaces_de_usuario]{API}
@@ -93,4 +115,22 @@
   {
 
   }
+}
+
+\requerimiento[rq_api:identificacion_de_actores]{API}
+{Sobre la identificación de los actores}
+{
+  Para ser vistos como usuarios o administradores, los actores deben
+  pasar por un proceso de identificación. La identificación es mediante
+  un nombre de usuario (\hipervinculo{rn:nombres_de_usuario}) y una
+  contraseña {\hipervinculo{rn:formato_de_contrasenias}}.
+}
+
+\requerimiento[rq_api:registro_de_actores]{API}
+{Sobre el registro de usuarios y administradores}
+{
+  El conjunto de usuarios debe poder crecer desde la aplicación web, esto es,
+  se deben poder registrar nuevos usuarios. El conjunto de administradores es
+  fijo desde el inicio, esto es, no se pueden registrar más administradores
+  desde la aplicación web.
 }
