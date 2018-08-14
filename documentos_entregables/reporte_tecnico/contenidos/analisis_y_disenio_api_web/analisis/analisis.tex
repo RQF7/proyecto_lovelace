@@ -2,13 +2,29 @@
 % Sección de análisis, capítulo de análisis y diseño de api web.
 % Proyecto Lovelace.
 %
+% Sobre las referencias entre secciones:
+% Aunque en un párrafo de aquí abajo doy una explicación sobre el supuesto
+% paralelismo entre algunas secciones, esto no aplica 100% a la dependencia que
+% hay entre estas. Las reglas de negocio son la entidad de más alto nivel,
+% existen por sí solas; luego van los requerimientos y hasta el último los
+% casos de uso. En otras palabras, en las reglas de negocio no debe haber
+% referencias ni a requerimientos ni a casos de uso; en los requerimientos
+% solo puede haber referencias a reglas de negocio, pero no a casos de uso;
+% en los casos de uso puede haber referencia a requerimientos y reglas de
+% negocio. Esto hablando de los casos más generales: tal vez haya por ahí
+% algunas excepciones.
+%
 
 \section{Análisis}
 
 A lo largo de esta sección se utilizan de forma equivalente los términos
 \textit{sistema}, \textit{aplicación}, \textit{aplicación web} y
 \textit{programa}. Todos hacen referencia al segundo prototipo del
-proyecto.
+proyecto. Los términos \textit{pantalla}, \textit{interfaz},
+\textit{interfaz gráfica}, \textit{página}, \textit{ventana} y
+\textit{formulario} (los dos últimos solamente en donde aplique la
+denominación) son utilizados por igual para referirse al estado gráfico
+del navegador en un momento predeterminado.
 
 El desarrollo (y por consiguiente, la lectura) de las secciones de reglas de
 negocio, requerimientos, casos de uso, interfaces de usuario y mensajes no fue

@@ -1,0 +1,79 @@
+%
+% Caso de uso para iniciar sesión,
+% Capítulo de análisis y diseño de api web,
+% Proyecto Lovelace.
+%
+
+\casoDeUso[cu:iniciar_sesion]{API}
+{Iniciar sesión}
+{
+  Caso que permite que un visitante se identifique ante el sistema. El
+  visitante introduce su correo electrónico y contraseña y, dependiendo de
+  si es un usuario o un administrador, es redirigido a la página de
+  inicio correspondiente. Esto en conformidad con lo dispuesto en
+  \hipervinculo{rq_api:identificacion_de_actores} y
+  \hipervinculo{rq_api:cambios_de_actores}.
+
+  \begin{trayectoriaPrincipal}
+
+    \item[origen] El visitante presiona el botón \textit{iniciar sesión}, en
+      cualquiera de las dos pantallas principales del sitio público
+      (\hipervinculo{iu:inicio_sitio_publico} o
+      \hipervinculo{iu:documentacion}).
+
+    \item[interfaz] El sistema muestra la pantalla
+      \hipervinculo{iu:iniciar_sesion} con el botón \textit{iniciar sesión}
+      deshabilitado.
+
+    \item El visitante introduce su correo electrónico y contraseña
+      [\hipervinculoLocal{ta:cancelar}].
+
+    \item El sistema habilita el botón \textit{iniciar sesión}.
+
+    \item El visitante presiona el botón \textit{iniciar sesión}
+      [\hipervinculoLocal{ta:cancelar}].
+
+    \item El sistema valida las credenciales del usuario
+      [\hipervinculoLocal{ta:credenciales_incorrectas}].
+
+    \item El sistema registra al usuario en las variables de sesión.
+
+    \item El sistema identifica el tipo de actor que está iniciando
+      sesión [\hipervinculoLocal{ta:administrador}].
+
+    \item El sistema muestra la pantalla \hipervinculo{iu:inicio_usuario}.
+
+  \end{trayectoriaPrincipal}
+
+  \begin{trayectoriaAlternativa}[ta:cancelar]
+    {El visitante cancela la operación}
+
+    \item El visitante presiona el botón \textit{cancelar}.
+
+    \item El sistema muestra la interfaz de origen del paso
+      \referenciaLocal{origen} de la trayectoria principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:credenciales_incorrectas]
+    {Credenciales incorrectas}
+
+    \item El correo electrónico no se encuentra registrado en el sistema o la
+      contraseña dada no corresponde al correo electrónico dado.
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:credenciales_incorrectas}.
+
+    \item Se regresa al paso \referenciaLocal{interfaz} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:administrador]
+    {El tipo de actor es un administrador}
+
+    \item El sistema muestra la pantalla
+      \hipervinculo{iu:inicio_administrador}.
+
+  \end{trayectoriaAlternativa}
+}

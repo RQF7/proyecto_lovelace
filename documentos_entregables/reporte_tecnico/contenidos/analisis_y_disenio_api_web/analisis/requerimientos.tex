@@ -23,28 +23,6 @@
   la entidad (empresa u organización) que ofrece el servicio de tokenización
   (ver regla de negocio \hipervinculo{rn:servicio_tokenizacion}).
 
-  \subrequerimiento[rq_api:visitante]{API}
-  {Sobre los visitantes}
-  {
-    Los \textit{visitantes} deben poder acceder solamente al sitio público de la
-    aplicación: \hipervinculo{iu:bienvenida}, \hipervinculo{iu:documentacion},
-    \hipervinculo{iu:iniciar_sesion}, \hipervinculo{iu:registrarse}.
-  }
-
-  \subrequerimiento[rq_api:usuario]{API}
-  {Sobre los usuarios}
-  {
-    Los \textit{usuarios} deben poder acceder al sitio público de la aplicación
-    (\hipervinculo{rq_api:visitante}) y al sitio de administración de tokens:
-    \hipervinculo{iu:inicio_usuario}, \textit{}
-  }
-
-  \subrequerimiento[rq_api:administrador]{API}
-  {Sobre los administradores}
-  {
-
-  }
-
   \subrequerimiento[rq_api:cambios_de_actores]{API}
   {Flujos de actores en la aplicación}
   {
@@ -55,7 +33,7 @@
     Al abrir la aplicación toda persona es un \textit{visitante}. Los
     \textit{usuarios} y los \textit{administradores} necesitan iniciar sesión
     para ser identificados como tal por el sistema. Un \textit{visitante} puede
-    pasar a ser actor mediante el caso de uso \hipervinculo{cu:registrarse}.
+    pasar a ser actor al registrarse en el sistema.
 
     Este requerimiento está relacionado con las reestricciones impuestas por los
     requerimientos \hipervinculo{rq_api:registro_de_actores} y
@@ -65,6 +43,8 @@
 
 % TODO:
 % Poner numeración a los casos de uso de las transiciones.
+% Cambiar nombre de caso de uso de registro de usarios.
+% Arreglar etiqueta de estado «por identificar».
 
 \begin{figure}
   \begin{center}
@@ -87,33 +67,65 @@
     Estas páginas deben ser accesibles para los tres actores definidos en
     \hipervinculo{rq_api:actores}.
 
-    \subsubrequerimiento[rq_api:inicio_sitio_publico]{API}
-    {Inicio de sitio público}
+    \subsubrequerimiento[rq_api:interfaz_inicio_sitio_publico]{API}
+    {Interfaz de inicio de sitio público}
     {
       Página que debe promocionar el servicio de tokenización. Debe de explicar
       qué es la tokenización y qué es lo que hace el servicio ofrecido. Esta
-      interfaz se muestra en \hipervinculo{iu:bienvenida}.
+      interfaz se muestra en \hipervinculo{iu:inicio_sitio_publico}.
     }
 
-    \subsubrequerimiento[rq_api:documentacion]{API}
-    {Documentación}
+    \subsubrequerimiento[rq_api:interfaz_documentacion]{API}
+    {Interfaz de documentación}
     {
-      Página que debe explicar como utilizar la \gls{gl:api} web del
+      Página que debe explicar cómo utilizar la \gls{gl:api} web del
       servicio de tokenización. Esta interfaz se muestra en
       \hipervinculo{iu:documentacion}.
+    }
+
+    \subsubrequerimiento[rq_api:interfaz_inicio_de_sesion]{API}
+    {Interfaz de inicio de sesión}
+    {
+      Formulario para que los administradores o usuarios inicien sesión en el
+      sistema. Esta interfaz se muestra en \hipervinculo{iu:iniciar_sesion}.
+    }
+
+    \subsubrequerimiento[rq_api:interfaz_registro_de_usuarios]{API}
+    {Interfaz de registro de usuarios}
+    {
+       Formulario que permite que un visitante se registre como usuario.
+       Esta interfaz se muestra en \hipervinculo{iu:registrar_usuario}.
     }
   }
 
   \subrequerimiento[rq_api:administracion_de_tokens]{API}
   {Sitio de administración de tokens}
   {
+    Estas páginas deben ser accesibles solamente a los usuarios
+    (\hipervinculo{rq_api:actores}).
 
+    % TODO: ¿Qué hace esta interfaz?
+    \subsubrequerimiento[rq_api:interfaz_inicio_usuario]{API}
+    {Interfaz de inicio de usuarios}
+    {
+       Página de bienvenida de un actor tipo usuario. Esta interfaz se
+       muestra en \hipervinculo{iu:inicio_usuario}.
+    }
   }
 
   \subrequerimiento[rq_api:administracion_de_usuarios]{API}
   {Sitio de administración general}
   {
+    Estas páginas deben ser accesibles solamente a los administradores
+    (\hipervinculo{rq_api:actores}).
 
+    % TODO: ¿Qué hace esta interfaz?
+    \subsubrequerimiento[rq_api:interfaz_inicio_administrador]{API}
+    {Interfaz de inicio de administradores}
+    {
+      Página de bienvenida de un actor tipo administrador. Esta interfaz se
+      muestra en \hipervinculo{iu:inicio_administrador}.
+    }
   }
 }
 
@@ -122,8 +134,8 @@
 {
   Para ser vistos como usuarios o administradores, los actores deben
   pasar por un proceso de identificación. La identificación es mediante
-  un nombre de usuario (\hipervinculo{rn:nombres_de_usuario}) y una
-  contraseña {\hipervinculo{rn:formato_de_contrasenias}}.
+  un correo electrónico (\hipervinculo{rn:correo_electronico}) y una
+  contraseña (\hipervinculo{rn:formato_de_contrasenias}).
 }
 
 \requerimiento[rq_api:registro_de_actores]{API}

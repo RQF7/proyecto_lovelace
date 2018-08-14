@@ -10,40 +10,6 @@
 
 \subsection{Casos de uso}
 
-\casoDeUso[cu:prueba]       % Etiqueta
-{API}                       % Prefijo
-{Caso de uso de prueba}     % Título
-{
-  Esta es la descripción del caso de uso. Aquí va el objetivo y el resumen del
-  caso. Generalmente será un párrafo más bien largo. Generalmente será un
-  párrafo más bien largo. Generalmente será un párrafo más bien largo.
-  Generalmente será un párrafo más bien largo. Generalmente será un párrafo más
-  bien largo. Generalmente será un párrafo más bien largo. Para satisfacer parte
-  del requerimiento \hipervinculo{rqapi:prueba} y de a cuerdo a la regla de
-  negocio \hipervinculo{rn:prueba}.
-
-  \begin{trayectoriaPrincipal}
-    \item El cliente hace tal.
-    \item El sistema hace tal [\hipervinculoLocal{ta:errorEnTal}].
-    \item[pasoDeRetorno] El cliente hace tal.
-    \item Muestra la interfaz \hipervinculo{iu:prueba}.
-  \end{trayectoriaPrincipal}
-
-  \begin{trayectoriaAlternativa}[ta:errorEnTal]  % Etiqueta
-    {El dato ingresado está mal}                 % Título
-    \item El cliente hace tal.
-    \item El sistema hace tal.
-    \item El cliente hace tal.
-    \item Regresa al paso \referenciaLocal{pasoDeRetorno} de la trayectoria
-      principal.
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:errorEnTalDOS]
-    {Error en servidor}
-    \item El cliente hace tal.
-    \item El sistema muestra el mensaje \hipervinculo{msj:prueba}.
-    \item El cliente hace tal.
-    \item El sistema hace tal.
-  \end{trayectoriaAlternativa}
-}
-
+\subimport{/}{iniciar_sesion.tex}
+\subimport{/}{cerrar_sesion.tex}
+\subimport{/}{registrar_usuario.tex}

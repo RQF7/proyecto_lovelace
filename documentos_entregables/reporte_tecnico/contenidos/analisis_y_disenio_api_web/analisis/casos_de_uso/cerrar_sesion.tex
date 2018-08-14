@@ -1,0 +1,29 @@
+%
+% Caso de uso para cerrar sesión,
+% Capítulo de análisis y diseño de api web,
+% Proyecto Lovelace.
+%
+
+\casoDeUso[cu:cerrar_sesion]{API}
+{Cerrar sesión}
+{
+  Permite cerrar la sesión de un administrador o de un usuario. El actor
+  presiona el botón correspondiente en cualquiera de las interfaces en
+  la que se encuentre y el sistema elimina el registro correspondiente
+  en la sesión. Esto en conformidad con lo dispuesto en
+  \hipervinculo{rq_api:identificacion_de_actores} y
+  \hipervinculo{rq_api:cambios_de_actores}.
+
+  \begin{trayectoriaPrincipal}
+
+    \item El usuario o administrador presiona el botón \textit{cerrar sesión}
+      en cualquiera de las interfaces en la que se encuentre.
+
+    \item El sistema elimina el registro correspondiente en las variables
+      de sesión.
+
+    \item El sistema muestra la pantalla
+      \hipervinculo{iu:inicio_sitio_publico}.
+
+  \end{trayectoriaPrincipal}
+}
