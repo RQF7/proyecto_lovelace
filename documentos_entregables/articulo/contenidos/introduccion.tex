@@ -14,8 +14,8 @@ en 2001 se tuvieron pérdidas de 1.7 miles de millones de dólares y para 2002
 aumentaron a 2.1. Como una medida de protección, las principales compañías de
 tarjetas de crédito publicaron un estándar obligatorio para todos aquellos que
 procesaran más de 20 000 transacciones anuales: el PCI DSS (en inglés,
-\textit{Payment Card Industry Data Security Standard} \cite{pci_dss}). Cuenta
-con una gran cantidad de requerimientos \cite{uk_association}
+\textit{Payment Card Industry Data Security Standard} \cite{pci_dss}). Este
+estándar cuenta con una gran cantidad de requerimientos \cite{uk_association}
 \cite{search_security}, por lo que, para negocios medianos y pequeños, resulta
 muy difícil obtener un resultado positivo. A pesar de la publicación del
 estándar en 2004, han seguido existiendo grandes filtraciones de datos
@@ -25,37 +25,29 @@ estándar en 2004, han seguido existiendo grandes filtraciones de datos
 % Introducción a los sistemas tokenizadores
 % ¿Qué es la tokenización y cómo se usa normalmente (arquitectura).
 
-Es en este contexto en el que surge el enfoque de la tokenización. Hasta antes
-de este momento, la idea era proteger la información sensible en donde quiera
-que se encontrase. Si los números de tarjetas de los usuarios se encontraban
-dispersos en diversas partes de un sistema, había que proteger todas esas partes.
-La tokenización consiste en concentrar la información sensible en un solo lugar
-para hacer la tarea de protección más sencilla. Al momento de ingreso de un
-nuevo valor sensible, por ejemplo, la información bancaria de un usuario, se
-genera un token ligado a esa información: el token se usa en todo el sistema y
-la información sensible se protege en un solo lugar. Un posible adversario con
-acceso a los tokens no debe poder obtener la información sensible a partir de
-estos.
+Es en este contexto en el que surge la alternativa de la tokenización. Hasta
+antes de este momento, la idea era proteger la información sensible en donde
+quiera que se encontrase. Si los números de tarjetas de los usuarios se
+encontraban dispersos en diversas partes de un sistema, había que proteger todas
+esas partes. La tokenización consiste en concentrar la información sensible en
+un solo lugar para hacer la tarea de protección más sencilla. Al momento de
+ingreso de un nuevo valor sensible, por ejemplo, la información bancaria de un
+usuario, se genera un token ligado a esa información: el token se usa en todo el
+sistema y la información sensible se protege en un solo lugar. Un posible
+adversario con acceso a los tokens no debe poder obtener la información sensible
+a partir de estos.
 
 Una de las ventajas de la tokenización es que puede verse como un sistema
 autónomo, independiente del sistema principal. De esta manera se establece una
 separación de responsabilidades: el sistema principal se ocupa de la operación
 del negocio (por ejemplo, una tienda en línea) y el sistema tokenizador se
 dedica a la protección de la información sensible. Hoy en día varias compañías
-ofrecen serivicios de tokenización que permiten que los comerciantes se libren
-casi por completo de cumplir con el PCI DSS. En la figura
+ofrecen servicios de tokenización que permiten que los comerciantes se libren
+casi por completo de cumplir con el PCI DSS. En la Figura
 \ref{figura:arquitectura_tokenizacion} se muestra una distribución bastante
 común para un comercio en línea: el sistema tokenizador guarda la información
 sensible en su base de datos y se encarga de realizar las transacciones
 bancarias.
-
-\begin{figure*}
-  \centering
-  \includegraphics[width=0.8\linewidth]
-    {algoritmos_tokenizadores/diagramas/sistema_tokenizador.png}
-  \caption{Arquitectura típica de un sistema tokenizador.}
-  \label{figura:arquitectura_tokenizacion}
-\end{figure*}
 
 % Muestra del problema: ejemplos de discursos publicitarios comunes.
 
@@ -79,13 +71,22 @@ los propios métodos.
 Como se verá por la exposición de algunos métodos tokenizadores, la tokenización
 es una aplicación de la criptografía y, como tal, debe ser analizada con la
 misma formalidad que las demás herramientas criptográficas. Por ejemplo, uno de
-los errores más comunes entre las empresas tokenizadoras es considerar a la
-generación de números aleatorios como fuera del campo de la criptografía.
+los errores más comunes entre las empresas tokenizadoras es considerar que la generación de números aleatorios no utiliza algoritmos criptográficos.
 
 % Estructura del artículo.
 
-En la sección dos de este trabajo se tocan algunos temas preliminares necesarios
-para presentar, en la sección tres, algunos de los métodos de tokenización. En la
-sección cuatro se presentan los resultados de las comparaciones de desempeño
-realizadas y se concluye con una discusión acerca de las ventajas y desventajas
-de cada método.
+En la Sección \ref{sec:preliminares} de este trabajo se tocan algunos temas
+preliminares necesarios para presentar, en la Sección \ref{sec:algoritmos},
+algunos de los métodos de tokenización. En la Sección \ref{sec:conclusiones} se
+presentan los resultados de las comparaciones de desempeño realizadas y se
+concluye con una discusión acerca de las ventajas y desventajas de cada método.
+
+% TODO: ¿pasarlo a tikz?
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]
+    {algoritmos_tokenizadores/diagramas/sistema_tokenizador.png}
+  \caption{Arquitectura típica de un sistema tokenizador.}
+  \label{figura:arquitectura_tokenizacion}
+\end{figure}

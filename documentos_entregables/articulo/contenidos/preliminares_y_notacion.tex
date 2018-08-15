@@ -5,6 +5,7 @@
 %
 
 \section{Preliminares}
+\label{sec:preliminares}
 
 % TODO: ¿Qué más va en los preliminares? Candidatos:
 % AES
@@ -15,13 +16,15 @@
 
 % TODO: Revisar todas las fórmulas y pseudocódigos y poner las cuestiones
 % relacionadas de notación en este párrafo.
+% TODO: quitar notaciones sobrantes después de filtro de algoritmos
+% tokenizadores.
 
 Se denotarán a todas las cadenas de bits de longitud $ n $ como $ \{ 0, 1 \}^n $.
 Para cadenas $ x $ y $ y $ de símbolos sobre alfabetos arbitrarios, con
 $ | x | $ se denotará la longitud de la cadena y con $ x \ || \ y $ la
 concatenación de ambas cadenas. El operador $ \oplus $ simboliza la combinación
-de los operandos, ya sea mediante sumas sin acarreo (equibalente del operador
-\texttt{xor} en cadenas binarias) o mediante suma global modular.
+de los operandos, ya sea mediante sumas sin acarreo (equivalente del operador
+\texttt{xor} en cadenas binarias) o mediante sumas modulares.
 
 \subsection{Primitivas criptográficas}
 
@@ -53,18 +56,18 @@ bloque \cite{menezes}.
 % Sí, debe de ir en cursivas, o cambiar por <<ajuste>>.
 
 Un cifrado que preserva el formato (en inglés \textit{Format-preserving
-Encryption}, FPE) puede ser visto como un cifrado simétrico en donde el mensaje
-en claro y el mensaje cifrado mantienen un formato en común. Formalmente, de
-acuerdo a lo definido en \cite{DBLP:conf/sacrypt/BellareRRS09}, se trata de una
-función $ E: \mathcal{K} \times \mathcal{N} \times \mathcal{T} \times
-\mathcal{X} \rightarrow \mathcal{X} $, en donde los conjuntos $ \mathcal{K} $, $
-\mathcal{N} $, $ \mathcal{T} $, $ \mathcal{X} $ corresponden al espacio de
-llaves, espacio de formatos, espacio de \textit{tweaks} y el dominio,
-respectivamente. El proceso de cifrado de un elemento del dominio con respecto a
-una llave $ K $, un formato $ N $ y un \textit{tweak} $ T $ se escribe como  $
-E_K^{N,T}(X) $. El proceso inverso es también una función $ D: \mathcal{K}
-\times \mathcal{N} \times \mathcal{T} \times \mathcal{X} \rightarrow \mathcal{X}
-$, en donde $ D_K^{N,T}\big( E_K^{N,T}(X) \big) = X $.
+Encryption}, FPE) es un cifrado simétrico en donde el mensaje en claro y el
+mensaje cifrado mantienen un formato en común. Formalmente, de acuerdo a lo
+definido en \cite{DBLP:conf/sacrypt/BellareRRS09}, se trata de una función $ E:
+\mathcal{K} \times \mathcal{N} \times \mathcal{T} \times \mathcal{X} \rightarrow
+\mathcal{X} $, en donde los conjuntos $ \mathcal{K} $, $ \mathcal{N} $, $
+\mathcal{T} $, $ \mathcal{X} $ corresponden al espacio de llaves, espacio de
+formatos, espacio de \textit{tweaks} y el dominio, respectivamente. El proceso
+de cifrado de un elemento del dominio con respecto a una llave $ K $, un formato
+$ N $ y un \textit{tweak} $ T $ se escribe como  $ E_K^{N,T}(X) $. El proceso
+inverso es también una función $ D: \mathcal{K} \times \mathcal{N} \times
+\mathcal{T} \times \mathcal{X} \rightarrow \mathcal{X} $, en donde $
+D_K^{N,T}\big( E_K^{N,T}(X) \big) = X $.
 
 % ¿Hacer aquí aclaración sobre la diferencia en los dígitos verificadores
 % en los espacios de orígen y destino?

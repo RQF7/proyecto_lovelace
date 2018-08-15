@@ -6,6 +6,7 @@
 %
 
 \section{Resultados y conclusiones}
+\label{sec:conclusiones}
 
 En la tabla \ref{tabla:tiempos_tokenizacion} y la figura
 \ref{figura:tiempos_unitarios} se muestran los resultados en tiempo de
@@ -65,3 +66,32 @@ tokens solamente, sin tomar en cuenta tiempos de acceso a base de datos.
   \caption{Comparaciones de tiempos.}
   \label{fig_sim}
 \end{figure}
+
+
+% TODO: mejorar crítica a segunda categoría.
+
+%La denominación \textit{no criptográficos} resulta totalmente confusa, pues en
+%realidad todos los métodos conocidos que caen en las categorías de arriba ocupan
+%primitivas criptográficas. La segunda categoría (los irreversibles) carece de
+%utilidad para aplicaciones que procesan pagos con tarjetas de crédito, pues la
+%habilidad de regresar al número de tarjeta a partir de su token es uno de los
+%requerimientos principales para los sistemas tokenizadores. Por lo anterior, en
+%este trabajo se propone una clasificación distinta:
+%
+%\begin{itemize}
+%  \item Métodos criptográficos. Todos aquellos que ocupan herramientas
+%    critográficas.
+%    \begin{itemize}
+%      \item Reversibles. Ocupan un esquema de cifrado simétrico: el número
+%        de tarjeta y una llave entran al mecanismo de tokenización para obtener
+%        un token; el token y la misma llave entran al mecanismo de
+%        detokenización para obtener el número de tarjeta original.
+%      \item Irreversibles. Ocupan herramientas criptográficas para generar el
+%        token de un número de tarjeta. Ocupan herraminetas externas, como una
+%        base de datos, para guardar las relaciones entre tokens y números de
+%        tarjetas.
+%    \end{itemize}
+%  \item Métodos no criptográficos. Aquellos posibles métodos que no ocupen
+%    herramientas relacionadas con la criptografía; por ejemplo, un generador de
+%    números realmente aleatorio (TRNG, \textit{True Random Number Generator}).
+%\end{itemize}
