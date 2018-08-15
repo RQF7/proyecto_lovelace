@@ -10,6 +10,6 @@ sistemaTokenizador.controller('controladorDocumentacion', [
     $scope
   )
   {
-    console.log('Controlador de documentación')
+    $scope.cambiarTitulo("Documentación", 2);
   }
 ]);

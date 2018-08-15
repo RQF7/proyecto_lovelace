@@ -15,7 +15,7 @@
   (y que así vaya con el estilo del reporte técnico).
 """
 
-import sys, os
+import sys, os, time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from subprocess import run
@@ -43,23 +43,27 @@ if __name__ == '__main__':
 
   # 1280x800
   navegador.set_window_size(1280, 800)
+  time.sleep(1)
   navegador.save_screenshot(partes[0] + '_1280x800.' + partes[1])
   run(['convert', archivoTemporal, '-colorspace', 'Gray', archivoDestino])
 
   # 960x900
   navegador.set_window_size(960, 900)
+  time.sleep(1)
   navegador.save_screenshot(archivoTemporal)
   run(['convert', archivoTemporal, '-colorspace', 'Gray', \
     partes[0] + '_960x900.' + partes[1]])
 
   # 600x960
   navegador.set_window_size(600, 900)
+  time.sleep(1)
   navegador.save_screenshot(archivoTemporal)
   run(['convert', archivoTemporal, '-colorspace', 'Gray', \
     partes[0] + '_600x900.' + partes[1]])
 
   # 480x853
   navegador.set_window_size(480, 800)
+  time.sleep(1)
   navegador.save_screenshot(archivoTemporal)
   run(['convert', archivoTemporal, '-colorspace', 'Gray', \
     partes[0] + '_480x800.' + partes[1]])

@@ -10,14 +10,14 @@ sistemaTokenizador.config(function($routeProvider, $locationProvider){
 
   $routeProvider.when('/',
   {
-    templateUrl: 'estaticos/html/sitio_publico.html',
-    controller: 'controladorSitioPublico'
+    templateUrl: 'estaticos/html/inicio.html',
+    controller: 'controladorInicio'
   });
 
   $routeProvider.when('/documentación',
   {
-    templateUrl: 'estaticos/html/sitio_publico.html',
-    controller: 'controladorSitioPublico'
+    templateUrl: 'estaticos/html/documentacion.html',
+    controller: 'controladorDocumentacion'
   });
 
   $locationProvider.html5Mode(true);

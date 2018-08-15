@@ -48,8 +48,7 @@ module.exports = function (grunt) {
           cc + 'js/configuraciones/tema.configuracion.js',
           cc + 'js/configuraciones/navegacion.configuracion.js',
           cc + 'js/controladores/general.controlador.js',
-          cc + 'js/controladores/sitio_publico.controlador.js',
-          cc + 'js/controladores/inicio_sitio_publico.controlador.js',
+          cc + 'js/controladores/inicio.controlador.js',
           cc + 'js/controladores/documentacion.controlador.js'
         ],
         dest: cc + 'compilados/js/scripts.js'
