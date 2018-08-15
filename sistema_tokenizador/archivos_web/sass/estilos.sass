@@ -48,6 +48,12 @@ md-input-container
 .md-datepicker-input
   font-size: 100%
 
+button.conIcono
+  min-width: 0px
+
+  .material-icons
+    vertical-align: middle
+
 /* Barra de título ***********************************************************/
 
 #contenidos
@@ -55,21 +61,27 @@ md-input-container
 
   .titulo
     margin: 0px
+    margin-left: 320px
+    @media only screen and (max-width: 1279px)
+      margin-left: 0px
     height: 87px
     min-height: 87px
     max-height: 87px
     padding: 0px
+    padding-right: $margen-lateral-grande
+    @media only screen and (max-width: 600px)
+      padding-right: $margen-lateral-chico
     position: fixed
     left: 0px
     right: 0px
     z-index: 10
 
     h2
-      text-align: right
+      text-align: left
       margin: 0px
-      margin-right: $margen-lateral-grande
+      margin-left: $margen-lateral-grande
       @media only screen and (max-width: 600px)
-        margin-right: $margen-lateral-chico
+        margin-left: $margen-lateral-chico
 
   #contenidos-internos
     margin-top: 87px

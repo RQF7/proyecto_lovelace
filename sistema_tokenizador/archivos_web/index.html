@@ -171,6 +171,39 @@
           <h2>{{tituloDeSeccion}}</h2>
           <span flex></span>
         </div>
+        <!--
+          TODO: el tooltip no se ve (cuando menos en chromium).
+        -->
+        <div
+          layout="column"
+          flex="none">
+          <span flex></span>
+          <div layout="row">
+            <md-button
+              ng-click="registrarse()"
+              class="md-primary conIcono">
+              <span hide show-gt-sm>
+                Registrarse
+              </span>
+              <span hide show-sm show-xs>
+                <i class="material-icons">person_add</i>
+                <md-tooltip>Registrarse</md-tooltip>
+              </span>
+            </md-button>
+            <md-button
+              ng-click="iniciarSesion()"
+              class="md-primary md-raised conIcono">
+              <span hide show-gt-sm>
+                Iniciar sesión
+              </span>
+              <span hide show-sm show-xs>
+                <i class="material-icons">person</i>
+                <md-tooltip>Iniciar sesión</md-tooltip>
+              </span>
+            </md-button>
+          </div>
+          <span flex></span>
+        </div>
       </div>
       <div id="contenidos-internos" flex="none" ng-view layout="column"></div>
       <span flex></span>
