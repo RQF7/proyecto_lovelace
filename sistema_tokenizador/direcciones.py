@@ -22,7 +22,6 @@ from .programa_tokenizador import funciones as programa_tokenizador
 
 urlpatterns = [
   path('', general.inicio),
-  path('inicio', general.inicio),
   path('documentación', general.inicio),
   path('programa_tokenizador/tokenizar', programa_tokenizador.tokenizar),
   path('programa_tokenizador/detokenizar', programa_tokenizador.detokenizar),
