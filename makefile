@@ -20,8 +20,8 @@ documentación_doxygen:
 
 CARPETA_IMAGENES     := documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_api_web/analisis/capturas
 CARPETA_FUENTES      := sistema_tokenizador/archivos_web
-LISTA_DE_FUENTES     := inicio.png \
-	                      documentacion.png
+LISTA_DE_FUENTES     := inicio_1920x1080.png \
+	                      documentacion_1920x1080.png
 LISTA_DE_OBJETOS     := $(addprefix $(CARPETA_IMAGENES)/, \
 	                      $(LISTA_DE_FUENTES))
 DEPENDENCIAS_COMUNES := index.html \
@@ -35,12 +35,12 @@ VPATH := $(CARPETA_FUENTES)
 toma_de_capturas: $(LISTA_DE_OBJETOS)
 	@echo "Toma de capturas lista"
 
-$(CARPETA_IMAGENES)/inicio.png: \
+$(CARPETA_IMAGENES)/inicio_1920x1080.png: \
 		html/inicio.html \
 		$(DEPENDENCIAS_COMUNES)
 	python $(SCRIPT_SELENIUM) $(DOMINIO)/ $@
 
-$(CARPETA_IMAGENES)/documentacion.png: \
+$(CARPETA_IMAGENES)/documentacion_1920x1080.png: \
 		html/documentacion.html \
 		$(DEPENDENCIAS_COMUNES)
 	python $(SCRIPT_SELENIUM) $(DOMINIO)/documentación $@

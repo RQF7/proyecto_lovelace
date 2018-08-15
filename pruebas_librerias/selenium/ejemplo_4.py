@@ -26,6 +26,8 @@ if __name__ == '__main__':
   EJECUTABLE_DRIVER = '/usr/bin/chromedriver'
   TAMANIO_INICIAL = "1920,1080"
   archivoDestino = sys.argv[2]
+  partes = archivoDestino.split('_1920x1080')
+  archivoDestino = partes[0] + partes[1]
   partes = archivoDestino.split('.')
   archivoTemporal = 'captura.png'
 
@@ -39,13 +41,15 @@ if __name__ == '__main__':
     chrome_options = opcionesDeChrome)
   navegador.get(sys.argv[1])
   navegador.save_screenshot(archivoTemporal)
-  run(['convert', archivoTemporal, '-colorspace', 'Gray', archivoDestino])
+  run(['convert', archivoTemporal, '-colorspace', 'Gray', \
+    partes[0] + '_1920x1080.' + partes[1]])
 
   # 1280x800
   navegador.set_window_size(1280, 800)
   time.sleep(1)
-  navegador.save_screenshot(partes[0] + '_1280x800.' + partes[1])
-  run(['convert', archivoTemporal, '-colorspace', 'Gray', archivoDestino])
+  navegador.save_screenshot(archivoTemporal)
+  run(['convert', archivoTemporal, '-colorspace', 'Gray', \
+    partes[0] + '_1280x800.' + partes[1]])
 
   # 960x900
   navegador.set_window_size(960, 900)
