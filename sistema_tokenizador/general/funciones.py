@@ -13,5 +13,5 @@ def inicio(peticion):
   """Liga a archivo estático de página de inicio."""
   respuesta = open(\
     DIRECTORIO_BASE +
-    'sistema_tokenizador/archivos_web/compilados/sitio_publico.html')
+    'sistema_tokenizador/archivos_web/compilados/index.html')
   return HttpResponse(content = respuesta)

@@ -6,8 +6,7 @@
 /* Carpeta base */
 var cc = 'sistema_tokenizador/archivos_web/'
 
-module.exports = function (grunt)
-{
+module.exports = function (grunt) {
 
   /* Configuración de tareas. */
   grunt.initConfig({
@@ -47,12 +46,13 @@ module.exports = function (grunt)
         src: [
           cc + 'js/sistema_tokenizador.aplicacion.js',
           cc + 'js/configuraciones/tema.configuracion.js',
-          cc + 'js/configuraciones/navegacion_sitio_publico.configuracion.js',
+          cc + 'js/configuraciones/navegacion.configuracion.js',
+          cc + 'js/controladores/general.controlador.js',
           cc + 'js/controladores/sitio_publico.controlador.js',
           cc + 'js/controladores/inicio_sitio_publico.controlador.js',
           cc + 'js/controladores/documentacion.controlador.js'
         ],
-        dest: cc + 'compilados/js/scripts_sitio_publico.js'
+        dest: cc + 'compilados/js/scripts.js'
       }
     },
 
@@ -66,8 +66,8 @@ module.exports = function (grunt)
           sourceMap: true
         },
         files: {
-          'sistema_tokenizador/archivos_web/compilados/js/scripts_sitio_publico.min.js':
-            [cc + 'compilados/js/scripts_sitio_publico.js']
+          'sistema_tokenizador/archivos_web/compilados/js/scripts.min.js':
+            [cc + 'compilados/js/scripts.js']
         }
       }
     },
@@ -190,8 +190,8 @@ module.exports = function (grunt)
       dist: {
         files:
         {
-          'sistema_tokenizador/archivos_web/compilados/css/estilos_sitio_publico.css':
-            cc + 'sass/sitio_publico.sass'
+          'sistema_tokenizador/archivos_web/compilados/css/estilos.css':
+            cc + 'sass/estilos.sass'
         }
       }
     }
@@ -207,6 +207,7 @@ module.exports = function (grunt)
   grunt.loadNpmTasks('grunt-sass');
   grunt.registerTask('default',
   [
+    'sass',
     'concat',
     'uglify',
     'htmlmin',

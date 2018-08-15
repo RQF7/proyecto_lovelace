@@ -39,6 +39,6 @@
     "grunt-contrib-htmlmin": "^2.4.0",
     "grunt-contrib-uglify": "^3.4.0",
     "grunt-contrib-watch": "^1.1.0",
-    "grunt-sass": "^3.0.1"
+    "grunt-sass": "^2.1.0"
   }
 }

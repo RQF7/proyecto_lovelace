@@ -1,0 +1,119 @@
+/*
+ * Definición de reglas de estilo,
+ * aplicación web de sistema tokenizador,
+ * Proyecto Lovelace.
+ */
+
+$margen-lateral-grande: 40px
+$margen-lateral-chico: 20px
+
+/* Generales *****************************************************************/
+
+a
+  text-decoration: none
+
+@font-face
+  font-family: 'Material Icons'
+  font-style: normal
+  font-weight: 400
+  src: url(/estaticos/fuentes/MaterialIcons-Regular.eot)
+  src: local('Material Icons')
+  src: local('MaterialIcons-Regular')
+  src: url(/estaticos/fuentes/MaterialIcons-Regular.woff2) format('woff2')
+  src: url(/estaticos/fuentes/MaterialIcons-Regular.woff) format('woff')
+  src: url(/estaticos/fuentes/MaterialIcons-Regular.ttf) format('truetype')
+
+.material-icons
+  font-family: 'Material Icons'
+  font-weight: normal
+  font-style: normal
+  font-size: 24px
+  display: inline-block
+  line-height: 1
+  text-transform: none
+  letter-spacing: normal
+  word-wrap: normal
+  white-space: nowrap
+  direction: ltr
+  -webkit-font-smoothing: antialiased
+  text-rendering: optimizeLegibility
+  -moz-osx-font-smoothing: grayscale
+  font-feature-settings: 'liga'
+
+/* De formularios ************************************************************/
+
+md-input-container
+  width: 100%
+
+.md-datepicker-input
+  font-size: 100%
+
+/* Barra de título ***********************************************************/
+
+#contenidos
+  padding: 0
+
+  .titulo
+    margin: 0px
+    height: 87px
+    min-height: 87px
+    max-height: 87px
+    padding: 0px
+    position: fixed
+    left: 0px
+    right: 0px
+    z-index: 10
+
+    h2
+      text-align: right
+      margin: 0px
+      margin-right: $margen-lateral-grande
+      @media only screen and (max-width: 600px)
+        margin-right: $margen-lateral-chico
+
+
+/* Controles de menú laterla *************************************************/
+
+.icono-menu
+  margin: 0px
+  padding: 0px
+  width: 40px
+  min-width: 40px
+  max-width: 40px
+  height: 40px
+  min-height: 40px
+  max-height: 40px
+  i
+    font-size: 40px
+
+#icono-menu-afuera
+  margin-left: $margen-lateral-grande
+  @media only screen and (max-width: 600px)
+    margin-left: $margen-lateral-chico
+
+#icono-menu-adentro
+  margin-right: 16px
+
+/* Barra lateral *************************************************************/
+
+md-sidenav md-content .md-button
+  text-align: left
+  margin: 0px 0px
+
+.circulo-marca
+  height: 10px
+  width: 10px
+  border-radius: 10px
+  display: inline-block
+  margin-left: 10px
+
+/* Texto de firma ************************************************************/
+
+#licencia
+  margin: 0px
+  text-align: center
+  min-height: 36px
+  line-height: 36px
+  vertical-align: middle
+  font-size: 10px
+  font-style: oblique

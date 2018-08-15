@@ -1,10 +1,10 @@
 /*
- * Controlador general de sitio público.
+ * Controlador general de aplicación.
  * Aplicación web de sistema tokenizador.
  * Proyecto Lovelace.
  */
 
-sistemaTokenizador.controller('controladorSitioPublico', [
+sistemaTokenizador.controller('controladorGeneral', [
   '$scope',
   '$route',
   '$routeParams',
@@ -20,6 +20,6 @@ sistemaTokenizador.controller('controladorSitioPublico', [
     $scope.routeParams = $routeParams;
     $scope.$location = $location;
 
-    console.log('Controlador sitio público');
+    console.log('Controlador general');
   }
 ]);

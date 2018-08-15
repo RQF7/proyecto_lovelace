@@ -1,0 +1,47 @@
+<!--
+  Html principal de sitio público,
+  Aplicación web de sistema tokenizador.
+  Proyecto Lovelace.
+-->
+
+<div
+  class="titulo"
+  layout="row"
+  md-whiteframe="1"
+  flex="none"
+  md-colors="{background: 'background-hue-2'}">
+  <div
+    layout="column"
+    flex="none"
+    hide-gt-md>
+    <span flex></span>
+    <md-button
+      flex="none"
+      ng-click="cambiarEstadoBarra()"
+      class="icono-menu"
+      id="icono-menu-afuera">
+      <md-tooltip md-direction="right">
+        Mostrar menú lateral
+      </md-tooltip>
+      <i class="material-icons">
+        chevron_right
+      </i>
+    </md-button>
+    <span flex></span>
+  </div>
+  <div
+    layout="column"
+    flex>
+    <span flex></span>
+    <h2>Inicio</h2>
+    <span flex></span>
+  </div>
+</div>
+
+<!-- Firma. -->
+<span flex></span>
+<p id="licencia">
+  Copyright &#169; 2018 Proyecto Lovelace -
+  <a href="https://www.gnu.org/licenses/gpl.html" target="_blank"
+    md-colors="{color: 'accent'}">GPL v3.0</a>
+</p>
