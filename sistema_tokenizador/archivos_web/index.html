@@ -43,7 +43,7 @@
     <script src="estaticos/js/scripts.min.js"></script>
 
     <!-- URL base (solo para HTML5) -->
-    <base href="/">
+    <!--base href="/"-->
   </head>
   <body
     layout="row"
@@ -107,28 +107,30 @@
         md-colors="{background: 'background-hue-2'}">
 
         <!-- Inicio de sitio público. -->
-        <md-button
+        <!--md-button
           flex="none"
-          href="/">
+          ui-sref="/">
           Inicio
           <div
             class="circulo-marca"
             ng-if="seccion == 1"
             md-colors="{background: 'accent'}">
           </div>
-        </md-button>
+        </md-button-->
+        <a ui-sref="/" ui-sref-active="active">Inicio</a>
 
         <!-- Documentación. -->
-        <md-button
+        <!--md-button
           flex="none"
-          href="/documentación">
+          ui-sref="/documentación">
           Documentación
           <div
             class="circulo-marca"
             ng-if="seccion == 1"
             md-colors="{background: 'accent'}">
           </div>
-        </md-button>
+        </md-button-->
+        <a ui-sref="/documentación" ui-sref-active="active">Documentación</a>
 
       </md-content>
     </md-sidenav>
@@ -138,8 +140,8 @@
       flex=""
       layout-padding=""
       layout="column"
-      id="contenidos"
-      ng-view>
+      id="contenidos">
+      <ui-view></ui-view>
     </md-content>
   </body>
 </html>

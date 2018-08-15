@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/RQF7/proyecto_lovelace#readme",
   "dependencies": {
+    "@uirouter/angularjs": "^1.0.20",
     "angular": "^1.7.3",
     "angular-animate": "^1.7.3",
     "angular-aria": "^1.7.3",
@@ -26,6 +27,7 @@
     "angular-messages": "^1.7.3",
     "angular-route": "^1.7.3",
     "angular-sanitize": "^1.7.3",
+    "angular-ui-router": "^1.0.20",
     "grunt-cli": "^1.2.0",
     "material-design-icons": "^3.0.1",
     "moment": "^2.22.2"

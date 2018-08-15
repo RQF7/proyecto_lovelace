@@ -6,20 +6,20 @@
  * Mapeo entre urls, archivos estáticos y controladores.
  */
 
-sistemaTokenizador.config(function($routeProvider, $locationProvider){
+sistemaTokenizador.config(function($stateProvider) {
 
-  $routeProvider.when('/',
-  {
-    templateUrl: 'estaticos/html/sitio_publico.html',
-    controller: 'controladorSitioPublico'
+  $stateProvider.state({
+    name: 'inicio',
+    controller: 'controladorSitioPublico',
+    url: '/inicio',
+    templateUrl: 'estaticos/html/sitio_publico.html'
   });
 
-  $routeProvider.when('/documentación',
-  {
-    templateUrl: 'estaticos/html/sitio_publico.html',
-    controller: 'controladorSitioPublico'
+  $stateProvider.state({
+    name: 'documentacion',
+    controller: 'controladorDocumentacion',
+    url: '/documentación',
+    templateUrl: 'estaticos/html/sitio_publico.html'
   });
-
-  $locationProvider.html5Mode(true);
 
 });

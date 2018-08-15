@@ -6,20 +6,10 @@
 
 sistemaTokenizador.controller('controladorSitioPublico', [
   '$scope',
-  '$route',
-  '$routeParams',
-  '$location',
   function (
-    $scope,
-    $route,
-    $routeParams,
-    $location
+    $scope
   )
   {
-    $scope.$route = $route;
-    $scope.routeParams = $routeParams;
-    $scope.$location = $location;
-
     console.log('Controlador sitio público');
   }
 ]);
