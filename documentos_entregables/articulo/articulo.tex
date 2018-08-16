@@ -15,6 +15,13 @@
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
 \usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{tikz}
+\usetikzlibrary{arrows,
+  decorations.pathmorphing,
+  backgrounds,
+  positioning,
+  calc,
+  scopes}
 
 % Agregados a las traducciones de babel.
 % Técnicamente esto tenría que venir desde INAOE, para
@@ -46,6 +53,7 @@
   \renewcommand{\ALG@beginalgorithmic}{\footnotesize}
 
 \makeatother
+
 
 % Interesante... si la traducción de algoritmo no va entre el par
 % «makeatletter» - «makeatother», la compilación muere. Creo que
