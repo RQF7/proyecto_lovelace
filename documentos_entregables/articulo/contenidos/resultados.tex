@@ -5,36 +5,10 @@
 % Proyecto Lovelace.
 %
 
+% TODO: pasar esto a GNUPlot.
+
 \section{Resultados y conclusiones}
 \label{sec:conclusiones}
-
-En la tabla \ref{tabla:tiempos_tokenizacion} y la figura
-\ref{figura:tiempos_unitarios} se muestran los resultados en tiempo de
-las ejecuciones de los algoritmos presentados en secciones
-anteriores\footnote{También se hizo la implementación de un DRBG como lo
-describe el NIST en \cite{nist_aleatorios}}. Estos se llevaron a cabo en una
-computadora con las siguientes características:
-
-\begin{itemize}
-  \item \textbf{Procesador:} Intel i5-7200U (2.5 GHz) de 4 núcleos.
-  \item \textbf{Sistema operativo:} Arch Linux, kernel 4.17.
-  \item \textbf{Base de datos:} MariaDB 10.1.
-  \item \textbf{Compilador:} GCC 8.1.1
-\end{itemize}
-
-La comparación de los tiempos de tokenización y detokenización muestra como los
-algoritmos reversibles son considerablemente más rápidos que los irreversibles.
-Este resultado puede resultar un poco contraintuitivo, pues la generación de
-tokens reversibles involucra más operaciones; es por esto que en la figura
-\ref{figura:tiempos_tokenizacion} se muestran los tiempos de la generación de
-tokens solamente, sin tomar en cuenta tiempos de acceso a base de datos.
-
-% Además de los tiempos de ejecución, también es importante señalar que los
-% irreversibles, al operar como funciones de un solo sentido, son un poco más
-% seguros que los reversibles: un atacante con acceso a la llave de cifrado puede
-% obtener el número de tarjeta correspondiente si se trata de un método
-% reversible, mientras que con un método irreversible necesita también acceso a la
-% base de datos.
 
 \begin{table}
   \renewcommand{\arraystretch}{1.3}
@@ -50,48 +24,85 @@ tokens solamente, sin tomar en cuenta tiempos de acceso a base de datos.
   \end{tabular}
 \end{table}
 
-\begin{figure}[!t]
+\begin{figure*}[!t]
   \centering
   \subfloat[Tokenización y detokenización]{
-    \includegraphics[width=1.62in]
+    \includegraphics[width=0.5\linewidth]
       {../implementaciones/reportes/tiempos_unitarios.png}
     \label{figura:tiempos_unitarios}
   }
-  \hfil
   \subfloat[Generación de tokens]{
-    \includegraphics[width=1.62in]
+    \includegraphics[width=0.5\linewidth]
       {../implementaciones/reportes/tiempos_tokenizacion.png}
     \label{figura:tiempos_tokenizacion}
   }
   \caption{Comparaciones de tiempos.}
   \label{fig_sim}
-\end{figure}
+\end{figure*}
 
 
-% TODO: mejorar crítica a segunda categoría.
+% Resultados
 
-%La denominación \textit{no criptográficos} resulta totalmente confusa, pues en
-%realidad todos los métodos conocidos que caen en las categorías de arriba ocupan
-%primitivas criptográficas. La segunda categoría (los irreversibles) carece de
-%utilidad para aplicaciones que procesan pagos con tarjetas de crédito, pues la
-%habilidad de regresar al número de tarjeta a partir de su token es uno de los
-%requerimientos principales para los sistemas tokenizadores. Por lo anterior, en
-%este trabajo se propone una clasificación distinta:
-%
-%\begin{itemize}
-%  \item Métodos criptográficos. Todos aquellos que ocupan herramientas
-%    critográficas.
-%    \begin{itemize}
-%      \item Reversibles. Ocupan un esquema de cifrado simétrico: el número
-%        de tarjeta y una llave entran al mecanismo de tokenización para obtener
-%        un token; el token y la misma llave entran al mecanismo de
-%        detokenización para obtener el número de tarjeta original.
-%      \item Irreversibles. Ocupan herramientas criptográficas para generar el
-%        token de un número de tarjeta. Ocupan herraminetas externas, como una
-%        base de datos, para guardar las relaciones entre tokens y números de
-%        tarjetas.
-%    \end{itemize}
-%  \item Métodos no criptográficos. Aquellos posibles métodos que no ocupen
-%    herramientas relacionadas con la criptografía; por ejemplo, un generador de
-%    números realmente aleatorio (TRNG, \textit{True Random Number Generator}).
-%\end{itemize}
+En la Tabla \ref{tabla:tiempos_tokenizacion} y la Figura
+\ref{figura:tiempos_unitarios} se muestran los resultados en tiempo de
+las ejecuciones de los algoritmos presentados en la Sección
+\ref{sec:implementaciones}. Estos se llevaron a cabo en una computadora con las
+siguientes características:
+
+\begin{itemize}
+  \item \textbf{Procesador:} Intel i5-7200U (2.5 GHz) de 4 núcleos.
+  \item \textbf{Sistema operativo:} Arch Linux, kernel 4.17.
+  \item \textbf{Base de datos:} MariaDB 10.1.
+  \item \textbf{Compilador:} GCC 8.1.1.
+\end{itemize}
+
+El procesador ocupado soporta los conjuntos de intrucciones de Intel AES-NI y
+RD-SEED \cite{aesni_wp}. Todas los algoritmos tokenizadores que ocupan un
+cifrado por bloques usan una implementación de AES con las instrucciones a nivel
+de hardware. El DRBG implementado ocupa la instrucción RD-RAND como fuente de
+entropía.
+
+% Discusión de resultados
+
+La comparación de los tiempos de tokenización y detokenización muestra como los
+algoritmos reversibles son considerablemente más rápidos que los irreversibles.
+Este resultado puede resultar un poco contraintuitivo, pues la generación de
+tokens reversibles involucra más operaciones; es por esto que en la figura
+\ref{figura:tiempos_tokenizacion} se muestran los tiempos de la generación de
+tokens solamente, sin tomar en cuenta tiempos de acceso a base de datos.
+
+Además de los tiempos de ejecución, también es importante señalar que los
+irreversibles, al operar como funciones de un solo sentido, son más
+seguros que los reversibles: un atacante con acceso a la llave de cifrado puede
+obtener el número de tarjeta correspondiente si se trata de un método
+reversible, mientras que con un método irreversible necesita también acceso a la
+base de datos.
+
+% Discusión sobre clasificación
+
+La denominación \textit{no criptográficos}, de la clasificación del PCI SSC
+(Sección \ref{sec:clasificacion}), resulta totalmente confusa, pues en
+realidad todos los métodos conocidos que caen en esa categoría ocupan
+primitivas criptográficas. La segunda categoría (los irreversibles) carece de
+utilidad para aplicaciones que procesan pagos con tarjetas de crédito, pues la
+habilidad de regresar al número de tarjeta a partir de su token es uno de los
+requerimientos principales para los sistemas tokenizadores. Por lo anterior, en
+este trabajo se propone una clasificación distinta:
+
+\begin{itemize}
+  \item Métodos criptográficos. Todos aquellos que ocupan herramientas
+    critográficas.
+    \begin{itemize}
+      \item Reversibles. Ocupan un esquema de cifrado simétrico: el número
+        de tarjeta y una llave entran al mecanismo de tokenización para obtener
+        un token; el token y la misma llave entran al mecanismo de
+        detokenización para obtener el número de tarjeta original.
+      \item Irreversibles. Ocupan herramientas criptográficas para generar el
+        token de un número de tarjeta. Ocupan herraminetas externas, como una
+        base de datos, para guardar las relaciones entre tokens y números de
+        tarjetas.
+    \end{itemize}
+  \item Métodos no criptográficos. Aquellos posibles métodos que no ocupen
+    herramientas relacionadas con la criptografía; por ejemplo, un generador de
+    números realmente aleatorio (TRNG, \textit{True Random Number Generator}).
+\end{itemize}

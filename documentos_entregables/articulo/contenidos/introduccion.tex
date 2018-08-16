@@ -20,7 +20,7 @@ estándar cuenta con una gran cantidad de requerimientos \cite{uk_association}
 muy difícil obtener un resultado positivo. A pesar de la publicación del
 estándar en 2004, han seguido existiendo grandes filtraciones de datos
 (\textit{TJX} en 2006, \textit{Hannaford Bros.} en 2008, \textit{Target} en
-2013, \textit{Home Depot} en 2014, por mencionar algnos ejemplos).
+2013, \textit{Home Depot} en 2014, por mencionar algunos ejemplos).
 
 % Introducción a los sistemas tokenizadores
 % ¿Qué es la tokenización y cómo se usa normalmente (arquitectura).
@@ -80,7 +80,9 @@ En la Sección \ref{sec:preliminares} de este trabajo se tocan algunos temas
 preliminares necesarios para presentar, en la Sección \ref{sec:algoritmos},
 algunos de los métodos de tokenización. En la Sección \ref{sec:conclusiones} se
 presentan los resultados de las comparaciones de desempeño realizadas y se
-concluye con una discusión acerca de las ventajas y desventajas de cada método.
+concluye con una discusión alrededor del tema.
+
+% TODO: cambiar con qué se concluye.
 
 % \begin{figure}
 %   \centering
@@ -99,7 +101,8 @@ concluye con una discusión acerca de las ventajas y desventajas de cada método
       thick,
       inner sep = 4mm,
       text width = 20mm,
-      align = center},
+      align = center,
+      minimum height = 1.5cm},
     etiqueta/.style={
       text width = 15mm,
       align = center
@@ -117,23 +120,27 @@ concluye con una discusión acerca de las ventajas y desventajas de cada método
       (banco)
       [below = 1.5cm of tokens]
       {Entorno de banco};
+    \node[entorno]
+      (usuario)
+      [below = 1.5cm of tienda]
+      {Cliente};
 
     % Usuario
     % TODO: hacer un posicionamiento entermanete realativo (ese 13.2cm no
     % debe de estar).
-    \begin{scope}[
-      scale=0.2,
-      shift={($(tienda.south)-(0cm, 13.3cm)$)},
-      local bounding box = usuario]
-      \draw[black, thick] (-1, 0) -- (0, 2);     % Pierna derecha
-      \draw[black, thick] (0, 2) -- (1, 0);      % Pierna izquierda
-      \draw[black, thick] (0, 2) -- (0, 4);      % Torso
-      \draw[black, thick] (0, 4) -- (-1, 3);     % Brazo derecho
-      \draw[black, thick] (0, 4) -- (1, 3);      % Brazo izquierdo
-      \draw[black, thick] (0, 4.6) circle (0.6); % Cabeza
-      \node[etiqueta] at (0, -1) {Usuario};      % Etiqueta
-      \node[etiqueta] at (0, 5.2) {};            % Margen superior
-    \end{scope}
+    % \begin{scope}[
+    %   scale=0.2,
+    %   shift={($(tienda.south)-(0cm, 13.3cm)$)},
+    %   local bounding box = usuario]
+    %   \draw[black, thick] (-1, 0) -- (0, 2);     % Pierna derecha
+    %   \draw[black, thick] (0, 2) -- (1, 0);      % Pierna izquierda
+    %   \draw[black, thick] (0, 2) -- (0, 4);      % Torso
+    %   \draw[black, thick] (0, 4) -- (-1, 3);     % Brazo derecho
+    %   \draw[black, thick] (0, 4) -- (1, 3);      % Brazo izquierdo
+    %   \draw[black, thick] (0, 4.6) circle (0.6); % Cabeza
+    %   \node[etiqueta] at (0, -1) {Usuario};      % Etiqueta
+    %   \node[etiqueta] at (0, 5.2) {};            % Margen superior
+    % \end{scope}
 
     % Comunicación
     \draw[-stealth',
