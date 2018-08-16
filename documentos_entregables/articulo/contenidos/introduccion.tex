@@ -107,23 +107,23 @@ concluye con una discusión acerca de las ventajas y desventajas de cada método
 
     % Entornos
     \node[entorno]
-      (tienda)
-      {Entorno de comerciante};
-    \node[entorno]
       (tokens)
-      [right = 2.5cm of tienda]
       {Sistema tokenizador};
     \node[entorno]
+      (tienda)
+      [right = 2.5cm of tokens]
+      {Entorno de comerciante};
+    \node[entorno]
       (banco)
-      [above = 1.5cm of tokens]
+      [below = 1.5cm of tokens]
       {Entorno de banco};
 
-    % El usuario
-    % TODO: hacer un posicionamiento entermanete realativo (ese 9.5cm no
+    % Usuario
+    % TODO: hacer un posicionamiento entermanete realativo (ese 13.2cm no
     % debe de estar).
     \begin{scope}[
       scale=0.2,
-      shift={($(tienda.north)+(0cm, 9.5cm)$)},
+      shift={($(tienda.south)-(0cm, 13.3cm)$)},
       local bounding box = usuario]
       \draw[black, thick] (-1, 0) -- (0, 2);     % Pierna derecha
       \draw[black, thick] (0, 2) -- (1, 0);      % Pierna izquierda
@@ -131,7 +131,8 @@ concluye con una discusión acerca de las ventajas y desventajas de cada método
       \draw[black, thick] (0, 4) -- (-1, 3);     % Brazo derecho
       \draw[black, thick] (0, 4) -- (1, 3);      % Brazo izquierdo
       \draw[black, thick] (0, 4.6) circle (0.6); % Cabeza
-      \node[etiqueta] at (0, -1) {Usuario};
+      \node[etiqueta] at (0, -1) {Usuario};      % Etiqueta
+      \node[etiqueta] at (0, 5.2) {};            % Margen superior
     \end{scope}
 
     % Comunicación
@@ -139,41 +140,50 @@ concluye con una discusión acerca de las ventajas y desventajas de cada método
       dashed,
       transform canvas = {
         yshift=6pt}]
-      (tienda.east)
+      (tienda.west)
       --
       node[
         etiqueta,
         above]
         {Número de tarjeta}
-      (tokens.west);
+      (tokens.east);
     \draw[-stealth',
       transform canvas = {
         yshift=-6pt}]
-      (tokens.west)
+      (tokens.east)
       --
       node[
         etiqueta,
         below]
         {Token}
-      (tienda.east);
+      (tienda.west);
     \draw[-stealth',
       dashed]
-      (tokens.north)
-      --
-      node[
-        etiqueta,
-        right]
-        {Número de tarjeta}
-      (banco.south);
-    \draw[-stealth',
-      dashed]
-      (usuario.south)
+      (tokens.south)
       --
       node[
         etiqueta,
         left]
         {Número de tarjeta}
-      (tienda.north);
+      (banco.north);
+    \draw[-stealth',
+      dashed]
+      (usuario.north)
+      --
+      node[
+        etiqueta,
+        right]
+        {Número de tarjeta}
+      (tienda.south);
+
+    % Acotaciones
+    \begin{scope}[shift={($(banco.south)-(1.5cm, 0.5cm)$)}]
+      \draw[dashed]
+        (0, 0)
+        --
+        (1, 0);
+      \node at (2.1, 0) {Canal seguro};
+    \end{scope}
 
   \end{tikzpicture}
   \caption{Arquitectura típica de un sistema tokenizador.}
