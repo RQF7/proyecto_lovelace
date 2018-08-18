@@ -89,6 +89,14 @@ module.exports = function (grunt) {
             dest: cc + 'compilados/imagenes/icono.png'
           },
           {
+            expand: true,
+            flatten: true,
+            src: ['documentos_entregables/reporte_tecnico/contenidos/'
+                    + 'analisis_y_disenio_api_web/analisis/mensajes/*'],
+            dest: cc + 'compilados/mensajes/',
+            filter: 'isFile'
+          },
+          {
             src: [cc + 'sass/sitio_publico.sass'],
             dest: cc + 'compilados/css/sistema_tokenizador/archivos_web/sass/sitio_publico.sass'
           },
