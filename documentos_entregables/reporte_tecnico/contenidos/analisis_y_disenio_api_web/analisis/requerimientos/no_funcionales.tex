@@ -12,8 +12,8 @@
   Las interfaces gráficas de la aplicación deben estar diseñadas para
   responder a distintos tamaños de pantalla. En particular, se debe
   mostrar cómo se ve la interfaz para los siguientes tamaños (las unidades están
-  en pixeles): extra grande (1920x1080), grande (1280x800), mediana (900x960),
-  chica (600x960) y extra chica (480x800).
+  en pixeles): muy grande (1920x1080), grande (1280x800), mediano (900x960),
+  pequeño (600x960) y muy pequeño (480x800).
 }
 
 \requerimientoNoFuncional[rqnf_api:alamcenamiento_de_contrasenias]
@@ -24,4 +24,35 @@
   (\hipervinculo{rq_api:identificacion_de_actores}) se calcula el hash de la
   contraseña introducida y se compara contra el que está almacenado en la base
   de datos. El algoritmo utilizado para estos hash debe de ser \gls{gl:sha}-256.
+}
+
+\requerimientoNoFuncional[rqnf_api:accesos_no_autorizados]
+{Sobre los accesos no autorizados}
+{
+  Para una definición de lo que se entiende por un \textit{acceso no
+  autorizado}, ver la regla de negocios \hipervinculo{rn:acceso_no_autorizado}.
+  El trato para los accesos no autorizados depende del contexto; en los
+  siguientes subrequerimientos se detallan las acciones a tomar para cada caso.
+
+  \subrequerimientoNoFuncional[rqnf_api:accesos_fidedignos]
+  {Accesos fidedignos}
+  {
+    Ver \hipervinculo{rn:acceso_fidedigno}. En caso de tratarse de un acceso
+    fidedigno en la aplicación web, se debe redirigir a la pantalla
+    \hipervinculo{iu:iniciar_sesion}. En caso de tratarse de un acceso fidedigno
+    en el servicio tokenizador se debe mandar una respuesta \gls{gl:http} con el
+    código 302.
+  }
+
+  \subrequerimientoNoFuncional[rqnf_api:accesos_erroneos]
+  {Accesos erroneos}
+  {
+    Ver \hipervinculo{rn:acceso_erroneo}.
+  }
+
+  \subrequerimientoNoFuncional[rqnf_api:accesos_malintencionados]
+  {Accesos malintencionados}
+  {
+    Ver \hipervinculo{rn:acceso_malintencionado}.
+  }
 }

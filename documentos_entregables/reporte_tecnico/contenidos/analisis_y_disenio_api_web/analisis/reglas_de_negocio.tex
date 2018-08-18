@@ -54,11 +54,46 @@ definido en \cite{mozilla_er}.
 }
 
 % TODO: ¿Agregar símbolos a expresión regular de contraseñas?
-% TODO: Ver qué contraseñas comunes tiene el plugin de autenticación de django.
 
 \reglaDeNegocio[rn:formato_de_contrasenias]
 {Formato de contraseñas}
 {
   El formato de una contraseña está regido por la expresión regular
   \texttt{0-9a-zA-Z}\{8, 24\}.
+}
+
+\reglaDeNegocio[rn:acceso_no_autorizado]
+{Acceso no autorizados}
+{
+  Un acceso no autorizado se da cuando un usuario hace una petición al servidor
+  para la cual no tiene los privilegios necesarios.
+}
+
+\reglaDeNegocio[rn:acceso_fidedigno]
+{Acceso fidedigno}
+{
+  Un acceso fidedigno es un acceso no autorizado
+  (\hipervinculo{rn:acceso_no_autorizado}) que se puede producir de manera
+  legítima en el uso de la aplicación. Algunas posibles causas son la expiración
+  de una sesión o su cierre accidental.
+}
+
+% TODO: agregar causas o ejemplos.
+
+\reglaDeNegocio[rn:acceso_malintencionado]
+{Acceso malintencionado}
+{
+  Un acceso malintencionado es un acceso no autorizado
+  (\hipervinculo{rn:acceso_no_autorizado}) que no se puede producir de manera
+  legítima en el uso de la aplicación.
+}
+
+\reglaDeNegocio[rn:acceso_erroneo]
+{Acceso erroneo}
+{
+  Un acceso erroneo es un acceso no autorizado
+  (\hipervinculo{rn:acceso_no_autorizado}) en el que no hay elementos
+  suficientes para clasificarlo como fidedigno
+  (\hipervinculo{rn:acceso_fidedigno}) o como malintencionado
+  (\hipervinculo{rn:acceso_malintencionado}).
 }
