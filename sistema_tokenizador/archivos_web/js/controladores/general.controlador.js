@@ -105,6 +105,11 @@ sistemaTokenizador.controller('controladorGeneral', [
       }).then(function (respuesta) {
         if (respuesta != undefined) {
           $scope.usuario = respuesta;
+          if ($scope.usuario.tipoDeUsuario == 1) {
+            $location.path('/administración_de_tokens');
+          } else {
+            $location.path('/administración');
+          }
         }
       });
     };
@@ -112,6 +117,7 @@ sistemaTokenizador.controller('controladorGeneral', [
     $scope.cerrarSesion = function () {
       api.cerrarSesion().then(function (respuesta) {
         $scope.usuario = undefined;
+        $location.path('/');
       });
     };
 

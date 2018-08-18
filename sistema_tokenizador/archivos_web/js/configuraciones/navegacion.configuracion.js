@@ -20,6 +20,18 @@ sistemaTokenizador.config(function($routeProvider, $locationProvider){
     controller: 'controladorDocumentacion'
   });
 
+  $routeProvider.when('/administración_de_tokens',
+  {
+    templateUrl: 'estaticos/html/administracion_de_tokens.html',
+    controller: 'controladorAdministracionDeTokens'
+  });
+
+  $routeProvider.when('/administración',
+  {
+    templateUrl: 'estaticos/html/administracion.html',
+    controller: 'controladorAdministracion'
+  });
+
   $locationProvider.html5Mode(true);
 
 });

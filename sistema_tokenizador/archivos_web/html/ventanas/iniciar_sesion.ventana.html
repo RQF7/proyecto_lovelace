@@ -27,7 +27,8 @@
         ng-submit="aceptar($evento)">
         <md-input-container>
           <label>Correo electrónico</label>
-          <input name="correo"
+          <input
+            name="correo"
             ng-model="usuario.correo"
             md-no-asterisk
             required
@@ -43,7 +44,8 @@
         </md-input-container>
         <md-input-container>
           <label>Contraseña</label>
-          <input name="contrasenia"
+          <input
+            name="contrasenia"
             type="password"
             ng-model="usuario.contrasenia"
             md-no-asterisk
@@ -67,6 +69,7 @@
       Cancelar
     </md-button>
     <md-button
+      id="formularioBotonIniciarSesion"
       class="md-raised md-primary"
       type="submit"
       ng-disabled="formularioIniciarSesion.$invalid"

@@ -21,11 +21,19 @@ from .general import funciones as general
 from .programa_tokenizador import funciones as programa_tokenizador
 
 urlpatterns = [
+
+  # Vistas
   path('', general.inicio),
   path('documentación', general.inicio),
+  path('administración_de_tokens', general.inicio),
+  path('administración', general.inicio),
+
+  # Operaciones de api
   path('api/usuario_de_sesion', general.usuarioDeSesion),
   path('api/iniciar_sesion', general.iniciarSesion),
   path('api/cerrar_sesion', general.cerrarSesion),
+
+  # Operaciones de programa tokenizador
   path('programa_tokenizador/tokenizar', programa_tokenizador.tokenizar),
   path('programa_tokenizador/detokenizar', programa_tokenizador.detokenizar),
   path('ejecutar', programa_tokenizador.ejecutar)

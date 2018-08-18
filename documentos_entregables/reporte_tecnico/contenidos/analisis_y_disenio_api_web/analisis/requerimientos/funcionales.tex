@@ -13,6 +13,9 @@
 % nivel.
 % Requerimientos de bajo nivel:
 
+% TODO: cambiar la denominación «usuario» para un tipo de usuario...
+% tiende a confundir.
+
 \requerimiento[rq_api:actores]
 {Sobre los actores del sistema}
 {
@@ -68,7 +71,7 @@
     \hipervinculo{rq_api:actores}.
 
     \subsubrequerimiento[rq_api:interfaz_inicio]
-    {Interfaz de inicio de sitio público}
+    {Interfaz de inicio}
     {
       Página que debe promocionar el servicio de tokenización. Debe de explicar
       qué es la tokenización y qué es lo que hace el servicio ofrecido. Esta
@@ -109,7 +112,7 @@
     {Interfaz de inicio de usuarios}
     {
        Página de bienvenida de un actor tipo usuario. Esta interfaz se
-       muestra en \hipervinculo{iu:inicio_usuario}.
+       muestra en \hipervinculo{iu:administracion_de_tokens}.
     }
   }
 
@@ -124,7 +127,7 @@
     {Interfaz de inicio de administradores}
     {
       Página de bienvenida de un actor tipo administrador. Esta interfaz se
-      muestra en \hipervinculo{iu:inicio_administrador}.
+      muestra en \hipervinculo{iu:administracion}.
     }
   }
 }
