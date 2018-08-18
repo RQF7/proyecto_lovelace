@@ -50,3 +50,8 @@ $(CARPETA_IMAGENES)/iniciar_sesion_1920x1080.png: \
 		html/ventanas/iniciar_sesion.ventana.html \
 		$(DEPENDENCIAS_COMUNES)
 	python $(SCRIPTS_CAPTURAS)/iniciar_sesion.py $(DOMINIO)/ $@
+
+modelo_de_datos:
+	python administrar.py graph_models -g -o temporal.png general
+	convert temporal.png -colorspace Gray documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_api_web/analisis/diagramas/modelo_de_datos.png
+	rm temporal.png

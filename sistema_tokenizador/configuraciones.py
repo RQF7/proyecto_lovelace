@@ -31,7 +31,8 @@ INSTALLED_APPS = [
   'django.contrib.contenttypes',
   'django.contrib.sessions',
   'django.contrib.messages',
-  'django.contrib.staticfiles'
+  'django.contrib.staticfiles',
+  'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -51,21 +52,21 @@ ROOT_URLCONF = 'sistema_tokenizador.direcciones'
 
 # No usamos templates, el cliente funciona como aplicación web (angular).
 
-# TEMPLATES = [
-#   {
-#     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-#     'DIRS': [],
-#     'APP_DIRS': True,
-#     'OPTIONS': {
-#       'context_processors': [
-#         'django.template.context_processors.debug',
-#         'django.template.context_processors.request',
-#         'django.contrib.auth.context_processors.auth',
-#         'django.contrib.messages.context_processors.messages',
-#       ],
-#     },
-#   },
-# ]
+TEMPLATES = [
+  {
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [],
+    'APP_DIRS': True,
+    'OPTIONS': {
+      'context_processors': [
+        'django.template.context_processors.debug',
+        'django.template.context_processors.request',
+        'django.contrib.auth.context_processors.auth',
+        'django.contrib.messages.context_processors.messages',
+      ],
+    },
+  },
+]
 
 WSGI_APPLICATION = 'sistema_tokenizador.servidor_web.aplicacion'
 
