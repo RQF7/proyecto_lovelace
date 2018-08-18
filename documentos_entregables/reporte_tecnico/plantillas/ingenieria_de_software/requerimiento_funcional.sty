@@ -1,0 +1,117 @@
+%
+% Plantilla para definición de requerimientos funcionales.
+% Proyecto Lovelace.
+%
+% TODO:
+% * ¿Se puede definir un comando metarequerimiento, que abarque a los
+%   tres niveles de profundidad definidos ahora y todos los que el usuario
+%   quiera. No es algo que haya visto en latex antes. El método seguido
+%   hasta ahora conduce a una regresión infinita, sin embargo, y este
+%   es un hecho importante de teoría de la computación y de biología,
+%   el camino al infinito se evita mediante la dualidad de la información:
+%   son instrucciones y datos al mismo tiempo. Regresando a la tierra,
+%   se podría si LaTeX tuviera instrucciones para leer el contenido
+%   de otro archivo, algo así como un import a este mismo archivo, o con
+%   instrucciones que tratan las cadenas como código (el «parse» de js).
+% * Por «razones históricas» el nombre de este comando (y los contadores)
+%   se refieren a requerimientos en general; habría que actualizarlos
+%   para reflejar el hecho de que son requerimientos funcionales.
+%
+
+% Contadores de requerimientos y variables auxiliares
+\newcounter{contador_requerimientos}[chapter]
+\newcounter{contador_subrequerimientos}[chapter]
+\newcounter{contador_subsubrequerimientos}[chapter]
+\newcommand{\prefijo}{sin definidr}
+
+% Comando para requerimientos.
+% #1 -> Etiqueta (opcional).
+% #2 -> Prefijo para numeración.
+% #3 -> Título del requerimiento.
+% #4 -> Descripción.
+%
+% Para comandos con más de un parámetro:
+% https://texfaq.org/FAQ-twooptarg
+% La idea general consiste en definir un comando externo que tome
+% un primer argumento opcional y redirigirlo a un segundo comando interno
+% que tome un segundo comando por defecto.
+% Lo anterior es porque «newcommand» solo soporta un argumento
+% opcional... Parece que LaTeX está lleno de este tipo de parches, en lugar
+% de reimplementaciones sobre el código central.
+% Los paquetes «twoopt» o «xarg» automatizan esta técnica.
+
+\newcommand{\requerimiento}[4]
+[rq:\formatearnumero{contador_requerimientos}]
+{
+  % Configuración
+  \refstepcounter{contador_requerimientos}
+  \setcounter{contador_subrequerimientos}{0}
+  \setlength{\separacionAnterior}{\parskip}
+  \setlength{\parskip}{0em}
+  \renewcommand{\prefijo}{#2}
+
+  % Código efectivo
+  \vspace{1.0em}
+  \noindent
+  \textbf{\hypertarget{#1}
+    {REQF\prefijo-\formatearnumero{contador_requerimientos} #3}.}
+  \par
+  \begin{hangparas}{2em}{0}
+    #4
+  \end{hangparas}
+
+  % Regresar a estado previo
+  \setlength{\parskip}{\separacionAnterior}
+}
+
+% Comando para subrequerimientos.
+% #1 -> Etiqueta (opcional).
+% #2 -> Título del subrequerimiento.
+% #3 -> Descripción.
+% ATENCIÓN:  Los subrequerimientos siempre deben estar dentro de la
+% descripción de un requerimiento.
+
+\newcommand{\subrequerimiento}[3]
+[rq:\formatearnumero{contador_requerimientos}_%
+  \arabic{contador_subrequerimientos}]
+{
+  % Configuración
+  \setcounter{contador_subsubrequerimientos}{0}
+  \refstepcounter{contador_subrequerimientos}
+
+  % Código efectivo
+  \vspace{1.0em}
+  \textbf{\hypertarget{#1}
+    {SUBREQF\prefijo-\formatearnumero{contador_requerimientos}%
+      /\arabic{contador_subrequerimientos} #2}.}
+  \par
+  \begin{hangparas}{4em}{0}
+    #3
+  \end{hangparas}
+}
+
+% Comando para subsubrequerimientos.
+% #1 -> Etiqueta (opcional).
+% #2 -> Título del subsubrequerimiento.
+% #3 -> Descripción.
+% ATENCIÓN:  Los subsubrequerimientos siempre deben estar dentro de la
+% descripción de un subrequerimiento.
+
+\newcommand{\subsubrequerimiento}[3]
+[rq:\formatearnumero{contador_requerimientos}_%
+  \arabic{contador_subrequerimientos}\Alph{contador_subsubrequerimientos}]
+{
+  % Configuración
+  \refstepcounter{contador_subsubrequerimientos}
+
+  % Código efectivo
+  \vspace{1.0em}
+  \textbf{\hypertarget{#1}
+    {SUBSUBREQF\prefijo-\formatearnumero{contador_requerimientos}%
+      /\arabic{contador_subrequerimientos}%
+      \Alph{contador_subsubrequerimientos} #2}.}
+  \par
+  \begin{hangparas}{6em}{0}
+    #3
+  \end{hangparas}
+}

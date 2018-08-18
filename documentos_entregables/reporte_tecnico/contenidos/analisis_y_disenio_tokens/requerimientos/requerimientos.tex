@@ -132,7 +132,7 @@ la sección \ref{sec:pci_dss}.
 
   % GT10.1, RC2A-1, RC2A-2, RN2B, RN3B
   \subrequerimiento[rq_pci:control_de_peticiones]
-  {PCI}{Control de peticiones}
+  {Control de peticiones}
   {
     Todas las peticiones deben pasar a través de una \gls{gl:api} que controle
     todos los intentos de acceso y aplique de manera uniforma reglas de
@@ -141,7 +141,7 @@ la sección \ref{sec:pci_dss}.
 
   % GT10.2
   \subrequerimiento[rq_pci:registros_de_acceso]
-  {PCI}{Registros de acceso}
+  {Registros de acceso}
   {
     Se deben registrar todos los eventos de acceso, de tokenización y
     de detokenización. Esta funcionalidad debe ser configurable de manera
@@ -151,7 +151,7 @@ la sección \ref{sec:pci_dss}.
 
   % GT10.3
   \subrequerimiento[rq_pci:autenticacion_multifactor]
-  {PCI}{\Gls{gl:autenticacion_multifactor}}
+  {\Gls{gl:autenticacion_multifactor}}
   {
     El sistema debe soportar \gls{gl:autenticacion_multifactor} para todos
     los tipos de usuario: accesos administrativos, operaciones de tokenización
@@ -160,7 +160,7 @@ la sección \ref{sec:pci_dss}.
 
   % GT10.4
   \subrequerimiento[rq_pci:acceso_de_sistema]
-  {PCI}{Accesos a nivel de sistema}
+  {Accesos a nivel de sistema}
   {
     Todos los accesos a nivel de sistema deben soportar
     \gls{gl:autenticacion_mutua}, incluyendo a las peticiones de tokenización
@@ -169,7 +169,7 @@ la sección \ref{sec:pci_dss}.
 
   % GT10.5
   \subrequerimiento[rq_pci:acceso_administrativo]
-  {PCI}{Accesos administrativos}
+  {Accesos administrativos}
   {
     Se debe utilizar \gls{gl:criptografia_fuerte} para todos los accesos
     administrativos que no se hagan desde consola.
@@ -222,7 +222,7 @@ la sección \ref{sec:pci_dss}.
 
   % IT4A-1, RC4B-1
   \subrequerimiento[rq_pci:ciclo_de_vida_llaves]
-  {PCI}{Sobre el ciclo de vida}
+  {Sobre el ciclo de vida}
   {
     La llave tokenizadora debe seguir la política de los ciclos de llaves
     descritos en el \acrshort{gl:iso}/\acrshort{gl:iec} 115681 (ver
@@ -231,7 +231,7 @@ la sección \ref{sec:pci_dss}.
 
   % IT4A-2, RC4B-2
   \subrequerimiento[rq_pci:periodo_llaves]
-  {PCI}{Descripción del periodo criptográfico activo}
+  {Descripción del periodo criptográfico activo}
   {
     La política sobre el tiempo de vida de la llave debe incluir una
     descripción sobre el periodo criptográfico activo de la llave
@@ -240,7 +240,7 @@ la sección \ref{sec:pci_dss}.
 
   % IT4A-3, RC4B-3
   \subrequerimiento[rq_pci:destruccion_de_llaves]
-  {PCI}{Sobre la destrucción de las llaves}
+  {Sobre la destrucción de las llaves}
   {
    	El proveedor debe incorporar una función que permita la destrucción
    	de sus llaves criptográficas sin tener que alterar o abrir el
@@ -249,7 +249,7 @@ la sección \ref{sec:pci_dss}.
 
   % RC1A-1
   \subrequerimiento[rq_pci:exportar_llaves_en_claro]
-  {PCI}{Exportar llave en claro prohibido}
+  {Exportar llave en claro prohibido}
   {
     Las llaves usadas para generar \glspl{gl:token} no se deben poder
     exportar en claro desde el programa.
@@ -258,7 +258,7 @@ la sección \ref{sec:pci_dss}.
   % RC1A-2
   % TODO: ¿Cómo funciona la entropía de una fuente generadora?
   \subrequerimiento[rq_pci:entropia_generacion_llaves]
-  {PCI}{Entropía de generación de llaves}
+  {Entropía de generación de llaves}
   {
     La fuente generadora de llaves debe tener, al menos, 128 bits de
     \gls{gl:entropia}.
@@ -266,7 +266,7 @@ la sección \ref{sec:pci_dss}.
 
   % RC1A-3
   \subrequerimiento[rq_pci:llaves_de_uso_unico]
-  {PCI}{Llaves de uso único}
+  {Llaves de uso único}
   {
     Las llaves criptográficas usadas para generar \glspl{gl:token} no
     deben ser usadas para ningún otro fin.

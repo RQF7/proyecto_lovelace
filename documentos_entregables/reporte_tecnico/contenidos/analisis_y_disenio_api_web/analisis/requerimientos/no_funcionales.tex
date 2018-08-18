@@ -1,0 +1,27 @@
+%
+% Lista de requerimientos funcionales,
+% Capítulo de análisis y diseño de api web.
+% Proyecto Lovelace
+%
+
+\subsubsection{No funcionales}
+
+\requerimientoNoFuncional[rqnf_api:tamanios_de_pantalla]{API}
+{Sobre los tamaños de pantallas}
+{
+  Las interfaces gráficas de la aplicación deben estar diseñadas para
+  responder a distintos tamaños de pantalla. En particular, se debe
+  mostrar cómo se ve la interfaz para los siguientes tamaños (las unidades están
+  en pixeles): extra grande (1920x1080), grande (1280x800), mediana (900x960),
+  chica (600x960) y extra chica (480x800).
+}
+
+\requerimientoNoFuncional[rqnf_api:alamcenamiento_de_contrasenias]{API}
+{Sobre el almacenamiento de contraseñas}
+{
+  Las contraseñas nunca se almacenan en la base de datos. Lo que se almacena es
+  un hash (sección \ref{sec:hash}); al momento de identificar a un usuario
+  (\hipervinculo{rq_api:identificacion_de_actores}) se calcula el hash de la
+  contraseña introducida y se compara contra el que está almacenado en la base
+  de datos. El algoritmo utilizado para estos hash debe de ser \gls{gl:sha}-256.
+}

@@ -2,19 +2,21 @@
 % Agrupación de plantillas de IS.
 % Proyecto Lovelace.
 %
-% NOTAS IMPORTAN%TES:
+% NOTAS IMPORTANTES:
 % Casi todos los comandos (la interfaz de usuario no) utilizan
 % un entorno «hangparas» para la descripción. Este entorno no
 % es compatible con las listas en general (itemize, description
 % o enumerate), por lo que no es posible utilizarlas dentro de
-% la descripción. Bueno, posible s'es, pero se ven mal, se
-% perde el margen derecho definido por hangparas. 
+% la descripción. Bueno, posible sí es, pero se ven mal, se
+% pierde el margen derecho definido por hangparas.
+%
 
 % Variables auxiliares
 \newlength{\separacionAnterior}
 
 % Comandos
-\subimport{/}{requerimiento.sty}
+\subimport{/}{requerimiento_funcional.sty}
+\subimport{/}{requerimiento_no_funcional.sty}
 \subimport{/}{regla_de_negocio.sty}
 \subimport{/}{caso_de_uso.sty}
 \subimport{/}{interfaz_de_usuario.sty}
