@@ -12,6 +12,7 @@ sistemaTokenizador.controller('controladorGeneral', [
   '$timeout',
   '$mdSidenav',
   '$mdDialog',
+  'api',
   function (
     $scope,
     $route,
@@ -19,12 +20,15 @@ sistemaTokenizador.controller('controladorGeneral', [
     $location,
     $timeout,
     $mdSidenav,
-    $mdDialog
+    $mdDialog,
+    api
   )
   {
     $scope.$route = $route;
     $scope.routeParams = $routeParams;
     $scope.$location = $location;
+
+    /* Control de secciones. *************************************************/
 
     /* Gestión del título de sección.
      *
@@ -82,7 +86,15 @@ sistemaTokenizador.controller('controladorGeneral', [
       }, 200);
     };
 
-    /* Operación de inicio de sesión. */
+    /* Operaciones de sesión **************************************************/
+
+    $scope.usuario = undefined;
+    api.obtenerUsuarioDeSesion().then(function (respuesta) {
+      if (respuesta.data != '') {
+        $scope.usuario = respuesta.data;
+      }
+    });
+
     $scope.iniciarSesion = function ($event) {
       var padre = angular.element(document.body);
       $mdDialog.show({
@@ -92,8 +104,14 @@ sistemaTokenizador.controller('controladorGeneral', [
         controller: 'controladorFormularioIniciarSesion'
       }).then(function (respuesta) {
         if (respuesta != undefined) {
-          console.log("DEBUG", respuesta);
+          $scope.usuario = respuesta;
         }
+      });
+    };
+
+    $scope.cerrarSesion = function () {
+      api.cerrarSesion().then(function (respuesta) {
+        $scope.usuario = undefined;
       });
     };
 

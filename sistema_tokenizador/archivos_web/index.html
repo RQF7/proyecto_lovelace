@@ -76,7 +76,7 @@
           <div class="md-toolbar-tools">
             <div layout="column">
               <h1>Sistema Tokenizador</h1>
-              <span class="md-subhead">ESCOM IPN</span>
+              <!--span class="md-subhead">ESCOM IPN</span-->
               <!-- ¿La escuela? ¿No tengo nada mejor que poner? -->
             </div>
           </div>
@@ -92,8 +92,8 @@
             ng-click="cambiarEstadoBarra()"
             class="icono-menu"
             id="icono-menu-adentro">
-            <md-tooltip md-direction="left">Ocultar menú lateral</md-tooltip>
-            <i class="material-icons">chevron_left</i>
+              <md-tooltip md-direction="left">Ocultar menú lateral</md-tooltip>
+              <i class="material-icons">chevron_left</i>
           </md-button>
           <span flex></span>
         </div>
@@ -106,7 +106,7 @@
         layout-fill
         md-colors="{background: 'background-hue-2'}">
 
-        <!-- Inicio de sitio público. -->
+        <!-- Inicio. -->
         <md-button
           flex="none"
           href="/">
@@ -126,6 +126,32 @@
           <div
             class="circulo-marca"
             ng-if="seccion == 2"
+            md-colors="{background: 'accent'}">
+          </div>
+        </md-button>
+
+        <!-- Adminisración de tokens. -->
+        <md-button
+          ng-if="usuario.tipoDeUsuario == 1"
+          flex="none"
+          href="/administración_de_tokens">
+          Administración de tokens
+          <div
+            class="circulo-marca"
+            ng-if="seccion == 3"
+            md-colors="{background: 'accent'}">
+          </div>
+        </md-button>
+
+        <!-- Adminisración. -->
+        <md-button
+          ng-if="usuario.tipoDeUsuario == 2"
+          flex="none"
+          href="/administración">
+          Administración
+          <div
+            class="circulo-marca"
+            ng-if="seccion == 4"
             md-colors="{background: 'accent'}">
           </div>
         </md-button>
@@ -176,7 +202,8 @@
         -->
         <div
           layout="column"
-          flex="none">
+          flex="none"
+          ng-if="usuario == undefined">
           <span flex></span>
           <div layout="row">
             <md-button
@@ -201,6 +228,30 @@
               <span hide show-sm show-xs>
                 <i class="material-icons">person</i>
                 <md-tooltip>Iniciar sesión</md-tooltip>
+              </span>
+            </md-button>
+          </div>
+          <span flex></span>
+        </div>
+        <div
+          layout="column"
+          flex="none"
+          ng-if="usuario != undefined">
+          <span flex></span>
+          <div layout="row">
+            <p>
+              {{usuario.correo}} &nbsp;
+            </p>
+            <md-button
+              id="botonCerrarSesion"
+              ng-click="cerrarSesion()"
+              class="md-primary md-raised conIcono">
+              <span hide show-gt-sm>
+                Cerrar sesión
+              </span>
+              <span hide show-sm show-xs>
+                <i class="material-icons">person_outline</i>
+                <md-tooltip>Cerrar sesión</md-tooltip>
               </span>
             </md-button>
           </div>

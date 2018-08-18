@@ -52,7 +52,11 @@
             spellcheck="false">
         </md-input-container>
         <div
-          ng-include="'estaticos/mensajes/credenciales_incorrectas.tex'"></div>
+          ng-if="error"
+          ng-include="'estaticos/mensajes/credenciales_incorrectas.tex'"
+          class="mensajes"
+          md-colors="{color: 'accent'}">
+        </div>
       </form>
     </div>
   </md-dialog-content>

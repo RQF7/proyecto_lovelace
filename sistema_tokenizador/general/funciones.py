@@ -24,6 +24,18 @@ def inicio (peticion):
   return HttpResponse(content = respuesta)
 
 
+def usuarioDeSesion (peticion):
+  """
+  Regresa el usuario de la sesión.
+
+  En caso de no existir, se regresa un http vacío.
+  """
+  if 'usuario' in peticion.session:
+    return HttpResponse(json.dumps(peticion.session['usuario']))
+  else:
+    return HttpResponse()
+
+
 def iniciarSesion (peticion):
   """
   Valida las credenciales dadas para iniciar una sesión.

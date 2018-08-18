@@ -17,6 +17,7 @@ sistemaTokenizador.controller('controladorFormularioIniciarSesion', [
     /* Datos públicos. *******************************************************/
 
     $scope.usuario = {};
+    $scope.error = false;
 
     /* Acciones públicas. ****************************************************/
 
@@ -27,10 +28,8 @@ sistemaTokenizador.controller('controladorFormularioIniciarSesion', [
     $scope.aceptar = function () {
       api.iniciarSesion($scope.usuario).then(function (respuesta) {
         if (respuesta.data == '') {
-          /* Error. */
-          console.log("Error");
+          $scope.error = true;
         } else {
-          /* Sesión iniciada */
           $mdDialog.hide(respuesta.data);
         }
       });
