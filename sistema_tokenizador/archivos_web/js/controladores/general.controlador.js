@@ -92,7 +92,7 @@ sistemaTokenizador.controller('controladorGeneral', [
         controller: 'controladorFormularioIniciarSesion'
       }).then(function (respuesta) {
         if (respuesta != undefined) {
-
+          console.log("DEBUG", respuesta);
         }
       });
     };

@@ -7,11 +7,17 @@
 sistemaTokenizador.controller('controladorFormularioIniciarSesion', [
   '$scope',
   '$mdDialog',
+  'api',
   function (
     $scope,
-    $mdDialog
+    $mdDialog,
+    api
   )
   {
+    /* Datos públicos. *******************************************************/
+
+    $scope.usuario = {};
+
     /* Acciones públicas. ****************************************************/
 
     $scope.cancelar = function () {
@@ -19,7 +25,15 @@ sistemaTokenizador.controller('controladorFormularioIniciarSesion', [
     };
 
     $scope.aceptar = function () {
-      console.log("En construcción");
+      api.iniciarSesion($scope.usuario).then(function (respuesta) {
+        if (respuesta.data == '') {
+          /* Error. */
+          console.log("Error");
+        } else {
+          /* Sesión iniciada */
+          $mdDialog.hide(respuesta.data);
+        }
+      });
     };
   }
 ]);
