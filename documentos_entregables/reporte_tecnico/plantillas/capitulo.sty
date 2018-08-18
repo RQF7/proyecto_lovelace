@@ -6,16 +6,16 @@
 %
 
 % Comando para definir un capítulo
-% 1-> Título del capítulo.
-% 2 y 3 -> Cita y fuente.
+% 1-> Prefijo para comandos internos (opcional)
+% 2-> Título del capítulo.
+% 3 y 4 -> Cita y fuente.
 %
-% PD: Si se quiere poner varios epígrafes por capítulo, se tiene que sacar
-% el comándo de aquí, y que el contenido venga desde afuera.
 
-\newcommand{\capitulo}[3]
+\newcommand{\capitulo}[4][SD]
 {
-  \chapter{#1}
-  \label{#2}
-  #3
+  \renewcommand{\prefijo}{#1}
+  \chapter{#2}
+  \label{#3}
+  #4
   \newpage
 }

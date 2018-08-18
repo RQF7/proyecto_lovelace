@@ -9,11 +9,10 @@
 
 % Comando para casos de uso
 % #1 -> Etiqueta (opcional).
-% #2 -> Prefijo para numeración.
-% #3 -> Título.
-% #4 -> Contenido.
+% #2 -> Título.
+% #3 -> Contenido.
 
-\newcommand{\casoDeUso}[4]
+\newcommand{\casoDeUso}[3]
 [cu:\formatearnumero{contador_casos_de_uso}]
 {
   % Configuración
@@ -26,11 +25,11 @@
   \vspace{1.0em}
   \noindent
   \textbf{\hypertarget{#1}
-    {CU#2-\formatearnumero{contador_casos_de_uso} #3}.}
+    {CU\prefijo-\formatearnumero{contador_casos_de_uso} #2}.}
   \par
   \vspace{1.0em}
   \begin{hangparas}{2em}{0}
-    #4
+    #3
   \end{hangparas}
 
   % Estado previo

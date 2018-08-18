@@ -8,7 +8,7 @@
 
 % RC1B
 % TODO: el documento explica por qué esta cantidad; aún no lo entiendo.
-\requerimiento{PCI}{Probabilidad de adivinar relaciones (criptográficos)}
+\requerimiento{Probabilidad de adivinar relaciones (criptográficos)}
 {
   La probabilidad de adivinar la relación entre un \gls{gl:token} y un
   \gls{gl:pan} debe de ser menor que $ 1 $ en $ 10^6 $.
@@ -68,7 +68,7 @@
 % requerimiento fuera en realidad para los no criptográficos, ¿Cuál es la
 % diferencia entre guardar el PAN completo y guardar el PAN truncado?
 \requerimiento[rq_pci:cr_almacenamiento_tokens]
-{PCI}{Almacenamiento de tokens (criptográficos)}
+{Almacenamiento de tokens (criptográficos)}
 {
   Los \glspl{gl:token} generados no se deben almacenar en ningún punto del
   sistema.
@@ -86,7 +86,7 @@ reflejar este hecho.
 
 % RC4A
 \requerimiento[rq_pci:cr_administracion_llaves]
-{PCI}{Seguridad de la administración de llaves (criptográficos)}
+{Seguridad de la administración de llaves (criptográficos)}
 {
   Todas la operaciones sobre la administración de las llaves criptográficas
   deben realizarse en un dispositivo criptográfico seguro y aprobado: el
@@ -97,7 +97,7 @@ reflejar este hecho.
 
 % RC4C-1 y 2
 \requerimiento[rq_pci:cr_longitud_llaves]
-{PCI}{Sobre la longitud de las llaves (criptográficos)}
+{Sobre la longitud de las llaves (criptográficos)}
 {
   Las llaves para \textit{tokenizar} deben tener una
   \gls{gl:fuerza_efectiva} de, al menos, 128 bits. Cualquier llave utilizada
@@ -107,7 +107,7 @@ reflejar este hecho.
 
 % RC4D
 \requerimiento[rq_pci:cr_independencia_estadistica]
-{PCI}{Independencia estadística (criptográficos)}
+{Independencia estadística (criptográficos)}
 {
   Si el espacio de llaves es usado para producir \glspl{gl:token} es dos
   contextos distintos (p. ej. para distintos comerciantes), estas deben ser

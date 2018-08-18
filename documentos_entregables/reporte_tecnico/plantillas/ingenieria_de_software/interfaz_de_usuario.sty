@@ -12,11 +12,10 @@
 
 % Comando para interfaces de usuario.
 % #1 -> Etiqueta (opcional)
-% #2 -> Prefijo para numeración.
-% #3 -> Título de la interfaz.
-% #4 -> URL de archivo.
+% #2 -> Título de la interfaz.
+% #3 -> URL de archivo.
 
-\newcommand{\interfazDeUsuario}[4]
+\newcommand{\interfazDeUsuario}[3]
 [iu:\formatearnumero{contador_de_interfaces}]
 {
   % Configuración
@@ -26,7 +25,7 @@
     \centering
     \begin{subfigure}{0.75\textwidth}
       \begin{center}
-        \includegraphics[width=1.0\linewidth]{#4_1920x1080.png}
+        \includegraphics[width=1.0\linewidth]{#3_1920x1080.png}
         \caption{1920 x 1080}
       \end{center}
     \end{subfigure}
@@ -34,13 +33,13 @@
     \vspace{0.5em}
     \begin{subfigure}{0.5\textwidth}
       \begin{center}
-        \includegraphics[width=1.0\linewidth]{#4_1280x800.png}
+        \includegraphics[width=1.0\linewidth]{#3_1280x800.png}
         \caption{1280 x 800}
       \end{center}
     \end{subfigure}
     \begin{subfigure}{0.1875\textwidth}
       \begin{center}
-        \includegraphics[width=1.0\linewidth]{#4_480x800.png}
+        \includegraphics[width=1.0\linewidth]{#3_480x800.png}
         \caption{480 x 800}
       \end{center}
     \end{subfigure}
@@ -48,18 +47,18 @@
     \vspace{0.5em}
     \begin{subfigure}{0.2343\textwidth}
       \begin{center}
-        \includegraphics[width=1.0\linewidth]{#4_600x900.png}
+        \includegraphics[width=1.0\linewidth]{#3_600x900.png}
         \caption{600 x 960}
       \end{center}
     \end{subfigure}
     \begin{subfigure}{0.375\textwidth}
       \begin{center}
-        \includegraphics[width=1.0\linewidth]{#4_960x900.png}
+        \includegraphics[width=1.0\linewidth]{#3_960x900.png}
         \caption{960 x 900}
       \end{center}
     \end{subfigure}
     \par
     \vspace{0.5em}
-    \hypertarget{#1}{IU#2-\formatearnumero{contador_de_interfaces} #3}
+    \hypertarget{#1}{IU\prefijo-\formatearnumero{contador_de_interfaces} #2}
   \end{figure}
 }

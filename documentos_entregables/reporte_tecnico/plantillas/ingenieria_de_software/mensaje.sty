@@ -8,11 +8,10 @@
 
 % Comando para reglas de negocio
 % #1 -> Etiqueta (opcional).
-% #2 -> Prefijo para numeración.
-% #3 -> Título de mensaje
-% #4 -> Contenido.
+% #2 -> Título de mensaje
+% #3 -> Contenido.
 
-\newcommand{\mensaje}[4]
+\newcommand{\mensaje}[3]
 [msj:\formatearnumero{contador_de_mensajes}]
 {
   % Configuración
@@ -24,10 +23,10 @@
   \vspace{1.0em}
   \noindent
   \textbf{\hypertarget{#1}
-    {MSJ#2-\formatearnumero{contador_de_mensajes} #3}.}
+    {MSJ\prefijo-\formatearnumero{contador_de_mensajes} #2}.}
   \par
   \begin{hangparas}{2em}{0}
-    #4
+    #3
   \end{hangparas}
 
   % Estado previo

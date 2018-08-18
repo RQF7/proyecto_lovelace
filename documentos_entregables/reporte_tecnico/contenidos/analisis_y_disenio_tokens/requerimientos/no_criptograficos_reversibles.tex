@@ -8,7 +8,7 @@
 
 % RN 1A
 \requerimiento[rq_pci:nc_generacion_y_almacenamiento]
-{PCI}{Generación y almacenamiento de tokens (no criptográficos)}
+{Generación y almacenamiento de tokens (no criptográficos)}
 {
   La generación de un \gls{gl:token} debe realizarse independientemente de
   su \gls{gl:pan}, y la relación entre un \gls{gl:pan} y su \gls{gl:token}
@@ -18,7 +18,7 @@
 
 % RN 1B
 \requerimiento[rq_pci:nc_seguridad]
-{PCI}{Probabilidad de encontrar un PAN (no criptográficos)}
+{Probabilidad de encontrar un PAN (no criptográficos)}
 {
   La probabilidad de encontrar un \gls{gl:pan} a partir de su respectivo
   \gls{gl:token} debe de ser menor que $1$ en $10^6$.
@@ -83,7 +83,7 @@ que  la generación del \gls{gl:token} es independiente del \gls{gl:pan}
 % RN 1C
 % TODO: ¿Diferencias con RB1B-1?
 \requerimiento[rq_pci:nc_distribucion_imparcial]
-{PCI}{Distribución imparcial (no criptográficos)}
+{Distribución imparcial (no criptográficos)}
 {
   El proceso de generación de \glspl{gl:token} debe garantizar una
   distribución de \glspl{gl:token} imparcial, esto significa que la
@@ -92,7 +92,7 @@ que  la generación del \gls{gl:token} es independiente del \gls{gl:pan}
 
 % RN 1D
 \requerimiento[rq_pci:nc_independencia_estadistica]
-{PCI}{Instancias estadísticamente independientes (no criptográficos)}
+{Instancias estadísticamente independientes (no criptográficos)}
 {
   Si varias o diferentes instancias de la bases de datos (\gls{gl:cdv}) son
   usadas, cada una de estas debe ser \glspl{gl:estidisticamente_independiente}.
@@ -100,7 +100,7 @@ que  la generación del \gls{gl:token} es independiente del \gls{gl:pan}
 
 % RN 2A
 \requerimiento[rq_pci:nc_proceso_detokenizacion]
-{PCI}{Proceso de detokenización (no criptográficos)}
+{Proceso de detokenización (no criptográficos)}
 {
   El proceso de detokenización debe realizarse por medio de una búsqueda de
   datos o un índice dentro de la base de datos (\gls{gl:cdv}), y no por medio
@@ -128,7 +128,7 @@ los cuales son métodos matemáticos.
 
 % RN3A
 \requerimiento[rq_pci:nc_cifrado_de_base]
-{PCI}{Cifrado de la base de datos (no criptográficos)}
+{Cifrado de la base de datos (no criptográficos)}
 {
   Dentro de la base de datos (\gls{gl:cdv}), los \gls{gl:pan} deben ser
   cifrados con una llave de mínimo 128 bits de \gls{gl:fuerza_efectiva}.
@@ -136,7 +136,7 @@ los cuales son métodos matemáticos.
 
 % RN4A
 \requerimiento[rq_pci:nc_administracion_llaves]
-{PCI}{Seguridad de la administración de llaves (no criptográficos)}
+{Seguridad de la administración de llaves (no criptográficos)}
 {
   Todas la operaciones sobre la administración de las llaves criptográficas
   deben realizarse en un dispositivo criptográfico seguro y aprobado: el
