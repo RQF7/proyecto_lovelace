@@ -28,8 +28,6 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
   'sistema_tokenizador.programa_tokenizador.configuracion.Configuracion',
   'sistema_tokenizador.general.configuracion.Configuracion',
-  'django.contrib.admin',
-  'django.contrib.auth',
   'django.contrib.contenttypes',
   'django.contrib.sessions',
   'django.contrib.messages',
@@ -41,31 +39,33 @@ MIDDLEWARE = [
   'django.contrib.sessions.middleware.SessionMiddleware',
   'django.middleware.common.CommonMiddleware',
 #  Protección contra ataques CSRF: un sitio pequeño y más de prueba que otra
-#  cosa no lo necesita... lo que tendría sentido es que nosotros hicieramos los
+#  cosa no lo necesita... lo que tendría sentido es que nosotros hiciéramos los
 #  ataques.
 #  'django.middleware.csrf.CsrfViewMiddleware',
-  'django.contrib.auth.middleware.AuthenticationMiddleware',
+#  'django.contrib.auth.middleware.AuthenticationMiddleware',
   'django.contrib.messages.middleware.MessageMiddleware',
   'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'sistema_tokenizador.direcciones'
 
-TEMPLATES = [
-  {
-    'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [],
-    'APP_DIRS': True,
-    'OPTIONS': {
-      'context_processors': [
-        'django.template.context_processors.debug',
-        'django.template.context_processors.request',
-        'django.contrib.auth.context_processors.auth',
-        'django.contrib.messages.context_processors.messages',
-      ],
-    },
-  },
-]
+# No usamos templates, el cliente funciona como aplicación web (angular).
+
+# TEMPLATES = [
+#   {
+#     'BACKEND': 'django.template.backends.django.DjangoTemplates',
+#     'DIRS': [],
+#     'APP_DIRS': True,
+#     'OPTIONS': {
+#       'context_processors': [
+#         'django.template.context_processors.debug',
+#         'django.template.context_processors.request',
+#         'django.contrib.auth.context_processors.auth',
+#         'django.contrib.messages.context_processors.messages',
+#       ],
+#     },
+#   },
+# ]
 
 WSGI_APPLICATION = 'sistema_tokenizador.servidor_web.aplicacion'
 

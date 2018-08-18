@@ -135,7 +135,18 @@
   Para ser vistos como usuarios o administradores, los actores deben
   pasar por un proceso de identificación. La identificación es mediante
   un correo electrónico (\hipervinculo{rn:correo_electronico}) y una
-  contraseña (\hipervinculo{rn:formato_de_contrasenias}).
+  contraseña (\hipervinculo{rn:formato_de_contrasenias}). Esto está relacionado
+  con \hiperviculo{rq_api:alamcenamiento_de_contrasenias}.
+}
+
+\requerimiento[rq_api:alamcenamiento_de_contrasenias]{API}
+{Sobre el almacenamiento de contraseñas}
+{
+  Las contraseñas nunca se almacenan en la base de datos. Lo que se almacena es
+  un hash (sección \ref{sec:hash}); al momento de identificar a un usuario
+  (\hipervinculo{rq_api:identificacion_de_actores}) se calcula el hash de la
+  contraseña introducida y se compara contra el que está almacenado en la base
+  de datos. El algoritmo utilizado para estos hash debe de ser \gls{gl:sha}-256.
 }
 
 \requerimiento[rq_api:registro_de_actores]{API}
