@@ -45,11 +45,9 @@ module.exports = function (grunt) {
       sitio_publico: {
         src: [
           cc + 'js/sistema_tokenizador.aplicacion.js',
-          cc + 'js/configuraciones/tema.configuracion.js',
-          cc + 'js/configuraciones/navegacion.configuracion.js',
-          cc + 'js/controladores/general.controlador.js',
-          cc + 'js/controladores/inicio.controlador.js',
-          cc + 'js/controladores/documentacion.controlador.js'
+          cc + 'js/configuraciones/*.configuracion.js',
+          cc + 'js/controladores/*.controlador.js',
+          cc + 'js/controladores/secundarios/*.controlador.js'
         ],
         dest: cc + 'compilados/js/scripts.js'
       }

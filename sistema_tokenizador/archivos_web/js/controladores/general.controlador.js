@@ -11,13 +11,15 @@ sistemaTokenizador.controller('controladorGeneral', [
   '$location',
   '$timeout',
   '$mdSidenav',
+  '$mdDialog',
   function (
     $scope,
     $route,
     $routeParams,
     $location,
     $timeout,
-    $mdSidenav
+    $mdSidenav,
+    $mdDialog
   )
   {
     $scope.$route = $route;
@@ -78,6 +80,21 @@ sistemaTokenizador.controller('controladorGeneral', [
       return rebotar(function() {
         $mdSidenav(identificador).toggle()
       }, 200);
+    };
+
+    /* Operación de inicio de sesión. */
+    $scope.iniciarSesion = function ($event) {
+      var padre = angular.element(document.body);
+      $mdDialog.show({
+        parent: padre,
+        targetEvent: $event,
+        templateUrl: '/estaticos/html/ventanas/iniciar_sesion.ventana.html',
+        controller: 'controladorFormularioIniciarSesion'
+      }).then(function (respuesta) {
+        if (respuesta != undefined) {
+
+        }
+      });
     };
 
   }
