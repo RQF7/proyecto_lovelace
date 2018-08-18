@@ -4,10 +4,6 @@
 
   Lo mismo que en el ejemplo 3, pero en modo silencioso.
 
-  Este es el script que utiliza el makefile principal para generar capturas de
-  pantalla para la documentación. Recibe como argumentos la url y el nombre
-  del archivo de imagen destino.
-
   El tamaño por defecto es 1920x1080, después toma capturas de 4 tamaños más
   pequeños, (los lugares en donde están las cotas de CSS).
 
