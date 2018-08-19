@@ -7,7 +7,7 @@
 import hashlib
 from .models.usuario import Usuario
 
-def autenticar (usuarioEnPeticion):
+def autentificar (usuarioEnPeticion):
   """
   Valida el usuario dado (correo y contraseña).
 

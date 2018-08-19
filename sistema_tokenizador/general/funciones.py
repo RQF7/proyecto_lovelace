@@ -24,6 +24,22 @@ def inicio (peticion):
   return HttpResponse(content = respuesta)
 
 
+@utilidades.privilegiosRequeridos(1)
+def administracionDeTokens (peticion):
+  """
+
+  """
+  return inicio(peticion)
+
+
+@utilidades.privilegiosRequeridos(2)
+def administracion (peticion):
+  """
+
+  """
+  return inicio(peticion)
+
+
 def usuarioDeSesion (peticion):
   """
   Regresa el usuario de la sesión.
@@ -48,7 +64,7 @@ def iniciarSesion (peticion):
   El Usuario no es serializable por el atributo de la contraseña.
   """
   objetoDePeticion = json.loads(peticion.body)
-  usuario = negocio.autenticar(objetoDePeticion)
+  usuario = negocio.autentificar(objetoDePeticion)
   if usuario != None:
     usuarioSerializable = {
       'correo': usuario.correo,

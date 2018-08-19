@@ -32,6 +32,7 @@ sistemaTokenizador.config(function($routeProvider, $locationProvider){
     controller: 'controladorAdministracion'
   });
 
+  $locationProvider.hashPrefix('');
   $locationProvider.html5Mode(true);
 
 });

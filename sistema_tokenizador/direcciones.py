@@ -23,10 +23,10 @@ from .programa_tokenizador import funciones as programa_tokenizador
 urlpatterns = [
 
   # Vistas
-  path('', general.inicio),
+  path('', general.inicio, name = 'inicio'),
   path('documentación', general.inicio),
-  path('administración_de_tokens', general.inicio),
-  path('administración', general.inicio),
+  path('administración_de_tokens', general.administracionDeTokens),
+  path('administración', general.administracion),
 
   # Operaciones de api
   path('api/usuario_de_sesion', general.usuarioDeSesion),

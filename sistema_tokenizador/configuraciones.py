@@ -17,6 +17,7 @@ DIRECTORIO_BASE = ''
 # Configuraciones generales ###################################################
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOGIN_URL = '/'
 SECRET_KEY = 'pdm$49m@g!kedc&f!t+tem!hex-t4p^3+id(4v354lmog3su0c'
 DEBUG = True
 ALLOWED_HOSTS = [
@@ -28,6 +29,7 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
   'sistema_tokenizador.programa_tokenizador.configuracion.Configuracion',
   'sistema_tokenizador.general.configuracion.Configuracion',
+  'django.contrib.auth',
   'django.contrib.contenttypes',
   'django.contrib.sessions',
   'django.contrib.messages',
@@ -43,7 +45,7 @@ MIDDLEWARE = [
 #  cosa no lo necesita... lo que tendría sentido es que nosotros hiciéramos los
 #  ataques.
 #  'django.middleware.csrf.CsrfViewMiddleware',
-#  'django.contrib.auth.middleware.AuthenticationMiddleware',
+  'django.contrib.auth.middleware.AuthenticationMiddleware',
   'django.contrib.messages.middleware.MessageMiddleware',
   'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
