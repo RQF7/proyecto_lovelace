@@ -265,6 +265,7 @@
 % https://tex.stackexchange.com/questions/36361/how-can-i-inject-the-proper-
 % amount-of-vertical-space-between-captions-and-figure/36362#comment72508_36362
 
+
 % Encabezado y pie
 % Parámetros de fancyhead y fancyfoot:
 % C (center), L (left), R (right)
@@ -276,8 +277,8 @@
   \fancyfoot[LE, RO]{Página \thepage \
      de \pageref{LastPage}}                 % Derecha abajo
   \fancyfoot[RE, LO]{\Subtitulo}            % Izquierda abajo
-  \renewcommand{\headrulewidth}{0.5pt}      % Línea encabezado
-  \renewcommand{\footrulewidth}{0.5pt}      % Línea pie
+  \renewcommand{\headrulewidth}{0.4pt}      % Línea encabezado
+  \renewcommand{\footrulewidth}{0.4pt}      % Línea pie
 }
 
 % Estilo de páginas previas al primer capítulo
@@ -286,9 +287,12 @@
   \fancyhead[CE, CO]{\Titulo}
   \fancyfoot[LE, RO]{Página \thepage}
   \fancyfoot[RE, LO]{\Subtitulo}
-  \renewcommand{\headrulewidth}{0.5pt}
-  \renewcommand{\footrulewidth}{0.5pt}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
 }
+
+% 0.4pt es el equivalente de \thin en tikz. Este es el grosor
+% por defecto utilizado en los diagramas.
 
 % El entorno «plain» es el que utilizan las página de los capítulos
 % Se redefine para que no tengan ni pie ni encabezado.
