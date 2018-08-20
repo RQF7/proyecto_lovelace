@@ -1,0 +1,128 @@
+%
+% Diagrama de estados de actores,
+% Aplicación web de sistema tokenizador.
+% Proyecto Lovelace.
+%
+% TODO:
+% Encontrar una mejor solución para las etiquetas de las transiciones desfasadas.
+% Ahorita funcionan con un shift dentro de el objeto transform canvas, lo cual
+% trae varias desventajas: no se cambia el tamaño global del lienzo, por lo que
+% al colocar una etiqueta por el lado de arriba de la transición del registro
+% de usuario, el margen de la figura queda muy reducido; los hipervínculos
+% no se desfasan al tiempo que la etiqueta, por lo que en el pdf, la zona
+% en la que puedes dar click es en la que aparecería la etiqueta sin el yshift.
+%
+
+\begin{tikzpicture}[
+  estado/.style = {
+    rectangle,
+    draw = black,
+    thin,
+    inner sep = 4mm,
+    text width = 25mm,
+    align = center,
+    minimum height = 1.5cm},
+  estado_inicial/.style = {
+    circle,
+    minimum size = 15pt,
+    fill = black,
+  },
+  etiqueta_transicion/.style = {
+    align = center
+  }]
+
+  % Estados
+  \node[estado_inicial]
+    (estado_inicial) {};
+  \node[estado]
+    (visitante)
+    [right = 1in of estado_inicial]
+    {\small Visitante};
+  \node[estado]
+    (por_identificar)
+    [right = 1.2in of visitante]
+    {\small Por identificar};
+  \node[estado]
+    (usuario)
+    [above right = of por_identificar]
+    {\small Usuario};
+  \node[estado]
+    (administrador)
+    [below right = of por_identificar]
+    {\small Administrador};
+
+  % Transiciones
+  \draw[-stealth']
+    (estado_inicial.east)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 0.8in,
+      above]
+      {\small Entrar a aplicación}
+    (visitante.west);
+  \draw[-stealth']
+    (visitante.east)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 1.0in,
+      above]
+      {\small \hipervinculo{cu:iniciar_sesion}}
+    (por_identificar.west);
+  \draw[-stealth']
+    (por_identificar.north)
+    |-
+    node[
+      etiqueta_transicion,
+      text width = 2.0in,
+      above]
+      {\small \texttt{tipo == usuario}}
+    (usuario.west);
+  \draw[-stealth']
+    (por_identificar.south)
+    |-
+    node[
+      etiqueta_transicion,
+      text width = 2.0in,
+      below]
+      {\small \texttt{tipo == administrador}}
+    (administrador.west);
+  \draw[-stealth']
+    ($(usuario.north) - (0.2in, 0)$)
+    --
+    ($(usuario.north) + (-0.2in, 0.2in)$)
+    -|
+    node[
+      etiqueta_transicion,
+      anchor = west,
+      transform canvas = {
+        yshift=-10pt}]
+      {\small \hipervinculo{cu:cerrar_sesion}}
+    ($(visitante.north) + (0.2in, 0)$);
+  \draw[-stealth']
+    (administrador.south)
+    --
+    ($(administrador.south) - (0, 0.2in)$)
+    -|
+    node[
+      etiqueta_transicion,
+      anchor = west,
+      transform canvas = {
+        yshift=10pt}]
+      {\small \hipervinculo{cu:cerrar_sesion}}
+    (visitante.south);
+  \draw[-stealth']
+    ($(visitante.north) - (0.2in, 0)$)
+    |-
+    node[
+      etiqueta_transicion,
+      anchor = west,
+      transform canvas = {
+        yshift=-10pt}]
+      {\small \hipervinculo{cu:registrar_usuario}}
+    ($(usuario.north) + (0.2in, 0.6in)$)
+    --
+    ($(usuario.north) + (0.2in, 0)$);
+
+\end{tikzpicture}

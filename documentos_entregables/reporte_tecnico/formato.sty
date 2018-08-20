@@ -168,12 +168,17 @@
 % http://mirrors.ibiblio.org/CTAN/macros/latex/required/graphics/rotating.pdf
 % Harramientas para rotar floats.
 \RequirePackage{rotating}
-% http://www.ensta-paristech.fr/~kielbasi/tikzuml/index.php?lang=en
 
-% Diagramas UML con Tikz.
-% \RequirePackage{tikz-uml}
-% \sloppy
-% \hyphenpenalty 10000000
+% https://www.ctan.org/pkg/pgf
+% Gráficos desde LaTeX
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows,
+  decorations.pathmorphing,
+  backgrounds,
+  positioning,
+  calc,
+  scopes}
 
 % http://mirrors.ctan.org/macros/latex/contrib/csquotes/csquotes.pdf
 % Permite definir el tipo de comillas dependiendo el contexto.
