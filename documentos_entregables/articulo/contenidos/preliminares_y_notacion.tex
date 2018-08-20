@@ -7,33 +7,24 @@
 \section{Preliminares}
 \label{sec:preliminares}
 
-% TODO: ¿Qué más va en los preliminares? Candidatos:
-% AES
-% Redes Feistel
-% CBC MAC
-
 \subsection{Notación}
 
-% TODO: Revisar todas las fórmulas y pseudocódigos y poner las cuestiones
-% relacionadas de notación en este párrafo.
-% TODO: quitar notaciones sobrantes después de filtro de algoritmos
-% tokenizadores.
-
 Se denotarán a todas las cadenas de bits de longitud $ n $ como $ \{ 0, 1 \}^n $.
-Para cadenas $ x $ y $ y $ de símbolos sobre alfabetos arbitrarios, con
-$ | x | $ se denotará la longitud de la cadena y con $ x \ || \ y $ la
-concatenación de ambas cadenas. El operador $ \oplus $ simboliza la combinación
-de los operandos, ya sea mediante sumas sin acarreo (equivalente del operador
-\texttt{xor} en cadenas binarias) o mediante sumas modulares.
+La expresión $ f: \mathcal{X} \rightarrow \mathcal{Y} $ denota a una función $ f
+$ que asigna a cada elemento del conjunto $ \mathcal{X} $ un elemento del
+conjunto $ \mathcal{Y} $. La expresión $ \mathcal{A} \times \mathcal{B} $, en
+donde $ \mathcal{A} $ y $ \mathcal{B} $ son conjuntos, denota al producto
+cartesiano, esto es, $ \mathcal{A} \times \mathcal{B} = \{ (a,b) \ | \ a \in
+\mathcal{A} \land b \in \mathcal{B} \} $.
 
 \subsection{Primitivas criptográficas}
 
-Un cifrado por bloques es un cifrado simétrico que se define por la función $ E:
-\mathcal{M} \times \mathcal{K} \rightarrow \mathcal{C} $ en donde $ \mathcal{M} $
-es el espacio de textos en claro, $ \mathcal{K} $ es el espacio de llaves y $
-\mathcal{C} $ es el espacio de mensajes cifrados. Tanto los mensajes en claro
-como los cifrados tienen una misma longitud $ n $, que representa el tamaño del
-bloque \cite{menezes}.
+Un cifrado por bloques es un cifrado simétrico que se define por la función $ e:
+\mathcal{M} \times \mathcal{K} \rightarrow \mathcal{C} : \{ 0, 1 \}^n \times \{
+0, 1 \}^k \rightarrow \{ 0, 1 \}^n $ en donde $ \mathcal{M} $ es el espacio de
+textos en claro, $ \mathcal{K} $ es el espacio de llaves y $ \mathcal{C} $ es el
+espacio de mensajes cifrados; $ n $ es el tamaño del bloque y $ k $ de la llave
+\cite{menezes}.
 
 % Los cifrados por bloque son un elemento de construcción fundamental para otras
 % primitivas criptográficas. Muchos de los algoritmos tokenizadores que se
@@ -43,9 +34,52 @@ bloque \cite{menezes}.
 % implementaciones hechas para este trabajo se ocupó AES (\textit{Advanced
 % Encryption Standard}) en la mayoría de los casos.
 
+Una función \textit{hash} criptográfica es un mapeo eficiente de cadenas de
+longitud arbitraria a cadenas de longitud fija: $ h: \mathcal{M} \rightarrow
+\mathcal{E} : \{ 0, 1 \}^* \rightarrow \{ 0, 1 \}^n $ en donde $ \mathcal{M} $
+es el espacio de mensajes, de cardinalidad infinita, y $ \mathcal{K} $ es el
+espacio de valores \textit{hash}, de cardinalidad $ 2^n $. No debe ser factible
+regresar al mensaje a partir de su valor \textit{hash}, ni encontrar dos
+mensajes que produzcan el mismo \textit{hash} \cite{menezes}.
+
+Una red Feistel
+
+% Existen dos maneras de generar bits aleatorios: la primera es producir bits de
+% manera no determinística, donde el estado de cada uno (uno o cero) está
+% determinado por un proceso físico impredecible. Este tipo de generadores se
+% conocen como \textit{no determinísticos} (NRBG,
+% \textit{Non-deterministic Random
+% Bit Generator}) o \textit{realmente aleatorios} (TRBG, \textit{Truly Random Bit
+% Generator}). La segunda manera, que es la que se explicará a detalle en esta
+% sección, es calcular los bits de forma determinística mediante un algoritmo.
+% Este tipo de generadores se conocen como \textit{determinísticos} (DRBG,
+% \textit{Deterministic Random Bit Generator}), y por lo tanto, los números que
+% genera se denominan \textit{pseudoaleatorios}.
+
+% Un generador determinístico de números aleatorios (DRBG,
+% \textit{Deterministic Random Bit Generator}) utiliza un mecanismo interno,
+% generalmente una función hash o un cifrador por bloques, y un valor inicial
+% llamado semilla, para producir bits de aspecto aleatorio. Dada la naturaleza
+% determinísitca del proceso, a los números generados se les conoce como
+% \textit{pseudoaletorios}. El método que utiliza como mecanismo interno a una
+% función hash consiste en ir concatenando de forma consecutiva los valores hash
+% derivados de la semilla e ir incrementando el valor de esta. El método basado en
+% un cifrador por bloques utiliza el modo de operación de contador,
+% en donde la semilla juega el papel de vector de inicialización. En ambos casos,
+% la seguridad se basa en que la semilla sea un valor secreto
+% \cite{nist_aleatorios}.
+
+% Algo un poco más concreto:
+
+Un generador determinístico de bits aleatorios (DRBG, \textit{Deterministic
+Random Bit Generator}) utiliza una primitiva criptográfica interna,
+generalmente una función \textit{hash} o un cifrado por bloques, y un valor
+inicial llamado semilla, para producir bits de aspecto aleatorio. Dada la
+naturaleza determinística del proceso, a los bits generados se les conoce como
+\textit{pseudoaleatorios}.
+
 % Coregir letra del contradominio de la función de FPE e investigar qué
-% demonios es.
-% Pues no entiendo por el contexto qué significa; de momento la borré.
+% demonios es, no entiendo por el contexto qué significa; de momento la borré.
 
 % ¿Tweak va en itálicas?
 % http://www.rae.es/consultas/los-extranjerismos-y-
@@ -89,37 +123,3 @@ D_K^{N,T}\big( E_K^{N,T}(X) \big) = X $.
 % este trabajo es FFX) y FF3 (lo que en este trabajo es BPS).
 
 % TODO: ¿Hablar también sobre la clasificación que hace Rogaway?
-
-% Existen dos maneras de generar bits aleatorios: la primera es producir bits de
-% manera no determinística, donde el estado de cada uno (uno o cero) está
-% determinado por un proceso físico impredecible. Este tipo de generadores se
-% conocen como \textit{no determinísticos} (NRBG,
-% \textit{Non-deterministic Random
-% Bit Generator}) o \textit{realmente aleatorios} (TRBG, \textit{Truly Random Bit
-% Generator}). La segunda manera, que es la que se explicará a detalle en esta
-% sección, es calcular los bits de forma determinística mediante un algoritmo.
-% Este tipo de generadores se conocen como \textit{determinísticos} (DRBG,
-% \textit{Deterministic Random Bit Generator}), y por lo tanto, los números que
-% genera se denominan \textit{pseudoaleatorios}.
-
-% Un generador determinístico de números aleatorios (DRBG,
-% \textit{Deterministic Random Bit Generator}) utiliza un mecanismo interno,
-% generalmente una función hash o un cifrador por bloques, y un valor inicial
-% llamado semilla, para producir bits de aspecto aleatorio. Dada la naturaleza
-% determinísitca del proceso, a los números generados se les conoce como
-% \textit{pseudoaletorios}. El método que utiliza como mecanismo interno a una
-% función hash consiste en ir concatenando de forma consecutiva los valores hash
-% derivados de la semilla e ir incrementando el valor de esta. El método basado en
-% un cifrador por bloques utiliza el modo de operación de contador,
-% en donde la semilla juega el papel de vector de inicialización. En ambos casos,
-% la seguridad se basa en que la semilla sea un valor secreto
-% \cite{nist_aleatorios}.
-
-% Algo un poco más concreto:
-
-Un generador determinístico de bits aleatorios (DRBG, \textit{Deterministic
-Random Bit Generator}) utiliza una primitiva criptográfica interna,
-generalmente una función hash o un cifrado por bloques, y un valor inicial
-llamado semilla, para producir bits de aspecto aleatorio. Dada la naturaleza
-determinística del proceso, a los bits generados se les conoce como
-\textit{pseudoaleatorios}.
