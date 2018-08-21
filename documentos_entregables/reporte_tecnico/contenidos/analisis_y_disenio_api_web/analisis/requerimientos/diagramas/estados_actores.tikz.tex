@@ -52,7 +52,7 @@
     {\small Administrador};
 
   % Transiciones
-  \draw[-stealth']
+  \draw[-Stealth]
     (estado_inicial.east)
     --
     node[
@@ -61,7 +61,7 @@
       above]
       {\small Entrar a aplicación}
     (visitante.west);
-  \draw[-stealth']
+  \draw[-Stealth]
     (visitante.east)
     --
     node[
@@ -70,7 +70,7 @@
       above]
       {\small \hipervinculo{cu:iniciar_sesion}}
     (por_identificar.west);
-  \draw[-stealth']
+  \draw[-Stealth]
     (por_identificar.north)
     |-
     node[
@@ -79,7 +79,7 @@
       above]
       {\small \texttt{tipo == usuario}}
     (usuario.west);
-  \draw[-stealth']
+  \draw[-Stealth]
     (por_identificar.south)
     |-
     node[
@@ -88,7 +88,7 @@
       below]
       {\small \texttt{tipo == administrador}}
     (administrador.west);
-  \draw[-stealth']
+  \draw[-Stealth]
     ($(usuario.north) - (0.2in, 0)$)
     --
     ($(usuario.north) + (-0.2in, 0.2in)$)
@@ -100,7 +100,7 @@
         yshift=-10pt}]
       {\small \hipervinculo{cu:cerrar_sesion}}
     ($(visitante.north) + (0.2in, 0)$);
-  \draw[-stealth']
+  \draw[-Stealth]
     (administrador.south)
     --
     ($(administrador.south) - (0, 0.2in)$)
@@ -112,7 +112,7 @@
         yshift=10pt}]
       {\small \hipervinculo{cu:cerrar_sesion}}
     (visitante.south);
-  \draw[-stealth']
+  \draw[-Stealth]
     ($(visitante.north) - (0.2in, 0)$)
     |-
     node[
