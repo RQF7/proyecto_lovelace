@@ -14,71 +14,76 @@ en 2001 se tuvieron pérdidas de 1.7 miles de millones de dólares y para 2002
 aumentaron a 2.1. Como una medida de protección, las principales compañías de
 tarjetas de crédito publicaron un estándar obligatorio para todos aquellos que
 procesaran más de 20 000 transacciones anuales: el PCI DSS (en inglés,
-\textit{Payment Card Industry Data Security Standard} \cite{pci_dss}). Este
+\textit{Payment Card Industry Data Security Standard} \cite{pci_dss}); este
 estándar cuenta con una gran cantidad de requerimientos \cite{uk_association}
-\cite{search_security}, por lo que, para negocios medianos y pequeños, resulta
-muy difícil obtener un resultado positivo. A pesar de la publicación del
-estándar en 2004, han seguido existiendo grandes filtraciones de datos
-(\textit{TJX} en 2006, \textit{Hannaford Bros.} en 2008, \textit{Target} en
-2013, \textit{Home Depot} en 2014, por mencionar algunos ejemplos).
+\cite{search_security}, por lo que resulta muy difícil satisfacerlo, 
+especialmente para los negocios pequeños y medianos. A pesar de la publicación
+del estándar en 2004, las grandes filtraciones de datos no han cesado:
+\textit{TJX} en 2006, \textit{Hannaford Bros.} en 2008, \textit{Target} en
+2013 y \textit{Home Depot} en 2014, por mencionar algunos ejemplos.
+%% <<... para negocios medianos y pequeños, resulta muy difícil obtener un
+%% resultado positivo.>> ¿qué es un resultado positivo?, si es un estándar,
+%% lo cumples o no, ¿no?
 
 % Introducción a los sistemas tokenizadores
 % ¿Qué es la tokenización y cómo se usa normalmente (arquitectura).
 
-Es en este contexto en el que surge la alternativa de la tokenización. Hasta
-antes de este momento, la idea era proteger la información sensible en donde
-quiera que se encontrase. Si los números de tarjetas de los usuarios se
+Es en este contexto en el que surge la tokenización como alternativa, pues hasta
+ese momento, la idea era proteger la información sensible en donde
+quiera que se encontrase: si los números de tarjetas de los usuarios se
 encontraban dispersos en diversas partes de un sistema, había que proteger todas
-esas partes. La tokenización consiste en concentrar la información sensible en
-un solo lugar para hacer la tarea de protección más sencilla. Al momento de
-ingreso de un nuevo valor sensible, por ejemplo, la información bancaria de un
-usuario, se genera un token ligado a esa información: el token se usa en todo el
-sistema y la información sensible se protege en un solo lugar. Un posible
-adversario con acceso a los tokens no debe poder obtener la información sensible
-a partir de estos.
+esas partes. La tokenización, en cambio, consiste en concentrar la información
+sensible en un solo lugar para hacer la tarea de protección más sencilla; así,
+cuando se ingresa un nuevo valor sensible, por ejemplo, el número de tarjeta
+de un usuario, se genera un token ligado a esa información; el token se usa en
+todo el sistema y la información sensible se protege en un solo lugar. Un
+posible adversario con acceso a los tokens no debe poder obtener la información
+sensible a partir de estos.
 
 Una de las ventajas de la tokenización es que puede verse como un sistema
-autónomo, independiente del sistema principal. De esta manera se establece una
+autónomo, independiente al sistema principal; de esta manera se establece una
 separación de responsabilidades: el sistema principal se ocupa de la operación
 del negocio (por ejemplo, una tienda en línea) y el sistema tokenizador se
-dedica a la protección de la información sensible. Hoy en día varias compañías
+dedica a la protección de la información sensible. Hoy en día, varias compañías
 ofrecen servicios de tokenización que permiten que los comerciantes se libren
 casi por completo de cumplir con el PCI DSS. En la Figura
-\ref{figura:arquitectura_tokenizacion} se muestra una distribución bastante
+\ref{figura:arquitectura_tokenizacion}, se muestra una distribución bastante
 común para un comercio en línea: el sistema tokenizador guarda la información
 sensible en su base de datos y se encarga de realizar las transacciones
 bancarias.
 
 % Muestra del problema: ejemplos de discursos publicitarios comunes.
-
-Desde sus inicios, la tokenización se ha visto rodeada por una nube de
-desinformación: cada empresa usaba la palabra tokenización sin que existiera una
-definición formal, acordada por todos. Una de las consecuencias de esta
-desinformación es un mensaje bastante común entre las páginas de las empresas
-tokenizadoras: la tokenización y la criptografía son cosas distintas; la
-tokenización es una alternativa de la criptografía. Por ejemplo, lo único que
-\textit{Shift4} dice con claridad sobre sus tokens es que se trata de valores
-aleatorios, únicos y alfanuméricos \cite{shif4_uno}; para
-\textit{Braintree}, la única manera de generar tokens es por métodos aleatorios
-\cite{braintree_uno}; para \textit{Securosis} los tokens son valores aleatorios
-que nada tienen que ver con la criptografía \cite{securosis}. La mayoría de las
-soluciones tratan a sus métodos como secretos de compañía; esperan que el trato
-entre cliente y proveedor esté basado en la confianza y no en la comparación de
-los propios métodos.
+La tokenización se ha visto una rodeada por una nube de confusión y 
+desinformación desde sus inicios; la falta de una definición formal permitió
+que las campañas publicitarias de las empresas tokenizadoras esparcieran 
+mensajes llenos de imprescisiones que, generalmente, dan a entender que la
+tokenización y la criptografía son dos cosas completamente aisladas la una de la
+otra, o que la primera es una alternativa (y no una aplicación) de la segunda.
+Por ejemplo, lo único que \textit{Shift4} dice con claridad sobre sus tokens,
+es que se trata de valores aleatorios, únicos y alfanuméricos \cite{shif4_uno}; 
+para \textit{Braintree}, la única manera de generar tokens es por métodos
+aleatorios \cite{braintree_uno}; finalmente, para \textit{Securosis} los tokens
+son valores aleatorios que nada tienen que ver con la criptografía
+\cite{securosis}; como se puede observar, la mayoría de las soluciones trata a
+sus métodos como secretos de compañía, además, esperan que el trato entre
+cliente y proveedor esté basado en la confianza y no en la comparación de los
+propios métodos tokenizadores.
 
 % Establecer relación entre criptografía y tokenización.
 
 Como se verá por la exposición de algunos métodos tokenizadores, la tokenización
 es una aplicación de la criptografía y, como tal, debe ser analizada con la
-misma formalidad que las demás herramientas criptográficas. Por ejemplo, uno de
-los errores más comunes entre las empresas tokenizadoras es considerar que la
-generación de números aleatorios no utiliza algoritmos criptográficos.
+misma formalidad que las demás herramientas criptográficas; uno de los errores
+más comunes entre las empresas tokenizadoras es considerar que la generación de
+números aleatorios no utiliza algoritmos criptográficos.
+% ¿Por qué <<métodos>> y no <<algoritmos>>?
 
 % Estructura del artículo.
 
-En la Sección \ref{sec:preliminares} de este trabajo se tocan algunos temas
-preliminares necesarios para presentar, en la Sección \ref{sec:algoritmos},
-algunos de los métodos de tokenización. En la Sección \ref{sec:conclusiones} se
+En la Sección \ref{sec:preliminares} de este trabajo se revisan unos temas y
+nociones preliminares necesarios para entender mejor el trabajo; posteriormente,
+en la Sección \ref{sec:algoritmos}, se exponen brevemente los métodos de
+tokenización analizados. Finalmente, en la Sección \ref{sec:conclusiones}, se
 presentan los resultados de las comparaciones de desempeño realizadas y se
 concluye con una discusión alrededor del tema.
 

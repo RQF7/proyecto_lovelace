@@ -29,9 +29,9 @@ de los operandos, ya sea mediante sumas sin acarreo (equivalente del operador
 \subsection{Primitivas criptográficas}
 
 Un cifrado por bloques es un cifrado simétrico que se define por la función $ E:
-\mathcal{M} \times \mathcal{K} \rightarrow \mathcal{C} $ en donde $ \mathcal{M} $
-es el espacio de textos en claro, $ \mathcal{K} $ es el espacio de llaves y $
-\mathcal{C} $ es el espacio de mensajes cifrados. Tanto los mensajes en claro
+\mathcal{M} \times \mathcal{K} \rightarrow \mathcal{C} $, donde $ \mathcal{M} $
+es el espacio de textos en claro, $ \mathcal{K} $ el espacio de llaves y $
+\mathcal{C} $ el espacio de mensajes cifrados. Tanto los mensajes en claro
 como los cifrados tienen una misma longitud $ n $, que representa el tamaño del
 bloque \cite{menezes}.
 
@@ -119,7 +119,7 @@ D_K^{N,T}\big( E_K^{N,T}(X) \big) = X $.
 
 Un generador determinístico de bits aleatorios (DRBG, \textit{Deterministic
 Random Bit Generator}) utiliza una primitiva criptográfica interna,
-generalmente una función hash o un cifrado por bloques, y un valor inicial
+generalmente una función hash o un cifrado por bloques, y un valor inicial,
 llamado semilla, para producir bits de aspecto aleatorio. Dada la naturaleza
 determinística del proceso, a los bits generados se les conoce como
 \textit{pseudoaleatorios}.
