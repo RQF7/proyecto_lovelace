@@ -1,0 +1,104 @@
+%
+% Diagrama de comunicación en criptografía simétrica,
+% Capítulo de marco teórico.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[
+  elemento/.style = {
+    rectangle,
+    draw = black,
+    thin,
+    inner sep = 2mm,
+    align = center,
+    minimum height = 1.5cm}]
+
+    % Alice
+    \node[elemento,
+      text width = 21mm]
+      (mensaje_uno)
+      {\small Mensaje en claro: $ m $};
+    \node[elemento,
+      text width = 21mm]
+      (llave_uno)
+      [right = 2mm of mensaje_uno]
+      {\small Llave pública de Bob: $ pk $};
+    \node[elemento,
+      text width = 48mm]
+      (cifrado)
+      at ($(mensaje_uno.south)!0.5!(llave_uno.south) - (0, 12mm)$)
+      {\small Mecanismo de \\ cifrado: $ E(pk, m) $};
+
+    \draw[-Stealth]
+      (mensaje_uno.south)
+      --
+      (cifrado.north -| mensaje_uno.south);
+    \draw[-Stealth]
+      (llave_uno.south)
+      --
+      (cifrado.north -| llave_uno.south);
+
+    \node
+      (alice)
+      at ($(mensaje_uno.north)!0.5!(llave_uno.north) + (0, 6mm)$)
+      {\small \textbf{Alice}};
+
+    % Canal
+    \node[elemento,
+      text width = 17mm,
+      fill = white]
+      (mensaje_dos)
+      [right = of cifrado]
+      {\small Mensaje cifrado: $ c $};
+    \draw[-Stealth]
+      (cifrado.east)
+      --
+      (mensaje_dos.west);
+
+    % Bob
+    \node[elemento,
+      text width = 48mm]
+      (descifrado)
+      [right = of mensaje_dos]
+      {\small Mecanismo de \\ descifrado: $ D(sk, c) $};
+    \draw[-Stealth]
+      (mensaje_dos.east)
+      --
+      (descifrado.west);
+
+    \node[elemento,
+      text width = 21mm,
+      anchor = south west]
+      (llave_dos)
+      at (descifrado.west |- mensaje_uno.south)
+      {\small Llave privada de Bob: $ sk $};
+    \node[elemento,
+      text width = 21mm]
+      (mensaje_tres)
+      [right = 2mm of llave_dos]
+      {\small Mensaje en claro: $ m $};
+
+    \draw[-Stealth]
+      (llave_dos.south)
+      --
+      (descifrado.north -| llave_dos.south);
+    \draw[-Stealth]
+      (descifrado.north -| mensaje_tres.south)
+      --
+      (mensaje_tres.south);
+
+    \node
+      (bob)
+      at ($(mensaje_tres.north)!0.5!(llave_dos.north) + (0, 6mm)$)
+      {\small \textbf{Bob}};
+
+    % Línea punteada
+    \begin{scope}[on background layer]
+      \draw[-,
+        dashed]
+        (alice.north -| mensaje_dos.north)
+        --
+        ($(mensaje_dos.south) - (0, 0.2in)$);
+    \end{scope}
+
+\end{tikzpicture}
