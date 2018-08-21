@@ -16,7 +16,7 @@ tarjetas de crédito publicaron un estándar obligatorio para todos aquellos que
 procesaran más de 20 000 transacciones anuales: el PCI DSS (en inglés,
 \textit{Payment Card Industry Data Security Standard} \cite{pci_dss}); este
 estándar cuenta con una gran cantidad de requerimientos \cite{search_security,
-uk_association}, por lo que resulta muy difícil satisfacerlo, 
+uk_association}, por lo que resulta muy difícil satisfacerlo,
 especialmente para los negocios pequeños y medianos. A pesar de la publicación
 del estándar en 2004, las grandes filtraciones de datos no han cesado:
 \textit{TJX} en 2006, \textit{Hannaford Bros.} en 2008, \textit{Target} en
@@ -54,14 +54,14 @@ bancarias.
 
 % Muestra del problema: ejemplos de discursos publicitarios comunes.
 
-La tokenización se ha visto una rodeada por una nube de confusión y 
+La tokenización se ha visto rodeada por una nube de confusión y 
 desinformación desde sus inicios; la falta de una definición formal permitió
-que las campañas publicitarias de las empresas tokenizadoras esparcieran 
+que las campañas publicitarias de las empresas tokenizadoras esparcieran
 mensajes llenos de imprescisiones que, generalmente, dan a entender que la
 tokenización y la criptografía son dos cosas completamente aisladas la una de la
 otra, o que la primera es una alternativa (y no una aplicación) de la segunda.
 Por ejemplo, lo único que \textit{Shift4} dice con claridad sobre sus tokens,
-es que se trata de valores aleatorios, únicos y alfanuméricos \cite{shif4_uno}; 
+es que se trata de valores aleatorios, únicos y alfanuméricos \cite{shif4_uno};
 para \textit{Braintree}, la única manera de generar tokens es por métodos
 aleatorios \cite{braintree_uno}; finalmente, para \textit{Securosis} los tokens
 son valores aleatorios que nada tienen que ver con la criptografía
@@ -75,7 +75,7 @@ propios métodos tokenizadores.
 Como se verá a continuación por la exposición de algunos métodos tokenizadores,
 la tokenización es una aplicación de la criptografía y, como tal, debe ser
 analizada con la misma formalidad que las demás herramientas criptográficas; uno
-de los errores más comunes entre las empresas tokenizadoras es considerar que 
+de los errores más comunes entre las empresas tokenizadoras es considerar que
 la generación de números aleatorios no utiliza algoritmos criptográficos.
 % ¿Por qué <<métodos>> y no <<algoritmos>>?
 
