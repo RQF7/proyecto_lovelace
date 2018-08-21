@@ -7,14 +7,14 @@
 \section{Algoritmos tokenizadores}
 \label{sec:algoritmos}
 
-Como el enfoque de este artículo es ver a la tokenización como un servicio
-(Figura \ref{figura:arquitectura_tokenizacion}), la interfaz para los procesos
-de tokenización y detokenización, desde el punto de vista de los usuarios del
-servicio, es sumamente simple: el proceso de tokenización es una función $ E:
-\mathcal{X} \rightarrow \mathcal{Y} $ y el de detokenización es  simplemente la
-función inversa $ D: \mathcal{Y} \rightarrow \mathcal{X} $, en donde $
-\mathcal{X} $ y $ \mathcal{Y} $ son los espacios de números de tarjetas y
-tokens, respectivamente.
+Como el enfoque de este artículo es ver a la generación de tokens como un
+servicio (Figura \ref{figura:arquitectura_tokenizacion}), la interfaz para los
+procesos de tokenización y detokenización, desde el punto de vista de los
+usuarios del servicio, es sumamente simple: el proceso para generar tokens es
+una función $ E: \mathcal{X} \rightarrow \mathcal{Y} $ y el proceso para
+regresar a los números de tarjeta es simplemente la función inversa $ D:
+\mathcal{Y} \rightarrow \mathcal{X} $, en donde $ \mathcal{X} $ y $ \mathcal{Y}
+$ son los espacios de números de tarjetas y tokens, respectivamente.
 
 Los números de tarjetas bancarias cuentan con entre 12 y 19 dígitos, y se
 encuentran normados por el estándar ISO/IEC-7812~\cite{iso_7812}. El último
@@ -45,7 +45,7 @@ tokenizadores~\cite{pci_tokens}:
   \item Métodos reversibles. Aquellos para los cuales es posible obtener el
     número de tarjeta a partir del token.
     \begin{itemize}
-      \item Criptográficos. Ocupan un esquema de cifrado simétrico: el número
+      \item Criptográficos. Utilizan un esquema de cifrado simétrico: el número
         de tarjeta y una llave entran al mecanismo de tokenización para obtener
         un token; el token y la misma llave entran al mecanismo de
         detokenización para obtener el número de tarjeta original.
@@ -65,38 +65,36 @@ tokenizadores~\cite{pci_tokens}:
 \subsection{Algoritmos implementados}
 \label{sec:implementaciones}
 
-\textbf{FFX}. \textit{Format-preserving Feistel-based Encryption}. Cifrado que
-preserva el formato presentado en \cite{ffx_1} por Mihir Bellare, Phillip
-Rogaway y Terence Spies.  En su forma más general, el algoritmo se compone de 9
-parámetros que permiten cifrar cadenas de cualquier longitud en cualquier
-alfabeto; los autores también proponen dos formas más específicas (dos
-colecciones de parámetros) para alfabetos binarios y alfabetos decimales: A2 y
-A10, respectivamente.
+\textbf{FFX y BPS}. Cifrados que preservan el formato. En~\cite{nist_fpe} el
+NIST (\textit{National Institute of Standards and Technology}) los estandariza,
+denominándolos FF1 y FF3, respectivamente.
 
-FFX A10 ocupa una red Feistel alternante junto con una adaptación de AES-CBC-MAC
-(usada como función de ronda) para lograr preservar el formato. La operación
-general del algoritmo se describe completamente por la operación de una red
-Feistel alternante. La idea de la función de ronda es interpretar la salida de
-AES-CBC-MAC para que tenga el formato deseado.
+% TODO: definir AES-CBC-MAC
 
-\textbf{BPS}. Cifrado que preserva el formato diseñado por Eric Brier, Thomas
-Peyrin y Jacques Stern~\cite{bps}. En \cite{nist_fpe} el NIST (\textit{National
-Institute of Standards and Technology}) estandariza a FFX y a BPS,
-denominándolos FF1 y FF3, respectivamente. BPS se conforma de 2 partes: un
-cifrado interno $BC$ que se encarga de cifrar bloques de longitud fija; y un
-modo de operación especial, encargado de extender la funcionalidad de $BC$ y
-permitir cifrar cadenas de mayor longitud.
+FFX (\textit{Format-preserving Feistel-based Encryption}) fue presentado
+en~\cite{ffx_1} por Mihir Bellare, Phillip Rogaway y Terence Spies. En su forma
+más general, se compone de una serie de parámetros que permiten cifrar cadenas
+de cualquier longitud en cualquier alfabeto; los autores también proponen dos
+formas más específicas (dos colecciones de parámetros) para alfabetos binarios y
+alfabetos decimales: A2 y A10, respectivamente. FFX A10 usa una red Feistel
+alternante junto con una adaptación de AES-CBC-MAC (usada como función de ronda)
+para lograr preservar el formato.
 
-El cifrado interno utiliza una red Feistel alternante y se define como
-$BC_{F,s,b,w}(X,K,T)$, donde $F$ es un cifrado por bloques con $f$ bits de
-salida; $s$ es la cardinalidad del alfabeto de la cadena a cifrar, $b$ es su
-longitud, $w$ es el número de rondas de la red Feistel, $X$ es la cadena, $K$ es
-una llave acorde al cifrado $F$, y $T$ es un \textit{tweak} de 64 bits. El modo
-de operación de BPS es un variación de CBC, con la diferencia de que usa sumas
-modulares carácter por carácter en lugar de aplicar operaciones \textit{xor},
-además de que no emplea un vector de inicialización.
+BPS fue diseñado por Eric Brier, Thomas Peyrin y Jacques Stern~\cite{bps}. Se
+conforma de 2 partes: un cifrado interno $BC$ que se encarga de cifrar bloques
+de longitud fija; y un modo de operación especial, encargado de extender la
+funcionalidad de $BC$ y permitir cifrar cadenas de mayor longitud.
 
-\textbf{TKR}. En \cite{doc_sandra} se analiza formalmente el problema de la
+% El cifrado interno utiliza una red Feistel alternante y se define como
+% $BC_{F,s,b,w}(X,K,T)$, donde $F$ es un cifrado por bloques con $f$ bits de
+% salida; $s$ es la cardinalidad del alfabeto de la cadena a cifrar, $b$ es su
+% longitud, $w$ es el número de rondas de la red Feistel, $X$ es la cadena, $K$ es
+% una llave acorde al cifrado $F$, y $T$ es un \textit{tweak} de 64 bits. El modo
+% de operación de BPS es un variación de CBC, con la diferencia de que usa sumas
+% modulares carácter por carácter en lugar de aplicar operaciones \textit{xor},
+% además de que no emplea un vector de inicialización.
+
+\textbf{TKR}. En~\cite{doc_sandra} se analiza formalmente el problema de la
 generación de tokens y se propone un algoritmo que no está basado en cifrados
 que preservan el formato. Hasta antes de la publicación de este documento, los
 únicos métodos para generar tokens cuya seguridad estaba formalmente demostrada
@@ -113,33 +111,35 @@ interpretación que produce tokens válidos.
 
 \textbf{AHR}. En 2017, Longo, Aragona y Sala~\cite{aragona} propusieron un
 algoritmo que denominaron \textit{híbrido reversible} que está basado en un
-cifrador por bloques y ocupa una base de datos para almacenar las relaciones
+cifrador por bloques y utiliza una base de datos para almacenar las relaciones
 entre número de tarjeta y token.
 
-Las entradas del algoritmo son la parte del PAN a cifrar y una
+Las entradas del algoritmo son la parte del número de tarjeta a cifrar y una
 entrada adicional (por ejemplo, la fecha) que permite que se tengan varios
 tokens relacionados con la misma tarjeta. Como se desea obtener un token que
-tenga el mismo número de dígitos que el PAN ingresado, se utiliza un método
+tenga el mismo número de dígitos que la tarjeta ingresada, se utiliza un método
 llamado \textit{caminata cíclica} para asegurarse de que el texto cifrado
-pertenezca el espacio del texto en claro.
+pertenezca al espacio del texto en claro.
 
 \textbf{DRBG}. \textit{Deterministic Random Bit Generator}. Probablemente este
 método es el más directo para generar tokens. La idea es producir una cadena
 binaria aleatoria con un DRBG e interpretarla para que tenga el formato de un
 token. Para este trabajo se hizo la implementación de dos DRBG: uno basado en
-SHA (\textit{Secure Hash Algorithm}) y el otro basado en un cifrador por
-bloques; ambos definidos en el estándar del NIST 800-90A \cite{nist_aleatorios}.
+SHA (\textit{Secure Hash Algorithm}) y el otro basado en un cifrado por
+bloques; ambos definidos en el estándar del NIST 800-90A~\cite{nist_aleatorios}.
 
-El método que utiliza como mecanismo interno a una función hash consiste en ir
-concatenando de forma consecutiva los valores hash derivados de la semilla e ir
-incrementando el valor de esta. El método basado en un cifrador por bloques
-utiliza el modo de operación de contador, en donde la semilla juega el papel de
-vector de inicialización. En ambos casos, la seguridad se basa en que la semilla
-sea un valor secreto.
+El método que utiliza como mecanismo interno a una función \textit{hash}
+consiste en ir concatenando de forma consecutiva los valores \textit{hash}
+derivados de la semilla e ir incrementando el valor de esta. El método basado en
+un cifrador por bloques utiliza el modo de operación CTR, en donde la
+semilla juega el papel de vector de inicialización. En ambos casos, la seguridad
+se basa en que la semilla sea un valor secreto.
 
-Según la clasificación del PCI, FFX y BPS son algoritmos reversibles
-criptográficos, mientras que TKR, AHR y DRBG son, contradictoriamente,
-reversibles no criptográficos.
+Según la clasificación del PCI (Sección \ref{sec:clasificacion}), FFX y BPS son
+algoritmos reversibles criptográficos, ya que al ser cifrados que preservan el
+formato, funcionan como esquema de cifrado simétrico. TKR, AHR y DRBG son,
+contradictoriamente, reversibles no criptográficos, pues necesitan de una base
+de datos para guardar las relaciones entre números de tarjeta y tokens.
 
 %\subimport{/}{tkr}
 %\subimport{/}{ffx}

@@ -9,14 +9,15 @@
 % Contexto histórico: cómo llegó a ser popular la tokenización.
 
 Cuando el comercio a través de Internet comenzó a popularizarse, los fraudes de
-tarjetas bancarias se volvieron un problema alarmante: según \cite{wallethub},
+tarjetas bancarias se volvieron un problema alarmante: según~\cite{wallethub},
 en 2001 se tuvieron pérdidas de 1.7 miles de millones de dólares y para 2002
 aumentaron a 2.1. Como una medida de protección, las principales compañías de
 tarjetas de crédito publicaron un estándar obligatorio para todos aquellos que
 procesaran más de 20 000 transacciones anuales: el PCI DSS (en inglés,
+<<<<<<< HEAD
 \textit{Payment Card Industry Data Security Standard} \cite{pci_dss}); este
-estándar cuenta con una gran cantidad de requerimientos \cite{uk_association}
-\cite{search_security}, por lo que resulta muy difícil satisfacerlo, 
+estándar cuenta con una gran cantidad de requerimientos \cite{search_security,
+uk_association}, por lo que resulta muy difícil satisfacerlo, 
 especialmente para los negocios pequeños y medianos. A pesar de la publicación
 del estándar en 2004, las grandes filtraciones de datos no han cesado:
 \textit{TJX} en 2006, \textit{Hannaford Bros.} en 2008, \textit{Target} en
@@ -53,6 +54,7 @@ sensible en su base de datos y se encarga de realizar las transacciones
 bancarias.
 
 % Muestra del problema: ejemplos de discursos publicitarios comunes.
+
 La tokenización se ha visto una rodeada por una nube de confusión y 
 desinformación desde sus inicios; la falta de una definición formal permitió
 que las campañas publicitarias de las empresas tokenizadoras esparcieran 
@@ -71,11 +73,11 @@ propios métodos tokenizadores.
 
 % Establecer relación entre criptografía y tokenización.
 
-Como se verá por la exposición de algunos métodos tokenizadores, la tokenización
-es una aplicación de la criptografía y, como tal, debe ser analizada con la
-misma formalidad que las demás herramientas criptográficas; uno de los errores
-más comunes entre las empresas tokenizadoras es considerar que la generación de
-números aleatorios no utiliza algoritmos criptográficos.
+Como se verá a continuación por la exposición de algunos métodos tokenizadores,
+la tokenización es una aplicación de la criptografía y, como tal, debe ser
+analizada con la misma formalidad que las demás herramientas criptográficas; uno
+de los errores más comunes entre las empresas tokenizadoras es considerar que 
+la generación de números aleatorios no utiliza algoritmos criptográficos.
 % ¿Por qué <<métodos>> y no <<algoritmos>>?
 
 % Estructura del artículo.
@@ -103,7 +105,7 @@ concluye con una discusión alrededor del tema.
     entorno/.style={
       rectangle,
       draw = black,
-      thick,
+      thin,
       inner sep = 4mm,
       text width = 20mm,
       align = center,

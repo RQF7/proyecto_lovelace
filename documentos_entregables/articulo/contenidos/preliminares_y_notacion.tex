@@ -7,33 +7,33 @@
 \section{Preliminares}
 \label{sec:preliminares}
 
-% TODO: ¿Qué más va en los preliminares? Candidatos:
-% AES
-% Redes Feistel
-% CBC MAC
-
 \subsection{Notación}
 
-% TODO: Revisar todas las fórmulas y pseudocódigos y poner las cuestiones
-% relacionadas de notación en este párrafo.
-% TODO: quitar notaciones sobrantes después de filtro de algoritmos
-% tokenizadores.
-
 Se denotarán a todas las cadenas de bits de longitud $ n $ como $ \{ 0, 1 \}^n $.
-Para cadenas $ x $ y $ y $ de símbolos sobre alfabetos arbitrarios, con
-$ | x | $ se denotará la longitud de la cadena y con $ x \ || \ y $ la
-concatenación de ambas cadenas. El operador $ \oplus $ simboliza la combinación
-de los operandos, ya sea mediante sumas sin acarreo (equivalente del operador
-\texttt{xor} en cadenas binarias) o mediante sumas modulares.
+Para una cadena de símbolos $ x $ sobre un alfabeto arbitrario, $ | x | $
+simboliza la longitud de la cadena. La expresión $ f: \mathcal{X} \rightarrow
+\mathcal{Y} $ denota a una función $ f $ que asigna a cada elemento del conjunto
+$ \mathcal{X} $ un elemento del conjunto $ \mathcal{Y} $. La expresión $
+\mathcal{A} \times \mathcal{B} $, en donde $ \mathcal{A} $ y $ \mathcal{B} $ son
+conjuntos, denota al producto cartesiano, esto es, $ \mathcal{A} \times
+\mathcal{B} = \{ (a,b) \ | \ a \in \mathcal{A} \land b \in \mathcal{B} \} $.
 
 \subsection{Primitivas criptográficas}
 
-Un cifrado por bloques es un cifrado simétrico que se define por la función $ E:
-\mathcal{M} \times \mathcal{K} \rightarrow \mathcal{C} $, donde $ \mathcal{M} $
-es el espacio de textos en claro, $ \mathcal{K} $ el espacio de llaves y $
-\mathcal{C} $ el espacio de mensajes cifrados. Tanto los mensajes en claro
-como los cifrados tienen una misma longitud $ n $, que representa el tamaño del
-bloque \cite{menezes}.
+Un cifrado por bloques es un cifrado simétrico que se define por la función $ e:
+\mathcal{M} \times \mathcal{K} \rightarrow \mathcal{C} : \{ 0, 1 \}^n \times \{
+0, 1 \}^k \rightarrow \{ 0, 1 \}^n $, donde $ \mathcal{M} $ es el espacio de
+textos en claro; $ \mathcal{K} $, el espacio de llaves; $ \mathcal{C} $, el
+espacio de mensajes cifrados; $ n $, el tamaño del bloque y $ k $, la
+llave~\cite{menezes}. Uno de los cifrados por bloques más usado en la actualidad
+es AES (\textit{Advanced Encryption Standard}).
+
+Los modos de operación permiten extender la funcionalidad de los cifrados por
+bloque para poder operar sobre bloques de información de tamaño arbitrario: $ m:
+\mathcal{M} \times \mathcal{K} \rightarrow \mathcal{C} : \{ 0, 1 \}^* \times \{
+0, 1 \}^k \rightarrow \{ 0, 1 \}^* $. Algunos modos de operación son CBC
+(\textit{Code Block Chaining}) y CTR (\textit{Counter
+Mode})~\cite{modos_de_operacion}.
 
 % Los cifrados por bloque son un elemento de construcción fundamental para otras
 % primitivas criptográficas. Muchos de los algoritmos tokenizadores que se
@@ -43,52 +43,34 @@ bloque \cite{menezes}.
 % implementaciones hechas para este trabajo se ocupó AES (\textit{Advanced
 % Encryption Standard}) en la mayoría de los casos.
 
-% Coregir letra del contradominio de la función de FPE e investigar qué
-% demonios es.
-% Pues no entiendo por el contexto qué significa; de momento la borré.
+Un código de autenticación de mensaje (MAC, \textit{Message Authenticathion
+Code}) es un medio para obtener autenticación en la transmisión de datos. Se
+define como una función $ mac: \mathcal{M} \times \mathcal{K} \rightarrow
+\mathcal{C} : \{ 0, 1 \}^* \times \{ 0, 1 \}^k \rightarrow \{ 0, 1 \}^n $,
+donde $ \mathcal{C} $ es el espacio (de cardinalidad $ 2^n $) de códigos de
+autenticación. AES-CBC-MAC es un algoritmo para obtener códigos de autenticación
+que utiliza el cifrado por bloques AES y el modo de operación CBC.
 
-% ¿Tweak va en itálicas?
-% http://www.rae.es/consultas/los-extranjerismos-y-
-% latinismos-crudos-no-adaptados-deben-escribirse-en-cursiva
-% Pues, a diferencia de token, me parece que con la «tw» sí hacemos uso de
-% la pronunciación en inglés; cuando menos ahora no se me ocurre una palabra
-% en español que tenga «tw».
-% Sí, debe de ir en cursivas, o cambiar por <<ajuste>>.
+Una función \textit{hash} criptográfica es un mapeo eficiente de cadenas de
+longitud arbitraria a cadenas de longitud fija: $ h: \mathcal{M} \rightarrow
+\mathcal{E} : \{ 0, 1 \}^* \rightarrow \{ 0, 1 \}^n $ en donde $ \mathcal{M} $
+es el espacio de mensajes, de cardinalidad infinita, y $ \mathcal{K} $ es el
+espacio de valores \textit{hash}, de cardinalidad $ 2^n $. No debe ser factible
+regresar al mensaje a partir de su valor \textit{hash}, ni encontrar dos
+mensajes que produzcan el mismo \textit{hash}~\cite{menezes}.
 
-Un cifrado que preserva el formato (en inglés \textit{Format-preserving
-Encryption}, FPE) es un cifrado simétrico en donde el mensaje en claro y el
-mensaje cifrado mantienen un formato en común. Formalmente, de acuerdo a lo
-definido en \cite{DBLP:conf/sacrypt/BellareRRS09}, se trata de una función $ E:
-\mathcal{K} \times \mathcal{N} \times \mathcal{T} \times \mathcal{X} \rightarrow
-\mathcal{X} $, en donde los conjuntos $ \mathcal{K} $, $ \mathcal{N} $, $
-\mathcal{T} $, $ \mathcal{X} $ corresponden al espacio de llaves, espacio de
-formatos, espacio de \textit{tweaks} y el dominio, respectivamente. El proceso
-de cifrado de un elemento del dominio con respecto a una llave $ K $, un formato
-$ N $ y un \textit{tweak} $ T $ se escribe como  $ E_K^{N,T}(X) $. El proceso
-inverso es también una función $ D: \mathcal{K} \times \mathcal{N} \times
-\mathcal{T} \times \mathcal{X} \rightarrow \mathcal{X} $, en donde $
-D_K^{N,T}\big( E_K^{N,T}(X) \big) = X $.
+% Un mapeo de un conjunto de cardinalidad infinita a un conjunto de 2^n...
+% ¿Y es muy difícil encontrar colisiones? suena un poco contraintuitivo.
+% Aunque claro, igual de contraintuitivo es que la cardinalidad de los
+% naturales pares es igual a la cardinalidad de todos los naturales.
 
-% ¿Hacer aquí aclaración sobre la diferencia en los dígitos verificadores
-% en los espacios de orígen y destino?
-% Creo que en realidad eso le aplica a todos los esquemas, por lo que mejor lo
-% ponemos en el propio desarrollo.
-
-% Para lo que a este trabajo respecta, el formato usado es el de las tarjetas de
-% crédito: una cadena de entre 12 y 19 dígitos decimales. Esto es $ N = \{0, 1,
-% \dots, 9\}^n $ en donde $ 12 \leq n \leq 19 $.
-
-% TODO: Hmmmm... técnicamente al FPE solo le damos el identificador de la
-% persona, por lo que los dígitos son menos.
-% ¿Pero no en un cifradro de esos utilizan la otra parte de la tarjeta como
-% tweak o algo así?
-
-% En marzo de 2016 el NIST (\textit{National Institute of Standards and
-% Technology}) publicó un estándar referente a los cifrados que preservan el
-% formato\cite{nist_fpe}. En él se definen dos posibles métodos: FF1 (lo que en
-% este trabajo es FFX) y FF3 (lo que en este trabajo es BPS).
-
-% TODO: ¿Hablar también sobre la clasificación que hace Rogaway?
+Las redes Feistel son cifrados iterativos que transforman un texto en claro de $
+2t $ bits denominado $ (L_0, R_0) $, en donde $ L_0 $ y $ R_0 $ son bloques de $
+t $ bits, en un texto cifrado $ (R_r, L_r) $ a través de un proceso de $ r $
+rondas. Existen dos generalizaciones de este concepto, las redes alternantes y
+las redes desbalanceadas; ambas permiten modificar el tamaño de las mitades
+izquierda y derecha: $ 1 \geq | L_n | \leq 2t $ y $ | R_n | = 2t - | L_n |
+$~\cite{DBLP:conf/fse/SchneierK96, DBLP:conf/fse/AndersonB96a}.
 
 % Existen dos maneras de generar bits aleatorios: la primera es producir bits de
 % manera no determinística, donde el estado de cada uno (uno o cero) está
@@ -119,7 +101,53 @@ D_K^{N,T}\big( E_K^{N,T}(X) \big) = X $.
 
 Un generador determinístico de bits aleatorios (DRBG, \textit{Deterministic
 Random Bit Generator}) utiliza una primitiva criptográfica interna,
-generalmente una función hash o un cifrado por bloques, y un valor inicial,
-llamado semilla, para producir bits de aspecto aleatorio. Dada la naturaleza
-determinística del proceso, a los bits generados se les conoce como
+generalmente una función \textit{hash} o un cifrado por bloques, y un valor
+inicial llamado semilla, para producir bits de aspecto aleatorio. Dada la
+naturaleza determinística del proceso, a los bits generados se les conoce como
 \textit{pseudoaleatorios}.
+
+% Coregir letra del contradominio de la función de FPE e investigar qué
+% demonios es, no entiendo por el contexto qué significa; de momento la borré.
+
+% ¿Tweak va en itálicas?
+% http://www.rae.es/consultas/los-extranjerismos-y-
+% latinismos-crudos-no-adaptados-deben-escribirse-en-cursiva
+% Pues, a diferencia de token, me parece que con la «tw» sí hacemos uso de
+% la pronunciación en inglés; cuando menos ahora no se me ocurre una palabra
+% en español que tenga «tw».
+% Sí, debe de ir en cursivas, o cambiar por <<ajuste>>.
+
+Un cifrado que preserva el formato (en inglés \textit{Format-preserving
+Encryption}, FPE) es un cifrado simétrico en donde el mensaje en claro y el
+mensaje cifrado mantienen un formato en común. Formalmente, de acuerdo a lo
+definido en~\cite{DBLP:conf/sacrypt/BellareRRS09}, se trata de una función $ E:
+\mathcal{K} \times \mathcal{N} \times \mathcal{T} \times \mathcal{X} \rightarrow
+\mathcal{X} $, en donde los conjuntos $ \mathcal{K} $, $ \mathcal{N} $, $
+\mathcal{T} $, $ \mathcal{X} $ corresponden al espacio de llaves, espacio de
+formatos, espacio de \textit{tweaks} y el dominio, respectivamente. El proceso
+de cifrado de un elemento del dominio con respecto a una llave $ K $, un formato
+$ N $ y un \textit{tweak} $ T $ se escribe como  $ E_K^{N,T}(X) $. El proceso
+inverso es también una función $ D: \mathcal{K} \times \mathcal{N} \times
+\mathcal{T} \times \mathcal{X} \rightarrow \mathcal{X} $, en donde $
+D_K^{N,T}\big( E_K^{N,T}(X) \big) = X $.
+
+% ¿Hacer aquí aclaración sobre la diferencia en los dígitos verificadores
+% en los espacios de orígen y destino?
+% Creo que en realidad eso le aplica a todos los esquemas, por lo que mejor lo
+% ponemos en el propio desarrollo.
+
+% Para lo que a este trabajo respecta, el formato usado es el de las tarjetas de
+% crédito: una cadena de entre 12 y 19 dígitos decimales. Esto es $ N = \{0, 1,
+% \dots, 9\}^n $ en donde $ 12 \leq n \leq 19 $.
+
+% TODO: Hmmmm... técnicamente al FPE solo le damos el identificador de la
+% persona, por lo que los dígitos son menos.
+% ¿Pero no en un cifradro de esos utilizan la otra parte de la tarjeta como
+% tweak o algo así?
+
+% En marzo de 2016 el NIST (\textit{National Institute of Standards and
+% Technology}) publicó un estándar referente a los cifrados que preservan el
+% formato\cite{nist_fpe}. En él se definen dos posibles métodos: FF1 (lo que en
+% este trabajo es FFX) y FF3 (lo que en este trabajo es BPS).
+
+% TODO: ¿Hablar también sobre la clasificación que hace Rogaway?

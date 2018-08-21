@@ -5,8 +5,6 @@
 % Proyecto Lovelace.
 %
 
-% TODO: pasar esto a GNUPlot.
-
 \section{Resultados y conclusiones}
 \label{sec:conclusiones}
 
@@ -24,23 +22,6 @@
   \end{tabular}
 \end{table}
 
-\begin{figure*}[!t]
-  \centering
-  \subfloat[Tokenización y detokenización]{
-    \includegraphics[width=0.5\linewidth]
-      {../implementaciones/reportes/tiempos_unitarios.png}
-    \label{figura:tiempos_unitarios}
-  }
-  \subfloat[Generación de tokens]{
-    \includegraphics[width=0.5\linewidth]
-      {../implementaciones/reportes/tiempos_tokenizacion.png}
-    \label{figura:tiempos_tokenizacion}
-  }
-  \caption{Comparaciones de tiempos.}
-  \label{fig_sim}
-\end{figure*}
-
-
 % Resultados
 
 En la Tabla \ref{tabla:tiempos_tokenizacion} y la Figura
@@ -57,19 +38,33 @@ siguientes características:
 \end{itemize}
 
 El procesador ocupado soporta los conjuntos de intrucciones de Intel AES-NI y
-RD-SEED \cite{aesni_wp}. Todas los algoritmos tokenizadores que ocupan un
-cifrado por bloques usan una implementación de AES con las instrucciones a nivel
-de hardware. El DRBG implementado ocupa la instrucción RD-RAND como fuente de
-entropía.
+RD-SEED~\cite{aesni_wp}. Todas los algoritmos tokenizadores que usan un
+cifrado por bloques utilizan una implementación de AES con las instrucciones a
+nivel de hardware. El DRBG implementado ocupa la instrucción RD-RAND como fuente
+de entropía.
 
 % Discusión de resultados
+% TODO: poner complejidad en tiempo de operaciones en mariadb; sospecho que
+% las inserciones son tardadísimas, lo que hace que las consultas puedan ser muy
+% rápidas. Un árbol autobalanceado, tal vez.
 
-La comparación de los tiempos de tokenización y detokenización muestra como los
-algoritmos reversibles son considerablemente más rápidos que los irreversibles.
-Este resultado puede resultar un poco contraintuitivo, pues la generación de
-tokens reversibles involucra más operaciones; es por esto que en la figura
-\ref{figura:tiempos_tokenizacion} se muestran los tiempos de la generación de
-tokens solamente, sin tomar en cuenta tiempos de acceso a base de datos.
+La comparación de la Figura \ref{figura:tiempos_unitarios} muestra como los dos
+algoritmos reversibles, FFX y BPS, son considerablemente más rápidos que los
+tres irreversibles: TKR, AHR y DRBG. Los reversibles están en el rango de 60 a
+170 microsegundos, mientras que los irreversibles están en alrededor de los 5500
+microsegundos. También es posible observar cómo, para los métodos irreversibles,
+el proceso de detokenización es mucho más rápido que la generación de tokens.
+Estos dos resultados dejan ver un poco la carga de las operaciones en los
+métodos irreversibles: la tokenización involucra una consulta a la base, la
+generación del token y una inserción; la detokenización solamente es una
+consulta.
+
+El que FFX y BPS sean más rápidos puede resultar un poco contraintuitivo, pues
+la generación de tokens reversibles involucra más operaciones; es por esto que
+en la Figura \ref{figura:tiempos_tokenizacion} se muestran los tiempos de la
+generación de tokens solamente, sin tomar en cuenta tiempos de acceso a base de
+datos. En este caso, el más veloz es DRBG, seguido de ceca por TKR y AHR; los
+dos reversibles van al último.
 
 Además de los tiempos de ejecución, también es importante señalar que los
 irreversibles, al operar como funciones de un solo sentido, son más
@@ -82,7 +77,7 @@ base de datos.
 
 La denominación \textit{no criptográficos}, de la clasificación del PCI SSC
 (Sección \ref{sec:clasificacion}), resulta totalmente confusa, pues en
-realidad todos los métodos conocidos que caen en esa categoría ocupan
+realidad todos los métodos conocidos que caen en esa categoría utilizan
 primitivas criptográficas. La segunda categoría (los irreversibles) carece de
 utilidad para aplicaciones que procesan pagos con tarjetas de crédito, pues la
 habilidad de regresar al número de tarjeta a partir de su token es uno de los
@@ -93,16 +88,35 @@ este trabajo se propone una clasificación distinta:
   \item Métodos criptográficos. Todos aquellos que ocupan herramientas
     critográficas.
     \begin{itemize}
-      \item Reversibles. Ocupan un esquema de cifrado simétrico: el número
+      \item Reversibles. Usan un esquema de cifrado simétrico: el número
         de tarjeta y una llave entran al mecanismo de tokenización para obtener
         un token; el token y la misma llave entran al mecanismo de
         detokenización para obtener el número de tarjeta original.
-      \item Irreversibles. Ocupan herramientas criptográficas para generar el
-        token de un número de tarjeta y herramientas externas, como una
+      \item Irreversibles. Hacen uso de herramientas criptográficas para generar
+	el token de un número de tarjeta y herramientas externas, como una
         base de datos, para guardar las relaciones entre tokens y números de
         tarjetas.
     \end{itemize}
-  \item Métodos no criptográficos. Aquellos posibles métodos que no ocupen
+  \item Métodos no criptográficos. Aquellos posibles métodos que no necesitan
     herramientas relacionadas con la criptografía; por ejemplo, un generador de
     números realmente aleatorio (TRNG, \textit{True Random Number Generator}).
 \end{itemize}
+
+% TODO: pasar esto a GNUPlot.
+
+\begin{figure}[!t]
+  \centering
+  \subfloat[Tokenización y detokenización]{
+    \includegraphics[width=1.62in]
+      {../implementaciones/reportes/tiempos_unitarios.png}
+    \label{figura:tiempos_unitarios}
+  }
+  \hfil
+  \subfloat[Generación de tokens]{
+    \includegraphics[width=1.62in]
+      {../implementaciones/reportes/tiempos_tokenizacion.png}
+    \label{figura:tiempos_tokenizacion}
+  }
+  \caption{Comparaciones de tiempos.}
+  \label{fig_sim}
+\end{figure}

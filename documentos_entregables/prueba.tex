@@ -1,301 +1,36 @@
-\documentclass{beamer}
+%
+% Para construcción de diagramas en tikz
+% Documentos entregables.
+% Proyecto Lovelace.
+%
 
-\mode<presentation>{
-\usetheme{Dresden}
-\setbeamercovered{transparent}
-\usecolortheme{lsc}
-}
+\documentclass[landscape]{article}
 
-\mode<handout>{
-  % tema simples para ser impresso
-  \usepackage[bar]{beamerthemetree}
-  % Colocando um fundo cinza quando for gerar transparências para serem impressas
-  % mais de uma transparência por página
-  \beamertemplatesolidbackgroundcolor{black!5}
-}
-
-\usepackage{amsmath,amssymb}
-\usepackage[brazil]{varioref}
-\usepackage[english,brazil]{babel}
-\usepackage[utf8]{inputenc}
-%\usepackage[latin1]{inputenc}
 \usepackage{graphicx}
-\usepackage{listings}
-\usepackage{url}
-\usepackage{colortbl}
-
-\beamertemplatetransparentcovereddynamic
-
-\title[Título no rodapé]{Título}
-\author[Autor no rodapé]{%
-  Autor\inst{1} \\
-  Orientador: \inst{1}}
-  \institute[UFSM]{
-  \inst{1}%
-     Laboratório de Sistemas de Computação\\
-     Universidade Federal de Santa Maria}
-
-% Se comentar a linha abaixo, irá aparecer a data quando foi compilada a apresentação
-\date{dia de mês de ano}
-
-\pgfdeclareimage[height=1cm]{inf}{figs/CienciaDaComputacao.png}
-
-% pode-se colocar o LOGO assim
-\logo{\pgfuseimage{inf}}
-
-\AtBeginSection[]{
-  \begin{frame}<beamer>
-    \frametitle{Roteiro}
-    \tableofcontents[currentsection,currentsubsection]
-  \end{frame}
-}
+\usepackage{xcolor}
+\usepackage[letterpaper,
+            textwidth=7in,
+            textheight=9.0in,
+            top=1.0in,
+            bindingoffset=6mm
+            ]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows,
+  decorations.pathmorphing,
+  backgrounds,
+  positioning,
+  calc,
+  scopes}
 
 \begin{document}
 
-\begin{frame}
-\titlepage
-\end{frame}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[]
 
-\begin{frame}
-\frametitle{Roteiro}
-\tableofcontents
-\end{frame}
-
-
-\section{Introdução}
-\frame{
-    \frametitle{Introdução}
-      \begin{itemize}
-         \item Contexto
-         \item Use ilustrações para ajudar
-
-      \end{itemize}
-}
-
-\frame{
-    \frametitle{Objetivo e Justificativas}
-    \begin{itemize}
-       \item Objetivo
-       \begin{itemize}
-           \item Isso também faz parte da introdução
-       \end{itemize}
-
-       \item Justificativas
-       \begin{itemize}
-       	   \item não exagere na quantidade de texto
-       	   \item não exagere na quantidade de texto
-       	   \item não exagere na quantidade de texto
-       \end{itemize}
-   \end{itemize}
-}
-
-
-\section{Fundamentação}
-
-
-\pgfdeclareimage[height=3cm]{YARNArq}{figs/Figura06-YarnArch.png}%
-\pgfdeclareimage[height=3cm]{HDFSArq}{figs/Figura07-HDFS.png}%
-\frame{
-	\begin{columns}
-    \frametitle{Assuntos Importantes}
-        \column{3cm}
-            Primeiro assunto
-            \begin{itemize}
-            		\item \textit{NameNode}
-	            \item \textit{DataNode}
-            \end{itemize}
-            \pgfuseimage{HDFSArq}
-            \begin{tiny}
-
-            (HADOOP, 2013)
-            \end{tiny}
-		\column{5cm}
-			Segundo assunto
-			\begin{itemize}
-				\item \textit{ResourceManager}
-				\item \textit{NodeManager}
-			\end{itemize}
-			\pgfuseimage{YARNArq}
-			\begin{tiny}
-
-            (HADOOP, 2013)
-            \end{tiny}
-    \end{columns}
-}
-
-\frame{
-	\frametitle{Outro Assunto Importante}
-	\begin{itemize}
-		\item Item
-		\item Item
-		\begin{itemize}
-			\item Item
-			\item Item
-			\item Item
-		\end{itemize}
-
-	\end{itemize}
-}
-
-\logo{\pgfuseimage{inf}}
-\frame{
-	\frametitle{Trabalhos relacionados}
-	\begin{columns}
-		\column{5cm}
-		\begin{itemize}
-			\item (Kumar et al., 2012).
-			\item (Rasooli; Down, 2012).
-			\item (Chen et al., 2010).
-			\item (Xie et al., 2010).
-			\item (Tian et al., 2009).
-			\item (Isard et al., 2009).
-			\item (Zaharia et al., 2008).
-		\end{itemize}
-
-		\column{7,5cm}
-			\begin{itemize}
-				\item Item
-				\begin{itemize}
-					\item Item
-					\item Item
-				\end{itemize}
-
-				\item Item
-				\begin{itemize}
-					\item Item
-					\item Item
-				\end{itemize}
-			\end{itemize}
-	\end{columns}
-}
-\section{Desenvolvimento}
-\logo{}
-\frame{
-    \frametitle{Arquitetura}
-    \pgfdeclareimage[height=6.5cm]{RM}{figs/Figura14-RMHorton.png}
-    %TODO fig RM
-
-    \pgfuseimage{RM}
-    \begin{tiny}
-	{(HortonWorks, 2014)}
-    \end{tiny}
-}
-
-
-
-\logo{}
-\frame{
-    \frametitle{Diagrama de classes}
-    \center
-    \pgfdeclareimage[height=5.5cm]{CDCS}{figs/Figura01-ClassDiagram.png}
-    \pgfuseimage{CDCS}
-}
-
-
-
-
-\section{Resultados}
-\logo{\pgfuseimage{inf}}
-\frame{
-	\frametitle{Ambiente de experimentação}
-
-	\begin{itemize}
-		\item \textit{Hardware}: 2 CPU AMD@1.7Ghz, 12 cores/CPU e 47GB RAM.
-		\item \textit{Software}: Ubuntu x64 12.04, Hadoop 2.2.0, Sun JDK 1.7.
-	\end{itemize}
-}
-
-\logo{\pgfuseimage{inf}}
-\frame{
-	\frametitle{Configuração dos experimentos}
-	Texto texto texto texto texto texto texto texto
-	\begin{table}
-		\renewcommand{\figurename}{Table}
-		\centering
-		\begin{tabular}{|l|c|c|}
-			\hline
-			  & Coluna1 & Coluna2 \\
-			\hline
-			\textit{Linha1} & 1 & 2 \\
-			\hline
-			\textit{Linha2} Vcores & 3 & 4 \\
-			\hline
-		\end{tabular}
-	\end{table}
-}
-
-
-\logo{}
-\frame{
-	\frametitle{Resultados de desempenho}
-
-	\pgfdeclareimage[height=6cm]{totalVcores}{figs/Figura12-totalCores.png}
-    %TODO fig colectInt
-    \pgfuseimage{totalVcores}
-}
-
-
-
-\section{Conclusão e Trabalhos Futuros}
-\logo{\pgfuseimage{inf}}
-\frame{
-   \frametitle{Conclusão}
-   	\begin{itemize}
-   		\item Item
-        \item Item
-        \item Item
-   	\end{itemize}
-}
-
-\logo{\pgfuseimage{inf}}
-\frame{
-   \frametitle{Trabalhos Futuros}
-   	\begin{itemize}
-   		\item Item
-        \item Item
-        \item Item
-   	\end{itemize}
-}
-
-
-\section{Referências}
-\logo{}
-\frame{
-    \frametitle{Referências}
-    \begin{itemize}
-	\begin{tiny}
-    	   \item DEY, A. K. Understanding and Using Context. Personal Ubiquitous Comput., London, UK, UK, v.5, n.1, p.4-7, Jan. 2001.
-       \item MAAMAR, Z.; BENSLIMANE, D.; NARENDRA, N. C. What can context do for web services? Commun. ACM, New York, NY, USA, v.49, n.12, p.98-103, Dec. 2006.
-       \item KUMAR, K. A. et al. CASH: context aware scheduler for hadoop. In: INTERNATIONAL CONFERENCE ON ADVANCES IN COMPUTING, COMMUNICATIONS AND INFORMATICS, New York, NY, USA. Proceedings. . . ACM, 2012. p.52-61. (ICACCI '12).
-       \item ZAHARIA, M. et al. Improving MapReduce performance in heterogeneous environments. In: USENIX CONFERENCE ON OPERATING SYSTEMS DESIGN AND IMPLEMENTATION, 8., Berkeley, CA, USA. Proceedings. . . USENIX Association, 2008. p.29-42. (OSDI'08).
-       \item TIAN, C. et al. A Dynamic MapReduce Scheduler for Heterogeneous Workloads. In: EIGHTH INTERNATIONAL CONFERENCE ON GRID AND COOPERATIVE COMPUTING, 2009., Washington, DC, USA. Proceedings. . . IEEE Computer Society, 2009. p.218-224. (GCC '09).
-        \item CHEN, Q. et al. SAMR: a self-adaptive mapreduce scheduling algorithm in heterogeneous environment. In: IEEE INTERNATIONAL CONFERENCE ON COMPUTER AND INFORMATION TECHNOLOGY, 2010., Washington, DC, USA. Proceedings. . . IEEE Computer Society, 2010. p.2736-2743. (CIT '10).
-
-	\end{tiny}
-    \end{itemize}
-}
-
-\logo{}
-\frame{
-    \frametitle{Referências (Continuação)}
-    \begin{itemize}
-    \begin{tiny}
-       \item RASOOLI, A.; DOWN, D. G. Coshh: a classification and optimization based scheduler for heterogeneous hadoop systems. In: SC COMPANION: HIGH PERFORMANCE COMPUTING, NETWORKING STORAGE AND ANALYSIS, 2012., Washington, DC, USA. Proceedings. . . IEEE Computer Society, 2012. p.1284-1291. (SCC '12).
-       \item ISARD, M. et al. Quincy: fair scheduling for distributed computing clusters. In: ACM SIGOPS 22ND SYMPOSIUM ON OPERATING SYSTEMS PRINCIPLES, New York, NY, USA. Proceedings. . . ACM, 2009. p.261-276. (SOSP '09).
-       \item XIE, J. et al. Improving MapReduce performance through data placement in heterogeneous Hadoop clusters. In: PARALLEL AND DISTRIBUTED PROCESSING, WORKSHOPS AND PHD FORUM (IPDPSW). Anais. . . IEEE International Symposium, 2010.
-       \item HADOOP, A. Arquitetura do HDFS. http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/Federation.html, Acesso em novembro de 2013.
-       \item HADOOP, A. Arquitetura do YARN. http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html, Acesso em novembro de 2013.
-
-	\end{tiny}
-    \end{itemize}
-}
-
-
-
-
-
-\begin{frame}
-\titlepage
-\end{frame}
+    \end{tikzpicture}
+    \caption{Prueba}
+  \end{figure}
 
 \end{document}
