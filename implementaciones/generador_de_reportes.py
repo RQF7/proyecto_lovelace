@@ -178,5 +178,5 @@ if __name__ == '__main__':
   """
   run(['mkdir', '-p', carpetaGeneral])
   generarTiemposUnitarios()
-  generarTiemposTokenizacion()
+  #generarTiemposTokenizacion()
   #generarGraficaTiemposMultiples()

@@ -78,7 +78,7 @@ int main (int numeroDeArgumentos, char **argumentos)
     //tiempoFinal = steady_clock::now();
     //delete ahr;
     tiempoInicial = steady_clock::now();
-    usleep(40);
+    usleep(10);
     tiempoFinal = steady_clock::now();
   }
   else if (opcion == "DRBG")

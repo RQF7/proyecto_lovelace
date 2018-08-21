@@ -10,12 +10,13 @@
 \subsection{Notación}
 
 Se denotarán a todas las cadenas de bits de longitud $ n $ como $ \{ 0, 1 \}^n $.
-La expresión $ f: \mathcal{X} \rightarrow \mathcal{Y} $ denota a una función $ f
-$ que asigna a cada elemento del conjunto $ \mathcal{X} $ un elemento del
-conjunto $ \mathcal{Y} $. La expresión $ \mathcal{A} \times \mathcal{B} $, en
-donde $ \mathcal{A} $ y $ \mathcal{B} $ son conjuntos, denota al producto
-cartesiano, esto es, $ \mathcal{A} \times \mathcal{B} = \{ (a,b) \ | \ a \in
-\mathcal{A} \land b \in \mathcal{B} \} $.
+Para una cadena de símbolos $ x $ sobre un alfabeto arbitrario, $ | x | $
+simboliza la longitud de la cadena. La expresión $ f: \mathcal{X} \rightarrow
+\mathcal{Y} $ denota a una función $ f $ que asigna a cada elemento del conjunto
+$ \mathcal{X} $ un elemento del conjunto $ \mathcal{Y} $. La expresión $
+\mathcal{A} \times \mathcal{B} $, en donde $ \mathcal{A} $ y $ \mathcal{B} $ son
+conjuntos, denota al producto cartesiano, esto es, $ \mathcal{A} \times
+\mathcal{B} = \{ (a,b) \ | \ a \in \mathcal{A} \land b \in \mathcal{B} \} $.
 
 \subsection{Primitivas criptográficas}
 
@@ -23,8 +24,16 @@ Un cifrado por bloques es un cifrado simétrico que se define por la función $ 
 \mathcal{M} \times \mathcal{K} \rightarrow \mathcal{C} : \{ 0, 1 \}^n \times \{
 0, 1 \}^k \rightarrow \{ 0, 1 \}^n $ en donde $ \mathcal{M} $ es el espacio de
 textos en claro, $ \mathcal{K} $ es el espacio de llaves y $ \mathcal{C} $ es el
-espacio de mensajes cifrados; $ n $ es el tamaño del bloque y $ k $ de la llave
-\cite{menezes}.
+espacio de mensajes cifrados; $ n $ es el tamaño del bloque y $ k $ de la
+llave~\cite{menezes}. Uno de los cifrados por bloques más usado en la actualidad
+es AES (\textit{Advanced Encryption Standard}).
+
+Los modos de operación permiten extender la funcionalidad de los cifrados por
+bloque para poder operar sobre bloques de información de tamaño arbitrario: $ m:
+\mathcal{M} \times \mathcal{K} \rightarrow \mathcal{C} : \{ 0, 1 \}^* \times \{
+0, 1 \}^k \rightarrow \{ 0, 1 \}^* $. Algunos modos de operación son CBC
+(\textit{Code Block Chaining}) y CTR (\textit{Counter
+Mode})~\cite{modos_de_operacion}.
 
 % Los cifrados por bloque son un elemento de construcción fundamental para otras
 % primitivas criptográficas. Muchos de los algoritmos tokenizadores que se
@@ -34,15 +43,34 @@ espacio de mensajes cifrados; $ n $ es el tamaño del bloque y $ k $ de la llave
 % implementaciones hechas para este trabajo se ocupó AES (\textit{Advanced
 % Encryption Standard}) en la mayoría de los casos.
 
+Un código de autenticación de mensaje (MAC, \textit{Message Authenticathion
+Code}) es un medio para obtener autenticación en la transmisión de datos. Se
+define como una función $ mac: \mathcal{M} \times \mathcal{K} \rightarrow
+\mathcal{C} : \{ 0, 1 \}^* \times \{ 0, 1 \}^k \rightarrow \{ 0, 1 \}^n $, en
+donde $ \mathcal{C} $ es el espacio, de cardinalidad $ 2^n $, de códigos de
+autenticación. AES-CBC-MAC es un algoritmo para obtener códigos de autenticación
+que usa el cifrado por bloques AES y el modo de operación CBC.
+
 Una función \textit{hash} criptográfica es un mapeo eficiente de cadenas de
 longitud arbitraria a cadenas de longitud fija: $ h: \mathcal{M} \rightarrow
 \mathcal{E} : \{ 0, 1 \}^* \rightarrow \{ 0, 1 \}^n $ en donde $ \mathcal{M} $
 es el espacio de mensajes, de cardinalidad infinita, y $ \mathcal{K} $ es el
 espacio de valores \textit{hash}, de cardinalidad $ 2^n $. No debe ser factible
 regresar al mensaje a partir de su valor \textit{hash}, ni encontrar dos
-mensajes que produzcan el mismo \textit{hash} \cite{menezes}.
+mensajes que produzcan el mismo \textit{hash}~\cite{menezes}.
 
-Una red Feistel
+% Un mapeo de un conjunto de cardinalidad infinita a un conjunto de 2^n...
+% ¿Y es muy difícil encontrar colisiones? suena un poco contraintuitivo.
+% Aunque claro, igual de contraintuitivo es que la cardinalidad de los
+% naturales pares es igual a la cardinalidad de todos los naturales.
+
+Las redes Feistel son cifrados iterativos que transforman un texto en claro de $
+2t $ bits denominado $ (L_0, R_0) $, en donde $ L_0 $ y $ R_0 $ son bloques de $
+t $ bits, en un texto cifrado $ (R_r, L_r) $ a través de un proceso de $ r $
+rondas. Existen dos generalizaciones de este concepto, las redes alternantes y
+las redes desbalanceadas; ambas permiten modificar el tamaño de las mitades
+izquierda y derecha: $ 1 \geq | L_n | \leq 2t $ y $ | R_n | = 2t - | L_n |
+$~\cite{DBLP:conf/fse/SchneierK96, DBLP:conf/fse/AndersonB96a}.
 
 % Existen dos maneras de generar bits aleatorios: la primera es producir bits de
 % manera no determinística, donde el estado de cada uno (uno o cero) está
@@ -92,7 +120,7 @@ naturaleza determinística del proceso, a los bits generados se les conoce como
 Un cifrado que preserva el formato (en inglés \textit{Format-preserving
 Encryption}, FPE) es un cifrado simétrico en donde el mensaje en claro y el
 mensaje cifrado mantienen un formato en común. Formalmente, de acuerdo a lo
-definido en \cite{DBLP:conf/sacrypt/BellareRRS09}, se trata de una función $ E:
+definido en~\cite{DBLP:conf/sacrypt/BellareRRS09}, se trata de una función $ E:
 \mathcal{K} \times \mathcal{N} \times \mathcal{T} \times \mathcal{X} \rightarrow
 \mathcal{X} $, en donde los conjuntos $ \mathcal{K} $, $ \mathcal{N} $, $
 \mathcal{T} $, $ \mathcal{X} $ corresponden al espacio de llaves, espacio de
