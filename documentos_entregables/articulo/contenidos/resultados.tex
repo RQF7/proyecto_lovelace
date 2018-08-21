@@ -78,7 +78,7 @@ base de datos.
 La denominación \textit{no criptográficos}, de la clasificación del PCI SSC
 (Sección \ref{sec:clasificacion}), resulta totalmente confusa, pues en
 realidad todos los métodos conocidos que caen en esa categoría utilizan
-primitivas criptográficas. La segunda categoría (los irreversibles) carece de
+primitivas criptográficas. La segunda categoría (irreversibles) carece de
 utilidad para aplicaciones que procesan pagos con tarjetas de crédito, pues la
 habilidad de regresar al número de tarjeta a partir de su token es uno de los
 requerimientos principales para los sistemas tokenizadores. Por lo anterior, en
@@ -92,12 +92,12 @@ este trabajo se propone una clasificación distinta:
         de tarjeta y una llave entran al mecanismo de tokenización para obtener
         un token; el token y la misma llave entran al mecanismo de
         detokenización para obtener el número de tarjeta original.
-      \item Irreversibles. Utilizan herramientas criptográficas para generar el
-        token de un número de tarjeta. Ocupan herraminetas externas, como una
+      \item Irreversibles. Hacen uso de herramientas criptográficas para generar
+	el token de un número de tarjeta y herramientas externas, como una
         base de datos, para guardar las relaciones entre tokens y números de
         tarjetas.
     \end{itemize}
-  \item Métodos no criptográficos. Aquellos posibles métodos que no ocupen
+  \item Métodos no criptográficos. Aquellos posibles métodos que no necesitan
     herramientas relacionadas con la criptografía; por ejemplo, un generador de
     números realmente aleatorio (TRNG, \textit{True Random Number Generator}).
 \end{itemize}

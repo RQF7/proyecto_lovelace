@@ -22,9 +22,9 @@ conjuntos, denota al producto cartesiano, esto es, $ \mathcal{A} \times
 
 Un cifrado por bloques es un cifrado simétrico que se define por la función $ e:
 \mathcal{M} \times \mathcal{K} \rightarrow \mathcal{C} : \{ 0, 1 \}^n \times \{
-0, 1 \}^k \rightarrow \{ 0, 1 \}^n $ en donde $ \mathcal{M} $ es el espacio de
-textos en claro, $ \mathcal{K} $ es el espacio de llaves y $ \mathcal{C} $ es el
-espacio de mensajes cifrados; $ n $ es el tamaño del bloque y $ k $ de la
+0, 1 \}^k \rightarrow \{ 0, 1 \}^n $, donde $ \mathcal{M} $ es el espacio de
+textos en claro; $ \mathcal{K} $, el espacio de llaves; $ \mathcal{C} $, el
+espacio de mensajes cifrados; $ n $, el tamaño del bloque y $ k $, la
 llave~\cite{menezes}. Uno de los cifrados por bloques más usado en la actualidad
 es AES (\textit{Advanced Encryption Standard}).
 
@@ -46,10 +46,10 @@ Mode})~\cite{modos_de_operacion}.
 Un código de autenticación de mensaje (MAC, \textit{Message Authenticathion
 Code}) es un medio para obtener autenticación en la transmisión de datos. Se
 define como una función $ mac: \mathcal{M} \times \mathcal{K} \rightarrow
-\mathcal{C} : \{ 0, 1 \}^* \times \{ 0, 1 \}^k \rightarrow \{ 0, 1 \}^n $, en
-donde $ \mathcal{C} $ es el espacio, de cardinalidad $ 2^n $, de códigos de
+\mathcal{C} : \{ 0, 1 \}^* \times \{ 0, 1 \}^k \rightarrow \{ 0, 1 \}^n $,
+donde $ \mathcal{C} $ es el espacio (de cardinalidad $ 2^n $) de códigos de
 autenticación. AES-CBC-MAC es un algoritmo para obtener códigos de autenticación
-que usa el cifrado por bloques AES y el modo de operación CBC.
+que utiliza el cifrado por bloques AES y el modo de operación CBC.
 
 Una función \textit{hash} criptográfica es un mapeo eficiente de cadenas de
 longitud arbitraria a cadenas de longitud fija: $ h: \mathcal{M} \rightarrow
