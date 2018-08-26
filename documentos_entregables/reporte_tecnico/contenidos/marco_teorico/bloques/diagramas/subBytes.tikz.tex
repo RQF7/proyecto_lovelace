@@ -1,0 +1,77 @@
+%
+% Operación de subbytes en AES,
+% Capítulo de marco teórico.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[
+  celda/.style = {
+    rectangle,
+    draw = black,
+    fill = white,
+    thin,
+    inner sep = 2mm,
+    align = center,
+    minimum height = 10mm,
+    text width = 6mm}]
+
+  \begin{scope}[
+    local bounding box = caja_a]
+    \foreach \x in {0,...,3}
+      \foreach \y in {0,...,3}
+        {\node[celda]
+           (a_\y_\x)
+           at ($(\x cm, \y cm * -1)$)
+           {\small $ a_{\y, \x}$};}
+    \node[celda, thick,
+      fill = gray!50!white]
+      (a_1_2)
+      at (2, -1)
+      {\small $ a_{1, 2}$};
+  \end{scope}
+
+  \begin{scope}[
+    local bounding box = caja_b,
+    shift={($(caja_a.north east) + (5cm, -0.5cm)$)}]
+    \foreach \x in {0,...,3}
+      \foreach \y in {0,...,3}
+        {\node[celda]
+           (b_\y_\x)
+           at ($(\x cm, \y cm * -1)$)
+           {\small $ b_{\y, \x}$};}
+    \node[celda, thick,
+      fill = gray!50!white]
+      (b_1_2)
+      at (2, -1)
+      {\small $ b_{1, 2}$};
+  \end{scope}
+
+  \node[celda, thick]
+    (funcion)
+    at ($(caja_a.south)!0.5!(caja_b.south)$)
+    {$ S $};
+
+  \draw[-Stealth, thick]
+    (a_1_2.south)
+    ..
+    controls (a_1_2.south|-caja_a.south)
+    and (caja_a.south east)
+    ..
+    (funcion.west);
+
+  \draw[-Stealth, thick]
+    (funcion.east)
+    ..
+    controls (caja_b.south west)
+    and (b_1_2|-caja_b.south)
+    ..
+    (b_1_2.south);
+
+  \draw[-Stealth, thick]
+    ($(caja_a.east) + (1cm, 0)$)
+    --
+    node[above]
+      {\small SubBytes}
+    ($(caja_b.west) - (1cm, 0)$);
+
+\end{tikzpicture}

@@ -1,0 +1,79 @@
+%
+% Operación de mixcolumns en AES,
+% Capítulo de marco teórico.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[
+  celda/.style = {
+    rectangle,
+    draw = black,
+    fill = white,
+    thin,
+    inner sep = 2mm,
+    align = center,
+    minimum height = 10mm,
+    text width = 6mm}]
+
+  \begin{scope}[
+    local bounding box = caja_a]
+    \foreach \x in {0,...,3}
+      \foreach \y in {0,...,3}
+        {\node[celda]
+           (a_\y_\x)
+           at ($(\x cm, \y cm * -1)$)
+           {\small $ a_{\y, \x}$};}
+    \foreach \y in {0,...,3}
+      {\node[celda,
+         fill = gray!50!white]
+         (a_\y_1)
+         at ($(1 cm, \y cm * -1)$)
+         {\small $ a_{\y, 1}$};}
+  \end{scope}
+
+  \begin{scope}[
+    local bounding box = caja_b,
+    shift={($(caja_a.north east) + (5cm, -0.5cm)$)}]
+    \foreach \x in {0,...,3}
+      \foreach \y in {0,...,3}
+        {\node[celda]
+           (b_\y_\x)
+           at ($(\x cm, \y cm * -1)$)
+           {\small $ b_{\y, \x}$};}
+    \foreach \y in {0,...,3}
+      {\node[celda,
+         fill = gray!50!white]
+         (b_\y_1)
+         at ($(1 cm, \y cm * -1)$)
+         {\small $ b_{\y, 1}$};}
+  \end{scope}
+
+  \node[celda,
+    thick,
+    text width = 20mm]
+    (funcion)
+    at ($(caja_a.south)!0.5!(caja_b.south) - (0, 10mm)$)
+    {$ C(x) $};
+
+  \draw[-Stealth, thick]
+    (a_3_1.south)
+    ..
+    controls ($(a_3_2.south) - (0, 10mm)$)
+    ..
+    (funcion.west);
+
+  \draw[-Stealth, thick]
+    (funcion.east)
+    ..
+    controls ($(b_3_0.south) - (0, 10mm)$)
+    ..
+    (b_3_1.south);
+
+  \draw[-Stealth, thick]
+    ($(caja_a.east) + (1cm, 0)$)
+    --
+    node[above]
+      {\small MixColumns}
+    ($(caja_b.west) - (1cm, 0)$);
+
+\end{tikzpicture}
