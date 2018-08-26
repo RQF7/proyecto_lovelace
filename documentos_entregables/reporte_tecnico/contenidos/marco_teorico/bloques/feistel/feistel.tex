@@ -28,11 +28,10 @@ pero con las llaves en el orden inverso (comenzando con $K_r$ hasta $K_1$).
 
 \begin{figure}
   \begin{center}
-    \includegraphics[width=0.25\linewidth]
-      {../../../../diagramas_comunes/redes_feistel/feistel}
-     \caption{Diagrama genérico de una red Feistel.}
-     \label{feistel}
-   \end{center}
+    \subimport{diagramas/}{feistel.tikz.tex}
+    \caption{Diagrama genérico de una red Feistel.}
+    \label{feistel}
+  \end{center}
 \end{figure}
 
 Esta versión de las redes Feistel tiene como reestricción que la longitud
@@ -48,16 +47,14 @@ desbalanceadas y las redes Feistel alternantes (figura
   \centering
   \begin{subfigure}{0.45\textwidth}
     \begin{center}
-      \includegraphics[width=0.5\linewidth]
-        {../../../../diagramas_comunes/redes_feistel/desbalanceadas.png}
+      \subimport{diagramas/}{desbalanceadas.tikz.tex}
       \caption{Redes desbalanceadas.}
       \label{feistel:desbalanceadas}
     \end{center}
   \end{subfigure}
   \begin{subfigure}{0.45\textwidth}
     \begin{center}
-      \includegraphics[width=0.5\linewidth]
-        {../../../../diagramas_comunes/redes_feistel/alternantes.png}
+      \subimport{diagramas/}{alternantes.tikz.tex}
       \caption{Redes alternantes.}
       \label{feistel:alternantes}
     \end{center}

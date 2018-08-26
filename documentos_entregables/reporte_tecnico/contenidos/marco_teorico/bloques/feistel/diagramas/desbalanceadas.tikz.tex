@@ -1,0 +1,366 @@
+%
+% Diagrama de red Feistel desbalanceada,
+% Capítulo de marco teórico.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[
+  generico/.style = {
+    draw = black,
+    fill = white,
+    thin,
+    inner sep = 2mm,
+    align = center},
+  bloque/.style = {
+    generico,
+    rectangle,
+    text width = 20mm},
+  nodo/.style = {
+    generico,
+    minimum size = 7mm,
+    inner sep = 0mm,
+    circle}]
+
+    % Bloque cero %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Entradas
+    \node[bloque]
+      (izquierda_cero)
+      {\small $ L_0 $};
+    \node[bloque]
+      (derecha_cero)
+      [right = -0.4pt of izquierda_cero]
+      {\small $ R_0 $};
+    \node[bloque,
+      text width = 10mm]
+      (llave_cero)
+      [right = 5mm of derecha_cero]
+      {\small $ K_0 $};
+    \draw[-,
+      draw = white,
+      thick]
+      ($(izquierda_cero.north)!0.5!(derecha_cero.north) - (0, 0.4pt)$)
+      --
+      ($(izquierda_cero.south)!0.5!(derecha_cero.south) + (0, 0.4pt)$);
+    \draw[-]
+      ($(izquierda_cero.south)!0.5!(derecha_cero.south) + (-5mm, 0mm)$)
+      --
+      ($(izquierda_cero.south)!0.5!(derecha_cero.south) + (-5mm, 2.5mm)$);
+
+
+    % Constantes
+    \node[nodo]
+      (combinacion_cero)
+      [below = 10mm of izquierda_cero]
+      {};
+    \node[nodo,
+      anchor = north]
+      (funcion_cero)
+      at ($(izquierda_cero.south)!0.5!(derecha_cero.south) - (0, 10mm)$)
+      {\small $ f $};
+    \draw[-]
+      (combinacion_cero.north)
+      --
+      (combinacion_cero.south);
+    \draw[-]
+      (combinacion_cero.west)
+      --
+      (combinacion_cero.east);
+
+    % Flechas de entrada
+    \draw[-Stealth]
+      (izquierda_cero.south)
+      --
+      (combinacion_cero.north);
+    \draw[-Stealth]
+      (funcion_cero.west)
+      --
+      (combinacion_cero.east);
+    \draw[-Stealth]
+      (derecha_cero.south)
+      |-
+      (funcion_cero.east);
+    \draw[-Stealth]
+      (llave_cero.south)
+      --
+      ($(llave_cero.south) - (0, 5mm)$)
+      -|
+      (funcion_cero.north);
+
+    % Bloque uno %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Entradas
+    \node[bloque]
+      (izquierda_uno)
+      [below = 10mm of combinacion_cero]
+      {\small $ L_1 $};
+    \node[bloque]
+      (derecha_uno)
+      [right = -0.4pt of izquierda_uno]
+      {\small $ R_1 $};
+    \node[bloque,
+      text width = 10mm]
+      (llave_uno)
+      [right = 5mm of derecha_uno]
+      {\small $ K_1 $};
+    \draw[-,
+      draw = white,
+      thick]
+      ($(izquierda_uno.north)!0.5!(derecha_uno.north) - (0, 0.4pt)$)
+      --
+      ($(izquierda_uno.south)!0.5!(derecha_uno.south) + (0, 0.4pt)$);
+    \draw[-]
+      ($(izquierda_uno.south)!0.5!(derecha_uno.south) + (-5mm, 0mm)$)
+      --
+      ($(izquierda_uno.south)!0.5!(derecha_uno.south) + (-5mm, 2.5mm)$);
+    \draw[-]
+      ($(izquierda_uno.north)!0.5!(derecha_uno.north) + (5mm, 0mm)$)
+      --
+      ($(izquierda_uno.north)!0.5!(derecha_uno.north) + (5mm, -2.5mm)$);
+
+    % Flechas de salida de bloque anteriores
+    \draw[-Stealth]
+      (combinacion_cero.south)
+      --
+      ($(combinacion_cero.south) - (0, 3mm)$)
+      --
+      ($(derecha_uno.north) + (0, 3mm)$)
+      --
+      (derecha_uno.north);
+    \coordinate (punto_auxiliar_cero)
+      at ($(combinacion_cero.south) - (0, 3mm)$);
+    \draw[-Stealth]
+      (funcion_cero.west -| derecha_cero.south)
+      --
+      (punto_auxiliar_cero -| derecha_cero.south)
+      --
+      ($(izquierda_uno.north) + (0, 3mm)$)
+      --
+      (izquierda_uno.north);
+
+    % Constantes
+    \node[nodo]
+      (combinacion_uno)
+      [below = 10mm of izquierda_uno]
+      {};
+    \node[nodo,
+      anchor = north]
+      (funcion_uno)
+      at ($(izquierda_uno.south)!0.5!(derecha_uno.south) - (0, 10mm)$)
+      {\small $ f $};
+    \draw[-]
+      (combinacion_uno.north)
+      --
+      (combinacion_uno.south);
+    \draw[-]
+      (combinacion_uno.west)
+      --
+      (combinacion_uno.east);
+
+    % Flechas de entrada
+    \draw[-Stealth]
+      (izquierda_uno.south)
+      --
+      (combinacion_uno.north);
+    \draw[-Stealth]
+      (funcion_uno.west)
+      --
+      (combinacion_uno.east);
+    \draw[-Stealth]
+      (derecha_uno.south)
+      |-
+      (funcion_uno.east);
+    \draw[-Stealth]
+      (llave_uno.south)
+      --
+      ($(llave_uno.south) - (0, 5mm)$)
+      -|
+      (funcion_uno.north);
+
+    % Bloque dos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Entradas
+    \node[bloque]
+      (izquierda_dos)
+      [below = 10mm of combinacion_uno]
+      {\small $ L_2 $};
+    \node[bloque]
+      (derecha_dos)
+      [right = -0.4pt of izquierda_dos]
+      {\small $ R_2 $};
+    \node[bloque,
+      text width = 10mm]
+      (llave_dos)
+      [right = 5mm of derecha_dos]
+      {\small $ K_2 $};
+    \draw[-,
+      draw = white,
+      thick]
+      ($(izquierda_dos.north)!0.5!(derecha_dos.north) - (0, 0.4pt)$)
+      --
+      ($(izquierda_dos.south)!0.5!(derecha_dos.south) + (0, 0.4pt)$);
+    \draw[-]
+      ($(izquierda_dos.south)!0.5!(derecha_dos.south) + (-5mm, 0mm)$)
+      --
+      ($(izquierda_dos.south)!0.5!(derecha_dos.south) + (-5mm, 2.5mm)$);
+    \draw[-]
+      ($(izquierda_dos.north)!0.5!(derecha_dos.north) + (5mm, 0mm)$)
+      --
+      ($(izquierda_dos.north)!0.5!(derecha_dos.north) + (5mm, -2.5mm)$);
+
+    % Flechas de salida de bloque anteriores
+    \draw[-Stealth]
+      (combinacion_uno.south)
+      --
+      ($(combinacion_uno.south) - (0, 3mm)$)
+      --
+      ($(derecha_dos.north) + (0, 3mm)$)
+      --
+      (derecha_dos.north);
+    \coordinate (punto_auxiliar_uno)
+      at ($(combinacion_uno.south) - (0, 3mm)$);
+    \draw[-Stealth]
+      (funcion_uno.west -| derecha_uno.south)
+      --
+      (punto_auxiliar_uno -| derecha_uno.south)
+      --
+      ($(izquierda_dos.north) + (0, 3mm)$)
+      --
+      (izquierda_dos.north);
+
+    % Puntos suspensivos
+    \node
+      (puntos_suspensivos_izquierda)
+      at ($(izquierda_dos) - (0, 11mm)$)
+      {\small $ \dots $};
+    \node
+      (puntos_suspensivos_derecha)
+      at ($(derecha_dos) - (0, 11mm)$)
+      {\small $ \dots $};
+    \node
+      (puntos_suspensivos_llave)
+      at ($(llave_dos) - (0, 11mm)$)
+      {\small $ \dots $};
+
+    % Flechas de entrada
+    \draw[-]
+      (izquierda_dos.south)
+      --
+      ($(izquierda_dos.south) - (0, 5mm)$);
+    \draw[-]
+      (derecha_dos.south)
+      --
+      ($(derecha_dos.south) - (0, 5mm)$);
+    \draw[-]
+      (llave_dos.south)
+      --
+      ($(llave_dos.south) - (0, 5mm)$);
+
+    % Constantes
+    \node[nodo]
+      (combinacion_n)
+      [below = 20mm of izquierda_dos]
+      {};
+    \node[nodo,
+      anchor = north]
+      (funcion_n)
+      at ($(izquierda_dos.south)!0.5!(derecha_dos.south) - (0, 20mm)$)
+      {\small $ f $};
+    \draw[-]
+      (combinacion_n.north)
+      --
+      (combinacion_n.south);
+    \draw[-]
+      (combinacion_n.west)
+      --
+      (combinacion_n.east);
+
+    % Flechas de entrada
+    \draw[-Stealth]
+      ($(izquierda_dos.south) - (0, 10mm)$)
+      --
+      (combinacion_n.north);
+    \draw[-Stealth]
+      (funcion_n.west)
+      --
+      (combinacion_n.east);
+    \draw[-Stealth]
+      ($(derecha_dos.south) - (0, 10mm)$)
+      |-
+      (funcion_n.east);
+    \draw[-Stealth]
+      ($(llave_dos.south) - (0, 10mm)$)
+      --
+      ($(llave_dos.south) - (0, 15mm)$)
+      -|
+      (funcion_n.north);
+
+    % Bloque n %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Entradas
+    \node[bloque]
+      (izquierda_n)
+      [below = 10mm of combinacion_n]
+      {\small $ L_n $};
+    \node[bloque]
+      (derecha_n)
+      [right = -0.4pt of izquierda_n]
+      {\small $ R_n $};
+    \draw[-,
+      draw = white,
+      thick]
+      ($(izquierda_n.north)!0.5!(derecha_n.north) - (0, 0.4pt)$)
+      --
+      ($(izquierda_n.south)!0.5!(derecha_n.south) + (0, 0.4pt)$);
+    \draw[-]
+      ($(izquierda_n.north)!0.5!(derecha_n.north) + (5mm, 0mm)$)
+      --
+      ($(izquierda_n.north)!0.5!(derecha_n.north) + (5mm, -2.5mm)$);
+
+    % Flechas de salida de bloque anteriores
+    \draw[-Stealth]
+      (combinacion_n.south)
+      --
+      ($(combinacion_n.south) - (0, 3mm)$)
+      --
+      ($(derecha_n.north) + (0, 3mm)$)
+      --
+      (derecha_n.north);
+    \coordinate (punto_auxiliar_n)
+      at ($(combinacion_n.south) - (0, 3mm)$);
+    \draw[-Stealth]
+      (funcion_n.west -| derecha_dos.south)
+      --
+      (punto_auxiliar_n -| derecha_dos.south)
+      --
+      ($(izquierda_n.north) + (0, 3mm)$)
+      --
+      (izquierda_n.north);
+
+    % Medidas
+    \draw[-]
+      ($(izquierda_cero.west) + (0, 10mm)$)
+      --
+      ($(derecha_cero.east) + (0, 10mm)$);
+    \draw[-]
+      ($(izquierda_cero.west) + (0, 12mm)$)
+      --
+      ($(izquierda_cero.west) + (0, 8mm)$);
+    \draw[-]
+      ($(derecha_cero.east) + (0, 12mm)$)
+      --
+      ($(derecha_cero.east) + (0, 8mm)$);
+    \draw[-]
+      ($(izquierda_cero.south)!0.5!(derecha_cero.south)
+        + (-5mm, 3.5mm) + (0, 12mm)$)
+      --
+      ($(izquierda_cero.south)!0.5!(derecha_cero.south)
+        + (-5mm, 3.5mm) + (0, 8mm)$);
+    \node
+      [above = 8mm of izquierda_cero]
+      {\small $ m $};
+    \node
+      [above = 8mm of derecha_cero]
+      {\small $ n $};
+
+\end{tikzpicture}
