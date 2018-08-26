@@ -33,30 +33,44 @@ def respuestaJSON (objeto):
 
 def privilegiosRequeridos (tipoDeUsuario):
   """
+  Fábrica de decoradores para vistas con privilegios.
+
+  Permite decorar las funciones de vistas (todas las definiciones de funciones
+  que hay en cualquier funciones.py) para reestringir el uso de esa función
+  a cierto tipo de usuario. El argumento recibido es un entero que representa
+  el identificador de los tipos de usuarios que deben poder acceder a la
+  función.
+
+  Si no hay ningún usuario en sesión o el usuario de sesión no tiene los
+  privilegios necesarios, se regresa un 304 para obligar al cliente a ir
+  a la pantalla de inicio de sesión.
+
+  Las fábricas de decoradores se ven, en el código cliente, igual que
+  un decorador normal. En su papel de fábrica, debe de regresar un decorador.
+  Las fábricas de decoradores se utilizan para que las funciones decoradoras
+  puedan recibir parámetros (en este caso el tipo de usuario de los
+  privilegios). Cuando el decorador no recibe parámetros se pude utilizar
+  sin la fábrica.
 
   Definitivamente, mi función favorita.
   """
+
   def decorador (funcion):
+
     @wraps(funcion)
     def envolturaDePrivilegios(peticion, *argumentos, **argumentosEnDiccionario):
-      """
-      * https://docs.python.org/3.7/library/urllib.parse.html
-      * entorno_virtual/lib/python3.6/site-packages/django/
-        contrib/auth/decorators.py
-      * entorno_virtual/lib/python3.6/site-packages/django/
-        contrib/auth/views.py
-      """
+
       if 'usuario' not in peticion.session:
-        #from django.contrib.auth.views import redirect_to_login
-        #return redirect_to_login(
-        #    peticion.path, '/', 'siguiente')
         return HttpResponseRedirect('/?siguiente=' + peticion.path)
 
       elif peticion.session['usuario']['tipoDeUsuario'] != tipoDeUsuario:
-        # TODO: terminar de definir requerimiento no funcional
         return HttpResponseRedirect('/?siguiente=' + peticion.path)
 
       else:
         return funcion(peticion, *argumentos, **argumentosEnDiccionario)
+
+    # Retorno de función decoradora, decorador.
     return envolturaDePrivilegios
+
+  # Retorno de función fábrica, privilegiosRequeridos.
   return decorador

@@ -25,7 +25,7 @@ sistemaTokenizador.controller('controladorGeneral', [
   )
   {
     $scope.$route = $route;
-    $scope.routeParams = $routeParams;
+    $scope.$routeParams = $routeParams;
     $scope.$location = $location;
 
     /* Control de secciones. *************************************************/
@@ -95,6 +95,13 @@ sistemaTokenizador.controller('controladorGeneral', [
       }
     });
 
+    /* Para mostrar login en cas ode redirección. */
+    $scope.$on('$routeChangeSuccess', function () {
+      if ($scope.$routeParams.siguiente != undefined) {
+        $scope.iniciarSesion(undefined);
+      }
+    });
+
     $scope.iniciarSesion = function ($event) {
       var padre = angular.element(document.body);
       $mdDialog.show({
@@ -105,7 +112,11 @@ sistemaTokenizador.controller('controladorGeneral', [
       }).then(function (respuesta) {
         if (respuesta != undefined) {
           $scope.usuario = respuesta;
-          if ($scope.usuario.tipoDeUsuario == 1) {
+          if ($scope.$routeParams.siguiente != undefined) {
+            $location.path($scope.$routeParams.siguiente);
+            //$scope.$routeParams = {};
+            $location.search('siguiente', null)
+          } else if ($scope.usuario.tipoDeUsuario == 1) {
             $location.path('/administración_de_tokens');
           } else {
             $location.path('/administración');
