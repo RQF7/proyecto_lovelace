@@ -44,6 +44,11 @@ mkdir ~/ejecutable_biber
 tar -xf biber-linux_x86_64.tar.gz -C ~/ejecutable_biber
 rm biber-linux_x86_64.tar.gz
 
+# PGF / tikz
+wget --quiet http://mirrors.ctan.org/install/graphics/pgf/base/pgf.tds.zip
+unzip --qq -d ~/texmf pgf.tds.zip
+rm pgf.tds.zip
+
 # doxygen
 # wget --quiet http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.14.linux.bin.tar.gz
 # mkdir ~/ejecutable_doxygen
