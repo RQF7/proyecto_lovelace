@@ -24,10 +24,10 @@ if __name__ == '__main__':
 
   usuarios = [
     Usuario(
-      correo = 'usuario@prueba.com',
+      correo = 'cliente@prueba.com',
       contrasenia = hashlib.sha256(b"123456").digest(),
       tipoDeUsuario = TipoDeUsuario.objects.get(
-        nombre = 'usuario')),
+        nombre = 'cliente')),
     Usuario(
       correo = 'administrador@prueba.com',
       contrasenia = hashlib.sha256(b"123456").digest(),

@@ -15,6 +15,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'sistema_tokenizador.configuraciones'
 django.setup()
 
 from sistema_tokenizador.general.models.tipo_de_usuario import TipoDeUsuario
+from sistema_tokenizador.programa_tokenizador.models.contador import Contador
 
 
 def guardar(modelos):
@@ -30,7 +31,14 @@ def guardar(modelos):
 if __name__ == '__main__':
 
   tiposDeUsuario = [
-    TipoDeUsuario(nombre = 'usuario'),
+    TipoDeUsuario(nombre = 'cliente'),
     TipoDeUsuario(nombre = 'administrador')]
 
   guardar(tiposDeUsuario)
+
+  contadores = [
+    Contador(
+      nombre = 'contador de tkr',
+      valor = 0)]
+
+  guardar (contadores)

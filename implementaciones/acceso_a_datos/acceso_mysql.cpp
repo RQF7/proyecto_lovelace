@@ -58,14 +58,14 @@ Registro AccesoMySQL::buscarPorPan(
   const ArregloDeDigitos& PAN       /**< PAN a buscar en los registros. */
 )
 {
-  string consulta {"SELECT * FROM registro WHERE pan = ?"};
+  string consulta {"SELECT * FROM programa_tokenizador_registro WHERE pan = ?"};
   PreparedStatement* declaracion = mConexion->prepareStatement(consulta);
   declaracion->setString(1, PAN.obtenerCadena());
   ResultSet* resultado = declaracion->executeQuery();
   Registro registro {};
   if (resultado->next())
   {
-    registro.colocarIdentificador(resultado->getInt("identificador"));
+    registro.colocarIdentificador(resultado->getInt("id"));
     registro.colocarPAN(PAN);
     registro.colocarToken(ArregloDeDigitos{resultado->getString("token")});
   }
@@ -86,14 +86,15 @@ Registro AccesoMySQL::buscarPorToken(
   const ArregloDeDigitos& token         /**< Token a buscar. */
 )
 {
-  string consulta {"SELECT * FROM registro WHERE token = ?"};
+  string consulta {"SELECT * FROM programa_tokenizador_registro "
+    "WHERE token = ?"};
   PreparedStatement* declaracion = mConexion->prepareStatement(consulta);
   declaracion->setString(1, token.obtenerCadena());
   ResultSet* resultado = declaracion->executeQuery();
   Registro registro {};
   if (resultado->next())
   {
-    registro.colocarIdentificador(resultado->getInt("identificador"));
+    registro.colocarIdentificador(resultado->getInt("id"));
     registro.colocarPAN(ArregloDeDigitos(resultado->getString("pan")));
     registro.colocarToken(token);
   }
@@ -112,7 +113,8 @@ void AccesoMySQL::guardar(
   const Registro& registro              /**< Nuevo registro. */
 )
 {
-  string instruccion {"INSERT INTO registro VALUES (?, ?, ?)"};
+  string instruccion {"INSERT INTO programa_tokenizador_registro "
+    "VALUES (?, ?, ?)"};
   PreparedStatement* declaracion = mConexion->prepareStatement(instruccion);
   declaracion->setInt(1, 0);
   declaracion->setString(2, registro.obtenerPAN().obtenerCadena());
@@ -130,7 +132,8 @@ void AccesoMySQL::eliminar(
   int identificador         /**< Identificador de registro a eliminar. */
 )
 {
-  string instruccion {"DELETE FROM registro WHERE identificador = ?"};
+  string instruccion {"DELETE FROM programa_tokenizador_registro "
+    "WHERE id = ?"};
   PreparedStatement* declaracion = mConexion->prepareStatement(instruccion);
   declaracion->setInt(1, identificador);
   declaracion->executeQuery();
@@ -148,7 +151,8 @@ entero AccesoMySQL::obtenerContador(
   std::string nombre                  /**< Nombre del contador en la base. */
 )
 {
-  string instruccion {"SELECT * FROM contador WHERE nombre = ?"};
+  string instruccion {"SELECT * FROM programa_tokenizador_contador "
+    "WHERE nombre = ?"};
   PreparedStatement* declaracion = mConexion->prepareStatement(instruccion);
   declaracion->setString(1, nombre);
   ResultSet* resultado = declaracion->executeQuery();
@@ -168,7 +172,8 @@ void AccesoMySQL::colocarContador(
   entero valor                      /**< Valor a guardar. */
 )
 {
-  string instruccion {"UPDATE contador SET valor = ? WHERE nombre = ?"};
+  string instruccion {"UPDATE programa_tokenizador_contador "
+    "SET valor = ? WHERE nombre = ?"};
   PreparedStatement* declaracion = mConexion->prepareStatement(instruccion);
   declaracion->setUInt64(1, valor);
   declaracion->setString(2, nombre);

@@ -11,7 +11,7 @@ class TipoDeUsuario (models.Model):
   Catálogo de tipos de usuario.
 
   A la fecha, se tienen 2 pensados:
-  * Usuario.
+  * Cliente.
   * Administrador.
   El contenido de este catálogo va de acuerdo al requerimiento sobre los actores
   del sistema.
