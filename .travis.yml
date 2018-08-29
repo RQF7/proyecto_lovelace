@@ -35,7 +35,7 @@ before_install:
     libmysqlcppconn-dev
     yasm
     python3.6
-    python3-dev
+    python3.6-dev
     libmariadbclient-dev
   # Cryptopp
   - wget --quiet https://cryptopp.com/cryptopp600.zip
@@ -60,6 +60,8 @@ install:
   - virtualenv -p /usr/bin/python3.6 entorno_virtual
   - source entorno_virtual/bin/activate
   - pip install -r dependencias_python.txt
+  - python administrar.py makemigrations general programa_tokenizador
+  - python administrar.py migrate
 
 script:
   - eval "${MATRIX_EVAL}"
