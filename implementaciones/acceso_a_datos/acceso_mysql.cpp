@@ -58,7 +58,7 @@ Registro AccesoMySQL::buscarPorPan(
   const ArregloDeDigitos& PAN       /**< PAN a buscar en los registros. */
 )
 {
-  string consulta {"SELECT * FROM programa_tokenizador_registro WHERE pan = ?"};
+  string consulta {"SELECT * FROM programa_tokenizador_token WHERE pan = ?"};
   PreparedStatement* declaracion = mConexion->prepareStatement(consulta);
   declaracion->setString(1, PAN.obtenerCadena());
   ResultSet* resultado = declaracion->executeQuery();
@@ -86,7 +86,7 @@ Registro AccesoMySQL::buscarPorToken(
   const ArregloDeDigitos& token         /**< Token a buscar. */
 )
 {
-  string consulta {"SELECT * FROM programa_tokenizador_registro "
+  string consulta {"SELECT * FROM programa_tokenizador_token "
     "WHERE token = ?"};
   PreparedStatement* declaracion = mConexion->prepareStatement(consulta);
   declaracion->setString(1, token.obtenerCadena());
@@ -107,18 +107,23 @@ Registro AccesoMySQL::buscarPorToken(
  * Guarda el registro dado el base de datos. No hace ningún tipo de comprobacón
  * de duplicados: el token se inserta como viene; lo mismo para el PAN y el
  * token.
+ *
+ * TODO: El usuario y el tipo de token asignados son triviales; actualizar
+ * interfaz para que se reciban desde los argumentos.
  */
 
 void AccesoMySQL::guardar(
   const Registro& registro              /**< Nuevo registro. */
 )
 {
-  string instruccion {"INSERT INTO programa_tokenizador_registro "
-    "VALUES (?, ?, ?)"};
+  string instruccion {"INSERT INTO programa_tokenizador_token "
+    "VALUES (?, ?, ?, ?, ?)"};
   PreparedStatement* declaracion = mConexion->prepareStatement(instruccion);
   declaracion->setInt(1, 0);
-  declaracion->setString(2, registro.obtenerPAN().obtenerCadena());
-  declaracion->setString(3, registro.obtenerToken().obtenerCadena());
+  declaracion->setString(2, registro.obtenerToken().obtenerCadena());
+  declaracion->setString(3, registro.obtenerPAN().obtenerCadena());
+  declaracion->setInt(4, 1);
+  declaracion->setInt(5, 1);
   declaracion->executeQuery();
   delete declaracion;
   return;
@@ -132,7 +137,7 @@ void AccesoMySQL::eliminar(
   int identificador         /**< Identificador de registro a eliminar. */
 )
 {
-  string instruccion {"DELETE FROM programa_tokenizador_registro "
+  string instruccion {"DELETE FROM programa_tokenizador_token "
     "WHERE id = ?"};
   PreparedStatement* declaracion = mConexion->prepareStatement(instruccion);
   declaracion->setInt(1, identificador);

@@ -15,9 +15,14 @@ import os, django, hashlib
 os.environ['DJANGO_SETTINGS_MODULE'] = 'sistema_tokenizador.configuraciones'
 django.setup()
 
-from sistema_tokenizador.general.models.tipo_de_usuario import TipoDeUsuario
-from sistema_tokenizador.general.models.usuario import Usuario
-from datos_base import guardar
+from sistema_tokenizador.general.models.estado_de_usuario \
+  import EstadoDeUsuario
+from sistema_tokenizador.general.models.tipo_de_usuario \
+  import TipoDeUsuario
+from sistema_tokenizador.general.models.usuario \
+  import Usuario
+from datos_base \
+  import guardar
 
 
 if __name__ == '__main__':
@@ -27,11 +32,15 @@ if __name__ == '__main__':
       correo = 'cliente@prueba.com',
       contrasenia = hashlib.sha256(b"123456").digest(),
       tipoDeUsuario = TipoDeUsuario.objects.get(
-        nombre = 'cliente')),
+        nombre = 'cliente'),
+      estadoDeUsuario = EstadoDeUsuario.objects.get(
+        nombre = 'aprobado')),
     Usuario(
       correo = 'administrador@prueba.com',
       contrasenia = hashlib.sha256(b"123456").digest(),
       tipoDeUsuario = TipoDeUsuario.objects.get(
-        nombre = 'administrador'))]
+        nombre = 'administrador'),
+      estadoDeUsuario = EstadoDeUsuario.objects.get(
+        nombre = 'aprobado'))]
 
   guardar(usuarios)

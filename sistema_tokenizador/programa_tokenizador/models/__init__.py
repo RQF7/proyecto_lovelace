@@ -4,5 +4,9 @@
   Proyecto Lovelace.
 """
 
+from .algoritmo import Algoritmo
 from .contador import Contador
-from .registro import Registro
+from .estado_de_llave import EstadoDeLlave
+from .estado_de_token import EstadoDeToken
+from .tipo_de_algoritmo import TipoDeAlgoritmo
+from .token import Token
