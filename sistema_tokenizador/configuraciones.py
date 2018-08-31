@@ -29,7 +29,7 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
   'sistema_tokenizador.programa_tokenizador.configuracion.Configuracion',
   'sistema_tokenizador.general.configuracion.Configuracion',
-  'django.contrib.auth',
+#  'django.contrib.auth',
   'django.contrib.contenttypes',
   'django.contrib.sessions',
   'django.contrib.messages',
@@ -45,7 +45,7 @@ MIDDLEWARE = [
 #  cosa no lo necesita... lo que tendría sentido es que nosotros hiciéramos los
 #  ataques.
 #  'django.middleware.csrf.CsrfViewMiddleware',
-  'django.contrib.auth.middleware.AuthenticationMiddleware',
+#  'django.contrib.auth.middleware.AuthenticationMiddleware',
   'django.contrib.messages.middleware.MessageMiddleware',
   'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -53,6 +53,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'sistema_tokenizador.direcciones'
 
 # No usamos templates, el cliente funciona como aplicación web (angular).
+# La configuración de abajo la ocupa digraph, para generar el diagrama
+# del modelo de datos.
 
 TEMPLATES = [
   {

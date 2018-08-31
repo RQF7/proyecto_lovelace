@@ -4,5 +4,6 @@
   Proyecto Lovelace.
 """
 
+from .estado_de_usuario import EstadoDeUsuario
 from .tipo_de_usuario import TipoDeUsuario
 from .usuario import Usuario

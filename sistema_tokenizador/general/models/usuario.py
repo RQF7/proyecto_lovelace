@@ -4,6 +4,7 @@
   Proyecto Lovelace.
 """
 
+from .estado_de_usuario import EstadoDeUsuario
 from .tipo_de_usuario import TipoDeUsuario
 from django.db import models
 
@@ -22,6 +23,11 @@ class Usuario (models.Model):
     'TipoDeUsuario',
     models.PROTECT,
     verbose_name = 'tipo de usuario')
+
+  estadoDeUsuario = models.ForeignKey(
+    'EstadoDeUsuario',
+    models.PROTECT,
+    verbose_name = 'estado del usuario')
 
 
   def __str__(self):
