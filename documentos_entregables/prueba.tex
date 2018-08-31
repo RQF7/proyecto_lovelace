@@ -33,7 +33,104 @@
 
   \begin{figure}
     \centering
-    \begin{tikzpicture}[]
+    \begin{tikzpicture}[
+      bloque/.style = {
+        rectangle,
+        draw = black,
+        thin,
+        align = center,
+        inner sep = 4mm}]
+
+      \node[bloque]
+        (e_1)
+        {$ D $};
+
+      \draw[-Stealth]
+        ($(e_1.west) + (-0.5in, 0.1in)$)
+        node[
+          anchor = east]
+          {$ Bc_1 $}
+        --
+        ($(e_1.west) + (0, 0.1in)$);
+
+      \draw[-Stealth]
+        ($(e_1.west) + (-0.5in, -0.1in)$)
+        node[
+          anchor = east]
+          {$ k $}
+        --
+        ($(e_1.west) + (0, -0.1in)$);
+
+      \draw[-Stealth]
+        (e_1.east)
+        --
+        node[
+          anchor = south west]
+          {$ Bm_1 $}
+        ($(e_1.east) + (0.5in, 0)$);
+
+      \node[bloque]
+        (e_2)
+        [below = 0.2in of e_1]
+        {$ D $};
+
+      \draw[-Stealth]
+        ($(e_2.west) + (-0.5in, 0.1in)$)
+        node[
+          anchor = east]
+          {$ Bc_2 $}
+        --
+        ($(e_2.west) + (0, 0.1in)$);
+
+      \draw[-Stealth]
+        ($(e_2.west) + (-0.5in, -0.1in)$)
+        node[
+          anchor = east]
+          {$ k $}
+        --
+        ($(e_2.west) + (0, -0.1in)$);
+
+      \draw[-Stealth]
+        (e_2.east)
+        --
+        node[
+          anchor = south west]
+          {$ Bm_2 $}
+        ($(e_2.east) + (0.5in, 0)$);
+
+      \node
+        (puntos)
+        [below = 0.2in of e_2]
+        {$ \dots $};
+
+      \node[bloque]
+        (e_n)
+        [below = 0.2in of puntos]
+        {$ D $};
+
+      \draw[-Stealth]
+        ($(e_n.west) + (-0.5in, 0.1in)$)
+        node[
+          anchor = east]
+          {$ Bc_n $}
+        --
+        ($(e_n.west) + (0, 0.1in)$);
+
+      \draw[-Stealth]
+        ($(e_n.west) + (-0.5in, -0.1in)$)
+        node[
+          anchor = east]
+          {$ k $}
+        --
+        ($(e_n.west) + (0, -0.1in)$);
+
+      \draw[-Stealth]
+        (e_n.east)
+        --
+        node[
+          anchor = south west]
+          {$ Bm_n $}
+        ($(e_n.east) + (0.5in, 0)$);
 
     \end{tikzpicture}
     \caption{Prueba}
