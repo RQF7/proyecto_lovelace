@@ -13,135 +13,108 @@
 % nivel.
 % Requerimientos de bajo nivel:
 
-% TODO: cambiar la denominación «usuario» para un tipo de usuario...
-% tiende a confundir.
-
-\requerimiento[rq_api:actores]
-{Sobre los actores del sistema}
+\requerimiento[rq:iniciar_sesion]
+{Iniciar sesión}
 {
-  La aplicación debe contemplar las acciones de tres tipos de actores: un
-  \textit{visitante}, que representa a los posibles usuarios que visitan la
-  página de promoción del sistema; un \textit{usuario}, que utiliza la interfaz
-  web del servicio de tokenización; un \textit{administrador}, que representa a
-  la entidad (empresa u organización) que ofrece el servicio de tokenización
-  (ver regla de negocio \hipervinculo{rn:servicio_tokenizacion}).
-
-  \subrequerimiento[rq_api:cambios_de_actores]
-  {Flujos de actores en la aplicación}
-  {
-    En la figura \ref{estados_actores} se muestra un diagrama de estados con
-    la relación de los actores con la aplicación. Las transiciones representan
-    los casos de uso que hacen cambiar al tipo de actor.
-
-    Al abrir la aplicación toda persona es un \textit{visitante}. Los
-    \textit{usuarios} y los \textit{administradores} necesitan iniciar sesión
-    para ser identificados como tal por el sistema. Un \textit{visitante} puede
-    pasar a ser actor al registrarse en el sistema.
-
-    Este requerimiento está relacionado con las reestricciones impuestas por los
-    requerimientos \hipervinculo{rq_api:registro_de_actores} y
-    \hipervinculo{rq_api:identificacion_de_actores}.
-  }
+  La aplicación web debe permitir a los usuarios \textbf{cliente} y
+  \textbf{administrador}, iniciar sesión. Deben proporcionar los siguientes
+  datos:
+  \begin{itemize}
+    \item Correo electrónico
+    \item Contraseña
+  \end{itemize}
 }
 
-\begin{figure}
-  \begin{center}
-    \subimport{diagramas/}{estados_actores.tikz.tex}
-    \caption{Diagrama de estados de actores.}
-    \label{estados_actores}
-  \end{center}
-\end{figure}
-
-% Depende de rq_api:actores
-\requerimiento[rq_api:interfaces_de_usuario]
-{Sobre las interfaces gráficas del sistema}
+\requerimiento[rq:cierre_de_sesion]
+{Cerrar sesión}
 {
-  La aplicación web debe contar con las interfaces especificadas en los
-  siguientes subrequerimientos.
-
-  \subrequerimiento[rq_api:sitio_publico]
-  {Sitio público de aplicación}
-  {
-    Estas páginas deben ser accesibles para los tres actores definidos en
-    \hipervinculo{rq_api:actores}.
-
-    \subsubrequerimiento[rq_api:interfaz_inicio]
-    {Interfaz de inicio}
-    {
-      Página que debe promocionar el servicio de tokenización. Debe de explicar
-      qué es la tokenización y qué es lo que hace el servicio ofrecido. Esta
-      interfaz se muestra en \hipervinculo{iu:inicio}.
-    }
-
-    \subsubrequerimiento[rq_api:interfaz_documentacion]
-    {Interfaz de documentación}
-    {
-      Página que debe explicar cómo utilizar la \gls{gl:api} web del
-      servicio de tokenización. Esta interfaz se muestra en
-      \hipervinculo{iu:documentacion}.
-    }
-
-    \subsubrequerimiento[rq_api:interfaz_inicio_de_sesion]
-    {Interfaz de inicio de sesión}
-    {
-      Formulario para que los administradores o usuarios inicien sesión en el
-      sistema. Esta interfaz se muestra en \hipervinculo{iu:iniciar_sesion}.
-    }
-
-    \subsubrequerimiento[rq_api:interfaz_registro_de_usuarios]
-    {Interfaz de registro de usuarios}
-    {
-       Formulario que permite que un visitante se registre como usuario.
-       Esta interfaz se muestra en \hipervinculo{iu:registrar_usuario}.
-    }
-  }
-
-  \subrequerimiento[rq_api:administracion_de_tokens]
-  {Sitio de administración de tokens}
-  {
-    Estas páginas deben ser accesibles solamente a los usuarios
-    (\hipervinculo{rq_api:actores}).
-
-    % TODO: ¿Qué hace esta interfaz?
-    \subsubrequerimiento[rq_api:interfaz_inicio_usuario]
-    {Interfaz de inicio de usuarios}
-    {
-       Página de bienvenida de un actor tipo usuario. Esta interfaz se
-       muestra en \hipervinculo{iu:administracion_de_tokens}.
-    }
-  }
-
-  \subrequerimiento[rq_api:administracion_de_usuarios]
-  {Sitio de administración general}
-  {
-    Estas páginas deben ser accesibles solamente a los administradores
-    (\hipervinculo{rq_api:actores}).
-
-    % TODO: ¿Qué hace esta interfaz?
-    \subsubrequerimiento[rq_api:interfaz_inicio_administrador]
-    {Interfaz de inicio de administradores}
-    {
-      Página de bienvenida de un actor tipo administrador. Esta interfaz se
-      muestra en \hipervinculo{iu:administracion}.
-    }
-  }
+  La aplicación web debe permitir a los usuarios \textbf{cliente} y
+  \textbf{administrador}, cerrar sesión.
 }
 
-\requerimiento[rq_api:identificacion_de_actores]
-{Sobre la identificación de los actores}
+\requerimiento[rq:registrar_cliente]
+{Registrar cliente}
 {
-  Para ser vistos como usuarios o administradores, los actores deben
-  pasar por un proceso de identificación. La identificación es mediante
-  un correo electrónico (\hipervinculo{rn:correo_electronico}) y una
-  contraseña (\hipervinculo{rn:formato_de_contrasenias}). Esto está relacionado
-  con \hipervinculo{rqnf_api:alamcenamiento_de_contrasenias}.
+  La aplicación web debe permitir a los usuarios \textbf{visitante}
+  registrarse; el visitante debe proporcionar los siguientes datos:
+  \begin{itemize}
+    \item Correo electrónico válido
+    \item Contraseña
+  \end{itemize}
 }
 
-\requerimiento[rq_api:registro_de_actores]
-{Sobre el registro de usuarios y administradores}
+\requerimiento[rq:verificar_cliente]
+{Verificar cliente}
 {
-  El conjunto de usuarios debe poder crecer desde la aplicación web, esto es,
-  se deben poder registrar nuevos usuarios. El conjunto de administradores es
-  fijo desde el inicio, esto es, no se pueden registrar más administradores
-  desde la aplicación web.
+  La aplicación web debe permitir a un usuario \textbf{cliente} que verifique
+  su correo al enviarle un enlace al registrarse.
+}
+
+\requerimiento[rq:aprobar_cliente]
+{Aprobar cliente}
+{
+  La aplicación web debe permitir a un usuario \textbf{administrador} aprobar
+  y rechazar usuarios de tipo \textbf{cliente}.
+}
+
+\requerimiento[rq:mostrar_promocion]
+{Mostrar promoción del servicio tokenizador}
+{
+  La aplicación web debe tener una página que promocione el servicio de
+  tokenización, esta página debe explicar qué es la tokenización y cómo
+  funcionan los algoritmos implementados.
+}
+
+\requerimiento[rq:mostrar_documentacion]
+{Mostrar documentación del servicio tokenizador}
+{
+  La aplicación web debe tener una página donde se muestre la documentación de la
+  API.
+}
+
+\requerimiento[rq:tokenizar_tarjeta]
+{Tokenizar número de tarjeta}
+{
+  La aplicación web debe permitir, a un cliente, realizar la tokenización de un
+  número de tarjeta. El cliente debe proporcionar los siguientes datos:
+  \begin{itemize}
+    \item Número de tarjeta a tokenizar.
+    \item Algoritmo tokenizar.
+  \end{itemize}
+  La operación regresa un token.
+
+  Los algoritmos disponibles son:
+  \begin{itemize}
+    \item BPS
+    \item FFX
+    \item TKR
+    \item AHR
+    \item DRBG
+  \end{itemize}
+}
+
+\requerimiento[rq:detokenizar_token]
+{Detokenizar token}
+{
+  La aplicación web debe permitir, a un cliente, realizar la detokenización de
+  un token. El cliente debe proporcionar los siguientes datos:
+  \begin{itemize}
+    \item Token
+    \item Algoritmo tokenizador
+  \end{itemize}
+  La operación regresa un número de tarjeta.
+}
+
+\requerimiento[rq:recordatorio_refresco]
+{Recordatorio de refresco de llaves}
+{
+  El sistema debe enviar una notificación diaria a los clientes cuyo
+  criptoperiodo haya caducado.
+}
+
+\requerimiento[rq:refrescar_llaves]
+{Refrescar llaves}
+{
+  La aplicación web debe permitir, a un cliente, realizar el refresco de sus
+  llaves.
 }

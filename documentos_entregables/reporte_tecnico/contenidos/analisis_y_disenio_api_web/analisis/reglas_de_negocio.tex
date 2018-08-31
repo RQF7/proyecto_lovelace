@@ -10,17 +10,17 @@ El formato de las \glspl{gl:expresion_regular}, por cuestiones de optimización
 en tiempos de desarrollo, se presenta según el formato de \textit{java script},
 definido en \cite{mozilla_er}.
 
-\reglaDeNegocio[rn:servicio_tokenizacion]
-{Servicio de tokenizacion}
-{
-  El servicio de tokenización abarca dos operaciones básicas:
-  \textit{tokenización}, esto es, dado un número de tarjeta, regresar el token
-  correspondiente; y \textit{detokenización}, que es el proceso inverso, dado un
-  token, regresar el número de tarjeta asociado.
-
-  Esta regla está asociada a \hipervinculo{rn:formato_numero_de_tarjeta} y
-  \hipervinculo{rn:formato_token}.
-}
+% \reglaDeNegocio[rn:servicio_tokenizacion]
+% {Servicio de tokenizacion}
+% {
+%   El servicio de tokenización abarca dos operaciones básicas:
+%   \textit{tokenización}, esto es, dado un número de tarjeta, regresar el token
+%   correspondiente; y \textit{detokenización}, que es el proceso inverso, dado un
+%   token, regresar el número de tarjeta asociado.
+%
+%   Esta regla está asociada a \hipervinculo{rn:formato_numero_de_tarjeta} y
+%   \hipervinculo{rn:formato_token}.
+% }
 
 \reglaDeNegocio[rn:formato_numero_de_tarjeta]
 {Composición de números de tarjeta}
@@ -48,6 +48,7 @@ definido en \cite{mozilla_er}.
 {Formato de correos electrónicos}
 {
   Un nombre de usuario queda definido por la expresión regular
+  %% Está medio loca esta validación, ¿no?
   %\begin{verbatim}
   %^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
   %\end{verbatim}
@@ -60,6 +61,130 @@ definido en \cite{mozilla_er}.
 {
   El formato de una contraseña está regido por la expresión regular
   \texttt{0-9a-zA-Z}\{8, 24\}.
+}
+
+\reglaDeNegocio[rn:tipo_de_usuario]
+{Tipos de usuario}
+{
+  Existen tres tipos de usuarios:
+  \begin{itemize}
+    \item Visitante
+    \item Cliente
+    \item Administrador
+  \end{itemize}
+
+  Al abrir la aplicación, todos los usuarios son visitantes; pues los clientes
+  y los administradores deben iniciar sesión para ser identificados por el
+  sistema; un vistante puede convertirse en cliente al registrarse y ser
+  aprobado. Las transiciones entre los tipos de usuarios pueden observarse en el
+  diagrama \ref{estados_actores}.
+}
+
+\begin{figure}
+  \begin{center}
+    \subimport{diagramas/}{estados_actores.tikz.tex}
+    \caption{Diagrama de estados de actores.}
+    \label{estados_actores}
+  \end{center}
+\end{figure}
+
+\reglaDeNegocio[rn:estados_cliente]
+{Estados de un cliente}
+{
+  Un cliente puede tener los siguientes estados:
+  \begin{itemize}
+    \item No verificado
+    \item Verificado
+    \item Aprobado
+    \item Rechazado
+    \item En cambio de llave
+    \item En lista negra
+  \end{itemize}
+
+  Cuando un cliente se registra, se encuentra en estado \textbf{no verificado},
+  cuando verifica su dirección de correo electrónico, pasa a
+  \textbf{verificado}; una vez que el administrador lo aprueba, pasa a
+  \textbf{aprobado}. Cuando inicia un refresco de llaves, pasa a
+  \textbf{en cambio de llaves}. Finalmente, el administrador puede cambiar su
+  estado a \textbf{en lista negra} (y regresarlo a \textbf{aprobado} o
+  \textbf{en cambio de llaves}).
+}
+
+\reglaDeNegocio[rn:estados_token]
+{Estados de un token}
+{
+  Un token puede tener los siguientes estados:
+  \begin{itemize}
+    \item Actual
+    \item Anterior
+    \item Retokenizado
+  \end{itemize}
+
+  Cuando un token es creado, su estado es \textbf{actual}.
+  Cuando un cliente inicia el refresco de llaves, todos sus tokens cambian de
+  estado a \textbf{anterior}.
+  Cuando un cliente solicita la retokenización de un token, se cambia su estado
+  a \textbf{retokenizado}.
+}
+
+\reglaDeNegocio[rn:estados_llave]
+{Estados de una llave}
+{
+  Una llave puede tener los siguientes estados:
+  \begin{itemize}
+    \item Actual
+    \item Anterior
+  \end{itemize}
+
+  Cuando una llave es creada, su estado es \textbf{actual}. Si el cliente
+  tenía asociada otra llave, el estado de la llave existente cambia a
+  \textbf{anterior}.
+}
+
+\reglaDeNegocio[rn:tokenizacion_en_refresco]
+{Petición de tokenización en proceso de refresco}
+{
+  Cuando un cliente solicite una operación de tokenización y se encuentre en
+  estado \textbf{en cambio de llaves}, se debe utilizar la llave nueva para
+  obtener el token.
+}
+
+\reglaDeNegocio[rn:detokenizacion_en_refresco]
+{Petición de detokenización en proceso de refresco}
+{
+  Cuando un cliente solicite una operación de detokenización y se encuentre en
+  estado \textbf{en cambio de llaves}, se debe especificar en la petición si
+  se desea utilizar la llave nueva o anterior. En caso de no ser especificada,
+  se realizará la operación utilizando la llave anterior.
+}
+
+\reglaDeNegocio[rn:habilitacion_de_retokenizacion]
+{Habilitación de retokenización}
+{
+  La operación de retokenización solo está habilitada para los clientes cuyo
+  estado es \textbf{en cambio de llaves}.
+
+}
+
+\reglaDeNegocio[rn:criptoperiodo_llave]
+{Criptoperiodo de una llave}
+{
+  El criptoperiodo de todas las llaves usadas para la tokenización (y
+  detokenización) es de seis meses.
+}
+
+\reglaDeNegocio[rn:unicidad_tarjeta_cliente]
+{Unicidad de número de tarjeta por cliente}
+{
+  Un cliente solo puede tener un token por tarjeta; esto es, no puede realizar,
+  para un mismo número de tarjeta, la operación de tokenización más de una vez.
+}
+
+\reglaDeNegocio[rn:aprobacion_cliente]
+{Aprobación de clientes}
+{
+  Un administrador puede aprobar o rechazar usuarios tipo \textbf{cliente}
+cuando estos tengan estado \textbf{verificado}.
 }
 
 \reglaDeNegocio[rn:acceso_no_autorizado]
@@ -89,9 +214,9 @@ definido en \cite{mozilla_er}.
 }
 
 \reglaDeNegocio[rn:acceso_erroneo]
-{Acceso erroneo}
+{Acceso erróneo}
 {
-  Un acceso erroneo es un acceso no autorizado
+  Un acceso erróneo es un acceso no autorizado
   (\hipervinculo{rn:acceso_no_autorizado}) en el que no hay elementos
   suficientes para clasificarlo como fidedigno
   (\hipervinculo{rn:acceso_fidedigno}) o como malintencionado
