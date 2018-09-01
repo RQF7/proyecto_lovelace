@@ -22,12 +22,12 @@
         {\node[celda]
            (a_\y_\x)
            at ($(\x cm, \y cm * -1)$)
-           {\small $ a_{\y, \x}$};}
+           {$ a_{\y, \x}$};}
     \node[celda, thick,
       fill = gray!50!white]
       (a_1_2)
       at (2, -1)
-      {\small $ a_{1, 2}$};
+      {$ a_{1, 2}$};
   \end{scope}
 
   \begin{scope}[
@@ -38,12 +38,12 @@
         {\node[celda]
            (b_\y_\x)
            at ($(\x cm, \y cm * -1)$)
-           {\small $ b_{\y, \x}$};}
+           {$ b_{\y, \x}$};}
     \node[celda, thick,
       fill = gray!50!white]
       (b_1_2)
       at (2, -1)
-      {\small $ b_{1, 2}$};
+      {$ b_{1, 2}$};
   \end{scope}
 
   \node[celda, thick]
@@ -71,7 +71,7 @@
     ($(caja_a.east) + (1cm, 0)$)
     --
     node[above]
-      {\small SubBytes}
+      {SubBytes}
     ($(caja_b.west) - (1cm, 0)$);
 
 \end{tikzpicture}

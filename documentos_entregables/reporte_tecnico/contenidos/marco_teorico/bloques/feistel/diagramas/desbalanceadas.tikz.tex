@@ -26,16 +26,16 @@
     % Entradas
     \node[bloque]
       (izquierda_cero)
-      {\small $ L_0 $};
+      {$ L_0 $};
     \node[bloque]
       (derecha_cero)
       [right = -0.4pt of izquierda_cero]
-      {\small $ R_0 $};
+      {$ R_0 $};
     \node[bloque,
       text width = 10mm]
       (llave_cero)
       [right = 5mm of derecha_cero]
-      {\small $ K_0 $};
+      {$ K_0 $};
     \draw[-,
       draw = white,
       thick]
@@ -57,7 +57,7 @@
       anchor = north]
       (funcion_cero)
       at ($(izquierda_cero.south)!0.5!(derecha_cero.south) - (0, 10mm)$)
-      {\small $ f $};
+      {$ f $};
     \draw[-]
       (combinacion_cero.north)
       --
@@ -93,16 +93,16 @@
     \node[bloque]
       (izquierda_uno)
       [below = 10mm of combinacion_cero]
-      {\small $ L_1 $};
+      {$ L_1 $};
     \node[bloque]
       (derecha_uno)
       [right = -0.4pt of izquierda_uno]
-      {\small $ R_1 $};
+      {$ R_1 $};
     \node[bloque,
       text width = 10mm]
       (llave_uno)
       [right = 5mm of derecha_uno]
-      {\small $ K_1 $};
+      {$ K_1 $};
     \draw[-,
       draw = white,
       thick]
@@ -147,7 +147,7 @@
       anchor = north]
       (funcion_uno)
       at ($(izquierda_uno.south)!0.5!(derecha_uno.south) - (0, 10mm)$)
-      {\small $ f $};
+      {$ f $};
     \draw[-]
       (combinacion_uno.north)
       --
@@ -183,16 +183,16 @@
     \node[bloque]
       (izquierda_dos)
       [below = 10mm of combinacion_uno]
-      {\small $ L_2 $};
+      {$ L_2 $};
     \node[bloque]
       (derecha_dos)
       [right = -0.4pt of izquierda_dos]
-      {\small $ R_2 $};
+      {$ R_2 $};
     \node[bloque,
       text width = 10mm]
       (llave_dos)
       [right = 5mm of derecha_dos]
-      {\small $ K_2 $};
+      {$ K_2 $};
     \draw[-,
       draw = white,
       thick]
@@ -232,15 +232,15 @@
     \node
       (puntos_suspensivos_izquierda)
       at ($(izquierda_dos) - (0, 11mm)$)
-      {\small $ \dots $};
+      {$ \dots $};
     \node
       (puntos_suspensivos_derecha)
       at ($(derecha_dos) - (0, 11mm)$)
-      {\small $ \dots $};
+      {$ \dots $};
     \node
       (puntos_suspensivos_llave)
       at ($(llave_dos) - (0, 11mm)$)
-      {\small $ \dots $};
+      {$ \dots $};
 
     % Flechas de entrada
     \draw[-]
@@ -265,7 +265,7 @@
       anchor = north]
       (funcion_n)
       at ($(izquierda_dos.south)!0.5!(derecha_dos.south) - (0, 20mm)$)
-      {\small $ f $};
+      {$ f $};
     \draw[-]
       (combinacion_n.north)
       --
@@ -301,11 +301,11 @@
     \node[bloque]
       (izquierda_n)
       [below = 10mm of combinacion_n]
-      {\small $ L_n $};
+      {$ L_n $};
     \node[bloque]
       (derecha_n)
       [right = -0.4pt of izquierda_n]
-      {\small $ R_n $};
+      {$ R_n $};
     \draw[-,
       draw = white,
       thick]
@@ -358,9 +358,9 @@
         + (-5mm, 3.5mm) + (0, 8mm)$);
     \node
       [above = 8mm of izquierda_cero]
-      {\small $ m $};
+      {$ m $};
     \node
       [above = 8mm of derecha_cero]
-      {\small $ n $};
+      {$ n $};
 
 \end{tikzpicture}

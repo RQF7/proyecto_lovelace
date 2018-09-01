@@ -17,17 +17,17 @@
     \node[elemento,
       text width = 19mm]
       (mensaje_uno)
-      {\small Mensaje en claro: $ m $};
+      {Mensaje en claro: $ m $};
     \node[elemento,
       text width = 19mm]
       (llave_uno)
       [right = 2mm of mensaje_uno]
-      {\small Llave secreta: $ k $};
+      {Llave secreta: $ k $};
     \node[elemento,
       text width = 44mm]
       (cifrado)
       at ($(mensaje_uno.south)!0.5!(llave_uno.south) - (0, 12mm)$)
-      {\small Mecanismo de \\ cifrado: $ E(k, m) $};
+      {Mecanismo de \\ cifrado: $ E(k, m) $};
 
     \draw[-Stealth]
       (mensaje_uno.south)
@@ -41,7 +41,7 @@
     \node
       (alice)
       at ($(mensaje_uno.north)!0.5!(llave_uno.north) + (0, 6mm)$)
-      {\small \textbf{Alice}};
+      {\textbf{Alice}};
 
     % Canal
     \node[elemento,
@@ -49,7 +49,7 @@
       fill = white]
       (mensaje_dos)
       [right = of cifrado]
-      {\small Mensaje cifrado: $ c $};
+      {Mensaje cifrado: $ c $};
     \draw[-Stealth]
       (cifrado.east)
       --
@@ -60,7 +60,7 @@
       text width = 44mm]
       (descifrado)
       [right = of mensaje_dos]
-      {\small Mecanismo de \\ descifrado: $ D(k, c) $};
+      {Mecanismo de \\ descifrado: $ D(k, c) $};
     \draw[-Stealth]
       (mensaje_dos.east)
       --
@@ -71,12 +71,12 @@
       anchor = south west]
       (llave_dos)
       at (descifrado.west |- mensaje_uno.south)
-      {\small Llave secreta: $ k $};
+      {Llave secreta: $ k $};
     \node[elemento,
       text width = 19mm]
       (mensaje_tres)
       [right = 2mm of llave_dos]
-      {\small Mensaje en claro: $ m $};
+      {Mensaje en claro: $ m $};
 
     \draw[-Stealth]
       (llave_dos.south)
@@ -90,7 +90,7 @@
     \node
       (bob)
       at ($(mensaje_tres.north)!0.5!(llave_dos.north) + (0, 6mm)$)
-      {\small \textbf{Bob}};
+      {\textbf{Bob}};
 
     % Línea punteada
     \begin{scope}[on background layer]
