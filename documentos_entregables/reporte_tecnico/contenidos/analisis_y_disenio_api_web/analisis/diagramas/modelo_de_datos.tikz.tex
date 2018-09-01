@@ -1,0 +1,207 @@
+%
+% Diagrama de modelo de datos,
+% Aplicación web de sistema tokenizador.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[
+  clase_simple/.style = {
+    rectangle,
+    anchor = north,
+    draw = black,
+    thin,
+    inner sep = 2mm,
+    align = center,
+    rectangle split,
+    rectangle split parts = 2,
+    rectangle split part align = {center, left}}]
+
+  \node[clase_simple]
+    (usuario)
+    {
+      \textbf{Usuario}
+      \nodepart{second}
+      \begin{tabular}{l}
+        Contraseña \\
+        Correo electrónico \\
+        Estado \\
+        Tipo
+      \end{tabular}
+    };
+
+    \node[clase_simple]
+      (estado_de_usuario)
+      [right = 0.6in of usuario]
+      {
+        \textbf{Estado de usuario}
+        \nodepart{second}
+        \begin{tabular}{l}
+          Nombre
+        \end{tabular}
+      };
+
+    \draw[Diamond-]
+      (usuario.east)
+      node[
+        above,
+        anchor = south west]
+        {Estado}
+      --
+      (estado_de_usuario.west);
+
+    \node[clase_simple]
+      (tipo_de_usuario)
+      [left = 0.6in of usuario]
+      {
+        \textbf{Tipo de usuario}
+        \nodepart{second}
+        \begin{tabular}{l}
+          Nombre
+        \end{tabular}
+      };
+
+    \draw[Diamond-]
+      (usuario.west)
+      node[
+        above,
+        anchor = south east]
+        {Tipo}
+      --
+      (tipo_de_usuario.east);
+
+    \node[clase_simple]
+      (token)
+      at ($(usuario.south)!0.5!(tipo_de_usuario.south) - (0, 0.6in)$)
+      {
+        \textbf{Token}
+        \nodepart{second}
+        \begin{tabular}{l}
+          Token \\
+          Número de tarjeta \\
+          Usuario \\
+          Estado
+        \end{tabular}
+      };
+
+    \draw[Diamond-]
+      (token.north)
+      node[
+        left,
+        anchor = south east]
+        {Usuario}
+      --
+      ($(token.north) + (0, 0.25in)$)
+      -|
+      ($(usuario.south) - (0.2in, 0)$);
+
+    \node[clase_simple]
+      (llave)
+      at ($(usuario.south)!0.5!(estado_de_usuario.south) - (0, 0.6in)$)
+      {
+        \textbf{Llave}
+        \nodepart{second}
+        \begin{tabular}{l}
+          Llave \\
+          Criptoperiodo \\
+          Fecha de creación \\
+          Usuario \\
+          Estado \\
+          Algoritmo
+        \end{tabular}
+      };
+
+    \draw[Diamond-]
+      (llave.north)
+      node[
+        right,
+        anchor = south west]
+        {Usuario}
+      --
+      ($(llave.north) + (0, 0.25in)$)
+      -|
+      ($(usuario.south) + (0.2in, 0)$);
+
+    \node[clase_simple]
+      (estado_de_token)
+      [left = 0.6in of token]
+      {
+        \textbf{Estado de token}
+        \nodepart{second}
+        \begin{tabular}{l}
+          Nombre
+        \end{tabular}
+      };
+
+    \draw[Diamond-]
+      (token.west)
+      node[
+        above,
+        anchor = south east]
+        {Estado}
+      --
+      (estado_de_token.east);
+
+    \node[clase_simple]
+      (estado_de_llave)
+      [right = 0.6in of llave]
+      {
+        \textbf{Estado de llave}
+        \nodepart{second}
+        \begin{tabular}{l}
+          Nombre
+        \end{tabular}
+      };
+
+    \draw[Diamond-]
+      (llave.east)
+      node[
+        above,
+        anchor = south west]
+        {Estado}
+      --
+      (estado_de_llave.west);
+
+    \node[clase_simple]
+      (algoritmo)
+      [below = 0.5in of llave]
+      {
+        \textbf{Algoritmo}
+        \nodepart{second}
+        \begin{tabular}{l}
+          Nombre \\
+          Longitud de llave \\
+          Tipo
+        \end{tabular}
+      };
+
+    \draw[Diamond-]
+      (llave.south)
+      node[
+        right,
+        anchor = north west]
+        {Algoritmo}
+      --
+      (algoritmo.north);
+
+    \node[clase_simple]
+      (tipo_de_algoritmo)
+      [left = 0.6in of algoritmo]
+      {
+        \textbf{Tipo de algoritmo}
+        \nodepart{second}
+        \begin{tabular}{l}
+          Nombre
+        \end{tabular}
+      };
+
+    \draw[Diamond-]
+      (algoritmo.west)
+      node[
+        above,
+        anchor = south east]
+        {Tipo}
+      --
+      (tipo_de_algoritmo.east);
+
+
+\end{tikzpicture}
