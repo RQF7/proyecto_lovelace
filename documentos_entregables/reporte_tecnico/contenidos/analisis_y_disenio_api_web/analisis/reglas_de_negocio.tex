@@ -73,11 +73,13 @@ definido en \cite{mozilla_er}.
     \item Administrador
   \end{itemize}
 
-  Al abrir la aplicación, todos los usuarios son visitantes; pues los clientes
-  y los administradores deben iniciar sesión para ser identificados por el
-  sistema; un vistante puede convertirse en cliente al registrarse y ser
-  aprobado. Las transiciones entre los tipos de usuarios pueden observarse en el
-  diagrama \ref{estados_actores}.
+  \begin{hangparas}{2em}{0}
+    Al abrir la aplicación, todos los usuarios son visitantes; pues los clientes
+    y los administradores deben iniciar sesión para ser identificados por el
+    sistema; un vistante puede convertirse en cliente al registrarse y ser
+    aprobado. Las transiciones entre los tipos de usuarios pueden observarse en
+    el diagrama \ref{estados_actores}.
+  \end{hangparas}
 }
 
 \begin{figure}
@@ -101,13 +103,15 @@ definido en \cite{mozilla_er}.
     \item En lista negra
   \end{itemize}
 
-  Cuando un cliente se registra, se encuentra en estado \textbf{no verificado},
-  cuando verifica su dirección de correo electrónico, pasa a
-  \textbf{verificado}; una vez que el administrador lo aprueba, pasa a
-  \textbf{aprobado}. Cuando inicia un refresco de llaves, pasa a
-  \textbf{en cambio de llaves}. Finalmente, el administrador puede cambiar su
-  estado a \textbf{en lista negra} (y regresarlo a \textbf{aprobado} o
-  \textbf{en cambio de llaves}).
+  \begin{hangparas}{2em}{0}
+    Cuando un cliente se registra, se encuentra en estado \textbf{no verificado},
+    cuando verifica su dirección de correo electrónico, pasa a
+    \textbf{verificado}; una vez que el administrador lo aprueba, pasa a
+    \textbf{aprobado}. Cuando inicia un refresco de llaves, pasa a
+    \textbf{en cambio de llaves}. Finalmente, el administrador puede cambiar su
+    estado a \textbf{en lista negra} (y regresarlo a \textbf{aprobado} o
+    \textbf{en cambio de llaves}).
+  \end{hangparas}
 }
 
 \reglaDeNegocio[rn:estados_token]
@@ -120,11 +124,13 @@ definido en \cite{mozilla_er}.
     \item Retokenizado
   \end{itemize}
 
-  Cuando un token es creado, su estado es \textbf{actual}.
-  Cuando un cliente inicia el refresco de llaves, todos sus tokens cambian de
-  estado a \textbf{anterior}.
-  Cuando un cliente solicita la retokenización de un token, se cambia su estado
-  a \textbf{retokenizado}.
+  \begin{hangparas}{2em}{0}
+    Cuando un token es creado, su estado es \textbf{actual}.
+    Cuando un cliente inicia el refresco de llaves, todos sus tokens cambian de
+    estado a \textbf{anterior}.
+    Cuando un cliente solicita la retokenización de un token, se cambia su estado
+    a \textbf{retokenizado}.
+  \end{hangparas}
 }
 
 \reglaDeNegocio[rn:estados_llave]
@@ -136,9 +142,11 @@ definido en \cite{mozilla_er}.
     \item Anterior
   \end{itemize}
 
-  Cuando una llave es creada, su estado es \textbf{actual}. Si el cliente
-  tenía asociada otra llave, el estado de la llave existente cambia a
-  \textbf{anterior}.
+  \begin{hangparas}{2em}{0}
+    Cuando una llave es creada, su estado es \textbf{actual}. Si el cliente
+    tenía asociada otra llave, el estado de la llave existente cambia a
+    \textbf{anterior}.
+  \end{hangparas}
 }
 
 \reglaDeNegocio[rn:tokenizacion_en_refresco]

@@ -46,6 +46,8 @@
   \setcounter{contador_subrequerimientos}{0}
   \setlength{\separacionAnterior}{\parskip}
   \setlength{\parskip}{0em}
+  \setitemize{
+    leftmargin = 4em}
 
   % Código efectivo
   \vspace{1.0em}
@@ -59,6 +61,8 @@
 
   % Regresar a estado previo
   \setlength{\parskip}{\separacionAnterior}
+  \setitemize{
+    leftmargin = 2em}
 }
 
 % Comando para subrequerimientos.
@@ -75,6 +79,8 @@
   % Configuración
   \setcounter{contador_subsubrequerimientos}{0}
   \refstepcounter{contador_subrequerimientos}
+  \setitemize{
+    leftmargin = 6em}
 
   % Código efectivo
   \vspace{1.0em}
@@ -85,6 +91,9 @@
   \begin{hangparas}{4em}{0}
     #3
   \end{hangparas}
+
+  \setitemize{
+    leftmargin = 4em}
 }
 
 % Comando para subsubrequerimientos.
@@ -100,6 +109,8 @@
 {
   % Configuración
   \refstepcounter{contador_subsubrequerimientos}
+  \setitemize{
+    leftmargin = 8em}
 
   % Código efectivo
   \vspace{1.0em}
@@ -111,4 +122,7 @@
   \begin{hangparas}{6em}{0}
     #3
   \end{hangparas}
+
+  \setitemize{
+    leftmargin = 6em}
 }
