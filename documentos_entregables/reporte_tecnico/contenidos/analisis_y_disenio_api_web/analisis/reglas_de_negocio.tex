@@ -110,9 +110,18 @@ definido en \cite{mozilla_er}.
     \textbf{aprobado}. Cuando inicia un refresco de llaves, pasa a
     \textbf{en cambio de llaves}. Finalmente, el administrador puede cambiar su
     estado a \textbf{en lista negra} (y regresarlo a \textbf{aprobado} o
-    \textbf{en cambio de llaves}).
+    \textbf{en cambio de llaves}). Estas transiciones se pueden observar en la
+    Figura \ref{estados_cliente}.
   \end{hangparas}
 }
+
+\begin{sidewaysfigure}
+  \begin{center}
+    \subimport{diagramas/}{estados_cliente.tikz.tex}
+    \caption{Diagrama de estados de un cliente.}
+    \label{estados_cliente}
+  \end{center}
+\end{sidewaysfigure}
 
 \reglaDeNegocio[rn:estados_token]
 {Estados de un token}

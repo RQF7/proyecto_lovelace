@@ -10,9 +10,7 @@
   Caso que permite que un visitante se identifique ante el sistema. El
   visitante introduce su correo electrónico y contraseña y, dependiendo de
   si es un usuario o un administrador, es redirigido a la página de
-  inicio correspondiente. Esto en conformidad con lo dispuesto en
-  \hipervinculo{rq_api:identificacion_de_actores} y
-  \hipervinculo{rq_api:cambios_de_actores}.
+  inicio correspondiente.
 
   \begin{trayectoriaPrincipal}
 
@@ -40,7 +38,8 @@
     \item El sistema identifica el tipo de actor que está iniciando
       sesión [\hipervinculoLocal{ta:administrador}].
 
-    \item El sistema muestra la pantalla \hipervinculo{iu:inicio_usuario}.
+    \item El sistema muestra la pantalla
+      \hipervinculo{iu:administracion_de_tokens}.
 
   \end{trayectoriaPrincipal}
 
@@ -72,7 +71,7 @@
     {El tipo de actor es un administrador}
 
     \item El sistema muestra la pantalla
-      \hipervinculo{iu:inicio_administrador}.
+      \hipervinculo{iu:administracion}.
 
   \end{trayectoriaAlternativa}
 }
