@@ -131,5 +131,21 @@ sistemaTokenizador.controller('controladorGeneral', [
       });
     };
 
+    /* Registrar cliente *****************************************************/
+
+    $scope.registrarse = function ($event) {
+      var padre = angular.element(document.body);
+      $mdDialog.show({
+        parent: padre,
+        targetEvent: $event,
+        templateUrl: '/estaticos/html/ventanas/registrar_cliente.ventana.html',
+        controller: 'controladorFormularioRegistrarCliente'
+      }).then(function (respuesta) {
+        if (respuesta != undefined) {
+          console.log(respuesta);
+        }
+      });
+    };
+
   }
 ]);

@@ -1,0 +1,79 @@
+<!--
+  Formulario de registro de clientes,
+  Aplicación web de sistema tokenizador.
+  Proyecto Lovelace.
+-->
+
+<md-dialog
+  flex="20"
+  flex-lg="30"
+  flex-md="40"
+  flex-sm="60"
+  flex-xs="80">
+  <md-dialog-content>
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h1>Registrarse</h1>
+      </div>
+    </md-toolbar>
+    <div
+      layout="row"
+      layout-align="center center">
+      <form
+        name="formularioRegistrarCliente"
+        id="formularioRegistrarCliente"
+        novalidate
+        flex="90"
+        ng-submit="aceptar($evento)">
+        <md-input-container>
+          <label>Correo electrónico</label>
+          <input
+            name="correo"
+            ng-model="usuario.correo"
+            md-no-asterisk
+            required
+            md-autofocus
+            autocomplete="off"
+            spellcheck="false">
+        </md-input-container>
+        <md-input-container>
+          <label>Contraseña</label>
+          <input
+            name="contrasenia"
+            type="password"
+            ng-model="usuario.contrasenia"
+            md-no-asterisk
+            required
+            autocomplete="off"
+            spellcheck="false">
+        </md-input-container>
+        <md-input-container>
+          <label>Confirmación de contraseña</label>
+          <input
+            name="confirmacion"
+            type="password"
+            ng-model="usuario.confirmacion"
+            md-no-asterisk
+            required
+            autocomplete="off"
+            spellcheck="false">
+        </md-input-container>
+      </form>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button
+      ng-click="cancelar()"
+      class="md-primary">
+      Cancelar
+    </md-button>
+    <md-button
+      id="formularioBotonRegistrarCliente"
+      class="md-raised md-primary"
+      type="submit"
+      ng-disabled="formularioRegistrarCliente.$invalid"
+      form="formularioRegistrarCliente">
+      Aceptar
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
