@@ -9,11 +9,27 @@
 
 \subsection{Catálogo de mensajes}
 
+% Iniciar sesión %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % La disyunción no aplica de forma directa: evidentemente no se puede dar el
 % caso de que el nombre de usuario sea incorrecto pero la contraseña sí sea
 % correcta.
 \mensaje[msj:credenciales_incorrectas]
 {Credenciales incorrectas}{\subimport{/}{credenciales_incorrectas}}
+
+\mensaje[msj:cliente_no_verificado]
+{Cliente no verificado}{\subimport{/}{cliente_no_verificado}}
+
+\mensaje[msj:cliente_no_aprobado]
+{Cliente no aprobado}{\subimport{/}{cliente_no_aprobado}}
+
+\mensaje[msj:cliente_rechazado]
+{Cliente rechazado}{\subimport{/}{cliente_rechazado}}
+
+\mensaje[msj:cliente_en_lista_negra]
+{Cliente en lista negra}{\subimport{/}{cliente_en_lista_negra}}
+
+% Registrar usuario %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % TODO:
 % * Terminar de definir expresión regular del correo electrónico.
