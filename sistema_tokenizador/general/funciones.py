@@ -93,13 +93,22 @@ def iniciarSesion (peticion):
   objetoDePeticion = json.loads(peticion.body)
   usuario = negocio.autentificar(objetoDePeticion)
   if usuario != None:
-    usuarioSerializable = {
-      'correo': usuario.correo,
-      'tipoDeUsuario': usuario.tipoDeUsuario.pk};
-    peticion.session['usuario'] = usuarioSerializable
-    return HttpResponse(json.dumps(usuarioSerializable))
+    if usuario.estadoDeUsuario.nombre == 'no verificado':
+      return HttpResponse("1")
+    elif usuario.estadoDeUsuario.nombre == 'verificado':
+      return HttpResponse("2")
+    elif usuario.estadoDeUsuario.nombre == 'rechazado':
+      return HttpResponse("3")
+    elif usuario.estadoDeUsuario.nombre == 'en lista negra':
+      return HttpResponse("4")
+    else:
+      usuarioSerializable = {
+        'correo': usuario.correo,
+        'tipoDeUsuario': usuario.tipoDeUsuario.pk};
+      peticion.session['usuario'] = usuarioSerializable
+      return HttpResponse(json.dumps(usuarioSerializable))
   else:
-    return HttpResponse()
+    return HttpResponse("0")
 
 
 def cerrarSesion (peticion):

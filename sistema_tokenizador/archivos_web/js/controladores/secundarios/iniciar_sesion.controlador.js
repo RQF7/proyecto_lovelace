@@ -17,7 +17,7 @@ sistemaTokenizador.controller('controladorFormularioIniciarSesion', [
     /* Datos públicos. *******************************************************/
 
     $scope.usuario = {};
-    $scope.error = false;
+    $scope.error = '';
 
     /* Acciones públicas. ****************************************************/
 
@@ -27,8 +27,17 @@ sistemaTokenizador.controller('controladorFormularioIniciarSesion', [
 
     $scope.aceptar = function () {
       api.iniciarSesion($scope.usuario).then(function (respuesta) {
-        if (respuesta.data == '') {
-          $scope.error = true;
+        console.log("DEBUG", respuesta.data)
+        if (respuesta.data == '0') {
+          $scope.error = 'incorrecto';
+        } else if (respuesta.data == '1') {
+          $scope.error = 'no verificado';
+        } else if (respuesta.data == '2') {
+          $scope.error = 'no aprobado'
+        } else if (respuesta.data == '3') {
+          $scope.error = 'rechazado'
+        } else if (respuesta.data == '4') {
+          $scope.error = 'en lista negra'
         } else {
           $mdDialog.hide(respuesta.data);
         }

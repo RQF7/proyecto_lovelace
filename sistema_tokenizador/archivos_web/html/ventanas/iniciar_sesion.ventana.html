@@ -54,8 +54,32 @@
             spellcheck="false">
         </md-input-container>
         <div
-          ng-if="error"
+          ng-if="error == 'incorrecto'"
           ng-include="'estaticos/mensajes/credenciales_incorrectas.tex'"
+          class="mensajes"
+          md-colors="{color: 'accent'}">
+        </div>
+        <div
+          ng-if="error == 'no verificado'"
+          ng-include="'estaticos/mensajes/cliente_no_verificado.tex'"
+          class="mensajes"
+          md-colors="{color: 'accent'}">
+        </div>
+        <div
+          ng-if="error == 'no aprobado'"
+          ng-include="'estaticos/mensajes/cliente_no_aprobado.tex'"
+          class="mensajes"
+          md-colors="{color: 'accent'}">
+        </div>
+        <div
+          ng-if="error == 'rechazado'"
+          ng-include="'estaticos/mensajes/cliente_rechazado.tex'"
+          class="mensajes"
+          md-colors="{color: 'accent'}">
+        </div>
+        <div
+          ng-if="error == 'en lista negra'"
+          ng-include="'estaticos/mensajes/cliente_en_lista_negra.tex'"
           class="mensajes"
           md-colors="{color: 'accent'}">
         </div>

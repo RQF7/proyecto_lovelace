@@ -36,6 +36,34 @@ if __name__ == '__main__':
       estadoDeUsuario = EstadoDeUsuario.objects.get(
         nombre = 'aprobado')),
     Usuario(
+      correo = 'cliente-no-verificado@prueba.com',
+      contrasenia = hashlib.sha256(b"123456").digest(),
+      tipoDeUsuario = TipoDeUsuario.objects.get(
+        nombre = 'cliente'),
+      estadoDeUsuario = EstadoDeUsuario.objects.get(
+        nombre = 'no verificado')),
+    Usuario(
+      correo = 'cliente-no-aprobado@prueba.com',
+      contrasenia = hashlib.sha256(b"123456").digest(),
+      tipoDeUsuario = TipoDeUsuario.objects.get(
+        nombre = 'cliente'),
+      estadoDeUsuario = EstadoDeUsuario.objects.get(
+        nombre = 'verificado')),
+    Usuario(
+      correo = 'cliente-rechazado@prueba.com',
+      contrasenia = hashlib.sha256(b"123456").digest(),
+      tipoDeUsuario = TipoDeUsuario.objects.get(
+        nombre = 'cliente'),
+      estadoDeUsuario = EstadoDeUsuario.objects.get(
+        nombre = 'rechazado')),
+    Usuario(
+      correo = 'cliente-en-lista-negra@prueba.com',
+      contrasenia = hashlib.sha256(b"123456").digest(),
+      tipoDeUsuario = TipoDeUsuario.objects.get(
+        nombre = 'cliente'),
+      estadoDeUsuario = EstadoDeUsuario.objects.get(
+        nombre = 'en lista negra')),
+    Usuario(
       correo = 'administrador@prueba.com',
       contrasenia = hashlib.sha256(b"123456").digest(),
       tipoDeUsuario = TipoDeUsuario.objects.get(
