@@ -16,6 +16,9 @@
 % * Por «razones históricas» el nombre de este comando (y los contadores)
 %   se refieren a requerimientos en general; habría que actualizarlos
 %   para reflejar el hecho de que son requerimientos funcionales.
+% * Redefinir el funcionamiento de las unidades irrompibles para que
+%   cuando haya subrequerimientos o subsubrequerimientos se puedan
+%   permitir saltos de página entre estos.
 %
 
 % Contadores de requerimientos y variables auxiliares
@@ -51,6 +54,7 @@
 
   % Código efectivo
   \vspace{1.0em}
+  \iniciarUnidadIrrompible
   \noindent
   \textbf{\hypertarget{#1}
     {REQF\prefijo-\formatearnumero{contador_requerimientos} #2}.}
@@ -58,6 +62,7 @@
   \begin{hangparas}{2em}{0}
     #3
   \end{hangparas}
+  \terminarUnidadIrrompible
 
   % Regresar a estado previo
   \setlength{\parskip}{\separacionAnterior}

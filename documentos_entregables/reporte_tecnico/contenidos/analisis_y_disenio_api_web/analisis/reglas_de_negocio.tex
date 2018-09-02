@@ -7,31 +7,22 @@
 \subsection{Reglas de negocio}
 
 El formato de las \glspl{gl:expresion_regular}, por cuestiones de optimización
-en tiempos de desarrollo, se presenta según el formato de \textit{java script},
+en tiempos de desarrollo, se presenta según el formato de \textit{JavaScript},
 definido en \cite{mozilla_er}.
-
-% \reglaDeNegocio[rn:servicio_tokenizacion]
-% {Servicio de tokenizacion}
-% {
-%   El servicio de tokenización abarca dos operaciones básicas:
-%   \textit{tokenización}, esto es, dado un número de tarjeta, regresar el token
-%   correspondiente; y \textit{detokenización}, que es el proceso inverso, dado un
-%   token, regresar el número de tarjeta asociado.
-%
-%   Esta regla está asociada a \hipervinculo{rn:formato_numero_de_tarjeta} y
-%   \hipervinculo{rn:formato_token}.
-% }
 
 \reglaDeNegocio[rn:formato_numero_de_tarjeta]
 {Composición de números de tarjeta}
 {
-  Un número de tarjeta queda definido por la expresión regular
-  \texttt{[0-9]\{12, 19\}}. El número se divide en tres partes: el
-  identificador del emisor (primeros 6 dígitos), el número de cuenta y el dígito
-  verificador (último dígito). Para más detalles sobre este tema consultar la
-  sección \ref{sec:composicion_tarjeta}. El dígito verificador se obtiene de tal
-  forma que el algoritmo de Luhn (sección \ref{sec:algoritmo_luhn}) dé como
-  resultado cero.
+  Un número de tarjeta queda definido por la expresión regular:
+
+  \expresionRegular{expresiones_regulares/numero_de_tarjeta.txt}
+
+  El número se divide en tres partes: el identificador del emisor (primeros 6
+  dígitos), el número de cuenta y el dígito verificador (último dígito). Para
+  más detalles sobre este tema consultar la sección
+  \ref{sec:composicion_tarjeta}. El dígito verificador se obtiene de tal forma
+  que el algoritmo de Luhn (sección \ref{sec:algoritmo_luhn}) dé como resultado
+  cero.
 }
 
 \reglaDeNegocio[rn:formato_token]
@@ -43,24 +34,23 @@ definido en \cite{mozilla_er}.
   Luhn (sección \ref{sec:algoritmo_luhn}) dé como resultado un uno.
 }
 
-% TODO: encontrar una manera para mostrar esto.
 \reglaDeNegocio[rn:correo_electronico]
 {Formato de correos electrónicos}
 {
-  Un nombre de usuario queda definido por la expresión regular
-  %% Está medio loca esta validación, ¿no?
-  %\begin{verbatim}
-  %^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
-  %\end{verbatim}
-}
+  Un correo electrónico queda definido, de acuerdo al \gls{gl:rfc} 5322
+  \cite{DBLP:journals/rfc/rfc5322}, por la expresión regular:
 
-% TODO: ¿Agregar símbolos a expresión regular de contraseñas?
+  \expresionRegular{expresiones_regulares/correo.txt}
+}
 
 \reglaDeNegocio[rn:formato_de_contrasenias]
 {Formato de contraseñas}
 {
-  El formato de una contraseña está regido por la expresión regular
-  \texttt{0-9a-zA-Z}\{8, 24\}.
+  El formato de una contraseña está regido por la expresión regular:
+
+  \expresionRegular{expresiones_regulares/contrasenia.txt}
+
+  Esto es, entre 8 y 24 caracteres \gls{gl:ascii} imprimibles.
 }
 
 \reglaDeNegocio[rn:tipo_de_usuario]

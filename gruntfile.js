@@ -1,6 +1,11 @@
 /*
  * Configuración de tareas de grunt.
  * Proyecto Lovelace.
+ *
+ * TODO:
+ * * Hacer tarea personalizada para que los archivos estáticos con mensajes
+ *   y expresiones regulares se copien en la fase de compilación. Ahorita
+ *   se hacen GET por cada uno, en tiempo de ejecución.
  */
 
 /* Carpeta base */

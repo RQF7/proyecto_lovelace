@@ -3,6 +3,31 @@
 % Proyecto Lovelace.
 %
 
+
+% Modo de comandos:
+
+\newcommand{\iniciarUnidadIrrompible}
+{%
+  \par%
+  \nobreak%
+  \vfil%
+  \penalty0%
+  \vfilneg%
+  \vtop%
+  \bgroup%
+}
+
+\newcommand{\terminarUnidadIrrompible}
+{%
+  \par%
+  \xdef%
+  \tpd{\the\prevdepth}%
+  \egroup%
+  \prevdepth=\tpd%
+}
+
+% Modo de entorno:
+
 \newenvironment{unidadirrompible}
 {%
   \par%

@@ -1,0 +1,17 @@
+%
+% Comando para expresiones regulares
+% #1 -> Archivo de texto con expresión regular.
+%
+% Está pensado para ser usado adentro de un hangparas (adentro de los
+% contenidos de cualquier comando de ingeniería de software).
+% Para otros usos, mejor usar «verbatiminput» por sí solo.
+%
+
+\newcommand{\expresionRegular}[1]
+{%
+  \vspace{1.0em}%
+  \minipage{2em}%
+  \verbatiminput{#1}%
+  \endminipage%
+  \vspace{1.0em}%
+}
