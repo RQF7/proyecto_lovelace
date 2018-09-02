@@ -90,6 +90,8 @@ definido en \cite{mozilla_er}.
   \end{center}
 \end{figure}
 
+% TODO: falta mencionar al estado «rechazado» en la descripción de la regla.
+
 \reglaDeNegocio[rn:estados_cliente]
 {Estados de un cliente}
 {
@@ -187,7 +189,8 @@ definido en \cite{mozilla_er}.
 {Criptoperiodo de una llave}
 {
   El criptoperiodo de todas las llaves usadas para la tokenización (y
-  detokenización) es de seis meses.
+  detokenización) es de seis meses (ver el Apéndice
+  \ref{sec:administracion_llaves}).
 }
 
 \reglaDeNegocio[rn:unicidad_tarjeta_cliente]
@@ -197,11 +200,32 @@ definido en \cite{mozilla_er}.
   para un mismo número de tarjeta, la operación de tokenización más de una vez.
 }
 
+% TODO
+% * Definir formato para referencias a estados, tipos de usuarios, etc.
+%   ¿Negritas o itálicas?
+
+% Ups... esto es un requerimiento:
+% \reglaDeNegocio[rn:verificacion_de_cuentas]
+% {Verificación de cuentas}
+% {
+%   Un cliente pasa de estado \textit{no verificado} a \textit{verificado} mediante
+%   un correo de verificación: el sistema manda el correo con un hipervínculo
+%   de activación; el cliente accede al vínculo para verificar su cuenta.
+% }
+
+\reglaDeNegocio[rn:verificacion_de_cuentas]
+{Expiración de vínculos de verificación}
+{
+  El vínculo para verificar una cuenta es efectivo solamente durante
+  24 horas; después de este tiempo, el vínculo deja de ser efectivo y se elimina
+  el registro del usuario.
+}
+
 \reglaDeNegocio[rn:aprobacion_cliente]
 {Aprobación de clientes}
 {
   Un administrador puede aprobar o rechazar usuarios tipo \textbf{cliente}
-cuando estos tengan estado \textbf{verificado}.
+  cuando estos tengan estado \textbf{verificado}.
 }
 
 \reglaDeNegocio[rn:acceso_no_autorizado]

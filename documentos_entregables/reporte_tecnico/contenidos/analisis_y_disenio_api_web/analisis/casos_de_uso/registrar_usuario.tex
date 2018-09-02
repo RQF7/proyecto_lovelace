@@ -1,6 +1,6 @@
 %
 % Caso de uso para registrar un usuario,
-% Capítulo de análisis y diseño de api web,
+% capítulo de análisis y diseño de api web,
 % Proyecto Lovelace.
 %
 
@@ -8,8 +8,132 @@
 {Registrar usuario}
 {
   Caso que permite que un visitante se registre y pase a ser
-  un usuario del sistema tokenizador. El visitante introduce los datos
-  necesarios para el registro (correo electrónico y contraseña), el sistema
-  hace un registro parcial y manda un correo con un link de activación, el
-  usuario activa su cuenta.
+  un usuario del sistema tokenizador (en conformidad con la regla de negocio
+  \hipervinculo{rn:tipo_de_usuario}). El visitante introduce los datos
+  necesarios para su registro, esto es, correo electrónico y constraseña; el
+  sistema registra un nuevo usuario en estado \textit{no verificado} y manda un
+  correo al cliente con un hipervínculo de activación; el cliente verifica su
+  registro y el sistema lo pasa al estado \textit{verificado}.
+
+  \begin{trayectoriaPrincipal}
+
+    \item[origen] El visitante presiona el botón \textit{registrarse}, en
+      cualquiera de las dos pantallas principales del sitio público
+      (\hipervinculo{iu:inicio} o \hipervinculo{iu:documentacion}).
+
+    \item El sistema muestra la pantalla
+      \hipervinculo{iu:registrar_usuario} con el botón \textit{aceptar}
+      deshabilitado.
+
+    \item[datos] El visitante introduce un correo electrónico y una contraseña
+      (junto con su confirmación) [\hipervinculoLocal{ta:cancelar}].
+
+    \item El sistema valida el correo electrónico de acuerdo a la regla
+      \hipervinculo{rn:correo_electronico}
+      [\hipervinculoLocal{ta:correo_incorrecto}].
+
+    \item El sistema valida el formato de la contraseña de acuerdo a la regla
+      \hipervinculo{rn:formato_de_contrasenias}
+      [\hipervinculoLocal{ta:contrasenia_incorrecta}].
+
+    \item El sistema valida que la confirmación de la contraseña coincida con
+      la contraseña introducida
+      [\hipervinculoLocal{ta:confirmacion_incorrecta}].
+
+    \item El sistema valida que el correo introducido no se encuentre ya asignado
+      a un usuario [\hipervinculoLocal{ta:usuario_existente}].
+
+    \item El sistema crea un nuevo cliente en estado \textit{no verificado},
+      según la regla de negocios \hipervinculo{rn:estados_cliente}.
+
+    \item El sistema manda un correo al cliente con un hipervínculo de
+      activación.
+
+    \item El sistema muestra la ventana
+      \hipervinculo{iu:aviso_de_correo_de_confirmacion}.
+
+    \item El cliente accede a la \gls{gl:url} enviada a su correo
+      [\hipervinculoLocal{ta:expiracion_de_vinculo}].
+
+    \item El sistema cambia el estado del cliente a \textit{verificado},
+      según la regla de negocios \hipervinculo{rn:estados_cliente}.
+
+    \item El sistema muestra la ventana
+      \hipervinculo{iu:aviso_de_espera_para_aprobacion}.
+
+  \end{trayectoriaPrincipal}
+
+  \begin{trayectoriaAlternativa}[ta:cancelar]
+    {El visitante cancela la operación}
+
+    \item El visitante presiona el botón \textit{cancelar}.
+
+    \item El sistema muestra la interfaz de origen del paso
+      \referenciaLocal{origen} de la trayectoria principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:correo_incorrecto]
+    {Correo electrónico incorrecto}
+
+    \item El sistema muestra el mensaje \hipervinculo{msj:correo_incorrecto}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:contrasenia_incorrecta]
+    {Contraseña incorrecta}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:contrasenia_incorrecta}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:confirmacion_incorrecta]
+    {Confirmación de contraseña incorrecta}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:confirmacion_incorrecta}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:usuario_existente]
+    {Correo registrado previamente}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:usuario_existente}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:expiracion_de_vinculo]
+    {Vínculo expirado}
+
+    \item El vínculo expira de acuerdo al intervalo de tiempo definido
+      en la regla \hipervinculo{rn:expiracion_de_vinculos}.
+
+    \item El sistema elimina el registro del usuario
+      [\hipervinculoLocal{ta:acceso_a_vinculo_expirado}].
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:acceso_a_vinculo_expirado]
+    {Acceso a vínculo expirado}
+
+    \item El usuario intenta acceder a un hipervínculo expirado.
+
+    \item El sistema muestra la ventana
+      \hipervinculo{iu:aviso_de_expiracion_de_vinculo}.
+
+  \end{trayectoriaAlternativa}
 }
