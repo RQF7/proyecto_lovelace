@@ -17,6 +17,8 @@ sistemaTokenizador.controller('controladorFormularioRegistrarCliente', [
     /* Datos públicos. *******************************************************/
 
     $scope.usuario = {};
+    $scope.erCorreo = @@include('expresiones_regulares/correo.txt');
+    $scope.erContrasenia = @@include('expresiones_regulares/contrasenia.txt');
 
     /* Acciones públicas. ****************************************************/
 

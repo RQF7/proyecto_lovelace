@@ -33,8 +33,14 @@
             md-no-asterisk
             required
             md-autofocus
+            ng-pattern="erCorreo"
             autocomplete="off"
             spellcheck="false">
+          <div ng-messages="formularioRegistrarCliente.correo.$error">
+            <div ng-message="pattern">
+              <!-- @@include('mensajes/correo_incorrecto.txt') -->
+            </div>
+          </div>
         </md-input-container>
         <md-input-container>
           <label>Contraseña</label>
@@ -44,9 +50,20 @@
             ng-model="usuario.contrasenia"
             md-no-asterisk
             required
+            ng-pattern="erContrasenia"
             autocomplete="off"
             spellcheck="false">
+          <div ng-messages="formularioRegistrarCliente.contrasenia.$error">
+            <div ng-message="pattern">
+              <!-- @@include('mensajes/contrasenia_incorrecta.txt') -->
+            </div>
+          </div>
         </md-input-container>
+        <!--
+          TODO: como al momento de cargar el formulario usuario.contrasenia
+          aún no está definido, entonces el ng-pattern de abajo es causa
+          de una excepción.
+        -->
         <md-input-container>
           <label>Confirmación de contraseña</label>
           <input
@@ -55,8 +72,14 @@
             ng-model="usuario.confirmacion"
             md-no-asterisk
             required
+            ng-pattern="\b{{usuario.contrasenia}}\b"
             autocomplete="off"
             spellcheck="false">
+          <div ng-messages="formularioRegistrarCliente.confirmacion.$error">
+            <div ng-message="pattern">
+              <!-- @@include('mensajes/confirmacion_incorrecta.txt') -->
+            </div>
+          </div>
         </md-input-container>
       </form>
     </div>
