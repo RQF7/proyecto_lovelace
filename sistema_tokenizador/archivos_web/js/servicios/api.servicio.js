@@ -25,6 +25,10 @@ sistemaTokenizador.factory('api', [
       return $http.get(RUTA_BASE + '/cerrar_sesion');
     };
 
+    API.registrarCliente = function (cliente) {
+      return $http.post(RUTA_BASE + '/registrar_cliente', cliente);
+    };
+
     return API;
   }
 ]);

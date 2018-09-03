@@ -16,6 +16,9 @@
 % * Por «razones históricas» el nombre de este comando (y los contadores)
 %   se refieren a requerimientos en general; habría que actualizarlos
 %   para reflejar el hecho de que son requerimientos funcionales.
+% * Redefinir el funcionamiento de las unidades irrompibles para que
+%   cuando haya subrequerimientos o subsubrequerimientos se puedan
+%   permitir saltos de página entre estos.
 %
 
 % Contadores de requerimientos y variables auxiliares
@@ -46,9 +49,12 @@
   \setcounter{contador_subrequerimientos}{0}
   \setlength{\separacionAnterior}{\parskip}
   \setlength{\parskip}{0em}
+  \setitemize{
+    leftmargin = 4em}
 
   % Código efectivo
   \vspace{1.0em}
+  \iniciarUnidadIrrompible
   \noindent
   \textbf{\hypertarget{#1}
     {REQF\prefijo-\formatearnumero{contador_requerimientos} #2}.}
@@ -56,9 +62,12 @@
   \begin{hangparas}{2em}{0}
     #3
   \end{hangparas}
+  \terminarUnidadIrrompible
 
   % Regresar a estado previo
   \setlength{\parskip}{\separacionAnterior}
+  \setitemize{
+    leftmargin = 2em}
 }
 
 % Comando para subrequerimientos.
@@ -75,6 +84,8 @@
   % Configuración
   \setcounter{contador_subsubrequerimientos}{0}
   \refstepcounter{contador_subrequerimientos}
+  \setitemize{
+    leftmargin = 6em}
 
   % Código efectivo
   \vspace{1.0em}
@@ -85,6 +96,9 @@
   \begin{hangparas}{4em}{0}
     #3
   \end{hangparas}
+
+  \setitemize{
+    leftmargin = 4em}
 }
 
 % Comando para subsubrequerimientos.
@@ -100,6 +114,8 @@
 {
   % Configuración
   \refstepcounter{contador_subsubrequerimientos}
+  \setitemize{
+    leftmargin = 8em}
 
   % Código efectivo
   \vspace{1.0em}
@@ -111,4 +127,7 @@
   \begin{hangparas}{6em}{0}
     #3
   \end{hangparas}
+
+  \setitemize{
+    leftmargin = 6em}
 }

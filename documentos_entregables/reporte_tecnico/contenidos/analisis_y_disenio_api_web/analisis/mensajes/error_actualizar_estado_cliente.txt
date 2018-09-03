@@ -1,0 +1,1 @@
+Ocurrió un error al actualizar el estado del cliente; inténtelo de nuevo.

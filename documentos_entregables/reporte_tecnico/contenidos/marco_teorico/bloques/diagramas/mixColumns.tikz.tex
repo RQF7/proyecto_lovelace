@@ -22,13 +22,13 @@
         {\node[celda]
            (a_\y_\x)
            at ($(\x cm, \y cm * -1)$)
-           {\small $ a_{\y, \x}$};}
+           {$ a_{\y, \x}$};}
     \foreach \y in {0,...,3}
       {\node[celda,
          fill = gray!50!white]
          (a_\y_1)
          at ($(1 cm, \y cm * -1)$)
-         {\small $ a_{\y, 1}$};}
+         {$ a_{\y, 1}$};}
   \end{scope}
 
   \begin{scope}[
@@ -39,13 +39,13 @@
         {\node[celda]
            (b_\y_\x)
            at ($(\x cm, \y cm * -1)$)
-           {\small $ b_{\y, \x}$};}
+           {$ b_{\y, \x}$};}
     \foreach \y in {0,...,3}
       {\node[celda,
          fill = gray!50!white]
          (b_\y_1)
          at ($(1 cm, \y cm * -1)$)
-         {\small $ b_{\y, 1}$};}
+         {$ b_{\y, 1}$};}
   \end{scope}
 
   \node[celda,
@@ -73,7 +73,7 @@
     ($(caja_a.east) + (1cm, 0)$)
     --
     node[above]
-      {\small MixColumns}
+      {MixColumns}
     ($(caja_b.west) - (1cm, 0)$);
 
 \end{tikzpicture}

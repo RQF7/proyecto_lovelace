@@ -1,0 +1,41 @@
+%
+% Diagrama del funcionamiento de un hash,
+% capítulo de marco teórico.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[
+  elemento/.style = {
+    rectangle,
+    draw = black,
+    thin,
+    inner sep = 4mm,
+    align = center,
+    minimum height = 1.5cm,
+    text width = 1.2in}]
+
+  \node[elemento]
+    (entrada)
+    {Bloque de entrada \\ $ \{0, 1\}^* $};
+
+  \node[elemento]
+    (hash)
+    [right = 0.8in of entrada]
+    {Función hash \\ $ h $};
+
+  \node[elemento]
+    (resultado)
+    [right = 0.8in of hash]
+    {Valor hash \\ $ \{0, 1\}^n $};
+
+  \draw[-Stealth]
+    (entrada.east)
+    --
+    (hash.west);
+
+  \draw[-Stealth]
+    (hash.east)
+    --
+    (resultado.west);
+
+\end{tikzpicture}

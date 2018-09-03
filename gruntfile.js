@@ -1,6 +1,11 @@
 /*
  * Configuración de tareas de grunt.
  * Proyecto Lovelace.
+ *
+ * TODO:
+ * * Hacer tarea personalizada para que los archivos estáticos con mensajes
+ *   y expresiones regulares se copien en la fase de compilación. Ahorita
+ *   se hacen GET por cada uno, en tiempo de ejecución.
  */
 
 /* Carpeta base */
@@ -65,7 +70,7 @@ module.exports = function (grunt) {
         },
         files: {
           'sistema_tokenizador/archivos_web/compilados/js/scripts.min.js':
-            [cc + 'compilados/js/scripts.js']
+            [cc + 'compilados/js/scripts.preprocesado.js']
         }
       }
     },
@@ -87,14 +92,6 @@ module.exports = function (grunt) {
           {
             src: [cc + 'imagenes/icono.png'],
             dest: cc + 'compilados/imagenes/icono.png'
-          },
-          {
-            expand: true,
-            flatten: true,
-            src: ['documentos_entregables/reporte_tecnico/contenidos/'
-                    + 'analisis_y_disenio_api_web/analisis/mensajes/*'],
-            dest: cc + 'compilados/mensajes/',
-            filter: 'isFile'
           },
           {
             src: [cc + 'sass/sitio_publico.sass'],
@@ -126,25 +123,25 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: cc,
+            cwd: cc + 'compilados/preprocesados/',
             src: ['*.html'],
             dest: cc + 'compilados/'
           },
           {
             expand: true,
-            cwd: cc + 'html',
+            cwd: cc + 'compilados/preprocesados/html',
             src: ['*.html'],
             dest: cc + 'compilados/html/'
           },
           {
             expand: true,
-            cwd: cc + 'html/plantillas',
+            cwd: cc + 'compilados/preprocesados/html/plantillas',
             src: ['*.html'],
             dest: cc + 'compilados/html/plantillas/'
           },
           {
             expand: true,
-            cwd: cc + 'html/ventanas',
+            cwd: cc + 'compilados/preprocesados/html/ventanas',
             src: ['*.html'],
             dest: cc + 'compilados/html/ventanas/'
           }
@@ -163,6 +160,7 @@ module.exports = function (grunt) {
         ],
         tasks: [
           "concat:sitio_publico",
+          "includereplace:js",
           "uglify"
         ]
       },
@@ -174,6 +172,7 @@ module.exports = function (grunt) {
           cc + 'html/ventanas/*.html'
         ],
         tasks: [
+          "includereplace:html",
           "htmlmin:todo"
         ]
       },
@@ -200,6 +199,62 @@ module.exports = function (grunt) {
             cc + 'sass/estilos.sass'
         }
       }
+    },
+
+    /* Configuración de sustituciones. ***************************************/
+
+    includereplace: {
+      html: {
+        options: {
+          prefix: '<!-- @@',
+          suffix: ' -->',
+          includesDir: 'documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_api_web/analisis/'
+        },
+        files: [
+          {
+            expand: true,
+            cwd: cc,
+            src: ['*.html'],
+            dest: cc + 'compilados/preprocesados/'
+          },
+          {
+            expand: true,
+            cwd: cc + 'html',
+            src: ['*.html'],
+            dest: cc + 'compilados/preprocesados/html/'
+          },
+          {
+            expand: true,
+            cwd: cc + 'html/plantillas',
+            src: ['*.html'],
+            dest: cc + 'compilados/preprocesados/html/plantillas/'
+          },
+          {
+            expand: true,
+            cwd: cc + 'html/ventanas',
+            src: ['*.html'],
+            dest: cc + 'compilados/preprocesados/html/ventanas/'
+          }
+        ]
+      },
+      /* El «processIncludeContents» es para quitar los saltos
+       * de línea de los archivos con expresiones regulares:
+       * el entorno verbatim de latex los necesita para poder mostrarlas
+       * correctamente en el documento (que no se salgan del margen,
+       * cuando menos), pero para js es un error tener una expersión
+       * con un salto de línea en medio. */
+      js: {
+        options: {
+          includesDir: 'documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_api_web/analisis/',
+          processIncludeContents: function(contenido) {
+            return contenido.replace(/(?:\r\n|\r|\n)/g, '');
+          }
+        },
+        files: {
+          'sistema_tokenizador/archivos_web/compilados/js/scripts.preprocesado.js':
+            [cc + 'compilados/js/scripts.js']
+        }
+      }
     }
 
   });
@@ -210,11 +265,13 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  grunt.loadNpmTasks('grunt-include-replace');
   grunt.loadNpmTasks('grunt-sass');
   grunt.registerTask('default',
   [
     'sass',
     'concat',
+    'includereplace',
     'uglify',
     'htmlmin',
     'copy'

@@ -1,0 +1,115 @@
+<!--
+  Formulario de registro de clientes,
+  Aplicación web de sistema tokenizador.
+  Proyecto Lovelace.
+
+  TODO:
+  Para este y todos los demás formularios: hacer que un campo vacío no se ponga
+  en rojo: si es requerido, simplemente no se habilita el botón de envío;
+  se ve mal con todo en rojo.
+-->
+
+<md-dialog
+  flex="20"
+  flex-lg="30"
+  flex-md="40"
+  flex-sm="60"
+  flex-xs="80">
+  <md-dialog-content>
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h1>Registrarse</h1>
+      </div>
+    </md-toolbar>
+    <div
+      layout="row"
+      layout-align="center center">
+      <form
+        name="formularioRegistrarCliente"
+        id="formularioRegistrarCliente"
+        novalidate
+        flex="90"
+        ng-submit="aceptar($event)">
+        <md-input-container>
+          <label>Correo electrónico</label>
+          <input
+            name="correo"
+            ng-model="cliente.correo"
+            md-no-asterisk
+            required
+            md-autofocus
+            ng-pattern="erCorreo"
+            autocomplete="off"
+            spellcheck="false">
+          <div ng-messages="formularioRegistrarCliente.correo.$error">
+            <div ng-message="pattern">
+              <!-- @@include('mensajes/correo_incorrecto.txt') -->
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container>
+          <label>Contraseña</label>
+          <input
+            name="contrasenia"
+            type="password"
+            ng-model="cliente.contrasenia"
+            md-no-asterisk
+            required
+            ng-pattern="erContrasenia"
+            autocomplete="off"
+            spellcheck="false">
+          <div ng-messages="formularioRegistrarCliente.contrasenia.$error">
+            <div ng-message="pattern">
+              <!-- @@include('mensajes/contrasenia_incorrecta.txt') -->
+            </div>
+          </div>
+        </md-input-container>
+        <!--
+          TODO: como al momento de cargar el formulario cliente.contrasenia
+          aún no está definido, entonces el ng-pattern de abajo es causa
+          de una excepción.
+          Esto, o resolver el porqué de la excepción que sale al cargar el
+          formulario.
+        -->
+        <md-input-container>
+          <label>Confirmación de contraseña</label>
+          <input
+            name="confirmacion"
+            type="password"
+            ng-model="cliente.confirmacion"
+            md-no-asterisk
+            required
+            ng-pattern="\b{{cliente.contrasenia}}\b"
+            autocomplete="off"
+            spellcheck="false">
+          <div ng-messages="formularioRegistrarCliente.confirmacion.$error">
+            <div ng-message="pattern">
+              <!-- @@include('mensajes/confirmacion_incorrecta.txt') -->
+            </div>
+          </div>
+        </md-input-container>
+        <div
+          ng-if="error"
+          class="mensajes"
+          md-colors="{color: 'accent'}">
+          <!-- @@include('mensajes/usuario_existente.txt') -->
+        </div>
+      </form>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button
+      ng-click="cancelar()"
+      class="md-primary">
+      Cancelar
+    </md-button>
+    <md-button
+      id="formularioBotonRegistrarCliente"
+      class="md-raised md-primary"
+      type="submit"
+      ng-disabled="formularioRegistrarCliente.$invalid"
+      form="formularioRegistrarCliente">
+      Aceptar
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

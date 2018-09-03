@@ -17,19 +17,31 @@
 {Iniciar sesión}
 {
   La aplicación web debe permitir a los usuarios \textbf{cliente} y
-  \textbf{administrador}, iniciar sesión. Deben proporcionar los siguientes
+  \textbf{administrador} iniciar sesión. Deben proporcionar los siguientes
   datos:
   \begin{itemize}
     \item Correo electrónico
     \item Contraseña
   \end{itemize}
+
+  % TODO: ¿énfasis con negritas o itálicas?
+
+  \begin{hangparas}{2em}{0}
+    \subrequerimiento[rq:validar_clientes]
+    {Validar estado de clientes}
+    {
+      Aquellos \textit{clientes} que se encuentren en alguno de los siguientes
+      estados no deben poder iniciar sesión: \textit{no verificado},
+      \textit{verificado}, \textit{rechazado} o \textit{en lista negra}.
+    }
+  \end{hangparas}
 }
 
 \requerimiento[rq:cierre_de_sesion]
 {Cerrar sesión}
 {
   La aplicación web debe permitir a los usuarios \textbf{cliente} y
-  \textbf{administrador}, cerrar sesión.
+  \textbf{administrador} cerrar sesión.
 }
 
 \requerimiento[rq:registrar_cliente]
@@ -40,6 +52,7 @@
   \begin{itemize}
     \item Correo electrónico válido
     \item Contraseña
+    \item Confirmación de contraseña
   \end{itemize}
 }
 
@@ -118,11 +131,3 @@
   La aplicación web debe permitir, a un cliente, realizar el refresco de sus
   llaves.
 }
-
-\begin{sidewaysfigure}
-  \begin{center}
-    \subimport{diagramas/}{estados_cliente.tikz.tex}
-    \caption{Diagrama de estados de un cliente.}
-    \label{estados_cliente}
-  \end{center}
-\end{sidewaysfigure}

@@ -62,8 +62,8 @@ install:
   - pip install -r dependencias_python.txt
   - python administrar.py makemigrations general programa_tokenizador
   - python administrar.py migrate
-  - python datos_base.py
-  - python datos_de_prueba.py
+  - python bases_de_datos/datos_base.py
+  - python bases_de_datos/datos_de_prueba.py
 
 script:
   - eval "${MATRIX_EVAL}"

@@ -1,0 +1,1 @@
+Contraseña inválida: deben ser entre 8 y 24 caracteres ASCII imprimibles.

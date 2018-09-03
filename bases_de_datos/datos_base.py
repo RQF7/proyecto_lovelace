@@ -4,13 +4,11 @@
   Proyecto Lovelace.
 
   Catálogos y registros no editables desde aplicación.
-
-  TODO: hacer que esto funcione en cualquier otro lugar que no sea la carpeta
-  raíz del proyecto. En la raíz solamente van configuraciones.
 """
 
-import os, django
+import os, sys, django
 
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + '/../')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'sistema_tokenizador.configuraciones'
 django.setup()
 

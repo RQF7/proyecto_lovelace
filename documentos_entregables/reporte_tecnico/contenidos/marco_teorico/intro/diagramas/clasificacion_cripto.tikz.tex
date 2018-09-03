@@ -19,33 +19,33 @@
 
   \node[clasificador]
     (transposicion)
-    {\small Transposición};
+    {Transposición};
   \node[clasificador]
     (sustitucion)
     [right = of transposicion]
-    {\small Sustitución};
+    {Sustitución};
   \node[clasificador]
     (simetrica)
     [right = of sustitucion]
-    {\small Simétrica};
+    {Simétrica};
   \node[clasificador]
     (asimetrica)
     [right = of simetrica]
-    {\small Asimétrica};
+    {Asimétrica};
 
   \node[clasificador]
     (clasica)
     at ($(transposicion)!0.5!(sustitucion) + (0, 1.0in)$)
-    {\small Clásica};
+    {Clásica};
   \node[clasificador]
     at ($(simetrica)!0.5!(asimetrica) + (0, 1.0in)$)
     (moderna)
-    {\small Moderna};
+    {Moderna};
 
   \node[clasificador]
     at ($(clasica)!0.5!(moderna) + (0, 1.0in)$)
     (criptografia)
-    {\small Criptografía};
+    {Criptografía};
 
   % Relaciones
   \draw[-{Triangle[open]}]

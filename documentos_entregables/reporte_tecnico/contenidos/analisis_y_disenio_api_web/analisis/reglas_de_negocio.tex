@@ -7,31 +7,22 @@
 \subsection{Reglas de negocio}
 
 El formato de las \glspl{gl:expresion_regular}, por cuestiones de optimización
-en tiempos de desarrollo, se presenta según el formato de \textit{java script},
+en tiempos de desarrollo, se presenta según el formato de \textit{JavaScript},
 definido en \cite{mozilla_er}.
-
-% \reglaDeNegocio[rn:servicio_tokenizacion]
-% {Servicio de tokenizacion}
-% {
-%   El servicio de tokenización abarca dos operaciones básicas:
-%   \textit{tokenización}, esto es, dado un número de tarjeta, regresar el token
-%   correspondiente; y \textit{detokenización}, que es el proceso inverso, dado un
-%   token, regresar el número de tarjeta asociado.
-%
-%   Esta regla está asociada a \hipervinculo{rn:formato_numero_de_tarjeta} y
-%   \hipervinculo{rn:formato_token}.
-% }
 
 \reglaDeNegocio[rn:formato_numero_de_tarjeta]
 {Composición de números de tarjeta}
 {
-  Un número de tarjeta queda definido por la expresión regular
-  \texttt{[0-9]\{12, 19\}}. El número se divide en tres partes: el
-  identificador del emisor (primeros 6 dígitos), el número de cuenta y el dígito
-  verificador (último dígito). Para más detalles sobre este tema consultar la
-  sección \ref{sec:composicion_tarjeta}. El dígito verificador se obtiene de tal
-  forma que el algoritmo de Luhn (sección \ref{sec:algoritmo_luhn}) dé como
-  resultado cero.
+  Un número de tarjeta queda definido por la expresión regular:
+
+  \expresionRegular{expresiones_regulares/numero_de_tarjeta.txt}
+
+  El número se divide en tres partes: el identificador del emisor (primeros 6
+  dígitos), el número de cuenta y el dígito verificador (último dígito). Para
+  más detalles sobre este tema consultar la sección
+  \ref{sec:composicion_tarjeta}. El dígito verificador se obtiene de tal forma
+  que el algoritmo de Luhn (sección \ref{sec:algoritmo_luhn}) dé como resultado
+  cero.
 }
 
 \reglaDeNegocio[rn:formato_token]
@@ -43,24 +34,23 @@ definido en \cite{mozilla_er}.
   Luhn (sección \ref{sec:algoritmo_luhn}) dé como resultado un uno.
 }
 
-% TODO: encontrar una manera para mostrar esto.
 \reglaDeNegocio[rn:correo_electronico]
 {Formato de correos electrónicos}
 {
-  Un nombre de usuario queda definido por la expresión regular
-  %% Está medio loca esta validación, ¿no?
-  %\begin{verbatim}
-  %^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
-  %\end{verbatim}
-}
+  Un correo electrónico queda definido, de acuerdo al \gls{gl:rfc} 5322
+  \cite{DBLP:journals/rfc/rfc5322}, por la expresión regular:
 
-% TODO: ¿Agregar símbolos a expresión regular de contraseñas?
+  \expresionRegular{expresiones_regulares/correo.txt}
+}
 
 \reglaDeNegocio[rn:formato_de_contrasenias]
 {Formato de contraseñas}
 {
-  El formato de una contraseña está regido por la expresión regular
-  \texttt{0-9a-zA-Z}\{8, 24\}.
+  El formato de una contraseña está regido por la expresión regular:
+
+  \expresionRegular{expresiones_regulares/contrasenia.txt}
+
+  Esto es, entre 8 y 24 caracteres \gls{gl:ascii} imprimibles.
 }
 
 \reglaDeNegocio[rn:tipo_de_algoritmo]
@@ -83,11 +73,13 @@ definido en \cite{mozilla_er}.
     \item Administrador
   \end{itemize}
 
-  Al abrir la aplicación, todos los usuarios son visitantes; pues los clientes
-  y los administradores deben iniciar sesión para ser identificados por el
-  sistema; un vistante puede convertirse en cliente al registrarse y ser
-  aprobado. Las transiciones entre los tipos de usuarios pueden observarse en el
-  diagrama \ref{estados_actores}.
+  \begin{hangparas}{2em}{0}
+    Al abrir la aplicación, todos los usuarios son visitantes; pues los clientes
+    y los administradores deben iniciar sesión para ser identificados por el
+    sistema; un vistante puede convertirse en cliente al registrarse y ser
+    aprobado. Las transiciones entre los tipos de usuarios pueden observarse en
+    el diagrama \ref{estados_actores}.
+  \end{hangparas}
 }
 
 \begin{figure}
@@ -97,6 +89,8 @@ definido en \cite{mozilla_er}.
     \label{estados_actores}
   \end{center}
 \end{figure}
+
+% TODO: falta mencionar al estado «rechazado» en la descripción de la regla.
 
 \reglaDeNegocio[rn:estados_cliente]
 {Estados de un cliente}
@@ -111,14 +105,25 @@ definido en \cite{mozilla_er}.
     \item En lista negra
   \end{itemize}
 
-  Cuando un cliente se registra, se encuentra en estado \textbf{no verificado},
-  cuando verifica su dirección de correo electrónico, pasa a
-  \textbf{verificado}; una vez que el administrador lo aprueba, pasa a
-  \textbf{aprobado}. Cuando inicia un refresco de llaves, pasa a
-  \textbf{en cambio de llaves}. Finalmente, el administrador puede cambiar su
-  estado a \textbf{en lista negra} (y regresarlo a \textbf{aprobado} o
-  \textbf{en cambio de llaves}).
+  \begin{hangparas}{2em}{0}
+    Cuando un cliente se registra, se encuentra en estado \textbf{no verificado},
+    cuando verifica su dirección de correo electrónico, pasa a
+    \textbf{verificado}; una vez que el administrador lo aprueba, pasa a
+    \textbf{aprobado}. Cuando inicia un refresco de llaves, pasa a
+    \textbf{en cambio de llaves}. Finalmente, el administrador puede cambiar su
+    estado a \textbf{en lista negra} (y regresarlo a \textbf{aprobado} o
+    \textbf{en cambio de llaves}). Estas transiciones se pueden observar en la
+    Figura \ref{estados_cliente}.
+  \end{hangparas}
 }
+
+\begin{sidewaysfigure}
+  \begin{center}
+    \subimport{diagramas/}{estados_cliente.tikz.tex}
+    \caption{Diagrama de estados de un cliente.}
+    \label{estados_cliente}
+  \end{center}
+\end{sidewaysfigure}
 
 \reglaDeNegocio[rn:estados_token]
 {Estados de un token}
@@ -130,11 +135,13 @@ definido en \cite{mozilla_er}.
     \item Retokenizado
   \end{itemize}
 
-  Cuando un token es creado, su estado es \textbf{actual}.
-  Cuando un cliente inicia el refresco de llaves, todos sus tokens cambian de
-  estado a \textbf{anterior}.
-  Cuando un cliente solicita la retokenización de un token, se cambia su estado
-  a \textbf{retokenizado}.
+  \begin{hangparas}{2em}{0}
+    Cuando un token es creado, su estado es \textbf{actual}.
+    Cuando un cliente inicia el refresco de llaves, todos sus tokens cambian de
+    estado a \textbf{anterior}.
+    Cuando un cliente solicita la retokenización de un token, se cambia su estado
+    a \textbf{retokenizado}.
+  \end{hangparas}
 }
 
 \reglaDeNegocio[rn:estados_llave]
@@ -146,9 +153,11 @@ definido en \cite{mozilla_er}.
     \item Anterior
   \end{itemize}
 
-  Cuando una llave es creada, su estado es \textbf{actual}. Si el cliente
-  tenía asociada otra llave, el estado de la llave existente cambia a
-  \textbf{anterior}.
+  \begin{hangparas}{2em}{0}
+    Cuando una llave es creada, su estado es \textbf{actual}. Si el cliente
+    tenía asociada otra llave, el estado de la llave existente cambia a
+    \textbf{anterior}.
+  \end{hangparas}
 }
 
 \reglaDeNegocio[rn:tokenizacion]
@@ -187,7 +196,8 @@ definido en \cite{mozilla_er}.
 {Criptoperiodo de una llave}
 {
   El criptoperiodo de todas las llaves usadas para la tokenización (y
-  detokenización) es de seis meses.
+  detokenización) es de seis meses (ver el Apéndice
+  \ref{sec:administracion_llaves}).
 }
 
 \reglaDeNegocio[rn:unicidad_tarjeta_cliente]
@@ -197,11 +207,32 @@ definido en \cite{mozilla_er}.
   para un mismo número de tarjeta, la operación de tokenización más de una vez.
 }
 
+% TODO
+% * Definir formato para referencias a estados, tipos de usuarios, etc.
+%   ¿Negritas o itálicas?
+
+% Ups... esto es un requerimiento:
+% \reglaDeNegocio[rn:verificacion_de_cuentas]
+% {Verificación de cuentas}
+% {
+%   Un cliente pasa de estado \textit{no verificado} a \textit{verificado} mediante
+%   un correo de verificación: el sistema manda el correo con un hipervínculo
+%   de activación; el cliente accede al vínculo para verificar su cuenta.
+% }
+
+\reglaDeNegocio[rn:verificacion_de_cuentas]
+{Expiración de vínculos de verificación}
+{
+  El vínculo para verificar una cuenta es efectivo solamente durante
+  24 horas; después de este tiempo, el vínculo deja de ser efectivo y se elimina
+  el registro del usuario.
+}
+
 \reglaDeNegocio[rn:aprobacion_cliente]
 {Aprobación de clientes}
 {
   Un administrador puede aprobar o rechazar usuarios tipo \textbf{cliente}
-cuando estos tengan estado \textbf{verificado}.
+  cuando estos tengan estado \textbf{verificado}.
 }
 
 \reglaDeNegocio[rn:acceso_no_autorizado]

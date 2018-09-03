@@ -9,23 +9,55 @@
 
 \subsection{Catálogo de mensajes}
 
+% Iniciar sesión %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % La disyunción no aplica de forma directa: evidentemente no se puede dar el
 % caso de que el nombre de usuario sea incorrecto pero la contraseña sí sea
 % correcta.
 \mensaje[msj:credenciales_incorrectas]
-{Credenciales incorrectas}{\subimport{/}{credenciales_incorrectas}}
+{Credenciales incorrectas}{\subimport{/}{credenciales_incorrectas.txt}}
 
+\mensaje[msj:cliente_no_verificado]
+{Cliente no verificado}{\subimport{/}{cliente_no_verificado.txt}}
+
+\mensaje[msj:cliente_no_aprobado]
+{Cliente no aprobado}{\subimport{/}{cliente_no_aprobado.txt}}
+
+\mensaje[msj:cliente_rechazado]
+{Cliente rechazado}{\subimport{/}{cliente_rechazado.txt}}
+
+\mensaje[msj:cliente_en_lista_negra]
+{Cliente en lista negra}{\subimport{/}{cliente_en_lista_negra.txt}}
+
+% Registrar usuario %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mensaje[msj:correo_incorrecto]
+{Correo electrónico incorrecto}{\subimport{/}{correo_incorrecto.txt}}
+
+\mensaje[msj:contrasenia_incorrecta]
+{Contraseña incorrecta}{\subimport{/}{contrasenia_incorrecta.txt}}
+
+\mensaje[msj:confirmacion_incorrecta]
+{Confirmación de contraseña incorrecta}
+{\subimport{/}{confirmacion_incorrecta.txt}}
+
+\mensaje[msj:usuario_existente]
+{Correo registrado previamente}{\subimport{/}{usuario_existente.txt}}
+
+% Aprobar / rechazar clientes
 \mensaje[msj:sin_clientes_aprobados]
-{Sin clientes para mostrar}{\subimport{/}{sin_clientes_aprobados}}
+{Sin clientes para mostrar}{\subimport{/}{sin_clientes_aprobados.txt}}
 
 \mensaje[msj:sin_clientes_verificados]
-{Sin clientes verificados}{\subimport{/}{sin_clientes_verificados}}
+{Sin clientes verificados}{\subimport{/}{sin_clientes_verificados.txt}}
 
 \mensaje[msj:rechazar_cliente]
-{Rechazar cliente}{\subimport{/}{adv_rechazar_cliente}}
+{Rechazar cliente}{\subimport{/}{adv_rechazar_cliente.txt}}
 
-\mensaje[msj:error_actualizar_cliente]
-{Error al actualizar cliente cliente}{\subimport{/}{error_actualizar_cliente}}
+\mensaje[msj:error_actualizar_estado_cliente]
+  {Error al actualizar el estado del cliente cliente}
+  {\subimport{/}{error_actualizar_estado_cliente.txt}}
 
+% Vetar cliente
 \mensaje[msj:vetar_cliente]
-{Vetar cliente}{\subimport{/}{adv_vetar_cliente}}
+{Vetar cliente}{\subimport{/}{adv_vetar_cliente.txt}}

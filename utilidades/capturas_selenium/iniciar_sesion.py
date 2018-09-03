@@ -1,6 +1,6 @@
 """
   Script para captura de formulario de inicio de sesión,
-  Aplicación web de sistema tokenizador.
+  aplicación web de sistema tokenizador.
   Proyecto Lovelace.
 """
 

@@ -95,7 +95,7 @@ sistemaTokenizador.controller('controladorGeneral', [
       }
     });
 
-    /* Para mostrar login en cas ode redirección. */
+    /* Para mostrar login en caso de redirección. */
     $scope.$on('$routeChangeSuccess', function () {
       if ($scope.$routeParams.siguiente != undefined) {
         $scope.iniciarSesion(undefined);
@@ -114,7 +114,6 @@ sistemaTokenizador.controller('controladorGeneral', [
           $scope.usuario = respuesta;
           if ($scope.$routeParams.siguiente != undefined) {
             $location.path($scope.$routeParams.siguiente);
-            //$scope.$routeParams = {};
             $location.search('siguiente', null)
           } else if ($scope.usuario.tipoDeUsuario == 1) {
             $location.path('/administración_de_tokens');
@@ -129,6 +128,22 @@ sistemaTokenizador.controller('controladorGeneral', [
       api.cerrarSesion().then(function (respuesta) {
         $scope.usuario = undefined;
         $location.path('/');
+      });
+    };
+
+    /* Registrar cliente *****************************************************/
+
+    $scope.registrarse = function ($event) {
+      var padre = angular.element(document.body);
+      $mdDialog.show({
+        parent: padre,
+        targetEvent: $event,
+        templateUrl: '/estaticos/html/ventanas/registrar_cliente.ventana.html',
+        controller: 'controladorFormularioRegistrarCliente'
+      }).then(function (respuesta) {
+        if (respuesta != undefined) {
+          console.log(respuesta);
+        }
       });
     };
 

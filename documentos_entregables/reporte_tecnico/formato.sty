@@ -178,7 +178,11 @@
   backgrounds,
   positioning,
   calc,
-  scopes}
+  scopes,
+  shapes}
+
+\tikzset{
+    font=\footnotesize}
 
 % http://mirrors.ctan.org/macros/latex/contrib/csquotes/csquotes.pdf
 % Permite definir el tipo de comillas dependiendo el contexto.
@@ -230,8 +234,7 @@
 % Control sobre aspecto de listas numeradas.
 \RequirePackage{enumitem}
 
-
-\RequirePackage{courier}
+\RequirePackage{verbatim}
 
 % Profundidad de contador
 % Hasta subsubsecciones
@@ -342,6 +345,7 @@
 \import{reporte_tecnico/plantillas/}{dependencia.sty}
 \import{reporte_tecnico/plantillas/}{capitulo.sty}
 \import{reporte_tecnico/plantillas/}{epigrafe.sty}
+\import{reporte_tecnico/plantillas/}{expresion_regular.sty}
 \import{reporte_tecnico/plantillas/ingenieria_de_software/}
   {ingenieria_de_software.sty}
 
