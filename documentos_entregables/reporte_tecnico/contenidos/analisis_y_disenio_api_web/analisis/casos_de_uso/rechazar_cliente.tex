@@ -1,0 +1,65 @@
+%
+% Caso de uso para iniciar sesión,
+% Capítulo de análisis y diseño de api web,
+% Proyecto Lovelace.
+%
+
+\casoDeUso[cu:rechazar_cliente]
+{Rechazar cliente}
+{
+  Caso de uso que permite a un usuario tipo administrador rechazar a un usuario
+  tipo cliente; haciéndolo pasar del estado \textbf{verificado} a
+  \textbf{rechazado} (véase \hipervinculo{rn:estados_cliente}).
+
+  \begin{trayectoriaPrincipal}
+
+    \item El administrador presiona el botón \textit{Verificar clientes}
+      en el menú disponible en todas las pantallas.
+
+    \item El sistema obtiene los datos de todos los clientes en la base de datos
+    cuyo estado es \textbf{verificado}; véase
+    [\hipervinculoLocal{ta:sin_verificados}].
+
+    \item El sistema muestra la interfaz \textit{Inserte pantalla aquí} con la
+      información obtenida.
+
+    \item El administrador presiona el botón \textit{Rechazar} del cliente que
+      desea aprobar.
+
+
+    \item El sistema muestra el mensaje \hipervinculo{msj:rechazar_cliente}.
+
+    \item El administrador presiona \textit{Aceptar}.
+
+    \item El sistema cambia el estado de dicho cliente a \textbf{rechazado}
+      tomando en cuenta la regla de negocios \hipervinculo{rn:estados_cliente};
+      véase [\hipervinculoLocal{ta:error_actualizar_cliente}].
+
+    \item [verificados_refrescados] El sistema obtiene los datos de todos los
+      clientes en la base de datos cuyo estado es \textbf{verificado}.
+
+    \item El sistema refresca la interfaz \textit{Inserte pantalla aquí}.
+
+  \end{trayectoriaPrincipal}
+
+  \begin{trayectoriaAlternativa}[ta:sin_verificados]
+    {No hay clientes listos para ser aprobados en el sistema.}
+
+    \item La consulta de clientes con estado \textbf{verificado} es vacía.
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:sin_clientes_verificados}.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:error_actualizar_cliente]
+    {Ocurrió un error al actualizar el estado del cliente.}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:error_actualizar_cliente}.
+
+    \item Regresar al paso \referenciaLocal{verificados_refrescados} de la
+      trayectoria principal.
+
+  \end{trayectoriaAlternativa}
+}

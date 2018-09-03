@@ -4,14 +4,14 @@
 % Proyecto Lovelace.
 %
 
-\casoDeUso[cu:registrar_usuario]
-{Registrar usuario}
+\casoDeUso[cu:registrar_cliente]
+{Registrar cliente}
 {
   Caso que permite que un visitante se registre y pase a ser
-  un usuario del sistema tokenizador. El visitante introduce los datos
+  un usuario cliente del sistema tokenizador. El visitante introduce los datos
   necesarios para el registro (correo electrónico y contraseña), el sistema
-  hace un registro parcial y manda un correo con un link de activación, el
-  usuario activa su cuenta. Esto de acuerdo con los requerimientos
-  \hipervinculo{rq_api:registro_de_actores} y
-  \hipervinculo{rq_api:cambios_de_actores}.
+  hace un registro parcial (creando al cliente en estado \textbf{no verificado})
+  y manda un correo con un link de activación; finalmente, el cliente verifica
+  su correo y pasa al estado \textbf{verificado}. Véase
+  \hipervinculo{rn:estados_cliente}.
 }
