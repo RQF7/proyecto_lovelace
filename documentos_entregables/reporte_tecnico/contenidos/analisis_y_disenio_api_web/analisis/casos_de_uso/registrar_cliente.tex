@@ -41,7 +41,8 @@
       [\hipervinculoLocal{ta:confirmacion_incorrecta}].
 
     \item El sistema valida que el correo introducido no se encuentre ya asignado
-      a un usuario [\hipervinculoLocal{ta:usuario_existente}].
+      a un usuario tomando en cuenta la regla de negocios
+      \hipervinculo{rn:unicidad_correo} [\hipervinculoLocal{ta:usuario_existente}].
 
     \item El sistema crea un nuevo cliente en estado \textit{no verificado},
       según la regla de negocios \hipervinculo{rn:estados_cliente}.
@@ -53,6 +54,11 @@
       \hipervinculo{iu:aviso_de_correo_de_confirmacion}.
 
     \item El cliente accede a la \gls{gl:url} enviada a su correo
+      [\hipervinculoLocal{ta:expiracion_de_vinculo}].
+
+    \item El sistema verifica, tomando en cuenta la fecha de creación del
+      vínculo, que no haya expirado, tomando en cuenta la regla de negocios
+      \hipervinculo{rn:verificacion_de_cuentas}
       [\hipervinculoLocal{ta:expiracion_de_vinculo}].
 
     \item El sistema cambia el estado del cliente a \textit{verificado},
@@ -119,21 +125,11 @@
   \begin{trayectoriaAlternativa}[ta:expiracion_de_vinculo]
     {Vínculo expirado}
 
-    \item El vínculo expira de acuerdo al intervalo de tiempo definido
-      en la regla \hipervinculo{rn:expiracion_de_vinculos}.
+    \item El sistema muestra la ventana
+      \hipervinculo{iu:aviso_de_expiracion_de_vinculo}.
 
     \item El sistema elimina el registro del usuario
       [\hipervinculoLocal{ta:acceso_a_vinculo_expirado}].
-
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:acceso_a_vinculo_expirado]
-    {Acceso a vínculo expirado}
-
-    \item El usuario intenta acceder a un hipervínculo expirado.
-
-    \item El sistema muestra la ventana
-      \hipervinculo{iu:aviso_de_expiracion_de_vinculo}.
 
   \end{trayectoriaAlternativa}
 }
