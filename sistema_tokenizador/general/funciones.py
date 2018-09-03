@@ -4,8 +4,12 @@
   Proyecto Lovelace.
 """
 
-import json
+import json, hashlib
+from .models.estado_de_usuario import EstadoDeUsuario
+from .models.tipo_de_usuario import TipoDeUsuario
+from .models.usuario import Usuario
 from django.http import HttpResponse
+from django.db.utils import IntegrityError
 from sistema_tokenizador import utilidades
 from sistema_tokenizador.configuraciones import DIRECTORIO_BASE
 from sistema_tokenizador.general import negocio
@@ -83,11 +87,11 @@ def iniciarSesion (peticion):
   Valida las credenciales dadas para iniciar una sesión.
 
   En caso correcto, registra al usuario en la sesión y regresa el objeto del
-  usuario; en caso incorrecto, regresa un http vacío.
+  usuario; en caso incorrecto, regresa un http con un código de error.
 
   Ojo, lo que se guarda en la sesión y se regresa no es una instancia de
   Usuario, sino que es un diccionario con el correo y el id del tipo de usuario.
-  El Usuario no es serializable por el atributo de la contraseña.
+  El usuario no es serializable por el atributo de la contraseña.
   """
 
   objetoDePeticion = json.loads(peticion.body)
@@ -115,3 +119,31 @@ def cerrarSesion (peticion):
   """Elimina el objeto usuario de la sesión."""
   del peticion.session['usuario']
   return HttpResponse()
+
+
+def registrarCliente (peticion):
+  """
+  Registra a un nuevo cliente en la base de datos
+
+  Registra a el cliente dado en la base de datos y envía un correo con
+  el vínculo de verificación; en caso de éxito se regresa un 0; en
+  caso de que el cliente ya exista en la base se regresa un 1.
+  """
+
+  objetoDePeticion = json.loads(peticion.body)
+  usuario = Usuario(
+    correo = objetoDePeticion['correo'],
+    contrasenia = hashlib.sha256(objetoDePeticion['contrasenia']
+      .encode()).digest(),
+    tipoDeUsuario = TipoDeUsuario.objects.get(
+      nombre = 'cliente'),
+    estadoDeUsuario = EstadoDeUsuario.objects.get(
+      nombre = 'no verificado'))
+
+  try:
+    usuario.save()
+  except IntegrityError:
+    return HttpResponse("1")
+
+  # TODO: mandar correo a usuario
+  return HttpResponse("0")

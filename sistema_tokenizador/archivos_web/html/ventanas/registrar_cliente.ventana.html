@@ -2,6 +2,11 @@
   Formulario de registro de clientes,
   Aplicación web de sistema tokenizador.
   Proyecto Lovelace.
+
+  TODO:
+  Para este y todos los demás formularios: hacer que un campo vacío no se ponga
+  en rojo: si es requerido, simplemente no se habilita el botón de envío;
+  se ve mal con todo en rojo.
 -->
 
 <md-dialog
@@ -24,12 +29,12 @@
         id="formularioRegistrarCliente"
         novalidate
         flex="90"
-        ng-submit="aceptar($evento)">
+        ng-submit="aceptar($event)">
         <md-input-container>
           <label>Correo electrónico</label>
           <input
             name="correo"
-            ng-model="usuario.correo"
+            ng-model="cliente.correo"
             md-no-asterisk
             required
             md-autofocus
@@ -47,7 +52,7 @@
           <input
             name="contrasenia"
             type="password"
-            ng-model="usuario.contrasenia"
+            ng-model="cliente.contrasenia"
             md-no-asterisk
             required
             ng-pattern="erContrasenia"
@@ -60,19 +65,21 @@
           </div>
         </md-input-container>
         <!--
-          TODO: como al momento de cargar el formulario usuario.contrasenia
+          TODO: como al momento de cargar el formulario cliente.contrasenia
           aún no está definido, entonces el ng-pattern de abajo es causa
           de una excepción.
+          Esto, o resolver el porqué de la excepción que sale al cargar el
+          formulario.
         -->
         <md-input-container>
           <label>Confirmación de contraseña</label>
           <input
             name="confirmacion"
             type="password"
-            ng-model="usuario.confirmacion"
+            ng-model="cliente.confirmacion"
             md-no-asterisk
             required
-            ng-pattern="\b{{usuario.contrasenia}}\b"
+            ng-pattern="\b{{cliente.contrasenia}}\b"
             autocomplete="off"
             spellcheck="false">
           <div ng-messages="formularioRegistrarCliente.confirmacion.$error">
@@ -81,6 +88,12 @@
             </div>
           </div>
         </md-input-container>
+        <div
+          ng-if="error"
+          class="mensajes"
+          md-colors="{color: 'accent'}">
+          <!-- @@include('mensajes/usuario_existente.txt') -->
+        </div>
       </form>
     </div>
   </md-dialog-content>

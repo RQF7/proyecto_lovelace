@@ -32,6 +32,7 @@ urlpatterns = [
   path('api/usuario_de_sesion', general.usuarioDeSesion),
   path('api/iniciar_sesion', general.iniciarSesion),
   path('api/cerrar_sesion', general.cerrarSesion),
+  path('api/registrar_cliente', general.registrarCliente),
 
   # Operaciones de programa tokenizador
   path('programa_tokenizador/tokenizar', programa_tokenizador.tokenizar),

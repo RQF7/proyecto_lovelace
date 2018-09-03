@@ -16,10 +16,10 @@ class CapturaConSesion (CapturaGenericaPagina):
 
   def __init__ (ego, urlInicial, rutaArchivo, correo, contrasenia, urlFinal):
     """
-      Constructor de clase.
+    Constructor de clase.
 
-      Llama al constructor de la superclase e inicializa los
-      atributos de la clase.
+    Llama al constructor de la superclase e inicializa los
+    atributos de la clase.
     """
 
     CapturaGenericaPagina.__init__(ego, urlInicial, rutaArchivo)
