@@ -63,6 +63,16 @@ definido en \cite{mozilla_er}.
   \texttt{0-9a-zA-Z}\{8, 24\}.
 }
 
+\reglaDeNegocio[rn:tipo_de_algoritmo]
+{Tipos de algoritmos tokenizadores}
+{
+  Existen dos tipos de algoritmos tokenizadores:
+  \begin{itemize}
+    \item Reversibles
+    \item Irreversibles
+  \end{itemize}
+}
+
 \reglaDeNegocio[rn:tipo_de_usuario]
 {Tipos de usuario}
 {
@@ -141,12 +151,19 @@ definido en \cite{mozilla_er}.
   \textbf{anterior}.
 }
 
-\reglaDeNegocio[rn:tokenizacion_en_refresco]
-{Petición de tokenización en proceso de refresco}
+\reglaDeNegocio[rn:tokenizacion]
+{Petición de tokenización}
 {
-  Cuando un cliente solicite una operación de tokenización y se encuentre en
-  estado \textbf{en cambio de llaves}, se debe utilizar la llave nueva para
-  obtener el token.
+  Cuando un cliente solicite una operación de tokenización, se debe utilizar la
+  llave con estado \textbf{actual} para obtener el token.
+}
+
+\reglaDeNegocio[rn:detokenizacion]
+{Petición de detokenización}
+{
+  Cuando un cliente en estado \textbf{aceptado} solicite una operación de
+  detokenización, se debe utilizar la llave con estado \textbf{actual}
+  para obtener el número de tarjeta.
 }
 
 \reglaDeNegocio[rn:detokenizacion_en_refresco]
@@ -155,7 +172,7 @@ definido en \cite{mozilla_er}.
   Cuando un cliente solicite una operación de detokenización y se encuentre en
   estado \textbf{en cambio de llaves}, se debe especificar en la petición si
   se desea utilizar la llave nueva o anterior. En caso de no ser especificada,
-  se realizará la operación utilizando la llave anterior.
+  se realizará la operación utilizando la llave con estado \textbf{actual}.
 }
 
 \reglaDeNegocio[rn:habilitacion_de_retokenizacion]

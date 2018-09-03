@@ -1,0 +1,85 @@
+%
+% Caso de uso para tokenizar un número de tarjeta.
+% Capítulo de análisis y diseño de api web,
+% Proyecto Lovelace.
+%
+
+\casoDeUso[cu:tokenizar_tarjeta]
+{Tokenizar un número de tarjeta}
+{
+  Permite a un usuario tipo cliente, dada una conexión establecida, obtener el
+  token de una tarjeta.
+
+  \begin{trayectoriaPrincipal}
+
+    \item El cliente envía una petición con los siguientes datos:
+      \begin{itemize}
+        \item Número de tarjeta a tokenizar.
+        \item Algoritmo tokenizador.
+      \end{itemize}
+
+    \item El sistema obtiene el estado del cliente.
+
+    \item El sistema verifica que el estado del cliente sea \textbf{aceptado} o
+      \textbf{en cambio de llaves} (tomando en cuenta la regla de negocios
+      \hipervinculo{rn:tipo_de_usuario});
+      [\hipervinculoLocal{ta:cliente_sin_permisos}].
+
+    \item El sistema verifica que el tipo de algoritmo utilizado sea
+      \textbf{irreversible} (tomando en cuenta la regla de negocios
+      \hipervinculo{rn:tipo_de_algoritmo});
+      [\hipervinculoLocal{ta:tokenizacion_reversible}].
+
+    \item El sistema verifica que la tarjeta no tenga asociado un token con ese
+      cliente [\hipervinculoLocal{ta:tarjeta_registrada}].
+
+    \item El sistema obtiene el token utilizando el algoritmo especificado y la
+      llave asociada al algoritmo con estado \textbf{actual}, tomando en cuenta
+      la regla de negocios \hipervinculo{rn:tokenizacion}.
+
+    \item El sistema registra el token obtenido en el paso anterior en la base
+      de datos con estado \textbf{actual} tomando en cuenta la regla de negocios
+      \hipervinculo{rn:estados_token}.
+
+    \item [regreso_token] El sistema regresa al cliente el token obtenido.
+
+  \end{trayectoriaPrincipal}
+
+  \begin{trayectoriaAlternativa}[ta:cliente_sin_permisos]
+    {El cliente tiene un estado distinto a \textbf{aceptado} o
+      \textbf{en cambio de llaves}.}
+
+    \item El sistema regresa un valor nulo al cliente.
+      % Hay que regresar un error aquí.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:tokenizacion_reversible]
+    {El algoritmo especificado por el cliente es de tipo \textbf{reversible}.}
+
+    \item El sistema obtiene el token con el algoritmo especificado utilizando
+      la llave con estado \textbf{actual}, tomando en cuenta la regla de
+      negocios \hipervinculo{rn:tokenizacion}.
+
+    \item Regresar al paso \referenciaLocal{regreso_token} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:tarjeta_registrada]
+    {El cliente ya tiene un token relacionado con esa tarjeta.}
+
+    \item El sistema regresa un valor nulo al cliente.
+      % Hay que regresar un error aquí.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:error_tokenizacion]
+    {Ocurrió un error durante el proceso de tokenización.}
+
+    \item El sistema regresa un valor nulo al cliente.
+      % Hay que regresar un error aquí.
+
+  \end{trayectoriaAlternativa}
+
+}
