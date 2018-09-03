@@ -1,0 +1,65 @@
+%
+% Caso de uso para quitar a un cliente en la lista negra,
+% Capítulo de análisis y diseño de api web,
+% Proyecto Lovelace.
+%
+
+\casoDeUso[cu:desvetar_cliente]
+{Quitar a un cliente en la lista negra}
+{
+  Permite a un usuario tipo administrador quitar a un cliente en la lista negra,
+  cambiando su estado a \textbf{aprobado} (véase
+  \hipervinculo{rn:estados_cliente}).
+
+  \begin{trayectoriaPrincipal}
+
+    \item El administrador presiona el botón \textit{Administrar clientes}
+      en el menú disponible en todas las pantallas.
+
+    \item El sistema obtiene los datos de todos los clientes en la base de datos
+      cuyo estado es \textbf{aprobado}, \textbf{en cambio de llaves},
+      \textbf{en lista negra} o \textbf{rechazado}; véase
+      [\hipervinculoLocal{ta:sin_clientes}].
+
+    \item El sistema muestra la interfaz \textit{Inserte pantalla aquí} con la
+      información obtenida.
+
+    \item El administrador presiona el botón \textit{Quitar de la lista negra}
+      correspondiente al cliente que desea vetar.
+
+    \item El sistema cambia el estado de dicho cliente a \textbf{aprobado}
+      tomando en cuenta la regla de negocios \hipervinculo{rn:estados_cliente};
+      véase [\hipervinculoLocal{ta:error_actualizar_cliente}].
+
+    \item [aprobados_refrescados] El sistema obtiene los datos de todos los
+      clientes en la base de datos cuyo estado es \textbf{aprobado},
+      \textbf{en cambio de llaves}, \textbf{en lista negra} o
+      \textbf{rechazado}.
+
+    \item El sistema refresca la interfaz \textit{Inserte pantalla aquí}.
+
+  \end{trayectoriaPrincipal}
+
+  \begin{trayectoriaAlternativa}[ta:sin_clientes]
+    {No hay clientes listos en el sistema.}
+
+    \item La consulta de clientes con estado \textbf{aprobado},
+    \textbf{en cambio de llaves}, \textbf{en lista negra} o \textbf{rechazado}
+    es vacía.
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:sin_clientes_aprobados}.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:error_actualizar_cliente]
+    {Ocurrió un error al actualizar el estado del cliente.}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:error_actualizar_cliente}.
+
+    \item Regresar al paso \referenciaLocal{aprobados_refrescados} de la
+      trayectoria principal.
+
+  \end{trayectoriaAlternativa}
+}
