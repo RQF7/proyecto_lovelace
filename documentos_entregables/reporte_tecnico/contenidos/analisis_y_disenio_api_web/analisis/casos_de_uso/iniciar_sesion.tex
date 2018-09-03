@@ -1,6 +1,6 @@
 %
 % Caso de uso para iniciar sesión,
-% Capítulo de análisis y diseño de api web,
+% capítulo de análisis y diseño de api web,
 % Proyecto Lovelace.
 %
 
@@ -10,9 +10,7 @@
   Caso que permite que un visitante se identifique ante el sistema. El
   visitante introduce su correo electrónico y contraseña y, dependiendo de
   si es un usuario o un administrador, es redirigido a la página de
-  inicio correspondiente. Esto en conformidad con lo dispuesto en
-  \hipervinculo{rq_api:identificacion_de_actores} y
-  \hipervinculo{rq_api:cambios_de_actores}.
+  inicio correspondiente.
 
   \begin{trayectoriaPrincipal}
 
@@ -24,7 +22,7 @@
       \hipervinculo{iu:iniciar_sesion} con el botón \textit{iniciar sesión}
       deshabilitado.
 
-    \item El visitante introduce su correo electrónico y contraseña
+    \item[datos] El visitante introduce su correo electrónico y contraseña
       [\hipervinculoLocal{ta:cancelar}].
 
     \item El sistema habilita el botón \textit{iniciar sesión}.
@@ -33,14 +31,19 @@
       [\hipervinculoLocal{ta:cancelar}].
 
     \item El sistema valida las credenciales del usuario
-      [\hipervinculoLocal{ta:credenciales_incorrectas}].
+      [\hipervinculoLocal{ta:credenciales_incorrectas},
+      \hipervinculoLocal{ta:cliente_no_verificado},
+      \hipervinculoLocal{ta:cliente_no_aprobado},
+      \hipervinculoLocal{ta:cliente_rechazado},
+      \hipervinculoLocal{ta:cliente_en_lista_negra}].
 
     \item El sistema registra al usuario en las variables de sesión.
 
     \item El sistema identifica el tipo de actor que está iniciando
       sesión [\hipervinculoLocal{ta:administrador}].
 
-    \item El sistema muestra la pantalla \hipervinculo{iu:inicio_usuario}.
+    \item El sistema muestra la pantalla
+      \hipervinculo{iu:administracion_de_tokens}.
 
   \end{trayectoriaPrincipal}
 
@@ -68,11 +71,55 @@
 
   \end{trayectoriaAlternativa}
 
+  \begin{trayectoriaAlternativa}[ta:cliente_no_verificado]
+    {Cliente no verificado}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:cliente_no_verificado}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:cliente_no_aprobado]
+    {Cliente no aprobado}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:cliente_no_aprobado}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:cliente_rechazado]
+    {Cliente rechazado}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:cliente_rechazado}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:cliente_en_lista_negra]
+    {Cliente en lista negra}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:cliente_en_lista_negra}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
   \begin{trayectoriaAlternativa}[ta:administrador]
     {El tipo de actor es un administrador}
 
     \item El sistema muestra la pantalla
-      \hipervinculo{iu:inicio_administrador}.
+      \hipervinculo{iu:administracion}.
 
   \end{trayectoriaAlternativa}
 }

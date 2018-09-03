@@ -2,6 +2,11 @@
 % Plantilla para definición de requerimientos no funcionales.
 % Proyecto Lovelace.
 %
+% TODO:
+% * Redefinir el funcionamiento de las unidades irrompibles para que
+%   cuando haya subrequerimientos o subsubrequerimientos se puedan
+%   permitir saltos de página entre estos.
+%
 
 % Contadores de requerimientos y variables auxiliares
 \newcounter{contador_requerimientos_nf}[chapter]
@@ -24,6 +29,7 @@
 
   % Código efectivo
   \vspace{1.0em}
+  \iniciarUnidadIrrompible
   \noindent
   \textbf{\hypertarget{#1}
     {REQNF\prefijo-\formatearnumero{contador_requerimientos_nf} #2}.}
@@ -31,6 +37,7 @@
   \begin{hangparas}{2em}{0}
     #3
   \end{hangparas}
+  \terminarUnidadIrrompible
 
   % Regresar a estado previo
   \setlength{\parskip}{\separacionAnterior}

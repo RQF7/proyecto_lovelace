@@ -3,15 +3,6 @@
 % Aplicación web de sistema tokenizador.
 % Proyecto Lovelace.
 %
-% TODO:
-% Encontrar una mejor solución para las etiquetas de las transiciones desfasadas.
-% Ahorita funcionan con un shift dentro de el objeto transform canvas, lo cual
-% trae varias desventajas: no se cambia el tamaño global del lienzo, por lo que
-% al colocar una etiqueta por el lado de arriba de la transición del registro
-% de usuario, el margen de la figura queda muy reducido; los hipervínculos
-% no se desfasan al tiempo que la etiqueta, por lo que en el pdf, la zona
-% en la que puedes dar click es en la que aparecería la etiqueta sin el yshift.
-%
 
 \begin{tikzpicture}[
   estado/.style = {
@@ -37,19 +28,19 @@
   \node[estado]
     (visitante)
     [right = 1in of estado_inicial]
-    {\small Visitante};
+    {Visitante};
   \node[estado]
     (por_identificar)
     [right = 1.2in of visitante]
-    {\small Por identificar};
+    {Por identificar};
   \node[estado]
     (usuario)
     [above right = of por_identificar]
-    {\small Usuario};
+    {Usuario};
   \node[estado]
     (administrador)
     [below right = of por_identificar]
-    {\small Administrador};
+    {Administrador};
 
   % Transiciones
   \draw[-Stealth]
@@ -59,7 +50,7 @@
       etiqueta_transicion,
       text width = 0.8in,
       above]
-      {\small Entrar a aplicación}
+      {Entrar a aplicación}
     (visitante.west);
   \draw[-Stealth]
     (visitante.east)
@@ -68,7 +59,7 @@
       etiqueta_transicion,
       text width = 1.0in,
       above]
-      {\small \hipervinculo{cu:iniciar_sesion}}
+      {\hipervinculo{cu:iniciar_sesion}}
     (por_identificar.west);
   \draw[-Stealth]
     (por_identificar.north)
@@ -77,7 +68,7 @@
       etiqueta_transicion,
       text width = 2.0in,
       above]
-      {\small \texttt{tipo == usuario}}
+      {\texttt{tipo == usuario}}
     (usuario.west);
   \draw[-Stealth]
     (por_identificar.south)
@@ -86,7 +77,7 @@
       etiqueta_transicion,
       text width = 2.0in,
       below]
-      {\small \texttt{tipo == administrador}}
+      {\texttt{tipo == administrador}}
     (administrador.west);
   \draw[-Stealth]
     ($(usuario.north) - (0.2in, 0)$)
@@ -95,10 +86,8 @@
     -|
     node[
       etiqueta_transicion,
-      anchor = west,
-      transform canvas = {
-        yshift=-10pt}]
-      {\small \hipervinculo{cu:cerrar_sesion}}
+      anchor = south west]
+      {\hipervinculo{cu:cerrar_sesion}}
     ($(visitante.north) + (0.2in, 0)$);
   \draw[-Stealth]
     (administrador.south)
@@ -107,20 +96,16 @@
     -|
     node[
       etiqueta_transicion,
-      anchor = west,
-      transform canvas = {
-        yshift=10pt}]
-      {\small \hipervinculo{cu:cerrar_sesion}}
+      anchor = north west]
+      {\hipervinculo{cu:cerrar_sesion}}
     (visitante.south);
   \draw[-Stealth]
     ($(visitante.north) - (0.2in, 0)$)
     |-
     node[
       etiqueta_transicion,
-      anchor = west,
-      transform canvas = {
-        yshift=-10pt}]
-      {\small \hipervinculo{cu:registrar_usuario}}
+      anchor = south west]
+      {\hipervinculo{cu:registrar_cliente}}
     ($(usuario.north) + (0.2in, 0.6in)$)
     --
     ($(usuario.north) + (0.2in, 0)$);
