@@ -73,7 +73,8 @@
 
     \item El sistema obtiene el número de tarjeta con el token y la llave
       especificada en el paso anterior
-      [\hipervinculoLocal{ta:error_detokenizacion}].
+      [\hipervinculoLocal{ta:error_detokenizacion},
+      [\hipervinculoLocal{ta:llave_actual_inexistente}]].
 
     \item Regresar al paso \referenciaLocal{regreso_tarjeta} de la trayectoria
       principal.
@@ -89,6 +90,14 @@
 
   \begin{trayectoriaAlternativa}[ta:error_detokenizacion]
     {Ocurrió un error durante el proceso de detokenización.}
+
+    \item El sistema regresa un valor nulo al cliente.
+      % Hay que regresar un error aquí.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:llave_actual_inexistente]
+    {El cliente no tiene una llave asociada con estado \textbf{actual}.}
 
     \item El sistema regresa un valor nulo al cliente.
       % Hay que regresar un error aquí.

@@ -1,0 +1,2 @@
+Aún existen tokens que no han sido actualizados, ¿seguro que desea terminar
+el refresco de llaves? Estos tokens se volverán inservibles.

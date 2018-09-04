@@ -1,0 +1,100 @@
+%
+% Caso de uso para terminar el refresco de llaves.
+% Capítulo de análisis y diseño de api web,
+% Proyecto Lovelace.
+%
+
+\casoDeUso[cu:terminar_refresco]
+{Terminar el refresco de llaves}
+{
+  Permite a un usuario tipo \textbf{cliente}, dada una conexión establecida,
+  terminar el refresco de llaves.
+
+  \begin{trayectoriaPrincipal}
+
+    \item El cliente presiona \textit{Terminar refresco de llaves} en la
+      interfaz \textit{inserte pantalla aquí}.
+
+    \item El sistema obtiene el estado del cliente.
+
+    \item El sistema verifica que el estado del cliente sea
+      \textbf{en cambio de llaves} (tomando en cuenta la regla de negocios
+      \hipervinculo{rn:estados_cliente});
+      [\hipervinculoLocal{ta:cliente_no_en_cambio}].
+
+    \item El sistema verifica que no haya tokens relacionados con el cliente
+      que se encuentren en estado \textbf{anterior}.
+      [\hipervinculoLocal{ta:retokenizacion_incompleta}].
+
+    \item[llaves] El sistema elimina todas las llaves asociadas al cliente con
+      estado \textbf{anterior} [\hipervinculoLocal{ta:error_eliminar_llave}].
+
+    \item El sistema cambia el estado de todos los tokens relacionados con el
+      cliente que se encuentran en estado \textbf{retokenizado} a
+      \textbf{actual} [\hipervinculoLocal{ta:error_actualizar_token}].
+
+    \item El sistema cambia el estado del usuario a
+      \textbf{aceptado} [\hipervinculoLocal{ta:error_actualizar_estado_cliente}].
+
+  \end{trayectoriaPrincipal}
+
+  \begin{trayectoriaAlternativa}[ta:cliente_no_en_cambio]
+    {El cliente se encuentra en un estado distinto a
+      \textbf{en cambio de llaves}.}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:error_cliente_no_esta_en_cambio}.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:retokenizacion_incompleta]
+    {El cliente aún tiene tokens relacionados con estado \textbf{anterior}.}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:adv_retokenizacion_incompleta}.
+
+    \item El usuario presiona \textit{Aceptar}
+      [\hipervinculoLocal{ta:cancelar_terminar_refresco}].
+
+    \item El sistema elimina todos los tokens relacionados con el cliente que se
+      encuentran en estado \textbf{anterior}.
+
+    \item El sistema regresa al paso \referenciaLocal{llaves} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:error_eliminar_llave]
+    {Ocurrió un error al eliminar las llaves.}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:error_terminar_refresco}.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:error_actualizar_token]
+    {Ocurrió un error al actualizar el estado de los tokens.}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:error_terminar_refresco}.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:error_actualizar_estado_cliente]
+    {Ocurrió un error al actualizar el estado del cliente.}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:error_terminar_refresco}.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:cancelar_terminar_refresco]
+    {El cliente cancela el terminar con el refresco de llaves.}
+
+    \item El usuario presiona \textit{Cancelar}.
+
+    \item El sistema muestra la interfaz de inicio
+      \textit{inserte pantalla aquí}.
+
+  \end{trayectoriaAlternativa}
+}
