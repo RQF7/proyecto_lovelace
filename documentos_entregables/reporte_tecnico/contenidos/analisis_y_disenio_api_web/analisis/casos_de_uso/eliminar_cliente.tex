@@ -1,0 +1,43 @@
+%
+% Caso de uso para eliminar el registro de un cliente.
+% Capítulo de análisis y diseño de api web,
+% Proyecto Lovelace.
+%
+
+\casoDeUso[cu:eliminar_cliente]
+{Eliminar cuenta de un cliente}
+{
+  Permite a un usuario tipo \textbf{cliente} eliminar su cuenta.
+
+  \begin{trayectoriaPrincipal}
+
+    \item El cliente presiona \textit{eliminar cuenta} en la
+      interfaz \textit{inserte pantalla aquí}.
+
+    \item El sistema muestra el mensaje \hipervinculo{msj:adv_eliminar_cliente}.
+
+    \item El cliente presiona el botón \textit{aceptar}
+      [\hipervinculoLocal{ta:cancelar}].
+
+    \item El sistema obtiene el identificador del cliente.
+
+    \item El sistema elimina el registro del cliente en la base de datos.
+
+    \item El sistema elimina todos los tokens y las llaves relacionadas con el
+      cliente.
+
+    \item El sistema elimina las variables del sesión del cliente.
+
+    \item El sistema muestra la interfaz \hipervinculo{iu:inicio}.
+  \end{trayectoriaPrincipal}
+
+  \begin{trayectoriaAlternativa}[ta:cancelar]
+    {El visitante cancela la operación}
+
+    \item El visitante presiona el botón \textit{cancelar}.
+
+    \item El sistema muestra la interfaz
+      \hipervinculo{iu:administracion_de_tokens}.
+
+  \end{trayectoriaAlternativa}
+}
