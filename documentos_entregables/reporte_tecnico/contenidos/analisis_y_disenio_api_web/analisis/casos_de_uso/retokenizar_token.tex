@@ -25,9 +25,9 @@
       \hipervinculo{rn:estados_cliente});
       [\hipervinculoLocal{ta:cliente_sin_permisos}].
 
-    \item El sistema verifica que haya dos llaves; una con estado
-      \textbf{actual} y otra con estado \textbf{anterior} para cada algoritmo
-      [\hipervinculoLocal{ta:llaves_insuficientes}].
+    \item El sistema verifica que el el token dado sea válido (regla de
+      negocios \hipervinculo{rn:formato_de_token}).
+      [\hipervinculoLocal{ta:token_invalido}]
 
     \item El sistema verifica que el tipo de algoritmo utilizado sea
       \textbf{irreversible} (tomando en cuenta la regla de negocios
@@ -45,8 +45,7 @@
     \item El sistema obtiene el token correspondiente al número de tarjeta
       obtenido en el paso anterior utilizando el algoritmo especificado y la
       llave asociada al algoritmo con estado \textbf{actual}, tomando en cuenta
-      la regla de negocios \hipervinculo{rn:tokenizacion}
-      [\hipervinculoLocal{ta:error_tokenizacion}].
+      la regla de negocios \hipervinculo{rn:tokenizacion}.
 
     \item El sistema registra el token obtenido en el paso anterior en la base
       de datos con estado \textbf{actual} tomando en cuenta la regla de negocios
@@ -67,24 +66,8 @@
 
   \end{trayectoriaAlternativa}
 
-  \begin{trayectoriaAlternativa}[ta:llaves_insuficientes]
-    {Llaves insuficientes.}
-
-    \item El sistema regresa un valor nulo al cliente.
-      % Hay que regresar un error aquí.
-
-  \end{trayectoriaAlternativa}
-
   \begin{trayectoriaAlternativa}[ta:error_estado_token]
     {El token no se encuentra en estado \textbf{anterior}.}
-
-    \item El sistema regresa un valor nulo al cliente.
-      % Hay que regresar un error aquí.
-
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:error_actualizar_token]
-    {Ocurrió un error al actualizar el estado del token.}
 
     \item El sistema regresa un valor nulo al cliente.
       % Hay que regresar un error aquí.
@@ -95,12 +78,11 @@
     {El algoritmo especificado por el cliente es de tipo \textbf{reversible}.}
 
     \item El sistema obtiene el número de tarjeta con el token y la llave
-      asociada al algoritmo con estado \textbf{anterior}
-      [\hipervinculoLocal{ta:error_detokenizacion}].
+      asociada al algoritmo con estado \textbf{anterior}.
 
     \item El sistema obtiene el token correspondiente al número de tarjeta
       mediante el algoritmo especificado y la llave asociada con estado
-      \textbf{actual} [\hipervinculoLocal{ta:error_tokenizacion}].
+      \textbf{actual}.
 
     \item Regresar al paso \referenciaLocal{regreso_token} de la trayectoria
       principal.
@@ -109,6 +91,10 @@
 
   \begin{trayectoriaAlternativa}[ta:token_inexistente]
     {EL token especificado no se encuentra registrado en la base de datos.}
+
+    \item El sistema incrementa el contador de malas acciones del usuario
+      en tres unidades (regla de negocios
+      \hipervinculo{rn:malas_acciones}).
 
     \item El sistema regresa un valor nulo al cliente.
 
@@ -122,11 +108,13 @@
 
   \end{trayectoriaAlternativa}
 
-  \begin{trayectoriaAlternativa}[ta:error_tokenizacion]
-    {Ocurrió un error durante el proceso de tokenización.}
+  \begin{trayectoriaAlternativa}[ta:token_invalido]
+    {Token con formato inválido}
+
+    \item El sistema incrementa el contador de malas acciones del usuario
+      en una unidad (regla de negocios \hipervinculo{rn:malas_acciones}).
 
     \item El sistema regresa un valor nulo al cliente.
-      % Hay que regresar un error aquí.
 
   \end{trayectoriaAlternativa}
 

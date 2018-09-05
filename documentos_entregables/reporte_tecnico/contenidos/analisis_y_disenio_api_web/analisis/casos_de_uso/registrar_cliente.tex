@@ -49,11 +49,12 @@
       \hipervinculo{rn:unicidad_correo} [\hipervinculoLocal{ta:usuario_existente}].
 
     \item El sistema crea un nuevo cliente en estado \textbf{no verificado},
-      según la regla de negocios \hipervinculo{rn:estados_cliente}.
+      según la regla de negocios \hipervinculo{rn:estados_cliente} y un nuevo
+      vínculo tomando en cuenta la regla de negocios
+      \hipervinculo{rn:hipervinculo_verificacion}.
 
     \item El sistema manda un correo al cliente con un hipervínculo de
-      verificación, tomando en cuenta la regla de negocios
-      \hipervinculo{rn:hipervinculo_verificacion}.
+      verificación.
 
     \item El sistema muestra la ventana
       \hipervinculo{iu:aviso_de_correo_de_confirmacion}.
@@ -132,8 +133,7 @@
     \item El sistema muestra la ventana
       \hipervinculo{iu:aviso_de_expiracion_de_vinculo}.
 
-    \item El sistema elimina el registro del usuario
-      [\hipervinculoLocal{ta:acceso_a_vinculo_expirado}].
+    \item El sistema elimina el registro del usuario.
 
   \end{trayectoriaAlternativa}
 }

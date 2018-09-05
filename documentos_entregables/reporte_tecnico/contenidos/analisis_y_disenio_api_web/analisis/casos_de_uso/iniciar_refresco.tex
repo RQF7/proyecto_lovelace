@@ -12,108 +12,19 @@
   \begin{trayectoriaPrincipal}
 
     \item El cliente presiona \textit{Iniciar refresco de llaves} en la interfaz
-      \textit{inserte pantalla aquí}.
-
-    \item El sistema obtiene el estado del cliente.
-
-    \item El sistema verifica que el estado del cliente sea
-      \textbf{aceptado} (tomando en cuenta la regla de negocios
-      \hipervinculo{rn:estados_cliente});
-      [\hipervinculoLocal{ta:cliente_en_cambio}].
+      \hipervinculo{iu:administrar_tokens}.
 
     \item El sistema cambia el estado de todos los tokens relacionados a él, con
-      estado \textbf{actual} a \textbf{anterior}
-      [\hipervinculoLocal{ta:error_actualizar_token}].
+      estado \textbf{actual} a \textbf{anterior}.
 
     \item El sistema cambia el estado de todas las llaves asociadas con el
-      usuario en estado \textbf{actual} a \textbf{anterior}
-      [\hipervinculoLocal{ta:error_actualizar_llave}].
+      usuario en estado \textbf{actual} a \textbf{anterior}.
 
-    \item El sistema crea un juego nuevo de llaves y las asocia al cliente
-      con estado \textbf{actual} [\hipervinculoLocal{ta:error_crear_llave}].
+    \item El sistema crea un juego nuevo de llaves con estado \textbf{actual}
+      y las asocia al cliente.
 
     \item El sistema cambia el estado del usuario a
-      \textbf{en cambio de llaves}
-      [\hipervinculoLocal{ta:error_actualizar_estado_cliente}].
+      \textbf{en cambio de llaves}.
 
   \end{trayectoriaPrincipal}
-
-  \begin{trayectoriaAlternativa}[ta:cliente_en_cambio]
-    {El cliente se encuentra en estado \textbf{en cambio de llaves}.}
-
-    \item El sistema muestra el mensaje
-      \hipervinculo{msj:error_cliente_ya_esta_en_cambio}.
-
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:error_actualizar_token]
-    {Ocurrió un error al actualizar el estado de los tokens.}
-
-    \item El sistema muestra el mensaje
-      \hipervinculo{msj:error_iniciar_refresco}.
-
-    %% Se asume que estamos usando transacciones en la base de datos y, si no
-    %% se completan exitosamente, se hace un rollback; si no, va a quedar
-    %% toda inconsistente nuestra base. También podemos asumir que todos los
-    %% tokens tenian estado actual, así que un paso aquí sería poner todos en
-    %% estado actual de nuevo.
-
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:error_actualizar_llave]
-    {Ocurrió un error al actualizar el estado de las llaves.}
-
-    \item El sistema cambia el estado de todos los tokens con estado
-      \textbf{anterior} a \textbf{actual}.
-
-    \item El sistema muestra el mensaje
-      \hipervinculo{msj:error_iniciar_refresco}.
-
-    %% Aqui también se asume que estamos usando transacciones en la base de
-    %% datos y, si no se completan exitosamente, se hace un rollback; si no, va
-    %% a quedar toda inconsistente nuestra base.
-
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:error_crear_llave]
-    {Ocurrió un error al crear una llave.}
-
-    \item El sistema cambia el estado de todos los tokens con estado
-      \textbf{anterior} a \textbf{actual}.
-
-    \item El sistema elimina todas las llaves asociadas con estado
-      \textbf{actual}.
-
-    \item El sistema cambia el estado de todas las llaves con estado
-      \textbf{anterior} a \textbf{actual}.
-
-    \item El sistema muestra el mensaje
-      \hipervinculo{msj:error_iniciar_refresco}.
-
-    %% Aqui también se asume que estamos usando transacciones en la base de
-    %% datos y, si no se completan exitosamente, se hace un rollback; si no, va
-    %% a quedar toda inconsistente nuestra base.
-
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:error_actualizar_estado_cliente]
-    {Ocurrió un error al actualizar el estado del cliente.}
-
-    \item El sistema cambia el estado de todos los tokens con estado
-      \textbf{anterior} a \textbf{actual}.
-
-    \item El sistema elimina todas las llaves asociadas con estado
-      \textbf{actual}.
-
-    \item El sistema cambia el estado de todas las llaves con estado
-      \textbf{anterior} a \textbf{actual}.
-
-    \item El sistema muestra el mensaje
-      \hipervinculo{msj:error_iniciar_refresco}.
-
-    %% Aqui también se asume que estamos usando transacciones en la base de
-    %% datos y, si no se completan exitosamente, se hace un rollback; si no, va
-    %% a quedar toda inconsistente nuestra base.
-
-  \end{trayectoriaAlternativa}
 }

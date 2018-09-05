@@ -42,8 +42,11 @@
     \item El sistema identifica el tipo de actor que está iniciando
       sesión [\hipervinculoLocal{ta:administrador}].
 
+    \item El sistema obtiene el estado del cliente.
+
     \item El sistema muestra la pantalla
-      \hipervinculo{iu:administracion_de_tokens}.
+      \hipervinculo{iu:administracion_de_tokens} tomando en cuenta el estado
+      del cliente.
 
   \end{trayectoriaPrincipal}
 
@@ -72,7 +75,7 @@
   \end{trayectoriaAlternativa}
 
   \begin{trayectoriaAlternativa}[ta:cliente_no_verificado]
-    {Cliente no verificado}
+    {Correo no verificado}
 
     \item El sistema muestra el mensaje
       \hipervinculo{msj:cliente_no_verificado}.
@@ -118,8 +121,17 @@
   \begin{trayectoriaAlternativa}[ta:administrador]
     {El tipo de actor es un administrador}
 
+    \item El sistema recupera la información de los diez primeros clientes
+      de los siguientes estados:
+      \begin{itemize}
+        \item \textbf{aprobados} o \textbf{en cambio de llaves}.
+        \item \textbf{verificados}.
+        \item \textbf{en lista negra}.
+      \end{itemize}
+
     \item El sistema muestra la pantalla
-      \hipervinculo{iu:administracion}.
+      \hipervinculo{iu:administracion} con los datos obtenidos en el paso
+      anterior.
 
   \end{trayectoriaAlternativa}
 }

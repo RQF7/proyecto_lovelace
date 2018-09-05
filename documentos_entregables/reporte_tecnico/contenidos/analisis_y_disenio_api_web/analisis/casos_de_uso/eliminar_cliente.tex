@@ -12,14 +12,12 @@
   \begin{trayectoriaPrincipal}
 
     \item El cliente presiona \textit{eliminar cuenta} en la
-      interfaz \textit{inserte pantalla aquí}.
+      interfaz \hipervinculo{iu:administracion_de_tokens}.
 
     \item El sistema muestra el mensaje \hipervinculo{msj:adv_eliminar_cliente}.
 
     \item El cliente presiona el botón \textit{aceptar}
       [\hipervinculoLocal{ta:cancelar}].
-
-    \item El sistema obtiene el identificador del cliente.
 
     \item El sistema elimina el registro del cliente en la base de datos.
 
@@ -32,9 +30,9 @@
   \end{trayectoriaPrincipal}
 
   \begin{trayectoriaAlternativa}[ta:cancelar]
-    {El visitante cancela la operación}
+    {El cliente cancela la operación}
 
-    \item El visitante presiona el botón \textit{cancelar}.
+    \item El cliente presiona el botón \textit{cancelar}.
 
     \item El sistema muestra la interfaz
       \hipervinculo{iu:administracion_de_tokens}.

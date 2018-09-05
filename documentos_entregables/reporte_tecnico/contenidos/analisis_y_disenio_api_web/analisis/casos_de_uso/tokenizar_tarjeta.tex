@@ -7,8 +7,8 @@
 \casoDeUso[cu:tokenizar_tarjeta]
 {Tokenizar un número de tarjeta}
 {
-  Permite a un usuario tipo \textbf{cliente}, dada una conexión establecida, obtener el
-  token de una tarjeta.
+  Permite a un usuario tipo \textbf{cliente}, dada una conexión establecida,
+  obtener el token de una tarjeta.
 
   \begin{trayectoriaPrincipal}
 
@@ -35,8 +35,7 @@
 
     \item El sistema obtiene el token utilizando el algoritmo especificado y la
       llave asociada al algoritmo con estado \textbf{actual}, tomando en cuenta
-      la regla de negocios \hipervinculo{rn:tokenizacion}
-      [\hipervinculoLocal{ta:llave_actual_inexistente}].
+      la regla de negocios \hipervinculo{rn:tokenizacion}.
 
     \item El sistema registra el token obtenido en el paso anterior en la base
       de datos con estado \textbf{actual} tomando en cuenta la regla de negocios
@@ -60,8 +59,7 @@
 
     \item El sistema obtiene el token con el algoritmo especificado utilizando
       la llave con estado \textbf{actual}, tomando en cuenta la regla de
-      negocios \hipervinculo{rn:tokenizacion}
-      [\hipervinculoLocal{ta:llave_actual_inexistente}].
+      negocios \hipervinculo{rn:tokenizacion}.
 
     \item Regresar al paso \referenciaLocal{regreso_token} de la trayectoria
       principal.
@@ -72,23 +70,7 @@
     {El cliente ya tiene un token relacionado con esa tarjeta.}
 
     \item El sistema regresa un valor nulo al cliente.
-      % Hay que regresar un error aquí.
-
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:llave_actual_inexistente]
-    {El cliente no tiene una llave asociada con estado \textbf{actual}.}
-
-    \item El sistema regresa un valor nulo al cliente.
-      % Hay que regresar un error aquí.
-
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:error_tokenizacion]
-    {Ocurrió un error durante el proceso de tokenización.}
-
-    \item El sistema regresa un valor nulo al cliente.
-      % Hay que regresar un error aquí.
+      % Hay que regresar un error
 
   \end{trayectoriaAlternativa}
 

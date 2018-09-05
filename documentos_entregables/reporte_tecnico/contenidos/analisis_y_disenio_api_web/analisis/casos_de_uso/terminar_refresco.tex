@@ -12,14 +12,7 @@
   \begin{trayectoriaPrincipal}
 
     \item El cliente presiona \textit{Terminar refresco de llaves} en la
-      interfaz \textit{inserte pantalla aquí}.
-
-    \item El sistema obtiene el estado del cliente.
-
-    \item El sistema verifica que el estado del cliente sea
-      \textbf{en cambio de llaves} (tomando en cuenta la regla de negocios
-      \hipervinculo{rn:estados_cliente});
-      [\hipervinculoLocal{ta:cliente_no_en_cambio}].
+      interfaz \hipervinculo{iu:administrar_tokens}.
 
     \item El sistema verifica que no haya tokens relacionados con el cliente
       que se encuentren en estado \textbf{anterior}.
@@ -30,10 +23,9 @@
 
     \item El sistema cambia el estado de todos los tokens relacionados con el
       cliente que se encuentran en estado \textbf{retokenizado} a
-      \textbf{actual} [\hipervinculoLocal{ta:error_actualizar_token}].
+      \textbf{actual}.
 
-    \item El sistema cambia el estado del usuario a
-      \textbf{aceptado} [\hipervinculoLocal{ta:error_actualizar_estado_cliente}].
+    \item El sistema cambia el estado del cliente a \textbf{aprobado}.
 
   \end{trayectoriaPrincipal}
 
@@ -63,37 +55,13 @@
 
   \end{trayectoriaAlternativa}
 
-  \begin{trayectoriaAlternativa}[ta:error_eliminar_llave]
-    {Ocurrió un error al eliminar las llaves.}
-
-    \item El sistema muestra el mensaje
-      \hipervinculo{msj:error_terminar_refresco}.
-
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:error_actualizar_token]
-    {Ocurrió un error al actualizar el estado de los tokens.}
-
-    \item El sistema muestra el mensaje
-      \hipervinculo{msj:error_terminar_refresco}.
-
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:error_actualizar_estado_cliente]
-    {Ocurrió un error al actualizar el estado del cliente.}
-
-    \item El sistema muestra el mensaje
-      \hipervinculo{msj:error_terminar_refresco}.
-
-  \end{trayectoriaAlternativa}
-
   \begin{trayectoriaAlternativa}[ta:cancelar_terminar_refresco]
     {El cliente cancela el terminar con el refresco de llaves.}
 
     \item El usuario presiona \textit{Cancelar}.
 
     \item El sistema muestra la interfaz de inicio
-      \textit{inserte pantalla aquí}.
+      \hipervinculo{iu:administrar_tokens}.
 
   \end{trayectoriaAlternativa}
 }

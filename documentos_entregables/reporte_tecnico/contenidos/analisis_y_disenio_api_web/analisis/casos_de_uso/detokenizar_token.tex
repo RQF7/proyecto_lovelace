@@ -25,6 +25,10 @@
       \hipervinculo{rn:estado_de_usuario});
       [\hipervinculoLocal{ta:cliente_sin_permisos}].
 
+    \item El sistema verifica que el el token dado sea válido (regla de
+      negocios \hipervinculo{rn:formato_de_token}).
+      [\hipervinculoLocal{ta:token_invalido}]
+
     \item El sistema verifica que el tipo de algoritmo utilizado sea
       \textbf{irreversible} (tomando en cuenta la regla de negocios
       \hipervinculo{rn:tipo_de_algoritmo});
@@ -53,7 +57,7 @@
     {El cliente se encuentra en estado \textbf{aceptado} y el algoritmo
     especificado es de tipo \textbf{reversible}.}
 
-    \item El sistema obtiene el númer de tarjeta con el token y la llave
+    \item El sistema obtiene el número de tarjeta con el token y la llave
       con estado \textbf{actual}, tomando en cuenta la regla de negocios
       \hipervinculo{rn:detokenizacion}
       [\hipervinculoLocal{ta:error_detokenizacion}].
@@ -72,9 +76,7 @@
       \hipervinculo{rn:detokenizacion_en_refresco}.
 
     \item El sistema obtiene el número de tarjeta con el token y la llave
-      especificada en el paso anterior
-      [\hipervinculoLocal{ta:error_detokenizacion},
-      [\hipervinculoLocal{ta:llave_actual_inexistente}]].
+      especificada en el paso anterior.
 
     \item Regresar al paso \referenciaLocal{regreso_tarjeta} de la trayectoria
       principal.
@@ -84,23 +86,22 @@
   \begin{trayectoriaAlternativa}[ta:token_inexistente]
     {EL token especificado no se encuentra registrado en la base de datos.}
 
+
+    \item El sistema incrementa el contador de malas acciones del usuario
+      en tres unidades (regla de negocios
+      \hipervinculo{rn:malas_acciones}).
+
     \item El sistema regresa un valor nulo al cliente.
 
   \end{trayectoriaAlternativa}
 
-  \begin{trayectoriaAlternativa}[ta:error_detokenizacion]
-    {Ocurrió un error durante el proceso de detokenización.}
+  \begin{trayectoriaAlternativa}[ta:token_invalido]
+    {Token con formato inválido}
+
+    \item El sistema incrementa el contador de malas acciones del usuario
+      en una unidad (regla de negocios \hipervinculo{rn:malas_acciones}).
 
     \item El sistema regresa un valor nulo al cliente.
-      % Hay que regresar un error aquí.
-
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:llave_actual_inexistente]
-    {El cliente no tiene una llave asociada con estado \textbf{actual}.}
-
-    \item El sistema regresa un valor nulo al cliente.
-      % Hay que regresar un error aquí.
 
   \end{trayectoriaAlternativa}
 }

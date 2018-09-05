@@ -12,18 +12,18 @@
   \begin{trayectoriaPrincipal}
 
     \item El cliente presiona \textit{Actualizar información} en la
-      interfaz \textit{inserte pantalla aquí}.
+      interfaz \hipervinculo{iu:administracion_de_tokens}.
 
     \item El sistema muestra la interfaz
-      \textit{inserte pantalla de edición aquí} con el botón \textit{aceptar}
+      \hipervinculo{actualizar_cliente} con el botón \textit{aceptar}
       deshabilitado.
 
-    \item[datos] El visitante introduce un correo electrónico y una contraseña
+    \item[datos] El cliente introduce un correo electrónico y una contraseña
       (junto con su confirmación) [\hipervinculoLocal{ta:cancelar}].
 
     \item El sistema habilita el botón \textit{aceptar}.
 
-    \item El visitante presiona el botón \textit{aceptar}.
+    \item El cliente presiona el botón \textit{aceptar}.
 
     \item El sistema valida el correo electrónico de acuerdo a la regla
       \hipervinculo{rn:correo_electronico}
@@ -42,32 +42,27 @@
       \hipervinculo{rn:unicidad_correo}
       [\hipervinculoLocal{ta:usuario_existente}].
 
-    \item El sistema guarda en la base de datos el nuevo correo con el estado
-      de \textbf{no verificado} y su respectiva contraseña.
+      \item El sistema registra la nueva dirección del cliente en estado
+        \textbf{no verificado}, según la regla de negocios
+        \hipervinculo{rn:estados_cliente} y un nuevo vínculo tomando en cuenta
+        la regla de negocios
+        \hipervinculo{rn:hipervinculo_verificacion}, \hipervinculo{rn:estados_correo}.
 
-    \item El sistema vincula el correo electrónico nuevo con el usuario en la
-      base de datos.
+      \item El sistema manda un correo al cliente con un hipervínculo de
+        verificación.
 
-    \item El sistema manda un correo al cliente con un hipervínculo de
-      verificación, tomando en cuenta la regla de negocios
-      \hipervinculo{rn:hipervinculo_verificacion}.
+      \item El sistema muestra la ventana
+        \hipervinculo{iu:aviso_de_correo_de_confirmacion}.
 
-    \item El sistema muestra la ventana
-      \hipervinculo{iu:aviso_de_correo_de_confirmacion}.
+      \item El cliente accede a la \gls{gl:url} enviada a su correo.
 
-    \item El cliente accede a la \gls{gl:url} enviada a su correo.
+      \item El sistema verifica, mediante la fecha de creación del vínculo, que no
+        haya expirado, tomando en cuenta la regla de negocios
+        \hipervinculo{rn:verificacion_de_cuentas}
+        [\hipervinculoLocal{ta:expiracion_de_vinculo}].
 
-    \item El sistema verifica, mediante la fecha de creación del vínculo, que no
-      haya expirado, tomando en cuenta la regla de negocios
-      \hipervinculo{rn:verificacion_de_cuentas}
-      [\hipervinculoLocal{ta:expiracion_de_vinculo}].
-
-    \item El sistema obtiene el estado de la entrada de correo eletrónico
-      relacionada al cliente que no tenga estado \textbf{no verificado} y la
-      elimina.
-
-    \item El sistema cambia el estado de la entrada del correo electrónico cuyo
-      estado es \textbf{no verificado} al estado obtenido en el paso anterior.
+      \item El sistema cambia el estado del correo del cliente a \textbf{verificado},
+        según la regla de negocios \hipervinculo{rn:estados_correo}.
 
   \end{trayectoriaPrincipal}
 
@@ -130,7 +125,7 @@
     \item El sistema muestra la ventana
       \hipervinculo{iu:aviso_de_expiracion_de_vinculo}.
 
-    \item El sistema elimina el registro del usuario
+    \item El sistema elimina el registro del correo electrónico del usuario
       [\hipervinculoLocal{ta:acceso_a_vinculo_expirado}].
 
   \end{trayectoriaAlternativa}

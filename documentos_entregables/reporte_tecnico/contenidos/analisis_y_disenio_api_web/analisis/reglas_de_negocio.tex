@@ -104,8 +104,7 @@ definido en \cite{mozilla_er}.
 {
   Un cliente puede tener los siguientes estados:
   \begin{itemize}
-    \item No verificado
-    \item Verificado
+    \item En espera
     \item Aprobado
     \item Rechazado
     \item En cambio de llave
@@ -165,6 +164,40 @@ definido en \cite{mozilla_er}.
     tenía asociada otra llave, el estado de la llave existente cambia a
     \textbf{anterior}.
   \end{hangparas}
+}
+
+\reglaDeNegocio[rn:estados_correo]
+{Estados de un correo electrónico}
+{
+  Un correo electrónico puede tener los siguientes estados:
+  \begin{itemize}
+    \item Verificado
+    \item No verificado
+  \end{itemize}
+
+  Cuando un correo es registrado, su estado es \textbf{no verificado}.
+}
+
+\reglaDeNegocio[rn:malas_acciones]
+{Contador de malas acciones}
+{
+  Todo cliente tiene asociado un cliente de malas acciones que aumenta de la
+  siguiente manera:
+  \begin{itemize}
+    \item Aumentar en tres cuando un cliente intenta detokenizar tokens válidos
+      que no son suyos.
+    \item Aumentar en uno cuando un cliente intenta detokenizar tokens no válidos.
+    \item Aumentar en uno cuando un cliente intente acceder a páginas que no tiene acceso.
+  \end{itemize}
+
+  Cuando un cliente es creado, el contador está en cero.
+}
+
+\reglaDeNegocio[rn:top_malas_acciones]
+{Cliente muy malo}
+{
+  Cuando el contador de malas acciones de un cliente sea mayor o igual a 10,
+  el estado del cliente deberá ser actualizado a  \textbf{en lista negra}.
 }
 
 \reglaDeNegocio[rn:tokenizacion]
