@@ -1,0 +1,19 @@
+%
+% Plantilla para títulos de partes,
+% Reporte técnico.
+%
+% Proyecto Lovelace.
+%
+
+% Comando para definir una parte
+% 1-> Título de la parte.
+% 2 y 3 -> Etiqueta y epígrafe.
+%
+
+\newcommand{\parte}[3]
+{
+  \part{#1}
+  \label{#2}
+  #3
+  \newpage
+}

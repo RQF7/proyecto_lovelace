@@ -124,4 +124,6 @@ citas para cada uno.
     Carl Sagan.
 2. >You don't understand anything until you learn it more than one way. Marvin
     Minsky.
-
+3. >"Begin at the beginning," the King said, very gravely, "and go on till you
+    came to the end: then stop."
+    Lewis Carroll.
