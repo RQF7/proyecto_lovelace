@@ -5,9 +5,20 @@
 % Proyecto Lovelace.
 %
 
-% Por si hay más de un apéndice:
-\appendixpage
+\newpage
+\phantomsection
 \addcontentsline{toc}{part}{Apéndices}
+\parteSinNumero{Apéndices}{parte:apendices}
+{
+  \epigrafe
+  {%
+    ``Begin at the beginning,'' the King said, very gravely, ``and go on till
+    you came to the end: then stop.''%
+  }
+  {%
+    \textsc{Lewis Carroll}.%
+  }
+}
 
 \begin{appendices}
   \subimport{administracion_llaves/}{administracion_llaves}
