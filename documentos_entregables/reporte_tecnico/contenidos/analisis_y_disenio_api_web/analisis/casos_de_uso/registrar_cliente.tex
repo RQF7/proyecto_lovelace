@@ -11,9 +11,9 @@
   un cliente del sistema tokenizador (en conformidad con la regla de negocio
   \hipervinculo{rn:tipo_de_usuario}). El visitante introduce los datos
   necesarios para su registro, esto es, correo electrónico y constraseña; el
-  sistema registra un nuevo usuario en estado \textit{no verificado} y manda un
-  correo al cliente con un hipervínculo de activación; el cliente verifica su
-  registro y el sistema lo pasa al estado \textit{verificado}.
+  sistema registra un nuevo usuario en estado \textbf{no verificado} y manda un
+  correo al cliente con un hipervínculo de verificación; el cliente verifica su
+  registro y el sistema lo pasa al estado \textbf{verificado}.
 
   \begin{trayectoriaPrincipal}
 
@@ -27,6 +27,10 @@
 
     \item[datos] El visitante introduce un correo electrónico y una contraseña
       (junto con su confirmación) [\hipervinculoLocal{ta:cancelar}].
+
+    \item El sistema habilita el botón \textit{aceptar}.
+
+    \item El visitante presiona el botón \textit{aceptar}.
 
     \item El sistema valida el correo electrónico de acuerdo a la regla
       \hipervinculo{rn:correo_electronico}
@@ -44,24 +48,24 @@
       a un usuario tomando en cuenta la regla de negocios
       \hipervinculo{rn:unicidad_correo} [\hipervinculoLocal{ta:usuario_existente}].
 
-    \item El sistema crea un nuevo cliente en estado \textit{no verificado},
+    \item El sistema crea un nuevo cliente en estado \textbf{no verificado},
       según la regla de negocios \hipervinculo{rn:estados_cliente}.
 
     \item El sistema manda un correo al cliente con un hipervínculo de
-      activación.
+      verificación, tomando en cuenta la regla de negocios
+      \hipervinculo{rn:hipervinculo_verificacion}.
 
     \item El sistema muestra la ventana
       \hipervinculo{iu:aviso_de_correo_de_confirmacion}.
 
-    \item El cliente accede a la \gls{gl:url} enviada a su correo
-      [\hipervinculoLocal{ta:expiracion_de_vinculo}].
+    \item El cliente accede a la \gls{gl:url} enviada a su correo.
 
-    \item El sistema verifica, tomando en cuenta la fecha de creación del
-      vínculo, que no haya expirado, tomando en cuenta la regla de negocios
+    \item El sistema verifica, mediante la fecha de creación del vínculo, que no
+      haya expirado, tomando en cuenta la regla de negocios
       \hipervinculo{rn:verificacion_de_cuentas}
       [\hipervinculoLocal{ta:expiracion_de_vinculo}].
 
-    \item El sistema cambia el estado del cliente a \textit{verificado},
+    \item El sistema cambia el estado del cliente a \textbf{verificado},
       según la regla de negocios \hipervinculo{rn:estados_cliente}.
 
     \item El sistema muestra la ventana

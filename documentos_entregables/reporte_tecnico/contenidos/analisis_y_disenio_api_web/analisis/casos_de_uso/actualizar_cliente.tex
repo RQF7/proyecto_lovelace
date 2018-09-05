@@ -1,0 +1,138 @@
+%
+% Caso de uso para actualizar la información de un cliente.
+% Capítulo de análisis y diseño de api web,
+% Proyecto Lovelace.
+%
+
+\casoDeUso[cu:actualizar_cliente]
+{Actualizar información de un cliente}
+{
+  Permite a un usuario tipo \textbf{cliente} actualizar sus datos.
+
+  \begin{trayectoriaPrincipal}
+
+    \item El cliente presiona \textit{Actualizar información} en la
+      interfaz \textit{inserte pantalla aquí}.
+
+    \item El sistema muestra la interfaz
+      \textit{inserte pantalla de edición aquí}con el botón \textit{aceptar}
+      deshabilitado.
+
+    \item[datos] El visitante introduce un correo electrónico y una contraseña
+      (junto con su confirmación) [\hipervinculoLocal{ta:cancelar}].
+
+    \item El sistema habilita el botón \textit{aceptar}.
+
+    \item El visitante presiona el botón \textit{aceptar}.
+
+    \item El sistema valida el correo electrónico de acuerdo a la regla
+      \hipervinculo{rn:correo_electronico}
+      [\hipervinculoLocal{ta:correo_incorrecto}].
+
+    \item El sistema valida el formato de la contraseña de acuerdo a la regla
+      \hipervinculo{rn:formato_de_contrasenias}
+      [\hipervinculoLocal{ta:contrasenia_incorrecta}].
+
+    \item El sistema valida que la confirmación de la contraseña coincida con
+      la contraseña introducida
+      [\hipervinculoLocal{ta:confirmacion_incorrecta}].
+
+    \item El sistema valida que el correo introducido no se encuentre ya
+      asignado a un usuario, tomando en cuenta la regla de negocios
+      \hipervinculo{rn:unicidad_correo}
+      [\hipervinculoLocal{ta:usuario_existente}].
+
+    \item El sistema guarda en la base de datos el nuevo correo con el estado
+      de \textbf{no verificado} y su respectiva contraseña.
+
+    \item El sistema vincula el correo electrónico nuevo con el usuario en la
+      base de datos.
+
+    \item El sistema manda un correo al cliente con un hipervínculo de
+      verificación, tomando en cuenta la regla de negocios
+      \hipervinculo{rn:hipervinculo_verificacion}.
+
+    \item El sistema muestra la ventana
+      \hipervinculo{iu:aviso_de_correo_de_confirmacion}.
+
+    \item El cliente accede a la \gls{gl:url} enviada a su correo.
+
+    \item El sistema verifica, mediante la fecha de creación del vínculo, que no
+      haya expirado, tomando en cuenta la regla de negocios
+      \hipervinculo{rn:verificacion_de_cuentas}
+      [\hipervinculoLocal{ta:expiracion_de_vinculo}].
+
+    \item El sistema obtiene el estado de la entrada de correo eletrónico
+      relacionada al cliente que no tenga estado \textbf{no verificado} y la
+      elimina.
+
+    \item El sistema cambia el estado de la entrada del correo electrónico cuyo
+      estado es \textbf{no verificado} al estado obtenido en el paso anterior.
+
+  \end{trayectoriaPrincipal}
+
+  \begin{trayectoriaAlternativa}[ta:cancelar]
+    {El visitante cancela la operación}
+
+    \item El visitante presiona el botón \textit{cancelar}.
+
+    \item El sistema muestra la interfaz de origen del paso
+      \referenciaLocal{origen} de la trayectoria principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:correo_incorrecto]
+    {Correo electrónico incorrecto}
+
+    \item El sistema muestra el mensaje \hipervinculo{msj:correo_incorrecto}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:contrasenia_incorrecta]
+    {Contraseña incorrecta}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:contrasenia_incorrecta}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:confirmacion_incorrecta]
+    {Confirmación de contraseña incorrecta}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:confirmacion_incorrecta}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:usuario_existente]
+    {Correo registrado previamente}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:usuario_existente}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:expiracion_de_vinculo]
+    {Vínculo expirado}
+
+    \item El sistema muestra la ventana
+      \hipervinculo{iu:aviso_de_expiracion_de_vinculo}.
+
+    \item El sistema elimina el registro del usuario
+      [\hipervinculoLocal{ta:acceso_a_vinculo_expirado}].
+
+  \end{trayectoriaAlternativa}
+
+}
