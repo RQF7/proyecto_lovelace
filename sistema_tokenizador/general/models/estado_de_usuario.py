@@ -21,5 +21,5 @@ class EstadoDeUsuario (models.Model):
 
 
   def __str__(self):
-    """Representación en cadena de un tipo de usuario."""
+    """Representación en cadena de un estado de usuario."""
     return str(self.id) + ' - ' + self.nombre
