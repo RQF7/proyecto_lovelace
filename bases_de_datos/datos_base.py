@@ -14,6 +14,8 @@ django.setup()
 
 from sistema_tokenizador.general.models.estado_de_usuario \
   import EstadoDeUsuario
+from sistema_tokenizador.general.models.estado_de_correo \
+  import EstadoDeCorreo
 from sistema_tokenizador.general.models.tipo_de_usuario \
   import TipoDeUsuario
 from sistema_tokenizador.programa_tokenizador.models.algoritmo \
@@ -47,10 +49,9 @@ if __name__ == '__main__':
   guardar(tiposDeUsuario)
 
   estadosDeUsuario = [
-    EstadoDeUsuario(nombre = 'no verificado'),
-    EstadoDeUsuario(nombre = 'verificado'),
-    EstadoDeUsuario(nombre = 'rechazado'),
+    EstadoDeUsuario(nombre = 'en espera'),
     EstadoDeUsuario(nombre = 'aprobado'),
+    EstadoDeUsuario(nombre = 'rechazado'),
     EstadoDeUsuario(nombre = 'en cambio de llaves'),
     EstadoDeUsuario(nombre = 'en lista negra')]
 
@@ -68,6 +69,12 @@ if __name__ == '__main__':
     EstadoDeLlave(nombre = 'anterior')]
 
   guardar(estadosDeLlave)
+
+  estadosDeCorreo = [
+    EstadoDeCorreo(nombre = 'verificado'),
+    EstadoDeCorreo(nombre = 'no verificado')]
+
+  guardar(estadosDeCorreo)
 
   tiposDeAlgoritmos = [
     TipoDeAlgoritmo(nombre = 'reversible'),
