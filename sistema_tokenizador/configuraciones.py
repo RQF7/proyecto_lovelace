@@ -12,16 +12,16 @@ import os
 # Configuraciones propias #####################################################
 
 EJECUTABLE_TOKENIZADOR = 'implementaciones/binarios/lovelace'
-DIRECTORIO_BASE = ''
+DIRECTORIO_BASE = '/home/ricardo/proyecto_lovelace/'
 
 # Configuraciones generales ###################################################
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOGIN_URL = '/'
 SECRET_KEY = 'pdm$49m@g!kedc&f!t+tem!hex-t4p^3+id(4v354lmog3su0c'
-DEBUG = True
+DEBUG = False,
 ALLOWED_HOSTS = [
-  "127.0.0.1"
+  "159.65.96.59",
+  "ricardo-quezada.159.65.96.59.xip.io"
 ]
 
 # Definición de aplicaciones ##################################################
@@ -135,8 +135,8 @@ STATICFILES_DIRS = [
 ]
 
 # En teoría, para desactivar la caché en esta versión de desarrollo
-CACHES = {
-  'default': {
-    'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-  }
-}
+# CACHES = {
+#   'default': {
+#     'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+#   }
+# }
