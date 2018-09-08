@@ -26,7 +26,7 @@ def inicio (peticion):
 
   respuesta = open(\
     DIRECTORIO_BASE +
-    'sistema_tokenizador/archivos_web/compilados/index.html')
+    'sistema_tokenizador/archivos_web/compilados/index.html', 'rb')
   return HttpResponse(content = respuesta)
 
 

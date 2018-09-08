@@ -18,9 +18,8 @@ DIRECTORIO_BASE = '/home/ricardo/proyecto_lovelace/'
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'pdm$49m@g!kedc&f!t+tem!hex-t4p^3+id(4v354lmog3su0c'
-DEBUG = False,
+DEBUG = True,
 ALLOWED_HOSTS = [
-  "159.65.96.59",
   "ricardo-quezada.159.65.96.59.xip.io"
 ]
 
@@ -72,7 +71,7 @@ TEMPLATES = [
   },
 ]
 
-WSGI_APPLICATION = 'sistema_tokenizador.servidor_web.aplicacion'
+WSGI_APPLICATION = 'sistema_tokenizador.servidor_web.application'
 
 
 # Base de datos ###############################################################

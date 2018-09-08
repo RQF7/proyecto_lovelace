@@ -11,7 +11,7 @@ sistemaTokenizador.factory('api', [
   )
   {
     var API = {};
-    var RUTA_BASE = '/api';
+    var RUTA_BASE = '/lovelace/api';
 
     API.obtenerUsuarioDeSesion = function () {
       return $http.get(RUTA_BASE + '/usuario_de_sesion');
