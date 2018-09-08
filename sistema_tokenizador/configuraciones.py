@@ -72,7 +72,7 @@ TEMPLATES = [
   },
 ]
 
-WSGI_APPLICATION = 'sistema_tokenizador.servidor_web.aplicacion'
+WSGI_APPLICATION = 'sistema_tokenizador.servidor_web.application'
 
 
 # Base de datos ###############################################################
