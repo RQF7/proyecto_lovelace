@@ -37,6 +37,7 @@ before_install:
     python3.6
     python3.6-dev
     libmariadbclient-dev
+    sshpass
   # Cryptopp
   - wget --quiet https://cryptopp.com/cryptopp600.zip
   - unzip --qq -a -d cryptopp cryptopp600.zip
