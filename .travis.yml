@@ -67,7 +67,10 @@ install:
   - cd ..
   - virtualenv -p /usr/bin/python3.6 entorno_virtual
   - source entorno_virtual/bin/activate
-  - pip install -r dependencias_python.txt
+  - cat dependencias_python.txt | grep -v "mod-wsgi" >
+    dependencias_temporales.txt
+  - pip install -r dependencias_temporales.txt
+  - rm dependencias_temporales.txt
   - python administrar.py makemigrations general programa_tokenizador
   - python administrar.py migrate
   - python bases_de_datos/datos_base.py
