@@ -10,7 +10,7 @@
 ./travis/actualizar_repositorio.sh $1
 npm install
 grunt
-source entorno_virtual/bin/activate
+. entorno_virtual/bin/activate
 python administrar.py makemigrations general programa_tokenizador
 python administrar.py migrate
 ./travis/reiniciar_apache.sh $2
