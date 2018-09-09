@@ -5,10 +5,11 @@
 # en droplet de digital ocean.
 #
 
+set contrasenia [lindex $argv 0];
 set timeout -1
 
-spawn sudo systemctl restart apache2
-expect "[sudo] password for ricardo: "
-send -- $1
+spawn systemctl restart apache2
+expect "Password: "
+send -- $contrasenia
 send -- "\n"
 expect eof

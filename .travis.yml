@@ -84,6 +84,6 @@ script:
   - bash -v travis/pruebas_desempenio.sh
 
 after_success:
-  - sshpass -p $CONTRASENIA_SERVIDOR
+  - sshpass -p $CONTRASENIA_SERVIDOR -o StrictHostKeyChecking=no
     ssh ricardo@ricardo-quezada.159.65.96.59.xip.io
-    "cd proyecto_lovelace && ./travis/script_de_despliegue.sh"
+    "cd proyecto_lovelace && ./travis/script_de_despliegue.sh $GITHUB_TOKEN $CONTRASENIA_SERVIDOR"
