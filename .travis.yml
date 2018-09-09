@@ -47,7 +47,7 @@ before_install:
     sshpass
   # Cryptopp
   - wget --quiet https://cryptopp.com/cryptopp600.zip
-  - unzip --qq -a -d cryptopp cryptopp600.zip
+  - unzip --qq -n -a -d cryptopp cryptopp600.zip
   - make -C cryptopp
   - sudo mkdir /usr/include/cryptopp
   - sudo mv cryptopp/*.h /usr/include/cryptopp/
