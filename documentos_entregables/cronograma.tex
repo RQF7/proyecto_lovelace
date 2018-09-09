@@ -35,128 +35,231 @@
 
   \begin{center}
     \begin{ganttchart}[
-      expand chart = \textwidth,
+      vgrid,
+      % expand chart = \textwidth,
+      title height = 1,
       title label font = \scriptsize,
       group label font = \scriptsize,
       milestone label font = \scriptsize,
-      bar label font = \scriptsize,
-      today label font = \scriptsize,
-      vgrid,
-      title height = 1,
-      y unit title = 0.5cm,
-%      y unit chart = 20,
-%      bar top shift = -0.1,
-%      bar height = 0.5,
+      bar label font = \tiny,
+      bar/.append style={fill=gray},
+      bar height = 0.08em,
+      x unit  = 0.5em,
+      y unit title = 0.6cm,
+      y unit chart = 0.48cm,
+      group height = 0.4,
+      group /.append style={fill=gray},
+      group peaks tip position=0,
+      group peaks height=.02em,
+      today label font = \tiny,
       time slot format = little-endian,
       calendar week text = Sem. \currentweek,
       today label = Hoy,
       today = 10.9.18,
-      inline,
-      milestone inline label node/.append style={
-        left = 2mm},
-      canvas/.append style={
-        line width = .4pt}
-      ]{6.8.18}{26.10.18}
+      milestone inline label node/.append style={left = 2mm},
+      canvas/.append style={line width = .4pt}
+      ]{6.8.18}{28.10.18}
 
-      \gantttitlecalendar*{6.8.18}{26.10.18}{
+      \gantttitlecalendar*{6.8.18}{28.10.18}{
         year, month=name, week=1} \\
 
       \ganttgroup
-        {Preparación de artículo}
+        {\textbf{Preparación de artículo}}
         {6.8.18}
         {24.8.18} \\
 
       \ganttbar
         {Borrador}
         {6.8.18}
-        {11.8.18} \\
+        {12.8.18} \\
 
       \ganttbar
         {Revisión}
-        {12.8.18}
-        {17.8.18} \\
+        {13.8.18}
+        {15.8.18} \\
 
       \ganttbar
         {Correcciones}
-        {18.8.18}
-        {24.8.18} \\
-
-      \ganttgroup
-        {Aplicación web de sistema tokenizador}
-        {15.8.18}
-        {19.9.18} \\
+        {16.8.18}
+        {18.8.18} \\
 
       \ganttbar
-        {Análisis}
-        {15.8.18}
+        {Segunda revisión}
+        {19.8.18}
         {21.8.18} \\
 
       \ganttbar
-        {Diseño}
+        {Correcciones}
         {22.8.18}
-        {28.8.18} \\
+        {24.8.18} \\
 
-      \ganttbar
-        {Implementación}
-        {29.8.18}
-        {11.9.18} \\
-
-      \ganttbar
-        {Pruebas}
-        {12.9.18}
-        {19.9.18} \\
-
-      \ganttmilestone
-        {1\textsuperscript{a} Revisión}
-        {19.9.18} \\
+      \ganttnewline
 
       \ganttgroup
-        {Caso de prueba: tienda en línea}
-        {17.9.18}
-        {14.10.18} \\
+        {\textbf{Aplicación web de tokenización}}
+        {13.8.18}
+        {28.9.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Análisis}}
+        {13.8.18}
+        {31.8.18} \\
 
       \ganttbar
-        {Análisis}
-        {17.9.18}
+        {Desarrollo de plantillas}
+        {13.8.18}
+        {21.8.18} \\
+
+      \ganttbar
+        {Redacción de las reglas del negocio}
+        {17.8.18}
+        {19.8.18} \\
+
+      \ganttbar
+        {Identificación de requerimientos}
+        {20.8.18}
+        {23.8.18} \\
+
+      \ganttbar
+        {Redacción de casos de uso}
+        {24.8.18}
+        {31.8.18} \\
+
+      \ganttbar
+        {Definición del modelo de datos}
+        {28.8.18}
+        {31.8.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Diseño}}
+        {1.9.18}
+        {9.9.18} \\
+
+      \ganttbar
+        {Diseño de las interfaces de usuario}
+        {1.9.18}
+        {5.9.18} \\
+
+      \ganttbar
+        {Elaboración de diagramas de clases}
+        {1.9.18}
+        {7.9.18} \\
+
+      \ganttbar
+        {Elaboración de diagramas de secuencias}
+        {5.9.18}
+        {9.9.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Implementación}}
+        {10.9.18}
         {23.9.18} \\
 
       \ganttbar
-        {Diseño}
-        {24.9.18}
-        {30.9.18} \\
+        {Implementación casos de uso}
+        {10.9.18}
+        {23.9.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Pruebas}}
+        {17.9.18}
+        {28.9.18} \\
 
       \ganttbar
-        {Impl.}
-        {1.10.18}
-        {7.10.18} \\
+        {Pruebas de la funcionalidad}
+        {17.9.18}
+        {22.9.18} \\
 
-      \ganttmilestone
-        {2\textsuperscript{a} Revisión}
-        {5.10.18} \\
+      \ganttmilestone[inline]
+        {1\textsuperscript{a} Revisión}
+        {21.9.18}
 
       \ganttbar
-        {Pruebas}
-        {8.10.18}
-        {14.10.18} \\
+        {Correcciones pertinentes}
+        {23.9.18}
+        {28.9.18} \\
+
+      \ganttnewline
 
       \ganttgroup
-        {Reporte técnico y presentación}
-        {8.10.18}
-        {23.10.18} \\
+        {\textbf{Caso de pruebas}}
+        {24.9.18}
+        {19.10.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Análisis}}
+        {24.9.18}
+        {28.9.18} \\
 
       \ganttbar
-        {Reporte}
-        {8.10.18}
-        {15.10.18} \\
+        {Redacción de casos de uso}
+        {24.9.18}
+        {28.9.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Diseño}}
+        {29.9.18}
+        {3.10.18} \\
 
       \ganttbar
-        {Presentación}
+        {Diseño de las interfaces de usuario}
+        {29.9.18}
+        {3.10.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Implementación}}
+        {3.10.18}
+        {14.10.18} \\
+
+      \ganttbar
+        {Implementación de los casos}
+        {3.10.18}
+        {11.10.18} \\
+
+      \ganttmilestone[inline]
+        {2\textsuperscript{a} Revisión}
+        {10.10.18}
+
+      \ganttbar
+        {Conexión con la aplicación web}
+        {12.10.18}
+        {14.10.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Pruebas}}
+        {13.10.18}
+        {19.10.18} \\
+
+      \ganttbar
+        {Pruebas de la funcionalidad}
+        {13.10.18}
+        {16.10.18} \\
+
+      \ganttbar
+        {Correcciones pertinentes}
         {16.10.18}
-        {23.10.18} \\
+        {19.10.18} \\
 
-      \ganttmilestone
+      \ganttnewline
+
+      \ganttgroup
+        {\textbf{Reporte técnico y presentación}}
+        {12.10.18}
+        {26.10.18} \\
+
+      \ganttbar
+        {Elaboración del reporte técnico}
+        {12.10.18}
+        {21.10.18} \\
+
+      \ganttbar
+        {Elaboración de la presentación de TT2}
+        {22.10.18}
+        {26.10.18} \\
+
+      \ganttmilestone[inline]
         {3\textsuperscript{a} Revisión}
-        {23.10.18}
+        {26.10.18}
 
     \end{ganttchart}
   \end{center}
