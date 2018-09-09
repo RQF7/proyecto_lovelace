@@ -48,17 +48,3 @@ rm biber-linux_x86_64.tar.gz
 wget --quiet http://mirrors.ctan.org/install/graphics/pgf/base/pgf.tds.zip
 unzip --qq -d ~/texmf pgf.tds.zip
 rm pgf.tds.zip
-
-# doxygen
-# wget --quiet http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.14.linux.bin.tar.gz
-# mkdir ~/ejecutable_doxygen
-#tar -xf doxygen-1.8.14.linux.bin.tar.gz -C ~/ejecutable_doxygen
-# rm doxygen-1.8.14.linux.bin.tar.gz
-
-git clone https://github.com/doxygen/doxygen.git ~/doxygen
-cd ~/doxygen
-mkdir build
-cd build
-cmake -G "Unix Makefiles" ..
-make
-sudo make install

@@ -44,9 +44,6 @@ before_install:
     python3.6
     python3.6-dev
     libmariadbclient-dev
-  # LaTeX
-  - bash -v travis/dependencias_distribucion.sh
-  - export PATH=~/ejecutable_biber/:$PATH
   # Cryptopp
   - wget --quiet https://cryptopp.com/cryptopp600.zip
   - unzip --qq -a -d cryptopp cryptopp600.zip
@@ -74,8 +71,6 @@ install:
   - python administrar.py migrate
   - python bases_de_datos/datos_base.py
   - python bases_de_datos/datos_de_prueba.py
-  # Documentos entregables
-  - make -B -C documentos_entregables
 
 script:
   - eval "${MATRIX_EVAL}"
