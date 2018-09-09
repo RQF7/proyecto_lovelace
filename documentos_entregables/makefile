@@ -132,6 +132,12 @@ $(CARPETA_ARTICULO)/$(ARTICULO).pdf: $(FUENTES_ARTICULO)
 referencias_articulo:
 	bibtex $(CARPETA_TEMPORAL)/$(ARTICULO).aux
 
+# Cronograma ##################################################################
+
+cronograma: cronograma.tex
+	pdflatex --output-dir $(CARPETA_TEMPORAL) $@.tex
+	mv $(CARPETA_TEMPORAL)/$@.pdf ./
+
 # Es necesario tener el ejecutable de hunspell en el PATH, y el diccionario
 # es_MX instalado. Este comando (ortografía) es ejecutado por Travis para
 # validar un push, si lo que se quiere es ejecutar de manera local, es más

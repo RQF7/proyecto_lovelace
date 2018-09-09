@@ -1,0 +1,255 @@
+%
+% Cronograma para profesor de seguimiento,
+% trabajo terminal II.
+% Proyecto Lovelace.
+%
+
+\documentclass[10pt, letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, mexico, es-noindentfirst]{babel}
+\usepackage[spanish]{translator}
+\usepackage{pgfgantt}
+\usepackage[textwidth=7.5in, textheight=10in]{geometry}
+
+% Para quitar los números de página.
+\pagenumbering{gobble}
+
+\addto\captionsspanish{
+  \renewcommand*\contentsname{Índice}}
+
+\begin{document}
+
+  \begin{center}
+    \textsc{\LARGE Planeación de actividades, Trabajo Terminal II} \\
+    \vspace{0.3em}
+    \textbf{2017-B008 Generación de tokens para proteger
+      los datos de tarjetas bancarias} \\
+    \textit{
+      Daniel Ayala Zamorano,
+      Laura Natalia Borbolla Palacios,
+      Ricardo Quezada Figueroa}
+  \end{center}
+
+  \subsubsection*{Cronograma general}
+
+  \begin{center}
+    \begin{ganttchart}[
+      expand chart = \textwidth,
+      title label font = \scriptsize,
+      group label font = \scriptsize,
+      milestone label font = \scriptsize,
+      bar label font = \scriptsize,
+      today label font = \scriptsize,
+      vgrid,
+      title height = 1,
+      y unit title = 0.5cm,
+%      y unit chart = 20,
+%      bar top shift = -0.1,
+%      bar height = 0.5,
+      time slot format = little-endian,
+      calendar week text = Sem. \currentweek,
+      today label = Hoy,
+      today = 10.9.18,
+      inline,
+      milestone inline label node/.append style={
+        left = 2mm},
+      canvas/.append style={
+        line width = .4pt}
+      ]{6.8.18}{26.10.18}
+
+      \gantttitlecalendar*{6.8.18}{26.10.18}{
+        year, month=name, week=1} \\
+
+      \ganttgroup
+        {Preparación de artículo}
+        {6.8.18}
+        {24.8.18} \\
+
+      \ganttbar
+        {Borrador}
+        {6.8.18}
+        {11.8.18} \\
+
+      \ganttbar
+        {Revisión}
+        {12.8.18}
+        {17.8.18} \\
+
+      \ganttbar
+        {Correcciones}
+        {18.8.18}
+        {24.8.18} \\
+
+      \ganttgroup
+        {Aplicación web de sistema tokenizador}
+        {15.8.18}
+        {19.9.18} \\
+
+      \ganttbar
+        {Análisis}
+        {15.8.18}
+        {21.8.18} \\
+
+      \ganttbar
+        {Diseño}
+        {22.8.18}
+        {28.8.18} \\
+
+      \ganttbar
+        {Implementación}
+        {29.8.18}
+        {11.9.18} \\
+
+      \ganttbar
+        {Pruebas}
+        {12.9.18}
+        {19.9.18} \\
+
+      \ganttmilestone
+        {1\textsuperscript{a} Revisión}
+        {19.9.18} \\
+
+      \ganttgroup
+        {Caso de prueba: tienda en línea}
+        {17.9.18}
+        {14.10.18} \\
+
+      \ganttbar
+        {Análisis}
+        {17.9.18}
+        {23.9.18} \\
+
+      \ganttbar
+        {Diseño}
+        {24.9.18}
+        {30.9.18} \\
+
+      \ganttbar
+        {Impl.}
+        {1.10.18}
+        {7.10.18} \\
+
+      \ganttmilestone
+        {2\textsuperscript{a} Revisión}
+        {5.10.18} \\
+
+      \ganttbar
+        {Pruebas}
+        {8.10.18}
+        {14.10.18} \\
+
+      \ganttgroup
+        {Reporte técnico y presentación}
+        {8.10.18}
+        {23.10.18} \\
+
+      \ganttbar
+        {Reporte}
+        {8.10.18}
+        {15.10.18} \\
+
+      \ganttbar
+        {Presentación}
+        {16.10.18}
+        {23.10.18} \\
+
+      \ganttmilestone
+        {3\textsuperscript{a} Revisión}
+        {23.10.18}
+
+    \end{ganttchart}
+  \end{center}
+
+  \newpage
+  \subsubsection*{Descripción de entregables}
+
+  \noindent
+  \textbf{1\textsuperscript{a} Revisión}
+
+  \begin{itemize}
+
+    \item Análisis y diseño de sistema tokenizador.
+
+      Pellentesque habitant morbi tristique senectus et netus et malesuada fames
+      ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
+      tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
+      Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit
+      amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum
+      sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget
+      tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim
+      ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent
+      dapibus, neque id cursus faucibus, tortor neque egestas augue, eu
+      vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt
+      quis, accumsan porttitor, facilisis luctus, metus.
+
+    \item Implementación de sistema tokenizador.
+
+      Pellentesque habitant morbi tristique senectus et netus et malesuada fames
+      ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
+      tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
+      Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit
+      amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum
+      sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget
+      tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim
+      ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent
+      dapibus, neque id cursus faucibus, tortor neque egestas augue, eu
+      vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt
+      quis, accumsan porttitor, facilisis luctus, metus.
+
+  \end{itemize}
+
+  \noindent
+  \textbf{2\textsuperscript{a} Revisión}
+
+  \begin{itemize}
+
+    \item Análisis y diseño de tienda en línea.
+
+      Pellentesque habitant morbi tristique senectus et netus et malesuada fames
+      ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
+      tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
+      Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit
+      amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum
+      sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget
+      tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim
+      ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent
+      dapibus, neque id cursus faucibus, tortor neque egestas augue, eu
+      vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt
+      quis, accumsan porttitor, facilisis luctus, metus.
+
+    \item Implementación de integración con sistema tokenizador.
+
+      Pellentesque habitant morbi tristique senectus et netus et malesuada fames
+      ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
+      tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
+      Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit
+      amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum
+      sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget
+      tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim
+      ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent
+      dapibus, neque id cursus faucibus, tortor neque egestas augue, eu
+      vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt
+      quis, accumsan porttitor, facilisis luctus, metus.
+
+  \end{itemize}
+
+  \noindent
+  \textbf{3\textsuperscript{a} Revisión}
+
+  \begin{itemize}
+
+    \item Implementación de tienda en línea.
+
+    \item Reporte técnico y presentación de trabajo terminal II.
+
+  \end{itemize}
+
+  \vspace{0.5in}
+  \begin{center}
+    \rule{3in}{0.4pt} \\
+    \textit{Dra. Sandra Díaz Santiago} \\
+    Directora del trabajo
+  \end{center}
+
+\end{document}
