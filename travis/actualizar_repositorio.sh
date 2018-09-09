@@ -11,6 +11,6 @@ spawn git pull
 expect "Username for 'https://github.com': "
 send -- "RQF7\n"
 expect "Password for 'https://RQF7@github.com': "
-send -- $GITHUB_TOKEN
+send -- $1
 send -- "\n"
 expect eof

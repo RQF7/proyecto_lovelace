@@ -7,12 +7,11 @@
 # Proyecto Lovelace.
 #
 
-cd proyecto_lovelace
-./travis/actualizar_repositorio.sh
+./travis/actualizar_repositorio.sh $1
 npm install
 grunt
-source entorno_virtual/bin/activate
+./entorno_virtual/bin/activate
 python administrar.py makemigrations general programa_tokenizador
 python administrar.py migrate
-./travis/reiniciar_apache.sh
+./travis/reiniciar_apache.sh $2
 systemctl status apache2

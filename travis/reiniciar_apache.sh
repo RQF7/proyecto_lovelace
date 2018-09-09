@@ -9,6 +9,6 @@ set timeout -1
 
 spawn sudo systemctl restart apache2
 expect "[sudo] password for ricardo: "
-send -- $CONTRASENIA_SERVIDOR
+send -- $1
 send -- "\n"
 expect eof
