@@ -21,15 +21,14 @@
 
   % Código efectivo
   \vspace{1.0em}
-  \iniciarUnidadIrrompible
   \noindent
   \textbf{\hypertarget{#1}
     {MSJ\prefijo-\formatearnumero{contador_de_mensajes} #2}.}
   \par
+  \nopagebreak[4]
   \begin{hangparas}{2em}{0}
     #3
   \end{hangparas}
-  \terminarUnidadIrrompible
 
   % Estado previo
   \setlength{\parskip}{\separacionAnterior}
