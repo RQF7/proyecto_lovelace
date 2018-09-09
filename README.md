@@ -30,23 +30,3 @@
   Generación de tokens para proteger los datos de tarjetas bancarias.
 </p>
 
-## Publicaciones
-
-Archivos publicados en la
-[página pública del proyecto](https://rqf7.github.io/proyecto_lovelace/).
-
-* [Reporte técnico](documentos_entregables/reporte_tecnico/reporte_tecnico.pdf)
-* [Presentación de FPE](documentos_entregables/presentacion_fpe/presentacion_fpe.pdf)
-* [Presentación de TT1](documentos_entregables/presentacion_tt_uno/presentacion_tt_uno.pdf)
-* Documentación de doxygen ([html](documentacion_doxygen/html/index.html) y
-  [pdf](documentacion_doxygen/latex/refman.pdf)).
-
-## Estructura de carpetas
-
-* **documentos_entregables:** documentación del proyecto y presentaciones de
-   TT1 y TT2.
-* **pruebas_librerias:** clases de prueba para experimentar con las distintas
-  posibilidades de librerías criptográficas.
-* **fuentes_bibliograficas:** registro de publicaciones consultadas.
-  * **iacr:** artículos de la IACR y parecidos.
-  * **pci_y_nist** recomendaciones y estándares del PCI SSC y del NIST.
