@@ -6,13 +6,6 @@
 
 \subsubsection{Funcionales}
 
-% Estos son los requerimientos que el analista «deduce» de su plática con el
-% cliente. Teóricamente antes de estos tendrían que ir lo de «alto nivel»,
-% en donde se exprese directamente las palabras del cliente, pero como eso
-% pasó en mi mente, o no pasó en absoluto, van directamente los de bajo
-% nivel.
-% Requerimientos de bajo nivel:
-
 \requerimiento[rq:iniciar_sesion]
 {Iniciar sesión}
 {
@@ -23,8 +16,6 @@
     \item Correo electrónico
     \item Contraseña
   \end{itemize}
-
-  % TODO: ¿énfasis con negritas o itálicas?
 
   \begin{hangparas}{2em}{0}
     \subrequerimiento[rq:validar_clientes]
@@ -96,7 +87,9 @@
   \end{itemize}
   La operación regresa un token.
 
-  Los algoritmos disponibles son:
+  \begin{hangparas}{2em}{0}
+    Los algoritmos disponibles son:
+  \end{hangparas}
   \begin{itemize}
     \item BPS
     \item FFX

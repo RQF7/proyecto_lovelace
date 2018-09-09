@@ -175,7 +175,9 @@ definido en \cite{mozilla_er}.
     \item No verificado
   \end{itemize}
 
-  Cuando un correo es registrado, su estado es \textbf{no verificado}.
+  \begin{hangparas}{2em}{0}
+    Cuando un correo es registrado, su estado es \textbf{no verificado}.
+  \end{hangparas}
 }
 
 \reglaDeNegocio[rn:malas_acciones]
@@ -190,7 +192,9 @@ definido en \cite{mozilla_er}.
     \item Aumentar en uno cuando un cliente intente acceder a páginas que no tiene acceso.
   \end{itemize}
 
-  Cuando un cliente es creado, el contador está en cero.
+  \begin{hangparas}{2em}{0}
+    Cuando un cliente es creado, el contador está en cero.
+  \end{hangparas}
 }
 
 \reglaDeNegocio[rn:top_malas_acciones]
@@ -255,19 +259,6 @@ definido en \cite{mozilla_er}.
   usuario que se va a verificar.
 }
 
-% TODO
-% * Definir formato para referencias a estados, tipos de usuarios, etc.
-%   ¿Negritas o itálicas?
-
-% Ups... esto es un requerimiento:
-% \reglaDeNegocio[rn:verificacion_de_cuentas]
-% {Verificación de cuentas}
-% {
-%   Un cliente pasa de estado \textit{no verificado} a \textit{verificado} mediante
-%   un correo de verificación: el sistema manda el correo con un hipervínculo
-%   de activación; el cliente accede al vínculo para verificar su cuenta.
-% }
-
 \reglaDeNegocio[rn:verificacion_de_cuentas]
 {Expiración de vínculos de verificación}
 {
@@ -282,39 +273,3 @@ definido en \cite{mozilla_er}.
   Un administrador puede aprobar o rechazar usuarios tipo \textbf{cliente}
   cuando estos tengan estado \textbf{verificado}.
 }
-
-\reglaDeNegocio[rn:acceso_no_autorizado]
-{Acceso no autorizados}
-{
-  Un acceso no autorizado se da cuando un usuario hace una petición al servidor
-  para la cual no tiene los privilegios necesarios.
-}
-
-\reglaDeNegocio[rn:acceso_fidedigno]
-{Acceso fidedigno}
-{
-  Un acceso fidedigno es un acceso no autorizado
-  (\hipervinculo{rn:acceso_no_autorizado}) que se puede producir de manera
-  legítima en el uso de la aplicación. Algunas posibles causas son la expiración
-  de una sesión o su cierre accidental.
-}
-
-% TODO: agregar causas o ejemplos.
-
-\reglaDeNegocio[rn:acceso_malintencionado]
-{Acceso malintencionado}
-{
-  Un acceso malintencionado es un acceso no autorizado
-  (\hipervinculo{rn:acceso_no_autorizado}) que no se puede producir de manera
-  legítima en el uso de la aplicación.
-}
-
-\reglaDeNegocio[rn:acceso_erroneo]
-{Acceso erróneo}
-{
-  Un acceso erróneo es un acceso no autorizado
-  (\hipervinculo{rn:acceso_no_autorizado}) en el que no hay elementos
-  suficientes para clasificarlo como fidedigno
-  (\hipervinculo{rn:acceso_fidedigno}) o como malintencionado
-  (\hipervinculo{rn:acceso_malintencionado}).
-}-
