@@ -9,6 +9,7 @@ from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.core import serializers
 from urllib import parse
 from functools import wraps
+from smtplib import SMTP_SSL
 
 
 def respuestaJSON (objeto):
@@ -74,3 +75,11 @@ def privilegiosRequeridos (tipoDeUsuario):
 
   # Retorno de función fábrica, privilegiosRequeridos.
   return decorador
+
+
+def enviarCorreo(destinatario, asunto, cuerpo):
+  """
+  """
+  #servidor = SMTP_SSL('ricardo-quezada.159.65.96.59.xip.io', 465)
+  #servidor.login()
+  pass

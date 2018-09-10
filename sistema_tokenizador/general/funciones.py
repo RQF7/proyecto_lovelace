@@ -5,9 +5,12 @@
 """
 
 import json, hashlib
+from .models.correo import Correo
+from .models.estado_de_correo import EstadoDeCorreo
 from .models.estado_de_usuario import EstadoDeUsuario
 from .models.tipo_de_usuario import TipoDeUsuario
 from .models.usuario import Usuario
+from .models.vinculo import Vinculo
 from sistema_tokenizador import utilidades
 from sistema_tokenizador.configuraciones import DIRECTORIO_BASE
 from sistema_tokenizador.general import negocio
@@ -128,19 +131,31 @@ def registrarCliente (peticion):
   """
 
   objetoDePeticion = json.loads(peticion.body)
-  usuario = Usuario(
+
+  try:
+    Correo.objects.get(correo = objetoDePeticion['correo'])
+    return HttpResponse("1")
+  except Correo.DoesNotExist:
+    pass
+
+  # Inserar correo
+  correo = Correo(
     correo = objetoDePeticion['correo'],
-    contrasenia = hashlib.sha256(objetoDePeticion['contrasenia']
-      .encode()).digest(),
+    contrasenia = hashlib.sha256(
+      objetoDePeticion['contrasenia'].encode()).digest(),
+    estadoDeCorreo = EstadoDeCorreo.objects.get(
+      nombre = 'no verificado'),
+    vinculo = None)
+  correo.save()
+
+  usuario = Usuario(
+    correo = correo,
     tipoDeUsuario = TipoDeUsuario.objects.get(
       nombre = 'cliente'),
     estadoDeUsuario = EstadoDeUsuario.objects.get(
-      nombre = 'no verificado'))
+      nombre = 'en espera'),
+    contadorDeMalasAcciones = 0)
 
-  try:
-    usuario.save()
-  except IntegrityError:
-    return HttpResponse("1")
-
-  # TODO: mandar correo a usuario
+  usuario.save()
+  negocio.enviarVinculoDeVerificacion(usuario)
   return HttpResponse("0")
