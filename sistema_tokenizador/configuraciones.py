@@ -12,6 +12,7 @@ import os
 # Configuraciones propias #####################################################
 
 EJECUTABLE_TOKENIZADOR = 'implementaciones/binarios/lovelace'
+DOMINIO = 'http://127.0.0.1:8080'
 DIRECTORIO_BASE = ''
 
 # Configuraciones generales ###################################################
