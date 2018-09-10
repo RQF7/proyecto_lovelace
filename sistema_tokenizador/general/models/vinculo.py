@@ -11,7 +11,8 @@ class Vinculo (models.Model):
 
   vinculo = models.CharField(
     verbose_name = 'vinculo',
-    max_length = 100)
+    max_length = 100,
+    unique = True)
 
   fecha = models.DateField(
     verbose_name = 'fecha del vinculo')

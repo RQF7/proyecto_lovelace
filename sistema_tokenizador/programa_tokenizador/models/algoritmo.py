@@ -21,7 +21,8 @@ class Algoritmo (models.Model):
   nombre = models.CharField(
     verbose_name = 'nombre del algoritmo',
     unique = True,
-    max_length = 20)
+    max_length = 20,
+    primary_key = True)
 
   longitudDeLlave = models.IntegerField(
     verbose_name = 'Longitud de las llaves para este algoritmo')
@@ -34,4 +35,4 @@ class Algoritmo (models.Model):
 
   def __str__(self):
     """Representación en cadena de un tipo de usuario."""
-    return str(self.id) + ' - ' + self.nombre
+    return self.nombre

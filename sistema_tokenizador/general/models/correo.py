@@ -14,7 +14,8 @@ class Correo (models.Model):
   correo = models.CharField(
     verbose_name = 'correo electrónico',
     unique = True,
-    max_length = 100)
+    max_length = 100,
+    primary_key = True)
 
   contrasenia = models.BinaryField(
     verbose_name = 'Hash de contraseña')
@@ -32,4 +33,4 @@ class Correo (models.Model):
 
   def __str__(self):
     """Representación en cadena de un correo."""
-    return str(self.id) + ' - ' + self.correo
+    return self.correo

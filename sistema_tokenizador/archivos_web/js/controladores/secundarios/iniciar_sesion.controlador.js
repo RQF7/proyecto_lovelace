@@ -27,7 +27,6 @@ sistemaTokenizador.controller('controladorFormularioIniciarSesion', [
 
     $scope.aceptar = function () {
       api.iniciarSesion($scope.usuario).then(function (respuesta) {
-        console.log("DEBUG", respuesta.data)
         if (respuesta.data == '0') {
           $scope.error = 'incorrecto';
         } else if (respuesta.data == '1') {
@@ -39,7 +38,7 @@ sistemaTokenizador.controller('controladorFormularioIniciarSesion', [
         } else if (respuesta.data == '4') {
           $scope.error = 'en lista negra'
         } else {
-          $mdDialog.hide(respuesta.data);
+          $mdDialog.hide(respuesta.data[0]);
         }
       });
     };

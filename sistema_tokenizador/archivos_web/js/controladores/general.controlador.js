@@ -91,7 +91,7 @@ sistemaTokenizador.controller('controladorGeneral', [
     $scope.usuario = undefined;
     api.obtenerUsuarioDeSesion().then(function (respuesta) {
       if (respuesta.data != '') {
-        $scope.usuario = respuesta.data;
+        $scope.usuario = respuesta.data[0];
       }
     });
 
@@ -115,7 +115,7 @@ sistemaTokenizador.controller('controladorGeneral', [
           if ($scope.$routeParams.siguiente != undefined) {
             $location.path($scope.$routeParams.siguiente);
             $location.search('siguiente', null)
-          } else if ($scope.usuario.tipoDeUsuario == 1) {
+          } else if ($scope.usuario.fields.tipoDeUsuario == 'cliente') {
             $location.path('/administración_de_tokens');
           } else {
             $location.path('/administración');

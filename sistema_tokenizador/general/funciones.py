@@ -8,11 +8,12 @@ import json, hashlib
 from .models.estado_de_usuario import EstadoDeUsuario
 from .models.tipo_de_usuario import TipoDeUsuario
 from .models.usuario import Usuario
-from django.http import HttpResponse
-from django.db.utils import IntegrityError
 from sistema_tokenizador import utilidades
 from sistema_tokenizador.configuraciones import DIRECTORIO_BASE
 from sistema_tokenizador.general import negocio
+from django.http import HttpResponse
+from django.db.utils import IntegrityError
+from django.core import serializers
 
 
 def inicio (peticion):
@@ -77,7 +78,7 @@ def usuarioDeSesion (peticion):
   """
 
   if 'usuario' in peticion.session:
-    return HttpResponse(json.dumps(peticion.session['usuario']))
+    return HttpResponse(peticion.session['usuario'])
   else:
     return HttpResponse()
 
@@ -88,29 +89,25 @@ def iniciarSesion (peticion):
 
   En caso correcto, registra al usuario en la sesión y regresa el objeto del
   usuario; en caso incorrecto, regresa un http con un código de error.
-
-  Ojo, lo que se guarda en la sesión y se regresa no es una instancia de
-  Usuario, sino que es un diccionario con el correo y el id del tipo de usuario.
-  El usuario no es serializable por el atributo de la contraseña.
   """
 
   objetoDePeticion = json.loads(peticion.body)
   usuario = negocio.autentificar(objetoDePeticion)
   if usuario != None:
-    if usuario.estadoDeUsuario.nombre == 'no verificado':
+    if usuario.tipoDeUsuario.nombre == 'administrador':
+      peticion.session['usuario'] = serializers.serialize("json", [usuario])
+      return utilidades.respuestaJSON(usuario)
+    elif usuario.correo.estadoDeCorreo.nombre == 'no verificado':
       return HttpResponse("1")
-    elif usuario.estadoDeUsuario.nombre == 'verificado':
+    elif usuario.estadoDeUsuario.nombre == 'en espera':
       return HttpResponse("2")
     elif usuario.estadoDeUsuario.nombre == 'rechazado':
       return HttpResponse("3")
     elif usuario.estadoDeUsuario.nombre == 'en lista negra':
       return HttpResponse("4")
     else:
-      usuarioSerializable = {
-        'correo': usuario.correo,
-        'tipoDeUsuario': usuario.tipoDeUsuario.pk};
-      peticion.session['usuario'] = usuarioSerializable
-      return HttpResponse(json.dumps(usuarioSerializable))
+      peticion.session['usuario'] = serializers.serialize("json", [usuario])
+      return utilidades.respuestaJSON(usuario)
   else:
     return HttpResponse("0")
 

@@ -5,6 +5,7 @@
 """
 
 import hashlib
+from .models.correo import Correo
 from .models.usuario import Usuario
 
 def autentificar (usuarioEnPeticion):
@@ -15,10 +16,11 @@ def autentificar (usuarioEnPeticion):
   regresa el objeto del usuario.
   """
   try:
-    usuario = Usuario.objects.get(
-      correo = usuarioEnPeticion['correo'],
-      contrasenia = hashlib.sha256(
-        usuarioEnPeticion['contrasenia'].encode('UTF-8')).digest())
-    return usuario
-  except Usuario.DoesNotExist:
+    resultado = Usuario.objects.get(
+      correo = Correo.objects.get(
+        correo = usuarioEnPeticion['correo'],
+        contrasenia = hashlib.sha256(
+          usuarioEnPeticion['contrasenia'].encode('UTF-8')).digest()))
+    return resultado
+  except (Usuario.DoesNotExist, Correo.DoesNotExist):
     return None
