@@ -61,7 +61,7 @@ def enviarVinculoDeVerificacion (usuario):
     Para poder verificar su correo en el sistema tokenizador debe
     hacer clic en el siguiente vínculo:
 
-    {0}/verificar_correo/{1}
+    {0}/api/verificar_correo/{1}
 
     Después de esto, en un máximo de 24 horas, recibirá un correo con
     el resultado de su solicitud.
