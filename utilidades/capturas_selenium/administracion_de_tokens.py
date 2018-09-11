@@ -10,5 +10,5 @@ from captura_con_sesion import CapturaConSesion
 if __name__ == '__main__':
 
   captura = CapturaConSesion(sys.argv[1], sys.argv[2], \
-    'usuario@prueba.com', '123456', sys.argv[3])
+    'cliente@prueba.com', '123456', sys.argv[3])
   captura.tomarCapturas()

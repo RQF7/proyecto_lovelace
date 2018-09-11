@@ -9,12 +9,19 @@ from .vinculo import Vinculo
 from django.db import models
 
 class Correo (models.Model):
-  """Representación de un correo dentro del sistema."""
+  """
+  Representación de un correo dentro del sistema.
+
+  OJO: la llave primaria es el mismo correo. Esto implica que al intentar
+  insertar un correo duplicado, lo que pasa en realidad es una actualización del
+  campo ya existente.
+  """
 
   correo = models.CharField(
     verbose_name = 'correo electrónico',
     unique = True,
-    max_length = 100)
+    max_length = 100,
+    primary_key = True)
 
   contrasenia = models.BinaryField(
     verbose_name = 'Hash de contraseña')
@@ -27,9 +34,10 @@ class Correo (models.Model):
   vinculo = models.ForeignKey(
     'Vinculo',
     models.PROTECT,
-    verbose_name = 'vinculo')
+    verbose_name = 'vinculo',
+    null = True)
 
 
   def __str__(self):
     """Representación en cadena de un correo."""
-    return str(self.id) + ' - ' + self.correo
+    return self.correo

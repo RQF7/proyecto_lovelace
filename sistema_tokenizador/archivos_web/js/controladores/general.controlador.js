@@ -91,14 +91,45 @@ sistemaTokenizador.controller('controladorGeneral', [
     $scope.usuario = undefined;
     api.obtenerUsuarioDeSesion().then(function (respuesta) {
       if (respuesta.data != '') {
-        $scope.usuario = respuesta.data;
+        $scope.usuario = respuesta.data[0];
       }
     });
 
-    /* Para mostrar login en caso de redirección. */
+    /* Al terminar resolución de ruta. */
     $scope.$on('$routeChangeSuccess', function () {
+
+      /* Para mostrar login en caso de redirección. */
       if ($scope.$routeParams.siguiente != undefined) {
         $scope.iniciarSesion(undefined);
+      }
+
+      /* Verificación correcta. */
+      else if ($scope.$routeParams.correo_verificado != undefined) {
+        var aviso = $mdDialog.alert()
+          .title('Verificación de correo correcta')
+          .textContent('Su cuenta ha sido verificada correctamente. '
+            + 'En un máximo de 24 horas recibirá un correo con el resultado '
+            + 'de su solicitud.')
+          .ariaLabel('Verificación de correo correcta')
+          .targetEvent(undefined)
+          .ok('Aceptar');
+        $mdDialog.show(aviso).then(function (respuesta) {
+          $mdDialog.hide();
+        });
+      }
+
+      /* Verificación incorrecta. */
+      else if ($scope.$routeParams.correo_no_verificado != undefined) {
+        var aviso = $mdDialog.alert()
+          .title('Vínculo expirado')
+          .textContent('Han transcurrido más de 24 horas desde su registro. '
+            + 'Para verificar su correo vuelva a registrarse.')
+          .ariaLabel('Vínculo expirado')
+          .targetEvent(undefined)
+          .ok('Aceptar');
+        $mdDialog.show(aviso).then(function (respuesta) {
+          $mdDialog.hide();
+        });
       }
     });
 
@@ -115,7 +146,7 @@ sistemaTokenizador.controller('controladorGeneral', [
           if ($scope.$routeParams.siguiente != undefined) {
             $location.path($scope.$routeParams.siguiente);
             $location.search('siguiente', null)
-          } else if ($scope.usuario.tipoDeUsuario == 1) {
+          } else if ($scope.usuario.fields.tipoDeUsuario == 'cliente') {
             $location.path('/administración_de_tokens');
           } else {
             $location.path('/administración');

@@ -34,7 +34,7 @@ sistemaTokenizador.controller('controladorFormularioRegistrarCliente', [
             .title('Registro exitoso')
             .textContent('Para poder iniciar sesión es necesario que '
               + 'verifique su cuenta accediendo al vínculo enviado a su '
-              + 'correo electrónico.')
+              + 'correo electrónico (revise su carpeta de spam).')
             .ariaLabel('Registro exitoso')
             .targetEvent($event)
             .ok('Aceptar')

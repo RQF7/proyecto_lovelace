@@ -1,0 +1,51 @@
+    \begin{tikzpicture}[
+    estado/.style = {
+        rectangle,
+        draw = black,
+        thin,                                                                                     
+        inner sep = 4mm,
+        text width = 25mm,
+        align = center,
+        minimum height = 1.5cm},
+      estado_inicial/.style = {
+        circle,
+        minimum size = 15pt,
+        fill = black,
+      },
+      etiqueta_transicion/.style = {
+        align = center
+      }]
+
+  % Estados
+  \node[estado_inicial]
+    (estado_inicial) {};
+  \node[estado]
+    (no verificado)
+    [right = 1.2in of estado_inicial]
+    {No verificado};
+  \node[estado]
+    (verificado)
+    [right = 1.2in of actual]
+    {Verificado};
+
+  % Transiciones
+  \draw[-Stealth]
+    (estado_inicial.east)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 1in,
+      above]
+      {\hipervinculo{cu:registrar_cliente}}
+    (actual.west);
+  \draw[-Stealth]
+    (actual.east)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 1in,
+      above]
+      {\texttt{Cliente verifica correo}}
+    (anterior.west);
+
+\end{tikzpicture}

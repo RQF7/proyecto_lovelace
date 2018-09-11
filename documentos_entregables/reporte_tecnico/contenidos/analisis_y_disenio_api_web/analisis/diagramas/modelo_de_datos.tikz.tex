@@ -3,9 +3,9 @@
 % Aplicación web de sistema tokenizador.
 % Proyecto Lovelace.
 %
-% TODO: agregar comentarios con el contenido de los catálogos y colocar
-% referencias a reglas de negocio asociadas.
-%
+
+\tikzset{
+    font=\scriptsize}
 
 \begin{tikzpicture}[
   clase_simple/.style = {
@@ -13,11 +13,18 @@
     anchor = north,
     draw = black,
     thin,
-    inner sep = 2mm,
+    inner sep = 1mm,
     align = center,
     rectangle split,
     rectangle split parts = 2,
-    rectangle split part align = {center, left}}]
+    rectangle split part align = {center, left}},
+  comentario/.style = {
+    rectangle,
+    anchor = north,
+    draw = black,
+    thin,
+    inner sep = 1mm,
+    text width = 1in}]
 
   \node[clase_simple]
     (usuario)
@@ -25,10 +32,10 @@
       \textbf{Usuario}
       \nodepart{second}
       \begin{tabular}{l}
-        Contraseña \\
-        Correo electrónico \\
+        Correo \\
         Estado \\
-        Tipo
+        Tipo \\
+        Cnt. malas acciones
       \end{tabular}
     };
 
@@ -52,6 +59,35 @@
       --
       (estado_de_usuario.west);
 
+    \node[comentario, text width = 1.2in]
+      (contenido_estado_de_usuario)
+      [above = 0.5in of estado_de_usuario]
+      {
+        \begin{tabular}{l}
+          En espera \\
+          Aprobado \\
+          Rechazado \\
+          En cambio de llave \\
+          En lista negra
+        \end{tabular}
+      };
+
+    \draw
+      ($(contenido_estado_de_usuario.north east) - (7mm, 0.3mm)$) --
+      ($(contenido_estado_de_usuario.north east) - (0.2mm, 4mm)$) --
+      ($(contenido_estado_de_usuario.north east) - (2mm, 5mm)$) --
+      cycle;
+
+    \draw[{Circle[open]}-, dashed]
+      (estado_de_usuario.north)
+      --
+      node[
+        right,
+        text width = 1.2in,
+        align = left]
+        {\hipervinculo{rn:estados_cliente}}
+      (contenido_estado_de_usuario.south);
+
     \node[clase_simple]
       (tipo_de_usuario)
       [left = 0.6in of usuario]
@@ -71,6 +107,33 @@
         {Tipo}
       --
       (tipo_de_usuario.east);
+
+    \node[comentario]
+      (contenido_tipo_de_usuario)
+      [above = 0.5in of tipo_de_usuario]
+      {
+        \begin{tabular}{l}
+          Visitante \\
+          Cliente \\
+          Administrador
+        \end{tabular}
+      };
+
+    \draw
+      ($(contenido_tipo_de_usuario.north east) - (7mm, 0.3mm)$) --
+      ($(contenido_tipo_de_usuario.north east) - (0.2mm, 4mm)$) --
+      ($(contenido_tipo_de_usuario.north east) - (2mm, 5mm)$) --
+      cycle;
+
+    \draw[{Circle[open]}-, dashed]
+      (tipo_de_usuario.north)
+      --
+      node[
+        left,
+        text width = 1.0in,
+        align = right]
+        {\hipervinculo{rn:tipo_de_usuario}}
+      (contenido_tipo_de_usuario.south);
 
     \node[clase_simple]
       (token)
@@ -144,6 +207,33 @@
       --
       (estado_de_token.east);
 
+    \node[comentario]
+      (contenido_estado_de_token)
+      [below = 0.7in of estado_de_token]
+      {
+        \begin{tabular}{l}
+          Actual \\
+          Anterior \\
+          Retokenizador
+        \end{tabular}
+      };
+
+    \draw
+      ($(contenido_estado_de_token.north east) - (7mm, 0.3mm)$) --
+      ($(contenido_estado_de_token.north east) - (0.2mm, 4mm)$) --
+      ($(contenido_estado_de_token.north east) - (2mm, 5mm)$) --
+      cycle;
+
+    \draw[{Circle[open]}-, dashed]
+      (estado_de_token.south)
+      --
+      node[
+        right,
+        text width = 0.8in,
+        align = left]
+        {\hipervinculo{rn:estados_token}}
+      (contenido_estado_de_token.north);
+
     \node[clase_simple]
       (estado_de_llave)
       [right = 0.6in of llave]
@@ -163,6 +253,32 @@
         {Estado}
       --
       (estado_de_llave.west);
+
+    \node[comentario]
+      (contenido_estado_de_llave)
+      [below = 0.7in of estado_de_llave]
+      {
+        \begin{tabular}{l}
+          Actual \\
+          Anterior
+        \end{tabular}
+      };
+
+    \draw
+      ($(contenido_estado_de_llave.north east) - (7mm, 0.3mm)$) --
+      ($(contenido_estado_de_llave.north east) - (0.2mm, 4mm)$) --
+      ($(contenido_estado_de_llave.north east) - (2mm, 5mm)$) --
+      cycle;
+
+    \draw[{Circle[open]}-, dashed]
+      (estado_de_llave.south)
+      --
+      node[
+        left,
+        text width = 0.8in,
+        align = right]
+        {\hipervinculo{rn:estados_llave}}
+      (contenido_estado_de_llave.north);
 
     \node[clase_simple]
       (algoritmo)
@@ -186,6 +302,34 @@
       --
       (algoritmo.north);
 
+    \node[comentario]
+      (contenido_algoritmo)
+      [below = 0.5in of algoritmo]
+      {
+        \begin{tabular}{l}
+          FFX \\
+          BPS \\
+          TKR \\
+          AHR \\
+          DRBG \\
+        \end{tabular}
+      };
+
+    \draw
+      ($(contenido_algoritmo.north east) - (7mm, 0.3mm)$) --
+      ($(contenido_algoritmo.north east) - (0.2mm, 4mm)$) --
+      ($(contenido_algoritmo.north east) - (2mm, 5mm)$) --
+      cycle;
+
+    \draw[{Circle[open]}-, dashed]
+      (algoritmo.south)
+      --
+      node[
+        right,
+        text width = 1.5in]
+        {\hipervinculo{rq:tokenizar_tarjeta}}
+      (contenido_algoritmo.north);
+
     \node[clase_simple]
       (tipo_de_algoritmo)
       [left = 0.6in of algoritmo]
@@ -206,5 +350,124 @@
       --
       (tipo_de_algoritmo.east);
 
+    \node[comentario]
+      (contenido_tipo_de_algoritmo)
+      [below = 0.5in of tipo_de_algoritmo]
+      {
+        \begin{tabular}{l}
+          Reversible \\
+          Irreversible
+        \end{tabular}
+      };
+
+    \draw
+      ($(contenido_tipo_de_algoritmo.north east) - (7mm, 0.3mm)$) --
+      ($(contenido_tipo_de_algoritmo.north east) - (0.2mm, 4mm)$) --
+      ($(contenido_tipo_de_algoritmo.north east) - (2mm, 5mm)$) --
+      cycle;
+
+    \draw[{Circle[open]}-, dashed]
+      (tipo_de_algoritmo.south)
+      --
+      node[
+        left,
+        text width = 1.7in,
+        align = right]
+        {\hipervinculo{rn:tipo_de_algoritmo}}
+      (contenido_tipo_de_algoritmo.north);
+
+    \node[clase_simple]
+      (correo)
+      [above = 1.4in of usuario]
+      {
+        \textbf{Correo}
+        \nodepart{second}
+        \begin{tabular}{l}
+          Correo \\
+          Contraseña \\
+          Vínculo \\
+          Estado
+        \end{tabular}
+      };
+
+    \draw[Diamond-]
+      (usuario.north)
+      node[
+        above,
+        anchor = south east]
+        {Correo}
+      --
+      (correo.south);
+
+    \node[clase_simple]
+      (estado_de_correo)
+      [right = 0.6in of correo]
+      {
+        \textbf{Estado de correo}
+        \nodepart{second}
+        \begin{tabular}{l}
+          Nombre
+        \end{tabular}
+      };
+
+    \draw[Diamond-]
+      (correo.east)
+      node[
+        above,
+        anchor = south west]
+        {Estado}
+      --
+      (estado_de_correo.west);
+
+    \node[comentario]
+      (contenido_estado_de_correo)
+      [above = 0.5in of estado_de_correo]
+      {
+        \begin{tabular}{l}
+          Verificado \\
+          No verificado
+        \end{tabular}
+      };
+
+    \draw
+      ($(contenido_estado_de_correo.north east) - (7mm, 0.3mm)$) --
+      ($(contenido_estado_de_correo.north east) - (0.2mm, 4mm)$) --
+      ($(contenido_estado_de_correo.north east) - (2mm, 5mm)$) --
+      cycle;
+
+    \draw[{Circle[open]}-, dashed]
+      (estado_de_correo.north)
+      --
+      node[
+        right,
+        text width = 1.4in,
+        align = left]
+        {\textsc{RNAPI-11 Estados de un correo electrónico}}
+      (contenido_estado_de_correo.south);
+
+    \node[clase_simple]
+      (vinculo)
+      [left = 0.6in of correo]
+      {
+        \textbf{Vínculo}
+        \nodepart{second}
+        \begin{tabular}{l}
+          Vínculo \\
+          Fecha
+        \end{tabular}
+      };
+
+    \draw[Diamond-]
+      (correo.west)
+      node[
+        above,
+        anchor = south east]
+        {Vínculo}
+      --
+      (vinculo.east);
+
 
 \end{tikzpicture}
+
+\tikzset{
+    font=\footnotesize}

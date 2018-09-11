@@ -16,9 +16,10 @@ class EstadoDeCorreo (models.Model):
   nombre = models.CharField(
     verbose_name = 'nombre del estado de correo',
     unique = True,
-    max_length = 50)
+    max_length = 50,
+    primary_key = True)
 
 
   def __str__(self):
     """Representación en cadena de un estado del correo."""
-    return str(self.id) + ' - ' + self.nombre
+    return self.nombre

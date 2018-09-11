@@ -43,13 +43,25 @@ if __name__ == '__main__':
 
   correos = [
     Correo(
+      correo = 'cliente@prueba.com',
+      contrasenia = hashlib.sha256(b"123456").digest(),
+      estadoDeCorreo = EstadoDeCorreo.objects.get(
+        nombre = 'verificado'),
+      vinculo = Vinculo.objects.get(vinculo = 'a')),
+    Correo(
+      correo = 'administrador@prueba.com',
+      contrasenia = hashlib.sha256(b"123456").digest(),
+      estadoDeCorreo = EstadoDeCorreo.objects.get(
+        nombre = 'verificado'),
+      vinculo = Vinculo.objects.get(vinculo = 'a')),
+    Correo(
       correo = 'cliente-no-verificado@prueba.com',
       contrasenia = hashlib.sha256(b"123456").digest(),
       estadoDeCorreo = EstadoDeCorreo.objects.get(
         nombre = 'no verificado'),
       vinculo = Vinculo.objects.get(vinculo = 'a')),
     Correo(
-      correo = 'cliente-verificado@prueba.com',
+      correo = 'cliente-aprobado@prueba.com',
       contrasenia = hashlib.sha256(b"123456").digest(),
       estadoDeCorreo = EstadoDeCorreo.objects.get(
         nombre = 'verificado'),
@@ -84,6 +96,19 @@ if __name__ == '__main__':
   usuarios = [
     Usuario(
       correo = Correo.objects.get(
+        correo = 'cliente@prueba.com'),
+      tipoDeUsuario = TipoDeUsuario.objects.get(
+        nombre = 'cliente'),
+      estadoDeUsuario = EstadoDeUsuario.objects.get(
+        nombre = 'aprobado')),
+    Usuario(
+      correo = Correo.objects.get(
+        correo = 'administrador@prueba.com'),
+      tipoDeUsuario = TipoDeUsuario.objects.get(
+        nombre = 'administrador'),
+      estadoDeUsuario = None),
+    Usuario(
+      correo = Correo.objects.get(
         correo = 'cliente-no-verificado@prueba.com'),
       tipoDeUsuario = TipoDeUsuario.objects.get(
         nombre = 'cliente'),
@@ -91,7 +116,7 @@ if __name__ == '__main__':
         nombre = 'aprobado')),
     Usuario(
       correo = Correo.objects.get(
-        correo = 'cliente-verificado@prueba.com'),
+        correo = 'cliente-aprobado@prueba.com'),
       tipoDeUsuario = TipoDeUsuario.objects.get(
         nombre = 'cliente'),
       estadoDeUsuario = EstadoDeUsuario.objects.get(

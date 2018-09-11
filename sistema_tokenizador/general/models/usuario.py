@@ -25,7 +25,8 @@ class Usuario (models.Model):
   estadoDeUsuario = models.ForeignKey(
     'EstadoDeUsuario',
     models.PROTECT,
-    verbose_name = 'estado del usuario')
+    verbose_name = 'estado del usuario',
+    null = True)
 
   contadorDeMalasAcciones = models.PositiveIntegerField(
     default = 0,

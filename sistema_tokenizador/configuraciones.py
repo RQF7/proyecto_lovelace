@@ -12,6 +12,7 @@ import os
 # Configuraciones propias #####################################################
 
 EJECUTABLE_TOKENIZADOR = 'implementaciones/binarios/lovelace'
+DOMINIO = 'https://ricardo-quezada.159.65.96.59.xip.io/lovelace'
 DIRECTORIO_BASE = '/home/ricardo/proyecto_lovelace/'
 
 # Configuraciones generales ###################################################

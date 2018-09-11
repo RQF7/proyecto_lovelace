@@ -132,7 +132,7 @@
 
         <!-- Adminisración de tokens. -->
         <md-button
-          ng-if="usuario.tipoDeUsuario == 1"
+          ng-if="usuario.fields.tipoDeUsuario == 'cliente'"
           flex="none"
           href="/administración_de_tokens">
           Administración de tokens
@@ -145,7 +145,7 @@
 
         <!-- Adminisración. -->
         <md-button
-          ng-if="usuario.tipoDeUsuario == 2"
+          ng-if="usuario.fields.tipoDeUsuario == 'administrador'"
           flex="none"
           href="/administración">
           Administración
@@ -245,7 +245,7 @@
           <span flex></span>
           <div layout="row">
             <p>
-              {{usuario.correo}} &nbsp;
+              {{usuario.fields.correo}} &nbsp;
             </p>
             <md-button
               id="botonCerrarSesion"
@@ -263,7 +263,12 @@
           <span flex></span>
         </div>
       </div>
-      <div id="contenidos-internos" flex="none" ng-view layout="column"></div>
+      <div
+        id="contenidos-internos"
+        flex="none"
+        ng-view
+        layout="column">
+      </div>
       <span flex></span>
       <p id="licencia">
         Copyright &#169; 2018 Proyecto Lovelace -

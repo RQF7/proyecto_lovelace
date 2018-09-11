@@ -33,11 +33,13 @@ urlpatterns = [
   path('api/iniciar_sesion', general.iniciarSesion),
   path('api/cerrar_sesion', general.cerrarSesion),
   path('api/registrar_cliente', general.registrarCliente),
+  path('api/verificar_correo/<vinculo>', general.verificarCorreo),
 
   # Operaciones de programa tokenizador
   path('programa_tokenizador/tokenizar', programa_tokenizador.tokenizar),
   path('programa_tokenizador/detokenizar', programa_tokenizador.detokenizar),
   path('ejecutar', programa_tokenizador.ejecutar)
+
 ]
 
 urlpatterns += staticfiles_urlpatterns()

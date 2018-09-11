@@ -30,9 +30,9 @@
     \item El visitante presiona el botón \textit{iniciar sesión}
       [\hipervinculoLocal{ta:cancelar}].
 
-    \item El sistema valida las credenciales del usuario
-      [\hipervinculoLocal{ta:credenciales_incorrectas},
-      \hipervinculoLocal{ta:cliente_no_verificado},
+    \item El sistema valida las credenciales del usuario[
+      \hipervinculoLocal{ta:credenciales_incorrectas},
+      \hipervinculoLocal{ta:correo_no_verificado},
       \hipervinculoLocal{ta:cliente_no_aprobado},
       \hipervinculoLocal{ta:cliente_rechazado},
       \hipervinculoLocal{ta:cliente_en_lista_negra}].
@@ -74,11 +74,11 @@
 
   \end{trayectoriaAlternativa}
 
-  \begin{trayectoriaAlternativa}[ta:cliente_no_verificado]
+  \begin{trayectoriaAlternativa}[ta:correo_no_verificado]
     {Correo no verificado}
 
     \item El sistema muestra el mensaje
-      \hipervinculo{msj:cliente_no_verificado}.
+      \hipervinculo{msj:correo_no_verificado}.
 
     \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
       principal.

@@ -11,6 +11,14 @@ from .estado_de_token import EstadoDeToken
 from ...general.models.usuario import Usuario
 from django.db import models
 
+def estadoPorDefecto ():
+  return EstadoDeToken.objects.get(nombre = 'actual')
+
+
+def usuarioPorDefecto ():
+  return Usuario.objects.get(id = 1)
+
+
 class Token (models.Model):
   """Relación entre PAN-token."""
 
@@ -27,12 +35,18 @@ class Token (models.Model):
   usuario = models.ForeignKey(
     'general.Usuario',
     models.PROTECT,
-    verbose_name = 'Usuario dueño del token')
+    verbose_name = 'Usuario dueño del token',
+#    default = usuarioPorDefecto,
+    default = None,
+    null = True)
 
   estadoDeToken = models.ForeignKey(
     'EstadoDeToken',
     models.PROTECT,
-    verbose_name = 'Estado del token')
+    verbose_name = 'Estado del token',
+#    default = estadoPorDefecto,
+    default = None,
+    null = True)
 
 
   def __str__(self):

@@ -97,8 +97,6 @@ definido en \cite{mozilla_er}.
   \end{center}
 \end{figure}
 
-% TODO: falta mencionar al estado «rechazado» en la descripción de la regla.
-
 \reglaDeNegocio[rn:estados_cliente]
 {Estados de un cliente}
 {
@@ -112,10 +110,13 @@ definido en \cite{mozilla_er}.
   \end{itemize}
 
   \begin{hangparas}{2em}{0}
-    Cuando un cliente se registra, se encuentra en estado \textbf{no verificado},
-    cuando verifica su dirección de correo electrónico, pasa a
+    Cuando un cliente se registra, se encuentra en estado \textbf{en espera},
+    con correo \textbf{no verificado}; cuando verifica su dirección de correo
+    electrónico, pasa a \textbf{en espera} con correo electrónico
     \textbf{verificado}; una vez que el administrador lo aprueba, pasa a
-    \textbf{aprobado}. Cuando inicia un refresco de llaves, pasa a
+    \textbf{aprobado}; estando en estado \textbf{en espera} con correo
+    \textbf{verificado}, un administrador puede pasar a un cliente al estado
+    \textbf{rechazado} . Cuando inicia un refresco de llaves, pasa a
     \textbf{en cambio de llaves}. Finalmente, el administrador puede cambiar su
     estado a \textbf{en lista negra} (y regresarlo a \textbf{aprobado} o
     \textbf{en cambio de llaves}). Estas transiciones se pueden observar en la
@@ -146,9 +147,18 @@ definido en \cite{mozilla_er}.
     Cuando un cliente inicia el refresco de llaves, todos sus tokens cambian de
     estado a \textbf{anterior}.
     Cuando un cliente solicita la retokenización de un token, se cambia su estado
-    a \textbf{retokenizado}.
+    a \textbf{retokenizado}.  Estas transiciones se pueden observar en la Figura
+    \ref{estados_token}
   \end{hangparas}
 }
+
+\begin{figure}
+  \begin{center}
+    \subimport{diagramas/}{estados_tokens.tikz.tex}
+    \caption{Diagrama de estados de tokens.}
+    \label{estados_token}
+  \end{center}
+\end{figure}
 
 \reglaDeNegocio[rn:estados_llave]
 {Estados de una llave}
@@ -160,11 +170,20 @@ definido en \cite{mozilla_er}.
   \end{itemize}
 
   \begin{hangparas}{2em}{0}
-    Cuando una llave es creada, su estado es \textbf{actual}. Si el cliente
-    tenía asociada otra llave, el estado de la llave existente cambia a
-    \textbf{anterior}.
+    Cuando una llave es creada, su estado es \textbf{actual}; cuando el cliente
+    inicia el refresco de llaves, la llave existente cambia a estado
+    \textbf{anterior}. Estas transiciones se pueden observar mejor en la Figura
+    \ref{estados_llave} 
   \end{hangparas}
 }
+
+\begin{figure}
+  \begin{center}
+    \subimport{diagramas/}{estados_llaves.tikz.tex}
+    \caption{Diagrama de estados de llaves.}
+    \label{estados_llave}
+  \end{center}
+\end{figure}
 
 \reglaDeNegocio[rn:estados_correo]
 {Estados de un correo electrónico}
@@ -175,8 +194,21 @@ definido en \cite{mozilla_er}.
     \item No verificado
   \end{itemize}
 
-  Cuando un correo es registrado, su estado es \textbf{no verificado}.
+  \begin{hangparas}{2em}{0}
+    Cuando un correo es registrado, su estado es \textbf{no verificado}; cambia
+    su estado a \textbf{verificado} cuando el cliente presiona un vínculo de
+    validación válido (véase \hipervinculo{rn:verificacion_de_cuentas}). Estas
+    transiciones se pueden observar mejor en la Figura \ref{estados_correo}.
+  \end{hangparas}
 }
+
+\begin{figure}
+  \begin{center}
+    \subimport{diagramas/}{estados_correos.tikz.tex}
+    \caption{Diagrama de estados de un correo electrónico.}
+    \label{estados_correo}
+  \end{center}
+\end{figure}
 
 \reglaDeNegocio[rn:malas_acciones]
 {Contador de malas acciones}
@@ -186,15 +218,19 @@ definido en \cite{mozilla_er}.
   \begin{itemize}
     \item Aumentar en tres cuando un cliente intenta detokenizar tokens válidos
       que no son suyos.
-    \item Aumentar en uno cuando un cliente intenta detokenizar tokens no válidos.
-    \item Aumentar en uno cuando un cliente intente acceder a páginas que no tiene acceso.
+    \item Aumentar en uno cuando un cliente intenta detokenizar tokens no
+      válidos.
+    \item Aumentar en uno cuando un cliente intente acceder a páginas que no
+      tiene acceso.
   \end{itemize}
 
-  Cuando un cliente es creado, el contador está en cero.
+  \begin{hangparas}{2em}{0}
+    Cuando un cliente es creado, el contador está en cero.
+  \end{hangparas}
 }
 
 \reglaDeNegocio[rn:top_malas_acciones]
-{Cliente muy malo}
+{Sancionar cliente}
 {
   Cuando el contador de malas acciones de un cliente sea mayor o igual a 10,
   el estado del cliente deberá ser actualizado a  \textbf{en lista negra}.
@@ -255,24 +291,11 @@ definido en \cite{mozilla_er}.
   usuario que se va a verificar.
 }
 
-% TODO
-% * Definir formato para referencias a estados, tipos de usuarios, etc.
-%   ¿Negritas o itálicas?
-
-% Ups... esto es un requerimiento:
-% \reglaDeNegocio[rn:verificacion_de_cuentas]
-% {Verificación de cuentas}
-% {
-%   Un cliente pasa de estado \textit{no verificado} a \textit{verificado} mediante
-%   un correo de verificación: el sistema manda el correo con un hipervínculo
-%   de activación; el cliente accede al vínculo para verificar su cuenta.
-% }
-
 \reglaDeNegocio[rn:verificacion_de_cuentas]
 {Expiración de vínculos de verificación}
 {
   El vínculo para verificar una cuenta es efectivo solamente durante
-  24 horas; después de este tiempo, el vínculo deja de ser efectivo y se elimina
+  24 horas; después de este tiempo, el vínculo deja de ser válido y se elimina
   el registro del usuario.
 }
 
@@ -280,41 +303,6 @@ definido en \cite{mozilla_er}.
 {Aprobación de clientes}
 {
   Un administrador puede aprobar o rechazar usuarios tipo \textbf{cliente}
-  cuando estos tengan estado \textbf{verificado}.
+  cuando estos tengan estado \textbf{en espera} con correo \textbf{verificado} 
+  en un periodo de 24 HRS desde que el cliente verificó su correo.
 }
-
-\reglaDeNegocio[rn:acceso_no_autorizado]
-{Acceso no autorizados}
-{
-  Un acceso no autorizado se da cuando un usuario hace una petición al servidor
-  para la cual no tiene los privilegios necesarios.
-}
-
-\reglaDeNegocio[rn:acceso_fidedigno]
-{Acceso fidedigno}
-{
-  Un acceso fidedigno es un acceso no autorizado
-  (\hipervinculo{rn:acceso_no_autorizado}) que se puede producir de manera
-  legítima en el uso de la aplicación. Algunas posibles causas son la expiración
-  de una sesión o su cierre accidental.
-}
-
-% TODO: agregar causas o ejemplos.
-
-\reglaDeNegocio[rn:acceso_malintencionado]
-{Acceso malintencionado}
-{
-  Un acceso malintencionado es un acceso no autorizado
-  (\hipervinculo{rn:acceso_no_autorizado}) que no se puede producir de manera
-  legítima en el uso de la aplicación.
-}
-
-\reglaDeNegocio[rn:acceso_erroneo]
-{Acceso erróneo}
-{
-  Un acceso erróneo es un acceso no autorizado
-  (\hipervinculo{rn:acceso_no_autorizado}) en el que no hay elementos
-  suficientes para clasificarlo como fidedigno
-  (\hipervinculo{rn:acceso_fidedigno}) o como malintencionado
-  (\hipervinculo{rn:acceso_malintencionado}).
-}-

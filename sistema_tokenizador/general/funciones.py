@@ -5,14 +5,19 @@
 """
 
 import json, hashlib
+from .models.correo import Correo
+from .models.estado_de_correo import EstadoDeCorreo
 from .models.estado_de_usuario import EstadoDeUsuario
 from .models.tipo_de_usuario import TipoDeUsuario
 from .models.usuario import Usuario
-from django.http import HttpResponse
-from django.db.utils import IntegrityError
+from .models.vinculo import Vinculo
 from sistema_tokenizador import utilidades
 from sistema_tokenizador.configuraciones import DIRECTORIO_BASE
 from sistema_tokenizador.general import negocio
+from django.http import HttpResponse, HttpResponseRedirect
+from django.db.utils import IntegrityError
+from django.core import serializers
+from datetime import datetime, timedelta, timezone
 
 
 def inicio (peticion):
@@ -30,7 +35,7 @@ def inicio (peticion):
   return HttpResponse(content = respuesta)
 
 
-@utilidades.privilegiosRequeridos(1)
+@utilidades.privilegiosRequeridos('cliente')
 def administracionDeTokens (peticion):
   """
   Liga a página de administración de tokens.
@@ -56,7 +61,7 @@ def administracionDeTokens (peticion):
   return inicio(peticion)
 
 
-@utilidades.privilegiosRequeridos(2)
+@utilidades.privilegiosRequeridos('administrador')
 def administracion (peticion):
   """
   Liga a página de administración.
@@ -77,7 +82,7 @@ def usuarioDeSesion (peticion):
   """
 
   if 'usuario' in peticion.session:
-    return HttpResponse(json.dumps(peticion.session['usuario']))
+    return HttpResponse(peticion.session['usuario'])
   else:
     return HttpResponse()
 
@@ -88,29 +93,25 @@ def iniciarSesion (peticion):
 
   En caso correcto, registra al usuario en la sesión y regresa el objeto del
   usuario; en caso incorrecto, regresa un http con un código de error.
-
-  Ojo, lo que se guarda en la sesión y se regresa no es una instancia de
-  Usuario, sino que es un diccionario con el correo y el id del tipo de usuario.
-  El usuario no es serializable por el atributo de la contraseña.
   """
 
   objetoDePeticion = json.loads(peticion.body)
   usuario = negocio.autentificar(objetoDePeticion)
   if usuario != None:
-    if usuario.estadoDeUsuario.nombre == 'no verificado':
+    if usuario.tipoDeUsuario.nombre == 'administrador':
+      peticion.session['usuario'] = serializers.serialize("json", [usuario])
+      return utilidades.respuestaJSON(usuario)
+    elif usuario.correo.estadoDeCorreo.nombre == 'no verificado':
       return HttpResponse("1")
-    elif usuario.estadoDeUsuario.nombre == 'verificado':
+    elif usuario.estadoDeUsuario.nombre == 'en espera':
       return HttpResponse("2")
     elif usuario.estadoDeUsuario.nombre == 'rechazado':
       return HttpResponse("3")
     elif usuario.estadoDeUsuario.nombre == 'en lista negra':
       return HttpResponse("4")
     else:
-      usuarioSerializable = {
-        'correo': usuario.correo,
-        'tipoDeUsuario': usuario.tipoDeUsuario.pk};
-      peticion.session['usuario'] = usuarioSerializable
-      return HttpResponse(json.dumps(usuarioSerializable))
+      peticion.session['usuario'] = serializers.serialize("json", [usuario])
+      return utilidades.respuestaJSON(usuario)
   else:
     return HttpResponse("0")
 
@@ -131,19 +132,65 @@ def registrarCliente (peticion):
   """
 
   objetoDePeticion = json.loads(peticion.body)
-  usuario = Usuario(
+
+  try:
+    Correo.objects.get(correo = objetoDePeticion['correo'])
+    return HttpResponse("1")
+  except Correo.DoesNotExist:
+    pass
+
+  # Inserar correo
+  correo = Correo(
     correo = objetoDePeticion['correo'],
-    contrasenia = hashlib.sha256(objetoDePeticion['contrasenia']
-      .encode()).digest(),
+    contrasenia = hashlib.sha256(
+      objetoDePeticion['contrasenia'].encode()).digest(),
+    estadoDeCorreo = EstadoDeCorreo.objects.get(
+      nombre = 'no verificado'),
+    vinculo = None)
+  correo.save()
+
+  usuario = Usuario(
+    correo = correo,
     tipoDeUsuario = TipoDeUsuario.objects.get(
       nombre = 'cliente'),
     estadoDeUsuario = EstadoDeUsuario.objects.get(
-      nombre = 'no verificado'))
+      nombre = 'en espera'),
+    contadorDeMalasAcciones = 0)
 
-  try:
-    usuario.save()
-  except IntegrityError:
-    return HttpResponse("1")
-
-  # TODO: mandar correo a usuario
+  usuario.save()
+  negocio.enviarVinculoDeVerificacion(usuario)
   return HttpResponse("0")
+
+
+def verificarCorreo (peticion, vinculo):
+  """
+  Verifica el correo asociado al vínculo dado
+
+  Hace la verificación de fecha y redirige al inicio. El mensaje
+  mostrado en inicio depende de la verificación anterior.
+  """
+  correo = Correo.objects.get(
+    vinculo = Vinculo.objects.get(
+      vinculo = vinculo))
+
+  # Anterior a 24 horas, error:
+  if datetime.now(timezone.utc) - correo.vinculo.fecha > timedelta(hours = 24):
+    usuario = Usuario.objects.get(
+      correo = correo)
+    referenciaAnterior = correo.vinculo
+    correo.vinculo = None
+    correo.save()
+    usuario.delete()
+    referenciaAnterior.delete()
+    correo.delete()
+    return HttpResponseRedirect('/?correo_no_verificado')
+
+  # Operación correcta:
+  else:
+    correo.estadoDeCorreo = EstadoDeCorreo.objects.get(
+      nombre = 'verificado')
+    referenciaAnterior = correo.vinculo
+    correo.vinculo = None
+    correo.save()
+    referenciaAnterior.delete()
+    return HttpResponseRedirect('/?correo_verificado')

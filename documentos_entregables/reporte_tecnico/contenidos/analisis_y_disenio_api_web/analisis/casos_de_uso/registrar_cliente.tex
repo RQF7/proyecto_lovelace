@@ -9,11 +9,7 @@
 {
   Caso que permite que un visitante se registre y pase a ser
   un cliente del sistema tokenizador (en conformidad con la regla de negocio
-  \hipervinculo{rn:tipo_de_usuario}). El visitante introduce los datos
-  necesarios para su registro, esto es, correo electrónico y constraseña; el
-  sistema registra un nuevo usuario en estado \textbf{no verificado} y manda un
-  correo al cliente con un hipervínculo de verificación; el cliente verifica su
-  registro y el sistema lo pasa al estado \textbf{verificado}.
+  \hipervinculo{rn:tipo_de_usuario}).
 
   \begin{trayectoriaPrincipal}
 
@@ -46,14 +42,16 @@
 
     \item El sistema valida que el correo introducido no se encuentre ya asignado
       a un usuario tomando en cuenta la regla de negocios
-      \hipervinculo{rn:unicidad_correo} [\hipervinculoLocal{ta:usuario_existente}].
+      \hipervinculo{rn:unicidad_correo}
+      [\hipervinculoLocal{ta:usuario_existente}].
 
-    \item El sistema crea un nuevo cliente en estado \textbf{no verificado},
-      según la regla de negocios \hipervinculo{rn:estados_cliente} y un nuevo
-      vínculo tomando en cuenta la regla de negocios
-      \hipervinculo{rn:hipervinculo_verificacion}.
+    \item El sistema crea un nuevo cliente en estado \textbf{en espera},
+      según la regla de negocios \hipervinculo{rn:estados_cliente}, un nuevo
+      correo en estado \textbf{no verificado}, según la regla
+      \hipervinculo{rn:estados_correo}, y un nuevo vínvulo con la fecha
+      actual, según \hipervinculo{rn:hipervinculo_verificacion}.
 
-    \item El sistema manda un correo al cliente con un hipervínculo de
+    \item El sistema manda un correo al cliente con el hipervínculo de
       verificación.
 
     \item El sistema muestra la ventana

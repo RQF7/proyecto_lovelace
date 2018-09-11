@@ -1,0 +1,348 @@
+%
+% Cronograma para profesor de seguimiento,
+% trabajo terminal II.
+% Proyecto Lovelace.
+%
+
+\documentclass[10pt, letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, mexico, es-noindentfirst]{babel}
+\usepackage[spanish]{translator}
+\usepackage{pgfgantt}
+\usepackage[textwidth=7.5in, textheight=10in]{geometry}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+
+\fancypagestyle{contenido}{
+  \fancyfoot[C]{\thepage \ de \pageref{LastPage}}
+  \renewcommand{\headrulewidth}{0.0pt}
+  \renewcommand{\footrulewidth}{0.0pt}}
+\pagestyle{contenido}
+
+\begin{document}
+
+  \begin{center}
+    \textsc{\LARGE Planeación de actividades, Trabajo Terminal II} \\
+    \vspace{0.3em}
+    \textbf{2017-B008 Generación de tokens para proteger
+      los datos de tarjetas bancarias} \\
+    \textit{%
+      Daniel Ayala Zamorano,
+      Laura Natalia Borbolla Palacios,
+      Ricardo Quezada Figueroa}
+  \end{center}
+
+  \begin{center}
+    \begin{ganttchart}[
+      vgrid = {line width = 0.05pt},
+      %hgrid = {line width = 0.05pt},
+      % expand chart = \textwidth,
+      title height = 1,
+      title label font = \tiny,
+      group label font = \tiny,
+      milestone label font = \tiny,
+      bar label font = \tiny,
+      bar/.append style = {fill=gray!50!white, very thin},
+      bar height = 0.04em,
+      x unit  = 0.5em,
+      y unit title = 0.6cm,
+      y unit chart = 0.48cm,
+      group height = 0.4,
+      group /.append style={fill=gray},
+      group peaks tip position=0,
+      group peaks height=.02em,
+      today label font = \tiny,
+      time slot format = little-endian,
+      calendar week text = Sem. \currentweek,
+      today label = Hoy,
+      today = 10.9.18,
+      milestone inline label node/.append style={left = 2mm},
+      canvas/.append style={line width = .4pt}
+      ]{6.8.18}{28.10.18}
+
+      \gantttitlecalendar*{6.8.18}{28.10.18}{
+        year, month=name, week=1} \\
+
+      \ganttgroup
+        {\textbf{Preparación de artículo}}
+        {6.8.18}
+        {24.8.18} \\
+
+      \ganttbar
+        {Borrador}
+        {6.8.18}
+        {12.8.18} \\
+
+      \ganttbar
+        {Revisión}
+        {13.8.18}
+        {15.8.18} \\
+
+      \ganttbar
+        {Correcciones}
+        {16.8.18}
+        {18.8.18} \\
+
+      \ganttbar
+        {Segunda revisión}
+        {19.8.18}
+        {21.8.18} \\
+
+      \ganttbar
+        {Correcciones}
+        {22.8.18}
+        {24.8.18} \\
+
+      \ganttnewline
+
+      \ganttgroup
+        {\textbf{Aplicación web de tokenización}}
+        {13.8.18}
+        {23.9.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Análisis}}
+        {13.8.18}
+        {31.8.18} \\
+
+      \ganttbar
+        {Desarrollo de plantillas}
+        {13.8.18}
+        {21.8.18} \\
+
+      \ganttbar
+        {Redacción de las reglas del negocio}
+        {17.8.18}
+        {19.8.18} \\
+
+      \ganttbar
+        {Identificación de requerimientos}
+        {20.8.18}
+        {23.8.18} \\
+
+      \ganttbar
+        {Redacción de casos de uso}
+        {24.8.18}
+        {31.8.18} \\
+
+      \ganttbar
+        {Definición del modelo de datos}
+        {28.8.18}
+        {31.8.18} \\
+
+      \ganttbar
+        {Diseño de las interfaces de usuario}
+        {28.8.18}
+        {31.8.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Diseño}}
+        {1.9.18}
+        {9.9.18} \\
+
+      \ganttbar
+        {Modelado de base de datos}
+        {1.9.18}
+        {5.9.18} \\
+
+      \ganttbar
+        {Elaboración de diagramas de clases}
+        {1.9.18}
+        {7.9.18} \\
+
+      \ganttbar
+        {Elaboración de diagramas de secuencias}
+        {5.9.18}
+        {9.9.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Implementación}}
+        {10.9.18}
+        {23.9.18} \\
+
+      \ganttbar
+        {Implementación casos de uso}
+        {10.9.18}
+        {23.9.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Pruebas}}
+        {17.9.18}
+        {23.9.18} \\
+
+      \ganttbar
+        {Pruebas de la funcionalidad}
+        {17.9.18}
+        {19.9.18} \\
+
+      \ganttbar
+        {Correcciones pertinentes}
+        {20.9.18}
+        {23.9.18} \\
+
+      \ganttmilestone
+        {1\textsuperscript{a} Revisión}
+        {23.9.18} \\
+
+      \ganttnewline
+
+      \ganttgroup
+        {\textbf{Caso de prueba: tienda en línea}}
+        {17.9.18}
+        {10.10.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Análisis}}
+        {17.9.18}
+        {23.9.18} \\
+
+      \ganttbar
+        {Redacción de casos de uso}
+        {17.9.18}
+        {20.9.18} \\
+
+      \ganttbar
+        {Diseño de las interfaces de usuario}
+        {20.9.18}
+        {23.9.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Diseño}}
+        {23.9.18}
+        {27.9.18} \\
+
+      \ganttbar
+        {Diseño de interacción con tokens}
+        {23.9.18}
+        {27.9.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Implementación}}
+        {27.9.18}
+        {10.10.18} \\
+
+      \ganttbar
+        {Implementación de los casos de uso}
+        {27.9.18}
+        {10.10.18} \\
+
+      \ganttgroup[group/.append style={fill=gray!120}]
+        {\textit{Pruebas}}
+        {4.10.18}
+        {10.10.18} \\
+
+      \ganttbar
+        {Pruebas de la funcionalidad}
+        {4.10.18}
+        {7.10.18} \\
+
+      \ganttbar
+        {Correcciones pertinentes}
+        {7.10.18}
+        {10.10.18} \\
+
+      \ganttmilestone
+        {2\textsuperscript{a} Revisión}
+        {10.10.18} \\
+
+      \ganttnewline
+
+      \ganttgroup
+        {\textbf{Reporte técnico y presentación}}
+        {7.10.18}
+        {26.10.18} \\
+
+      \ganttbar
+        {Elaboración del reporte técnico}
+        {7.10.18}
+        {18.10.18} \\
+
+      \ganttbar
+        {Elaboración de la presentación de TT2}
+        {18.10.18}
+        {26.10.18} \\
+
+      \ganttmilestone
+        {3\textsuperscript{a} Revisión}
+        {26.10.18}
+
+    \end{ganttchart}
+  \end{center}
+
+  \newpage
+  \subsubsection*{Descripción de entregables}
+
+  \noindent
+  \textbf{1\textsuperscript{a} Revisión (24 - 28 de septiembre).}
+
+  \begin{itemize}
+
+    \item Análisis de sistema tokenizador.
+
+      \begin{itemize}
+        \item Listado de reglas de negocio y requerimientos.
+        \item Diagramas de estado para reglas y requerimientos.
+        \item Descripción de casos de uso.
+        \item Diseño de interfaces de usuario.
+        \item Diagrama de clases con modelo de datos.
+      \end{itemize}
+
+    \item Diseño de sistema tokenizador.
+
+      \begin{itemize}
+        \item Modelado de la base de datos:
+          diagrama entidad relación y relacional.
+        \item Vista estática: diagrama de componentes y diagramas de clases.
+        \item Vista dinámica: diagramas de secuencia.
+      \end{itemize}
+
+    \item Implementación de sistema tokenizador.
+
+      \begin{itemize}
+        \item Aplicación web funcional.
+      \end{itemize}
+
+  \end{itemize}
+
+  \noindent
+  \textbf{2\textsuperscript{a} Revisión (8 - 12 de octubre)}
+
+  \begin{itemize}
+
+    \item Análisis y diseño de tienda en línea.
+
+      \begin{itemize}
+        \item Descripción de casos de uso.
+        \item Diseño de interfaces de usuario.
+        \item Vista dinámica: diagramas de secuencia.
+        \item Modelado de interacción entre tienda y sistema tokenizador.
+      \end{itemize}
+
+    \item Implementación de tienda en línea.
+
+      \begin{itemize}
+        \item Tienda en línea funcional.
+      \end{itemize}
+
+  \end{itemize}
+
+  \noindent
+  \textbf{3\textsuperscript{a} Revisión (21 - 26 de octubre)}
+
+  \begin{itemize}
+
+    \item Documento de reporte técnico.
+
+    \item Presentación de Trabajo Terminal II.
+
+  \end{itemize}
+
+  \vspace{2.5in}
+  \begin{center}
+    \rule{3in}{0.4pt} \\
+    \textit{Dra. Sandra Díaz Santiago} \\
+    Directora del trabajo
+  \end{center}
+
+\end{document}

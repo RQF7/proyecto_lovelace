@@ -11,9 +11,10 @@ class Vinculo (models.Model):
 
   vinculo = models.CharField(
     verbose_name = 'vinculo',
-    max_length = 100)
+    max_length = 100,
+    unique = True)
 
-  fecha = models.DateField(
+  fecha = models.DateTimeField(
     verbose_name = 'fecha del vinculo')
 
   def __str__(self):

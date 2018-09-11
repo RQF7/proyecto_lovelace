@@ -3,9 +3,6 @@
 % Análisis y diseño de aplicación web.
 % Proyecto Lovelace.
 %
-% TODO: Definir hipervínculos a casos de uso en las etiquetas de los
-% cambios de estado.
-%
 
 \begin{tikzpicture}[
   estado/.style = {
@@ -19,50 +16,48 @@
   estado_inicial/.style = {
     circle,
     minimum size = 15pt,
-    fill = black,
-  },
+    fill = black},
   etiqueta_transicion/.style = {
-    align = center
-  }]
+    align = center}]
 
   % Estados
   \node[estado_inicial]
     (estado_inicial) {};
   \node[estado]
     (no_verificado)
-    [right = 1.4in of estado_inicial]
-    {\small No verificado};
+    [above = 1.4in of estado_inicial]
+    {En espera: \\ correo no verificado};
   \node[estado]
     (verificado)
     [right = 1.4in of no_verificado]
-    {\small Verificado};
+    {En espera: \\ correo \\ verificado};
   \node[estado]
     (rechazado)
-    [above = 0.6in of verificado]
-    {\small Rechazado};
+    [above = 1.4in of verificado]
+    {Rechazado};
   \node[estado]
     (aprobado)
     [right = 1.4in of verificado]
-    {\small Aprobado};
+    {Aprobado};
   \node[estado]
     (en_cambio_de_llaves)
-    [above = 0.6in of aprobado]
-    {\small En cambio de llaves};
+    [above = 1.4in of aprobado]
+    {En cambio de llaves};
   \node[estado]
     (en_lista_negra)
-    [below = 0.6in of aprobado]
-    {\small En lista negra};
+    [below = 1.4in of aprobado]
+    {En lista negra};
 
   % Transiciones
   \draw[-Stealth]
-    (estado_inicial.east)
+    (estado_inicial.north)
     --
     node[
       etiqueta_transicion,
       text width = 1.2in,
-      below]
-      {\small \textsc{CUAPI03 Registrar usuario} - enviar datos}
-    (no_verificado.west);
+      right]
+      {\hipervinculo{cu:registrar_cliente} - enviar datos}
+    (no_verificado.south);
   \draw[-Stealth]
     (no_verificado.east)
     --
@@ -70,7 +65,7 @@
       etiqueta_transicion,
       text width = 1.2in,
       below]
-      {\small \textsc{CUAPI03 Registrar usuario} - verificar correo}
+      {\hipervinculo{cu:registrar_cliente} - verificar correo}
     (verificado.west);
   \draw[-Stealth]
     (verificado.north)
@@ -79,7 +74,7 @@
       etiqueta_transicion,
       text width = 1.2in,
       left]
-      {\small \textsc{CUAPI04 Rechazar usuario}}
+      {\hipervinculo{cu:rechazar_cliente}}
     (rechazado.south);
   \draw[-Stealth]
     (verificado.east)
@@ -88,35 +83,69 @@
       etiqueta_transicion,
       text width = 1.2in,
       below]
-      {\small \textsc{CUAPI05 Aprobar usuario}}
+      {\hipervinculo{cu:aprobar_cliente}}
     (aprobado.west);
   \draw[-Stealth]
     ($(aprobado.north) - (0.2in, 0)$)
     --
+    node[
+      etiqueta_transicion,
+      text width = 1.2in,
+      left]
+      {\hipervinculo{cu:iniciar_refresco}}
     ($(en_cambio_de_llaves.south) - (0.2in, 0)$);
   \draw[-Stealth]
     ($(en_cambio_de_llaves.south) + (0.2in, 0)$)
     --
+    node[
+      etiqueta_transicion,
+      text width = 1.2in,
+      right]
+      {\hipervinculo{cu:terminar_refresco}}
     ($(aprobado.north) + (0.2in, 0)$);
   \draw[-Stealth]
     ($(aprobado.south) - (0.2in, 0)$)
     --
+    node[
+      etiqueta_transicion,
+      text width = 1.2in,
+      left]
+      {\hipervinculo{cu:vetar_cliente}}
     ($(en_lista_negra.north) - (0.2in, 0)$);
   \draw[-Stealth]
     ($(en_lista_negra.north) + (0.2in, 0)$)
     --
+    node[
+      etiqueta_transicion,
+      text width = 1.2in,
+      right]
+      {\hipervinculo{cu:desvetar_cliente}}
     ($(aprobado.south) + (0.2in, 0)$);
   \draw[-Stealth]
-    ($(en_cambio_de_llaves.east) + (0, -0.1in)$)
+    ($(en_cambio_de_llaves.east) + (0, -0.2in)$)
     --
-    ($(en_cambio_de_llaves.east) + (0.4in, -0.1in)$)
-    |-
-    ($(en_lista_negra.east) + (0, 0.1in)$);
+    ($(en_cambio_de_llaves.east) + (1.6in, -0.2in)$)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 1.2in,
+      left]
+      {\hipervinculo{cu:vetar_cliente}}
+    ($(en_lista_negra.east) + (1.6in, 0.2in)$)
+    --
+    ($(en_lista_negra.east) + (0, 0.2in)$);
   \draw[-Stealth]
-    ($(en_lista_negra.east) + (0, -0.1in)$)
+    ($(en_lista_negra.east) + (0, -0.2in)$)
     --
-    ($(en_lista_negra.east) + (0.6in, -0.1in)$)
-    |-
-    ($(en_cambio_de_llaves.east) + (0, 0.1in)$);
+    node[
+      etiqueta_transicion,
+      text width = 1.2in,
+      below]
+      {\hipervinculo{cu:desvetar_cliente}}
+    ($(en_lista_negra.east) + (2.0in, -0.2in)$)
+    --
+    ($(en_cambio_de_llaves.east) + (2.0in, 0.2in)$)
+    --
+    ($(en_cambio_de_llaves.east) + (0, 0.2in)$);
 
 \end{tikzpicture}

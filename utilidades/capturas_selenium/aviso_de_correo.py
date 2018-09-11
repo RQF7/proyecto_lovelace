@@ -12,7 +12,9 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'sistema_tokenizador.configuraciones'
 django.setup()
 
 from captura_generica_pagina import CapturaGenericaPagina
+from sistema_tokenizador.general.models.correo import Correo
 from sistema_tokenizador.general.models.usuario import Usuario
+from sistema_tokenizador.general.models.vinculo import Vinculo
 
 class CapturaAvisoDeCorreo (CapturaGenericaPagina):
   """
@@ -70,9 +72,13 @@ class CapturaAvisoDeCorreo (CapturaGenericaPagina):
     """
 
     CapturaGenericaPagina.tomarCapturas(ego)
-    usuario = Usuario.objects.get(correo = ego.mUsuario)
+    usuario = Usuario.objects.get(
+      correo = Correo.objects.get(correo = ego.mUsuario))
+    correo = usuario.correo;
     usuario.delete()
-
+    vinculo = correo.vinculo;
+    correo.delete()
+    vinculo.delete()
 
 
 if __name__ == '__main__':
