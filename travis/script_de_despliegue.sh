@@ -11,7 +11,6 @@
 npm install
 grunt
 . entorno_virtual/bin/activate
-python administrar.py makemigrations general programa_tokenizador
-python administrar.py migrate
+./travis/reiniciar_modelos $2
 ./travis/reiniciar_apache.sh $2
 systemctl status apache2
