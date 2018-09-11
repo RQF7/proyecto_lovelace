@@ -3,12 +3,18 @@
 % Aplicación web de sistema tokenizador.
 % Proyecto Lovelace.
 %
+% TODO:
+% * Agregar transición de estado retokenizado a estado actual: caso de uso de
+%   terminar refresco de llaves.
+% * Redistribuir nodos para tener más espacio en el ancho de las etiquetas de
+%   transiciones y para que no se salga de los márgenes del documento..
+%
 
 \begin{tikzpicture}[
     estado/.style = {
         rectangle,
         draw = black,
-        thin,                                                                                     
+        thin,
         inner sep = 4mm,
         text width = 25mm,
         align = center,
