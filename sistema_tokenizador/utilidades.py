@@ -67,9 +67,12 @@ def privilegiosRequeridos (tipoDeUsuario):
         return HttpResponseRedirect('/?siguiente=' + peticion.path)
 
       else:
-        usuario = serializers.deserialize("json", peticion.session['usuario'])
-        print(usuario)
-        if usuario.tipoDeUsuario != tipoDeUsuario:
+        usuario = None
+        for objetoDescerializado \
+          in serializers.deserialize("json", peticion.session['usuario']):
+          usuario = objetoDescerializado
+          break
+        if str(usuario.object.tipoDeUsuario) != tipoDeUsuario:
           return HttpResponseRedirect('/?siguiente=' + peticion.path)
 
         else:

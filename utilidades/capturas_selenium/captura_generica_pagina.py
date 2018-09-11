@@ -15,6 +15,10 @@ class CapturaGenericaPagina (CapturaGenerica):
   necesitan mayores configuraciones para la toma de capturas.
   """
 
+  def configuracionCapturaExtraGrande (ego):
+    CapturaGenerica.configuracionCapturaExtraGrande(ego)
+    time.sleep(1.0)
+
   def configuracionCapturaMediana (ego):
     """
     Extiende la configuración de la captura genérica.

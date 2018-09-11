@@ -128,7 +128,7 @@ void AccesoMySQL::guardar(
 }
 
 /**
- * Elimina el registor que coincida con el identificador dado.
+ * Elimina el registro que coincida con el identificador dado.
  */
 
 void AccesoMySQL::eliminar(
