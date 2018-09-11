@@ -14,9 +14,10 @@ from .models.vinculo import Vinculo
 from sistema_tokenizador import utilidades
 from sistema_tokenizador.configuraciones import DIRECTORIO_BASE
 from sistema_tokenizador.general import negocio
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.db.utils import IntegrityError
 from django.core import serializers
+from datetime import datetime, timedelta, timezone
 
 
 def inicio (peticion):
@@ -159,3 +160,34 @@ def registrarCliente (peticion):
   usuario.save()
   negocio.enviarVinculoDeVerificacion(usuario)
   return HttpResponse("0")
+
+
+def verificarCorreo (peticion, vinculo):
+  """
+  Verifica el correo asociado al vínculo dado
+
+  Hace la verificación de fecha y redirige al inicio. El mensaje
+  mostrado en inicio depende de la verificación anterior.
+  """
+  correo = Correo.objects.get(
+    vinculo = Vinculo.objects.get(
+      vinculo = vinculo))
+
+  # Anterior a 24 horas, error:
+  if datetime.now(timezone.utc) - correo.vinculo.fecha > timedelta(hours = 24):
+    usuario = Usuario.objects.get(
+      correo = correo)
+    correo.vinculo.delete()
+    correo.delete()
+    usuario.delete()
+    return HttpResponseRedirect('/?correo_no_verificado')
+
+  # Operación correcta:
+  else:
+    correo.estadoDeCorreo = EstadoDeCorreo.objects.get(
+      nombre = 'verificado')
+    referenciaAnterior = correo.vinculo
+    correo.vinculo = None
+    correo.save()
+    referenciaAnterior.delete()
+    return HttpResponseRedirect('/?correo_verificado')

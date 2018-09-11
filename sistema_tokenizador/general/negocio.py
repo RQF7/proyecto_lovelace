@@ -9,6 +9,7 @@ from .models.correo import Correo
 from .models.usuario import Usuario
 from .models.vinculo import Vinculo
 from sistema_tokenizador import utilidades
+from sistema_tokenizador.configuraciones import DOMINIO
 
 def autentificar (usuarioEnPeticion):
   """
@@ -57,15 +58,16 @@ def enviarVinculoDeVerificacion (usuario):
     """
     Estimado cliente:
 
-    Para poder verificar su correo en el sistema tokenizador usted
-    debe hacer clic en el siguiente vínculo:
+    Para poder verificar su correo en el sistema tokenizador debe
+    hacer clic en el siguiente vínculo:
 
-    {0}
+    {0}/api/verificar_correo/{1}
 
     Después de esto, en un máximo de 24 horas, recibirá un correo con
     el resultado de su solicitud.
 
     Atentamente,
     Departamento de verificación de cuentas,
-    Sistema Tokenizador.
-    """.format(usuario.correo.vinculo.vinculo))
+    Sistema Tokenizador,
+    Proyecto Lovelace.
+    """.format(DOMINIO, usuario.correo.vinculo.vinculo))

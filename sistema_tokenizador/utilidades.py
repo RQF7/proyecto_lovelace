@@ -9,7 +9,9 @@ from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.core import serializers
 from urllib import parse
 from functools import wraps
-from smtplib import SMTP_SSL
+from smtplib import SMTP
+from email.mime.text import MIMEText
+import _thread
 
 
 def respuestaJSON (objeto):
@@ -79,7 +81,45 @@ def privilegiosRequeridos (tipoDeUsuario):
 
 def enviarCorreo(destinatario, asunto, cuerpo):
   """
+  Envolvente alededor de transacciones de correo
+
+  La función opera en modo no bloqueante: crea un hilo para hacer la
+  transacción del envío del correo y regresa, independientemente de
+  si el envío fue o no correcto.
+
+  destinatario: cadena con correo destino.
+  asunto: cadena con campo de subject en correo.
+  cuerpo: contenido del correo.
   """
-  #servidor = SMTP_SSL('ricardo-quezada.159.65.96.59.xip.io', 465)
-  #servidor.login()
-  pass
+  _thread.start_new_thread(transaccionDeCorreo, (destinatario, asunto, cuerpo))
+
+
+def transaccionDeCorreo(destinatario, asunto, cuerpo):
+  """
+  Envía un correo desde la cuenta de administración del servidor.
+
+  destinatario: cadena con correo destino.
+  asunto: cadena con campo de subject en correo.
+  cuerpo: contenido del correo.
+
+  TODO: Quitar contraseña de aquí.
+  """
+  dominio = 'ricardo-quezada.159.65.96.59.xip.io'
+  usuario = 'administracion'
+  correo = usuario + '@' + dominio
+  servidor = SMTP(dominio, 587)
+  servidor.ehlo()
+  servidor.starttls()
+  servidor.ehlo()
+  servidor.login(
+    correo,
+    'config-1321-admin')
+  mensaje = MIMEText(cuerpo.encode('utf-8'), _charset='utf-8')
+  mensaje['Subject'] = asunto
+  mensaje['From'] = correo
+  mensaje['To'] = destinatario
+  servidor.sendmail(
+    correo,
+    [destinatario],
+    mensaje.as_string())
+  servidor.close()
