@@ -66,11 +66,14 @@ def privilegiosRequeridos (tipoDeUsuario):
       if 'usuario' not in peticion.session:
         return HttpResponseRedirect('/?siguiente=' + peticion.path)
 
-      elif peticion.session['usuario']['tipoDeUsuario'] != tipoDeUsuario:
-        return HttpResponseRedirect('/?siguiente=' + peticion.path)
-
       else:
-        return funcion(peticion, *argumentos, **argumentosEnDiccionario)
+        usuario = serializers.deserialize("json", peticion.session['usuario'])
+        print(usuario)
+        if usuario.tipoDeUsuario != tipoDeUsuario:
+          return HttpResponseRedirect('/?siguiente=' + peticion.path)
+
+        else:
+          return funcion(peticion, *argumentos, **argumentosEnDiccionario)
 
     # Retorno de función decoradora, decorador.
     return envolturaDePrivilegios

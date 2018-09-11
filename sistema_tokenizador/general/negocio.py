@@ -63,9 +63,6 @@ def enviarVinculoDeVerificacion (usuario):
 
     {0}/api/verificar_correo/{1}
 
-    Después de esto, en un máximo de 24 horas, recibirá un correo con
-    el resultado de su solicitud.
-
     Atentamente,
     Departamento de verificación de cuentas,
     Sistema Tokenizador,

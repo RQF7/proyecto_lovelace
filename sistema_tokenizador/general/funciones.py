@@ -35,7 +35,7 @@ def inicio (peticion):
   return HttpResponse(content = respuesta)
 
 
-@utilidades.privilegiosRequeridos(1)
+@utilidades.privilegiosRequeridos('cliente')
 def administracionDeTokens (peticion):
   """
   Liga a página de administración de tokens.
@@ -61,7 +61,7 @@ def administracionDeTokens (peticion):
   return inicio(peticion)
 
 
-@utilidades.privilegiosRequeridos(2)
+@utilidades.privilegiosRequeridos('administrador')
 def administracion (peticion):
   """
   Liga a página de administración.
@@ -177,9 +177,12 @@ def verificarCorreo (peticion, vinculo):
   if datetime.now(timezone.utc) - correo.vinculo.fecha > timedelta(hours = 24):
     usuario = Usuario.objects.get(
       correo = correo)
-    correo.vinculo.delete()
-    correo.delete()
+    referenciaAnterior = correo.vinculo
+    correo.vinculo = None
+    correo.save()
     usuario.delete()
+    referenciaAnterior.delete()
+    correo.delete()
     return HttpResponseRedirect('/?correo_no_verificado')
 
   # Operación correcta:
