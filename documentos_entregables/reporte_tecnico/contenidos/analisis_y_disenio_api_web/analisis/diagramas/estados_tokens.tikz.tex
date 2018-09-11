@@ -1,0 +1,71 @@
+%
+% Diagrama de estados de tokens,
+% Aplicación web de sistema tokenizador.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[
+    estado/.style = {
+        rectangle,
+        draw = black,
+        thin,                                                                                     
+        inner sep = 4mm,
+        text width = 25mm,
+        align = center,
+        minimum height = 1.5cm},
+      estado_inicial/.style = {
+        circle,
+        minimum size = 15pt,
+        fill = black,
+      },
+      etiqueta_transicion/.style = {
+        align = center,
+        text width = 15mm
+      }]
+
+  % Estados
+  \node[estado_inicial]
+    (estado_inicial) {};
+  \node[estado]
+    (actual)
+    [right = 1in of estado_inicial]
+    {Actual};
+  \node[estado]
+    (anterior)
+    [right = 1in of actual]
+    {Anterior};
+  \node[estado]
+    (retokenizado)
+    [right = 1in of anterior]
+    {Retokenizado};
+
+  % Transiciones
+  \draw[-Stealth]
+    (estado_inicial.east)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 0.8in,
+      above]
+      {\hipervinculo{cu:tokenizar_tarjeta}}
+    (actual.west);
+  \draw[-Stealth]
+    (actual.east)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 0.8in,
+      above]
+      {\hipervinculo{cu:iniciar_refresco}}
+    (anterior.west);
+  \draw[-Stealth]
+    (anterior.east)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 0.8in,
+      above]
+      {\hipervinculo{cu:retokenizar_token}}
+    (retokenizado.west);
+
+\end{tikzpicture}
