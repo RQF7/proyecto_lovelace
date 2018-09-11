@@ -116,14 +116,12 @@ void AccesoMySQL::guardar(
   const Registro& registro              /**< Nuevo registro. */
 )
 {
-  string instruccion {"INSERT INTO programa_tokenizador_token "
-    "VALUES (?, ?, ?, ?, ?)"};
+  string instruccion {"INSERT INTO programa_tokenizador_token (id, token, pan) "
+    "VALUES (?, ?, ?)"};
   PreparedStatement* declaracion = mConexion->prepareStatement(instruccion);
   declaracion->setInt(1, 0);
   declaracion->setString(2, registro.obtenerToken().obtenerCadena());
   declaracion->setString(3, registro.obtenerPAN().obtenerCadena());
-  declaracion->setInt(4, 1);
-  declaracion->setInt(5, 1);
   declaracion->executeQuery();
   delete declaracion;
   return;
