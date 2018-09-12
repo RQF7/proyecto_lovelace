@@ -9,20 +9,167 @@
   flex="none"
   layout="column">
 
-  <h3>Administrar usuarios</h3>
+  <div>
+    <h3>Clientes en espera</h3>
+    <md-table-container>
+      <table md-table>
+        <thead md-head>
+          <tr md-row>
+           <th md-column>
+             Correo electrónico
+           </th>
+           <th md-column></th>
+         </tr>
+        </thead>
+        <tbody md-body>
+          <tr
+            md-row
+            ng-repeat="cliente in clientesEnEspera">
+            <td md-cell>
+              <p>
+                {{cliente.fields.correo}}
+              </p>
+            </td>
+            <td md-cell>
+            <div layout="row">
+              <span flex></span>
+              <md-button
+                ng-click="aprobarCliente($event, cliente)">
+                Aprobar
+              </md-button>
+              <md-button
+                ng-click="rechazarCliente($event, cliente)">
+                Rechazar
+              </md-button>
+            </div>
+           </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <div
+      layout="row"
+      class="nuevo-paginador">
+      <span flex></span>
+      <md-table-pagination
+        md-limit="paginacionEnEspera.limite"
+        md-limit-options="[5, 10, 15, 20]"
+        md-page="paginacionEnEspera.pagina"
+        md-total="{{totalDeClientesEnEspera}}"
+        md-on-paginate="obtenerClientesEnEspera"
+        md-page-select
+        md-label="{page: 'Página:',
+          rowsPerPage: 'Filas por página:',
+          of: 'de'}">
+      </md-table-pagination>
+      <span flex></span>
+    </div>
+  </div>
 
-  <p>
-    Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-    ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
-    tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-    ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est
-    et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed,
-    commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt
-    condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.
-    Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus,
-    neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna
-    eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan
-    porttitor, facilisis luctus, metus.
-  </p>
+  <div>
+    <h3>Clientes aprobados</h3>
+    <md-table-container>
+      <table md-table>
+        <thead md-head>
+          <tr md-row>
+           <th md-column>
+             Correo electrónico
+           </th>
+           <th md-column></th>
+         </tr>
+        </thead>
+        <tbody md-body>
+          <tr
+            md-row
+            ng-repeat="cliente in clientesAprobados">
+            <td md-cell>
+              <p>
+                {{cliente.fields.correo}}
+              </p>
+            </td>
+            <td md-cell>
+            <div layout="row">
+              <span flex></span>
+              <md-button
+                ng-click="vetarCliente($event, cliente)">
+                Vetar
+              </md-button>
+            </div>
+           </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <div
+      layout="row"
+      class="nuevo-paginador">
+      <span flex></span>
+      <md-table-pagination
+        md-limit="paginacionAprobados.limite"
+        md-limit-options="[5, 10, 15, 20]"
+        md-page="paginacionAprobados.pagina"
+        md-total="{{totalDeClientesAprobados}}"
+        md-on-paginate="obtenerClientesAprobados"
+        md-page-select
+        md-label="{page: 'Página:',
+          rowsPerPage: 'Filas por página:',
+          of: 'de'}">
+      </md-table-pagination>
+      <span flex></span>
+    </div>
+  </div>
+
+  <div>
+    <h3>Clientes en lista negra</h3>
+    <md-table-container>
+      <table md-table>
+        <thead md-head>
+          <tr md-row>
+           <th md-column>
+             Correo electrónico
+           </th>
+           <th md-column></th>
+         </tr>
+        </thead>
+        <tbody md-body>
+          <tr
+            md-row
+            ng-repeat="cliente in clientesEnListaNegra">
+            <td md-cell>
+              <p>
+                {{cliente.fields.correo}}
+              </p>
+            </td>
+            <td md-cell>
+            <div layout="row">
+              <span flex></span>
+              <md-button
+                ng-click="desvetarCliente($event, cliente)">
+                Desvetar
+              </md-button>
+            </div>
+           </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <div
+      layout="row"
+      class="nuevo-paginador">
+      <span flex></span>
+      <md-table-pagination
+        md-limit="paginacionEnListaNegra.limite"
+        md-limit-options="[5, 10, 15, 20]"
+        md-page="paginacionEnListaNegra.pagina"
+        md-total="{{totalDeClientesEnListaNegra}}"
+        md-on-paginate="obtenerClientesEnListaNegra"
+        md-page-select
+        md-label="{page: 'Página:',
+          rowsPerPage: 'Filas por página:',
+          of: 'de'}">
+      </md-table-pagination>
+      <span flex></span>
+    </div>
+  </div>
 
 </div>

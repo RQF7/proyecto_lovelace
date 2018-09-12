@@ -13,18 +13,29 @@
 
   \begin{trayectoriaPrincipal}
 
-    \item El administrador presiona el botón \textit{Poner en lista negra}
+    \item El administrador presiona el botón \textit{Vetar}
       correspondiente al cliente que desea vetar en la interfaz
-      \hipervinculo{iu:administrador}.
+      \hipervinculo{iu:administracion}.
 
     \item El sistema muestra el mensaje \hipervinculo{msj:vetar_cliente}.
 
-    \item El administrador presiona \textit{Aceptar}.
+    \item El administrador presiona \textit{Aceptar}
+      [\hipervinculoLocal{ta:cancelar}].
 
     \item El sistema cambia el estado de dicho cliente a \textbf{en lista negra}
       tomando en cuenta la regla de negocios \hipervinculo{rn:estados_cliente}.
 
-    \item El sistema refresca la interfaz \hipervinculo{iu:administrador}.
+    \item El sistema manda un correo para avisar al cliente de su
+      ingreso a la lista negra.
+
+    \item El sistema refresca la interfaz \hipervinculo{iu:administracion}.
 
   \end{trayectoriaPrincipal}
+
+  \begin{trayectoriaAlternativa}[ta:cancelar]
+    {Cancelar operación}
+
+    \item El administrador presiona \textit{Cancelar}.
+
+  \end{trayectoriaAlternativa}
 }

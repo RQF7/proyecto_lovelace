@@ -28,12 +28,34 @@ urlpatterns = [
   path('administración_de_tokens', general.administracionDeTokens),
   path('administración', general.administracion),
 
-  # Operaciones de api
+  # Operaciones de sesión
   path('api/usuario_de_sesion', general.usuarioDeSesion),
   path('api/iniciar_sesion', general.iniciarSesion),
   path('api/cerrar_sesion', general.cerrarSesion),
   path('api/registrar_cliente', general.registrarCliente),
   path('api/verificar_correo/<vinculo>', general.verificarCorreo),
+
+  # Operaciones de administración
+  path('api/clientes_en_espera/<int:pagina>/<int:limite>',
+    general.obtenerClientesEnEspera),
+  path('api/total_de_clientes_en_espera',
+    general.obtenerTotalDeClientesEnEspera),
+  path('api/clientes_en_lista_negra/<int:pagina>/<int:limite>',
+    general.obtenerClientesEnListaNegra),
+  path('api/total_de_clientes_en_lista_negra',
+    general.obtenerTotalDeClientesEnListaNegra),
+  path('api/clientes_aprobados/<int:pagina>/<int:limite>',
+    general.obtenerClientesAprobados),
+  path('api/total_de_clientes_aprobados',
+    general.obtenerTotalDeClientesAprobados),
+  path('api/aprobar_cliente/<int:idDeCliente>',
+    general.aprobarCliente),
+  path('api/rechazar_cliente/<int:idDeCliente>',
+    general.rechazarCliente),
+  path('api/vetar_cliente/<int:idDeCliente>',
+    general.vetarCliente),
+  path('api/desvetar_cliente/<int:idDeCliente>',
+    general.desvetarCliente),
 
   # Operaciones de programa tokenizador
   path('programa_tokenizador/tokenizar', programa_tokenizador.tokenizar),
