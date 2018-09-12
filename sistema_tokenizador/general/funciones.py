@@ -342,3 +342,56 @@ def rechazarCliente (peticion, idDeCliente):
     Proyecto Lovelace.
     """)
   return HttpResponse()
+
+
+@utilidades.privilegiosRequeridos('administrador')
+def vetarCliente (peticion, idDeCliente):
+  """Cambia el estado del cliente a en lista negra y envía notificación."""
+  cliente = Usuario.objects.get(pk = idDeCliente)
+  cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
+    nombre = 'en lista negra')
+  cliente.save()
+  utilidades.enviarCorreo(cliente.correo.correo,
+    "Aviso de vetado de cuenta - Sistema tokenizador",
+    """
+    Estimado cliente:
+
+    Su cuenta ha sido puesta en la lista negrada devido a usos
+    incorrectos del sistema.
+
+    Atentamente,
+    Departamento de aprobación de cuentas,
+    Sistema Tokenizador,
+    Proyecto Lovelace.
+    """)
+  return HttpResponse()
+
+
+@utilidades.privilegiosRequeridos('administrador')
+def desvetarCliente (peticion, idDeCliente):
+  """
+  Cambia el estado del cliente a aprobado y envía notificación.
+
+  TODO:
+  ¿Qué pasa con un cliente que antes de pasar a la lista negra se encontraba
+  a mitad de un proceso de cambio de llaves? Técnicamente, aquí tendríamos que
+  regresarlo a ese estado.
+  """
+  cliente = Usuario.objects.get(pk = idDeCliente)
+  cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
+    nombre = 'aprobado')
+  cliente.save()
+  utilidades.enviarCorreo(cliente.correo.correo,
+    "Aviso de desvetado de cuenta - Sistema tokenizador",
+    """
+    Estimado cliente:
+
+    Su cuenta ha sido restablecida. Ahora puede volver a iniciar sesión
+    y utilizar la API para tokenizar y detokenizar.
+
+    Atentamente,
+    Departamento de aprobación de cuentas,
+    Sistema Tokenizador,
+    Proyecto Lovelace.
+    """)
+  return HttpResponse()

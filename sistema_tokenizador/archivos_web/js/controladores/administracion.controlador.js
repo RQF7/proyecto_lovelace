@@ -85,6 +85,33 @@ sistemaTokenizador.controller('controladorAdministracion', [
       }, function () {});
     };
 
+    $scope.vetarCliente = function ($event, cliente) {
+      var confirmacion = $mdDialog.confirm()
+        .title('Confirmación de vetado de cliente')
+        .textContent("@@include('mensajes/adv_vetar_cliente.txt')")
+        .ariaLabel('Confirmación de vetado de cliente')
+        .targetEvent($event)
+        .ok('Aceptar')
+        .cancel('Cancelar');
+      $mdDialog.show(confirmacion).then(function (respuesta) {
+        api.vetarCliente(cliente.pk).then(function (respuesta) {
+          $scope.obtenerClientesAprobados();
+          $scope.obtenerClientesEnListaNegra();
+          $scope.totalDeClientesAprobados--;
+          $scope.totalDeClientesEnListaNegra++;
+        });
+      }, function () {});
+    };
+
+    $scope.desvetarCliente = function ($event, cliente) {
+      api.desvetarCliente(cliente.pk).then(function (respuesta) {
+        $scope.obtenerClientesAprobados();
+        $scope.obtenerClientesEnListaNegra();
+        $scope.totalDeClientesAprobados++;
+        $scope.totalDeClientesEnListaNegra--;
+      });
+    };
+
     /* Secuencia de inicio. **************************************************/
 
     $scope.cambiarTitulo("Administración", 4);

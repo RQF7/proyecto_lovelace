@@ -7,24 +7,27 @@
 \casoDeUso[cu:desvetar_cliente]
 {Quitar a un cliente en la lista negra}
 {
-  Permite a un usuario tipo administrador quitar a un cliente en la lista negra,
+  Permite a un usuario tipo administrador quitar a un cliente de la lista negra,
   cambiando su estado a \textbf{aprobado} (véase
   \hipervinculo{rn:estados_cliente}).
 
   \begin{trayectoriaPrincipal}
 
-    \item El administrador presiona el botón \textit{Quitar de la lista negra}
+    \item El administrador presiona el botón \textit{Desvetar}
       correspondiente al cliente que desea quitar el veto en la interfaz
-      \hipervinculo{iu:administrador}.
+      \hipervinculo{iu:administracion}.
 
     \item El sistema cambia el estado de dicho cliente a \textbf{aprobado}
-      tomando en cuenta la regla de negocios [\hipervinculo{rn:estados_cliente}].
+      tomando en cuenta la regla de negocios \hipervinculo{rn:estados_cliente}.
 
     \item El sistema regresa el contador de malas acciones del usuario a cero
       tomando en cuenta la regla de negocios [\hipervinculo{rn:malas_acciones},
       \hipervinculo{rn:top_malas_acciones}].
 
-    \item El sistema refresca la interfaz \hipervinculo{iu:administrador}.
+    \item El sistema manda un correo para avisar al cliente de su
+      salida de la lista negra.
+
+    \item El sistema refresca la interfaz \hipervinculo{iu:administracion}.
 
   \end{trayectoriaPrincipal}
 }

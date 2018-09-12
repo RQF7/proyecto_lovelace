@@ -68,6 +68,14 @@ sistemaTokenizador.factory('api', [
       return $http.get(RUTA_BASE + '/rechazar_cliente/' + idDeCliente);
     };
 
+    API.vetarCliente = function (idDeCliente) {
+      return $http.get(RUTA_BASE + '/vetar_cliente/' + idDeCliente);
+    };
+
+    API.desvetarCliente = function (idDeCliente) {
+      return $http.get(RUTA_BASE + '/desvetar_cliente/' + idDeCliente);
+    };
+
     return API;
   }
 ]);
