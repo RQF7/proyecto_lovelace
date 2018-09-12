@@ -60,6 +60,14 @@ sistemaTokenizador.factory('api', [
       return $http.get(RUTA_BASE + '/total_de_clientes_aprobados');
     };
 
+    API.aprobarCliente = function (idDeCliente) {
+      return $http.get(RUTA_BASE + '/aprobar_cliente/' + idDeCliente);
+    };
+
+    API.rechazarCliente = function (idDeCliente) {
+      return $http.get(RUTA_BASE + '/rechazar_cliente/' + idDeCliente);
+    };
+
     return API;
   }
 ]);

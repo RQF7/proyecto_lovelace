@@ -296,3 +296,49 @@ def obtenerTotalDeClientesAprobados (peticion):
     Q(estadoDeUsuario = EstadoDeUsuario.objects.get(
       nombre = 'en cambio de llaves'))).count()
   return HttpResponse(str(todos))
+
+
+@utilidades.privilegiosRequeridos('administrador')
+def aprobarCliente (peticion, idDeCliente):
+  """Cambia el estado del cliente a aprobado y envía notificación."""
+  cliente = Usuario.objects.get(pk = idDeCliente)
+  cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
+    nombre = 'aprobado')
+  cliente.save()
+  utilidades.enviarCorreo(cliente.correo.correo,
+    "Aviso de aprobación de cuenta - Sistema tokenizador",
+    """
+    Estimado cliente:
+
+    Su solicitud de cuenta ha sido aprobada. A partir de ahora
+    ya puede iniciar sesión en el sistema y usar las opraciones
+    de la API para generar tokens.
+
+    Atentamente,
+    Departamento de aprobación de cuentas,
+    Sistema Tokenizador,
+    Proyecto Lovelace.
+    """)
+  return HttpResponse()
+
+
+@utilidades.privilegiosRequeridos('administrador')
+def rechazarCliente (peticion, idDeCliente):
+  """Cambia el estado del cliente a rechazado y envía notificación."""
+  cliente = Usuario.objects.get(pk = idDeCliente)
+  cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
+    nombre = 'rechazado')
+  cliente.save()
+  utilidades.enviarCorreo(cliente.correo.correo,
+    "Aviso de rechazo de cuenta - Sistema tokenizador",
+    """
+    Estimado cliente:
+
+    Su solicitud de cuenta ha sido rechazada.
+
+    Atentamente,
+    Departamento de aprobación de cuentas,
+    Sistema Tokenizador,
+    Proyecto Lovelace.
+    """)
+  return HttpResponse()

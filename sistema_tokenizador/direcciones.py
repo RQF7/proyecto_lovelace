@@ -48,6 +48,10 @@ urlpatterns = [
     general.obtenerClientesAprobados),
   path('api/total_de_clientes_aprobados',
     general.obtenerTotalDeClientesAprobados),
+  path('api/aprobar_cliente/<int:idDeCliente>',
+    general.aprobarCliente),
+  path('api/rechazar_cliente/<int:idDeCliente>',
+    general.rechazarCliente),
 
   # Operaciones de programa tokenizador
   path('programa_tokenizador/tokenizar', programa_tokenizador.tokenizar),

@@ -8,18 +8,21 @@
 {Aprobar cliente}
 {
   Caso de uso que permite a un usuario tipo administrador aprobar a un usuario
-  tipo cliente; haciéndolo pasar del estado \textbf{verificado} a
+  tipo cliente; haciéndolo pasar del estado \textbf{en espera} a
   \textbf{aprobado} (véase \hipervinculo{rn:estados_cliente}).
 
   \begin{trayectoriaPrincipal}
 
     \item El administrador presiona el botón \textit{Aprobar} del cliente que
-      desea aprobar en la interfaz \hipervinculo{iu:administrador}.
+      desea aprobar en la interfaz \hipervinculo{iu:administracion}.
 
     \item El sistema cambia el estado de dicho cliente a \textbf{aprobado}
       tomando en cuenta la regla de negocios \hipervinculo{rn:estados_cliente}.
 
-    \item El sistema refresca la interfaz \hipervinculo{iu:administrador}.
+    \item El sistema manda un correo al usuario notificándole de su
+      aprobación en el sistema.
+
+    \item El sistema refresca la interfaz \hipervinculo{iu:administracion}.
 
   \end{trayectoriaPrincipal}
 }

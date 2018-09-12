@@ -6,9 +6,11 @@
 
 sistemaTokenizador.controller('controladorAdministracion', [
   '$scope',
+  '$mdDialog',
   'api',
   function (
     $scope,
+    $mdDialog,
     api
   )
   {
@@ -56,6 +58,31 @@ sistemaTokenizador.controller('controladorAdministracion', [
         $scope.paginacionAprobados.limite).then(function (clientes) {
           $scope.clientesAprobados = clientes.data;
         });
+    };
+
+    $scope.aprobarCliente = function ($event, cliente) {
+      api.aprobarCliente(cliente.pk).then(function (respuesta) {
+        $scope.obtenerClientesEnEspera();
+        $scope.obtenerClientesAprobados();
+        $scope.totalDeClientesEnEspera--;
+        $scope.totalDeClientesAprobados++;
+      });
+    };
+
+    $scope.rechazarCliente = function ($event, cliente) {
+      var confirmacion = $mdDialog.confirm()
+        .title('Confirmación de rechazo de cliente')
+        .textContent("@@include('mensajes/adv_rechazar_cliente.txt')")
+        .ariaLabel('Confirmación de rechazo de cliente')
+        .targetEvent($event)
+        .ok('Aceptar')
+        .cancel('Cancelar');
+      $mdDialog.show(confirmacion).then(function (respuesta) {
+        api.rechazarCliente(cliente.pk).then(function (respuesta) {
+          $scope.obtenerClientesEnEspera();
+          $scope.totalDeClientesEnEspera--;
+        });
+      }, function () {});
     };
 
     /* Secuencia de inicio. **************************************************/

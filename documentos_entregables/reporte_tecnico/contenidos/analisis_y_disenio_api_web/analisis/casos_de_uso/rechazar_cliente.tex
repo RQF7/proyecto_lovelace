@@ -8,22 +8,33 @@
 {Rechazar cliente}
 {
   Permite a un usuario tipo administrador rechazar a un usuario tipo cliente;
-  haciéndolo pasar del estado \textbf{verificado} a \textbf{rechazado} (véase
+  haciéndolo pasar del estado \textbf{en espera} a \textbf{rechazado} (véase
   \hipervinculo{rn:estados_cliente}).
 
   \begin{trayectoriaPrincipal}
 
     \item El administrador presiona el botón \textit{Rechazar} del cliente que
-      desea rechazar en la interfaz \hipervinculo{iu:administrador}.
+      desea rechazar en la interfaz \hipervinculo{iu:administracion}.
 
     \item El sistema muestra el mensaje \hipervinculo{msj:rechazar_cliente}.
 
-    \item El administrador presiona \textit{Aceptar}.
+    \item El administrador presiona \textit{Aceptar}
+      [\hipervinculoLocal{ta:cancelar}].
 
     \item El sistema cambia el estado de dicho cliente a \textbf{rechazado}
       tomando en cuenta la regla de negocios \hipervinculo{rn:estados_cliente}.
 
-    \item El sistema refresca la interfaz \hipervinculo{iu:administrador}.
+    \item El sistema manda un correo al usuario notificándole de su
+      rechazo en el sistema.
+
+    \item El sistema refresca la interfaz \hipervinculo{iu:administracion}.
 
   \end{trayectoriaPrincipal}
+
+  \begin{trayectoriaAlternativa}[ta:cancelar]
+    {Cancelar operación}
+
+    \item El administrador presiona \textit{Cancelar}.
+
+  \end{trayectoriaAlternativa}
 }
