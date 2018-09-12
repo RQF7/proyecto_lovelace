@@ -61,35 +61,11 @@ if __name__ == '__main__':
         nombre = 'no verificado'),
       vinculo = Vinculo.objects.get(vinculo = 'a')),
     Correo(
-      correo = 'cliente-aprobado@prueba.com',
-      contrasenia = hashlib.sha256(b"123456").digest(),
-      estadoDeCorreo = EstadoDeCorreo.objects.get(
-        nombre = 'verificado'),
-      vinculo = Vinculo.objects.get(vinculo = 'b')),
-    Correo(
-      correo = 'cliente-en-espera@prueba.com',
-      contrasenia = hashlib.sha256(b"123456").digest(),
-      estadoDeCorreo = EstadoDeCorreo.objects.get(
-        nombre = 'verificado'),
-      vinculo = Vinculo.objects.get(vinculo = 'c')),
-    Correo(
       correo = 'cliente-rechazado@prueba.com',
       contrasenia = hashlib.sha256(b"123456").digest(),
       estadoDeCorreo = EstadoDeCorreo.objects.get(
         nombre = 'verificado'),
-      vinculo = Vinculo.objects.get(vinculo = 'd')),
-    Correo(
-      correo = 'cliente-en-lista-negra@prueba.com',
-      contrasenia = hashlib.sha256(b"123456").digest(),
-      estadoDeCorreo = EstadoDeCorreo.objects.get(
-        nombre = 'verificado'),
-      vinculo = Vinculo.objects.get(vinculo = 'e')),
-    Correo(
-      correo = 'cliente-aprobado@prueba.com',
-      contrasenia = hashlib.sha256(b"123456").digest(),
-      estadoDeCorreo = EstadoDeCorreo.objects.get(
-        nombre = 'verificado'),
-      vinculo = Vinculo.objects.get(vinculo = 'f'))]
+      vinculo = Vinculo.objects.get(vinculo = 'd'))]
 
   guardar(correos)
 
@@ -113,20 +89,6 @@ if __name__ == '__main__':
       tipoDeUsuario = TipoDeUsuario.objects.get(
         nombre = 'cliente'),
       estadoDeUsuario = EstadoDeUsuario.objects.get(
-        nombre = 'aprobado')),
-    Usuario(
-      correo = Correo.objects.get(
-        correo = 'cliente-aprobado@prueba.com'),
-      tipoDeUsuario = TipoDeUsuario.objects.get(
-        nombre = 'cliente'),
-      estadoDeUsuario = EstadoDeUsuario.objects.get(
-        nombre = 'aprobado')),
-    Usuario(
-      correo = Correo.objects.get(
-        correo = 'cliente-en-espera@prueba.com'),
-      tipoDeUsuario = TipoDeUsuario.objects.get(
-        nombre = 'cliente'),
-      estadoDeUsuario = EstadoDeUsuario.objects.get(
         nombre = 'en espera')),
     Usuario(
       correo = Correo.objects.get(
@@ -134,20 +96,49 @@ if __name__ == '__main__':
       tipoDeUsuario = TipoDeUsuario.objects.get(
         nombre = 'cliente'),
       estadoDeUsuario = EstadoDeUsuario.objects.get(
-        nombre = 'rechazado')),
-    Usuario(
-      correo = Correo.objects.get(
-        correo = 'cliente-en-lista-negra@prueba.com'),
-      tipoDeUsuario = TipoDeUsuario.objects.get(
-        nombre = 'cliente'),
-      estadoDeUsuario = EstadoDeUsuario.objects.get(
-        nombre = 'en lista negra')),
-    Usuario(
-      correo = Correo.objects.get(
-        correo = 'cliente-aprobado@prueba.com'),
-      tipoDeUsuario = TipoDeUsuario.objects.get(
-        nombre = 'cliente'),
-      estadoDeUsuario = EstadoDeUsuario.objects.get(
-        nombre = 'aprobado'))]
+        nombre = 'rechazado'))]
 
   guardar(usuarios)
+
+  for i in range(20):
+
+    correos = [
+      Correo(
+        correo = 'cliente-en-lista-negra-' + chr(97 + i) + '@prueba.com',
+        contrasenia = hashlib.sha256(b"123456").digest(),
+        estadoDeCorreo = EstadoDeCorreo.objects.get(
+          nombre = 'verificado')),
+      Correo(
+        correo = 'cliente-aprobado-' + chr(97 + i) + '@prueba.com',
+        contrasenia = hashlib.sha256(b"123456").digest(),
+        estadoDeCorreo = EstadoDeCorreo.objects.get(
+          nombre = 'verificado')),
+      Correo(
+        correo = 'cliente-en-espera-' + chr(97 + i) + '@prueba.com',
+        contrasenia = hashlib.sha256(b"123456").digest(),
+        estadoDeCorreo = EstadoDeCorreo.objects.get(
+          nombre = 'verificado'))]
+
+    guardar(correos)
+
+    usuarios = [
+      Usuario(
+        correo = correos[0],
+        tipoDeUsuario = TipoDeUsuario.objects.get(
+          nombre = 'cliente'),
+        estadoDeUsuario = EstadoDeUsuario.objects.get(
+          nombre = 'en lista negra')),
+      Usuario(
+        correo = correos[1],
+        tipoDeUsuario = TipoDeUsuario.objects.get(
+          nombre = 'cliente'),
+        estadoDeUsuario = EstadoDeUsuario.objects.get(
+          nombre = 'aprobado')),
+      Usuario(
+        correo = correos[2],
+        tipoDeUsuario = TipoDeUsuario.objects.get(
+          nombre = 'cliente'),
+        estadoDeUsuario = EstadoDeUsuario.objects.get(
+          nombre = 'en espera'))]
+
+    guardar(usuarios)

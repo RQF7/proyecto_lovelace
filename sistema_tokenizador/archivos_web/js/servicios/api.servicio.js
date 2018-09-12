@@ -13,6 +13,8 @@ sistemaTokenizador.factory('api', [
     var API = {};
     var RUTA_BASE = '/api';
 
+    /* Operaciones de sesión. */
+
     API.obtenerUsuarioDeSesion = function () {
       return $http.get(RUTA_BASE + '/usuario_de_sesion');
     };
@@ -27,6 +29,35 @@ sistemaTokenizador.factory('api', [
 
     API.registrarCliente = function (cliente) {
       return $http.post(RUTA_BASE + '/registrar_cliente', cliente);
+    };
+
+    /* Operaciones de administrador. */
+
+    API.obtenerClientesEnEspera = function (pagina, limite) {
+      return $http.get(RUTA_BASE + '/clientes_en_espera/'
+      + pagina + '/' + limite)
+    };
+
+    API.obtenerTotalDeClientesEnEspera = function () {
+      return $http.get(RUTA_BASE + '/total_de_clientes_en_espera');
+    };
+
+    API.obtenerClientesEnListaNegra = function (pagina, limite) {
+      return $http.get(RUTA_BASE + '/clientes_en_lista_negra/'
+      + pagina + '/' + limite)
+    };
+
+    API.obtenerTotalDeClientesEnListaNegra = function () {
+      return $http.get(RUTA_BASE + '/total_de_clientes_en_lista_negra');
+    };
+
+    API.obtenerClientesAprobados = function (pagina, limite) {
+      return $http.get(RUTA_BASE + '/clientes_aprobados/'
+      + pagina + '/' + limite)
+    };
+
+    API.obtenerTotalDeClientesAprobados = function () {
+      return $http.get(RUTA_BASE + '/total_de_clientes_aprobados');
     };
 
     return API;

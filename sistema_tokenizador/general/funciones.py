@@ -16,6 +16,7 @@ from sistema_tokenizador.configuraciones import DIRECTORIO_BASE
 from sistema_tokenizador.general import negocio
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.utils import IntegrityError
+from django.db.models import Q
 from django.core import serializers
 from datetime import datetime, timedelta, timezone
 
@@ -194,3 +195,104 @@ def verificarCorreo (peticion, vinculo):
     correo.save()
     referenciaAnterior.delete()
     return HttpResponseRedirect('/?correo_verificado')
+
+
+@utilidades.privilegiosRequeridos('administrador')
+def obtenerClientesEnEspera (peticion, pagina, limite):
+  """
+  Función de paginador para clientes en espera.
+
+  Regresa el rango solicitado de clientes en espera con un correo
+  verificado.
+
+  Importante: aquí se muestra cómo hacer, con la API de django,
+  una consulta con filtros en dos tablas distintas.
+  """
+  todos = Usuario.objects.filter(
+    tipoDeUsuario = TipoDeUsuario.objects.get(
+      nombre = 'cliente'),
+    estadoDeUsuario = EstadoDeUsuario.objects.get(
+      nombre = 'en espera'),
+    correo__in = Correo.objects.filter(
+      estadoDeCorreo = EstadoDeCorreo.objects.get(
+        nombre = 'verificado'))).order_by('correo')
+  return utilidades.respuestaJSON(
+    todos[(pagina - 1) * limite : pagina * limite])
+
+
+@utilidades.privilegiosRequeridos('administrador')
+def obtenerTotalDeClientesEnEspera (peticion):
+  """Regresa el total de clientes en espera con correo verificado."""
+  todos = Usuario.objects.filter(
+    tipoDeUsuario = TipoDeUsuario.objects.get(
+      nombre = 'cliente'),
+    estadoDeUsuario = EstadoDeUsuario.objects.get(
+      nombre = 'en espera'),
+    correo__in = Correo.objects.filter(
+      estadoDeCorreo = EstadoDeCorreo.objects.get(
+        nombre = 'verificado'))).count()
+  return HttpResponse(str(todos))
+
+
+@utilidades.privilegiosRequeridos('administrador')
+def obtenerClientesEnListaNegra (peticion, pagina, limite):
+  """
+  Función de paginador para clientes en lista negra.
+
+  Regresa el rango solicitado de clientes en lista negra.
+  """
+  todos = Usuario.objects.filter(
+    tipoDeUsuario = TipoDeUsuario.objects.get(
+      nombre = 'cliente'),
+    estadoDeUsuario = EstadoDeUsuario.objects.get(
+      nombre = 'en lista negra')).order_by('correo')
+  return utilidades.respuestaJSON(
+    todos[(pagina - 1) * limite : pagina * limite])
+
+
+@utilidades.privilegiosRequeridos('administrador')
+def obtenerTotalDeClientesEnListaNegra (peticion):
+  """Regresa el total de clientes en lista negra."""
+  todos = Usuario.objects.filter(
+    tipoDeUsuario = TipoDeUsuario.objects.get(
+      nombre = 'cliente'),
+    estadoDeUsuario = EstadoDeUsuario.objects.get(
+      nombre = 'en lista negra')).count()
+  return HttpResponse(str(todos))
+
+
+@utilidades.privilegiosRequeridos('administrador')
+def obtenerClientesAprobados (peticion, pagina, limite):
+  """
+  Función de paginador para clientes aprobados.
+
+  Regresa el rango solicitados de clientes aprobados.
+
+  El objeto Q es para hacer consultas con OR: «filter» y
+  «get» funcionan con AND.
+
+  https://docs.djangoproject.com/en/2.1/topics/db/queries/
+  #complex-lookups-with-q-objects
+  """
+  todos = Usuario.objects.filter(
+    Q(tipoDeUsuario = TipoDeUsuario.objects.get(
+      nombre = 'cliente')),
+    Q(estadoDeUsuario = EstadoDeUsuario.objects.get(
+      nombre = 'aprobado')) |
+    Q(estadoDeUsuario = EstadoDeUsuario.objects.get(
+      nombre = 'en cambio de llaves'))).order_by('correo')
+  return utilidades.respuestaJSON(
+    todos[(pagina - 1) * limite : pagina * limite])
+
+
+@utilidades.privilegiosRequeridos('administrador')
+def obtenerTotalDeClientesAprobados (peticion):
+  """Regresa el total de clientes aprobados y en cambio de llaves."""
+  todos = Usuario.objects.filter(
+    Q(tipoDeUsuario = TipoDeUsuario.objects.get(
+      nombre = 'cliente')),
+    Q(estadoDeUsuario = EstadoDeUsuario.objects.get(
+      nombre = 'aprobado')) |
+    Q(estadoDeUsuario = EstadoDeUsuario.objects.get(
+      nombre = 'en cambio de llaves'))).count()
+  return HttpResponse(str(todos))
