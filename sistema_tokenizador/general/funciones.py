@@ -37,7 +37,7 @@ def inicio (peticion):
 
 
 @utilidades.privilegiosRequeridos('cliente')
-def administracionDeTokens (peticion):
+def control (peticion):
   """
   Liga a página de administración de tokens.
 

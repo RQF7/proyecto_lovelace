@@ -4,12 +4,12 @@
  * Proyecto Lovelace.
  */
 
-sistemaTokenizador.controller('controladorAdministracionDeTokens', [
+sistemaTokenizador.controller('controladorControl', [
   '$scope',
   function (
     $scope
   )
   {
-    $scope.cambiarTitulo("Administración de tokens", 3);
+    $scope.cambiarTitulo("Control", 3);
   }
 ]);

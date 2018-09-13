@@ -25,7 +25,7 @@ urlpatterns = [
   # Vistas
   path('', general.inicio, name = 'inicio'),
   path('documentación', general.inicio),
-  path('administración_de_tokens', general.administracionDeTokens),
+  path('control', general.control),
   path('administración', general.administracion),
 
   # Operaciones de sesión
