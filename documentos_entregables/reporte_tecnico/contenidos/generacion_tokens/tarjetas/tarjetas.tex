@@ -28,13 +28,6 @@ El identificador del emisor provee, entre otros, los siguientes datos:
     \item Nivel de la tarjeta (ej. clásica, Gold, Black)
 \end{enumerate}
 
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.6\linewidth]{diagramas/tarjeta}
-    \caption{Componentes de un número de tarjeta.}\label{figura:pan}
-   \end{center}
-\end{figure}
-
 \begin{table}
   \centering
   \begin{tabular}{ c|l }
@@ -87,3 +80,10 @@ en~\ref{luhn:1}.
       Regresar $x_1$
     fin
 \end{pseudocodigo}
+
+\begin{figure}
+  \begin{center}
+    \subimport{diagramas/}{tarjeta.tikz.tex}
+    \caption{Componentes de un número de tarjeta.}\label{figura:pan}
+   \end{center}
+\end{figure}

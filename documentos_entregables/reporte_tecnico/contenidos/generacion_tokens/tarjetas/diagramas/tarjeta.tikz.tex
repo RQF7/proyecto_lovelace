@@ -1,0 +1,130 @@
+%
+% Composición de un número de tarjeta.
+% Capítulo sobre tokens.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}
+
+  \node
+    (uno)
+    {\LARGE\textbf{1}};
+  \node
+    (dos)
+    [right = 0.5mm of uno]
+    {\LARGE\textbf{2}};
+  \node
+    (tres)
+    [right = 0.5mm of dos]
+    {\LARGE\textbf{3}};
+  \node
+    (cuatro)
+    [right = 0.5mm of tres]
+    {\LARGE\textbf{4}};
+  \node
+    (cinco)
+    [right = 0.5mm of cuatro]
+    {\LARGE\textbf{5}};
+  \node
+    (seis)
+    [right = 0.5mm of cinco]
+    {\LARGE\textbf{6}};
+  \node
+    (siete)
+    [right = 0.5mm of seis]
+    {\LARGE\textbf{7}};
+  \node
+    (ocho)
+    [right = 0.5mm of siete]
+    {\LARGE\textbf{8}};
+  \node
+    (nueve)
+    [right = 0.5mm of ocho]
+    {\LARGE\textbf{9}};
+  \node
+    (ocho_dos)
+    [right = 0.5mm of nueve]
+    {\LARGE\textbf{8}};
+  \node
+    (siete_dos)
+    [right = 0.5mm of ocho_dos]
+    {\LARGE\textbf{7}};
+  \node
+    (seis_dos)
+    [right = 0.5mm of siete_dos]
+    {\LARGE\textbf{6}};
+  \node
+    (cinco_dos)
+    [right = 0.5mm of seis_dos]
+    {\LARGE\textbf{5}};
+  \node
+    (cuatro_dos)
+    [right = 0.5mm of cinco_dos]
+    {\LARGE\textbf{4}};
+  \node
+    (tres_dos)
+    [right = 0.5mm of cuatro_dos]
+    {\LARGE\textbf{3}};
+  \node
+    (dos_dos)
+    [right = 0.5mm of tres_dos]
+    {\LARGE\textbf{2}};
+
+  \draw[-]
+    (uno.north west)
+    --
+    ($(uno.north west) + (0, 1mm)$)
+    --
+    ($(uno.north west)!0.5!(seis.north east) + (-1mm, 1mm)$)
+    --
+    ($(uno.north west)!0.5!(seis.north east) + (0, 2mm)$)
+    node[
+      align = center,
+      anchor = south]
+      {Identificador \\ del emisor}
+    --
+    ($(uno.north west)!0.5!(seis.north east) + (1mm, 1mm)$)
+    --
+    ($(seis.north east) + (0, 1mm)$)
+    --
+    (seis.north east);
+
+  \draw[-]
+    (siete.south west)
+    --
+    ($(siete.south west) - (0, 1mm)$)
+    --
+    ($(siete.south west)!0.5!(tres_dos.south east) - (1mm, 1mm)$)
+    --
+    ($(siete.south west)!0.5!(tres_dos.south east) - (0, 2mm)$)
+    node[
+      align = center,
+      anchor = north]
+      {Número \\ de cuenta}
+    --
+    ($(siete.south west)!0.5!(tres_dos.south east) + (1mm, -1mm)$)
+    --
+    ($(tres_dos.south east) - (0, 1mm)$)
+    --
+    (tres_dos.south east);
+
+  \draw[-]
+    (dos_dos.north west)
+    --
+    ($(dos_dos.north west) + (0, 1mm)$)
+    --
+    ($(dos_dos.north west)!0.5!(dos_dos.north east) + (-1mm, 1mm)$)
+    --
+    ($(dos_dos.north west)!0.5!(dos_dos.north east) + (0, 2mm)$)
+    node[
+      align = center,
+      anchor = south]
+      {Dígito \\ verificador}
+    --
+    ($(dos_dos.north west)!0.5!(dos_dos.north east) + (1mm, 1mm)$)
+    --
+    ($(dos_dos.north east) + (0, 1mm)$)
+    --
+    (dos_dos.north east);
+
+\end{tikzpicture}
