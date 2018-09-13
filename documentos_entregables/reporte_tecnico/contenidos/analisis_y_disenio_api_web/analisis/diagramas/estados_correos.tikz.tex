@@ -1,8 +1,14 @@
-    \begin{tikzpicture}[
+%
+% Diagrama de estados de correos electrónicos,
+% Aplicación web de sistema tokenizador.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[
     estado/.style = {
         rectangle,
         draw = black,
-        thin,                                                                                     
+        thin,
         inner sep = 4mm,
         text width = 25mm,
         align = center,
@@ -21,31 +27,31 @@
     (estado_inicial) {};
   \node[estado]
     (no verificado)
-    [right = 1.2in of estado_inicial]
+    [above right = 1.1in of estado_inicial]
     {No verificado};
   \node[estado]
     (verificado)
-    [right = 1.2in of actual]
+    [below right = 0.6in of actual]
     {Verificado};
 
   % Transiciones
   \draw[-Stealth]
-    (estado_inicial.east)
-    --
+    (estado_inicial.north)
+    |-
     node[
       etiqueta_transicion,
-      text width = 1in,
-      above]
+      text width = 1.6in,
+      below left]
       {\hipervinculo{cu:registrar_cliente}}
     (actual.west);
   \draw[-Stealth]
     (actual.east)
-    --
+    -|
     node[
       etiqueta_transicion,
-      text width = 1in,
-      above]
+      text width = 1.6in,
+      below right]
       {\texttt{Cliente verifica correo}}
-    (anterior.west);
+    (anterior.north);
 
 \end{tikzpicture}
