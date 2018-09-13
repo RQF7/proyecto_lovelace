@@ -3,9 +3,6 @@
 % Aplicación web de sistema tokenizador.
 % Proyecto Lovelace.
 %
-% TODO:
-% * Agregar transición de retorno de estado anterior a estado actual.
-%
 
 \begin{tikzpicture}[
     estado/.style = {
@@ -30,31 +27,31 @@
     (estado_inicial) {};
   \node[estado]
     (actual)
-    [right = 1.2in of estado_inicial]
+    [above right = 1.1in of estado_inicial]
     {Actual};
   \node[estado]
     (anterior)
-    [right = 1.2in of actual]
+    [below right = 0.6in of actual]
     {Anterior};
 
   % Transiciones
   \draw[-Stealth]
-    (estado_inicial.east)
-    --
+    (estado_inicial.north)
+    |-
     node[
       etiqueta_transicion,
-      text width = 1in,
-      above]
+      text width = 1.6in,
+      below left]
       {\texttt{Crear llave}}
     (actual.west);
   \draw[-Stealth]
     (actual.east)
-    --
+    -|
     node[
       etiqueta_transicion,
-      text width = 1in,
-      above]
+      text width = 1.6in,
+      below right]
       {\hipervinculo{cu:iniciar_refresco}}
-    (anterior.west);
+    (anterior.north);
 
 \end{tikzpicture}

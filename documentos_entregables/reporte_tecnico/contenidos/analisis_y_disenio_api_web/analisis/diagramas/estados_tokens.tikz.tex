@@ -4,8 +4,6 @@
 % Proyecto Lovelace.
 %
 % TODO:
-% * Agregar transición de estado retokenizado a estado actual: caso de uso de
-%   terminar refresco de llaves.
 % * Redistribuir nodos para tener más espacio en el ancho de las etiquetas de
 %   transiciones y para que no se salga de los márgenes del documento..
 %
@@ -34,44 +32,44 @@
     (estado_inicial) {};
   \node[estado]
     (actual)
-    [right = 1in of estado_inicial]
+    [above right = 1.1in of estado_inicial]
     {Actual};
   \node[estado]
     (anterior)
-    [right = 1in of actual]
+    [below right = 0.6in of actual]
     {Anterior};
   \node[estado]
     (retokenizado)
-    [right = 1in of anterior]
+    [below left = 0.6in of anterior]
     {Retokenizado};
 
   % Transiciones
   \draw[-Stealth]
-    (estado_inicial.east)
-    --
+    (estado_inicial.north)
+    |-
     node[
       etiqueta_transicion,
-      text width = 0.8in,
-      above]
+      text width = 1.6in,
+      below left]
       {\hipervinculo{cu:tokenizar_tarjeta}}
     (actual.west);
   \draw[-Stealth]
     (actual.east)
-    --
+    -|
     node[
       etiqueta_transicion,
-      text width = 0.8in,
-      above]
+      text width = 1.6in,
+      below right]
       {\hipervinculo{cu:iniciar_refresco}}
-    (anterior.west);
+    (anterior.north);
   \draw[-Stealth]
-    (anterior.east)
-    --
+    (anterior.south)
+    |-
     node[
       etiqueta_transicion,
-      text width = 0.8in,
-      above]
+      text width = 1.6in,
+      above right]
       {\hipervinculo{cu:retokenizar_token}}
-    (retokenizado.west);
+    (retokenizado.east);
 
 \end{tikzpicture}
