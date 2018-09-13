@@ -2,6 +2,9 @@
  * Controlador general de aplicación.
  * Aplicación web de sistema tokenizador.
  * Proyecto Lovelace.
+ *
+ * TODO: asegurarse de que, después de cerrar sesión, no se pueda regresar
+ * a una página protegida mediante el botón de "atrás" del navegador.
  */
 
 sistemaTokenizador.controller('controladorGeneral', [
@@ -147,7 +150,7 @@ sistemaTokenizador.controller('controladorGeneral', [
             $location.path($scope.$routeParams.siguiente);
             $location.search('siguiente', null)
           } else if ($scope.usuario.fields.tipoDeUsuario == 'cliente') {
-            $location.path('/administración_de_tokens');
+            $location.path('/control');
           } else {
             $location.path('/administración');
           }
