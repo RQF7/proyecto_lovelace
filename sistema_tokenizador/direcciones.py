@@ -33,6 +33,7 @@ urlpatterns = [
   path('api/iniciar_sesion', general.iniciarSesion),
   path('api/cerrar_sesion', general.cerrarSesion),
   path('api/registrar_cliente', general.registrarCliente),
+  path('api/actualizar_cliente/<int:idDeCliente>', general.actualizarCliente),
   path('api/verificar_correo/<vinculo>', general.verificarCorreo),
 
   # Operaciones de administración
