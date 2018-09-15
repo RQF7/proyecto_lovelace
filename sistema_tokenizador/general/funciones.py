@@ -9,6 +9,8 @@ from .models.correo import Correo
 from .models.estado_de_correo import EstadoDeCorreo
 from .models.estado_de_usuario import EstadoDeUsuario
 from .models.tipo_de_usuario import TipoDeUsuario
+from sistema_tokenizador.programa_tokenizador.models.llave import Llave
+from sistema_tokenizador.programa_tokenizador.models.token import Token
 from .models.usuario import Usuario
 from .models.vinculo import Vinculo
 from sistema_tokenizador import utilidades
@@ -165,7 +167,7 @@ def registrarCliente (peticion):
 
 def actualizarCliente (peticion, idDeCliente):
   """
-  Actualiza los datos de uncliente en la base de datos
+  Actualiza los datos de un cliente en la base de datos
 
   Actualiza al cliente dado en la base de datos y envía un correo con
   el vínculo de verificación; en caso de éxito se regresa un 0; en
@@ -210,6 +212,20 @@ def actualizarCliente (peticion, idDeCliente):
     Correo.objects.filter(correo = str(cliente.correo)).delete()
 
   negocio.enviarVinculoDeVerificacion(usuario)
+
+  return HttpResponse("0")
+
+def eliminarCliente (peticion, idDeCliente):
+  """
+  Elimina los datos de un cliente en la base de datos y todo lo
+  referente a el.
+  """
+
+  cliente = Usuario.objects.get(pk = idDeCliente)
+  Usuario.objects.filter(pk = idDeCliente).delete()
+  Correo.objects.filter(correo = str(cliente.correo)).delete()
+  Llave.objects.filter(usuario_id = idDeCliente).delete()
+  Token.objects.filter(usuario_id = idDeCliente).delete()
 
   return HttpResponse("0")
 
