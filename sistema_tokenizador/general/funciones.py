@@ -9,6 +9,8 @@ from .models.correo import Correo
 from .models.estado_de_correo import EstadoDeCorreo
 from .models.estado_de_usuario import EstadoDeUsuario
 from .models.tipo_de_usuario import TipoDeUsuario
+from sistema_tokenizador.programa_tokenizador.models.llave import Llave
+from sistema_tokenizador.programa_tokenizador.models.token import Token
 from .models.usuario import Usuario
 from .models.vinculo import Vinculo
 from sistema_tokenizador import utilidades
@@ -160,6 +162,71 @@ def registrarCliente (peticion):
 
   usuario.save()
   negocio.enviarVinculoDeVerificacion(usuario)
+  return HttpResponse("0")
+
+
+def actualizarCliente (peticion, idDeCliente):
+  """
+  Actualiza los datos de un cliente en la base de datos
+
+  Actualiza al cliente dado en la base de datos y envía un correo con
+  el vínculo de verificación; en caso de éxito se regresa un 0; en
+  caso de que el cliente use un correo utilizado por otro usuario
+  se regresa un 1.
+  """
+
+  objetoDePeticion = json.loads(peticion.body)
+  cliente = Usuario.objects.get(pk = idDeCliente)
+
+  try:
+    correo = Correo.objects.get(correo = objetoDePeticion['correo'])
+    if (str(cliente.correo) != objetoDePeticion['correo']):
+      return HttpResponse("1")
+  except Correo.DoesNotExist:
+    pass
+
+  # Insertar correo
+  correo = Correo(
+    correo = objetoDePeticion['correo'],
+    contrasenia = hashlib.sha256(
+      objetoDePeticion['contrasenia'].encode()).digest(),
+    estadoDeCorreo = EstadoDeCorreo.objects.get(
+      nombre = 'no verificado'),
+    vinculo = None)
+  correo.save()
+
+  # Insertar usuario
+  usuario = Usuario(
+    pk = idDeCliente,
+    correo = correo,
+    tipoDeUsuario = TipoDeUsuario.objects.get(
+      nombre = 'cliente'),
+    estadoDeUsuario = EstadoDeUsuario.objects.get(
+      nombre = 'en espera'),
+    contadorDeMalasAcciones = 0)
+
+  usuario.save(force_update=True)
+
+  # Si se cambio el correo, eliminar el correo viejo
+  if (str(cliente.correo) != objetoDePeticion['correo']):
+    Correo.objects.filter(correo = str(cliente.correo)).delete()
+
+  negocio.enviarVinculoDeVerificacion(usuario)
+
+  return HttpResponse("0")
+
+def eliminarCliente (peticion, idDeCliente):
+  """
+  Elimina los datos de un cliente en la base de datos y todo lo
+  referente a el.
+  """
+
+  cliente = Usuario.objects.get(pk = idDeCliente)
+  Usuario.objects.filter(pk = idDeCliente).delete()
+  Correo.objects.filter(correo = str(cliente.correo)).delete()
+  Llave.objects.filter(usuario_id = idDeCliente).delete()
+  Token.objects.filter(usuario_id = idDeCliente).delete()
+
   return HttpResponse("0")
 
 

@@ -31,6 +31,14 @@ sistemaTokenizador.factory('api', [
       return $http.post(RUTA_BASE + '/registrar_cliente', cliente);
     };
 
+    API.actualizarCliente = function (cliente, idDeCliente) {
+      return $http.post(RUTA_BASE + '/actualizar_cliente/' + idDeCliente, cliente);
+    };
+
+    API.eliminarCliente = function (idDeCliente) {
+      return $http.post(RUTA_BASE + '/eliminar_cliente/' + idDeCliente);
+    };
+
     /* Operaciones de administrador. */
 
     API.obtenerClientesEnEspera = function (pagina, limite) {

@@ -35,4 +35,4 @@ class Usuario (models.Model):
 
   def __str__(self):
     """Representación en cadena de un tipo de usuario."""
-    return str(self.id) + ' - ' + self.correo
+    return str(self.id) + ' - ' + str(self.correo)

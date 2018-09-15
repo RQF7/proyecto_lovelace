@@ -9,36 +9,231 @@
   flex="none"
   layout="column">
 
+<!--
+  Esto está escrito así porque se supone que estamos 'vendiendo'
+  nuestro servicio.
+-->
+
   <h3>¿Qué es la tokenización?</h3>
 
   <p>
-    Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-    ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
-    tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-    ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est
-    et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed,
-    commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt
-    condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.
-    Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus,
-    neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna
-    eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan
-    porttitor, facilisis luctus, metus
+    Un token es un valor parecido y representativo de otro valor, pero que no
+    tiene una relación directa con el mismo; razón por la cual son utilizados
+    para proteger información confidencial.
+    <br>
+    Con la definición de un token, se puede ver a la tokenización como el
+    proceso de sustituir datos sensibles por un token, con la finalidad de
+    mantener su confidencialidad.
   </p>
 
-  <h3>Cómo funciona el sistema</h3>
+  <h3>¿Porqué usar nuestro servicio de tokenización?</h3>
 
   <p>
-    Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-    ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
-    tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-    ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est
-    et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed,
-    commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt
-    condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.
-    Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus,
-    neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna
-    eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan
-    porttitor, facilisis luctus, metus
+    Nuestro servicio de tokenización te permite despreocuparte de la
+    protección de los datos bancarios sensibles de tu sistema, delegándonos
+    esta labor.
   </p>
+
+  <p>
+    Entre las ventajas que obtienes al usar nuestro servicio está:
+
+    <ul>
+
+      <li class="lista-item-ventaja">
+        Mantener la seguridad de tu sistema cumpliendo con el estándar de
+        seguridad del PCI SSC.
+      </li>
+
+      <li class="lista-item-ventaja">
+        Salvaguardar la confidencialidad de datos sensibles por medio de la
+        tokenización.
+      </li>
+
+      <li class="lista-item-ventaja">
+        Elegir el algoritmo con el que desees tokenización tu información de
+        entre FFX, BPS, TKR, AHR o mediante DRGB.
+      </li>
+
+    </ul>
+ </p>
+
+  <h3>¿Qué es el PCI SSC?</h3>
+
+  <p>
+    El <a href="https://www.pcisecuritystandards.org/pci_security/">Payment
+    Card Industry Security Standards Council (PCI SSC)</a> es una organización
+    internacional encargada de estandarizar, desarrollar e informar sobre
+    como hacer transacciones bancarias seguras.
+    <br>
+    Esta organización desarrolló el PCI Data Security Standard (DSS) como un
+    estándar en el que se indica la manera de mantener la información bancaria
+    segura, mediante la implementación de protocolos de seguridad.
+    <br>
+    Es importante resaltar que el PCI SSC a establecido como requerimiento la
+    implementación de PCI DSS por todos los comercios que realizan un número
+    de transacciones considerables.
+  </p>
+
+  <h3>Sobre los algoritmo de tokenización</h3>
+
+  <p>
+    Nuestro sistema permite seleccionar el tipo de algoritmo con el que desees
+    tokenizar un dato. Contamos con 2 algoritmos de tokenización reversibles,
+    como son FFX y BPS, y 3 algoritmos de tokenización irreversibles, que son
+    TKR, AHR y DRBG.
+    <br>
+    A continuación puedes leer una breve descripción de estos.
+  </p>
+
+    <div>
+
+      <div class="tarjeta-titulo">
+        <h4>FFX (Format-preserving Feistel-based Encryption) o FF1</h4>
+      </div>
+
+      <div class="tarjeta-descripcion">
+        <p>
+          Este es un cifrado que permiten cifrar cadenas de cualquier tamaño,
+          compuestas por cualquier tipo de caracteres, el cual es usado para
+          tokenizar. Fue publicado por Mihir Bellare, Phillip Rogaway y
+          Terence Spies en 2009, aunque en 2016 el National Institute of
+          Standards and Technology (NIST) le dio el nombre de FF1 a este
+          algoritmos.
+          <br>
+          De forma general, el algoritmo usa redes Feistel junto con primitivas
+          criptográficas (función hash o cifrados por bloques) adaptadas
+          en la función de ronda de la red para lograr preservar el formato
+          del dato dado para tokenizar, lo que significa que el token tendrá
+          la misma longitud y se mantendrá en el mismo dominio que el dato
+          original.
+        </p>
+        <p class="enlace-articulo">
+          Para conocer más sobre este algoritmo revisa el artículo:
+          <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.304.1736&rep=rep1&type=pdf">
+          The FFX Mode of Operation for Format-PreservingEncryption</a>
+        </p>
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="tarjeta-titulo">
+        <h4>BPS (Brier-Peyrin-Stern) o FF3</h4>
+      </div>
+
+      <div class="tarjeta-descripcion">
+        <p>
+          Es un cifrado que preserva el formato usado para tokenizar,
+          propuesto por Eric Brier, Thomas Peyrin y Jacques Stern en 2010 y
+          renombrado por el NIST como FF3.
+          <br>
+          Al igual que FFX, usa redes Feistel y primitivas criptográficas para
+          lograr que el token tenga el mismo formato que el dato original.
+        </p>
+        <p class="enlace-articulo">
+          Para conocer más sobre este algoritmo revisa el artículo:
+          <a href="https://pdfs.semanticscholar.org/0be5/d4c77e333d78ddab5c4bf55d15649a660771.pdf">
+          BPS: a Format-Preserving Encryption Proposal</a>
+        </p>
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="tarjeta-titulo">
+        <h4>TKR</h4>
+      </div>
+
+      <div class="tarjeta-descripcion">
+        <p>
+          Propuesto por Sandra Diaz Santiago, Lil María Rodríguez Henríquez y
+          Debrup Chakraborty en 2016, es un algoritmo que usa primitivas
+          criptográficas para generar tokens aleatorios y almacenarlos en una
+          base de datos segura, manteniendo su relación con el dato original.
+        </p>
+        <p class="enlace-articulo">
+          Para conocer más sobre este algoritmo revisa el artículo:
+          <a href="https://link.springer.com/article/10.1007%2Fs10207-015-0313-x">
+          A cryptographic study of tokenization systems</a>
+        </p>
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="tarjeta-titulo">
+        <h4>AHR (Algoritmo Híbrido Reversible)</h4>
+      </div>
+
+      <div class="tarjeta-descripcion">
+        <p>
+          Algoritmo de tokenización publicado por Riccardo Aragona, Riccardo
+          Longo y Massimiliano Sala en 2017.
+          <br>
+          Este se basa en un cifrado de bloques y una caminata cíclica para
+          generar tokens que mantengan el formato y almacenar la relación de
+          estos con los datos originales en una base de datos segura.
+        </p>
+        <p class="enlace-articulo">
+          Para conocer más sobre este algoritmo revisa el artículo:
+          <a href="https://link.springer.com/article/10.1007%2Fs00200-017-0313-3">
+          Several proofs of security for a tokenization algorithm</a>
+        </p>
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="tarjeta-titulo">
+        <h4>
+          Tokenización por medio de DRGB
+          (Deterministic Random Bit Generator)
+        </h4>
+      </div>
+
+      <div class="tarjeta-descripcion">
+        <p>
+          La tokenización por este medio se logra produciendo una cadena de
+          bits aleatoria con un DRBG que se interpreta de forma especial para
+          que tenga el formato del dato original.
+          <br>
+          El DRGB puede estar basado tanto en funciones hash como en cifrados
+          por bloque.
+        </p>
+      </div>
+
+    </div>
+
+  <h3>Una comparación</h3>
+
+  <p>
+    Para darte una idea de la diferencias de estos algoritmos en cuanto a su
+    velocidad de tokenización, a continuación se encuentran dos gráficas que
+    muestran la comparación entre sí de los algoritmos reversibles y los
+    algoritmos irreversibles.
+  </p>
+
+  <p>
+    En esta primer gráfica se comparan los tiempos de tokenización y
+    detokenización de los algoritmos de FFX y BPS mientras el número
+    de operaciones se incrementa.
+  </p>
+
+  <div class="grafica">
+    <img src="estaticos/imagenes/todo_rev.png">
+  </div>
+
+  <p>
+    En esta otra se muestra los tiempos de tokenización y detokenización de
+    TKR, AHR y DRGB mientras el número de operaciones se incrementa.
+  </p>
+
+  <div class="grafica">
+    <img src="estaticos/imagenes/todo_irrev.png">
+  </div>
 
 </div>
