@@ -423,7 +423,7 @@ def vetarCliente (peticion, idDeCliente):
     """
     Estimado cliente:
 
-    Su cuenta ha sido puesta en la lista negrada devido a usos
+    Su cuenta ha sido puesta en la lista negra debido a usos
     incorrectos del sistema.
 
     Atentamente,
