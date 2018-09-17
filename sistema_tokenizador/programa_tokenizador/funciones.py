@@ -19,11 +19,15 @@ from sistema_tokenizador.general.models.usuario import Usuario
 
 from sistema_tokenizador.configuraciones import EJECUTABLE_TOKENIZADOR
 
-def autentificar (peticion, operacion):
+def autentificar (peticion):
   """
   Dada una petición, obtiene las credenciales de la cabecera de autenticación
   y verifica que el usuario sea de tipo cliente y se encuentre en estado
   <<apobado>> o <<en cambio de llaves>>.
+
+  Si la petición es válida, regresa un objeto de tipo usuario con los datos
+  del cliente; si es inválida, regresa la respuesta HTTP con el error
+  correspondiente.
 
   Ejemplos de pruebas:
     Usuario no registrado.
@@ -58,29 +62,40 @@ def autentificar (peticion, operacion):
       http://127.0.0.1:8000/programa_tokenizador/tokenizar
 
     """
-
+  try:
     auth_header = str.split(peticion.META['HTTP_AUTHORIZATION'])[1]
-    credenciales = base64.b64decode(auth_header).decode('utf-8').split(':')
+  except:
+    return HttpResponse("401 - Credenciales no provistas")
 
-    try:
-      usuario = Usuario.objects.get(
-        correo = Correo.objects.get(
-          correo = credenciales[0],
-          contrasenia = hashlib.sha256(
-            credenciales[1].encode('UTF-8')).digest()))
-    except (Usuario.DoesNotExist, Correo.DoesNotExist):
-      return return HttpResponse("401 - credenciales incorrectas")
+  credenciales = base64.b64decode(auth_header).decode('utf-8').split(':')
 
-    if usuario.tipoDeUsuario.nombre != 'cliente':
-      return HttpResponse("403 - usuario no es tipo cliente")
-    elif usuario.estadoDeUsuario.nombre != 'aprobado' and usuario.estadoDeUsuario.nombre != 'en cambio de llaves':
-      return HttpResponse("403 - Todo mal: estado incorrecto")
+  try:
+    usuario = Usuario.objects.get(
+      correo = Correo.objects.get(
+        correo = credenciales[0],
+        contrasenia = hashlib.sha256(
+          credenciales[1].encode('UTF-8')).digest()))
+  except (Usuario.DoesNotExist, Correo.DoesNotExist):
+    return HttpResponse("401 - credenciales incorrectas")
+
+  if usuario.tipoDeUsuario.nombre != 'cliente':
+    return HttpResponse("403 - usuario no es tipo cliente")
+  elif usuario.estadoDeUsuario.nombre != 'aprobado' and usuario.estadoDeUsuario.nombre != 'en cambio de llaves':
+    return HttpResponse("403 - Todo mal: estado incorrecto")
+
+  return usuario
+
 
 def tokenizar(peticion):
   """
   Ejecuta la operación de tokenización y regresa el token asignado.
 
   """
+
+  resultado = autentificar(peticion)
+
+  if isintance(resultado, HttpResponse):
+    return resultado
 
   auth_header = str.split(peticion.META['HTTP_AUTHORIZATION'])[1]
   credenciales = base64.b64decode(auth_header).decode('utf-8').split(':')
