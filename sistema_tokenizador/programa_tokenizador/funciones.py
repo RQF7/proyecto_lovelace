@@ -10,6 +10,7 @@ from django.shortcuts import render
 from json import loads
 from subprocess import PIPE
 from subprocess import run
+from datetime import datetime
 
 from sistema_tokenizador.configuraciones import EJECUTABLE_TOKENIZADOR
 
@@ -55,6 +56,17 @@ def detokenizar(peticion):
     stdout=PIPE)
   return HttpResponse(resultado.stdout)
 
+def generarLlave(tamanio):
+  """
+
+  """
+  print('Generaración de llaves de ' + str(tamanio) + ' bytes de tamaño')
+  """
+  resultado = run([EJECUTABLE_TOKENIZADOR, "-k", "buffer", str(tamanio)],
+    stdout=PIPE)
+  """
+  # regreso esto porque tengo problemas con la ejecución, QUEDA PENDIENTE.
+  return datetime.today().strftime("%Y-%m-%d %H:%M:%S")
 
 def ejecutar(peticion):
   """

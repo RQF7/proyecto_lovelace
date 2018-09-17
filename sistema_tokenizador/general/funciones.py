@@ -9,10 +9,14 @@ from .models.correo import Correo
 from .models.estado_de_correo import EstadoDeCorreo
 from .models.estado_de_usuario import EstadoDeUsuario
 from .models.tipo_de_usuario import TipoDeUsuario
-from sistema_tokenizador.programa_tokenizador.models.llave import Llave
-from sistema_tokenizador.programa_tokenizador.models.token import Token
 from .models.usuario import Usuario
 from .models.vinculo import Vinculo
+from sistema_tokenizador.programa_tokenizador.funciones import *
+from sistema_tokenizador.programa_tokenizador.models.llave import Llave
+from sistema_tokenizador.programa_tokenizador.models.token import Token
+from sistema_tokenizador.programa_tokenizador.models.algoritmo import Algoritmo
+from sistema_tokenizador.programa_tokenizador.models.estado_de_llave import EstadoDeLlave
+from sistema_tokenizador.programa_tokenizador.models.estado_de_token import EstadoDeToken
 from sistema_tokenizador import utilidades
 from sistema_tokenizador.configuraciones import DIRECTORIO_BASE
 from sistema_tokenizador.general import negocio
@@ -215,6 +219,7 @@ def actualizarCliente (peticion, idDeCliente):
 
   return HttpResponse("0")
 
+
 def eliminarCliente (peticion, idDeCliente):
   """
   Elimina los datos de un cliente en la base de datos y todo lo
@@ -226,6 +231,135 @@ def eliminarCliente (peticion, idDeCliente):
   Correo.objects.filter(correo = str(cliente.correo)).delete()
   Llave.objects.filter(usuario_id = idDeCliente).delete()
   Token.objects.filter(usuario_id = idDeCliente).delete()
+
+  return HttpResponse("0")
+
+
+def eliminarTokens(peticion, idDeCliente):
+  """
+  Elimina los tokens de un cliente.
+  """
+  Token.objects.filter(usuario_id = idDeCliente).delete()
+  return HttpResponse("0")
+
+
+def iniciarRefrescoDeLlaves(peticion, idDeCliente):
+  """
+  Inicia el refresco de llaves, cambiando el estado del usuario,
+  sus llaves y sus token mientras que se crean nuevas llaves.
+  """
+
+  # Se cambia el estado de los tokens y las llaves
+  cliente = Usuario.objects.get(pk = idDeCliente)
+  Token.objects.filter(
+    usuario_id = idDeCliente,
+    estadoDeToken_id='actual').update(
+    estadoDeToken_id='anterior')
+  Llave.objects.filter(
+    usuario_id = idDeCliente,
+    estadoDeLlave_id='actual').update(
+    estadoDeLlave_id='anterior')
+
+  # Se crean las llaves
+  llaves = [
+  Llave(
+    llave = 'ABC1'+generarLlave(Algoritmo.objects.get(
+      nombre = 'FFX').longitudDeLlave),
+    criptoperiodo = 10,
+    fechaDeCreacion = datetime.today().strftime(
+      "%Y-%m-%d %H:%M:%S"),
+    algoritmo_id = Algoritmo.objects.get(
+      nombre = 'FFX'),
+    estadoDeLlave_id = EstadoDeLlave.objects.get(
+      nombre = 'actual'),
+    usuario_id = cliente.id),
+  Llave(
+    llave = 'ABC2'+generarLlave(Algoritmo.objects.get(
+      nombre = 'BPS').longitudDeLlave),
+    criptoperiodo = 10,
+    fechaDeCreacion = datetime.today().strftime(
+      "%Y-%m-%d %H:%M:%S"),
+    algoritmo_id = Algoritmo.objects.get(
+      nombre = 'BPS'),
+    estadoDeLlave_id = EstadoDeLlave.objects.get(
+      nombre = 'actual'),
+    usuario_id = cliente.id),
+  Llave(
+    llave = 'ABC3'+generarLlave(Algoritmo.objects.get(
+      nombre = 'TKR').longitudDeLlave),
+    criptoperiodo = 10,
+    fechaDeCreacion = datetime.today().strftime(
+      "%Y-%m-%d %H:%M:%S"),
+    algoritmo_id = Algoritmo.objects.get(
+      nombre = 'TKR'),
+    estadoDeLlave_id = EstadoDeLlave.objects.get(
+      nombre = 'actual'),
+    usuario_id = cliente.id),
+  Llave(
+    llave = 'ABC4'+generarLlave(Algoritmo.objects.get(
+      nombre = 'AHR').longitudDeLlave),
+    criptoperiodo = 10,
+    fechaDeCreacion = datetime.today().strftime(
+      "%Y-%m-%d %H:%M:%S"),
+    algoritmo_id = Algoritmo.objects.get(
+      nombre = 'AHR'),
+    estadoDeLlave_id = EstadoDeLlave.objects.get(
+      nombre = 'actual'),
+    usuario_id = cliente.id),
+  Llave(
+    llave = 'ABC5'+generarLlave(Algoritmo.objects.get(
+      nombre = 'DRBG').longitudDeLlave),
+    criptoperiodo = 10,
+    fechaDeCreacion = datetime.today().strftime(
+      "%Y-%m-%d %H:%M:%S"),
+    algoritmo_id = Algoritmo.objects.get(
+      nombre = 'DRBG'),
+    estadoDeLlave_id = EstadoDeLlave.objects.get(
+      nombre = 'actual'),
+    usuario_id = cliente.id)]
+
+  for llave in llaves:
+    llave.save();
+
+  # Se cambia el estado del cliente
+  cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
+    nombre = 'en cambio de llaves')
+  cliente.save(force_update=True)
+
+  return HttpResponse("0")
+
+
+def terminarRefrescoDeLlaves(peticion, idDeCliente):
+  """
+  Termina el refresco de llaves
+  """
+  # Si el cliente no tiene esta en el estado correcto
+  cliente = Usuario.objects.get(pk = idDeCliente)
+  if(str(cliente.estadoDeUsuario) != 'en cambio de llaves'):
+    return HttpResponse("1")
+
+  # Si hay tokens con estado anterior se notifica
+  num = len(Token.objects.filter(
+    usuario_id = idDeCliente,
+    estadoDeToken_id='anterior'))
+  if(num > 0):
+    return HttpResponse("2")
+
+  # Eliminar las llaves anteriores del cliente
+  Llave.objects.filter(
+    usuario_id = idDeCliente,
+    estadoDeLlave_id='anterior').delete()
+
+  # Cambiar el estado de los tokens
+  Token.objects.filter(
+    usuario_id = idDeCliente,
+    estadoDeToken_id='retokenizado').update(
+    estadoDeToken_id='actual')
+
+  # Se cambia el estado del cliente
+  cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
+    nombre = 'aprobado')
+  cliente.save(force_update=True)
 
   return HttpResponse("0")
 

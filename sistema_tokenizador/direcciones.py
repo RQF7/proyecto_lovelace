@@ -36,6 +36,11 @@ urlpatterns = [
   path('api/actualizar_cliente/<int:idDeCliente>', general.actualizarCliente),
   path('api/eliminar_cliente/<int:idDeCliente>', general.eliminarCliente),
   path('api/verificar_correo/<vinculo>', general.verificarCorreo),
+  path('api/iniciar_refresco_de_llaves/<int:idDeCliente>',
+    general.iniciarRefrescoDeLlaves),
+  path('api/terminar_refresco_de_llaves/<int:idDeCliente>',
+    general.terminarRefrescoDeLlaves),
+  path('api/eliminar_tokens/<int:idDeCliente>', general.eliminarTokens),
 
   # Operaciones de administración
   path('api/clientes_en_espera/<int:pagina>/<int:limite>',
