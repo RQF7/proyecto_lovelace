@@ -25,6 +25,13 @@ from sistema_tokenizador.general.models.correo \
   import Correo
 from sistema_tokenizador.general.models.vinculo \
   import Vinculo
+from sistema_tokenizador.programa_tokenizador.models.algoritmo \
+  import Algoritmo
+from sistema_tokenizador.programa_tokenizador.models.estado_de_llave \
+  import EstadoDeLlave
+from sistema_tokenizador.programa_tokenizador.models.llave \
+  import Llave
+
 from datos_base \
   import guardar
 
@@ -142,3 +149,53 @@ if __name__ == '__main__':
           nombre = 'en espera'))]
 
     guardar(usuarios)
+
+  llaves = [
+    Llave(
+      llave = 'Niq0QQ4j0tOgy4QL9Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'FFX'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(correo = 'cliente@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j1tOgy4QL9Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'BPS'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(correo = 'cliente@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j2tOgy4QL9Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'DRBG'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(correo = 'cliente@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j3tOgy4QL9Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'TKR'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(correo = 'cliente@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j3tOgy4QL9Yeyiw==Niq0QQ4j3tOgy4QL9Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'AHR'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(correo = 'cliente@prueba.com')).id
+    )
+  ]
+
+  guardar(llaves)
