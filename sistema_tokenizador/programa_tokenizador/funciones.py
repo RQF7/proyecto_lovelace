@@ -84,4 +84,3 @@ def ejecutar(peticion):
   """
   resultado = run(peticion.body.split(), stdout=PIPE)
   return HttpResponse(resultado.stdout)
-
