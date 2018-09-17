@@ -45,7 +45,7 @@ before_install:
     python3.6-dev
     libmariadbclient-dev
   # Cryptopp
-  - wget --quiet https://cryptopp.com/cryptopp600.zip
+  - wget --quiet --no-check-certificate https://cryptopp.com/cryptopp600.zip
   - unzip --qq -n -a -d cryptopp cryptopp600.zip
   - make -C cryptopp
   - sudo mkdir /usr/include/cryptopp

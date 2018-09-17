@@ -29,108 +29,20 @@
 \tikzset{
   font=\scriptsize}
 
+\usepackage{tikz-uml}
+
+\tikzumlset{
+  fill object = white,
+  font = \tiny}
+
 \begin{document}
 
   \begin{figure}
     \centering
-    \begin{tikzpicture}[
-      etiqueta_linea_de_vida/.style = {
-        text width = 15mm,
-        align = center,
-        minimum height = 1cm}]
+    \begin{tikzpicture}[]
+      \begin {umlseqdiag}
 
-      \newcommand{\altura}{5in}
-      \newcommand{\separacionEntreLineas}{0.8in}
-      \newcommand{\anchoProcesos}{1mm}
-
-      %\begin{scope}[
-      %  scale = 0.2,
-      %  local bounding box = usuario]
-      %  \draw[black] (-1, 0) -- (0, 2);
-      %  \draw[black] (0, 2) -- (1, 0);
-      %  \draw[black] (0, 2) -- (0, 4);
-      %  \draw[black] (0, 4) -- (-1, 3);
-      %  \draw[black] (0, 4) -- (1, 3);
-      %  \draw[black] (0, 4.6) circle (0.6);
-      %  \node[
-      %    text width = 15mm,
-      %    align = center]
-      %    at (0, -1) {Usuario};
-      %\end{scope}
-
-      \node[
-        etiqueta_linea_de_vida]
-        (etiqueta_usuario)
-        {Usuario};
-
-      \draw[-, dashed]
-        (etiqueta_usuario.south)
-        --
-        ($(etiqueta_usuario.south) - (0, \altura)$);
-
-      %\begin{scope}[
-      %  scale = 0.2,
-      %  local bounding box = interfaz,
-      %  shift = {($(usuario) + (5in, -0.5in)$)}]
-      %  \draw[black] (-2, 0) -- (-2, 4);
-      %  \draw[black] (-2, 2) -- (-2, 0);
-      %  %\draw[black] (2, 1.5) circle (1.5);
-      %  \node[
-      %    align = center]
-      %    at (0, -1) {Interfaz gráfica};
-      %\end{scope}
-
-      \node[
-        etiqueta_linea_de_vida]
-        (etiqueta_interfaz)
-        [right = \separacionEntreLineas of etiqueta_usuario]
-        {Interfaz gráfica};
-
-      \draw[-, dashed]
-        (etiqueta_interfaz.south)
-        --
-        ($(etiqueta_interfaz.south) - (0, \altura)$);
-
-      \node[
-        etiqueta_linea_de_vida]
-        (etiqueta_servicios)
-        [right = \separacionEntreLineas of etiqueta_interfaz]
-        {Servicios};
-
-      \draw[-, dashed]
-        (etiqueta_servicios.south)
-        --
-        ($(etiqueta_servicios.south) - (0, \altura)$);
-
-      \node[
-        etiqueta_linea_de_vida]
-        (etiqueta_negocio)
-        [right = \separacionEntreLineas of etiqueta_servicios]
-        {Negocio};
-
-      \draw[-, dashed]
-        (etiqueta_negocio.south)
-        --
-        ($(etiqueta_negocio.south) - (0, \altura)$);
-
-      \node[
-        etiqueta_linea_de_vida]
-        (etiqueta_modelos)
-        [right = \separacionEntreLineas of etiqueta_negocio]
-        {Modelos};
-
-      \draw[-, dashed]
-        (etiqueta_modelos.south)
-        --
-        ($(etiqueta_modelos.south) - (0, \altura)$);
-
-      \draw[
-        black,
-        fill = white]
-        ($(etiqueta_usuario.south) + (-\anchoProcesos, -2mm)$)
-        rectangle
-        ($(etiqueta_usuario.south) + (\anchoProcesos, -\altura) + (0, 2mm)$);
-
+      \end{umlseqdiag}
     \end{tikzpicture}
     \caption{Prueba}
   \end{figure}
