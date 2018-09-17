@@ -32,12 +32,28 @@ sistemaTokenizador.factory('api', [
     };
 
     API.actualizarCliente = function (cliente, idDeCliente) {
-      return $http.post(RUTA_BASE + '/actualizar_cliente/' + idDeCliente, cliente);
+      return $http.post(RUTA_BASE + '/actualizar_cliente/' + idDeCliente,
+      cliente);
     };
 
     API.eliminarCliente = function (idDeCliente) {
       return $http.post(RUTA_BASE + '/eliminar_cliente/' + idDeCliente);
     };
+
+    API.iniciarRefrescoDeLlaves = function (idDeCliente) {
+      return $http.post(RUTA_BASE + '/iniciar_refresco_de_llaves/'
+      + idDeCliente);
+    };
+
+    API.terminarRefrescoDeLlaves = function (idDeCliente) {
+      return $http.post(RUTA_BASE + '/terminar_refresco_de_llaves/'
+      + idDeCliente);
+    };
+
+    API.eliminarTokens = function (idDeCliente) {
+      return $http.post(RUTA_BASE + '/eliminar_tokens/' + idDeCliente);
+    };
+
 
     /* Operaciones de administrador. */
 

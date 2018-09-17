@@ -9,15 +9,22 @@ import hashlib
 from django.core import serializers
 from django.http import HttpResponse
 from django.shortcuts import render
+
+from datetime import datetime
 from json import loads
 from subprocess import PIPE
 from subprocess import run
-import base64
 
+from sistema_tokenizador.configuraciones import EJECUTABLE_TOKENIZADOR
 from sistema_tokenizador.general.models.correo import Correo
 from sistema_tokenizador.general.models.usuario import Usuario
 
-from sistema_tokenizador.configuraciones import EJECUTABLE_TOKENIZADOR
+from sistema_tokenizador.programa_tokenizador.models.algoritmo import Algoritmo
+from sistema_tokenizador.programa_tokenizador.models.estado_de_llave import EstadoDeLlave
+from sistema_tokenizador.programa_tokenizador.models.llave import Llave
+from sistema_tokenizador.programa_tokenizador.models.token import Token
+
+
 
 def autentificar (peticion):
   """
@@ -92,36 +99,32 @@ def tokenizar(peticion):
 
   """
 
-  resultado = autentificar(peticion)
+  cliente = autentificar(peticion)
 
-  if isintance(resultado, HttpResponse):
-    return resultado
-
-  auth_header = str.split(peticion.META['HTTP_AUTHORIZATION'])[1]
-  credenciales = base64.b64decode(auth_header).decode('utf-8').split(':')
-
-  print('Credenciales:', credenciales)
-  usuario = autentificar(credenciales[0], credenciales[1])
-
-  if usuario != None:
-    if usuario.tipoDeUsuario.nombre != 'cliente':
-      return HttpResponse("403 - usuario no es tipo cliente")
-    elif usuario.estadoDeUsuario.nombre != 'aprobado' and usuario.estadoDeUsuario.nombre != 'en cambio de llaves':
-      return HttpResponse("403 - Todo mal: estado incorrecto")
-  else:
-    return HttpResponse("401 - credenciales incorrectas")
+  if isinstance(cliente, HttpResponse):
+    return cliente
 
   objetoDePeticion = loads(peticion.body)
   pan = objetoDePeticion['pan']
   metodo = objetoDePeticion['metodo']
 
-  return HttpResponse("200 - TODO BIEN")
+  llave = Llave.objects.get(
+    algoritmo_id = Algoritmo.objects.get(nombre = metodo),
+    usuario_id = cliente.id,
+    estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual')
+  )
+
+  print('Llave: ', llave.llave)
+
+  ## resultado = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, pan, llave.llave],
+  ## stdout=PIPE)
+  ##return HttpResponse(resultado.stdout)
 
 
   ##resultado = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, pan, "llave.txt"],
   ## stdout=PIPE)
   ##return HttpResponse(resultado.stdout)
-  #return HttpResponse("All is fine")
+  return HttpResponse("All is fine")
 
 
 def detokenizar(peticion):
@@ -144,6 +147,17 @@ def detokenizar(peticion):
     stdout=PIPE)
   return HttpResponse(resultado.stdout)
 
+def generarLlave(tamanio):
+  """
+
+  """
+  print('Generaración de llaves de ' + str(tamanio) + ' bytes de tamaño')
+  """
+  resultado = run([EJECUTABLE_TOKENIZADOR, "-k", "buffer", str(tamanio)],
+    stdout=PIPE)
+  """
+  # regreso esto porque tengo problemas con la ejecución, QUEDA PENDIENTE.
+  return datetime.today().strftime("%Y-%m-%d %H:%M:%S")
 
 def ejecutar(peticion):
   """

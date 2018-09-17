@@ -54,5 +54,49 @@ sistemaTokenizador.controller('controladorControl', [
       });
     };
 
+    $scope.iniciarRefrescoDeLlaves = function ($event) {
+      api.iniciarRefrescoDeLlaves($scope.usuario.pk).then(function (respuesta) {
+        $scope.usuario.fields.estadoDeUsuario = 'en cambio de llaves'
+      });
+    };
+
+    $scope.terminarRefrescoDeLlaves = function ($event) {
+      api.terminarRefrescoDeLlaves($scope.usuario.pk).then(function (respuesta) {
+        if (respuesta.data == "0") {
+          $scope.usuario.fields.estadoDeUsuario = 'aprobado'
+
+        } else if (respuesta.data == "1") {
+          var aviso = $mdDialog.alert()
+            .title('Error')
+            .textContent("@@include('mensajes/error_cliente_no_esta_en_cambio.txt')")
+            .ariaLabel('Error')
+            .targetEvent($event)
+            .ok('Aceptar')
+            .multiple(true);
+          $mdDialog.show(aviso).then(function (respuesta) {
+            $mdDialog.hide();
+          });
+
+        } else if (respuesta.data == "2") {
+          var aviso = $mdDialog.confirm()
+            .title('Advertencia')
+            .textContent("@@include('mensajes/adv_retokenizacion_incompleta.txt')")
+            .ariaLabel('Advertencia')
+            .targetEvent($event)
+            .ok('Aceptar')
+            .cancel('Cancelar')
+            .multiple(true);
+          $mdDialog.show(aviso).then(function (respuesta) {
+            api.eliminarTokens($scope.usuario.pk).then(function (respuesta) {
+              api.terminarRefrescoDeLlaves($scope.usuario.pk).then(function (respuesta) {
+                $scope.usuario.fields.estadoDeUsuario = 'aprobado'
+              });
+            });
+            $mdDialog.hide();
+          });
+        }
+      });
+    };
+
   }
 ]);
