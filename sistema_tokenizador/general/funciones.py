@@ -129,6 +129,26 @@ def cerrarSesion (peticion):
   return HttpResponse()
 
 
+def operarCliente(peticion):
+  """
+  """
+  if(peticion.method == 'POST'):
+    return registrarCliente(peticion)
+
+  else:
+    usuario = None
+    for objetoDescerializado \
+      in serializers.deserialize("json", peticion.session['usuario']):
+      usuario = objetoDescerializado
+    idDeCliente = usuario.object.id
+
+    if(peticion.method == 'PUT'):
+      return actualizarCliente(peticion, idDeCliente)
+
+    elif(peticion.method == 'DELETE'):
+      return eliminarCliente(peticion, idDeCliente)
+
+
 def registrarCliente (peticion):
   """
   Registra a un nuevo cliente en la base de datos

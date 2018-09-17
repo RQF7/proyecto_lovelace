@@ -28,16 +28,15 @@ sistemaTokenizador.factory('api', [
     };
 
     API.registrarCliente = function (cliente) {
-      return $http.post(RUTA_BASE + '/registrar_cliente', cliente);
+      return $http.post(RUTA_BASE + '/operar_cliente', cliente);
     };
 
-    API.actualizarCliente = function (cliente, idDeCliente) {
-      return $http.post(RUTA_BASE + '/actualizar_cliente/' + idDeCliente,
-      cliente);
+    API.actualizarCliente = function (cliente) {
+      return $http.put(RUTA_BASE + '/operar_cliente', cliente);
     };
 
-    API.eliminarCliente = function (idDeCliente) {
-      return $http.post(RUTA_BASE + '/eliminar_cliente/' + idDeCliente);
+    API.eliminarCliente = function (cliente) {
+      return $http.delete(RUTA_BASE + '/operar_cliente', cliente);
     };
 
     API.iniciarRefrescoDeLlaves = function (idDeCliente) {

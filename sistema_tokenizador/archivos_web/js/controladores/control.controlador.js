@@ -24,8 +24,12 @@ sistemaTokenizador.controller('controladorControl', [
       $mdDialog.show({
         parent: padre,
         targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/actualizar_cliente.ventana.html',
-        controller: 'controladorFormularioActualizarCliente'
+        templateUrl: '/estaticos/html/ventanas/operar_cliente.ventana.html',
+        controller: 'controladorFormularioOperarCliente',
+        locals: {
+          "TituloOperacion": "Actualizar datos",
+          "Operacion": "actualizar"
+        }
       }).then(function (respuesta) {
         if (respuesta != undefined) {
           console.log(respuesta);
@@ -43,7 +47,7 @@ sistemaTokenizador.controller('controladorControl', [
         .cancel('Cancelar')
         .multiple(true);
       $mdDialog.show(aviso).then(function (respuesta) {
-        api.eliminarCliente($scope.usuario.pk).then(function (respuesta) {
+        api.eliminarCliente($scope.cliente).then(function (respuesta) {
           api.cerrarSesion().then(function (respuesta) {
             $scope.usuario = undefined;
            $location.path('/');

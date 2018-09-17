@@ -1,12 +1,7 @@
 <!--
-  Formulario de registro de clientes,
+  Formulario de actualización de clientes,
   Aplicación web de sistema tokenizador.
   Proyecto Lovelace.
-
-  TODO:
-  Para este y todos los demás formularios: hacer que un campo vacío no se ponga
-  en rojo: si es requerido, simplemente no se habilita el botón de envío;
-  se ve mal con todo en rojo.
 -->
 
 <md-dialog
@@ -18,30 +13,31 @@
   <md-dialog-content>
     <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
-        <h1>Registrarse</h1>
+        <h1>{{TituloOperacion}}</h1>
       </div>
     </md-toolbar>
     <div
       layout="row"
       layout-align="center center">
       <form
-        name="formularioRegistrarCliente"
-        id="formularioRegistrarCliente"
+        name="formularioOperarCliente"
+        id="formularioOperarCliente"
         novalidate
         flex="90"
-        ng-submit="aceptar($event)">
+        ng-submit="operar($event)">
         <md-input-container>
           <label>Correo electrónico</label>
           <input
             name="correo"
             ng-model="cliente.correo"
+            ng-value="usuario.fields.correo"
             md-no-asterisk
             required
             md-autofocus
             ng-pattern="erCorreo"
             autocomplete="off"
             spellcheck="false">
-          <div ng-messages="formularioRegistrarCliente.correo.$error">
+          <div ng-messages="formularioOperarCliente.correo.$error">
             <div ng-message="pattern">
               <!-- @@include('mensajes/correo_incorrecto.txt') -->
             </div>
@@ -58,7 +54,7 @@
             ng-pattern="erContrasenia"
             autocomplete="off"
             spellcheck="false">
-          <div ng-messages="formularioRegistrarCliente.contrasenia.$error">
+          <div ng-messages="formularioOperarCliente.contrasenia.$error">
             <div ng-message="pattern">
               <!-- @@include('mensajes/contrasenia_incorrecta.txt') -->
             </div>
@@ -82,7 +78,7 @@
             ng-pattern="\b{{cliente.contrasenia}}\b"
             autocomplete="off"
             spellcheck="false">
-          <div ng-messages="formularioRegistrarCliente.confirmacion.$error">
+          <div ng-messages="formularioOperarCliente.confirmacion.$error">
             <div ng-message="pattern">
               <!-- @@include('mensajes/confirmacion_incorrecta.txt') -->
             </div>
@@ -104,11 +100,11 @@
       Cancelar
     </md-button>
     <md-button
-      id="formularioBotonRegistrarCliente"
+      id="formularioBotonActualizarCliente"
       class="md-raised md-primary"
       type="submit"
-      ng-disabled="formularioRegistrarCliente.$invalid"
-      form="formularioRegistrarCliente">
+      ng-disabled="formularioOperarCliente.$invalid"
+      form="formularioOperarCliente">
       Aceptar
     </md-button>
   </md-dialog-actions>
