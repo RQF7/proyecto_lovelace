@@ -38,6 +38,9 @@ AleatoriedadHardware::~AleatoriedadHardware()
  * construido mediante copia de una región de memoria ya reservada.
  *
  * \return Arreglo con bytes generador por el procesador.
+ *
+ * \throw SinEntropiaPorHardware si el procesador no tiene instrucciones
+ * implementadas para generar entropía por hardware.
  */
 
 Arreglo<unsigned char> AleatoriedadHardware::operar(
@@ -45,6 +48,14 @@ Arreglo<unsigned char> AleatoriedadHardware::operar(
 )
 {
   unsigned char *arregloDuro = new unsigned char[entrada[0]];
-  mGenerador.GenerateBlock(arregloDuro, entrada[0]);
+  try
+  {
+    mGenerador.GenerateBlock(arregloDuro, entrada[0]);
+  }
+  catch (CryptoPP::RDSEED_Err &excepcion)
+  {
+    throw SinEntropiaPorHardware{
+      "El procesador no tiene entropía por hardware"};
+  }
   return Arreglo<unsigned char>(entrada[0], move(arregloDuro));
 }
