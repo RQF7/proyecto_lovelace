@@ -29,13 +29,13 @@
       \end{umlcall}
     \end{umlcall}
 
-    % Opración de actualización
+    % Operación de actualización
     \begin{umlcall}[%
       op = {Actualizar recurso},%
       return = Mostrar resultado]{Usuario}{Navegador}
       \begin{umlcall}[%
         op = {PUT /recurso/\{id\}},%
-        return = {200 Ok resultado}]{Navegador}{Servicio}
+        return = {200 OK resultado}]{Navegador}{Servicio}
         \begin{umlcall}[%
           op = {validarRecurso(recurso)},%
           return = {true}]{Servicio}{Negocio}
@@ -67,7 +67,7 @@
       return = Mostrar resultado]{Usuario}{Navegador}
       \begin{umlcall}[%
         op = {POST /recurso},%
-        return = {200 Ok resultado}]{Navegador}{Servicio}
+        return = {200 OK resultado}]{Navegador}{Servicio}
         \begin{umlcall}[%
           op = {validarRecurso(recurso)},%
           return = {true}]{Servicio}{Negocio}
