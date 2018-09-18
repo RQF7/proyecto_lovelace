@@ -9,15 +9,15 @@ sistemaTokenizador.controller('controladorFormularioOperarCliente', [
   '$location',
   '$mdDialog',
   'api',
-  'TituloOperacion',
-  'Operacion',
+  'tituloOperacion',
+  'operacion',
   function (
     $scope,
     $location,
     $mdDialog,
     api,
-    TituloOperacion,
-    Operacion
+    tituloOperacion,
+    operacion
   )
   {
     /* Datos públicos. *******************************************************/
@@ -27,8 +27,8 @@ sistemaTokenizador.controller('controladorFormularioOperarCliente', [
     $scope.erContrasenia = @@include('expresiones_regulares/contrasenia.txt');
     $scope.error = false;
 
-    $scope.TituloOperacion = TituloOperacion;
-    $scope.Operacion = Operacion;
+    $scope.tituloOperacion = tituloOperacion;
+    $scope.operacion = operacion;
     mensaje = 'Para poder iniciar sesión es necesario que '
       + 'verifique su cuenta accediendo al vínculo enviado a su '
       + 'correo electrónico (revise su carpeta de spam).'
@@ -47,14 +47,14 @@ sistemaTokenizador.controller('controladorFormularioOperarCliente', [
     };
 
     $scope.operar = function () {
-      if (Operacion == "registrar") {
-        $scope.aceptar_registro()
-      } else if (Operacion == "actualizar") {
-        $scope.aceptar_actualizacion()
+      if (operacion == "registrar") {
+        $scope.aceptarRegistro()
+      } else if (operacion == "actualizar") {
+        $scope.aceptarActualizacion()
       }
     };
 
-    $scope.aceptar_registro = function ($event) {
+    $scope.aceptarRegistro = function ($event) {
       api.registrarCliente($scope.cliente).then(function (respuesta) {
         if (respuesta.data == '0') {
           var aviso = $mdDialog.alert()
@@ -73,7 +73,7 @@ sistemaTokenizador.controller('controladorFormularioOperarCliente', [
       });
     };
 
-    $scope.aceptar_actualizacion = function ($event) {
+    $scope.aceptarActualizacion = function ($event) {
       api.actualizarCliente($scope.cliente).then(function (respuesta) {
         if (respuesta.data == '0') {
           var aviso = $mdDialog.alert()
@@ -85,11 +85,14 @@ sistemaTokenizador.controller('controladorFormularioOperarCliente', [
             .multiple(true);
           $mdDialog.show(aviso).then(function (respuesta) {
             $mdDialog.hide();
+            location.reload();
           });
           api.cerrarSesion().then(function (respuesta) {
             $scope.usuario = undefined;
             $location.path('/');
           });
+        } else if (respuesta.data == '2') {
+          $mdDialog.hide();
         } else {
           $scope.error = true;
         }

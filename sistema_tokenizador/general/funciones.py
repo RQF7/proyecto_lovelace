@@ -129,24 +129,30 @@ def cerrarSesion (peticion):
   return HttpResponse()
 
 
+def obtenerId(peticion):
+  """
+  Regresa el identificador del usuario en sesión.
+  """
+  usuario = None
+  for objetoDescerializado \
+    in serializers.deserialize("json", peticion.session['usuario']):
+    usuario = objetoDescerializado
+  return usuario.object.id
+
+
 def operarCliente(peticion):
   """
+  Sirve como base para realizar las operaciones de
+  registrar, actualizar y eliminar a un cliente.
   """
   if(peticion.method == 'POST'):
     return registrarCliente(peticion)
 
-  else:
-    usuario = None
-    for objetoDescerializado \
-      in serializers.deserialize("json", peticion.session['usuario']):
-      usuario = objetoDescerializado
-    idDeCliente = usuario.object.id
+  elif (peticion.method == 'PUT'):
+    return actualizarCliente(peticion, obtenerId(peticion))
 
-    if(peticion.method == 'PUT'):
-      return actualizarCliente(peticion, idDeCliente)
-
-    elif(peticion.method == 'DELETE'):
-      return eliminarCliente(peticion, idDeCliente)
+  elif (peticion.method == 'DELETE'):
+    return eliminarCliente(obtenerId(peticion))
 
 
 def registrarCliente (peticion):
@@ -223,24 +229,29 @@ def actualizarCliente (peticion, idDeCliente):
   usuario = Usuario(
     pk = idDeCliente,
     correo = correo,
-    tipoDeUsuario = TipoDeUsuario.objects.get(
-      nombre = 'cliente'),
-    estadoDeUsuario = EstadoDeUsuario.objects.get(
-      nombre = 'en espera'),
-    contadorDeMalasAcciones = 0)
+    tipoDeUsuario = Usuario.objects.get(
+      pk = idDeCliente).tipoDeUsuario,
+    estadoDeUsuario = Usuario.objects.get(
+      pk = idDeCliente).estadoDeUsuario,
+    contadorDeMalasAcciones = Usuario.objects.get(
+      pk = idDeCliente).contadorDeMalasAcciones)
 
   usuario.save(force_update=True)
 
   # Si se cambio el correo, eliminar el correo viejo
+  print(str(cliente.correo) != str(usuario.correo))
   if (str(cliente.correo) != objetoDePeticion['correo']):
     Correo.objects.filter(correo = str(cliente.correo)).delete()
+    negocio.enviarVinculoDeVerificacion(usuario)
+    return HttpResponse("0")
+  else:
+    correo.estadoDeCorreo = EstadoDeCorreo.objects.get(
+      nombre = 'verificado')
+    correo.save()
+    return HttpResponse("2")
 
-  negocio.enviarVinculoDeVerificacion(usuario)
 
-  return HttpResponse("0")
-
-
-def eliminarCliente (peticion, idDeCliente):
+def eliminarCliente (idDeCliente):
   """
   Elimina los datos de un cliente en la base de datos y todo lo
   referente a el.

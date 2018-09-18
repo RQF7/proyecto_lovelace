@@ -35,8 +35,8 @@ sistemaTokenizador.factory('api', [
       return $http.put(RUTA_BASE + '/operar_cliente', cliente);
     };
 
-    API.eliminarCliente = function (cliente) {
-      return $http.delete(RUTA_BASE + '/operar_cliente', cliente);
+    API.eliminarCliente = function () {
+      return $http.delete(RUTA_BASE + '/operar_cliente');
     };
 
     API.iniciarRefrescoDeLlaves = function (idDeCliente) {
