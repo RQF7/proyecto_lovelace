@@ -129,26 +129,34 @@ def cerrarSesion (peticion):
   return HttpResponse()
 
 
+def obtenerId(peticion):
+  """
+  Regresa el identificador del usuario en sesión.
+  """
+  usuario = None
+  for objetoDescerializado \
+    in serializers.deserialize("json", peticion.session['usuario']):
+    usuario = objetoDescerializado
+  return usuario.object.id
+
+
+@utilidades.privilegiosRequeridos('cliente')
 def operarCliente(peticion):
   """
+  Sirve como base para realizar las operaciones de
+  registrar, actualizar y eliminar a un cliente.
   """
   if(peticion.method == 'POST'):
     return registrarCliente(peticion)
 
-  else:
-    usuario = None
-    for objetoDescerializado \
-      in serializers.deserialize("json", peticion.session['usuario']):
-      usuario = objetoDescerializado
-    idDeCliente = usuario.object.id
+  elif (peticion.method == 'PUT'):
+    return actualizarCliente(peticion, obtenerId(peticion))
 
-    if(peticion.method == 'PUT'):
-      return actualizarCliente(peticion, idDeCliente)
-
-    elif(peticion.method == 'DELETE'):
-      return eliminarCliente(peticion, idDeCliente)
+  elif (peticion.method == 'DELETE'):
+    return eliminarCliente(obtenerId(peticion))
 
 
+@utilidades.privilegiosRequeridos('cliente')
 def registrarCliente (peticion):
   """
   Registra a un nuevo cliente en la base de datos
@@ -189,6 +197,7 @@ def registrarCliente (peticion):
   return HttpResponse("0")
 
 
+@utilidades.privilegiosRequeridos('cliente')
 def actualizarCliente (peticion, idDeCliente):
   """
   Actualiza los datos de un cliente en la base de datos
@@ -223,24 +232,30 @@ def actualizarCliente (peticion, idDeCliente):
   usuario = Usuario(
     pk = idDeCliente,
     correo = correo,
-    tipoDeUsuario = TipoDeUsuario.objects.get(
-      nombre = 'cliente'),
-    estadoDeUsuario = EstadoDeUsuario.objects.get(
-      nombre = 'en espera'),
-    contadorDeMalasAcciones = 0)
+    tipoDeUsuario = Usuario.objects.get(
+      pk = idDeCliente).tipoDeUsuario,
+    estadoDeUsuario = Usuario.objects.get(
+      pk = idDeCliente).estadoDeUsuario,
+    contadorDeMalasAcciones = Usuario.objects.get(
+      pk = idDeCliente).contadorDeMalasAcciones)
 
   usuario.save(force_update=True)
 
   # Si se cambio el correo, eliminar el correo viejo
+  print(str(cliente.correo) != str(usuario.correo))
   if (str(cliente.correo) != objetoDePeticion['correo']):
     Correo.objects.filter(correo = str(cliente.correo)).delete()
+    negocio.enviarVinculoDeVerificacion(usuario)
+    return HttpResponse("0")
+  else:
+    correo.estadoDeCorreo = EstadoDeCorreo.objects.get(
+      nombre = 'verificado')
+    correo.save()
+    return HttpResponse("2")
 
-  negocio.enviarVinculoDeVerificacion(usuario)
 
-  return HttpResponse("0")
-
-
-def eliminarCliente (peticion, idDeCliente):
+@utilidades.privilegiosRequeridos('cliente')
+def eliminarCliente (idDeCliente):
   """
   Elimina los datos de un cliente en la base de datos y todo lo
   referente a el.
@@ -255,21 +270,24 @@ def eliminarCliente (peticion, idDeCliente):
   return HttpResponse("0")
 
 
-def eliminarTokens(peticion, idDeCliente):
+@utilidades.privilegiosRequeridos('cliente')
+def eliminarTokens(peticion):
   """
   Elimina los tokens de un cliente.
   """
-  Token.objects.filter(usuario_id = idDeCliente).delete()
+  Token.objects.filter(usuario_id = obtenerId(peticion)).delete()
   return HttpResponse("0")
 
 
-def iniciarRefrescoDeLlaves(peticion, idDeCliente):
+@utilidades.privilegiosRequeridos('cliente')
+def iniciarRefrescoDeLlaves(peticion):
   """
   Inicia el refresco de llaves, cambiando el estado del usuario,
   sus llaves y sus token mientras que se crean nuevas llaves.
   """
 
   # Se cambia el estado de los tokens y las llaves
+  idDeCliente = obtenerId(peticion)
   cliente = Usuario.objects.get(pk = idDeCliente)
   Token.objects.filter(
     usuario_id = idDeCliente,
@@ -349,11 +367,13 @@ def iniciarRefrescoDeLlaves(peticion, idDeCliente):
   return HttpResponse("0")
 
 
-def terminarRefrescoDeLlaves(peticion, idDeCliente):
+@utilidades.privilegiosRequeridos('cliente')
+def terminarRefrescoDeLlaves(peticion):
   """
   Termina el refresco de llaves
   """
   # Si el cliente no tiene esta en el estado correcto
+  idDeCliente = obtenerId(peticion)
   cliente = Usuario.objects.get(pk = idDeCliente)
   if(str(cliente.estadoDeUsuario) != 'en cambio de llaves'):
     return HttpResponse("1")

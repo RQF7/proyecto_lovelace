@@ -175,8 +175,8 @@ sistemaTokenizador.controller('controladorGeneral', [
         templateUrl: '/estaticos/html/ventanas/operar_cliente.ventana.html',
         controller: 'controladorFormularioOperarCliente',
         locals: {
-          "TituloOperacion": "Registrar datos",
-          "Operacion": "registrar"
+          "tituloOperacion": "Registrar datos",
+          "operacion": "registrar"
         }
       }).then(function (respuesta) {
         if (respuesta != undefined) {
