@@ -174,7 +174,7 @@ void generarLlave(
   int longitud                /**< Longitud en bytes de llave. */
 )
 {
-  Arreglo<unsigned char> llave = generarLlave(longitud);
+  Arreglo<unsigned char> llave = generarLlave(longitud); 
   Utilidades::Codificador codificador {};
   string llaveCodificada = codificador.operar({llave});
   fstream archivo {nombreDeArchivo.c_str(),

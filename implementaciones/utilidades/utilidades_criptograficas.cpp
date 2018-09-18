@@ -5,11 +5,8 @@
 
 #include "cabeceras/utilidades_criptograficas.hh"
 #include "../../utilidades/cabeceras/arreglo.hh"
-#include <cryptopp/drbg.h>
-#include <cryptopp/filters.h>
-#include <cryptopp/osrng.h>
-#include <cryptopp/secblock.h>
-#include <cryptopp/sha.h>
+#include "../drbg/cabeceras/hash_drbg.hh"
+#include "../drbg/cabeceras/aleatoriedad_hardware.hh"
 #include <utility>
 #include <iostream>
 
@@ -26,22 +23,12 @@ Arreglo<unsigned char> Implementaciones::generarLlave(
   int longitud                      /**< Longitud en bytes. */
 )
 {
-  /* Arreglo con resultado. */
-  unsigned char* llave = new unsigned char[longitud];
-  /* Arreglo con entropía (contenedor de cryptopp). */
-  SecByteBlock entropia {48};
-  /* Generador de aleatoredad aprobado por el NIST (90B y 90C). */
-  NonblockingRng generadorAleatorio;
-  /* Interfaz con generador: rellena el arreglo de entropia. */
-  RandomNumberSource fuenteDeAleatoriedad {generadorAleatorio,
-    static_cast<int>(entropia.size()),
-    new ArraySink{entropia, entropia.size()}};
-  /* Instanciación de DRBG con función hash. */
-  Hash_DRBG<SHA256, 128/8, 440/8> generadorPseudoaleatorio(entropia,
-    32, entropia + 32, 16);
+  AleatoriedadHardware *aleatoriedad = new AleatoriedadHardware;
+  HashDRBG generador {Arreglo<unsigned char>{1, 2, 3},
+    DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256,
+    aleatoriedad};
 
-  generadorPseudoaleatorio.GenerateBlock(llave, longitud);
-  Arreglo<unsigned char>resultado (longitud, std::move(llave));
-  delete[] llave;
+  auto resultado = generador.operar({static_cast<unsigned int>(longitud)});
+  delete aleatoriedad;
   return resultado;
 }
