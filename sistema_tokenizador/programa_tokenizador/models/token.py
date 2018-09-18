@@ -44,8 +44,7 @@ class Token (models.Model):
     'EstadoDeToken',
     models.PROTECT,
     verbose_name = 'Estado del token',
-#    default = estadoPorDefecto,
-    default = None,
+    default = estadoPorDefecto,
     null = True)
 
 

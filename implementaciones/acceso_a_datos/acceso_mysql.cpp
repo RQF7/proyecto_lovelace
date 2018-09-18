@@ -28,11 +28,15 @@ AccesoMySQL::AccesoMySQL(
   int puerto,             /**< Puerto del servidor de MySQL. */
   string usuario,         /**< Nombre de usuario. */
   string contrasenia,     /**< Contraseña. */
-  string base             /**< Nombre de la base de datos. */
+  string base,            /**< Nombre de la base de datos. */
+  int cliente_id,
+  string estadoDeToken_id
 )
 : mControlador {get_driver_instance()},
   mConexion {mControlador->connect("tcp://" + ip + ":" + to_string(puerto),
-    usuario, contrasenia)}
+    usuario, contrasenia)},
+  mCliente_id {cliente_id},
+  mEstadoDeToken_id {estadoDeToken_id}
 {
   mConexion->setSchema(base);
 }
@@ -58,9 +62,24 @@ Registro AccesoMySQL::buscarPorPan(
   const ArregloDeDigitos& PAN       /**< PAN a buscar en los registros. */
 )
 {
-  string consulta {"SELECT * FROM programa_tokenizador_token WHERE pan = ?"};
-  PreparedStatement* declaracion = mConexion->prepareStatement(consulta);
-  declaracion->setString(1, PAN.obtenerCadena());
+  string consulta = "";
+  PreparedStatement* declaracion = NULL;
+
+  if (mCliente_id == 0)
+  {
+    consulta = "SELECT * FROM programa_tokenizador_token WHERE pan = ?";
+    declaracion = mConexion->prepareStatement(consulta);
+    declaracion->setString(1, PAN.obtenerCadena());
+  }
+  else
+  {
+    consulta = string("SELECT * FROM programa_tokenizador_token WHERE pan = ?")
+      + string(" AND usuario_id = ?");
+    declaracion = mConexion->prepareStatement(consulta);
+    declaracion->setString(1, PAN.obtenerCadena());
+    declaracion->setInt(2, mCliente_id);
+  }
+
   ResultSet* resultado = declaracion->executeQuery();
   Registro registro {};
   if (resultado->next())
@@ -86,10 +105,24 @@ Registro AccesoMySQL::buscarPorToken(
   const ArregloDeDigitos& token         /**< Token a buscar. */
 )
 {
-  string consulta {"SELECT * FROM programa_tokenizador_token "
-    "WHERE token = ?"};
-  PreparedStatement* declaracion = mConexion->prepareStatement(consulta);
-  declaracion->setString(1, token.obtenerCadena());
+  string consulta = "";
+  PreparedStatement* declaracion = NULL;
+
+  if (mCliente_id == 0)
+  {
+    consulta = "SELECT * FROM programa_tokenizador_token WHERE token = ?";
+    declaracion = mConexion->prepareStatement(consulta);
+    declaracion->setString(1, token.obtenerCadena());
+  }
+  else
+  {
+    consulta = "SELECT * FROM programa_tokenizador_token WHERE token = ? AND usuario_id = ? AND estadoDeToken_id = ? ";
+    declaracion = mConexion->prepareStatement(consulta);
+    declaracion->setString(1, token.obtenerCadena());
+    declaracion->setInt(2, mCliente_id);
+    declaracion->setString(3, mEstadoDeToken_id);
+  }
+
   ResultSet* resultado = declaracion->executeQuery();
   Registro registro {};
   if (resultado->next())
@@ -116,12 +149,32 @@ void AccesoMySQL::guardar(
   const Registro& registro              /**< Nuevo registro. */
 )
 {
-  string instruccion {"INSERT INTO programa_tokenizador_token (id, token, pan) "
-    "VALUES (?, ?, ?)"};
-  PreparedStatement* declaracion = mConexion->prepareStatement(instruccion);
-  declaracion->setInt(1, 0);
-  declaracion->setString(2, registro.obtenerToken().obtenerCadena());
-  declaracion->setString(3, registro.obtenerPAN().obtenerCadena());
+  string instruccion = "";
+  PreparedStatement *declaracion = NULL;
+
+  if (mCliente_id == 0)
+  {
+    instruccion = string("INSERT INTO programa_tokenizador_token ") +
+      string("(id, token, pan) VALUES (?, ?, ?)");
+
+    declaracion = mConexion->prepareStatement(instruccion);
+    declaracion->setInt(1, 0);
+    declaracion->setString(2, registro.obtenerToken().obtenerCadena());
+    declaracion->setString(3, registro.obtenerPAN().obtenerCadena());
+  }
+  else
+  {
+    instruccion = string("INSERT INTO programa_tokenizador_token") +
+      string("(id, token, pan, usuario_id, estadoDeToken_id) VALUES (?, ?, ?, ?, ?)");
+
+    declaracion = mConexion->prepareStatement(instruccion);
+    declaracion->setInt(1, 0);
+    declaracion->setString(2, registro.obtenerToken().obtenerCadena());
+    declaracion->setString(3, registro.obtenerPAN().obtenerCadena());
+    declaracion->setInt(4, mCliente_id);
+    declaracion->setString(5, mEstadoDeToken_id);
+  }
+
   declaracion->executeQuery();
   delete declaracion;
   return;
@@ -183,4 +236,22 @@ void AccesoMySQL::colocarContador(
   declaracion->executeQuery();
   delete declaracion;
   return;
+}
+
+/**
+ *  Actualiza el identificador del cliente que se va a modificar,
+ *  es 0 por defecto.
+ */
+void AccesoMySQL::actualizarCliente_id(int cliente_id)
+{
+  mCliente_id = cliente_id;
+}
+
+/**
+ * Actualiza el estado con el que se guardará el token.
+ * actual por defecto.
+ */
+void AccesoMySQL::actualizarEstadoDelToken_id(string estadoToken_id)
+{
+  mEstadoDeToken_id = estadoToken_id;
 }
