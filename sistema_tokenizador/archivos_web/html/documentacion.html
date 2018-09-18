@@ -12,17 +12,81 @@
   <h3>Cómo utilizar la API web</h3>
 
   <p>
-    Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-    ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
-    tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-    ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est
-    et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed,
-    commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt
-    condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.
-    Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus,
-    neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna
-    eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan
-    porttitor, facilisis luctus, metus
+    La API permite realizar tres operaciones que se explican a continuación;
+    todas las operaciones se deben realizar mediante peticiones HTTP utilizando
+    el método POST. Todas las peticiones deben tener los encabezados de tipo de
+    contenido (especificando que se está enviando un JSON) y el encabezado de
+    autenticación básica (siguiendo el formato dado en el RFC). En el cuerpo de
+    la petición se especifica el método y el PAN o el método y el token.
+  </p>
+
+  <h4>Tokenización</h4>
+  <p>
+    Permite, a partir del número de una tarjeta, obtener un token asociado a
+    él. El cliente debe encontrarse en estado <b>aprobado</b> o <b>en cambio de
+    llaves</b>; en todos los casos, la llave que se utilizará al tokenizar
+    siempre será la que tenga estado <b>actual</b>.
+  </p>
+
+  <h5> Uso y ejemplo </h5>
+  <p>
+    En el cuerpo de la petición se debe señalar el <b>PAN</b> y el
+    <b>método</b>, siguiendo el siguiente esquema:
+  </p>
+  <code>
+    POST /programa_tokenizador/tokenizar HTTP/1.1 <br />
+    { <br />
+      Authorization: Basic QWxhZgRpbjpPcGVuU2VYW11 <br />
+      Content-Type: Application/JSON <br />
+    } <br />
+    { <br />
+      "pan" : "28045869693113314", <br />
+      "metodo" : "FFX" <br />
+    }
+  </code>
+  <p>Los valores para el campo método son: FFX, BPS, TKR, AHR o DRBG. </p>
+
+  <h5> Errores </h5>
+  <p>A continuación se listan los errores que pueden surgir al tokenizar un PAN.
+    <dl>
+      <dt><code>
+          401 - Es necesario proveer credenciales para realizar esta operación
+      </code></dt>
+        <dd>
+          Este error surge cuando el encabezado de autenticación no se ha
+          encontrado.
+        </dd>
+      <dt><code>
+          401 - Las credenciales son incorrectas
+      </code></dt>
+        <dd>
+          Este error surge cuando las credenciales especificadas en el
+          encabezado no se encuentran registradas en el sistema.
+        </dd>
+      <dt><code>
+          403 - El usuario no tiene los privilegios para esta operación
+      </code></dt>
+        <dd>
+          Aunque el usuario está registrado, no tiene los permisos necesarios
+          para realizar esta operación.
+        </dd>
+      <dt><code>
+          403 - EL usuario no se encuentra en el estado necesario para esta
+          operación.
+      </code></dt>
+        <dd>
+          Aunque el usuario está registrado, no se encuentra en el estado
+          requerido (<code>aprobado</code> o <code>en cambio de llaves</code>)
+          para realizar esta operación.
+        </dd>
+      <dt><code>
+          403 - Ya existe un token asociado a este PAN
+      </code></dt>
+        <dd>
+          El usuario ya tiene un token asociado al PAN que se quiere tokenizar,
+          y, por regla, solo se puede tener uno.
+        </dd>
+    </dl>
   </p>
 
 </div>

@@ -15,14 +15,21 @@ from json import loads
 from subprocess import PIPE
 from subprocess import run
 
-from sistema_tokenizador.configuraciones import EJECUTABLE_TOKENIZADOR
-from sistema_tokenizador.general.models.correo import Correo
-from sistema_tokenizador.general.models.usuario import Usuario
+from sistema_tokenizador.configuraciones \
+  import EJECUTABLE_TOKENIZADOR
+from sistema_tokenizador.general.models.correo \
+  import Correo
+from sistema_tokenizador.general.models.usuario \
+  import Usuario
 
-from sistema_tokenizador.programa_tokenizador.models.algoritmo import Algoritmo
-from sistema_tokenizador.programa_tokenizador.models.estado_de_llave import EstadoDeLlave
-from sistema_tokenizador.programa_tokenizador.models.llave import Llave
-from sistema_tokenizador.programa_tokenizador.models.token import Token
+from sistema_tokenizador.programa_tokenizador.models.algoritmo \
+  import Algoritmo
+from sistema_tokenizador.programa_tokenizador.models.estado_de_llave \
+  import EstadoDeLlave
+from sistema_tokenizador.programa_tokenizador.models.llave \
+  import Llave
+from sistema_tokenizador.programa_tokenizador.models.token \
+  import Token
 
 
 
@@ -71,7 +78,7 @@ def autentificar (peticion):
       --user cliente@prueba.com:123456 \
       --header "Content-Type application/json" \
       --request POST \
-      --data '{"pan" : "28045869693113314", "metodo" : "FFX"}' \
+      --data '{"pan" : "1035721378045", "metodo" : "AHR"}' \
       http://127.0.0.1:8000/programa_tokenizador/tokenizar
 
     """
@@ -97,12 +104,28 @@ def autentificar (peticion):
     return HttpResponse(
       "El usuario no tiene los privilegios para esta operación",
       status = 403)
-  elif usuario.estadoDeUsuario.nombre != 'aprobado' and usuario.estadoDeUsuario.nombre != 'en cambio de llaves':
+  elif usuario.estadoDeUsuario.nombre != 'aprobado' and \
+    usuario.estadoDeUsuario.nombre != 'en cambio de llaves':
     return HttpResponse(
       "EL usuario no se encuentra en el estado necesario para esta operación",
       status = 403)
 
   return usuario
+
+
+def verificarUnicidadDePAN(PAN, cliente_id):
+  """
+  Verifica que el cliente indicado no tenga asociado el PAN señalado.
+
+  Regresa verdadero o falso.
+  """
+  try:
+    registro = Token.objects.get(
+      pan = PAN,
+      usuario_id = cliente_id)
+  except (Token.DoesNotExist):
+    return 1
+  return 0
 
 
 def tokenizar(peticion):
@@ -120,6 +143,13 @@ def tokenizar(peticion):
   pan = objetoDePeticion['pan']
   metodo = objetoDePeticion['metodo']
 
+  tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
+
+  if tipoAlgoritmo == 'irreversible':
+    print ("Algoritmo irreversible.")
+    if verificarUnicidadDePAN(pan, cliente.id) == 0 :
+      return HttpResponse("Ya existe un token asociado a este PAN", status = 403)
+
   llave = Llave.objects.get(
     algoritmo_id = Algoritmo.objects.get(nombre = metodo),
     usuario_id = cliente.id,
@@ -135,21 +165,42 @@ def detokenizar(peticion):
   """
   Ejecuta la operación de detokenización y regresa el pan asociado
 
-  Ejemplo:
-  curl --header "Content-Type: application/json" \
-       --request POST \
-       --data '{"token" : "28045851286256503", "metodo": "FFX"}' \
-       http://127.0.0.1:8000/programa_tokenizador/detokenizar
+    curl --header "Content-Type: application/json" \
+         --request POST \
+         --data '{"token" : "28045869693113314", "metodo" : "FFX"}' \
+         http://127.0.0.1:8000/programa_tokenizador/tokenizar
 
   Documentación asociada:
   https://docs.python.org/3.5/library/subprocess.html#subprocess.run
   """
+
+  cliente = autentificar(peticion)
+
+  if isinstance(cliente, HttpResponse):
+    return cliente
+
   objetoDePeticion = loads(peticion.body)
   token = objetoDePeticion['token']
   metodo = objetoDePeticion['metodo']
-  resultado = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, "llave.txt"],
-    stdout=PIPE)
-  return HttpResponse(resultado.stdout)
+
+  versionLlave = 'actual'
+
+  if usuario.estadoDeUsuario.nombre == 'en cambio de llaves':
+    try:
+      versionLlave = objetoDePeticion['versionLlave']
+    except:
+      versionLlave = 'actual'
+
+  llave = Llave.objects.get(
+    algoritmo_id = ALgoritmo.objects.get(nombre = metodo),
+    usuario_id = cliente.id,
+    estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = versionLlave)
+  )
+
+  resultado = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, llave.llave,
+    str(cliente.id)], stdout=PIPE)
+
+  return HttpResponse(resultado.stdout, content_type="text/plain", status = 200)
 
 def generarLlave(tamanio):
   """

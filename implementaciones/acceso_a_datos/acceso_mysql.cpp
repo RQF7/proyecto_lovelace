@@ -29,8 +29,8 @@ AccesoMySQL::AccesoMySQL(
   string usuario,         /**< Nombre de usuario. */
   string contrasenia,     /**< Contraseña. */
   string base,            /**< Nombre de la base de datos. */
-  int cliente_id,
-  string estadoDeToken_id
+  int cliente_id,         /**< Identificador del cliente. */
+  string estadoDeToken_id /**< Estado del token. */
 )
 : mControlador {get_driver_instance()},
   mConexion {mControlador->connect("tcp://" + ip + ":" + to_string(puerto),
