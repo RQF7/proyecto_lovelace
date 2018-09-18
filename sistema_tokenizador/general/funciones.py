@@ -140,6 +140,7 @@ def obtenerId(peticion):
   return usuario.object.id
 
 
+@utilidades.privilegiosRequeridos('cliente')
 def operarCliente(peticion):
   """
   Sirve como base para realizar las operaciones de
@@ -155,6 +156,7 @@ def operarCliente(peticion):
     return eliminarCliente(obtenerId(peticion))
 
 
+@utilidades.privilegiosRequeridos('cliente')
 def registrarCliente (peticion):
   """
   Registra a un nuevo cliente en la base de datos
@@ -195,6 +197,7 @@ def registrarCliente (peticion):
   return HttpResponse("0")
 
 
+@utilidades.privilegiosRequeridos('cliente')
 def actualizarCliente (peticion, idDeCliente):
   """
   Actualiza los datos de un cliente en la base de datos
@@ -251,6 +254,7 @@ def actualizarCliente (peticion, idDeCliente):
     return HttpResponse("2")
 
 
+@utilidades.privilegiosRequeridos('cliente')
 def eliminarCliente (idDeCliente):
   """
   Elimina los datos de un cliente en la base de datos y todo lo
@@ -266,21 +270,24 @@ def eliminarCliente (idDeCliente):
   return HttpResponse("0")
 
 
-def eliminarTokens(peticion, idDeCliente):
+@utilidades.privilegiosRequeridos('cliente')
+def eliminarTokens(peticion):
   """
   Elimina los tokens de un cliente.
   """
-  Token.objects.filter(usuario_id = idDeCliente).delete()
+  Token.objects.filter(usuario_id = obtenerId(peticion)).delete()
   return HttpResponse("0")
 
 
-def iniciarRefrescoDeLlaves(peticion, idDeCliente):
+@utilidades.privilegiosRequeridos('cliente')
+def iniciarRefrescoDeLlaves(peticion):
   """
   Inicia el refresco de llaves, cambiando el estado del usuario,
   sus llaves y sus token mientras que se crean nuevas llaves.
   """
 
   # Se cambia el estado de los tokens y las llaves
+  idDeCliente = obtenerId(peticion)
   cliente = Usuario.objects.get(pk = idDeCliente)
   Token.objects.filter(
     usuario_id = idDeCliente,
@@ -360,11 +367,13 @@ def iniciarRefrescoDeLlaves(peticion, idDeCliente):
   return HttpResponse("0")
 
 
-def terminarRefrescoDeLlaves(peticion, idDeCliente):
+@utilidades.privilegiosRequeridos('cliente')
+def terminarRefrescoDeLlaves(peticion):
   """
   Termina el refresco de llaves
   """
   # Si el cliente no tiene esta en el estado correcto
+  idDeCliente = obtenerId(peticion)
   cliente = Usuario.objects.get(pk = idDeCliente)
   if(str(cliente.estadoDeUsuario) != 'en cambio de llaves'):
     return HttpResponse("1")

@@ -60,13 +60,13 @@ sistemaTokenizador.controller('controladorControl', [
     };
 
     $scope.iniciarRefrescoDeLlaves = function ($event) {
-      api.iniciarRefrescoDeLlaves($scope.usuario.pk).then(function (respuesta) {
+      api.iniciarRefrescoDeLlaves().then(function (respuesta) {
         $scope.usuario.fields.estadoDeUsuario = 'en cambio de llaves'
       });
     };
 
     $scope.terminarRefrescoDeLlaves = function ($event) {
-      api.terminarRefrescoDeLlaves($scope.usuario.pk).then(function (respuesta) {
+      api.terminarRefrescoDeLlaves().then(function (respuesta) {
         if (respuesta.data == "0") {
           $scope.usuario.fields.estadoDeUsuario = 'aprobado'
 
@@ -92,8 +92,8 @@ sistemaTokenizador.controller('controladorControl', [
             .cancel('Cancelar')
             .multiple(true);
           $mdDialog.show(aviso).then(function (respuesta) {
-            api.eliminarTokens($scope.usuario.pk).then(function (respuesta) {
-              api.terminarRefrescoDeLlaves($scope.usuario.pk).then(function (respuesta) {
+            api.eliminarTokens().then(function (respuesta) {
+              api.terminarRefrescoDeLlaves().then(function (respuesta) {
                 $scope.usuario.fields.estadoDeUsuario = 'aprobado'
               });
             });

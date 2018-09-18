@@ -34,11 +34,9 @@ urlpatterns = [
   path('api/cerrar_sesion', general.cerrarSesion),
   path('api/operar_cliente', general.operarCliente),
   path('api/verificar_correo/<vinculo>', general.verificarCorreo),
-  path('api/iniciar_refresco_de_llaves/<int:idDeCliente>',
-    general.iniciarRefrescoDeLlaves),
-  path('api/terminar_refresco_de_llaves/<int:idDeCliente>',
-    general.terminarRefrescoDeLlaves),
-  path('api/eliminar_tokens/<int:idDeCliente>', general.eliminarTokens),
+  path('api/iniciar_refresco_de_llaves', general.iniciarRefrescoDeLlaves),
+  path('api/terminar_refresco_de_llaves', general.terminarRefrescoDeLlaves),
+  path('api/eliminar_tokens', general.eliminarTokens),
 
   # Operaciones de administración
   path('api/clientes_en_espera/<int:pagina>/<int:limite>',
