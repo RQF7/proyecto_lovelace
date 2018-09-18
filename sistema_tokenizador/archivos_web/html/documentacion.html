@@ -32,22 +32,23 @@
   <p>
     En el cuerpo de la petición se debe señalar el <b>PAN</b> y el
     <b>método</b>, siguiendo el siguiente esquema:
+    <code>
+      POST /programa_tokenizador/tokenizar HTTP/1.1 <br />
+      { <br />
+        Authorization: Basic QWxhZgRpbjpPcGVuU2VYW11 <br />
+        Content-Type: Application/JSON <br />
+      } <br />
+      { <br />
+        "pan" : "28045869693113314", <br />
+        "metodo" : "FFX" <br />
+      }
+    </code>
+    Los valores para el campo método son: FFX, BPS, TKR, AHR o DRBG.
   </p>
-  <code>
-    POST /programa_tokenizador/tokenizar HTTP/1.1 <br />
-    { <br />
-      Authorization: Basic QWxhZgRpbjpPcGVuU2VYW11 <br />
-      Content-Type: Application/JSON <br />
-    } <br />
-    { <br />
-      "pan" : "28045869693113314", <br />
-      "metodo" : "FFX" <br />
-    }
-  </code>
-  <p>Los valores para el campo método son: FFX, BPS, TKR, AHR o DRBG. </p>
 
   <h5> Errores </h5>
-  <p>A continuación se listan los errores que pueden surgir al tokenizar un PAN.
+  <p>
+    A continuación se listan los errores que pueden surgir al tokenizar un PAN.
     <dl>
       <dt><code>
           401 - Es necesario proveer credenciales para realizar esta operación
@@ -85,6 +86,13 @@
         <dd>
           El usuario ya tiene un token asociado al PAN que se quiere tokenizar,
           y, por regla, solo se puede tener uno.
+        </dd>
+      <dt><code>
+          403 - Parámetros incompletos o incorrectos
+      </code></dt>
+        <dd>
+          El servidor no pudo encontrar el parámetro <b>pan</b>,
+          <code>metodo</code> o ambos.
         </dd>
     </dl>
   </p>

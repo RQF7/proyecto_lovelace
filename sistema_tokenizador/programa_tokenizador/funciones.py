@@ -140,8 +140,12 @@ def tokenizar(peticion):
     return cliente
 
   objetoDePeticion = loads(peticion.body)
-  pan = objetoDePeticion['pan']
-  metodo = objetoDePeticion['metodo']
+  try:
+    pan = objetoDePeticion['pan']
+    metodo = objetoDePeticion['metodo']
+  except:
+    return HttpResponse("Parámetros incompletos o incorrectos", status = 403)
+
 
   tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
 
@@ -166,9 +170,10 @@ def detokenizar(peticion):
   Ejecuta la operación de detokenización y regresa el pan asociado
 
     curl --header "Content-Type: application/json" \
+          --user cliente@prueba.com:123456 \
          --request POST \
-         --data '{"token" : "28045869693113314", "metodo" : "FFX"}' \
-         http://127.0.0.1:8000/programa_tokenizador/tokenizar
+         --data '{"token" : "28045827651793999", "metodo" : "FFX"}' \
+         http://127.0.0.1:8000/programa_tokenizador/detokenizar
 
   Documentación asociada:
   https://docs.python.org/3.5/library/subprocess.html#subprocess.run
@@ -180,25 +185,31 @@ def detokenizar(peticion):
     return cliente
 
   objetoDePeticion = loads(peticion.body)
-  token = objetoDePeticion['token']
-  metodo = objetoDePeticion['metodo']
+  try:
+    token = objetoDePeticion['token']
+    metodo = objetoDePeticion['metodo']
+  except:
+    return HttpResponse("Parámetros incompletos o incorrectos", status = 403)
 
   versionLlave = 'actual'
 
-  if usuario.estadoDeUsuario.nombre == 'en cambio de llaves':
+  if cliente.estadoDeUsuario.nombre == 'en cambio de llaves':
     try:
       versionLlave = objetoDePeticion['versionLlave']
     except:
       versionLlave = 'actual'
 
   llave = Llave.objects.get(
-    algoritmo_id = ALgoritmo.objects.get(nombre = metodo),
+    algoritmo_id = Algoritmo.objects.get(nombre = metodo),
     usuario_id = cliente.id,
     estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = versionLlave)
   )
 
-  resultado = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, llave.llave,
-    str(cliente.id)], stdout=PIPE)
+  try:
+    resultado = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, llave.llave,
+      str(cliente.id)], stdout=PIPE)
+  except:
+    print("error")
 
   return HttpResponse(resultado.stdout, content_type="text/plain", status = 200)
 
