@@ -140,7 +140,6 @@ def obtenerId(peticion):
   return usuario.object.id
 
 
-@utilidades.privilegiosRequeridos('cliente')
 def operarCliente(peticion):
   """
   Sirve como base para realizar las operaciones de
@@ -153,10 +152,9 @@ def operarCliente(peticion):
     return actualizarCliente(peticion, obtenerId(peticion))
 
   elif (peticion.method == 'DELETE'):
-    return eliminarCliente(obtenerId(peticion))
+    return eliminarCliente(peticion, obtenerId(peticion))
 
 
-@utilidades.privilegiosRequeridos('cliente')
 def registrarCliente (peticion):
   """
   Registra a un nuevo cliente en la base de datos
@@ -255,7 +253,7 @@ def actualizarCliente (peticion, idDeCliente):
 
 
 @utilidades.privilegiosRequeridos('cliente')
-def eliminarCliente (idDeCliente):
+def eliminarCliente (peticion, idDeCliente):
   """
   Elimina los datos de un cliente en la base de datos y todo lo
   referente a el.

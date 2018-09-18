@@ -48,15 +48,9 @@ sistemaTokenizador.controller('controladorControl', [
         .multiple(true);
       $mdDialog.show(aviso).then(function (respuesta) {
         api.eliminarCliente().then(function (respuesta) {
-          api.cerrarSesion().then(function (respuesta) {
-            $scope.usuario = undefined;
-            $location.path('/');
-            location.reload();
-          });
+          $scope.cerrarSesion();
         });
-
-        $mdDialog.hide();
-      });
+      }, function () {});
     };
 
     $scope.iniciarRefrescoDeLlaves = function ($event) {
