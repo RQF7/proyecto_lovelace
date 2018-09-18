@@ -30,7 +30,9 @@ namespace Implementaciones
       AccesoMySQL(std::string ip = "127.0.0.1", int puerto = 3306,
         std::string usuario = "administrador_lovelace_cdv",
         std::string contrasenia = "l0v3lac3-admin",
-        std::string base = "lovelace_cdv");
+        std::string base = "lovelace_cdv",
+        int cliente_id = 0,
+        std::string estadoDeToken_id = "actual");
 
       /** \brief Cierra la conexión con la base. */
       ~AccesoMySQL();
@@ -53,12 +55,24 @@ namespace Implementaciones
       /** virtual Coloca el valor del contador. */
       void colocarContador(std::string nombre, entero valor) override;
 
+      /** \brief Actualiza el identificador del cliente. */
+      void actualizarCliente_id(int cliente_id) override;
+
+      /** \brief Actualiza el valor del estado del token. */
+      void actualizarEstadoDelToken_id(std::string estadoToken_id) override;
+
     private:
       /** \brief Controlador de conexiones. */
       sql::Driver *mControlador;
 
       /** \brief Instancia de conexión. */
       sql::Connection *mConexion;
+
+      /** \brief Identificador del cliente. */
+      int mCliente_id;
+
+      /** \brief Estado del token. */
+      std::string mEstadoDeToken_id;
   };
 }
 

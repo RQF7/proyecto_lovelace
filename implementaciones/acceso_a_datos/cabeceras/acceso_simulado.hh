@@ -49,6 +49,16 @@ namespace Implementaciones
       inline void colocarContador(std::string nombre, entero valor) override
       {
       }
+
+      /** virtual Coloca el valor del contador. */
+      inline void actualizarCliente_id(int cliente_id) override
+      {
+      }
+
+      /** virtual Coloca el valor del contador. */
+      inline void actualizarEstadoDelToken_id(std::string estadoDeToken_id) override
+      {
+      }
   };
 }
 
