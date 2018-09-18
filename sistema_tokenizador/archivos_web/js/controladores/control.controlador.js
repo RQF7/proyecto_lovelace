@@ -24,8 +24,12 @@ sistemaTokenizador.controller('controladorControl', [
       $mdDialog.show({
         parent: padre,
         targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/actualizar_cliente.ventana.html',
-        controller: 'controladorFormularioActualizarCliente'
+        templateUrl: '/estaticos/html/ventanas/operar_cliente.ventana.html',
+        controller: 'controladorFormularioOperarCliente',
+        locals: {
+          "tituloOperacion": "Actualizar datos",
+          "operacion": "actualizar"
+        }
       }).then(function (respuesta) {
         if (respuesta != undefined) {
           console.log(respuesta);
@@ -43,25 +47,20 @@ sistemaTokenizador.controller('controladorControl', [
         .cancel('Cancelar')
         .multiple(true);
       $mdDialog.show(aviso).then(function (respuesta) {
-        api.eliminarCliente($scope.usuario.pk).then(function (respuesta) {
-          api.cerrarSesion().then(function (respuesta) {
-            $scope.usuario = undefined;
-           $location.path('/');
-          });
+        api.eliminarCliente().then(function (respuesta) {
+          $scope.cerrarSesion();
         });
-
-        $mdDialog.hide();
-      });
+      }, function () {});
     };
 
     $scope.iniciarRefrescoDeLlaves = function ($event) {
-      api.iniciarRefrescoDeLlaves($scope.usuario.pk).then(function (respuesta) {
+      api.iniciarRefrescoDeLlaves().then(function (respuesta) {
         $scope.usuario.fields.estadoDeUsuario = 'en cambio de llaves'
       });
     };
 
     $scope.terminarRefrescoDeLlaves = function ($event) {
-      api.terminarRefrescoDeLlaves($scope.usuario.pk).then(function (respuesta) {
+      api.terminarRefrescoDeLlaves().then(function (respuesta) {
         if (respuesta.data == "0") {
           $scope.usuario.fields.estadoDeUsuario = 'aprobado'
 
@@ -87,8 +86,8 @@ sistemaTokenizador.controller('controladorControl', [
             .cancel('Cancelar')
             .multiple(true);
           $mdDialog.show(aviso).then(function (respuesta) {
-            api.eliminarTokens($scope.usuario.pk).then(function (respuesta) {
-              api.terminarRefrescoDeLlaves($scope.usuario.pk).then(function (respuesta) {
+            api.eliminarTokens().then(function (respuesta) {
+              api.terminarRefrescoDeLlaves().then(function (respuesta) {
                 $scope.usuario.fields.estadoDeUsuario = 'aprobado'
               });
             });

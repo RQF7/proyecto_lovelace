@@ -172,8 +172,12 @@ sistemaTokenizador.controller('controladorGeneral', [
       $mdDialog.show({
         parent: padre,
         targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/registrar_cliente.ventana.html',
-        controller: 'controladorFormularioRegistrarCliente'
+        templateUrl: '/estaticos/html/ventanas/operar_cliente.ventana.html',
+        controller: 'controladorFormularioOperarCliente',
+        locals: {
+          "tituloOperacion": "Registrar datos",
+          "operacion": "registrar"
+        }
       }).then(function (respuesta) {
         if (respuesta != undefined) {
           console.log(respuesta);

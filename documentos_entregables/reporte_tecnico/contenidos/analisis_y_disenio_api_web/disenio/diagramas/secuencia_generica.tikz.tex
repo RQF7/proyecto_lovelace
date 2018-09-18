@@ -1,0 +1,83 @@
+%
+% Diagrama de secuencia de operaciones genéricas,
+% Análisis y diseño de aplicación web,
+% Reporte técnico.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}
+  \begin {umlseqdiag}
+
+    % Lineas de vida
+    \umlactor[no ddots]{Usuario}
+    \umlboundary[no ddots]{Navegador}
+    \umlcontrol[no ddots]{Servicio}
+    \umlentity[no ddots]{Negocio}
+    \umldatabase[no ddots]{Modelo}
+
+    % Operación de lectura
+    \begin{umlcall}[%
+      op = {Ver recurso},%
+      return = Mostrar recurso]{Usuario}{Navegador}
+      \begin{umlcall}[%
+        op = {GET /recurso/\{id\}},%
+        return = 200 OK recurso]{Navegador}{Servicio}
+        \begin{umlcall}[%
+          op = {obtenerRecurso(id)},
+          return = recurso]{Servicio}{Modelo}
+        \end{umlcall}
+      \end{umlcall}
+    \end{umlcall}
+
+    % Operación de actualización
+    \begin{umlcall}[%
+      op = {Actualizar recurso},%
+      return = Mostrar resultado]{Usuario}{Navegador}
+      \begin{umlcall}[%
+        op = {PUT /recurso/\{id\}},%
+        return = {200 OK resultado}]{Navegador}{Servicio}
+        \begin{umlcall}[%
+          op = {validarRecurso(recurso)},%
+          return = {true}]{Servicio}{Negocio}
+        \end{umlcall}
+        \begin{umlcall}[%
+          op = {actualizarRecurso(recurso)},%
+          return = true]{Servicio}{Modelo}
+        \end{umlcall}
+      \end{umlcall}
+    \end{umlcall}
+
+    % Operación de eliminación
+    \begin{umlcall}[%
+      op = {Eliminar recurso},%
+      return = Mostrar resultado]{Usuario}{Navegador}
+      \begin{umlcall}[%
+        op = {DELETE /recurso/\{id\}},%
+        return = 200 OK resultado]{Navegador}{Servicio}
+        \begin{umlcall}[%
+          op = {eliminarRecurso(id)},
+          return = true]{Servicio}{Modelo}
+        \end{umlcall}
+      \end{umlcall}
+    \end{umlcall}
+
+    % Operación de inserción
+    \begin{umlcall}[%
+      op = {Insertar recurso},%
+      return = Mostrar resultado]{Usuario}{Navegador}
+      \begin{umlcall}[%
+        op = {POST /recurso},%
+        return = {200 OK resultado}]{Navegador}{Servicio}
+        \begin{umlcall}[%
+          op = {validarRecurso(recurso)},%
+          return = {true}]{Servicio}{Negocio}
+        \end{umlcall}
+        \begin{umlcall}[%
+          op = {insertarRecurso(recurso)},%
+          return = true]{Servicio}{Modelo}
+        \end{umlcall}
+      \end{umlcall}
+    \end{umlcall}
+
+  \end{umlseqdiag}
+\end{tikzpicture}
