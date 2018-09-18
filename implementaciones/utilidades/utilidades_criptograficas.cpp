@@ -27,26 +27,23 @@ Arreglo<unsigned char> Implementaciones::generarLlave(
   int longitud                      /**< Longitud en bytes. */
 )
 {
-  AleatoriedadHardware *aleatoriedad = new AleatoriedadHardware{};
-  HashDRBG generador {Arreglo<unsigned char>{1, 2, 3},
-    DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256,
-    aleatoriedad};
-
-  Arreglo<unsigned char> resultado;
+  HashDRBG *generador = nullptr;
   try
   {
-    resultado = generador.operar({static_cast<unsigned int>(longitud)});
+    AleatoriedadHardware *aleatoriedad = new AleatoriedadHardware{};
+    generador = new HashDRBG{Arreglo<unsigned char>{1, 2, 3},
+      DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256,
+      aleatoriedad};
   }
-  catch (SinEntropiaPorHardware &excepcion)
+  catch (CryptoPP::RDSEED_Err &excepcion)
   {
     AleatoriedadTrivial *aleatoriedadDos = new AleatoriedadTrivial{};
-    generador = HashDRBG{Arreglo<unsigned char>{1, 2, 3},
+    generador = new HashDRBG{Arreglo<unsigned char>{1, 2, 3},
       DRBG::NivelDeSeguridad::nivel128, HashDRBG::TipoDeFuncionHash::SHA256,
       aleatoriedadDos};
-    resultado = generador.operar({static_cast<unsigned int>(longitud)});
-    delete aleatoriedadDos;
   }
 
-  delete aleatoriedad;
+  auto resultado = generador->operar({static_cast<unsigned int>(longitud)});
+  delete generador;
   return resultado;
 }
