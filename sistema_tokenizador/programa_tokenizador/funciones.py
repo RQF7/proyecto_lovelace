@@ -37,6 +37,12 @@ def autentificar (peticion):
   correspondiente.
 
   Ejemplos de pruebas:
+    Credenciales no provistas.
+    curl --header "Content-Type: application/json" \
+         --request POST \
+         --data '{"pan" : "28045869693113314", "metodo" : "FFX"}' \
+         http://127.0.0.1:8000/programa_tokenizador/tokenizar
+
     Usuario no registrado.
     curl --header "Content-Type: application/json" \
          --user name:password
@@ -72,7 +78,9 @@ def autentificar (peticion):
   try:
     auth_header = str.split(peticion.META['HTTP_AUTHORIZATION'])[1]
   except:
-    return HttpResponse("401 - Credenciales no provistas")
+    return HttpResponse(
+      "Es necesario proveer credenciales para realizar esta operación",
+      status = 401)
 
   credenciales = base64.b64decode(auth_header).decode('utf-8').split(':')
 
@@ -83,12 +91,16 @@ def autentificar (peticion):
         contrasenia = hashlib.sha256(
           credenciales[1].encode('UTF-8')).digest()))
   except (Usuario.DoesNotExist, Correo.DoesNotExist):
-    return HttpResponse("401 - credenciales incorrectas")
+    return HttpResponse("Las credenciales son incorrectas", status = 401)
 
   if usuario.tipoDeUsuario.nombre != 'cliente':
-    return HttpResponse("403 - usuario no es tipo cliente")
+    return HttpResponse(
+      "El usuario no tiene los privilegios para esta operación",
+      status = 403)
   elif usuario.estadoDeUsuario.nombre != 'aprobado' and usuario.estadoDeUsuario.nombre != 'en cambio de llaves':
-    return HttpResponse("403 - Todo mal: estado incorrecto")
+    return HttpResponse(
+      "EL usuario no se encuentra en el estado necesario para esta operación",
+      status = 403)
 
   return usuario
 
@@ -114,18 +126,10 @@ def tokenizar(peticion):
     estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual')
   )
 
-  print('Llave: ', llave.llave)
+  resultado = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, pan, llave.llave,
+    str(cliente.id)], stdout=PIPE)
 
-  ## resultado = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, pan, llave.llave],
-  ## stdout=PIPE)
-  ##return HttpResponse(resultado.stdout)
-
-
-  ##resultado = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, pan, "llave.txt"],
-  ## stdout=PIPE)
-  ##return HttpResponse(resultado.stdout)
-  return HttpResponse("All is fine")
-
+  return HttpResponse(resultado.stdout, content_type="text/plain", status = 200)
 
 def detokenizar(peticion):
   """
