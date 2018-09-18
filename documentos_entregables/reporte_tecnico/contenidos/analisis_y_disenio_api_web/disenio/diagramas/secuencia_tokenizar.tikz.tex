@@ -1,0 +1,56 @@
+%
+% Diagrama de secuencia de operación de tokenización.
+% Capítulo de análisis y diseño de aplicación web.
+% Reporte técnico.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[]
+  \begin {umlseqdiag}
+
+  % Líneas de vida
+  \umlactor[no ddots]{Tienda}
+  \umlcontrol[class = Servicio]{servicioTokenizador}
+  \umlentity[class = Negocio]{negocioTokenizador}
+  \umldatabase[no ddots]{Modelo}
+  \umlentity[no ddots]{programaTokenizador}
+
+  % Petición de tokenización
+  \begin{umlcall}[%
+    op = {GET /tokenizar/\{pan\}},%
+    return = 200 OK token]{Tienda}{servicioTokenizador}
+    \begin{umlcall}[%
+      op = {validarEstado(cliente)},%
+      return = true]{servicioTokenizador}{negocioTokenizador}
+    \end{umlcall}
+    \begin {umlfragment}[%
+      type = alt,
+      label = irreversible,%
+      inner xsep = 5,%
+      inner ysep = 2]
+      \begin{umlcall}[%
+        op = {validarTarjeta(tarjeta)},%
+        return = true]{servicioTokenizador}{negocioTokenizador}
+        \begin{umlcall}[%
+          op = {buscarTarjeta(tarjeta)},%
+          return = false]{negocioTokenizador}{Modelo}
+        \end{umlcall}
+      \end{umlcall}
+      \begin{umlcall}[%
+        op = {generarToken(método)},%
+        return = token]{servicioTokenizador}{programaTokenizador}
+        \begin{umlcall}[%
+          op = {token.guardar()},%
+          return = true]{programaTokenizador}{Modelo}
+        \end{umlcall}
+      \end{umlcall}
+      \umlfpart[reversible]
+      \begin{umlcall}[%
+        op = {generarToken(método)},%
+        return = token]{servicioTokenizador}{programaTokenizador}
+      \end{umlcall}
+    \end{umlfragment}
+  \end{umlcall}
+
+  \end{umlseqdiag}
+\end{tikzpicture}

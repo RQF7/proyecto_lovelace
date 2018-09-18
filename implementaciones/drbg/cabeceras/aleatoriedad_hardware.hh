@@ -14,6 +14,12 @@
 
 namespace Implementaciones
 {
+
+  /** \brief Error; no hay entropía por hardware implementada. */
+  struct SinEntropiaPorHardware : public Utilidades::Error
+  { inline SinEntropiaPorHardware(std::string mensaje)
+    : Utilidades::Error{mensaje} {} };
+
   /**
    * \brief Fuente de aleatoriedad que recibe entropía desde hardware.
    *
@@ -34,11 +40,6 @@ namespace Implementaciones
       /** \brief Operación de fuente. */
       Arreglo<unsigned char> operar(
         const std::vector<unsigned int>& entrada) override;
-
-      /** \brief Error; no hay entropía por hardware implementada. */
-      struct SinEntropiaPorHardware : public Utilidades::Error
-      { inline SinEntropiaPorHardware(std::string mensaje)
-        : Utilidades::Error{mensaje} {} };
 
     private:
 

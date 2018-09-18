@@ -35,8 +35,8 @@ AccesoMySQL::AccesoMySQL(
 : mControlador {get_driver_instance()},
   mConexion {mControlador->connect("tcp://" + ip + ":" + to_string(puerto),
     usuario, contrasenia)},
-  mCliente_id {cliente_id},
-  mEstadoDeToken_id {estadoDeToken_id}
+  mClienteId {cliente_id},
+  mEstadoDeTokenId {estadoDeToken_id}
 {
   mConexion->setSchema(base);
 }
@@ -65,19 +65,19 @@ Registro AccesoMySQL::buscarPorPan(
   string consulta = "";
   PreparedStatement* declaracion = NULL;
 
-  if (mCliente_id == 0)
+  if (mClienteId == 0)
   {
-    consulta = "SELECT * FROM programa_tokenizador_token WHERE pan = ?";
+    consulta = {"SELECT * FROM programa_tokenizador_token WHERE pan = ?"};
     declaracion = mConexion->prepareStatement(consulta);
     declaracion->setString(1, PAN.obtenerCadena());
   }
   else
   {
-    consulta = string("SELECT * FROM programa_tokenizador_token WHERE pan = ?")
-      + string(" AND usuario_id = ?");
+    consulta = {"SELECT * FROM programa_tokenizador_token WHERE pan = ?"
+      " AND usuario_id = ?"};
     declaracion = mConexion->prepareStatement(consulta);
     declaracion->setString(1, PAN.obtenerCadena());
-    declaracion->setInt(2, mCliente_id);
+    declaracion->setInt(2, mClienteId);
   }
 
   ResultSet* resultado = declaracion->executeQuery();
@@ -108,19 +108,20 @@ Registro AccesoMySQL::buscarPorToken(
   string consulta = "";
   PreparedStatement* declaracion = NULL;
 
-  if (mCliente_id == 0)
+  if (mClienteId == 0)
   {
-    consulta = "SELECT * FROM programa_tokenizador_token WHERE token = ?";
+    consulta = {"SELECT * FROM programa_tokenizador_token WHERE token = ?"};
     declaracion = mConexion->prepareStatement(consulta);
     declaracion->setString(1, token.obtenerCadena());
   }
   else
   {
-    consulta = "SELECT * FROM programa_tokenizador_token WHERE token = ? AND usuario_id = ? AND estadoDeToken_id = ? ";
+    consulta = {"SELECT * FROM programa_tokenizador_token WHERE token = ? "
+      " AND usuario_id = ? AND estadoDeToken_id = ? "};
     declaracion = mConexion->prepareStatement(consulta);
     declaracion->setString(1, token.obtenerCadena());
-    declaracion->setInt(2, mCliente_id);
-    declaracion->setString(3, mEstadoDeToken_id);
+    declaracion->setInt(2, mClienteId);
+    declaracion->setString(3, mEstadoDeTokenId);
   }
 
   ResultSet* resultado = declaracion->executeQuery();
@@ -152,10 +153,10 @@ void AccesoMySQL::guardar(
   string instruccion = "";
   PreparedStatement *declaracion = NULL;
 
-  if (mCliente_id == 0)
+  if (mClienteId == 0)
   {
-    instruccion = string("INSERT INTO programa_tokenizador_token ") +
-      string("(id, token, pan) VALUES (?, ?, ?)");
+    instruccion = {"INSERT INTO programa_tokenizador_token "
+      "(id, token, pan) VALUES (?, ?, ?)"};
 
     declaracion = mConexion->prepareStatement(instruccion);
     declaracion->setInt(1, 0);
@@ -164,15 +165,15 @@ void AccesoMySQL::guardar(
   }
   else
   {
-    instruccion = string("INSERT INTO programa_tokenizador_token") +
-      string("(id, token, pan, usuario_id, estadoDeToken_id) VALUES (?, ?, ?, ?, ?)");
+    instruccion = {"INSERT INTO programa_tokenizador_token "
+      " (id, token, pan, usuario_id, estadoDeToken_id) VALUES (?, ?, ?, ?, ?)"};
 
     declaracion = mConexion->prepareStatement(instruccion);
     declaracion->setInt(1, 0);
     declaracion->setString(2, registro.obtenerToken().obtenerCadena());
     declaracion->setString(3, registro.obtenerPAN().obtenerCadena());
-    declaracion->setInt(4, mCliente_id);
-    declaracion->setString(5, mEstadoDeToken_id);
+    declaracion->setInt(4, mClienteId);
+    declaracion->setString(5, mEstadoDeTokenId);
   }
 
   declaracion->executeQuery();
@@ -244,7 +245,7 @@ void AccesoMySQL::colocarContador(
  */
 void AccesoMySQL::actualizarCliente_id(int cliente_id)
 {
-  mCliente_id = cliente_id;
+  mClienteId = cliente_id;
 }
 
 /**
@@ -253,5 +254,5 @@ void AccesoMySQL::actualizarCliente_id(int cliente_id)
  */
 void AccesoMySQL::actualizarEstadoDelToken_id(string estadoToken_id)
 {
-  mEstadoDeToken_id = estadoToken_id;
+  mEstadoDeTokenId = estadoToken_id;
 }
