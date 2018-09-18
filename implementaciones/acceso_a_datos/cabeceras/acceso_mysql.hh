@@ -69,10 +69,10 @@ namespace Implementaciones
       sql::Connection *mConexion;
 
       /** \brief Identificador del cliente. */
-      int mCliente_id;
+      int mClienteId;
 
       /** \brief Estado del token. */
-      std::string mEstadoDeToken_id;
+      std::string mEstadoDeTokenId;
   };
 }
 
