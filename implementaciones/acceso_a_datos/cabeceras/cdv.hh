@@ -46,6 +46,13 @@ namespace Implementaciones
 
       /** virtual Coloca el valor del contador. */
       virtual void colocarContador(std::string nombre, entero valor) = 0;
+
+      /** \brief Coloca el valor del contador. */
+      virtual void actualizarCliente_id(int cliente_id) = 0;
+
+      /** \brief Coloca el valor del contador. */
+      virtual void actualizarEstadoDelToken_id(std::string estadoToken_id) = 0;
+
   };
 }
 
