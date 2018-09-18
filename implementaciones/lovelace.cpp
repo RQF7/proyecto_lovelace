@@ -58,6 +58,10 @@ ArregloDeDigitos tokenizar(string metodo, string llaveCodificada,
 ArregloDeDigitos detokenizar(string metodo, string nombreArchivoLlave,
   const ArregloDeDigitos& pan);
 
+/** \brief Proceso de detokenización. */
+ArregloDeDigitos detokenizar(string metodo, string llaveCodificada,
+  const ArregloDeDigitos& pan, int cliente_id);
+
 /**
  * Función principal de interfaz con algoritmos tokenizadores. Recibe de
  * los argumentos de la línea de comandos la operación y actúa en consecuencia.
@@ -102,6 +106,7 @@ int main(int numeroDeArgumentos, char** argumentos)
   {
     string metodo {argumentos[2]};
     ArregloDeDigitos pan (string{argumentos[3]});
+
     if (numeroDeArgumentos <= 5)
     {
       string nombreArchivoLlave {(numeroDeArgumentos > 4) ? argumentos[4] : ""};
@@ -118,13 +123,27 @@ int main(int numeroDeArgumentos, char** argumentos)
 
   }
   /* Detokenizar. */
+  /* lovelace -d FFX [token] [archivoLlave] */
+  /* lovelace -d FFX [token] [llave] [cliente_id] */
   else if (operacion == "-d")
   {
     string metodo {argumentos[2]};
     ArregloDeDigitos token (string{argumentos[3]});
-    string nombreArchivoLlave {(numeroDeArgumentos > 4) ? argumentos[4] : ""};
-    ArregloDeDigitos pan (detokenizar(metodo, nombreArchivoLlave, token));
-    cout << pan << endl;
+
+    if (numeroDeArgumentos <= 5)
+    {
+      string nombreArchivoLlave {(numeroDeArgumentos > 4) ? argumentos[4] : ""};
+      ArregloDeDigitos pan (detokenizar(metodo, nombreArchivoLlave, token));
+      cout << pan << endl;
+    }
+    else if (numeroDeArgumentos > 5)
+    {
+      string llave {argumentos[4]};
+      int cliente_id {stoi(string{argumentos[5]})};
+      ArregloDeDigitos pan (detokenizar(metodo, llave, token, cliente_id));
+      cout << pan << endl;
+    }
+
   }
   /* Ayuda. */
   else if (operacion == "-h")
@@ -281,6 +300,7 @@ ArregloDeDigitos tokenizar(
 /**
  * Función de tokenización utilizada por el programa tokenizador.
  * Decodifica la llave y cifra el PAN dado con el método solicitado.
+ * Todos los tokens creados tienen el estado <<actual>>.
  *
  * \return Token del PAN dado.
  */
@@ -378,6 +398,61 @@ ArregloDeDigitos detokenizar(
   else if (metodo == "DRBG")
   {
     CDV* accesoADatos = new AccesoMySQL {};
+    algoritmoTokenizador = new TKR{nullptr, accesoADatos};
+  }
+  resultado = algoritmoTokenizador->deoperar({token});
+  delete algoritmoTokenizador;
+  delete[] llave;
+  return resultado;
+}
+
+/**
+ * Operación de detokenización. Lee la llave del archivo dado y detokeniza el
+ * token dado con el método solicitado.
+ *
+ * \return Arreglo de dígitos con el PAN.
+ */
+
+ArregloDeDigitos detokenizar(
+  string metodo,
+  string llaveCodificada,
+  const ArregloDeDigitos& token,
+  int cliente_id
+)
+{
+
+  Utilidades::Codificador codificador {};
+  Arreglo<unsigned char> llave1 = codificador.deoperar({llaveCodificada});
+  unsigned char *llave = llave1.obtenerCopiaDeArreglo();
+
+  ArregloDeDigitos resultado;
+  AlgoritmoTokenizador* algoritmoTokenizador {nullptr};
+  unsigned int longitud = token.obtenerNumeroDeElementos() - 7;
+  if (metodo == "TKR")
+  {
+    CDV* accesoADatos = new AccesoMySQL {};
+    accesoADatos->actualizarCliente_id(cliente_id);
+    algoritmoTokenizador = new TKR{nullptr, accesoADatos};
+  }
+  else if (metodo == "FFX")
+  {
+    algoritmoTokenizador = new FFXA10<int>{llave, nullptr, 0, longitud};
+  }
+  else if (metodo == "BPS")
+  {
+    algoritmoTokenizador = new CifradorBPS{8,
+      CifradorDeRonda::BANDERA_AES, llave};
+  }
+  else if (metodo == "AHR")
+  {
+    CDV* accesoADatos = new AccesoMySQL {};
+    accesoADatos->actualizarCliente_id(cliente_id);
+    algoritmoTokenizador = new AHR{accesoADatos};
+  }
+  else if (metodo == "DRBG")
+  {
+    CDV* accesoADatos = new AccesoMySQL {};
+    accesoADatos->actualizarCliente_id(cliente_id);
     algoritmoTokenizador = new TKR{nullptr, accesoADatos};
   }
   resultado = algoritmoTokenizador->deoperar({token});
