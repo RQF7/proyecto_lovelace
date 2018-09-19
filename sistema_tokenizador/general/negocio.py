@@ -6,6 +6,7 @@
 
 import hashlib, datetime
 from .models.correo import Correo
+from .models.estado_de_usuario import EstadoDeUsuario
 from .models.usuario import Usuario
 from .models.vinculo import Vinculo
 from sistema_tokenizador import utilidades
@@ -68,3 +69,21 @@ def enviarVinculoDeVerificacion (usuario):
     Sistema Tokenizador,
     Proyecto Lovelace.
     """.format(DOMINIO, usuario.correo.vinculo.vinculo))
+
+
+def aumentarContadorDeMalasAcciones(cliente, incremento):
+  """
+  Incrementa el contador de malas acciones del cliente dado. Después, verifica
+  que el contador no haya  sobre pasado el limite de males acciones; de ser así,
+  cambia su estado a <<en lista negra>>.
+  """
+
+  cliente.contadorDeMalasAcciones = cliente.contadorDeMalasAcciones + incremento
+  cliente.save()
+
+  print('Nuevo contador de malas acciones: ', cliente.contadorDeMalasAcciones)
+
+  if cliente.contadorDeMalasAcciones > 10:
+    cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
+      nombre = 'en lista negra')
+    cliente.save()

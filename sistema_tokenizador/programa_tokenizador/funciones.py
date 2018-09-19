@@ -15,13 +15,14 @@ from json import loads
 from subprocess import PIPE
 from subprocess import run
 
-from sistema_tokenizador.configuraciones \
-  import EJECUTABLE_TOKENIZADOR
+from sistema_tokenizador.general import negocio
 from sistema_tokenizador.general.models.correo \
   import Correo
 from sistema_tokenizador.general.models.usuario \
   import Usuario
 
+from sistema_tokenizador.configuraciones \
+  import EJECUTABLE_TOKENIZADOR
 from sistema_tokenizador.programa_tokenizador.models.algoritmo \
   import Algoritmo
 from sistema_tokenizador.programa_tokenizador.models.estado_de_llave \
@@ -234,8 +235,7 @@ def detokenizar(peticion):
     return HttpResponse("Parámetros incompletos o incorrectos", status = 403)
 
   if validarToken(token) == 0:
-    cliente.contadorDeMalasAcciones = cliente.contadorDeMalasAcciones + 1
-    cliente.save()
+    negocio.aumentarContadorDeMalasAcciones(cliente, 1)
     return HttpResponse("El token recibido es inválido", status = 400)
 
   tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
@@ -244,8 +244,7 @@ def detokenizar(peticion):
     try:
       return Token.objects.get(token = token, usuario_id = cliente.id).pan
     except (Token.DoesNotExist):
-      cliente.contadorDeMalasAcciones = cliente.contadorDeMalasAcciones + 3
-      cliente.save()
+      negocio.aumentarContadorDeMalasAcciones(cliente, 3)
       return HttpResponse("El token no existe en la base de datos", status = 400)
 
   versionLlave = 'actual'
