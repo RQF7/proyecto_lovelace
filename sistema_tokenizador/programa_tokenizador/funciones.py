@@ -115,21 +115,6 @@ def autentificar (peticion):
   return usuario
 
 
-def verificarUnicidadDePAN(PAN, cliente_id):
-  """
-  Verifica que el cliente indicado no tenga asociado el PAN señalado.
-
-  Regresa verdadero o falso.
-  """
-  try:
-    registro = Token.objects.get(
-      pan = PAN,
-      usuario_id = cliente_id)
-  except (Token.DoesNotExist):
-    return 1
-  return 0
-
-
 def tokenizar(peticion):
   """
   Ejecuta la operación de tokenización y regresa el token asignado.
@@ -153,8 +138,10 @@ def tokenizar(peticion):
 
   if tipoAlgoritmo == 'irreversible':
     print ("Algoritmo irreversible.")
-    if verificarUnicidadDePAN(pan, cliente.id) == 0 :
-      return HttpResponse("Ya existe un token asociado a este PAN", status = 403)
+    if negocio.verificarUnicidadDePAN(pan, cliente.id) == 0 :
+      return HttpResponse(
+        "Ya existe un token asociado a este PAN",
+        status = 403)
 
   llave = Llave.objects.get(
     algoritmo_id = Algoritmo.objects.get(nombre = metodo),
@@ -165,49 +152,7 @@ def tokenizar(peticion):
   resultado = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, pan, llave.llave,
     str(cliente.id)], stdout=PIPE)
 
-  return HttpResponse(resultado.stdout, content_type="text/plain", status = 200)
-
-def calcularAlgoritmoLuhn(arreglo):
-  """
-    Calcula el valor del digito verificador mediante el algoritmo de Luhn.
-    No toma en cuenta el último elemento del arreglo.
-  """
-
-  suma = 0
-  i = len(arreglo) - 2
-  j = 0
-
-  while i >= 0:
-
-    if (j % 2) == 0:
-      suma = suma + ((int(arreglo[i]) * 2) % 10) + (int(arreglo[i]) * 2 // 10)
-    else:
-      suma = suma + int(arreglo[i])
-
-    i = i - 1
-    j = j + 1
-
-  return (suma * 9) % 10
-
-def validarToken(token):
-  """
-  Valida que el token ingresado sea un token válido:
-    - Tiene una longitud entre 12 y 19 dígitos.
-    - Valida el dígito verificador (mediante el algoritmo de Luhn) con desfase
-      de uno.
-
-    Regresa uno si es válido, cero si no.
-  """
-
-  numeroDeElementos = len(token)
-
-  if numeroDeElementos < 12 or numeroDeElementos > 19:
-    return 0
-
-  if int(token[-1]) != ((calcularAlgoritmoLuhn(token) + 1) % 10):
-    return 0
-
-  return 1
+  return HttpResponse(resultado.stdout, status = 200)
 
 def detokenizar(peticion):
   """
@@ -235,8 +180,10 @@ def detokenizar(peticion):
   except:
     return HttpResponse("Parámetros incompletos o incorrectos", status = 403)
 
-  if validarToken(token) == 0:
-    negocio.aumentarContadorDeMalasAcciones(cliente, 1)
+  if negocio.validarToken(token) == 0:
+    negocio.aumentarContadorDeMalasAcciones(
+      cliente,
+      negocio.INCREMENTO_TOKEN_INVALIDO)
     return HttpResponse("El token recibido es inválido", status = 400)
 
   tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
@@ -245,8 +192,11 @@ def detokenizar(peticion):
     try:
       return Token.objects.get(token = token, usuario_id = cliente.id).pan
     except (Token.DoesNotExist):
-      negocio.aumentarContadorDeMalasAcciones(cliente, 3)
-      return HttpResponse("El token no existe en la base de datos", status = 400)
+      negocio.aumentarContadorDeMalasAcciones(
+        cliente,
+        negocio.INCREMENTO_TOKEN_INEXISTENTE)
+      return HttpResponse(
+        "El token no existe en la base de datos", status = 400)
 
   versionLlave = 'actual'
 
@@ -265,7 +215,7 @@ def detokenizar(peticion):
   resultado = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, llave.llave,
       str(cliente.id)], stdout=PIPE)
 
-  return HttpResponse(resultado.stdout, content_type="text/plain", status = 200)
+  return HttpResponse(resultado.stdout, status = 200)
 
 def generarLlave(tamanio):
   """
