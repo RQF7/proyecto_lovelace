@@ -222,9 +222,9 @@ def generarLlave(tamanio):
   dir_buffer = "BUFFER"
   resultado = run([EJECUTABLE_TOKENIZADOR, "-k", dir_buffer, str(tamanio)],
     stdout=PIPE)
-  llave = open(dir_buffer)
+  llave = open(dir_buffer).read()
   remove(dir_buffer)
-  return llave.read()
+  return llave
 
 def ejecutar(peticion):
   """

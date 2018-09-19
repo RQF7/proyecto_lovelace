@@ -450,7 +450,7 @@ def verificarCorreoDeActualizacion (peticion, vinculo):
   correo.vinculo = None
   correo.save()
   referenciaAnterior.delete()
-  return HttpResponseRedirect('/?correo_verificado')
+  return HttpResponseRedirect('/?nuevo_correo_verificado')
 
 
 @utilidades.privilegiosRequeridos('administrador')
