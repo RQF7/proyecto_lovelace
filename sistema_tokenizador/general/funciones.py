@@ -191,7 +191,7 @@ def registrarCliente (peticion):
     contadorDeMalasAcciones = 0)
 
   usuario.save()
-  negocio.enviarVinculoDeVerificacion(usuario)
+  negocio.enviarVinculoDeVerificacionDeRegistro(usuario)
   return HttpResponse("0")
 
 
@@ -240,10 +240,9 @@ def actualizarCliente (peticion, idDeCliente):
   usuario.save(force_update=True)
 
   # Si se cambio el correo, eliminar el correo viejo
-  print(str(cliente.correo) != str(usuario.correo))
   if (str(cliente.correo) != objetoDePeticion['correo']):
     Correo.objects.filter(correo = str(cliente.correo)).delete()
-    negocio.enviarVinculoDeVerificacion(usuario)
+    negocio.enviarVinculoDeVerificacionDeActualizacion(usuario)
     return HttpResponse("0")
   else:
     correo.estadoDeCorreo = EstadoDeCorreo.objects.get(
@@ -402,7 +401,7 @@ def terminarRefrescoDeLlaves(peticion):
   return HttpResponse("0")
 
 
-def verificarCorreo (peticion, vinculo):
+def verificarCorreoDeRegistro (peticion, vinculo):
   """
   Verifica el correo asociado al vínculo dado
 
@@ -434,6 +433,24 @@ def verificarCorreo (peticion, vinculo):
     correo.save()
     referenciaAnterior.delete()
     return HttpResponseRedirect('/?correo_verificado')
+
+
+@utilidades.privilegiosRequeridos('cliente')
+def verificarCorreoDeActualizacion (peticion, vinculo):
+  """
+  Verifica el correo asociado al vínculo dado sin
+  verificación de fecha.
+  """
+  correo = Correo.objects.get(
+    vinculo = Vinculo.objects.get(vinculo = vinculo))
+
+  correo.estadoDeCorreo = EstadoDeCorreo.objects.get(
+    nombre = 'verificado')
+  referenciaAnterior = correo.vinculo
+  correo.vinculo = None
+  correo.save()
+  referenciaAnterior.delete()
+  return HttpResponseRedirect('/?correo_verificado')
 
 
 @utilidades.privilegiosRequeridos('administrador')

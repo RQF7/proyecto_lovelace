@@ -29,7 +29,7 @@ def autentificar (usuarioEnPeticion):
     return None
 
 
-def enviarVinculoDeVerificacion (usuario):
+def enviarVinculoDeVerificacion (usuario, tipo):
   """
   Crea un nuevo vínculo de verificación y lo envía por correo.
 
@@ -61,10 +61,16 @@ def enviarVinculoDeVerificacion (usuario):
     Para poder verificar su correo en el sistema tokenizador debe
     hacer clic en el siguiente vínculo:
 
-    {0}/api/verificar_correo/{1}
+    {0}/api/verificar_correo/{1}/{2}
 
     Atentamente,
     Departamento de verificación de cuentas,
     Sistema Tokenizador,
     Proyecto Lovelace.
-    """.format(DOMINIO, usuario.correo.vinculo.vinculo))
+    """.format(DOMINIO, tipo, usuario.correo.vinculo.vinculo))
+
+def enviarVinculoDeVerificacionDeRegistro (usuario):
+  enviarVinculoDeVerificacion (usuario, "registro")
+
+def enviarVinculoDeVerificacionDeActualizacion (usuario):
+  enviarVinculoDeVerificacion (usuario, "actualizacion")
