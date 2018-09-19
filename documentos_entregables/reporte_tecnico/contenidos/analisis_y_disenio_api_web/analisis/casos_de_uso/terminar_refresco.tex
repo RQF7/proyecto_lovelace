@@ -12,7 +12,7 @@
   \begin{trayectoriaPrincipal}
 
     \item El cliente presiona \textit{Terminar refresco de llaves} en la
-      interfaz \hipervinculo{iu:administrar_tokens}.
+      interfaz \hipervinculo{iu:control}.
 
     \item El sistema verifica que no haya tokens relacionados con el cliente
       que se encuentren en estado \textbf{anterior}.
@@ -28,15 +28,6 @@
     \item El sistema cambia el estado del cliente a \textbf{aprobado}.
 
   \end{trayectoriaPrincipal}
-
-  \begin{trayectoriaAlternativa}[ta:cliente_no_en_cambio]
-    {El cliente se encuentra en un estado distinto a
-      \textbf{en cambio de llaves}.}
-
-    \item El sistema muestra el mensaje
-      \hipervinculo{msj:error_cliente_no_esta_en_cambio}.
-
-  \end{trayectoriaAlternativa}
 
   \begin{trayectoriaAlternativa}[ta:retokenizacion_incompleta]
     {El cliente aún tiene tokens relacionados con estado \textbf{anterior}.}

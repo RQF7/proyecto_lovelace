@@ -29,14 +29,24 @@ urlpatterns = [
   path('administración', general.administracion),
 
   # Operaciones de sesión
-  path('api/usuario_de_sesion', general.usuarioDeSesion),
-  path('api/iniciar_sesion', general.iniciarSesion),
-  path('api/cerrar_sesion', general.cerrarSesion),
-  path('api/operar_cliente', general.operarCliente),
-  path('api/verificar_correo/<vinculo>', general.verificarCorreo),
-  path('api/iniciar_refresco_de_llaves', general.iniciarRefrescoDeLlaves),
-  path('api/terminar_refresco_de_llaves', general.terminarRefrescoDeLlaves),
-  path('api/eliminar_tokens', general.eliminarTokens),
+  path('api/usuario_de_sesion',
+    general.usuarioDeSesion),
+  path('api/iniciar_sesion',
+    general.iniciarSesion),
+  path('api/cerrar_sesion',
+    general.cerrarSesion),
+  path('api/operar_cliente',
+    general.operarCliente),
+  path('api/verificar_correo/registro/<vinculo>',
+    general.verificarCorreoDeRegistro),
+  path('api/verificar_correo/actualizacion/<vinculo>',
+    general.verificarCorreoDeActualizacion),
+  path('api/iniciar_refresco_de_llaves',
+    general.iniciarRefrescoDeLlaves),
+  path('api/terminar_refresco_de_llaves',
+    general.terminarRefrescoDeLlaves),
+  path('api/eliminar_tokens',
+    general.eliminarTokens),
 
   # Operaciones de administración
   path('api/clientes_en_espera/<int:pagina>/<int:limite>',
@@ -61,9 +71,12 @@ urlpatterns = [
     general.desvetarCliente),
 
   # Operaciones de programa tokenizador
-  path('programa_tokenizador/tokenizar', programa_tokenizador.tokenizar),
-  path('programa_tokenizador/detokenizar', programa_tokenizador.detokenizar),
-  path('ejecutar', programa_tokenizador.ejecutar)
+  path('programa_tokenizador/tokenizar',
+    programa_tokenizador.tokenizar),
+  path('programa_tokenizador/detokenizar',
+    programa_tokenizador.detokenizar),
+  path('ejecutar',
+    programa_tokenizador.ejecutar)
 
 ]
 

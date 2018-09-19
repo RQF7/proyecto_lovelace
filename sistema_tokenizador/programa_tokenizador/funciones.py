@@ -14,6 +14,7 @@ from datetime import datetime
 from json import loads
 from subprocess import PIPE
 from subprocess import run
+from os import remove
 
 from sistema_tokenizador.general import negocio
 from sistema_tokenizador.general.models.correo \
@@ -268,15 +269,15 @@ def detokenizar(peticion):
 
 def generarLlave(tamanio):
   """
-
+  Se genera una llave en un archivo, este se lee y se borra cuando ya se
+  obtuvo la llave.
   """
-  print('Generaración de llaves de ' + str(tamanio) + ' bytes de tamaño')
-  """
-  resultado = run([EJECUTABLE_TOKENIZADOR, "-k", "buffer", str(tamanio)],
+  dir_buffer = "BUFFER"
+  resultado = run([EJECUTABLE_TOKENIZADOR, "-k", dir_buffer, str(tamanio)],
     stdout=PIPE)
-  """
-  # regreso esto porque tengo problemas con la ejecución, QUEDA PENDIENTE.
-  return datetime.today().strftime("%Y-%m-%d %H:%M:%S")
+  llave = open(dir_buffer)
+  remove(dir_buffer)
+  return llave.read()
 
 def ejecutar(peticion):
   """
