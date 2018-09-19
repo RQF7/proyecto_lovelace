@@ -129,3 +129,25 @@ def transaccionDeCorreo(destinatario, asunto, cuerpo):
     [destinatario],
     mensaje.as_string())
   servidor.close()
+
+def calcularAlgoritmoLuhn(arreglo):
+  """
+    Calcula el valor del digito verificador mediante el algoritmo de Luhn.
+    No toma en cuenta el último elemento del arreglo.
+  """
+
+  suma = 0
+  i = len(arreglo) - 2
+  j = 0
+
+  while i >= 0:
+
+    if (j % 2) == 0:
+      suma = suma + ((int(arreglo[i]) * 2) % 10) + (int(arreglo[i]) * 2 // 10)
+    else:
+      suma = suma + int(arreglo[i])
+
+    i = i - 1
+    j = j + 1
+
+  return (suma * 9) % 10
