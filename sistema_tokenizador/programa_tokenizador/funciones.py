@@ -165,6 +165,48 @@ def tokenizar(peticion):
 
   return HttpResponse(resultado.stdout, content_type="text/plain", status = 200)
 
+def calcularAlgoritmoLuhn(arreglo):
+  """
+    Calcula el valor del digito verificador mediante el algoritmo de Luhn.
+    No toma en cuenta el último elemento del arreglo.
+  """
+
+  suma = 0
+  i = len(arreglo) - 2
+  j = 0
+
+  while i >= 0:
+
+    if (j % 2) == 0:
+      suma = suma + ((int(arreglo[i]) * 2) % 10) + (int(arreglo[i]) * 2 // 10)
+    else:
+      suma = suma + int(arreglo[i])
+
+    i = i - 1
+    j = j + 1
+
+  return (suma * 9) % 10
+
+def validarToken(token):
+  """
+  Valida que el token ingresado sea un token válido:
+    - Tiene una longitud entre 12 y 19 dígitos.
+    - Valida el dígito verificador (mediante el algoritmo de Luhn) con desfase
+      de uno.
+
+    Regresa uno si es válido, cero si no.
+  """
+
+  numeroDeElementos = len(token)
+
+  if numeroDeElementos < 12 or numeroDeElementos > 19:
+    return 0
+
+  if int(token[-1]) != ((calcularAlgoritmoLuhn(token) + 1) % 10):
+    return 0
+
+  return 1
+
 def detokenizar(peticion):
   """
   Ejecuta la operación de detokenización y regresa el pan asociado
@@ -184,12 +226,27 @@ def detokenizar(peticion):
   if isinstance(cliente, HttpResponse):
     return cliente
 
-  objetoDePeticion = loads(peticion.body)
   try:
+    objetoDePeticion = loads(peticion.body)
     token = objetoDePeticion['token']
     metodo = objetoDePeticion['metodo']
   except:
     return HttpResponse("Parámetros incompletos o incorrectos", status = 403)
+
+  if validarToken(token) == 0:
+    cliente.contadorDeMalasAcciones = cliente.contadorDeMalasAcciones + 1
+    cliente.save()
+    return HttpResponse("El token recibido es inválido", status = 400)
+
+  tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
+
+  if tipoAlgoritmo == 'irreversible':
+    try:
+      return Token.objects.get(token = token, usuario_id = cliente.id).pan
+    except (Token.DoesNotExist):
+      cliente.contadorDeMalasAcciones = cliente.contadorDeMalasAcciones + 3
+      cliente.save()
+      return HttpResponse("El token no existe en la base de datos", status = 400)
 
   versionLlave = 'actual'
 
@@ -205,11 +262,8 @@ def detokenizar(peticion):
     estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = versionLlave)
   )
 
-  try:
-    resultado = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, llave.llave,
+  resultado = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, llave.llave,
       str(cliente.id)], stdout=PIPE)
-  except:
-    print("error")
 
   return HttpResponse(resultado.stdout, content_type="text/plain", status = 200)
 
