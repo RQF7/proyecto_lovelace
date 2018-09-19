@@ -56,13 +56,14 @@
 
       \item El cliente accede a la \gls{gl:url} enviada a su correo.
 
-      \item El sistema verifica, mediante la fecha de creación del vínculo, que no
-        haya expirado, tomando en cuenta la regla de negocios
-        \hipervinculo{rn:verificacion_de_cuentas}
-        [\hipervinculoLocal{ta:expiracion_de_vinculo}].
+      \item El sistema verifica el correo, tomando en cuenta la regla de negocios
+        \hipervinculo{rn:verificacion_de_actualizacion_de_cuentas}.
 
       \item El sistema cambia el estado del correo del cliente a \textbf{verificado},
         según la regla de negocios \hipervinculo{rn:estados_correo}.
+
+      \item El sistema muestra la ventana
+        \hipervinculo{iu:aviso_de_verificacion_exitosa}.
 
   \end{trayectoriaPrincipal}
 
@@ -116,17 +117,6 @@
 
     \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
       principal.
-
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:expiracion_de_vinculo]
-    {Vínculo expirado}
-
-    \item El sistema muestra la ventana
-      \hipervinculo{iu:aviso_de_expiracion_de_vinculo}.
-
-    \item El sistema elimina el registro del correo electrónico del usuario
-      [\hipervinculoLocal{ta:acceso_a_vinculo_expirado}].
 
   \end{trayectoriaAlternativa}
 

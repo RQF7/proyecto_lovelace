@@ -28,6 +28,7 @@ LISTA_DE_FUENTES     := inicio_1920x1080.png \
 												administracion_1920x1080.png \
 												aviso_de_correo_1920x1080.png \
 												aviso_de_espera_para_aprobacion_1920x1080.png \
+												aviso_de_verificacion_exitosa_1920x1080.png \
 												aviso_de_expiracion_de_vinculo_1920x1080.png
 LISTA_DE_OBJETOS     := $(addprefix $(CARPETA_IMAGENES)/, \
 	                      $(LISTA_DE_FUENTES))
@@ -58,7 +59,7 @@ $(CARPETA_IMAGENES)/iniciar_sesion_1920x1080.png: \
 	python $(SCRIPTS_CAPTURAS)/iniciar_sesion.py $(DOMINIO)/ $@
 
 $(CARPETA_IMAGENES)/registrar_cliente_1920x1080.png: \
-		html/ventanas/registrar_cliente.ventana.html \
+		html/ventanas/operar_cliente.ventana.html \
 		$(DEPENDENCIAS_COMUNES)
 	python $(SCRIPTS_CAPTURAS)/registrar_cliente.py $(DOMINIO)/ $@
 
@@ -75,8 +76,8 @@ $(CARPETA_IMAGENES)/administracion_1920x1080.png: \
 		$(DOMINIO)/ $@ $(DOMINIO)/administración
 
 $(CARPETA_IMAGENES)/aviso_de_correo_1920x1080.png: \
-		html/ventanas/registrar_cliente.ventana.html \
-		js/controladores/secundarios/registrar_cliente.controlador.js \
+		html/ventanas/operar_cliente.ventana.html \
+		js/controladores/secundarios/operar_cliente.controlador.js \
 		$(DEPENDENCIAS_COMUNES)
 	python $(SCRIPTS_CAPTURAS)/aviso_de_correo.py \
 		$(DOMINIO)/ $@
@@ -85,6 +86,11 @@ $(CARPETA_IMAGENES)/aviso_de_espera_para_aprobacion_1920x1080.png: \
 		html/inicio.html \
 		$(DEPENDENCIAS_COMUNES)
 	python $(SCRIPTS_CAPTURAS)/inicio.py $(DOMINIO)/?correo_verificado $@
+
+$(CARPETA_IMAGENES)/aviso_de_verificacion_exitosa_1920x1080.png: \
+		html/inicio.html \
+		$(DEPENDENCIAS_COMUNES)
+	python $(SCRIPTS_CAPTURAS)/inicio.py $(DOMINIO)/?nuevo_correo_verificado $@
 
 $(CARPETA_IMAGENES)/aviso_de_expiracion_de_vinculo_1920x1080.png: \
 		html/inicio.html \

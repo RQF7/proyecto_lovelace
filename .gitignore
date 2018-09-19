@@ -36,6 +36,9 @@ _site
 # Salida de minted (¡Debería ponerlo en la carpeta de temporales!)
 documentos_entregables/_minted-reporte_tecnico/
 
+# Tikz UML
+documentos_entregables/tikz-uml.sty
+
 # Archivos temporales de mac
 *.DS_Store
 

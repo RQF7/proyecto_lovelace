@@ -121,6 +121,19 @@ sistemaTokenizador.controller('controladorGeneral', [
         });
       }
 
+      /* Verificación correcta. */
+      else if ($scope.$routeParams.nuevo_correo_verificado != undefined) {
+        var aviso = $mdDialog.alert()
+          .title('Verificación de correo correcta')
+          .textContent('Su cuenta ha sido verificada correctamente.')
+          .ariaLabel('Verificación de correo correcta')
+          .targetEvent(undefined)
+          .ok('Aceptar');
+        $mdDialog.show(aviso).then(function (respuesta) {
+          $mdDialog.hide();
+        });
+      }
+
       /* Verificación incorrecta. */
       else if ($scope.$routeParams.correo_no_verificado != undefined) {
         var aviso = $mdDialog.alert()

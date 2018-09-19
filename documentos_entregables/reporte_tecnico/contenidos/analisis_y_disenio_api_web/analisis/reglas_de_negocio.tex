@@ -291,12 +291,19 @@ definido en \cite{mozilla_er}.
   usuario que se va a verificar.
 }
 
-\reglaDeNegocio[rn:verificacion_de_cuentas]
-{Expiración de vínculos de verificación}
+\reglaDeNegocio[rn:verificacion_de_cuentas_nuevas]
+{Expiración de vínculos de verificación de registro}
 {
   El vínculo para verificar una cuenta es efectivo solamente durante
   24 horas; después de este tiempo, el vínculo deja de ser válido y se elimina
   el registro del usuario.
+}
+
+\reglaDeNegocio[rn:verificacion_de_actualizacion_de_cuentas]
+{Expiración de vínculos de verificación de actualización}
+{
+  El vínculo para verificar la actualizacion de una cuenta es efectivo
+  indefinidamente.
 }
 
 \reglaDeNegocio[rn:aprobacion_cliente]
