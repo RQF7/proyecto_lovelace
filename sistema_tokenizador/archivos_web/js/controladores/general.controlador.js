@@ -117,7 +117,7 @@ sistemaTokenizador.controller('controladorGeneral', [
           .targetEvent(undefined)
           .ok('Aceptar');
         $mdDialog.show(aviso).then(function (respuesta) {
-          $mdDialog.hide();
+          $location.search('correo_verificado', null);
         });
       }
 
@@ -130,7 +130,7 @@ sistemaTokenizador.controller('controladorGeneral', [
           .targetEvent(undefined)
           .ok('Aceptar');
         $mdDialog.show(aviso).then(function (respuesta) {
-          $mdDialog.hide();
+          $location.search('nuevo_correo_verificado', null);
         });
       }
 
@@ -144,7 +144,7 @@ sistemaTokenizador.controller('controladorGeneral', [
           .targetEvent(undefined)
           .ok('Aceptar');
         $mdDialog.show(aviso).then(function (respuesta) {
-          $mdDialog.hide();
+          $location.search('correo_no_verificado', null);
         });
       }
     });
