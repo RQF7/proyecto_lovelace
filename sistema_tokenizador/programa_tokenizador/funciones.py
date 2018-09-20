@@ -142,36 +142,54 @@ def tokenizar(peticion):
 
   tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
 
-  if tipoAlgoritmo == 'irreversible':
-    if negocio.verificarUnicidadDePAN(pan, cliente.id) == 0 :
-      if cliente.estadoDeUsuario.nombre == 'aprobado':
-        return HttpResponse(
-          Token.objects.get(
-            usuario_id = cliente.id,
-            pan = pan).token,
-          status = 403)
-      else:
-        tokens = Token.objects.filter(
-          usuario_id = cliente.id,
-          pan = pan)
-        if len(tokens) == 1:
-          return HttpResponse(tokens[0].token, status = 403)
-        else:
-          if tokens[0].estadoDeToken == 'actual':
-            return HttpResponse(tokens[0].token, status = 403)
-          else:
-            return HttpResponse(tokens[1].token, status = 403)
+  ## Si el algoritmo es reversible o es irreversible y el PAN no está registrado
+  ## en la base de datos, crear un nuevo token y regresarlo.
+  if tipoAlgoritmo == 'reversible' or (tipoAlgoritmo == 'irreversible' and \
+    (negocio.verificarUnicidadDePAN(pan, cliente.id) == 1)):
 
-  llave = Llave.objects.get(
-    algoritmo_id = Algoritmo.objects.get(nombre = metodo),
+    llave = Llave.objects.get(
+      algoritmo_id = Algoritmo.objects.get(nombre = metodo),
+      usuario_id = cliente.id,
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual')
+    )
+
+    resultado = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, pan, llave.llave,
+      str(cliente.id)], stdout=PIPE)
+
+    return HttpResponse(resultado.stdout, status = 200)
+
+  ## Si el PAN especificado ya está asociado al cliente, regresar el token si
+  ## el estado del cliente es aprobado.
+  if cliente.estadoDeUsuario.nombre == 'aprobado':
+    return HttpResponse(
+      Token.objects.get(
+        usuario_id = cliente.id,
+        pan = pan).token,
+      status = 403)
+
+  ## Si está en cambio de llaves, puede tener uno o dos tokens asociados a ese
+  ## PAN.
+  tokens = Token.objects.filter(
     usuario_id = cliente.id,
-    estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual')
-  )
+    pan = pan)
 
-  resultado = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, pan, llave.llave,
-    str(cliente.id)], stdout=PIPE)
+  ## Si solo tiene uno y es el actual, regresar ese token; si el token tiene
+  ## otro estado, debe realizar la operacion de retokenizacion para obtener
+  ## la nueva versión.
+  if len(tokens) == 1:
+    if tokens[0].estadoDeToken == 'actual':
+      return HttpResponse(tokens[0].token, status = 403)
+    else:
+      return HttpResponse(
+        'Ya existe un token asociado, utilice la función de retokenización',
+        status = 400)
 
-  return HttpResponse(resultado.stdout, status = 200)
+  ## Si tiene dos, uno es el actual y otro es el viejo o retokenizado; regresar
+  ## el actual.
+  if tokens[0].estadoDeToken == 'actual':
+    return HttpResponse(tokens[0].token, status = 403)
+  else:
+    return HttpResponse(tokens[1].token, status = 403)
 
 def detokenizar(peticion):
   """

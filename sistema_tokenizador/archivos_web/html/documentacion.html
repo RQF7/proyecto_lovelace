@@ -52,6 +52,14 @@
     A continuación se listan los errores que pueden surgir al tokenizar un PAN.
     <dl>
       <dt><code>
+          400 - Ya existe un token asociado, utilice la función de
+          retokenización
+      </code></dt>
+        <dd>
+          El PAN que fue enviado ya tiene un token asignado, pero se encuentra
+          en cambio de llaves; retokenice este token.
+        </dd>
+      <dt><code>
           401 - Es necesario proveer credenciales para realizar esta operación
       </code></dt>
         <dd>
@@ -83,11 +91,13 @@
           sido rechazado o puesto en la lista negra.
         </dd>
       <dt><code>
-          403 - Ya existe un token asociado a este PAN
+          403 - [Token]
       </code></dt>
         <dd>
-          El usuario ya tiene un token asociado al PAN que se quiere tokenizar,
-          y, por regla, solo se puede tener uno.
+          Ya existe un token asociado al PAN que envió para tokenizar;
+          por regla, solo se puede tener uno, así que se regresa el token que
+          fue creado para este PAN. Si se encuentra <b>en cambio de llaves</b>,
+          y el token ya fue retokenizado, regresa el más nuevo.
         </dd>
       <dt><code>
           403 - Parámetros incompletos o incorrectos
@@ -136,6 +146,20 @@
     token.
     <dl>
       <dt><code>
+          400 - El token recibido es inválido
+      </code></dt>
+        <dd>
+          El servidor recibió un token que no es válido o generado por este
+          servicio.
+        </dd>
+      <dt><code>
+          400 - El token no existe en la base de datos.
+      </code></dt>
+        <dd>
+          El token, aunque válido, no se encuentra registrado y asociado con
+          el cliente que envió la petición.
+        </dd>
+      <dt><code>
           401 - Es necesario proveer credenciales para realizar esta operación
       </code></dt>
         <dd>
@@ -174,20 +198,6 @@
           El servidor no pudo encontrar el parámetro <code>token</code>,
           <code>metodo</code> o ambos.
         </dd>
-      <dt><code>
-          400 - El token recibido es inválido
-      </code></dt>
-        <dd>
-          El servidor recibió un token que no es válido o generado por este
-          servicio.
-        </dd>
-      <dt><code>
-          400 - El token no existe en la base de datos.
-      </code></dt>
-        <dd>
-          El token, aunque válido, no se encuentra registrado y asociado con
-          el cliente que envió la petición.
-        </dd>
     </dl>
   </p>
 
@@ -206,7 +216,7 @@
     En el cuerpo de la petición se debe señalar el <b>token</b> y el
     <b>método</b>, siguiendo el siguiente esquema:
     <code>
-      POST /programa_tokenizador/detokenizar HTTP/1.1 <br />
+      POST /programa_tokenizador/retokenizar HTTP/1.1 <br />
       { <br />
         Authorization: Basic QWxhZgRpbjpPcGVuU2VYW11 <br />
         Content-Type: Application/JSON <br />
@@ -274,6 +284,13 @@
         <dd>
           El token, aunque válido, no se encuentra registrado y asociado con
           el cliente que envió la petición.
+        </dd>
+      <dt><code>
+            403 - [Token]
+      </code></dt>
+        <dd>
+          Esta intentando retokenizar un token que ya fue retokenizado. El
+          servidor regresa el token creado más recientemente.
         </dd>
     </dl>
   </p>
