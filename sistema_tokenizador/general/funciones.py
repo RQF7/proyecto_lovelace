@@ -298,6 +298,11 @@ def iniciarRefrescoDeLlaves(peticion):
 
   _thread.start_new_thread(generarLlaves, (cliente,))
 
+  # Se cambia el estado del cliente
+  cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
+    nombre = 'en cambio de llaves')
+  cliente.save()
+
   return HttpResponse("0")
 
 
@@ -342,7 +347,7 @@ def verificarCorreoDeRegistro (peticion, vinculo):
   """
   Verifica el correo asociado al vínculo dado
 
-  Hace la verificación de fecha y redirige al inicio. El mensaje
+  Hace la verificación de fecha, genera llaves y redirige al inicio. El mensaje
   mostrado en inicio depende de la verificación anterior.
   """
   correo = Correo.objects.get(
@@ -350,7 +355,7 @@ def verificarCorreoDeRegistro (peticion, vinculo):
       vinculo = vinculo))
 
   # Anterior a 24 horas, error:
-  if datetime.now(timezone.utc) - correo.vinculo.fecha > timedelta(hours = 24):
+  if datetime.now() - correo.vinculo.fecha > timedelta(hours = 24):
     usuario = Usuario.objects.get(
       correo = correo)
     referenciaAnterior = correo.vinculo
@@ -369,6 +374,8 @@ def verificarCorreoDeRegistro (peticion, vinculo):
     correo.vinculo = None
     correo.save()
     referenciaAnterior.delete()
+    _thread.start_new_thread(generarLlaves, (
+      Usuario.objects.get(correo = correo),))
     return HttpResponseRedirect('/?correo_verificado')
 
 

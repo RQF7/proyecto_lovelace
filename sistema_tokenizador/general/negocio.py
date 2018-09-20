@@ -42,7 +42,7 @@ def enviarVinculoDeVerificacion (usuario, tipo):
   lenguaje interpretado, no veo por qué sería algo malo.
   """
 
-  fecha = datetime.datetime.now()
+  fecha = datetime.datetime.utcnow()
   hash = hashlib.sha256()
   hash.update(usuario.correo.correo.encode())
   hash.update(str(fecha).encode())
