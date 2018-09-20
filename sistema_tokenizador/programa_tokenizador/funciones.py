@@ -120,6 +120,11 @@ def tokenizar(peticion):
   """
   Ejecuta la operación de tokenización y regresa el token asignado.
 
+  Si ya se había tokenizado ese PAN, regresa el token creado. Si se encuentra
+  en cambio de llaves y tiene el actual y el viejo/retokenizado, se regresa
+  el actual. Si está en cambio de llaves y solo tiene el viejo, se regresa
+  un error, pidiendo que retokenice.
+
   """
 
   cliente = autentificar(peticion)
@@ -138,11 +143,24 @@ def tokenizar(peticion):
   tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
 
   if tipoAlgoritmo == 'irreversible':
-    print ("Algoritmo irreversible.")
     if negocio.verificarUnicidadDePAN(pan, cliente.id) == 0 :
-      return HttpResponse(
-        "Ya existe un token asociado a este PAN",
-        status = 403)
+      if cliente.estadoDeUsuario.nombre == 'aprobado':
+        return HttpResponse(
+          Token.objects.get(
+            usuario_id = cliente.id,
+            pan = pan).token,
+          status = 403)
+      else:
+        tokens = Token.objects.filter(
+          usuario_id = cliente.id,
+          pan = pan)
+        if len(tokens) == 1:
+          return HttpResponse(tokens[0].token, status = 403)
+        else:
+          if tokens[0].estadoDeToken == 'actual':
+            return HttpResponse(tokens[0].token, status = 403)
+          else:
+            return HttpResponse(tokens[1].token, status = 403)
 
   llave = Llave.objects.get(
     algoritmo_id = Algoritmo.objects.get(nombre = metodo),
@@ -201,7 +219,7 @@ def detokenizar(peticion):
     try:
       versionLlave = objetoDePeticion['versionLlave']
     except:
-      versionLlave = 'actual'
+      pass
 
   llave = Llave.objects.get(
     algoritmo_id = Algoritmo.objects.get(nombre = metodo),
@@ -261,6 +279,14 @@ def retokenizar(peticion):
         negocio.INCREMENTO_TOKEN_INEXISTENTE)
       return HttpResponse(
         "El token no existe en la base de datos", status = 400)
+
+    if tokenAnterior.EstadoDeToken.nombre == 'retokenizado':
+      return HttpResponse(
+        Token.objects.get(
+          pan = tokenAnterior.pan,
+          usuario_id = cliente.id
+        ).token, status = 403
+      )
 
     llaveActual = Llave.objects.get(
       algoritmo_id = Algoritmo.objects.get(nombre = metodo),
