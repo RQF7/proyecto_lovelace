@@ -9,6 +9,7 @@ import hashlib
 from django.core import serializers
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.db.models import Q
 
 from datetime import datetime
 from json import loads
@@ -16,7 +17,7 @@ from subprocess import PIPE
 from subprocess import run
 from os import remove
 
-from sistema_tokenizador.general import negocio
+from sistema_tokenizador.programa_tokenizador import negocio
 from sistema_tokenizador.general.models.correo \
   import Correo
 from sistema_tokenizador.general.models.usuario \
@@ -28,12 +29,12 @@ from sistema_tokenizador.programa_tokenizador.models.algoritmo \
   import Algoritmo
 from sistema_tokenizador.programa_tokenizador.models.estado_de_llave \
   import EstadoDeLlave
+from sistema_tokenizador.programa_tokenizador.models.estado_de_token \
+  import EstadoDeToken
 from sistema_tokenizador.programa_tokenizador.models.llave \
   import Llave
 from sistema_tokenizador.programa_tokenizador.models.token \
   import Token
-
-
 
 def autentificar (peticion):
   """
@@ -119,6 +120,11 @@ def tokenizar(peticion):
   """
   Ejecuta la operación de tokenización y regresa el token asignado.
 
+  Si ya se había tokenizado ese PAN, regresa el token creado. Si se encuentra
+  en cambio de llaves y tiene el actual y el viejo/retokenizado, se regresa
+  el actual. Si está en cambio de llaves y solo tiene el viejo, se regresa
+  un error, pidiendo que retokenice.
+
   """
 
   cliente = autentificar(peticion)
@@ -129,7 +135,7 @@ def tokenizar(peticion):
   objetoDePeticion = loads(peticion.body)
   try:
     pan = objetoDePeticion['pan']
-    metodo = objetoDePeticion['metodo']
+    metodo = objetoDePeticion['metodo'].upper()
   except:
     return HttpResponse("Parámetros incompletos o incorrectos", status = 403)
 
@@ -137,11 +143,24 @@ def tokenizar(peticion):
   tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
 
   if tipoAlgoritmo == 'irreversible':
-    print ("Algoritmo irreversible.")
     if negocio.verificarUnicidadDePAN(pan, cliente.id) == 0 :
-      return HttpResponse(
-        "Ya existe un token asociado a este PAN",
-        status = 403)
+      if cliente.estadoDeUsuario.nombre == 'aprobado':
+        return HttpResponse(
+          Token.objects.get(
+            usuario_id = cliente.id,
+            pan = pan).token,
+          status = 403)
+      else:
+        tokens = Token.objects.filter(
+          usuario_id = cliente.id,
+          pan = pan)
+        if len(tokens) == 1:
+          return HttpResponse(tokens[0].token, status = 403)
+        else:
+          if tokens[0].estadoDeToken == 'actual':
+            return HttpResponse(tokens[0].token, status = 403)
+          else:
+            return HttpResponse(tokens[1].token, status = 403)
 
   llave = Llave.objects.get(
     algoritmo_id = Algoritmo.objects.get(nombre = metodo),
@@ -158,12 +177,6 @@ def detokenizar(peticion):
   """
   Ejecuta la operación de detokenización y regresa el pan asociado
 
-    curl --header "Content-Type: application/json" \
-          --user cliente@prueba.com:123456 \
-         --request POST \
-         --data '{"token" : "28045827651793999", "metodo" : "FFX"}' \
-         http://127.0.0.1:8000/programa_tokenizador/detokenizar
-
   Documentación asociada:
   https://docs.python.org/3.5/library/subprocess.html#subprocess.run
   """
@@ -176,7 +189,7 @@ def detokenizar(peticion):
   try:
     objetoDePeticion = loads(peticion.body)
     token = objetoDePeticion['token']
-    metodo = objetoDePeticion['metodo']
+    metodo = objetoDePeticion['metodo'].upper()
   except:
     return HttpResponse("Parámetros incompletos o incorrectos", status = 403)
 
@@ -190,7 +203,9 @@ def detokenizar(peticion):
 
   if tipoAlgoritmo == 'irreversible':
     try:
-      return Token.objects.get(token = token, usuario_id = cliente.id).pan
+      return HttpResponse(
+        Token.objects.get(token = token, usuario_id = cliente.id).pan,
+        status = 200)
     except (Token.DoesNotExist):
       negocio.aumentarContadorDeMalasAcciones(
         cliente,
@@ -204,7 +219,7 @@ def detokenizar(peticion):
     try:
       versionLlave = objetoDePeticion['versionLlave']
     except:
-      versionLlave = 'actual'
+      pass
 
   llave = Llave.objects.get(
     algoritmo_id = Algoritmo.objects.get(nombre = metodo),
@@ -217,17 +232,98 @@ def detokenizar(peticion):
 
   return HttpResponse(resultado.stdout, status = 200)
 
-def generarLlave(tamanio):
+def retokenizar(peticion):
   """
-  Se genera una llave en un archivo, este se lee y se borra cuando ya se
-  obtuvo la llave.
+  Se encarga de, dado un token, obtener la nueva versión al detokenizar con la
+  llave anterior y tokenizar el resultado con la llave actual. Obviamente,
+  esta operación solo la puede requerir un cliente cuyo estado sea <<en cambio
+  de llaves>>.
   """
-  dir_buffer = "BUFFER"
-  resultado = run([EJECUTABLE_TOKENIZADOR, "-k", dir_buffer, str(tamanio)],
-    stdout=PIPE)
-  llave = open(dir_buffer).read()
-  remove(dir_buffer)
-  return llave
+
+  cliente = autentificar(peticion)
+
+  if isinstance(cliente, HttpResponse):
+    return cliente
+
+  try:
+    objetoDePeticion = loads(peticion.body)
+    token = objetoDePeticion['token']
+    metodo = objetoDePeticion['metodo'].upper()
+  except:
+    return HttpResponse("Parámetros incompletos o incorrectos", status = 403)
+
+  if cliente.estadoDeUsuario.nombre != 'en cambio de llaves':
+    return HttpResponse(
+      "EL usuario no se encuentra en el estado necesario para esta operación",
+      status = 403)
+
+  if negocio.validarToken(token) == 0:
+    negocio.aumentarContadorDeMalasAcciones(
+      cliente,
+      negocio.INCREMENTO_TOKEN_INVALIDO)
+    return HttpResponse("El token recibido es inválido", status = 400)
+
+  tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
+
+  if tipoAlgoritmo == 'irreversible':
+    try:
+      tokenAnterior = Token.objects.get(
+        Q(token = token),
+        Q(usuario_id = cliente.id),
+        Q(estadoDeToken = EstadoDeToken.objects.get(nombre = 'anterior')) |
+        Q(estadoDeToken = EstadoDeToken.objects.get(nombre = 'retokenizado'))
+      )
+    except (Token.DoesNotExist):
+      negocio.aumentarContadorDeMalasAcciones(
+        cliente,
+        negocio.INCREMENTO_TOKEN_INEXISTENTE)
+      return HttpResponse(
+        "El token no existe en la base de datos", status = 400)
+
+    if tokenAnterior.EstadoDeToken.nombre == 'retokenizado':
+      return HttpResponse(
+        Token.objects.get(
+          pan = tokenAnterior.pan,
+          usuario_id = cliente.id
+        ).token, status = 403
+      )
+
+    llaveActual = Llave.objects.get(
+      algoritmo_id = Algoritmo.objects.get(nombre = metodo),
+      usuario_id = cliente.id,
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual')
+    )
+
+    nuevoToken = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, tokenAnterior.pan,
+      llaveActual.llave, str(cliente.id)], stdout=PIPE)
+
+    tokenAnterior.estadoDeToken = EstadoDeToken.objects.get(
+      nombre = 'retokenizado')
+    tokenAnterior.save()
+
+    return HttpResponse(nuevoToken.stdout, status = 200)
+
+  else:
+
+    llaveAnterior = Llave.objects.get(
+      algoritmo_id = Algoritmo.objects.get(nombre = metodo),
+      usuario_id = cliente.id,
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'anterior')
+    )
+
+    llaveActual = Llave.objects.get(
+      algoritmo_id = Algoritmo.objects.get(nombre = metodo),
+      usuario_id = cliente.id,
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual')
+    )
+
+    pan = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, llaveAnterior.llave,
+      str(cliente.id)], stdout=PIPE)
+
+    nuevoToken = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, str(int(pan.stdout)),
+      llaveActual.llave, str(cliente.id)], stdout=PIPE)
+
+    return HttpResponse(nuevoToken.stdout, status = 200)
 
 def ejecutar(peticion):
   """
