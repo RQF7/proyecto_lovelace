@@ -47,6 +47,9 @@ class Token (models.Model):
     default = estadoPorDefecto,
     null = True)
 
+  class Meta:
+    unique_together = ('usuario', 'token')
+
 
   def __str__(self):
     """Representación en cadena de un tipo de usuario."""
