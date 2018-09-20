@@ -73,11 +73,12 @@ definido en \cite{mozilla_er}.
 \reglaDeNegocio[rn:tipo_de_usuario]
 {Tipos de usuario}
 {
-  Existen tres tipos de usuarios:
+  Existen cuatro tipos de usuarios:
   \begin{itemize}
-    \item Visitante
+    \item Visitante.
     \item Cliente
     \item Administrador
+    \item Aplicación cliente
   \end{itemize}
 
   \begin{hangparas}{2em}{0}
@@ -85,7 +86,9 @@ definido en \cite{mozilla_er}.
     y los administradores deben iniciar sesión para ser identificados por el
     sistema; un vistante puede convertirse en cliente al registrarse y ser
     aprobado. Las transiciones entre los tipos de usuarios pueden observarse en
-    el diagrama \ref{estados_actores}.
+    el diagrama \ref{estados_actores}. Una aplicación cliente es aquella que
+    utiliza el servicio de tokenización (por ejemplo, una tienda en línea); cada
+    cliente representa a una aplicación cliente.
   \end{hangparas}
 }
 
@@ -173,7 +176,7 @@ definido en \cite{mozilla_er}.
     Cuando una llave es creada, su estado es \textbf{actual}; cuando el cliente
     inicia el refresco de llaves, la llave existente cambia a estado
     \textbf{anterior}. Estas transiciones se pueden observar mejor en la Figura
-    \ref{estados_llave} 
+    \ref{estados_llave}
   \end{hangparas}
 }
 
@@ -310,6 +313,6 @@ definido en \cite{mozilla_er}.
 {Aprobación de clientes}
 {
   Un administrador puede aprobar o rechazar usuarios tipo \textbf{cliente}
-  cuando estos tengan estado \textbf{en espera} con correo \textbf{verificado} 
+  cuando estos tengan estado \textbf{en espera} con correo \textbf{verificado}
   en un periodo de 24 HRS desde que el cliente verificó su correo.
 }

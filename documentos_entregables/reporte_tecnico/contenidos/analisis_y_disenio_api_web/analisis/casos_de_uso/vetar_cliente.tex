@@ -7,8 +7,8 @@
 \casoDeUso[cu:vetar_cliente]
 {Poner a un cliente en la lista negra}
 {
-  Permite a un usuario tipo administrador poner a un cliente en la lista negra,
-  cambiando su estado a \textbf{en lista negra} (véase
+  Permite a un usuario tipo \textbf{administrador} poner a un \textbf{cliente}
+  en la lista negra, cambiando su estado a \textbf{en lista negra} (véase
   \hipervinculo{rn:estados_cliente}).
 
   \begin{trayectoriaPrincipal}
@@ -19,7 +19,7 @@
 
     \item El sistema muestra el mensaje \hipervinculo{msj:vetar_cliente}.
 
-    \item El administrador presiona \textit{Aceptar}
+    \item El administrador presiona \textit{Aceptar};
       [\hipervinculoLocal{ta:cancelar}].
 
     \item El sistema cambia el estado de dicho cliente a \textbf{en lista negra}
@@ -31,6 +31,8 @@
     \item El sistema refresca la interfaz \hipervinculo{iu:administracion}.
 
   \end{trayectoriaPrincipal}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:cancelar]
     {Cancelar operación}

@@ -7,12 +7,12 @@
 \casoDeUso[cu:tokenizar_tarjeta]
 {Tokenizar un número de tarjeta}
 {
-  Permite a un usuario tipo \textbf{cliente}, dada una conexión establecida,
-  obtener el token de una tarjeta.
+  Permite a un usuario tipo \textbf{aplicación cliente}, dada una conexión
+  establecida, obtener el token de una tarjeta.
 
   \begin{trayectoriaPrincipal}
 
-    \item El cliente envía una petición con los siguientes datos:
+    \item La aplicación cliente envía una petición con los siguientes datos:
       \begin{itemize}
         \item Número de tarjeta a tokenizar.
         \item Algoritmo tokenizador.
@@ -31,7 +31,7 @@
       [\hipervinculoLocal{ta:tokenizacion_reversible}].
 
     \item El sistema verifica que la tarjeta no tenga asociado un token con ese
-      cliente [\hipervinculoLocal{ta:tarjeta_registrada}].
+      cliente; [\hipervinculoLocal{ta:tarjeta_registrada}].
 
     \item El sistema obtiene el token utilizando el algoritmo especificado y la
       llave asociada al algoritmo con estado \textbf{actual}, tomando en cuenta
@@ -41,20 +41,25 @@
       de datos con estado \textbf{actual} tomando en cuenta la regla de negocios
       \hipervinculo{rn:estados_token}.
 
-    \item [regreso_token] El sistema regresa al cliente el token generado.
+    \item [regreso_token] El sistema regresa a la aplicación cliente el token
+      generado.
 
   \end{trayectoriaPrincipal}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:cliente_sin_permisos]
     {El cliente tiene un estado distinto a \textbf{aceptado} o
-      \textbf{en cambio de llaves}.}
+      \textbf{en cambio de llaves}}
 
-      \item El sistema regresa una petición HTTP con código 403.
+      \item El sistema regresa una respuesta \gls{gl:http} con código 403.
 
   \end{trayectoriaAlternativa}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:tokenizacion_reversible]
-    {El algoritmo especificado por el cliente es de tipo \textbf{reversible}.}
+    {El algoritmo especificado por el cliente es de tipo \textbf{reversible}}
 
     \item El sistema obtiene el token con el algoritmo especificado utilizando
       la llave con estado \textbf{actual}, tomando en cuenta la regla de
@@ -66,9 +71,9 @@
   \end{trayectoriaAlternativa}
 
   \begin{trayectoriaAlternativa}[ta:tarjeta_registrada]
-    {El cliente ya tiene un token relacionado con esa tarjeta.}
+    {El cliente ya tiene un token relacionado con esa tarjeta}
 
-    \item El sistema regresa una petición HTTP con código 403.
+    \item El sistema regresa una respuesta \gls{gl:http} con código 403.
 
   \end{trayectoriaAlternativa}
 
