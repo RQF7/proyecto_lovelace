@@ -49,8 +49,7 @@
     {El cliente tiene un estado distinto a \textbf{aceptado} o
       \textbf{en cambio de llaves}.}
 
-    \item El sistema regresa un valor nulo al cliente.
-      % Hay que regresar un error aquí.
+      \item El sistema regresa una petición HTTP con código 403.
 
   \end{trayectoriaAlternativa}
 
@@ -69,8 +68,7 @@
   \begin{trayectoriaAlternativa}[ta:tarjeta_registrada]
     {El cliente ya tiene un token relacionado con esa tarjeta.}
 
-    \item El sistema regresa un valor nulo al cliente.
-      % Hay que regresar un error
+    \item El sistema regresa una petición HTTP con código 403.
 
   \end{trayectoriaAlternativa}
 

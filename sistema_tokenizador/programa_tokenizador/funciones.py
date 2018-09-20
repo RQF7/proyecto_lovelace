@@ -16,13 +16,14 @@ from subprocess import PIPE
 from subprocess import run
 from os import remove
 
-from sistema_tokenizador.configuraciones \
-  import EJECUTABLE_TOKENIZADOR
+from sistema_tokenizador.general import negocio
 from sistema_tokenizador.general.models.correo \
   import Correo
 from sistema_tokenizador.general.models.usuario \
   import Usuario
 
+from sistema_tokenizador.configuraciones \
+  import EJECUTABLE_TOKENIZADOR
 from sistema_tokenizador.programa_tokenizador.models.algoritmo \
   import Algoritmo
 from sistema_tokenizador.programa_tokenizador.models.estado_de_llave \
@@ -114,21 +115,6 @@ def autentificar (peticion):
   return usuario
 
 
-def verificarUnicidadDePAN(PAN, cliente_id):
-  """
-  Verifica que el cliente indicado no tenga asociado el PAN señalado.
-
-  Regresa verdadero o falso.
-  """
-  try:
-    registro = Token.objects.get(
-      pan = PAN,
-      usuario_id = cliente_id)
-  except (Token.DoesNotExist):
-    return 1
-  return 0
-
-
 def tokenizar(peticion):
   """
   Ejecuta la operación de tokenización y regresa el token asignado.
@@ -152,8 +138,10 @@ def tokenizar(peticion):
 
   if tipoAlgoritmo == 'irreversible':
     print ("Algoritmo irreversible.")
-    if verificarUnicidadDePAN(pan, cliente.id) == 0 :
-      return HttpResponse("Ya existe un token asociado a este PAN", status = 403)
+    if negocio.verificarUnicidadDePAN(pan, cliente.id) == 0 :
+      return HttpResponse(
+        "Ya existe un token asociado a este PAN",
+        status = 403)
 
   llave = Llave.objects.get(
     algoritmo_id = Algoritmo.objects.get(nombre = metodo),
@@ -164,7 +152,7 @@ def tokenizar(peticion):
   resultado = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, pan, llave.llave,
     str(cliente.id)], stdout=PIPE)
 
-  return HttpResponse(resultado.stdout, content_type="text/plain", status = 200)
+  return HttpResponse(resultado.stdout, status = 200)
 
 def detokenizar(peticion):
   """
@@ -185,12 +173,30 @@ def detokenizar(peticion):
   if isinstance(cliente, HttpResponse):
     return cliente
 
-  objetoDePeticion = loads(peticion.body)
   try:
+    objetoDePeticion = loads(peticion.body)
     token = objetoDePeticion['token']
     metodo = objetoDePeticion['metodo']
   except:
     return HttpResponse("Parámetros incompletos o incorrectos", status = 403)
+
+  if negocio.validarToken(token) == 0:
+    negocio.aumentarContadorDeMalasAcciones(
+      cliente,
+      negocio.INCREMENTO_TOKEN_INVALIDO)
+    return HttpResponse("El token recibido es inválido", status = 400)
+
+  tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
+
+  if tipoAlgoritmo == 'irreversible':
+    try:
+      return Token.objects.get(token = token, usuario_id = cliente.id).pan
+    except (Token.DoesNotExist):
+      negocio.aumentarContadorDeMalasAcciones(
+        cliente,
+        negocio.INCREMENTO_TOKEN_INEXISTENTE)
+      return HttpResponse(
+        "El token no existe en la base de datos", status = 400)
 
   versionLlave = 'actual'
 
@@ -206,13 +212,10 @@ def detokenizar(peticion):
     estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = versionLlave)
   )
 
-  try:
-    resultado = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, llave.llave,
+  resultado = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, llave.llave,
       str(cliente.id)], stdout=PIPE)
-  except:
-    print("error")
 
-  return HttpResponse(resultado.stdout, content_type="text/plain", status = 200)
+  return HttpResponse(resultado.stdout, status = 200)
 
 def generarLlave(tamanio):
   """

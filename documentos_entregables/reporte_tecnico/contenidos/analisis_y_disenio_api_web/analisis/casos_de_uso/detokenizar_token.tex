@@ -48,8 +48,7 @@
     {El cliente tiene un estado distinto a \textbf{aceptado} o
       \textbf{en cambio de llaves}.}
 
-    \item El sistema regresa un valor nulo al cliente.
-      % ¿Hay que regresar un error aquí o qué onda?
+    \item El sistema regresa una petición HTTP con código 403.
 
   \end{trayectoriaAlternativa}
 
@@ -86,12 +85,15 @@
   \begin{trayectoriaAlternativa}[ta:token_inexistente]
     {EL token especificado no se encuentra registrado en la base de datos.}
 
-
     \item El sistema incrementa el contador de malas acciones del usuario
       en tres unidades (regla de negocios
       \hipervinculo{rn:malas_acciones}).
+    \item El sistema verifica que el contador de malas acciones del usuario no
+      sea igual o mayor al umbral permitido
+      (\hipervinculo{rn:top_malas_acciones})
+      [\hipervinculoLocal{ta:muchas_malas_acciones}].
 
-    \item El sistema regresa un valor nulo al cliente.
+    \item El sistema regresa una petición HTTP con código 400.
 
   \end{trayectoriaAlternativa}
 
@@ -100,8 +102,19 @@
 
     \item El sistema incrementa el contador de malas acciones del usuario
       en una unidad (regla de negocios \hipervinculo{rn:malas_acciones}).
+    \item El sistema verifica que el contador de malas acciones del usuario no
+      sea igual o mayor al umbral permitido
+      (\hipervinculo{rn:top_malas_acciones})
+      [\hipervinculoLocal{ta:muchas_malas_acciones}].
 
-    \item El sistema regresa un valor nulo al cliente.
+    \item El sistema regresa una petición HTTP con código 400.
+
+  \end{trayectoriaAlternativa}
+
+  \begin{trayectoriaAlternativa}[ta:muchas_malas_acciones]
+    {Límite de malas acciones alcanzado}
+
+    \item El sistema cambia el estado del cliente a \textbf{en lista negra}.
 
   \end{trayectoriaAlternativa}
 }

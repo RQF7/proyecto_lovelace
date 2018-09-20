@@ -117,11 +117,10 @@ Registro AccesoMySQL::buscarPorToken(
   else
   {
     consulta = {"SELECT * FROM programa_tokenizador_token WHERE token = ? "
-      " AND usuario_id = ? AND estadoDeToken_id = ? "};
+      " AND usuario_id = ?"};
     declaracion = mConexion->prepareStatement(consulta);
     declaracion->setString(1, token.obtenerCadena());
     declaracion->setInt(2, mClienteId);
-    declaracion->setString(3, mEstadoDeTokenId);
   }
 
   ResultSet* resultado = declaracion->executeQuery();

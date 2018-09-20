@@ -71,7 +71,7 @@ void AlgoritmoTokenizador::validarEntrada(
   if (numeroDeElementos < 12 || numeroDeElementos > 19)
     throw TarjetaMalFormada{"La longitud debe de ser entre 12 y 19 dígitos"};
 
-  int verifiacion = algoritmoDeLuhn(arreglo, true);
-  if (arreglo[-1] != modulo(verifiacion + desfaseDeDigitoVerificador, 10))
+  int verificacion = algoritmoDeLuhn(arreglo, true);
+  if (arreglo[-1] != modulo(verificacion + desfaseDeDigitoVerificador, 10))
     throw TarjetaMalFormada{"Dígito de verificación inválido"};
 }
