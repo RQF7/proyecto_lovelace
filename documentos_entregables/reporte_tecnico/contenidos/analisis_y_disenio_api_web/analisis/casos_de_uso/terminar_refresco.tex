@@ -15,39 +15,46 @@
       interfaz \hipervinculo{iu:control}.
 
     \item El sistema verifica que no haya tokens relacionados con el cliente
-      que se encuentren en estado \textbf{anterior}.
+      que se encuentren en estado \textbf{anterior};
       [\hipervinculoLocal{ta:retokenizacion_incompleta}].
 
     \item[llaves] El sistema elimina todas las llaves asociadas al cliente con
-      estado \textbf{anterior} [\hipervinculoLocal{ta:error_eliminar_llave}].
+      estado \textbf{anterior} (regla de negocios
+      \hipervinculo{rn:estados_llave}).
 
     \item El sistema cambia el estado de todos los tokens relacionados con el
       cliente que se encuentran en estado \textbf{retokenizado} a
-      \textbf{actual}.
+      \textbf{actual} (regla de negocio \hipervinculo{rn:estados_token}).
 
-    \item El sistema cambia el estado del cliente a \textbf{aprobado}.
+    \item El sistema cambia el estado del cliente a \textbf{aprobado}
+      (regla de negocios \hipervinculo{rn:estados_cliente}).
 
   \end{trayectoriaPrincipal}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:retokenizacion_incompleta]
-    {El cliente aún tiene tokens relacionados con estado \textbf{anterior}.}
+    {El cliente aún tiene tokens relacionados con estado \textbf{anterior}}
 
     \item El sistema muestra el mensaje
       \hipervinculo{msj:adv_retokenizacion_incompleta}.
 
-    \item El usuario presiona \textit{Aceptar}
+    \item El usuario presiona \textit{Aceptar};
       [\hipervinculoLocal{ta:cancelar_terminar_refresco}].
 
     \item El sistema elimina todos los tokens relacionados con el cliente que se
-      encuentran en estado \textbf{anterior}.
+      encuentran en estado \textbf{anterior} (regla de negocio
+      \hipervinculo{rn:estados_token}).
 
     \item El sistema regresa al paso \referenciaLocal{llaves} de la trayectoria
       principal.
 
   \end{trayectoriaAlternativa}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:cancelar_terminar_refresco]
-    {El cliente cancela el terminar con el refresco de llaves.}
+    {El cliente cancela el terminar con el refresco de llaves}
 
     \item El usuario presiona \textit{Cancelar}.
 
