@@ -14,18 +14,18 @@ from .models.vinculo import Vinculo
 from sistema_tokenizador.programa_tokenizador.funciones import *
 from sistema_tokenizador.programa_tokenizador.models.llave import Llave
 from sistema_tokenizador.programa_tokenizador.models.token import Token
-from sistema_tokenizador.programa_tokenizador.models.algoritmo import Algoritmo
 from sistema_tokenizador.programa_tokenizador.models.estado_de_llave import EstadoDeLlave
 from sistema_tokenizador.programa_tokenizador.models.estado_de_token import EstadoDeToken
 from sistema_tokenizador import utilidades
 from sistema_tokenizador.configuraciones import DIRECTORIO_BASE
 from sistema_tokenizador.general import negocio
+from sistema_tokenizador.programa_tokenizador.negocio import generarLlaves
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.utils import IntegrityError
 from django.db.models import Q
 from django.core import serializers
 from datetime import datetime, timedelta, timezone
-
+import _thread
 
 def inicio (peticion):
   """
@@ -281,6 +281,7 @@ def iniciarRefrescoDeLlaves(peticion):
   """
   Inicia el refresco de llaves, cambiando el estado del usuario,
   sus llaves y sus token mientras que se crean nuevas llaves.
+
   """
 
   # Se cambia el estado de los tokens y las llaves
@@ -295,71 +296,7 @@ def iniciarRefrescoDeLlaves(peticion):
     estadoDeLlave_id='actual').update(
     estadoDeLlave_id='anterior')
 
-  # Se crean las llaves
-  llaves = [
-  Llave(
-    llave = 'ABC1'+generarLlave(Algoritmo.objects.get(
-      nombre = 'FFX').longitudDeLlave),
-    criptoperiodo = 10,
-    fechaDeCreacion = datetime.today().strftime(
-      "%Y-%m-%d %H:%M:%S"),
-    algoritmo_id = Algoritmo.objects.get(
-      nombre = 'FFX'),
-    estadoDeLlave_id = EstadoDeLlave.objects.get(
-      nombre = 'actual'),
-    usuario_id = cliente.id),
-  Llave(
-    llave = 'ABC2'+generarLlave(Algoritmo.objects.get(
-      nombre = 'BPS').longitudDeLlave),
-    criptoperiodo = 10,
-    fechaDeCreacion = datetime.today().strftime(
-      "%Y-%m-%d %H:%M:%S"),
-    algoritmo_id = Algoritmo.objects.get(
-      nombre = 'BPS'),
-    estadoDeLlave_id = EstadoDeLlave.objects.get(
-      nombre = 'actual'),
-    usuario_id = cliente.id),
-  Llave(
-    llave = 'ABC3'+generarLlave(Algoritmo.objects.get(
-      nombre = 'TKR').longitudDeLlave),
-    criptoperiodo = 10,
-    fechaDeCreacion = datetime.today().strftime(
-      "%Y-%m-%d %H:%M:%S"),
-    algoritmo_id = Algoritmo.objects.get(
-      nombre = 'TKR'),
-    estadoDeLlave_id = EstadoDeLlave.objects.get(
-      nombre = 'actual'),
-    usuario_id = cliente.id),
-  Llave(
-    llave = 'ABC4'+generarLlave(Algoritmo.objects.get(
-      nombre = 'AHR').longitudDeLlave),
-    criptoperiodo = 10,
-    fechaDeCreacion = datetime.today().strftime(
-      "%Y-%m-%d %H:%M:%S"),
-    algoritmo_id = Algoritmo.objects.get(
-      nombre = 'AHR'),
-    estadoDeLlave_id = EstadoDeLlave.objects.get(
-      nombre = 'actual'),
-    usuario_id = cliente.id),
-  Llave(
-    llave = 'ABC5'+generarLlave(Algoritmo.objects.get(
-      nombre = 'DRBG').longitudDeLlave),
-    criptoperiodo = 10,
-    fechaDeCreacion = datetime.today().strftime(
-      "%Y-%m-%d %H:%M:%S"),
-    algoritmo_id = Algoritmo.objects.get(
-      nombre = 'DRBG'),
-    estadoDeLlave_id = EstadoDeLlave.objects.get(
-      nombre = 'actual'),
-    usuario_id = cliente.id)]
-
-  for llave in llaves:
-    llave.save();
-
-  # Se cambia el estado del cliente
-  cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
-    nombre = 'en cambio de llaves')
-  cliente.save(force_update=True)
+  _thread.start_new_thread(generarLlaves, (cliente,))
 
   return HttpResponse("0")
 

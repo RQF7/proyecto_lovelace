@@ -75,6 +75,8 @@ urlpatterns = [
     programa_tokenizador.tokenizar),
   path('programa_tokenizador/detokenizar',
     programa_tokenizador.detokenizar),
+  path('programa_tokenizador/retokenizar',
+    programa_tokenizador.retokenizar),
   path('ejecutar',
     programa_tokenizador.ejecutar)
 
