@@ -151,8 +151,7 @@ def tokenizar(peticion):
     llave = Llave.objects.get(
       algoritmo_id = Algoritmo.objects.get(nombre = metodo),
       usuario_id = cliente.id,
-      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual')
-    )
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'))
 
     resultado = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, pan, llave.llave,
       str(cliente.id)], stdout=PIPE)
@@ -243,8 +242,7 @@ def detokenizar(peticion):
   llave = Llave.objects.get(
     algoritmo_id = Algoritmo.objects.get(nombre = metodo),
     usuario_id = cliente.id,
-    estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = versionLlave)
-  )
+    estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = versionLlave))
 
   resultado = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, llave.llave,
       str(cliente.id)], stdout=PIPE)
@@ -290,8 +288,7 @@ def retokenizar(peticion):
         Q(token = token),
         Q(usuario_id = cliente.id),
         Q(estadoDeToken = EstadoDeToken.objects.get(nombre = 'anterior')) |
-        Q(estadoDeToken = EstadoDeToken.objects.get(nombre = 'retokenizado'))
-      )
+        Q(estadoDeToken = EstadoDeToken.objects.get(nombre = 'retokenizado')))
     except (Token.DoesNotExist):
       negocio.aumentarContadorDeMalasAcciones(
         cliente,
@@ -305,14 +302,12 @@ def retokenizar(peticion):
           pan = tokenAnterior.pan,
           usuario_id = cliente.id,
           estadoDeToken = EstadoDeToken.objects.get(nombre = 'actual')
-        ).token, status = 403
-      )
+        ).token, status = 403)
 
     llaveActual = Llave.objects.get(
       algoritmo_id = Algoritmo.objects.get(nombre = metodo),
       usuario_id = cliente.id,
-      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual')
-    )
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'))
 
     nuevoToken = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, tokenAnterior.pan,
       llaveActual.llave, str(cliente.id)], stdout=PIPE)
@@ -328,14 +323,12 @@ def retokenizar(peticion):
     llaveAnterior = Llave.objects.get(
       algoritmo_id = Algoritmo.objects.get(nombre = metodo),
       usuario_id = cliente.id,
-      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'anterior')
-    )
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'anterior'))
 
     llaveActual = Llave.objects.get(
       algoritmo_id = Algoritmo.objects.get(nombre = metodo),
       usuario_id = cliente.id,
-      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual')
-    )
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'))
 
     pan = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, llaveAnterior.llave,
       str(cliente.id)], stdout=PIPE)
