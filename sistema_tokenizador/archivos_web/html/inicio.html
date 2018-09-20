@@ -11,21 +11,36 @@
 
   <h3>¿Qué es la tokenización?</h3>
   <p>
-    Un token es un valor parecido y representativo de otro valor, pero que no
-    tiene una relación directa con el mismo; razón por la cual es utilizado
-    para proteger información confidencial.
+    Para comenzar a definir la <em>tokenización</em>, es menester definir antes
+    lo que es un token: normalmente, se le conoce como un valor representativo
+    de otro valor; el concepto de token es ampliamente utilizado en otros
+    contextos, y, dependiendo de este, varían sus características. En la
+    criptografía (que es el contexto en el que se encuentra este servicio),
+    este <em>valor representativo</em> no debe tener una relación directa con el
+    valor original; de hecho, que un adversario posea un token no representa
+    peligro alguno, pues no es posible, sin los mecanismos de detokenización,
+    regresar al valor original. Por lo tanto, un token puede ser utilizado para
+    proteger información confidencial.
   </p>
   <p>
-    Con la definición de un token, se puede ver a la tokenización como el
-    proceso de sustituir datos sensibles por un token, con la finalidad de
-    mantener su confidencialidad.
+    Con esta definición de un token, se puede definir a la tokenización como el
+    proceso en el que se obtiene el valor sustituto. La tokenización ha ido
+    ganando terreno y cada vez hay más maneras de generar tokens (generando
+    números pseudoaleatorios, con cifradores que preservan el formato,
+    etcétera). Es importante resaltar que la manera en la que un servicio
+    tokenizador genera sus tokens debe ser expuesta claramente, pues la
+    seguridad de un algoritmo tokenizador jamás debería depender de su secreto.
   </p>
 
   <h3>¿Por qué usar nuestro servicio de tokenización?</h3>
   <p>
-    Nuestro servicio de tokenización te permite despreocuparte de la
-    protección de los datos bancarios sensibles de tu sistema, delegándonos
-    esta labor.
+    Nuestro servicio de tokenización le permitirá despreocuparse, en cierta
+    medida, de la tediosa y complicada protección de los datos bancarios
+    sensibles de su sistema, pues nosotros nos encargaremos de esta parte.
+
+    Además, tenemos varios algoritmos tokenizadores disponibles y usted podrá
+    escoger, para cada PAN, cuál es el algoritmo que desea utilizar (aquí puede
+    encontrar más información sobre los algoritmos tokenizadores disponibles).
   </p>
   <p>
     Entre las ventajas que obtienes al usar nuestro servicio están:
@@ -35,7 +50,7 @@
       <i class="material-icons md-avatar">done</i>
       <div class="md-list-item-text">
         <p>
-          Mantener la seguridad de tu sistema cumpliendo con el estándar de
+          Mantener la seguridad de su sistema cumpliendo con el estándar de
           seguridad del PCI SSC.
         </p>
       </div>
@@ -53,8 +68,8 @@
       <i class="material-icons md-avatar">done</i>
       <div class="md-list-item-text">
         <p>
-          Elegir el algoritmo con el que desees tokenizar tu información de
-          entre FFX, BPS, TKR, AHR o mediante DRGB.
+          Elegir el algoritmo con el que desea tokenizar. Se encuentran
+          disponibles FFX, BPS, TKR, AHR y DRGB.
         </p>
       </div>
     </md-list-item>
