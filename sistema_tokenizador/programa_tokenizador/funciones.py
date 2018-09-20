@@ -139,6 +139,8 @@ def tokenizar(peticion):
   except:
     return HttpResponse("Parámetros incompletos o incorrectos", status = 403)
 
+  if negocio.validarPan(pan) == 0:
+    return HttpResponse("El PAN recibido es inválido.", status = 400)
 
   tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
 
@@ -146,7 +148,6 @@ def tokenizar(peticion):
   ## en la base de datos, crear un nuevo token y regresarlo.
   if tipoAlgoritmo == 'reversible' or (tipoAlgoritmo == 'irreversible' and \
     (negocio.verificarUnicidadDePAN(pan, cliente.id) == 1)):
-
     llave = Llave.objects.get(
       algoritmo_id = Algoritmo.objects.get(nombre = metodo),
       usuario_id = cliente.id,
@@ -177,7 +178,7 @@ def tokenizar(peticion):
   ## otro estado, debe realizar la operacion de retokenizacion para obtener
   ## la nueva versión.
   if len(tokens) == 1:
-    if tokens[0].estadoDeToken == 'actual':
+    if tokens[0].estadoDeToken.nombre == 'actual':
       return HttpResponse(tokens[0].token, status = 403)
     else:
       return HttpResponse(
@@ -186,7 +187,7 @@ def tokenizar(peticion):
 
   ## Si tiene dos, uno es el actual y otro es el viejo o retokenizado; regresar
   ## el actual.
-  if tokens[0].estadoDeToken == 'actual':
+  if tokens[0].estadoDeToken.nombre == 'actual':
     return HttpResponse(tokens[0].token, status = 403)
   else:
     return HttpResponse(tokens[1].token, status = 403)
@@ -298,11 +299,12 @@ def retokenizar(peticion):
       return HttpResponse(
         "El token no existe en la base de datos", status = 400)
 
-    if tokenAnterior.EstadoDeToken.nombre == 'retokenizado':
+    if tokenAnterior.estadoDeToken.nombre == 'retokenizado':
       return HttpResponse(
         Token.objects.get(
           pan = tokenAnterior.pan,
-          usuario_id = cliente.id
+          usuario_id = cliente.id,
+          estadoDeToken = EstadoDeToken.objects.get(nombre = 'actual')
         ).token, status = 403
       )
 

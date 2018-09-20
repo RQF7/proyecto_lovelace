@@ -22,7 +22,7 @@ from sistema_tokenizador.general.models.usuario \
 
 from sistema_tokenizador.configuraciones \
   import EJECUTABLE_TOKENIZADOR
-  
+
 from sistema_tokenizador.programa_tokenizador.models.algoritmo \
   import Algoritmo
 from sistema_tokenizador.programa_tokenizador.models.estado_de_llave \
@@ -54,11 +54,14 @@ def aumentarContadorDeMalasAcciones(cliente, incremento):
 def verificarUnicidadDePAN(PAN, cliente_id):
   """
   Verifica que el cliente indicado no tenga asociado el PAN señalado.
+  Busca todos los registros del cliente que tengan ese PAN, si no regresa
+  ninguno, es verdadero; si tiene uno o dos (actual, actual-retokenizado, viejo),
+  regresa falso.
 
   Regresa verdadero o falso.
   """
   try:
-    registro = Token.objects.get(
+    registro = Token.objects.filter(
       pan = PAN,
       usuario_id = cliente_id)
   except (Token.DoesNotExist):
@@ -81,6 +84,25 @@ def validarToken(token):
     return 0
 
   if int(token[-1]) != ((utilidades.calcularAlgoritmoLuhn(token) + 1) % 10):
+    return 0
+
+  return 1
+
+def validarPan(pan):
+  """
+  Valida que el PAN ingresado sea válido.
+    - Tiene una longitud entre 12 y 19 dígitos.
+    - Valida el dígito verificador (mediante el algoritmo de Luhn).
+
+    Regresa uno si es válido, cero si no.
+  """
+
+  numeroDeElementos = len(pan)
+
+  if numeroDeElementos < 12 or numeroDeElementos > 19:
+    return 0
+
+  if int(pan[-1]) != (utilidades.calcularAlgoritmoLuhn(pan) % 10):
     return 0
 
   return 1

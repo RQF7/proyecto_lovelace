@@ -52,6 +52,14 @@
     A continuación se listan los errores que pueden surgir al tokenizar un PAN.
     <dl>
       <dt><code>
+          400 - El PAN recibido es inválido.
+      </code></dt>
+        <dd>
+          El PAN enviado no es válido; para serlo debe tener una longitud de 12
+          a 19 dígitos y el último dígito debe ser calculado mediante el
+          algoritmo de Luhn.
+        </dd>
+      <dt><code>
           400 - Ya existe un token asociado, utilice la función de
           retokenización
       </code></dt>
