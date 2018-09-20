@@ -75,7 +75,7 @@ definido en \cite{mozilla_er}.
 {
   Existen cuatro tipos de usuarios:
   \begin{itemize}
-    \item Visitante.
+    \item Visitante
     \item Cliente
     \item Administrador
     \item Aplicación cliente
@@ -127,6 +127,13 @@ definido en \cite{mozilla_er}.
   \end{hangparas}
 }
 
+%
+% TODO:
+% El sidewaysfigure implica, evidentemente, una mezcla entre forma y contenido.
+% Se tendría que poder determinar, en tiempo de compilación, si la imagen dada
+% tiene la proporción y tamaño adecuados para ocupar el entorno.
+%
+
 \begin{sidewaysfigure}
   \begin{center}
     \subimport{diagramas/}{estados_cliente.tikz.tex}
@@ -146,12 +153,13 @@ definido en \cite{mozilla_er}.
   \end{itemize}
 
   \begin{hangparas}{2em}{0}
-    Cuando un token es creado, su estado es \textbf{actual}.
-    Cuando un cliente inicia el refresco de llaves, todos sus tokens cambian de
-    estado a \textbf{anterior}.
-    Cuando un cliente solicita la retokenización de un token, se cambia su estado
-    a \textbf{retokenizado}.  Estas transiciones se pueden observar en la Figura
-    \ref{estados_token}
+    Cuando un token es creado, su estado es \textbf{actual}. Cuando un cliente
+    inicia el refresco de llaves, todos sus tokens cambian de estado a
+    \textbf{anterior}. Cuando un cliente solicita la retokenización de un token,
+    se cambia su estado a \textbf{retokenizado}. Al terminar el refresco de
+    llaves, se cambian los tokens \textbf{retokenizados} del cliente a estado
+    \textbf{actual}. Estas transiciones se pueden observar en la Figura
+    \ref{estados_token}.
   \end{hangparas}
 }
 

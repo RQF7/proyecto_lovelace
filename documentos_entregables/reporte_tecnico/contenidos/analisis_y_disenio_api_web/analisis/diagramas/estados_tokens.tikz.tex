@@ -3,36 +3,32 @@
 % Aplicación web de sistema tokenizador.
 % Proyecto Lovelace.
 %
-% TODO:
-% * Redistribuir nodos para tener más espacio en el ancho de las etiquetas de
-%   transiciones y para que no se salga de los márgenes del documento..
-%
 
 \begin{tikzpicture}[
-    estado/.style = {
-        rectangle,
-        draw = black,
-        thin,
-        inner sep = 4mm,
-        text width = 25mm,
-        align = center,
-        minimum height = 1.5cm},
-      estado_inicial/.style = {
-        circle,
-        minimum size = 15pt,
-        fill = black,
-      },
-      etiqueta_transicion/.style = {
-        align = center,
-        text width = 15mm
-      }]
+  estado/.style = {
+    rectangle,
+    draw = black,
+    thin,
+    inner sep = 4mm,
+    text width = 25mm,
+    align = center,
+    minimum height = 1.5cm},
+  estado_inicial/.style = {
+    circle,
+    minimum size = 15pt,
+    fill = black,
+  },
+  etiqueta_transicion/.style = {
+    align = center,
+    text width = 15mm
+  }]
 
   % Estados
   \node[estado_inicial]
     (estado_inicial) {};
   \node[estado]
     (actual)
-    [above right = 1.1in of estado_inicial]
+    [right = 1.8in of estado_inicial]
     {Actual};
   \node[estado]
     (anterior)
@@ -45,12 +41,12 @@
 
   % Transiciones
   \draw[-Stealth]
-    (estado_inicial.north)
-    |-
+    (estado_inicial.east)
+    --
     node[
       etiqueta_transicion,
       text width = 1.6in,
-      below left]
+      above]
       {\hipervinculo{cu:tokenizar_tarjeta}}
     (actual.west);
   \draw[-Stealth]
@@ -71,5 +67,14 @@
       above right]
       {\hipervinculo{cu:retokenizar_token}}
     (retokenizado.east);
+  \draw[-Stealth]
+    (retokenizado.north)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 1.6in,
+      left]
+      {\hipervinculo{cu:terminar_refresco}}
+    (actual.south);
 
 \end{tikzpicture}
