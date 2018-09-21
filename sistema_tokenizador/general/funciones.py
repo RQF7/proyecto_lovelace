@@ -4,28 +4,39 @@
   Proyecto Lovelace.
 """
 
-import json, hashlib
+import json, hashlib, _thread
+from django.http import HttpResponse, HttpResponseRedirect
+from django.db.utils import IntegrityError
+from django.db.models import Q
+from django.core import serializers
+from datetime import datetime, timedelta, timezone
+
 from .models.correo import Correo
 from .models.estado_de_correo import EstadoDeCorreo
 from .models.estado_de_usuario import EstadoDeUsuario
 from .models.tipo_de_usuario import TipoDeUsuario
 from .models.usuario import Usuario
 from .models.vinculo import Vinculo
-from sistema_tokenizador.programa_tokenizador.funciones import *
-from sistema_tokenizador.programa_tokenizador.models.llave import Llave
-from sistema_tokenizador.programa_tokenizador.models.token import Token
-from sistema_tokenizador.programa_tokenizador.models.estado_de_llave import EstadoDeLlave
-from sistema_tokenizador.programa_tokenizador.models.estado_de_token import EstadoDeToken
-from sistema_tokenizador import utilidades
-from sistema_tokenizador.configuraciones import DIRECTORIO_BASE
-from sistema_tokenizador.general import negocio
-from sistema_tokenizador.programa_tokenizador.negocio import generarLlaves
-from django.http import HttpResponse, HttpResponseRedirect
-from django.db.utils import IntegrityError
-from django.db.models import Q
-from django.core import serializers
-from datetime import datetime, timedelta, timezone
-import _thread
+
+from sistema_tokenizador.programa_tokenizador.funciones \
+  import *
+from sistema_tokenizador.programa_tokenizador.models.llave \
+  import Llave
+from sistema_tokenizador.programa_tokenizador.models.token \
+  import Token
+from sistema_tokenizador.programa_tokenizador.models.estado_de_llave \
+  import EstadoDeLlave
+from sistema_tokenizador.programa_tokenizador.models.estado_de_token \
+  import EstadoDeToken
+from sistema_tokenizador \
+  import utilidades
+from sistema_tokenizador.configuraciones \
+  import DIRECTORIO_BASE
+from sistema_tokenizador.general \
+  import negocio
+from sistema_tokenizador.programa_tokenizador.negocio \
+  import generarLlaves
+
 
 def inicio (peticion):
   """
@@ -329,11 +340,11 @@ def terminarRefrescoDeLlaves(peticion):
     usuario_id = idDeCliente,
     estadoDeLlave_id='anterior').delete()
 
-  # Cambiar el estado de los tokens
+  # Elimina tokens retokenizados
   Token.objects.filter(
     usuario_id = idDeCliente,
-    estadoDeToken_id='retokenizado').update(
-    estadoDeToken_id='actual')
+    estadoDeToken = EstadoDeToken.objects.get(
+      nombre = 'retokenizado')).delete()
 
   # Se cambia el estado del cliente
   cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
