@@ -16,12 +16,10 @@
   estado_inicial/.style = {
     circle,
     minimum size = 15pt,
-    fill = black,
-  },
+    fill = black},
   etiqueta_transicion/.style = {
     align = center,
-    text width = 15mm
-  }]
+    text width = 15mm}]
 
   % Estados
   \node[estado_inicial]
@@ -39,16 +37,42 @@
     [below left = 0.6in of anterior]
     {Retokenizado};
 
+  % Estado final
+  \draw[
+    fill = black]
+    ($(retokenizado.west) + (-1.8in, 0)$)
+    circle
+    (7.5pt);
+  \draw[
+    draw = black]
+    ($(retokenizado.west) + (-1.8in, 0)$)
+    circle
+    (10pt);
+
+
   % Transiciones
   \draw[-Stealth]
-    (estado_inicial.east)
+    (estado_inicial.north)
+    --
+    ($(estado_inicial) + (0, 0.2in)$)
     --
     node[
       etiqueta_transicion,
       text width = 1.6in,
       above]
       {\hipervinculo{cu:tokenizar_tarjeta}}
-    (actual.west);
+    ($(actual.west) + (0, 0.2in)$);
+  \draw[-Stealth]
+    (estado_inicial.north)
+    --
+    ($(estado_inicial) - (0, 0.2in)$)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 1.6in,
+      below]
+      {\hipervinculo{cu:retokenizar_token}}
+    ($(actual.west) - (0, 0.2in)$);
   \draw[-Stealth]
     (actual.east)
     -|
@@ -68,13 +92,13 @@
       {\hipervinculo{cu:retokenizar_token}}
     (retokenizado.east);
   \draw[-Stealth]
-    (retokenizado.north)
+    (retokenizado.west)
     --
     node[
       etiqueta_transicion,
       text width = 1.6in,
-      left]
+      below]
       {\hipervinculo{cu:terminar_refresco}}
-    (actual.south);
+    ($(retokenizado.west) + (-1.8in, 0) + (10pt, 0)$);
 
 \end{tikzpicture}
