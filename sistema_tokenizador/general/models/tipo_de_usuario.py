@@ -4,9 +4,9 @@
   Proyecto Lovelace.
 """
 
-from django.db import models
+import django
 
-class TipoDeUsuario (models.Model):
+class TipoDeUsuario (django.db.models.Model):
   """
   Catálogo de tipos de usuario.
 
@@ -17,7 +17,7 @@ class TipoDeUsuario (models.Model):
   del sistema.
   """
 
-  nombre = models.CharField(
+  nombre = django.db.models.CharField(
     verbose_name = 'nombre del tipo de usuario',
     unique = True,
     max_length = 100,

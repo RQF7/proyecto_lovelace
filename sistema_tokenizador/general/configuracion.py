@@ -3,10 +3,9 @@
   Proyecto Loevlace.
 """
 
-from django.apps import AppConfig
+import django
 
-class Configuracion(AppConfig):
+class Configuracion(django.apps.AppConfig):
   """Clase de configuración para aplicación general."""
   name = 'sistema_tokenizador.general'
   verbose_name = 'Módulo de funciones comunes'
-

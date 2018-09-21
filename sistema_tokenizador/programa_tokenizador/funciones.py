@@ -4,37 +4,17 @@
   Proyecto Lovelace.
 """
 
-import base64
-import hashlib
-from django.core import serializers
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.db.models import Q
+import base64, hashlib, django, json, subprocess
+import sistema_tokenizador.configuraciones as configuraciones
+import sistema_tokenizador.general as general
 
-from datetime import datetime
-from json import loads
-from subprocess import PIPE
-from subprocess import run
-from os import remove
+from .models.algoritmo import Algoritmo
+from .models.estado_de_llave import EstadoDeLlave
+from .models.estado_de_token import EstadoDeToken
+from .models.llave import Llave
+from .models.token import Token
+from ..programa_tokenizador import negocio
 
-from sistema_tokenizador.programa_tokenizador import negocio
-from sistema_tokenizador.general.models.correo \
-  import Correo
-from sistema_tokenizador.general.models.usuario \
-  import Usuario
-
-from sistema_tokenizador.configuraciones \
-  import EJECUTABLE_TOKENIZADOR
-from sistema_tokenizador.programa_tokenizador.models.algoritmo \
-  import Algoritmo
-from sistema_tokenizador.programa_tokenizador.models.estado_de_llave \
-  import EstadoDeLlave
-from sistema_tokenizador.programa_tokenizador.models.estado_de_token \
-  import EstadoDeToken
-from sistema_tokenizador.programa_tokenizador.models.llave \
-  import Llave
-from sistema_tokenizador.programa_tokenizador.models.token \
-  import Token
 
 def autentificar (peticion):
   """
@@ -88,28 +68,30 @@ def autentificar (peticion):
   try:
     auth_header = str.split(peticion.META['HTTP_AUTHORIZATION'])[1]
   except:
-    return HttpResponse(
+    return django.http.HttpResponse(
       "Es necesario proveer credenciales para realizar esta operación",
       status = 401)
 
   credenciales = base64.b64decode(auth_header).decode('utf-8').split(':')
 
   try:
-    usuario = Usuario.objects.get(
-      correo = Correo.objects.get(
+    usuario = general.models.usuario.Usuario.objects.get(
+      correo = general.models.correo.Correo.objects.get(
         correo = credenciales[0],
         contrasenia = hashlib.sha256(
           credenciales[1].encode('UTF-8')).digest()))
-  except (Usuario.DoesNotExist, Correo.DoesNotExist):
-    return HttpResponse("Las credenciales son incorrectas", status = 401)
+  except (general.models.usuario.Usuario.DoesNotExist,
+    general.models.correo.Correo.DoesNotExist):
+    return django.http.HttpResponse("Las credenciales son incorrectas",
+      status = 401)
 
   if usuario.tipoDeUsuario.nombre != 'cliente':
-    return HttpResponse(
+    return django.http.HttpResponse(
       "El usuario no tiene los privilegios para esta operación",
       status = 403)
   elif usuario.estadoDeUsuario.nombre != 'aprobado' and \
     usuario.estadoDeUsuario.nombre != 'en cambio de llaves':
-    return HttpResponse(
+    return django.http.HttpResponse(
       "EL usuario no se encuentra en el estado necesario para esta operación",
       status = 403)
 
@@ -129,18 +111,20 @@ def tokenizar(peticion):
 
   cliente = autentificar(peticion)
 
-  if isinstance(cliente, HttpResponse):
+  if isinstance(cliente, django.http.HttpResponse):
     return cliente
 
-  objetoDePeticion = loads(peticion.body)
+  objetoDePeticion = json.loads(peticion.body)
   try:
     pan = objetoDePeticion['pan']
     metodo = objetoDePeticion['metodo'].upper()
   except:
-    return HttpResponse("Parámetros incompletos o incorrectos", status = 403)
+    return django.http.HttpResponse("Parámetros incompletos o incorrectos",
+      status = 403)
 
   if negocio.validarPan(pan) == 0:
-    return HttpResponse("El PAN recibido es inválido.", status = 400)
+    return django.http.HttpResponse("El PAN recibido es inválido.",
+      status = 400)
 
   tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
 
@@ -153,15 +137,20 @@ def tokenizar(peticion):
       usuario_id = cliente.id,
       estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'))
 
-    resultado = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, pan, llave.llave,
-      str(cliente.id)], stdout=PIPE)
+    resultado = subprocess.run([
+      configuraciones.EJECUTABLE_TOKENIZADOR,
+      "-e",
+      metodo,
+      pan,
+      llave.llave,
+      str(cliente.id)], stdout = subprocess.PIPE)
 
-    return HttpResponse(resultado.stdout, status = 200)
+    return django.http.HttpResponse(resultado.stdout, status = 200)
 
   ## Si el PAN especificado ya está asociado al cliente, regresar el token si
   ## el estado del cliente es aprobado.
   if cliente.estadoDeUsuario.nombre == 'aprobado':
-    return HttpResponse(
+    return django.http.HttpResponse(
       Token.objects.get(
         usuario_id = cliente.id,
         pan = pan).token,
@@ -178,18 +167,18 @@ def tokenizar(peticion):
   ## la nueva versión.
   if len(tokens) == 1:
     if tokens[0].estadoDeToken.nombre == 'actual':
-      return HttpResponse(tokens[0].token, status = 403)
+      return django.http.HttpResponse(tokens[0].token, status = 403)
     else:
-      return HttpResponse(
+      return django.http.HttpResponse(
         'Ya existe un token asociado, utilice la función de retokenización',
         status = 400)
 
   ## Si tiene dos, uno es el actual y otro es el viejo o retokenizado; regresar
   ## el actual.
   if tokens[0].estadoDeToken.nombre == 'actual':
-    return HttpResponse(tokens[0].token, status = 403)
+    return django.http.HttpResponse(tokens[0].token, status = 403)
   else:
-    return HttpResponse(tokens[1].token, status = 403)
+    return django.http.HttpResponse(tokens[1].token, status = 403)
 
 def detokenizar(peticion):
   """
@@ -201,34 +190,36 @@ def detokenizar(peticion):
 
   cliente = autentificar(peticion)
 
-  if isinstance(cliente, HttpResponse):
+  if isinstance(cliente, django.http.HttpResponse):
     return cliente
 
   try:
-    objetoDePeticion = loads(peticion.body)
+    objetoDePeticion = json.loads(peticion.body)
     token = objetoDePeticion['token']
     metodo = objetoDePeticion['metodo'].upper()
   except:
-    return HttpResponse("Parámetros incompletos o incorrectos", status = 403)
+    return django.http.HttpResponse("Parámetros incompletos o incorrectos",
+      status = 403)
 
   if negocio.validarToken(token) == 0:
     negocio.aumentarContadorDeMalasAcciones(
       cliente,
       negocio.INCREMENTO_TOKEN_INVALIDO)
-    return HttpResponse("El token recibido es inválido", status = 400)
+    return django.http.HttpResponse("El token recibido es inválido",
+      status = 400)
 
   tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
 
   if tipoAlgoritmo == 'irreversible':
     try:
-      return HttpResponse(
+      return django.http.HttpResponse(
         Token.objects.get(token = token, usuario_id = cliente.id).pan,
         status = 200)
     except (Token.DoesNotExist):
       negocio.aumentarContadorDeMalasAcciones(
         cliente,
         negocio.INCREMENTO_TOKEN_INEXISTENTE)
-      return HttpResponse(
+      return django.http.HttpResponse(
         "El token no existe en la base de datos", status = 400)
 
   versionLlave = 'actual'
@@ -244,10 +235,15 @@ def detokenizar(peticion):
     usuario_id = cliente.id,
     estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = versionLlave))
 
-  resultado = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, llave.llave,
-      str(cliente.id)], stdout=PIPE)
+  resultado = subprocess.run([
+    configuraciones.EJECUTABLE_TOKENIZADOR,
+    "-d",
+    metodo,
+    token,
+    llave.llave,
+    str(cliente.id)], stdout = subprocess.PIPE)
 
-  return HttpResponse(resultado.stdout, status = 200)
+  return django.http.HttpResponse(resultado.stdout, status = 200)
 
 def retokenizar(peticion):
   """
@@ -259,18 +255,19 @@ def retokenizar(peticion):
 
   cliente = autentificar(peticion)
 
-  if isinstance(cliente, HttpResponse):
+  if isinstance(cliente, django.http.HttpResponse):
     return cliente
 
   try:
-    objetoDePeticion = loads(peticion.body)
+    objetoDePeticion = json.loads(peticion.body)
     token = objetoDePeticion['token']
     metodo = objetoDePeticion['metodo'].upper()
   except:
-    return HttpResponse("Parámetros incompletos o incorrectos", status = 403)
+    return django.http.HttpResponse("Parámetros incompletos o incorrectos",
+      status = 403)
 
   if cliente.estadoDeUsuario.nombre != 'en cambio de llaves':
-    return HttpResponse(
+    return django.http.HttpResponse(
       "EL usuario no se encuentra en el estado necesario para esta operación",
       status = 403)
 
@@ -278,26 +275,29 @@ def retokenizar(peticion):
     negocio.aumentarContadorDeMalasAcciones(
       cliente,
       negocio.INCREMENTO_TOKEN_INVALIDO)
-    return HttpResponse("El token recibido es inválido", status = 400)
+    return django.http.HttpResponse("El token recibido es inválido",
+      status = 400)
 
   tipoAlgoritmo = Algoritmo.objects.get(nombre = metodo).tipoDeAlgoritmo_id
 
   if tipoAlgoritmo == 'irreversible':
     try:
       tokenAnterior = Token.objects.get(
-        Q(token = token),
-        Q(usuario_id = cliente.id),
-        Q(estadoDeToken = EstadoDeToken.objects.get(nombre = 'anterior')) |
-        Q(estadoDeToken = EstadoDeToken.objects.get(nombre = 'retokenizado')))
+        django.db.models.Q(token = token),
+        django.db.models.Q(usuario_id = cliente.id),
+        django.db.models.Q(estadoDeToken = EstadoDeToken.objects.get(
+          nombre = 'anterior')) |
+        django.db.models.Q(estadoDeToken = EstadoDeToken.objects.get(
+          nombre = 'retokenizado')))
     except (Token.DoesNotExist):
       negocio.aumentarContadorDeMalasAcciones(
         cliente,
         negocio.INCREMENTO_TOKEN_INEXISTENTE)
-      return HttpResponse(
+      return django.http.HttpResponse(
         "El token no existe en la base de datos", status = 400)
 
     if tokenAnterior.estadoDeToken.nombre == 'retokenizado':
-      return HttpResponse(
+      return django.http.HttpResponse(
         Token.objects.get(
           pan = tokenAnterior.pan,
           usuario_id = cliente.id,
@@ -309,14 +309,19 @@ def retokenizar(peticion):
       usuario_id = cliente.id,
       estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'))
 
-    nuevoToken = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, tokenAnterior.pan,
-      llaveActual.llave, str(cliente.id)], stdout=PIPE)
+    nuevoToken = subprocess.run([
+      configuraciones.EJECUTABLE_TOKENIZADOR,
+      "-e",
+      metodo,
+      tokenAnterior.pan,
+      llaveActual.llave,
+      str(cliente.id)], stdout = subprocess.PIPE)
 
     tokenAnterior.estadoDeToken = EstadoDeToken.objects.get(
       nombre = 'retokenizado')
     tokenAnterior.save()
 
-    return HttpResponse(nuevoToken.stdout, status = 200)
+    return django.http.HttpResponse(nuevoToken.stdout, status = 200)
 
   else:
 
@@ -330,13 +335,23 @@ def retokenizar(peticion):
       usuario_id = cliente.id,
       estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'))
 
-    pan = run([EJECUTABLE_TOKENIZADOR, "-d", metodo, token, llaveAnterior.llave,
-      str(cliente.id)], stdout=PIPE)
+    pan = subprocess.run([
+      configuraciones.EJECUTABLE_TOKENIZADOR,
+      "-d",
+      metodo,
+      token,
+      llaveAnterior.llave,
+      str(cliente.id)], stdout = subprocess.PIPE)
 
-    nuevoToken = run([EJECUTABLE_TOKENIZADOR, "-e", metodo, str(int(pan.stdout)),
-      llaveActual.llave, str(cliente.id)], stdout=PIPE)
+    nuevoToken = subprocess.run([
+      configuraciones.EJECUTABLE_TOKENIZADOR,
+      "-e",
+      metodo,
+      str(int(pan.stdout)),
+      llaveActual.llave,
+      str(cliente.id)], stdout = subprocess.PIPE)
 
-    return HttpResponse(nuevoToken.stdout, status = 200)
+    return django.http.HttpResponse(nuevoToken.stdout, status = 200)
 
 def ejecutar(peticion):
   """
@@ -352,5 +367,5 @@ def ejecutar(peticion):
   Evidentemente, esto se tiene que quitar cuando o suba a digital ocean...
   cualquier chistoso va a empezar a jugar con mi servidor.
   """
-  resultado = run(peticion.body.split(), stdout=PIPE)
-  return HttpResponse(resultado.stdout)
+  resultado = subprocess.run(peticion.body.split(), stdout = subprocess.PIPE)
+  return django.http.HttpResponse(resultado.stdout)

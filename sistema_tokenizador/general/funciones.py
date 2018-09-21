@@ -4,12 +4,15 @@
   Proyecto Lovelace.
 """
 
-import json, hashlib, _thread
-from django.http import HttpResponse, HttpResponseRedirect
-from django.db.utils import IntegrityError
-from django.db.models import Q
-from django.core import serializers
-from datetime import datetime, timedelta, timezone
+import datetime
+import django
+import hashlib
+import json
+import _thread
+
+import sistema_tokenizador.configuraciones as configuraciones
+import sistema_tokenizador.programa_tokenizador as programa_tokenizador
+import sistema_tokenizador.utilidades as utilidades
 
 from .models.correo import Correo
 from .models.estado_de_correo import EstadoDeCorreo
@@ -17,25 +20,7 @@ from .models.estado_de_usuario import EstadoDeUsuario
 from .models.tipo_de_usuario import TipoDeUsuario
 from .models.usuario import Usuario
 from .models.vinculo import Vinculo
-
-from sistema_tokenizador.programa_tokenizador.funciones \
-  import *
-from sistema_tokenizador.programa_tokenizador.models.llave \
-  import Llave
-from sistema_tokenizador.programa_tokenizador.models.token \
-  import Token
-from sistema_tokenizador.programa_tokenizador.models.estado_de_llave \
-  import EstadoDeLlave
-from sistema_tokenizador.programa_tokenizador.models.estado_de_token \
-  import EstadoDeToken
-from sistema_tokenizador \
-  import utilidades
-from sistema_tokenizador.configuraciones \
-  import DIRECTORIO_BASE
-from sistema_tokenizador.general \
-  import negocio
-from sistema_tokenizador.programa_tokenizador.negocio \
-  import generarLlaves
+from ..general import negocio
 
 
 def inicio (peticion):
@@ -48,9 +33,9 @@ def inicio (peticion):
   """
 
   respuesta = open(\
-    DIRECTORIO_BASE +
+    configuraciones.DIRECTORIO_BASE +
     'sistema_tokenizador/archivos_web/compilados/index.html', 'rb')
-  return HttpResponse(content = respuesta)
+  return django.http.HttpResponse(content = respuesta)
 
 
 @utilidades.privilegiosRequeridos('cliente')
@@ -100,9 +85,9 @@ def usuarioDeSesion (peticion):
   """
 
   if 'usuario' in peticion.session:
-    return HttpResponse(peticion.session['usuario'])
+    return django.http.HttpResponse(peticion.session['usuario'])
   else:
-    return HttpResponse()
+    return django.http.HttpResponse()
 
 
 def iniciarSesion (peticion):
@@ -117,27 +102,29 @@ def iniciarSesion (peticion):
   usuario = negocio.autentificar(objetoDePeticion)
   if usuario != None:
     if usuario.tipoDeUsuario.nombre == 'administrador':
-      peticion.session['usuario'] = serializers.serialize("json", [usuario])
+      peticion.session['usuario'] = \
+        django.core.serializers.serialize("json", [usuario])
       return utilidades.respuestaJSON(usuario)
     elif usuario.correo.estadoDeCorreo.nombre == 'no verificado':
-      return HttpResponse("1")
+      return django.http.HttpResponse("1")
     elif usuario.estadoDeUsuario.nombre == 'en espera':
-      return HttpResponse("2")
+      return django.http.HttpResponse("2")
     elif usuario.estadoDeUsuario.nombre == 'rechazado':
-      return HttpResponse("3")
+      return django.http.HttpResponse("3")
     elif usuario.estadoDeUsuario.nombre == 'en lista negra':
-      return HttpResponse("4")
+      return django.http.HttpResponse("4")
     else:
-      peticion.session['usuario'] = serializers.serialize("json", [usuario])
+      peticion.session['usuario'] = \
+        django.core.serializers.serialize("json", [usuario])
       return utilidades.respuestaJSON(usuario)
   else:
-    return HttpResponse("0")
+    return django.http.HttpResponse("0")
 
 
 def cerrarSesion (peticion):
   """Elimina el objeto usuario de la sesión."""
   del peticion.session['usuario']
-  return HttpResponse()
+  return django.http.HttpResponse()
 
 
 def obtenerId(peticion):
@@ -146,7 +133,7 @@ def obtenerId(peticion):
   """
   usuario = None
   for objetoDescerializado \
-    in serializers.deserialize("json", peticion.session['usuario']):
+    in django.core.serializers.deserialize("json", peticion.session['usuario']):
     usuario = objetoDescerializado
   return usuario.object.id
 
@@ -179,7 +166,7 @@ def registrarCliente (peticion):
 
   try:
     Correo.objects.get(correo = objetoDePeticion['correo'])
-    return HttpResponse("1")
+    return django.http.HttpResponse("1")
   except Correo.DoesNotExist:
     pass
 
@@ -203,7 +190,7 @@ def registrarCliente (peticion):
 
   usuario.save()
   negocio.enviarVinculoDeVerificacionDeRegistro(usuario)
-  return HttpResponse("0")
+  return django.http.HttpResponse("0")
 
 
 @utilidades.privilegiosRequeridos('cliente')
@@ -223,7 +210,7 @@ def actualizarCliente (peticion, idDeCliente):
   try:
     correo = Correo.objects.get(correo = objetoDePeticion['correo'])
     if (str(cliente.correo) != objetoDePeticion['correo']):
-      return HttpResponse("1")
+      return django.http.HttpResponse("1")
   except Correo.DoesNotExist:
     pass
 
@@ -254,12 +241,12 @@ def actualizarCliente (peticion, idDeCliente):
   if (str(cliente.correo) != objetoDePeticion['correo']):
     Correo.objects.filter(correo = str(cliente.correo)).delete()
     negocio.enviarVinculoDeVerificacionDeActualizacion(usuario)
-    return HttpResponse("0")
+    return django.http.HttpResponse("0")
   else:
     correo.estadoDeCorreo = EstadoDeCorreo.objects.get(
       nombre = 'verificado')
     correo.save()
-    return HttpResponse("2")
+    return django.http.HttpResponse("2")
 
 
 @utilidades.privilegiosRequeridos('cliente')
@@ -272,10 +259,12 @@ def eliminarCliente (peticion, idDeCliente):
   cliente = Usuario.objects.get(pk = idDeCliente)
   Usuario.objects.filter(pk = idDeCliente).delete()
   Correo.objects.filter(correo = str(cliente.correo)).delete()
-  Llave.objects.filter(usuario_id = idDeCliente).delete()
-  Token.objects.filter(usuario_id = idDeCliente).delete()
+  programa_tokenizador.models.llave.Llave.objects.filter(
+    usuario_id = idDeCliente).delete()
+  programa_tokenizador.models.token.Token.objects.filter(
+    usuario_id = idDeCliente).delete()
 
-  return HttpResponse("0")
+  return django.http.HttpResponse("0")
 
 
 @utilidades.privilegiosRequeridos('cliente')
@@ -283,8 +272,9 @@ def eliminarTokens(peticion):
   """
   Elimina los tokens de un cliente.
   """
-  Token.objects.filter(usuario_id = obtenerId(peticion)).delete()
-  return HttpResponse("0")
+  programa_tokenizador.models.token.Token.objects.filter(
+    usuario_id = obtenerId(peticion)).delete()
+  return django.http.HttpResponse("0")
 
 
 @utilidades.privilegiosRequeridos('cliente')
@@ -292,29 +282,29 @@ def iniciarRefrescoDeLlaves(peticion):
   """
   Inicia el refresco de llaves, cambiando el estado del usuario,
   sus llaves y sus token mientras que se crean nuevas llaves.
-
   """
 
   # Se cambia el estado de los tokens y las llaves
   idDeCliente = obtenerId(peticion)
   cliente = Usuario.objects.get(pk = idDeCliente)
-  Token.objects.filter(
+  programa_tokenizador.models.token.Token.objects.filter(
     usuario_id = idDeCliente,
     estadoDeToken_id='actual').update(
     estadoDeToken_id='anterior')
-  Llave.objects.filter(
+  programa_tokenizador.models.llave.Llave.objects.filter(
     usuario_id = idDeCliente,
     estadoDeLlave_id='actual').update(
     estadoDeLlave_id='anterior')
 
-  _thread.start_new_thread(generarLlaves, (cliente,))
+  _thread.start_new_thread(
+    programa_tokenizador.negocio.generarLlaves, (cliente,))
 
   # Se cambia el estado del cliente
   cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
     nombre = 'en cambio de llaves')
   cliente.save()
 
-  return HttpResponse("0")
+  return django.http.HttpResponse("0")
 
 
 @utilidades.privilegiosRequeridos('cliente')
@@ -326,39 +316,40 @@ def terminarRefrescoDeLlaves(peticion):
   idDeCliente = obtenerId(peticion)
   cliente = Usuario.objects.get(pk = idDeCliente)
   if(str(cliente.estadoDeUsuario) != 'en cambio de llaves'):
-    return HttpResponse("1")
+    return django.http.HttpResponse("1")
 
   # Si hay tokens con estado anterior se notifica
-  num = len(Token.objects.filter(
+  num = len(programa_tokenizador.models.token.Token.objects.filter(
     usuario_id = idDeCliente,
-    estadoDeToken_id='anterior'))
+    estadoDeToken_id = 'anterior'))
   if(num > 0):
-    return HttpResponse("2")
+    return django.http.HttpResponse("2")
 
   # Eliminar las llaves anteriores del cliente
-  Llave.objects.filter(
+  programa_tokenizador.models.llave.Llave.objects.filter(
     usuario_id = idDeCliente,
-    estadoDeLlave_id='anterior').delete()
+    estadoDeLlave_id = 'anterior').delete()
 
   # Elimina tokens retokenizados
-  Token.objects.filter(
+  programa_tokenizador.models.token.Token.objects.filter(
     usuario_id = idDeCliente,
-    estadoDeToken = EstadoDeToken.objects.get(
-      nombre = 'retokenizado')).delete()
+    estadoDeToken = programa_tokenizador.models\
+      .estado_de_token.EstadoDeToken.objects.get(
+        nombre = 'retokenizado')).delete()
 
   # Se cambia el estado del cliente
   cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
     nombre = 'aprobado')
   cliente.save(force_update=True)
 
-  return HttpResponse("0")
+  return django.http.HttpResponse("0")
 
 
 def verificarCorreoDeRegistro (peticion, vinculo):
   """
   Verifica el correo asociado al vínculo dado
 
-  Hace la verificación de fecha, genera llaves y redirige al inicio. El mensaje
+  Hace la verificación de fecha y redirige al inicio. El mensaje
   mostrado en inicio depende de la verificación anterior.
   """
   correo = Correo.objects.get(
@@ -366,7 +357,9 @@ def verificarCorreoDeRegistro (peticion, vinculo):
       vinculo = vinculo))
 
   # Anterior a 24 horas, error:
-  if datetime.now() - correo.vinculo.fecha > timedelta(hours = 24):
+  if datetime.datetime.now() - correo.vinculo.fecha > \
+    datetime.timedelta(hours = 24):
+
     usuario = Usuario.objects.get(
       correo = correo)
     referenciaAnterior = correo.vinculo
@@ -375,7 +368,7 @@ def verificarCorreoDeRegistro (peticion, vinculo):
     usuario.delete()
     referenciaAnterior.delete()
     correo.delete()
-    return HttpResponseRedirect('/?correo_no_verificado')
+    return django.http.HttpResponseRedirect('/?correo_no_verificado')
 
   # Operación correcta:
   else:
@@ -403,7 +396,7 @@ def verificarCorreoDeActualizacion (peticion, vinculo):
   correo.vinculo = None
   correo.save()
   referenciaAnterior.delete()
-  return HttpResponseRedirect('/?nuevo_correo_verificado')
+  return django.http.HttpResponseRedirect('/?nuevo_correo_verificado')
 
 
 @utilidades.privilegiosRequeridos('administrador')
@@ -440,7 +433,7 @@ def obtenerTotalDeClientesEnEspera (peticion):
     correo__in = Correo.objects.filter(
       estadoDeCorreo = EstadoDeCorreo.objects.get(
         nombre = 'verificado'))).count()
-  return HttpResponse(str(todos))
+  return django.http.HttpResponse(str(todos))
 
 
 @utilidades.privilegiosRequeridos('administrador')
@@ -467,7 +460,7 @@ def obtenerTotalDeClientesEnListaNegra (peticion):
       nombre = 'cliente'),
     estadoDeUsuario = EstadoDeUsuario.objects.get(
       nombre = 'en lista negra')).count()
-  return HttpResponse(str(todos))
+  return django.http.HttpResponse(str(todos))
 
 
 @utilidades.privilegiosRequeridos('administrador')
@@ -484,11 +477,11 @@ def obtenerClientesAprobados (peticion, pagina, limite):
   #complex-lookups-with-q-objects
   """
   todos = Usuario.objects.filter(
-    Q(tipoDeUsuario = TipoDeUsuario.objects.get(
+    django.db.models.Q(tipoDeUsuario = TipoDeUsuario.objects.get(
       nombre = 'cliente')),
-    Q(estadoDeUsuario = EstadoDeUsuario.objects.get(
+    django.db.models.Q(estadoDeUsuario = EstadoDeUsuario.objects.get(
       nombre = 'aprobado')) |
-    Q(estadoDeUsuario = EstadoDeUsuario.objects.get(
+    django.db.models.Q(estadoDeUsuario = EstadoDeUsuario.objects.get(
       nombre = 'en cambio de llaves'))).order_by('correo')
   return utilidades.respuestaJSON(
     todos[(pagina - 1) * limite : pagina * limite])
@@ -498,13 +491,13 @@ def obtenerClientesAprobados (peticion, pagina, limite):
 def obtenerTotalDeClientesAprobados (peticion):
   """Regresa el total de clientes aprobados y en cambio de llaves."""
   todos = Usuario.objects.filter(
-    Q(tipoDeUsuario = TipoDeUsuario.objects.get(
+    django.db.models.Q(tipoDeUsuario = TipoDeUsuario.objects.get(
       nombre = 'cliente')),
-    Q(estadoDeUsuario = EstadoDeUsuario.objects.get(
+    django.db.models.Q(estadoDeUsuario = EstadoDeUsuario.objects.get(
       nombre = 'aprobado')) |
-    Q(estadoDeUsuario = EstadoDeUsuario.objects.get(
+    django.db.models.Q(estadoDeUsuario = EstadoDeUsuario.objects.get(
       nombre = 'en cambio de llaves'))).count()
-  return HttpResponse(str(todos))
+  return django.http.HttpResponse(str(todos))
 
 
 @utilidades.privilegiosRequeridos('administrador')
@@ -552,7 +545,7 @@ def rechazarCliente (peticion, idDeCliente):
     Sistema Tokenizador,
     Proyecto Lovelace.
     """)
-  return HttpResponse()
+  return django.http.HttpResponse()
 
 
 @utilidades.privilegiosRequeridos('administrador')
@@ -575,7 +568,7 @@ def vetarCliente (peticion, idDeCliente):
     Sistema Tokenizador,
     Proyecto Lovelace.
     """)
-  return HttpResponse()
+  return django.http.HttpResponse()
 
 
 @utilidades.privilegiosRequeridos('administrador')
@@ -605,4 +598,4 @@ def desvetarCliente (peticion, idDeCliente):
     Sistema Tokenizador,
     Proyecto Lovelace.
     """)
-  return HttpResponse()
+  return django.http.HttpResponse()

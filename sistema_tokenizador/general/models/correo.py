@@ -4,11 +4,11 @@
   Proyecto Lovelace.
 """
 
+import django
 from .estado_de_correo import EstadoDeCorreo
 from .vinculo import Vinculo
-from django.db import models
 
-class Correo (models.Model):
+class Correo (django.db.models.Model):
   """
   Representación de un correo dentro del sistema.
 
@@ -17,23 +17,23 @@ class Correo (models.Model):
   campo ya existente.
   """
 
-  correo = models.CharField(
+  correo = django.db.models.CharField(
     verbose_name = 'correo electrónico',
     unique = True,
     max_length = 100,
     primary_key = True)
 
-  contrasenia = models.BinaryField(
+  contrasenia = django.db.models.BinaryField(
     verbose_name = 'Hash de contraseña')
 
-  estadoDeCorreo = models.ForeignKey(
+  estadoDeCorreo = django.db.models.ForeignKey(
     'EstadoDeCorreo',
-    models.PROTECT,
+    django.db.models.PROTECT,
     verbose_name = 'estado del correo')
 
-  vinculo = models.ForeignKey(
+  vinculo = django.db.models.ForeignKey(
     'Vinculo',
-    models.PROTECT,
+    django.db.models.PROTECT,
     verbose_name = 'vinculo',
     null = True)
 

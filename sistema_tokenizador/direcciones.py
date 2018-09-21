@@ -13,8 +13,7 @@
   encarga de hacer la resolución (ver js/navegacion.configuracion.js).
 """
 
-from django.contrib import admin
-from django.urls import path, include
+import django
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from .general import funciones as general
@@ -23,61 +22,61 @@ from .programa_tokenizador import funciones as programa_tokenizador
 urlpatterns = [
 
   # Vistas
-  path('', general.inicio, name = 'inicio'),
-  path('documentación', general.inicio),
-  path('control', general.control),
-  path('administración', general.administracion),
+  django.urls.path('', general.inicio, name = 'inicio'),
+  django.urls.path('documentación', general.inicio),
+  django.urls.path('control', general.control),
+  django.urls.path('administración', general.administracion),
 
   # Operaciones de sesión
-  path('api/usuario_de_sesion',
+  django.urls.path('api/usuario_de_sesion',
     general.usuarioDeSesion),
-  path('api/iniciar_sesion',
+  django.urls.path('api/iniciar_sesion',
     general.iniciarSesion),
-  path('api/cerrar_sesion',
+  django.urls.path('api/cerrar_sesion',
     general.cerrarSesion),
-  path('api/operar_cliente',
+  django.urls.path('api/operar_cliente',
     general.operarCliente),
-  path('api/verificar_correo/registro/<vinculo>',
+  django.urls.path('api/verificar_correo/registro/<vinculo>',
     general.verificarCorreoDeRegistro),
-  path('api/verificar_correo/actualizacion/<vinculo>',
+  django.urls.path('api/verificar_correo/actualizacion/<vinculo>',
     general.verificarCorreoDeActualizacion),
-  path('api/iniciar_refresco_de_llaves',
+  django.urls.path('api/iniciar_refresco_de_llaves',
     general.iniciarRefrescoDeLlaves),
-  path('api/terminar_refresco_de_llaves',
+  django.urls.path('api/terminar_refresco_de_llaves',
     general.terminarRefrescoDeLlaves),
-  path('api/eliminar_tokens',
+  django.urls.path('api/eliminar_tokens',
     general.eliminarTokens),
 
   # Operaciones de administración
-  path('api/clientes_en_espera/<int:pagina>/<int:limite>',
+  django.urls.path('api/clientes_en_espera/<int:pagina>/<int:limite>',
     general.obtenerClientesEnEspera),
-  path('api/total_de_clientes_en_espera',
+  django.urls.path('api/total_de_clientes_en_espera',
     general.obtenerTotalDeClientesEnEspera),
-  path('api/clientes_en_lista_negra/<int:pagina>/<int:limite>',
+  django.urls.path('api/clientes_en_lista_negra/<int:pagina>/<int:limite>',
     general.obtenerClientesEnListaNegra),
-  path('api/total_de_clientes_en_lista_negra',
+  django.urls.path('api/total_de_clientes_en_lista_negra',
     general.obtenerTotalDeClientesEnListaNegra),
-  path('api/clientes_aprobados/<int:pagina>/<int:limite>',
+  django.urls.path('api/clientes_aprobados/<int:pagina>/<int:limite>',
     general.obtenerClientesAprobados),
-  path('api/total_de_clientes_aprobados',
+  django.urls.path('api/total_de_clientes_aprobados',
     general.obtenerTotalDeClientesAprobados),
-  path('api/aprobar_cliente/<int:idDeCliente>',
+  django.urls.path('api/aprobar_cliente/<int:idDeCliente>',
     general.aprobarCliente),
-  path('api/rechazar_cliente/<int:idDeCliente>',
+  django.urls.path('api/rechazar_cliente/<int:idDeCliente>',
     general.rechazarCliente),
-  path('api/vetar_cliente/<int:idDeCliente>',
+  django.urls.path('api/vetar_cliente/<int:idDeCliente>',
     general.vetarCliente),
-  path('api/desvetar_cliente/<int:idDeCliente>',
+  django.urls.path('api/desvetar_cliente/<int:idDeCliente>',
     general.desvetarCliente),
 
   # Operaciones de programa tokenizador
-  path('programa_tokenizador/tokenizar',
+  django.urls.path('programa_tokenizador/tokenizar',
     programa_tokenizador.tokenizar),
-  path('programa_tokenizador/detokenizar',
+  django.urls.path('programa_tokenizador/detokenizar',
     programa_tokenizador.detokenizar),
-  path('programa_tokenizador/retokenizar',
+  django.urls.path('programa_tokenizador/retokenizar',
     programa_tokenizador.retokenizar),
-  path('ejecutar',
+  django.urls.path('ejecutar',
     programa_tokenizador.ejecutar)
 
 ]
