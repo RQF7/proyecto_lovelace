@@ -385,9 +385,7 @@ def verificarCorreoDeRegistro (peticion, vinculo):
     correo.vinculo = None
     correo.save()
     referenciaAnterior.delete()
-    _thread.start_new_thread(generarLlaves, (
-      Usuario.objects.get(correo = correo),))
-    return HttpResponseRedirect('/?correo_verificado')
+    return django.http.HttpResponseRedirect('/?correo_verificado')
 
 
 @utilidades.privilegiosRequeridos('cliente')
@@ -530,7 +528,9 @@ def aprobarCliente (peticion, idDeCliente):
     Sistema Tokenizador,
     Proyecto Lovelace.
     """)
-  return HttpResponse()
+  _thread.start_new_thread(
+    programa_tokenizador.negocio.generarLlaves, (cliente,))
+  return django.http.HttpResponse()
 
 
 @utilidades.privilegiosRequeridos('administrador')
