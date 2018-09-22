@@ -9,6 +9,9 @@ language: cpp
 compiler:
   - gcc
 
+git:
+  submodules: false
+
 matrix:
   include:
     - os: linux
@@ -51,6 +54,9 @@ before_install:
   - sudo mkdir /usr/include/cryptopp
   - sudo mv cryptopp/*.h /usr/include/cryptopp/
   - sudo mv cryptopp/libcryptopp.a /usr/lib/
+  # Libaesni
+  - git submodule init "implementaciones/aes_ensamblador/libaesni"
+  - git submodule update "implementaciones/aes_ensamblador/libaesni"
 
 install:
   - eval "${MATRIX_EVAL}"
