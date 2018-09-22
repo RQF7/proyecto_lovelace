@@ -1,14 +1,15 @@
 %
-% Presentación de TT uno.
+% Presentación para congreso.
 % Proyecto Lovelace.
 %
 
 \documentclass{beamer}
 \usepackage{formato}
-\newcommand{\Titulo}{Generación de tokens para proteger
-                     los datos de tarjetas bancarias}
-\newcommand{\Fecha}{Ciudad de México, 9 de mayo de 2018}
+\newcommand{\Titulo}{Un vistazo a la tokenización}
+\newcommand{\Fecha}{Puebla, 14 de octubre de 2018}
 \usepackage{formato_presentaciones}
+
+\setbeameroption{show notes}
 
 \begin{document}
 
@@ -24,16 +25,13 @@
   % Espacio entre párrafos
   \setlength{\parskip}{0.5em}
 
-  \import{presentacion_tt_uno/contenidos/}{planteamiento_problema}
+  \section{Introducción}
 
-  \import{presentacion_tt_uno/contenidos/planteamiento_de_solucion/}
-    {planteamiento_de_solucion}
+  \section{Preliminares}
 
-  \import{presentacion_tt_uno/contenidos/marco_teorico/}{marco_teorico}
+  \section{Algoritmos tokenizadores}
 
-  \import{presentacion_tt_uno/contenidos/tokens/}{tokens}
-
-  \import{presentacion_tt_uno/contenidos/conclusiones/}{conclusiones}
+  \section{Resultados}
 
   \begin{frame}[allowframebreaks]{Bibliografía}
     \printbibliography
