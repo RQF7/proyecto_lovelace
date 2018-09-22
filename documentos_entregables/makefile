@@ -133,30 +133,6 @@ referencias_rci:
 	biber --input-directory $(CARPETA_TEMPORAL) \
 		$(CARPETA_TEMPORAL)/$(PRESENTACION_RCI).bcf
 
-# Articulo ################################################################
-
-ARTICULO 									:= articulo
-CARPETA_ARTICULO 	        := articulo
-FUENTES_ARTICULO          := \
-	$(shell find articulo/ -type f -name '*.tex' -o -name '*.sty')
-COMPILACION_ARTICULO := $(COMPILACION) \
-	$(CARPETA_ARTICULO)/$(ARTICULO).tex
-
-$(CARPETA_ARTICULO)/$(ARTICULO).pdf: $(FUENTES_ARTICULO)
-	mkdir -p $(CARPETA_TEMPORAL)
-	$(COMPILACION_ARTICULO) | tee salida.temporal
-	@if grep "Please (re)run Biber" salida.temporal; then\
-		make referencias_articulo;\
-		$(COMPILACION_ARTICULO) | tee salida.temporal;\
-	else\
-		echo "La bibliografía están al día.";\
-	fi
-	rm -f salida.temporal
-	mv $(CARPETA_TEMPORAL)/$(ARTICULO).pdf ./$(CARPETA_ARTICULO)/
-
-referencias_articulo:
-	bibtex $(CARPETA_TEMPORAL)/$(ARTICULO).aux
-
 # Cronograma ##################################################################
 
 cronograma: cronograma.tex
