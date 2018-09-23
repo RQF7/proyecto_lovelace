@@ -1,10 +1,15 @@
 """
-  funciones.py Definición de funciones externas de módulo de programa
-  tokenizador.
-  Proyecto Lovelace.
+funciones.py Definición de funciones externas de módulo de programa
+tokenizador.
+Proyecto Lovelace.
 """
 
-import base64, hashlib, django, json, subprocess
+import base64
+import hashlib
+import django
+import json
+import subprocess
+
 import sistema_tokenizador.configuraciones as configuraciones
 import sistema_tokenizador.general as general
 
@@ -17,7 +22,8 @@ from ..programa_tokenizador import negocio
 
 
 def autentificar (peticion):
-  """
+  """Verifica las credenciales de la petición dada.
+
   Dada una petición, obtiene las credenciales de la cabecera de autenticación
   y verifica que el usuario sea de tipo cliente y se encuentre en estado
   <<apobado>> o <<en cambio de llaves>>.
@@ -31,14 +37,14 @@ def autentificar (peticion):
     curl --header "Content-Type: application/json" \
          --request POST \
          --data '{"pan" : "28045869693113314", "metodo" : "FFX"}' \
-         http://127.0.0.1:8000/programa_tokenizador/tokenizar
+         http://127.0.0.1:8000/api/programa_tokenizador/tokenizar
 
     Usuario no registrado.
     curl --header "Content-Type: application/json" \
          --user name:password
          --request POST \
          --data '{"pan" : "28045869693113314", "metodo" : "FFX"}' \
-         http://127.0.0.1:8000/programa_tokenizador/tokenizar
+         http://127.0.0.1:8000/api/programa_tokenizador/tokenizar
 
     Usuario del tipo incorrecto
     curl \
@@ -46,7 +52,7 @@ def autentificar (peticion):
       --header "Content-Type application/json" \
       --request POST \
       --data '{"pan" : "28045869693113314", "metodo" : "FFX"}' \
-      http://127.0.0.1:8000/programa_tokenizador/tokenizar
+      http://127.0.0.1:8000/api/programa_tokenizador/tokenizar
 
     Cliente con estado no válido.
     curl \
@@ -54,7 +60,7 @@ def autentificar (peticion):
       --header "Content-Type application/json" \
       --request POST \
       --data '{"pan" : "28045869693113314", "metodo" : "FFX"}' \
-      http://127.0.0.1:8000/programa_tokenizador/tokenizar
+      http://127.0.0.1:8000/api/programa_tokenizador/tokenizar
 
     Cliente cliente con estado válido.
     curl \
@@ -62,7 +68,7 @@ def autentificar (peticion):
       --header "Content-Type application/json" \
       --request POST \
       --data '{"pan" : "1035721378045", "metodo" : "AHR"}' \
-      http://127.0.0.1:8000/programa_tokenizador/tokenizar
+      http://127.0.0.1:8000/api/programa_tokenizador/tokenizar
 
     """
   try:
@@ -98,16 +104,13 @@ def autentificar (peticion):
   return usuario
 
 
-def tokenizar(peticion):
-  """
-  Ejecuta la operación de tokenización y regresa el token asignado.
+def tokenizar (peticion):
+  """Ejecuta la operación de tokenización y regresa el token asignado.
 
   Si ya se había tokenizado ese PAN, regresa el token creado. Si se encuentra
   en cambio de llaves y tiene el actual y el viejo/retokenizado, se regresa
   el actual. Si está en cambio de llaves y solo tiene el viejo, se regresa
-  un error, pidiendo que retokenice.
-
-  """
+  un error, pidiendo que retokenice."""
 
   cliente = autentificar(peticion)
 
@@ -180,13 +183,12 @@ def tokenizar(peticion):
   else:
     return django.http.HttpResponse(tokens[1].token, status = 403)
 
-def detokenizar(peticion):
-  """
-  Ejecuta la operación de detokenización y regresa el pan asociado
+
+def detokenizar (peticion):
+  """Ejecuta la operación de detokenización y regresa el pan asociado.
 
   Documentación asociada:
-  https://docs.python.org/3.5/library/subprocess.html#subprocess.run
-  """
+  https://docs.python.org/3.5/library/subprocess.html#subprocess.run"""
 
   cliente = autentificar(peticion)
 
@@ -245,13 +247,14 @@ def detokenizar(peticion):
 
   return django.http.HttpResponse(resultado.stdout, status = 200)
 
-def retokenizar(peticion):
-  """
+
+def retokenizar (peticion):
+  """Ejecuta la operación de retokenización; regresa el nuevo token.
+
   Se encarga de, dado un token, obtener la nueva versión al detokenizar con la
   llave anterior y tokenizar el resultado con la llave actual. Obviamente,
   esta operación solo la puede requerir un cliente cuyo estado sea <<en cambio
-  de llaves>>.
-  """
+  de llaves>>."""
 
   cliente = autentificar(peticion)
 
@@ -353,19 +356,4 @@ def retokenizar(peticion):
 
     return django.http.HttpResponse(nuevoToken.stdout, status = 200)
 
-def ejecutar(peticion):
-  """
-  Un SSH/Telnet/Cliente remoto con python. Solo por diversión.
 
-  Un ejemplo:
-  curl --header "Content-Type: application/json" \
-       --request POST \
-       --data 'open documentos_entregables/formato_de_seguimiento.pdf' \
-       http://127.0.0.1:8000/ejecutar
-
-  Y, cuando menos en la mac, abro el pdf del lado del servidor.
-  Evidentemente, esto se tiene que quitar cuando o suba a digital ocean...
-  cualquier chistoso va a empezar a jugar con mi servidor.
-  """
-  resultado = subprocess.run(peticion.body.split(), stdout = subprocess.PIPE)
-  return django.http.HttpResponse(resultado.stdout)

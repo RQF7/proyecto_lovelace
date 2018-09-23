@@ -1,7 +1,7 @@
 """
-  funciones.py Funciones de parte pública de sitio,
-  Aplicación web de sistema tokenizador.
-  Proyecto Lovelace.
+funciones.py Funciones de parte pública de sitio,
+Aplicación web de sistema tokenizador.
+Proyecto Lovelace.
 """
 
 import datetime
@@ -23,14 +23,17 @@ from .models.vinculo import Vinculo
 from ..general import negocio
 
 
+################################################################################
+# Funciones de archivos estáticos ##############################################
+################################################################################
+
+
 def inicio (peticion):
-  """
-  Liga a archivo estático de página de inicio.
+  """Liga a archivo estático de página de inicio.
 
   Todas las urls de vistas principales pasan por aquí. index.html solamente
   contiene la aplicación de angular. Es el módulo de ngRoute, en el cliente,
-  quien hace la resolución a un html en específico.
-  """
+  quien hace la resolución a un html en específico."""
 
   respuesta = open(\
     configuraciones.DIRECTORIO_BASE +
@@ -40,8 +43,7 @@ def inicio (peticion):
 
 @utilidades.privilegiosRequeridos('cliente')
 def control (peticion):
-  """
-  Liga a página de administración de tokens.
+  """Liga a página de administración de tokens.
 
   Redirige la petición a la función de inicio. Lo importante aquí es la
   necesidad de privilegios para poder pasar por aquí: solamente los
@@ -58,31 +60,31 @@ def control (peticion):
       utilidades.privilegiosRequeridos(administracionDeTokens, 1)
 
   Más sobre el propio decorador en su definición, esto es, en el archivo
-  de las utilidades.
-  """
+  de las utilidades."""
 
   return inicio(peticion)
 
 
 @utilidades.privilegiosRequeridos('administrador')
 def administracion (peticion):
-  """
-  Liga a página de administración.
+  """Liga a página de administración.
 
   Redirige la petición a la función de inicio. Lo importante aquí es la
   necesidad de privilegios para poder pasar por aquí: solamente los
-  actores de tipo administrador pueden ver esta página (id = 2).
-  """
+  actores de tipo administrador pueden ver esta página (id = 2).  """
 
   return inicio(peticion)
 
 
-def usuarioDeSesion (peticion):
-  """
-  Regresa el usuario de la sesión.
+################################################################################
+# Gestión de sesión ############################################################
+################################################################################
 
-  En caso de no existir, se regresa un http vacío.
-  """
+
+def usuarioDeSesion (peticion):
+  """ Regresa el usuario de la sesión.
+
+  En caso de no existir, se regresa un http vacío.  """
 
   if 'usuario' in peticion.session:
     return django.http.HttpResponse(peticion.session['usuario'])
@@ -91,12 +93,10 @@ def usuarioDeSesion (peticion):
 
 
 def iniciarSesion (peticion):
-  """
-  Valida las credenciales dadas para iniciar una sesión.
+  """ Valida las credenciales dadas para iniciar una sesión.
 
   En caso correcto, registra al usuario en la sesión y regresa el objeto del
-  usuario; en caso incorrecto, regresa un http con un código de error.
-  """
+  usuario; en caso incorrecto, regresa un http con un código de error.  """
 
   objetoDePeticion = json.loads(peticion.body)
   usuario = negocio.autentificar(objetoDePeticion)
@@ -127,10 +127,13 @@ def cerrarSesion (peticion):
   return django.http.HttpResponse()
 
 
-def obtenerId(peticion):
-  """
-  Regresa el identificador del usuario en sesión.
-  """
+################################################################################
+# Operaciones de clientes ######################################################
+################################################################################
+
+
+def obtenerId (peticion):
+  """Regresa el identificador del usuario en sesión."""
   usuario = None
   for objetoDescerializado \
     in django.core.serializers.deserialize("json", peticion.session['usuario']):
@@ -138,11 +141,12 @@ def obtenerId(peticion):
   return usuario.object.id
 
 
-def operarCliente(peticion):
-  """
+def operarCliente (peticion):
+  """Función diccionario para operaciones sobre un cliente.
+
   Sirve como base para realizar las operaciones de
-  registrar, actualizar y eliminar a un cliente.
-  """
+  registrar, actualizar y eliminar a un cliente.  """
+
   if(peticion.method == 'POST'):
     return registrarCliente(peticion)
 
@@ -154,13 +158,11 @@ def operarCliente(peticion):
 
 
 def registrarCliente (peticion):
-  """
-  Registra a un nuevo cliente en la base de datos
+  """Registra a un nuevo cliente en la base de datos.
 
   Registra a el cliente dado en la base de datos y envía un correo con
   el vínculo de verificación; en caso de éxito se regresa un 0; en
-  caso de que el cliente ya exista en la base se regresa un 1.
-  """
+  caso de que el cliente ya exista en la base se regresa un 1.  """
 
   objetoDePeticion = json.loads(peticion.body)
 
@@ -195,14 +197,12 @@ def registrarCliente (peticion):
 
 @utilidades.privilegiosRequeridos('cliente')
 def actualizarCliente (peticion, idDeCliente):
-  """
-  Actualiza los datos de un cliente en la base de datos
+  """Actualiza los datos de un cliente en la base de datos.
 
   Actualiza al cliente dado en la base de datos y envía un correo con
   el vínculo de verificación; en caso de éxito se regresa un 0; en
   caso de que el cliente use un correo utilizado por otro usuario
-  se regresa un 1.
-  """
+  se regresa un 1."""
 
   objetoDePeticion = json.loads(peticion.body)
   cliente = Usuario.objects.get(pk = idDeCliente)
@@ -251,10 +251,10 @@ def actualizarCliente (peticion, idDeCliente):
 
 @utilidades.privilegiosRequeridos('cliente')
 def eliminarCliente (peticion, idDeCliente):
-  """
+  """Elimina al cliente dado.
+
   Elimina los datos de un cliente en la base de datos y todo lo
-  referente a el.
-  """
+  referente a el."""
 
   cliente = Usuario.objects.get(pk = idDeCliente)
   Usuario.objects.filter(pk = idDeCliente).delete()
@@ -268,21 +268,19 @@ def eliminarCliente (peticion, idDeCliente):
 
 
 @utilidades.privilegiosRequeridos('cliente')
-def eliminarTokens(peticion):
-  """
-  Elimina los tokens de un cliente.
-  """
+def eliminarTokens (peticion):
+  """Elimina los tokens de un cliente."""
   programa_tokenizador.models.token.Token.objects.filter(
     usuario_id = obtenerId(peticion)).delete()
   return django.http.HttpResponse("0")
 
 
 @utilidades.privilegiosRequeridos('cliente')
-def iniciarRefrescoDeLlaves(peticion):
-  """
+def iniciarRefrescoDeLlaves (peticion):
+  """Inicia el refresco de llaves del usuario en sesión.
+
   Inicia el refresco de llaves, cambiando el estado del usuario,
-  sus llaves y sus token mientras que se crean nuevas llaves.
-  """
+  sus llaves y sus token mientras que se crean nuevas llaves.  """
 
   # Se cambia el estado de los tokens y las llaves
   idDeCliente = obtenerId(peticion)
@@ -308,11 +306,9 @@ def iniciarRefrescoDeLlaves(peticion):
 
 
 @utilidades.privilegiosRequeridos('cliente')
-def terminarRefrescoDeLlaves(peticion):
-  """
-  Termina el refresco de llaves
-  """
-  # Si el cliente no tiene esta en el estado correcto
+def terminarRefrescoDeLlaves (peticion):
+  """Termina el refresco de llaves."""
+  # Si el cliente no está en el estado correcto
   idDeCliente = obtenerId(peticion)
   cliente = Usuario.objects.get(pk = idDeCliente)
   if(str(cliente.estadoDeUsuario) != 'en cambio de llaves'):
@@ -346,12 +342,10 @@ def terminarRefrescoDeLlaves(peticion):
 
 
 def verificarCorreoDeRegistro (peticion, vinculo):
-  """
-  Verifica el correo asociado al vínculo dado
+  """Verifica el correo asociado al vínculo dado (registro)
 
   Hace la verificación de fecha y redirige al inicio. El mensaje
-  mostrado en inicio depende de la verificación anterior.
-  """
+  mostrado en inicio depende de la verificación anterior."""
   correo = Correo.objects.get(
     vinculo = Vinculo.objects.get(
       vinculo = vinculo))
@@ -383,10 +377,7 @@ def verificarCorreoDeRegistro (peticion, vinculo):
 
 @utilidades.privilegiosRequeridos('cliente')
 def verificarCorreoDeActualizacion (peticion, vinculo):
-  """
-  Verifica el correo asociado al vínculo dado sin
-  verificación de fecha.
-  """
+  """Verifica el correo asociado al vínculo dado (actualización)."""
   correo = Correo.objects.get(
     vinculo = Vinculo.objects.get(vinculo = vinculo))
 
@@ -399,17 +390,20 @@ def verificarCorreoDeActualizacion (peticion, vinculo):
   return django.http.HttpResponseRedirect('/?nuevo_correo_verificado')
 
 
+################################################################################
+# Operaciones de administradores ###############################################
+################################################################################
+
+
 @utilidades.privilegiosRequeridos('administrador')
 def obtenerClientesEnEspera (peticion, pagina, limite):
-  """
-  Función de paginador para clientes en espera.
+  """Función de paginador para clientes en espera.
 
   Regresa el rango solicitado de clientes en espera con un correo
   verificado.
 
   Importante: aquí se muestra cómo hacer, con la API de django,
-  una consulta con filtros en dos tablas distintas.
-  """
+  una consulta con filtros en dos tablas distintas."""
   todos = Usuario.objects.filter(
     tipoDeUsuario = TipoDeUsuario.objects.get(
       nombre = 'cliente'),
@@ -438,11 +432,9 @@ def obtenerTotalDeClientesEnEspera (peticion):
 
 @utilidades.privilegiosRequeridos('administrador')
 def obtenerClientesEnListaNegra (peticion, pagina, limite):
-  """
-  Función de paginador para clientes en lista negra.
+  """Función de paginador para clientes en lista negra.
 
-  Regresa el rango solicitado de clientes en lista negra.
-  """
+  Regresa el rango solicitado de clientes en lista negra."""
   todos = Usuario.objects.filter(
     tipoDeUsuario = TipoDeUsuario.objects.get(
       nombre = 'cliente'),
@@ -465,8 +457,7 @@ def obtenerTotalDeClientesEnListaNegra (peticion):
 
 @utilidades.privilegiosRequeridos('administrador')
 def obtenerClientesAprobados (peticion, pagina, limite):
-  """
-  Función de paginador para clientes aprobados.
+  """Función de paginador para clientes aprobados.
 
   Regresa el rango solicitados de clientes aprobados.
 
@@ -474,8 +465,7 @@ def obtenerClientesAprobados (peticion, pagina, limite):
   «get» funcionan con AND.
 
   https://docs.djangoproject.com/en/2.1/topics/db/queries/
-  #complex-lookups-with-q-objects
-  """
+  #complex-lookups-with-q-objects"""
   todos = Usuario.objects.filter(
     django.db.models.Q(tipoDeUsuario = TipoDeUsuario.objects.get(
       nombre = 'cliente')),
@@ -573,14 +563,12 @@ def vetarCliente (peticion, idDeCliente):
 
 @utilidades.privilegiosRequeridos('administrador')
 def desvetarCliente (peticion, idDeCliente):
-  """
-  Cambia el estado del cliente a aprobado y envía notificación.
+  """Cambia el estado del cliente a aprobado y envía notificación.
 
   TODO:
   ¿Qué pasa con un cliente que antes de pasar a la lista negra se encontraba
   a mitad de un proceso de cambio de llaves? Técnicamente, aquí tendríamos que
-  regresarlo a ese estado.
-  """
+  regresarlo a ese estado."""
   cliente = Usuario.objects.get(pk = idDeCliente)
   cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
     nombre = 'aprobado')
@@ -599,3 +587,4 @@ def desvetarCliente (peticion, idDeCliente):
     Proyecto Lovelace.
     """)
   return django.http.HttpResponse()
+

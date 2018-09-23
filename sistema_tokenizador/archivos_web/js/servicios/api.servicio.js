@@ -11,7 +11,7 @@ sistemaTokenizador.factory('api', [
   )
   {
     var API = {};
-    var RUTA_BASE = '/api';
+    var RUTA_BASE = '/api/general';
 
     /* Operaciones de sesión. */
 
