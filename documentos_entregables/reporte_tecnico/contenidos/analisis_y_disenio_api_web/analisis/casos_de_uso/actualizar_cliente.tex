@@ -44,11 +44,12 @@
 
     \item El sistema registra la nueva dirección del cliente en estado
       \textbf{no verificado}, según la regla de negocios
-      \hipervinculo{rn:estados_cliente} y un nuevo vínculo tomando en cuenta
+      \hipervinculo{rn:estados_correo} y un nuevo vínculo tomando en cuenta
       la regla de negocios
-      \hipervinculo{rn:hipervinculo_verificacion}, \hipervinculo{rn:estados_correo}.
+      \hipervinculo{rn:hipervinculo_verificacion}.
 
-    \item El sistema elimina el correo con estado con estado \textbf{verificado}.
+    \item El sistema elimina el correo con estado con estado \textbf{verificado}
+      (regla de negocion \hipervinculo{rn:estados_correo}).
 
     \item El sistema manda un correo al cliente con un hipervínculo de
       verificación.

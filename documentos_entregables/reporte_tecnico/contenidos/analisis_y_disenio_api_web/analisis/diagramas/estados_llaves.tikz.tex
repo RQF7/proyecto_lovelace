@@ -26,22 +26,22 @@
     (estado_inicial) {};
   \node[estado]
     (actual)
-    [right = 1.8in of estado_inicial]
+    [right = 2.2in of estado_inicial]
     {Actual};
   \node[estado]
     (anterior)
-    [below right = 0.6in of actual]
+    [below = 1.4in of actual]
     {Anterior};
 
 % Estado final
   \draw[
     fill = black]
-    ($(anterior.west) + (-3.6in, -0.8in)$)
+    ($(anterior.west) + (-2.2in, 0)$)
     circle
-    (5pt);
+    (6pt);
   \draw[
     draw = black]
-    ($(anterior.west) + (-3.6in, -0.8in)$)
+    ($(anterior.west) + (-2.2in, 0)$)
     circle
     (7.5pt);
 
@@ -70,41 +70,37 @@
       {\hipervinculo{cu:aprobar_cliente}}
     ($(actual.west) - (0, 0.2in)$);
   \draw[-Stealth]
-    (actual.east)
-    -|
+    (actual.south)
+    --
     node[
       etiqueta_transicion,
       text width = 1.6in,
-      below right]
+      right]
       {\hipervinculo{cu:iniciar_refresco}}
     (anterior.north);
 
   \draw[-Stealth]
-    ($(anterior.south) + (-0.2in, 0)$)
-    --
-    ($(anterior.south) + (-0.2in, -0.3in)$)
+    ($(anterior.west) + (0, 0.2in)$)
     --
     node[
       etiqueta_transicion,
       text width = 1.6in,
       above]
       {\hipervinculo{cu:terminar_refresco}}
-    ($(anterior.west) + (-3.6in, -0.6in)$)
+    ($(anterior.west) + (-2.2in, 0.2in)$)
     --
-    ($(anterior.west) + (-3.6in, -0.8in) + (0, 7.5pt)$);
+    ($(anterior.west) + (-2.2in, 0) + (0, 7.5pt)$);
   \draw[-Stealth]
-    ($(anterior.south) + (+0.2in, 0)$)
-    --
-    ($(anterior.south) + (+0.2in, -0.7in)$)
+    ($(anterior.west) - (0, 0.2in)$)
     --
     node[
       etiqueta_transicion,
       text width = 1.6in,
       below]
       {\hipervinculo{cu:eliminar_cliente}}
-    ($(anterior.west) + (-3.6in, -1.0in)$)
+    ($(anterior.west) + (-2.2in, -0.2in)$)
     --
-    ($(anterior.west) + (-3.6in, -0.8in) - (0, 7.5pt)$);
+    ($(anterior.west) + (-2.2in, 0) - (0, 7.5pt)$);
 
 
 \end{tikzpicture}
