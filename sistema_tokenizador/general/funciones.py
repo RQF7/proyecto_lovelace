@@ -390,6 +390,25 @@ def verificarCorreoDeActualizacion (peticion, vinculo):
   return django.http.HttpResponseRedirect('/?nuevo_correo_verificado')
 
 
+@utilidades.privilegiosRequeridos('cliente')
+def verificarCriptoperiodo(peticion):
+  """Verifica el criptoperiodo del usuario en sesión.
+
+  Obtiene una llave en estado actual del usuario en sesión y verifica la
+  vigencia de la llave. Regresa un 1 en caso de que la llave ya haya caducado. =
+  en otro caso."""
+
+  llave = programa_tokenizador.models.llave.Llave.objects.filter(
+    usuario = Usuario.objects.get(
+      pk = obtenerId(peticion)),
+    estadoDeLlave = 'actual')[0]
+  if datetime.datetime.now() - llave.fechaDeCreacion > \
+    datetime.timedelta(days = llave.criptoperiodo):
+    return django.http.HttpResponse("1")
+  else:
+    return django.http.HttpResponse("0")
+
+
 ################################################################################
 # Operaciones de administradores ###############################################
 ################################################################################

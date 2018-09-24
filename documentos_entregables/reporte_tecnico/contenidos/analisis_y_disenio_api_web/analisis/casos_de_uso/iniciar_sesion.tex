@@ -48,6 +48,11 @@
       \hipervinculo{iu:control} tomando en cuenta el estado
       del cliente.
 
+    \item El sistema calcula los días restantes para la expiración de las
+      llaves del cliente (regla de negocios
+      \hipervinculo{rn:criptoperiodo_llave});
+      [\hipervinculoLocal{ta:criptoperiodo}].
+
   \end{trayectoriaPrincipal}
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -146,6 +151,16 @@
     \item El sistema muestra la pantalla
       \hipervinculo{iu:administracion} con los datos obtenidos en el paso
       anterior.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[ta:criptoperiodo]
+    {Las llaves del cliente caducaron}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{msj:adv_expiracion_de_llaves}.
 
   \end{trayectoriaAlternativa}
 }

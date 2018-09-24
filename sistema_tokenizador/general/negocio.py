@@ -61,7 +61,7 @@ def enviarVinculoDeVerificacion (usuario, tipo):
     Para poder verificar su correo en el sistema tokenizador debe
     hacer clic en el siguiente vínculo:
 
-    {0}/api/verificar_correo/{1}/{2}
+    {0}/api/general/verificar_correo/{1}/{2}
 
     Atentamente,
     Departamento de verificación de cuentas,
