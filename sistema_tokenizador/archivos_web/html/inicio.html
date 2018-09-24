@@ -18,27 +18,27 @@
       <h1>¿Qué es la tokenización?</h1>
       <h2>Primero, ¿qué es un token?</h2>
       <p>
-        Antes de definir la <em>tokenización</em>, es menester definir lo que es un
-        token: normalmente, se le conoce como un valor representativo de otro valor;
-        el concepto de token es ampliamente utilizado en otros contextos, y,
-        dependiendo de este, varían sus características. En la criptografía (que es
-        el contexto en el que se encuentra este servicio), este <em>valor
-        representativo</em> no debe tener una relación directa con el valor
-        original; de hecho, que un adversario posea un token no representa peligro
-        alguno, pues no es posible, sin los mecanismos de detokenización, regresar
-        al valor original. Por lo tanto, un token puede ser utilizado para
-        proteger información confidencial.
+        Antes de definir la <em>tokenización</em>, es menester definir lo que es
+        un token: normalmente, se le conoce como un valor representativo de otro
+        valor; el concepto de token es ampliamente utilizado en otros contextos,
+        y, dependiendo de este, varían sus características. En la criptografía
+        (que es el contexto en el que se encuentra este servicio), este
+        <em>valor representativo</em> no debe tener una relación directa con el
+        valor original; de hecho, que un adversario posea un token no representa
+        peligro alguno, pues no es posible, sin los mecanismos de
+        detokenización, regresar al valor original. Por lo tanto, un token puede
+        ser utilizado para proteger información confidencial.
       </p>
 
       <h2>Sobre la tokenización</h2>
       <p>
-        Con esta definición de un token, se puede definir a la tokenización como el
-        proceso en el que se obtiene el valor sustituto. Este paradigma de sustituir
-        datos sensibles por datos representativos (y sin valor) es relativamente
-        nuevo, pero muy útil al momento de proteger la información, pues permite
-        concentrar toda la información valiosa en un solo lugar y dejar de
-        preocuparse por protegerla en todos lados (en vez de vigilar un castillo,
-        se vigila una habitación).
+        Con esta definición de un token, se puede definir a la tokenización como
+        el proceso en el que se obtiene el valor sustituto. Este paradigma de
+        sustituir datos sensibles por datos representativos (y sin valor) es
+        relativamente nuevo, pero muy útil al momento de proteger la
+        información, pues permite concentrar toda la información valiosa en un
+        solo lugar y dejar de preocuparse por protegerla en todos lados (en vez
+        de vigilar un castillo, se vigila una habitación).
       </p>
       <p>
         La operación inversa, es decir dado un token, obtener el PAN que le
@@ -48,46 +48,48 @@
       <h1>¿Por qué utilizar un servicio de tokenización?</h1>
       <p>
         Desde que el comercio eletrónico comenzó a popularizarse, los fraudes
-        relacionados con las tarjetas bancarias y el comercio en línea crecieron,
-        pues los sitios de bancarios y de comercion no estaban preparados para la
-        demanda y las amenazas de seguridad a las que comenzaron a enfrentarse. Por
-        lo tanto, en 2004, fue publicado por primera vez un estándar (PCI DSS,
-        respaldado por compañías como VISA y MasterCard) donde se dan las guías de
-        seguridad que deberían seguir todos aquellos que traten con datos de
-        tarjetas o realicen transacciones bancarias.
+        relacionados con las tarjetas bancarias y el comercio en línea
+        crecieron, pues los sitios de bancarios y de comercion no estaban
+        preparados para la demanda y las amenazas de seguridad a las que
+        comenzaron a enfrentarse. Por lo tanto, en 2004, fue publicado por
+        primera vez un estándar (PCI DSS, respaldado por compañías como VISA y
+        MasterCard) donde se dan las guías de seguridad que deberían seguir
+        todos aquellos que traten con datos de tarjetas o realicen transacciones
+        bancarias.
       </p>
       <p>
         Aunque este estándar no es obligatorio para aquellas entidades que
         realicen menos de 20 000 transacciones en un año; es extremadamente
         recomendable que se sigan la guía para mantener segura la información y
-        transacciones.
-        Empero, satisfacer completamente el estándar es una verdadera proeza, cuenta
-        con más de 200 requerimientos para segurar la robustez y seguridad del
-        sistema que trata con los datos y pagos con tarjetas bancarias.
+        transacciones.  Empero, satisfacer completamente el estándar es una
+        verdadera proeza, cuenta con más de 200 requerimientos para segurar la
+        robustez y seguridad del sistema que trata con los datos y pagos con
+        tarjetas bancarias.
       </p>
       <p>
         Es aquí donde entran los servicios de tokenización, pues se encargan de
-        cumplir con todos los requerimientos y quitarle esa pesada carga para que
-        pueda enfocarse en sus actividades sin preocuparse por el estándar y sus
-        implementaciones. Obviamente, es muy importante saber cómo es que servicio
-        de tokenización está obteniendo los tokens, pues no basta con asegurar que
-        son seguros; los servicios deben indicar (y hacer públicos) los algoritmos
-        que utilizan para generar los tokens. Por lo tanto, que un servicio
-        clame que tiene la mejor manera para generar tokens, pero no especifique
-        cómo es que los está obteniendo (o que lo haga de manera vaga, por ejemplo,
-        asegurando que sus tokens son obtenidos aleatoriamente sin dar más
-        detalles), es inadmisible, pues un buen algoritmo tokenizador no depende en
-        absoluto de ser mantenido en secreto.
+        cumplir con todos los requerimientos y quitarle esa pesada carga para
+        que pueda enfocarse en sus actividades sin preocuparse por el estándar y
+        sus implementaciones. Obviamente, es muy importante saber cómo es que
+        servicio de tokenización está obteniendo los tokens, pues no basta con
+        asegurar que son seguros; los servicios deben indicar (y hacer públicos)
+        los algoritmos que utilizan para generar los tokens. Por lo tanto, que
+        un servicio clame que tiene la mejor manera para generar tokens, pero no
+        especifique cómo es que los está obteniendo (o que lo haga de manera
+        vaga, por ejemplo, asegurando que sus tokens son obtenidos
+        aleatoriamente sin dar más detalles), es inadmisible, pues un buen
+        algoritmo tokenizador no depende en absoluto de ser mantenido en
+        secreto.
       </p>
 
       <h1>¿Por qué utilizar ESTE servicio de tokenización?</h1>
       <p>
-        A diferencia de otros competidores, nosotros somos transparentes respecto
-        a la manera en la que se generan los tokens; actualmente, hay cinco
-        algoritmos distintos para obtener tokens y usted puede decidir, para cada
-        token, el algoritmo que será utilizado: un poco más adelante hay una sección
-        que explica brevemente cada algoritmo y nuestras implementaciones son
-        públicas.
+        A diferencia de otros competidores, nosotros somos transparentes
+        respecto a la manera en la que se generan los tokens; actualmente, hay
+        cinco algoritmos distintos para obtener tokens y usted puede decidir,
+        para cada token, el algoritmo que será utilizado: un poco más adelante
+        hay una sección que explica brevemente cada algoritmo y nuestras
+        implementaciones son públicas.
       </p>
 
       <h1>¿Qué es el PCI SSC?</h1>
@@ -100,28 +102,28 @@
       </p>
       <p>
         Esta organización desarrolló el PCI Data Security Standard (DSS): un
-        estándar en el que se indica la manera de mantener la información bancaria
-        segura mediante la implementación de protocolos de seguridad.
+        estándar en el que se indica la manera de mantener la información
+        bancaria segura mediante la implementación de protocolos de seguridad.
       </p>
       <p>
-        Es importante resaltar que el PCI SSC ha establecido como requerimiento la
-        implementación del PCI DSS solo para aquellas entidades que realizan un
-        número de transacciones considerables (20 000 al año).
+        Es importante resaltar que el PCI SSC ha establecido como requerimiento
+        la implementación del PCI DSS solo para aquellas entidades que realizan
+        un número de transacciones considerables (20 000 al año).
       </p>
 
       <h1>Sobre los algoritmos de tokenización</h1>
       <p>
         Nuestro sistema permite seleccionar el algoritmo con el que se desea
-        tokenizar un dato. Se tienen dos tipos de algoritmos: los reversibles y los
-        irreversibles. La diferencia entre unos y otros radica en la operación de
-        detokenización, pues los primeros (los reversibles) <em>descifran</em> el
-        token para obtener el PAN; mientras que los segundos hacen una consulta a
-        una base de datos para obtener el PAN.
+        tokenizar un dato. Se tienen dos tipos de algoritmos: los reversibles y
+        los irreversibles. La diferencia entre unos y otros radica en la
+        operación de detokenización, pues los primeros (los reversibles)
+        <em>descifran</em> el token para obtener el PAN; mientras que los
+        segundos hacen una consulta a una base de datos para obtener el PAN.
       </p>
       <p>
         Contamos con 2 algoritmos de tokenización reversibles: FFX y BPS, y 3
-        algoritmos de tokenización irreversibles: TKR, AHR y DRBG. A continuación
-        se encuentra una breve descripción de cada uno.
+        algoritmos de tokenización irreversibles: TKR, AHR y DRBG. A
+        continuación se encuentra una breve descripción de cada uno.
       </p>
 
       <div>
@@ -193,8 +195,9 @@
         </p>
         <p>
           Este se basa en un cifrado de bloques y una caminata cíclica para
-          generar tokens que mantengan el formato; los tokens son almacenados en una
-          base de datos segura para guardar la relación con los datos originales.
+          generar tokens que mantengan el formato; los tokens son almacenados en
+          una base de datos segura para guardar la relación con los datos
+          originales.
         </p>
         <p>
           Para conocer más sobre este algoritmo revise el siguiente artículo:
@@ -229,13 +232,13 @@
 
       <h1>Una comparación</h1>
       <p>
-        En aras de arrojar luz sobre el desempeño de los algoritmos, a continuación
-        se encuentran dos gráficas que muestran el tiempo que les toma a sendos
-        algotimos realizar el mismo número de tokenizaciones. Naturalmente, los
-        algoritmos irreversibles son más lentos, pues deben realizar operaciones
-        en la base de datos; por lo que se comparan algoritmos reversibles con
-        algoritmos reversibles y algoritmos irreversibles con algoritmos
-        irreversibles.
+        En aras de arrojar luz sobre el desempeño de los algoritmos, a
+        continuación se encuentran dos gráficas que muestran el tiempo que les
+        toma a sendos algotimos realizar el mismo número de tokenizaciones.
+        Naturalmente, los algoritmos irreversibles son más lentos, pues deben
+        realizar operaciones en la base de datos; por lo que se comparan
+        algoritmos reversibles con algoritmos reversibles y algoritmos
+        irreversibles con algoritmos irreversibles.
       </p>
       <p>
         En esta primera gráfica se comparan los tiempos de tokenización y
@@ -246,8 +249,8 @@
         <img src="estaticos/imagenes/todo_rev.png">
       </div>
       <p>
-        Es importante observar que los tiempos de tokenización y detokenización son
-        tan parecidos, que sus gráficas se sobreponen completamente.
+        Es importante observar que los tiempos de tokenización y detokenización
+        son tan parecidos, que sus gráficas se sobreponen completamente.
       </p>
       <p>
         En esta otra se muestra los tiempos de tokenización y detokenización de
