@@ -31,6 +31,8 @@ urlpatterns = [
     funciones.terminarRefrescoDeLlaves),
   django.urls.path('eliminar_tokens',
     funciones.eliminarTokens),
+  django.urls.path('verificar_criptoperiodo',
+    funciones.verificarCriptoperiodo),
 
   # Operaciones de administración
   django.urls.path('clientes_en_espera/<int:pagina>/<int:limite>',

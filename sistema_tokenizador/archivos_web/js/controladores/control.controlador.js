@@ -16,8 +16,13 @@ sistemaTokenizador.controller('controladorControl', [
     api
   )
   {
+    /* Datos públicos. *******************************************************/
+
     $scope.cambiarTitulo("Control", 3);
     $scope.cliente = {};
+    $scope.avisoDeActualizacion = false;
+
+    /* Acciones públicas. ****************************************************/
 
     $scope.actualizarCliente = function ($event) {
       var padre = angular.element(document.body);
@@ -95,6 +100,14 @@ sistemaTokenizador.controller('controladorControl', [
         }
       });
     };
+
+    /* Fase de inicialización. ***********************************************/
+
+    api.verificarCriptoperiodo().then(function (respuesta) {
+      if (respuesta.data == "1") {
+        $scope.avisoDeActualizacion = true;
+      }
+    });
 
   }
 ]);
