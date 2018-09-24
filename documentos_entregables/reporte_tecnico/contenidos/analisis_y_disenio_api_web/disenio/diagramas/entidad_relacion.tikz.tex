@@ -1,0 +1,91 @@
+%
+% Diagrama de clases de aplicación web.
+% Capítulo de análisis y diseño de aplicación web.
+% Proyecto Lovelace.
+%
+
+\tikzset{every entity/.style={fill=white}}
+\tikzset{every relationship/.style={fill=white}}
+\tikzset{every attribute/.style={fill=white, node distance=5em}}
+\newcommand{\key}[1]{\underline{#1}}
+
+\begin{tikzpicture}
+
+  \node[entity](Usuarios) {Usuarios};
+
+  \node[attribute][left of=Usuarios]
+    {\key{ID}} edge (Usuarios);
+  \node[attribute][above left of=Usuarios]
+    {Estado} edge (Usuarios);
+  \node[attribute][above of=Usuarios]
+    {Tipo} edge (Usuarios);
+  \node[attribute][above right of=Usuarios]
+    {Contador} edge (Usuarios);
+
+  \node[relationship](Usuarios_Correos)[node distance=10em, right of=Usuarios]
+    {Tienen} edge node[above, node distance=0.5em]{1} (Usuarios);
+
+  \node[entity](Correos)[node distance=10em, right of=Usuarios_Correos]
+    {Correos} edge node[above, node distance=0.5em]{1} (Usuarios_Correos);
+  \node[attribute][above of=Correos]
+    {\key{Correo}} edge (Correos);
+  \node[attribute][below left of=Correos]
+    {Contraseña} edge (Correos);
+  \node[attribute][below right of=Correos]
+    {Estado} edge (Correos);
+
+  \node[relationship](Correos_Vinculos)[node distance=10em, right of=Correos]
+    {Verificados por} edge node[above, node distance=0.5em]{1} (Correos);
+
+  \node[entity](Vinculos)[node distance=10em, right of=Correos_Vinculos]
+    {Vinculos} edge node[above, node distance=0.5em]{1} (Correos_Vinculos);
+  \node[attribute][above left of=Vinculos]
+    {\key{Vinculo}} edge (Vinculos);
+  \node[attribute][above right of=Vinculos]
+    {Fecha} edge (Vinculos);
+
+  \node[relationship](Usuarios_Llaves)[node distance=10em, below right of=Usuarios]
+    {Tienen} edge node[above right, node distance=0.5em]{1} (Usuarios);
+
+  \node[entity](Llaves)[node distance=12em, below right of=Usuarios_Llaves]
+    {Llaves} edge node[above right, node distance=0.5em]{n} (Usuarios_Llaves);
+  \node[attribute][left of=Llaves]
+    {\key{ID}} edge (Llaves);
+  \node[attribute][below left of=Llaves]
+    {Estado} edge (Llaves);
+  \node[attribute][below right of=Llaves]
+    {Llave} edge (Llaves);
+  \node[attribute][above right of=Llaves]
+    {Fecha de creación} edge (Llaves);
+  \node[attribute][node distance=6em, below of=Llaves]
+    {Criptoperiodo} edge (Llaves);
+
+  \node[relationship](Llaves_Algoritmos)[node distance=10em, right of=Llaves]
+    {De} edge node[above, node distance=0.5em]{n} (Llaves);
+
+  \node[entity](Algoritmos)[node distance=10em, right of=Llaves_Algoritmos]
+    {Algoritmos} edge node[above, node distance=0.5em]{1} (Llaves_Algoritmos);
+  \node[attribute][above left of=Algoritmos]
+    {\key{ID}} edge (Algoritmos);
+  \node[attribute][above right of=Algoritmos]
+    {Nombre} edge (Algoritmos);
+  \node[attribute][below left of=Algoritmos]
+    {Longitud de llave} edge (Algoritmos);
+  \node[attribute][below right of=Algoritmos]
+    {Tipo} edge (Algoritmos);
+
+  \node[relationship](Usuarios_Tokens)[node distance=8em, below of=Usuarios]
+    {Genera} edge node[right, node distance=0.5em]{1} (Usuarios);
+
+  \node[entity](Tokens)[node distance=8em, below of=Usuarios_Tokens]
+    {Tokens} edge node[right, node distance=0.5em]{n} (Usuarios_Tokens);
+  \node[attribute][left of=Tokens]
+    {\key {ID}} edge (Tokens);
+  \node[attribute][below left of=Tokens]
+    {Token} edge (Tokens);
+  \node[attribute][below right of=Tokens]
+    {No. de tarjeta} edge (Tokens);
+  \node[attribute][node distance=6em, right of=Tokens]
+    {Estado} edge (Tokens);
+
+\end{tikzpicture}
