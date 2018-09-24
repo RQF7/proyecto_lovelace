@@ -22,7 +22,7 @@
 
     \item El sistema verifica que el estado del cliente sea \textbf{aceptado}
       o \textbf{en cambio de llaves}, (tomando en cuenta la regla de negocios
-      \hipervinculo{rn:estado_de_usuario});
+      \hipervinculo{rn:estados_cliente});
       [\hipervinculoLocal{ta:cliente_sin_permisos}].
 
     \item El sistema verifica que el el token dado sea válido (regla de
@@ -62,8 +62,7 @@
 
     \item El sistema obtiene el número de tarjeta con el token y la llave
       con estado \textbf{actual}, tomando en cuenta la regla de negocios
-      \hipervinculo{rn:detokenizacion};
-      [\hipervinculoLocal{ta:error_detokenizacion}].
+      \hipervinculo{rn:detokenizacion}.
 
     \item Regresar al paso \referenciaLocal{regreso_tarjeta} de la trayectoria
       principal.
