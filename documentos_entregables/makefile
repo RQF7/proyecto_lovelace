@@ -139,6 +139,26 @@ cronograma: cronograma.tex
 	pdflatex --output-dir $(CARPETA_TEMPORAL) $@.tex
 	mv $(CARPETA_TEMPORAL)/$@.pdf ./
 
+# Prueba ######################################################################
+
+# Para construcción de diagramas de tikz.
+# fswatch se mantiene esperando notificaciones de cambio del archivo. La bandera
+# «-1» hace que el comando termine a la primera llamada; entonces se compila
+# el documento y hasta después se hace una llamada recursiva para volver a
+# vigilar el archivo. De esta forma se hacen compilaciones automáticas. Esto es
+# factible para documentos pequeños, en donde la compilación es rápida; no
+# serviría con el reporte técnico.
+#
+# En el manual de fswatch se describe otra forma de hacer este tipo de tareas:
+# usando una tubería junto con xargs. En este caso eso no sirve dado que
+# pdflatex también activa las notificaciones de fswatch, por lo que se entra en
+# un bucle de compilaciones infinito.
+
+prueba:
+	fswatch -1 prueba.tex
+	$(COMPILACION) prueba.tex
+	make prueba
+
 # Es necesario tener el ejecutable de hunspell en el PATH, y el diccionario
 # es_MX instalado. Este comando (ortografía) es ejecutado por Travis para
 # validar un push, si lo que se quiere es ejecutar de manera local, es más

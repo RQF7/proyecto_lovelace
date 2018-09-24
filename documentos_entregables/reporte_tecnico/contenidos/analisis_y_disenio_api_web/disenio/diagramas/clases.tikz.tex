@@ -1,0 +1,138 @@
+%
+% Diagrama de clases de aplicación web.
+% Capítulo de análisis y diseño de aplicación web.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[]
+  \begin{umlpackage}{General}
+
+    \umlclass{Operaciones web G}{
+      - utilidades : Utilidades \\
+      - negocio : Negocio}{
+      + usuarioDeSesion(peticion) \\
+      + iniciarSesion(peticion) \\
+      + cerrarSesion(peticion) \\
+      + operarCliente(peticion) \\
+      + iniciarRefrescoDeLlaves(peticion) \\
+      + terminarRefrescoDeLlaves(peticion) \\
+      + aprobarCliente(peticion, idDeCliente) \\
+      + rechazarCliente(peticion, idDeCliente) \\
+      + vetarCliente(peticion, idDeCliente) \\
+      + desvetarCliente(peticion, idDeCliente)}
+
+    \umlclass[x = 6, y = 1]{Direcciones G}{
+      - operaciones web}{
+      + configurarURLs()}
+
+    \umlclass[x = 6, y = -1]{Negocio G}{
+      - utilidades : Utilidades}{
+      + autentificar(credenciales) \\
+      + enviarVinculo(cliente)}
+
+    \umlcompo[%
+      mult1 = 1,
+      anchor2 = 21]{Direcciones G}{Operaciones web G}
+    \umlcompo[%
+      mult1 = 1,
+      anchor1 = -21]{Operaciones web G}{Negocio G}
+
+    \begin{umlpackage}[x = 2.75, y = -4.0]{Modelos}
+      \umlsimpleclass{Usuario}
+      \umlsimpleclass[x = -3, y = 0]{Estado de usuario}
+      \umlsimpleclass[x = 3, y = 0]{Tipo de usuario}
+      \umlcompo{Usuario}{Estado de usuario}
+      \umlcompo{Usuario}{Tipo de usuario}
+      \umlsimpleclass[x = 0, y = -1.5]{Correo}
+      \umlsimpleclass[x = -3, y = -1.5]{Vinculo}
+      \umlsimpleclass[x = 3, y = -1.5]{Estado de correo}
+      \umlcompo{Correo}{Estado de correo}
+      \umlcompo{Correo}{Vinculo}
+      \umlcompo{Usuario}{Correo}
+    \end{umlpackage}
+
+    \umlimport{Operaciones web G}{Modelos}
+    \umlimport{Negocio G}{Modelos}
+
+  \end{umlpackage}
+  \begin{umlpackage}[x = 17, y = 0]{Programa Tokenizador}
+
+    \umlclass{Operaciones web PT}{
+      - utilidades : Utilidades \\
+      - negocio : Negocio}{
+      + tokenizar(peticion) \\
+      + detokenizar(peticion) \\
+      + retokenizar(peticion)}
+
+    \umlclass[x = -4.5, y = 1.3]{Direcciones PT}{
+      - operaciones web}{
+      + configurarURLs()}
+
+    \umlclass[x = -4.5, y = -1]{Negocio PT}{
+      - utilidades : Utilidades}{
+      + evaluarMalasAcciones() \\
+      + validarToken() \\
+      + validarPan() \\
+      + generarLlaves()}
+
+    \umlcompo[%
+      mult1 = 1,
+      anchor1 = -15,
+      anchor2 = 152]{Direcciones PT}{Operaciones web PT}
+    \umlcompo[%
+      mult1=1,
+      anchor1=200,
+      anchor2=12]{Operaciones web PT}{Negocio PT}
+
+    \begin{umlpackage}[x = -6, y = -4]{Modelos}
+      \umlsimpleclass{Token}
+      \umlsimpleclass[x = 3, y = 0]{Estado de token}
+      \umlsimpleclass[x = 0, y = -1.5]{Estado de llave}
+      \umlsimpleclass[x = 3, y = -1.5]{Llave}
+      \umlsimpleclass[x = 6.5, y = -1.5]{Algoritmo}
+      \umlsimpleclass[x = 6.5, y = 0]{Tipo de algoritmo}
+      \umlcompo{Token}{Estado de token}
+      \umlcompo{Llave}{Estado de llave}
+      \umlcompo{Llave}{Algoritmo}
+      \umlcompo{Algoritmo}{Tipo de algoritmo}
+    \end{umlpackage}
+
+    \umlimport{Operaciones web PT}{Modelos}
+    \umlimport{Negocio PT}{Modelos}
+
+  \end{umlpackage}
+
+  \umlclass[x = 2.5, y = 5]{Utilidades}{
+    - servidor SMTP \\
+    - correo \\
+    - contraseña}{
+    + decoradorDePrivilegios() \\
+    + enviarCorreo() \\
+    + algoritmoDeLuhn()}
+
+  \umlclass[x = 14.5, y = 5]{Direcciones}{
+    - direcciones general \\
+    - direcciones prog. tokenizador}{
+    + configurarURLs()}
+
+  \umlcompo[%
+    geometry = |-|,
+    anchors = 270 and 45]{Direcciones}{Direcciones PT}
+  \umlcompo[%
+    geometry = -|,
+    anchors = 180 and 90]{Direcciones}{Direcciones G}
+  \umlcompo[%
+    anchor2 = 232,
+    anchor1 = 61]{Operaciones web G}{Utilidades}
+  \umlcompo[%
+    geometry = -|,
+    anchors = 165 and 300]{Negocio G}{Utilidades}
+  % TODO:
+  % Reacomodar esto para que las relaciones a utilidades no se vean como una
+  % telaraña.
+  %\umlcompo{Operaciones web PT}{Utilidades}
+  %\umlcompo[%
+  %  geometry = -|-]{Negocio PT}{Utilidades}
+
+\end{tikzpicture}
+
