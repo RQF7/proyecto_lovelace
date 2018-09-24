@@ -83,7 +83,7 @@ referencias_fpe:
 	biber --input-directory $(CARPETA_TEMPORAL) \
 		$(CARPETA_TEMPORAL)/$(PRESENTACION_FPE).bcf
 
-# Presentación TT! ###########################################################
+# Presentación TT1 ###########################################################
 
 PRESENTACION_TT1 					:= presentacion_tt_uno
 CARPETA_PRESENTACION_TT1 	:= presentacion_tt_uno
@@ -108,29 +108,30 @@ referencias_tt1:
 	biber --input-directory $(CARPETA_TEMPORAL) \
 		$(CARPETA_TEMPORAL)/$(PRESENTACION_TT1).bcf
 
-# Articulo ################################################################
+# Presentación congreso #######################################################
 
-ARTICULO 									:= articulo
-CARPETA_ARTICULO 	        := articulo
-FUENTES_ARTICULO          := \
-	$(shell find articulo/ -type f -name '*.tex' -o -name '*.sty')
-COMPILACION_ARTICULO := $(COMPILACION) \
-	$(CARPETA_ARTICULO)/$(ARTICULO).tex
+PRESENTACION_RCI 					:= presentacion_rci
+CARPETA_PRESENTACION_RCI 	:= presentacion_rci
+FUENTES_PRESENTACION_RCI  := \
+	$(shell find presentacion_rci/ -type f -name '*.tex' -o -name '*.sty')
+COMPILACION_PRESENTACION_RCI := $(COMPILACION) \
+	$(CARPETA_PRESENTACION_RCI)/$(PRESENTACION_RCI).tex
 
-$(CARPETA_ARTICULO)/$(ARTICULO).pdf: $(FUENTES_ARTICULO)
+$(CARPETA_PRESENTACION_RCI)/$(PRESENTACION_RCI).pdf: $(FUENTES_PRESENTACION_RCI)
 	mkdir -p $(CARPETA_TEMPORAL)
-	$(COMPILACION_ARTICULO) | tee salida.temporal
+	$(COMPILACION_PRESENTACION_RCI) | tee salida.temporal
 	@if grep "Please (re)run Biber" salida.temporal; then\
-		make referencias_articulo;\
-		$(COMPILACION_ARTICULO) | tee salida.temporal;\
+		make referencias_rci;\
+		$(COMPILACION_PRESENTACION_RCI) | tee salida.temporal;\
 	else\
 		echo "La bibliografía están al día.";\
 	fi
 	rm -f salida.temporal
-	mv $(CARPETA_TEMPORAL)/$(ARTICULO).pdf ./$(CARPETA_ARTICULO)/
+	mv $(CARPETA_TEMPORAL)/$(PRESENTACION_RCI).pdf ./$(CARPETA_PRESENTACION_RCI)/
 
-referencias_articulo:
-	bibtex $(CARPETA_TEMPORAL)/$(ARTICULO).aux
+referencias_rci:
+	biber --input-directory $(CARPETA_TEMPORAL) \
+		$(CARPETA_TEMPORAL)/$(PRESENTACION_RCI).bcf
 
 # Cronograma ##################################################################
 

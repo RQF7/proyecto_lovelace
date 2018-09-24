@@ -4,12 +4,16 @@
   Proyecto Lovelace.
 """
 
-import hashlib, datetime
+import datetime
+import hashlib
+
+import sistema_tokenizador.configuraciones as configuraciones
+import sistema_tokenizador.utilidades as utilidades
+
 from .models.correo import Correo
 from .models.usuario import Usuario
 from .models.vinculo import Vinculo
-from sistema_tokenizador import utilidades
-from sistema_tokenizador.configuraciones import DOMINIO
+
 
 def autentificar (usuarioEnPeticion):
   """
@@ -67,10 +71,12 @@ def enviarVinculoDeVerificacion (usuario, tipo):
     Departamento de verificación de cuentas,
     Sistema Tokenizador,
     Proyecto Lovelace.
-    """.format(DOMINIO, tipo, usuario.correo.vinculo.vinculo))
+    """.format(configuraciones.DOMINIO, tipo, usuario.correo.vinculo.vinculo))
+
 
 def enviarVinculoDeVerificacionDeRegistro (usuario):
   enviarVinculoDeVerificacion (usuario, "registro")
+
 
 def enviarVinculoDeVerificacionDeActualizacion (usuario):
   enviarVinculoDeVerificacion (usuario, "actualizacion")

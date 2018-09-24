@@ -4,9 +4,9 @@
   Proyecto Lovelace.
 """
 
-from django.db import models
+import django
 
-class EstadoDeUsuario (models.Model):
+class EstadoDeUsuario (django.db.models.Model):
   """
   Catálogo de estados de usuario.
 
@@ -14,7 +14,7 @@ class EstadoDeUsuario (models.Model):
   ellos son «en lista negra», «aprobado», «sin verificar», etc.
   """
 
-  nombre = models.CharField(
+  nombre = django.db.models.CharField(
     verbose_name = 'nombre del estado de usuario',
     unique = True,
     max_length = 100,

@@ -1,3 +1,6 @@
 [submodule "implementaciones/aes_ensamblador/libaesni"]
 	path = implementaciones/aes_ensamblador/libaesni
 	url = https://github.com/amiralis/libaesni
+[submodule "documentos_entregables/articulo-rci"]
+	path = documentos_entregables/articulo-rci
+	url = https://github.com/RQF7/articulo-tokenizacion.git

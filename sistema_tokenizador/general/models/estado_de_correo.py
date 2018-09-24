@@ -4,16 +4,16 @@
   Proyecto Lovelace.
 """
 
-from django.db import models
+import django
 
-class EstadoDeCorreo (models.Model):
+class EstadoDeCorreo (django.db.models.Model):
   """
   Catálogo de estados de correo.
 
   Los estados son «verificado», «no verificado».
   """
 
-  nombre = models.CharField(
+  nombre = django.db.models.CharField(
     verbose_name = 'nombre del estado de correo',
     unique = True,
     max_length = 50,

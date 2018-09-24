@@ -4,13 +4,10 @@
   Proyecto Lovelace.
 """
 
-from urllib.parse import urlparse, urlunparse
-from django.http import HttpResponse, HttpResponseRedirect, QueryDict
-from django.core import serializers
-from urllib import parse
-from functools import wraps
-from smtplib import SMTP
-from email.mime.text import MIMEText
+import django
+import email
+import functools
+import smtplib
 import _thread
 
 
@@ -31,7 +28,8 @@ def respuestaJSON (objeto):
     iterador = iter(objeto)
   except TypeError:
     objeto = [objeto]
-  return HttpResponse(serializers.serialize("json", objeto))
+  return django.http.HttpResponse(
+    django.core.serializers.serialize("json", objeto))
 
 
 def privilegiosRequeridos (tipoDeUsuario):
@@ -60,20 +58,21 @@ def privilegiosRequeridos (tipoDeUsuario):
 
   def decorador (funcion):
 
-    @wraps(funcion)
+    @functools.wraps(funcion)
     def envolturaDePrivilegios(peticion, *argumentos, **argumentosEnDiccionario):
 
       if 'usuario' not in peticion.session:
-        return HttpResponseRedirect('/?siguiente=' + peticion.path)
+        return django.http.HttpResponseRedirect('/?siguiente=' + peticion.path)
 
       else:
         usuario = None
         for objetoDescerializado \
-          in serializers.deserialize("json", peticion.session['usuario']):
+          in django.core.serializers.deserialize("json",
+            peticion.session['usuario']):
           usuario = objetoDescerializado
           break
         if str(usuario.object.tipoDeUsuario) != tipoDeUsuario:
-          return HttpResponseRedirect('/?siguiente=' + peticion.path)
+          return django.http.HttpResponseRedirect('/?siguiente=' + peticion.path)
 
         else:
           return funcion(peticion, *argumentos, **argumentosEnDiccionario)
@@ -113,14 +112,14 @@ def transaccionDeCorreo(destinatario, asunto, cuerpo):
   dominio = 'ricardo-quezada.159.65.96.59.xip.io'
   usuario = 'administracion'
   correo = usuario + '@' + dominio
-  servidor = SMTP(dominio, 587)
+  servidor = smtplib.SMTP(dominio, 587)
   servidor.ehlo()
   servidor.starttls()
   servidor.ehlo()
   servidor.login(
     correo,
     'config-1321-admin')
-  mensaje = MIMEText(cuerpo.encode('utf-8'), _charset='utf-8')
+  mensaje = email.mime.text.MIMEText(cuerpo.encode('utf-8'), _charset='utf-8')
   mensaje['Subject'] = asunto
   mensaje['From'] = correo
   mensaje['To'] = destinatario

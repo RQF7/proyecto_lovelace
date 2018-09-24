@@ -67,19 +67,19 @@ sistemaTokenizador.controller('controladorControl', [
         } else if (respuesta.data == "1") {
           var aviso = $mdDialog.alert()
             .title('Error')
-            .textContent("@@include('mensajes/error_cliente_no_esta_en_cambio.txt')")
+            .textContent(
+              "@@include('mensajes/error_cliente_no_esta_en_cambio.txt')")
             .ariaLabel('Error')
             .targetEvent($event)
             .ok('Aceptar')
             .multiple(true);
-          $mdDialog.show(aviso).then(function (respuesta) {
-            $mdDialog.hide();
-          });
+          $mdDialog.show(aviso).then(function (respuesta) { });
 
         } else if (respuesta.data == "2") {
           var aviso = $mdDialog.confirm()
             .title('Advertencia')
-            .textContent("@@include('mensajes/adv_retokenizacion_incompleta.txt')")
+            .textContent(
+              "@@include('mensajes/adv_retokenizacion_incompleta.txt')")
             .ariaLabel('Advertencia')
             .targetEvent($event)
             .ok('Aceptar')
@@ -91,8 +91,7 @@ sistemaTokenizador.controller('controladorControl', [
                 $scope.usuario.fields.estadoDeUsuario = 'aprobado'
               });
             });
-            $mdDialog.hide();
-          });
+          }, function (respuesta) { });
         }
       });
     };

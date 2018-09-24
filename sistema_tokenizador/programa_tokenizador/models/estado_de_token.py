@@ -4,9 +4,9 @@
   Proyecto Lovelace.
 """
 
-from django.db import models
+import django
 
-class EstadoDeToken (models.Model):
+class EstadoDeToken (django.db.models.Model):
   """
   Catálogo de estados de token.
 
@@ -15,7 +15,7 @@ class EstadoDeToken (models.Model):
   * Retokenizado
   """
 
-  nombre = models.CharField(
+  nombre = django.db.models.CharField(
     verbose_name = 'nombre del estado del token',
     unique = True,
     max_length = 100,

@@ -4,33 +4,15 @@
   Proyecto Lovelace.
 """
 
-import base64, hashlib
-from django.core import serializers
-from django.shortcuts import render
+import base64, hashlib, django, datetime, subprocess, os
+import sistema_tokenizador.configuraciones as configuraciones
+import sistema_tokenizador.utilidades as utilidades
+import sistema_tokenizador.general as general
 
-from datetime import datetime
-from subprocess import PIPE
-from subprocess import run
-from os import remove
-
-from sistema_tokenizador import utilidades
-
-from sistema_tokenizador.general.models.estado_de_usuario \
-  import EstadoDeUsuario
-from sistema_tokenizador.general.models.usuario \
-  import Usuario
-
-from sistema_tokenizador.configuraciones \
-  import EJECUTABLE_TOKENIZADOR
-
-from sistema_tokenizador.programa_tokenizador.models.algoritmo \
-  import Algoritmo
-from .models.estado_de_llave \
-  import EstadoDeLlave
-from .models.llave \
-  import Llave
-from .models.token \
-  import Token
+from .models.algoritmo import Algoritmo
+from .models.estado_de_llave import EstadoDeLlave
+from .models.llave import Llave
+from .models.token import Token
 
 LIMITE_MALAS_ACCIONES = 10
 INCREMENTO_TOKEN_INVALIDO = 1
@@ -48,8 +30,9 @@ def aumentarContadorDeMalasAcciones(cliente, incremento):
   cliente.save()
 
   if cliente.contadorDeMalasAcciones > LIMITE_MALAS_ACCIONES:
-    cliente.estadoDeUsuario = EstadoDeUsuario.objects.get(
-      nombre = 'en lista negra')
+    cliente.estadoDeUsuario = \
+      general.models.estado_de_usuario.EstadoDeUsuario.objects.get(
+        nombre = 'en lista negra')
     cliente.save()
 
 
@@ -117,10 +100,10 @@ def generarLlave(tamanio):
   obtuvo la llave.
   """
   dir_buffer = "BUFFER"
-  resultado = run([EJECUTABLE_TOKENIZADOR, "-k", dir_buffer, str(tamanio)],
-    stdout=PIPE)
+  resultado = subprocess.run([configuraciones.EJECUTABLE_TOKENIZADOR,
+    "-k", dir_buffer, str(tamanio)], stdout = subprocess.PIPE)
   llave = open(dir_buffer).read()
-  remove(dir_buffer)
+  os.remove(dir_buffer)
   return llave
 
 
@@ -132,7 +115,7 @@ def generarLlaves(cliente):
   están asociadas al cliente dado.
   """
 
-  fecha = datetime.utcnow();
+  fecha = datetime.datetime.utcnow();
   algoritmos = Algoritmo.objects.all()
   for algoritmo in algoritmos:
     llave = Llave(
