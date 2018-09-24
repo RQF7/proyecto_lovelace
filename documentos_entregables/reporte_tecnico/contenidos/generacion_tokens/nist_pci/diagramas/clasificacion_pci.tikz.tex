@@ -1,0 +1,90 @@
+%
+% Clasificación de tokens según el PCI
+% Capítulo sobre tokens,
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[
+  clasificador/.style = {
+    rectangle,
+    draw = black,
+    thin,
+    inner sep = 4mm,
+    text width = 25mm,
+    align = center,
+    minimum height = 1.5cm}
+  ]
+
+  % Clasificadores
+
+  \node[clasificador]
+    (criptografico)
+    {Criptográfico};
+  \node[clasificador]
+    (no_criptografico)
+    [right = of criptografico]
+    {No criptográfico};
+  \node[clasificador]
+    (autentificable)
+    [right = of no_criptografico]
+    {Autentificable};
+  \node[clasificador]
+    (no_autentificable)
+    [right = of autentificable]
+    {No autetificable};
+
+  \node[clasificador]
+    (reversible)
+    at ($(criptografico)!0.5!(no_criptografico) + (0, 1.0in)$)
+    {Reversible};
+  \node[clasificador]
+    at ($(autentificable)!0.5!(no_autentificable) + (0, 1.0in)$)
+    (irreversible)
+    {Irreversible};
+
+  \node[clasificador]
+    at ($(reversible)!0.5!(irreversible) + (0, 1.0in)$)
+    (token)
+    {Token};
+
+  % Relaciones
+  \draw[-{Triangle[open]}]
+    (criptografico.north)
+    |-
+    ($(reversible) - (0in, 0.5in)$)
+    --
+    (reversible.south);
+  \draw[-{Triangle[open]}]
+    (no_criptografico.north)
+    |-
+    ($(reversible) - (0in, 0.5in)$)
+    --
+    (reversible.south);
+
+  \draw[-{Triangle[open]}]
+    (autentificable.north)
+    |-
+    ($(irreversible) - (0in, 0.5in)$)
+    --
+    (irreversible.south);
+  \draw[-{Triangle[open]}]
+    (no_autentificable.north)
+    |-
+    ($(irreversible) - (0in, 0.5in)$)
+    --
+    (irreversible.south);
+
+  \draw[-{Triangle[open]}]
+    (reversible.north)
+    |-
+    ($(token) - (0in, 0.5in)$)
+    --
+    (token.south);
+  \draw[-{Triangle[open]}]
+    (irreversible.north)
+    |-
+    ($(token) - (0in, 0.5in)$)
+    --
+    (token.south);
+
+\end{tikzpicture}

@@ -54,7 +54,7 @@ class CapturaAvisoDeCorreo (CapturaGenericaPagina):
     inputDeConfirmacion = ego.mNavegador.find_element_by_name('confirmacion')
     inputDeConfirmacion.send_keys('12345678')
     botonAceptar = ego.mNavegador.find_element_by_id(
-      'formularioBotonRegistrarCliente')
+      'formularioBotonOperarCliente')
     botonAceptar.click()
     time.sleep(0.5)
 

@@ -4,9 +4,9 @@
   Proyecto Lovelace.
 """
 
-from django.db import models
+import django
 
-class EstadoDeLlave (models.Model):
+class EstadoDeLlave (django.db.models.Model):
   """
   Catálogo de estados de llave.
 
@@ -14,7 +14,7 @@ class EstadoDeLlave (models.Model):
   * Anterior
   """
 
-  nombre = models.CharField(
+  nombre = django.db.models.CharField(
     verbose_name = 'nombre del estado de la llave',
     unique = True,
     max_length = 100,

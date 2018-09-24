@@ -1,6 +1,6 @@
 """
-  Clase genérica para toma de capturas,
-  Proyecto Lovelace.
+Clase genérica para toma de capturas,
+Proyecto Lovelace.
 """
 
 import os
@@ -9,8 +9,7 @@ from selenium.webdriver.chrome.options import Options
 from subprocess import run
 
 class CapturaGenerica:
-  """
-  Clase genérica para toma de capturas.
+  """Clase genérica para toma de capturas.
 
   Esta clase es totalmente virtual (en un lenguaje de c++, no sé cómo declarar
   ese tipo de cosas en python). La idea es que las capturas concretas hereden
@@ -19,8 +18,7 @@ class CapturaGenerica:
 
   El orden de la toma de captuas es de mayor a menor, por lo que la
   configuración inicial se debe de sobreescribir en la configuración de
-  la captura extra grande.
-  """
+  la captura extra grande."""
 
   mEjecutableChrome = '/usr/bin/chromium'
   mEjecutableDriver = '/usr/bin/chromedriver'

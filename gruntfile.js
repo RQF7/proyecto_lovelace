@@ -90,8 +90,10 @@ module.exports = function (grunt) {
             dest: cc + 'compilados/js/angular-mocks.js'
           },
           {
-            src: [cc + 'imagenes/icono.png'],
-            dest: cc + 'compilados/imagenes/icono.png'
+            expand: true,
+            flatten: true,
+            src: [cc + 'imagenes/*.png'],
+            dest: cc + 'compilados/imagenes/'
           },
           {
             src: [cc + 'sass/sitio_publico.sass'],
@@ -116,7 +118,6 @@ module.exports = function (grunt) {
         options: {
           removeComments: true,
           collapseWhitespace: true,
-          maxLineLength: 80,
           preserveLineBreaks: true,
           quoteCharacter: "'",
         },

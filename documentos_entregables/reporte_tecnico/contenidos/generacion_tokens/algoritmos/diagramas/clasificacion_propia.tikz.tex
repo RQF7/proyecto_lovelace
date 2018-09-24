@@ -1,0 +1,72 @@
+%
+% Clasificación propuesta para los tokes
+% Capítulo sobre tokens,
+% Proyecto Lovelace.
+%
+% TODO:
+% Actualizar nombres de etiquetas.
+%
+
+\begin{tikzpicture}[
+  clasificador/.style = {
+    rectangle,
+    draw = black,
+    thin,
+    inner sep = 4mm,
+    text width = 25mm,
+    align = center,
+    minimum height = 1.5cm}
+  ]
+
+  % Clasificadores
+
+  \node[clasificador]
+    (criptografico)
+    {Reversible};
+  \node[clasificador]
+    (no_criptografico)
+    [right = of criptografico]
+    {Irreversible};
+
+  \node[clasificador]
+    (reversible)
+    at ($(criptografico)!0.5!(no_criptografico) + (0, 1.0in)$)
+    {Criptográfico};
+  \node[clasificador]
+    at ($(autentificable)!0.5!(no_autentificable) + (0, 1.0in)$)
+    (irreversible)
+    {No criptográfico};
+
+  \node[clasificador]
+    at ($(reversible)!0.5!(irreversible) + (0, 1.0in)$)
+    (token)
+    {Token};
+
+  % Relaciones
+  \draw[-{Triangle[open]}]
+    (criptografico.north)
+    |-
+    ($(reversible) - (0in, 0.5in)$)
+    --
+    (reversible.south);
+  \draw[-{Triangle[open]}]
+    (no_criptografico.north)
+    |-
+    ($(reversible) - (0in, 0.5in)$)
+    --
+    (reversible.south);
+
+  \draw[-{Triangle[open]}]
+    (reversible.north)
+    |-
+    ($(token) - (0in, 0.5in)$)
+    --
+    (token.south);
+  \draw[-{Triangle[open]}]
+    (irreversible.north)
+    |-
+    ($(token) - (0in, 0.5in)$)
+    --
+    (token.south);
+
+\end{tikzpicture}

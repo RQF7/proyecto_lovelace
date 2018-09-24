@@ -1,67 +1,42 @@
 """
-  direcciones.py Configuración de urls del sistema.
-  Proyecto Lovelace
+direcciones.py Configuración de urls del sistema.
+Proyecto Lovelace
 
-  Documentación asociada:
-  https://docs.djangoproject.com/en/2.0/topics/http/urls/
+Documentación asociada:
+https://docs.djangoproject.com/en/2.0/topics/http/urls/
 
-  Todas las URLs pasan por esta configuración. Las de vistas (las que en
-  algún momento aparecen en la basa de url del navegador) se concentran en
-  una sola función de python: general.inicio.
+Todas las URLs pasan por esta configuración. Las de vistas (las que en
+algún momento aparecen en la basa de url del navegador) se concentran en
+una sola función de python: general.inicio.
 
-  En realidad es el módulo de angular ngRoute (en el cliente) el que se
-  encarga de hacer la resolución (ver js/navegacion.configuracion.js).
+En realidad es el módulo de angular ngRoute (en el cliente) el que se
+encarga de hacer la resolución (ver js/navegacion.configuracion.js).
 """
 
-from django.contrib import admin
-from django.urls import path, include
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
-from .general import funciones as general
-from .programa_tokenizador import funciones as programa_tokenizador
+import django
 
 urlpatterns = [
 
-  # Vistas
-  path('', general.inicio, name = 'inicio'),
-  path('documentación', general.inicio),
-  path('administración_de_tokens', general.administracionDeTokens),
-  path('administración', general.administracion),
-
-  # Operaciones de sesión
-  path('api/usuario_de_sesion', general.usuarioDeSesion),
-  path('api/iniciar_sesion', general.iniciarSesion),
-  path('api/cerrar_sesion', general.cerrarSesion),
-  path('api/registrar_cliente', general.registrarCliente),
-  path('api/verificar_correo/<vinculo>', general.verificarCorreo),
-
-  # Operaciones de administración
-  path('api/clientes_en_espera/<int:pagina>/<int:limite>',
-    general.obtenerClientesEnEspera),
-  path('api/total_de_clientes_en_espera',
-    general.obtenerTotalDeClientesEnEspera),
-  path('api/clientes_en_lista_negra/<int:pagina>/<int:limite>',
-    general.obtenerClientesEnListaNegra),
-  path('api/total_de_clientes_en_lista_negra',
-    general.obtenerTotalDeClientesEnListaNegra),
-  path('api/clientes_aprobados/<int:pagina>/<int:limite>',
-    general.obtenerClientesAprobados),
-  path('api/total_de_clientes_aprobados',
-    general.obtenerTotalDeClientesAprobados),
-  path('api/aprobar_cliente/<int:idDeCliente>',
-    general.aprobarCliente),
-  path('api/rechazar_cliente/<int:idDeCliente>',
-    general.rechazarCliente),
-  path('api/vetar_cliente/<int:idDeCliente>',
-    general.vetarCliente),
-  path('api/desvetar_cliente/<int:idDeCliente>',
-    general.desvetarCliente),
+  # Operaciones de módulo general
+  django.urls.path('api/general/',
+    django.urls.include(
+      'sistema_tokenizador.general.direcciones')),
 
   # Operaciones de programa tokenizador
-  path('programa_tokenizador/tokenizar', programa_tokenizador.tokenizar),
-  path('programa_tokenizador/detokenizar', programa_tokenizador.detokenizar),
-  path('ejecutar', programa_tokenizador.ejecutar)
+  django.urls.path('api/programa_tokenizador/',
+    django.urls.include(
+      'sistema_tokenizador.programa_tokenizador.direcciones')),
+
+  # Todo lo demás
+  django.urls.re_path(r'.*',
+    django.urls.include(
+      'sistema_tokenizador.general.direcciones'))
 
 ]
 
-urlpatterns += staticfiles_urlpatterns()
+# Excepción para reglas de import.
+# Sin este import hay un error al llamar a la función de más abajo. Aún y
+# cuando tiene el path completo.
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+urlpatterns += django.contrib.staticfiles.urls.staticfiles_urlpatterns()
+

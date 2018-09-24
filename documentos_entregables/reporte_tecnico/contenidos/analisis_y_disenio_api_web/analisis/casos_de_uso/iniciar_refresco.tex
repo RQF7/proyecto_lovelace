@@ -12,19 +12,23 @@
   \begin{trayectoriaPrincipal}
 
     \item El cliente presiona \textit{Iniciar refresco de llaves} en la interfaz
-      \hipervinculo{iu:administrar_tokens}.
+      \hipervinculo{iu:control}.
 
     \item El sistema cambia el estado de todos los tokens relacionados a él, con
-      estado \textbf{actual} a \textbf{anterior}.
+      estado \textbf{actual} a \textbf{anterior} (regla de negocio
+      \hipervinculo{rn:estados_token}).
 
     \item El sistema cambia el estado de todas las llaves asociadas con el
-      usuario en estado \textbf{actual} a \textbf{anterior}.
+      usuario en estado \textbf{actual} a \textbf{anterior} (regla de negocios
+      \hipervinculo{rn:estados_llave}).
 
     \item El sistema crea un juego nuevo de llaves con estado \textbf{actual}
-      y las asocia al cliente.
+      y las asocia al cliente (regla de negocios
+      \hipervinculo{rn:estados_llave}).
 
     \item El sistema cambia el estado del usuario a
-      \textbf{en cambio de llaves}.
+      \textbf{en cambio de llaves} (regla de negocios
+      \hipervinculo{rn:estados_cliente}).
 
   \end{trayectoriaPrincipal}
 }

@@ -1,0 +1,92 @@
+%
+% Diagrama de casos de uso,
+% Aplicación web de sistema tokenizador.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}
+  \umlactor[x=07,   y=13,   scale=1.5]{Visitante}
+  \umlactor[x=-2.5, y=06,   scale=1.5]{Cliente}
+  \umlactor[x=16.5, y=06,   scale=1.5]{Administrador}
+  \umlactor[x=07,   y=-1.5, scale=1.5]{Ap cliente}
+
+  \begin{umlsystem}{Sistema tokenizador}
+
+    % CU de un visistante
+    \umlusecase[x=05, y=10, width=2.2cm, fill=white]
+      {\hipervinculo{cu:registrar_cliente}}
+
+    \umlusecase[x=09, y=8,  width=2.2cm, fill=white]
+      {\hipervinculo{cu:iniciar_sesion}}
+
+    \umlHVassoc{Visitante}{usecase-1}
+    \umlHVassoc{Visitante}{usecase-2}
+
+    % CU de un cliente
+    \umlusecase[x=01, y=10, width=2.2cm, fill=white]
+      {\hipervinculo{cu:actualizar_cliente}}
+
+    \umlusecase[x=01, y=07, width=2.2cm, fill=white]
+      {\hipervinculo{cu:eliminar_cliente}}
+
+    \umlusecase[x=01, y=04, width=2.2cm, fill=white]
+      {\hipervinculo{cu:iniciar_refresco}}
+
+    \umlusecase[x=01, y=01, width=2.2cm, fill=white]
+      {\hipervinculo{cu:terminar_refresco}}
+
+    \umlassoc{Cliente}{usecase-3}
+    \umlassoc{Cliente}{usecase-4}
+    \umlassoc{Cliente}{usecase-5}
+    \umlassoc{Cliente}{usecase-6}
+
+    % CU de un administrador
+    \umlusecase[x=13, y=10, width=2.2cm, fill=white]
+      {\hipervinculo{cu:aprobar_cliente}}
+
+    \umlusecase[x=13, y=07, width=2.2cm, fill=white]
+      {\hipervinculo{cu:rechazar_cliente}}
+
+    \umlusecase[x=13, y=04, width=2.2cm, fill=white]
+      {\hipervinculo{cu:vetar_cliente}}
+
+    \umlusecase[x=13, y=01, width=2.2cm, fill=white]
+      {\hipervinculo{cu:desvetar_cliente}}
+
+    \umlassoc{Administrador}{usecase-7}
+    \umlassoc{Administrador}{usecase-8}
+    \umlassoc{Administrador}{usecase-9}
+    \umlassoc{Administrador}{usecase-10}
+
+    % CU de la aplicación del cliente
+    \umlusecase[x=05, y=01, width=2.2cm, fill=white]
+      {\hipervinculo{cu:retokenizar_token}}
+
+    \umlusecase[x=07, y=03, width=2.2cm, fill=white]
+      {\hipervinculo{cu:tokenizar_tarjeta}}
+
+    \umlusecase[x=09, y=01, width=2.2cm, fill=white]
+      {\hipervinculo{cu:detokenizar_token}}
+
+    \umlassoc{Ap cliente}{usecase-11}
+    \umlassoc{Ap cliente}{usecase-12}
+    \umlassoc{Ap cliente}{usecase-13}
+
+    \umlusecase[x=08, y=05, width=2.2cm, fill=white]
+      {\hipervinculo{cu:cerrar_sesion}}
+
+    \umlassoc{Administrador}{usecase-14}
+    \umlassoc{Cliente}{usecase-14}
+
+    % includes a iniciar sesión
+    \umlinclude{usecase-3}{usecase-2}
+    \umlinclude{usecase-4}{usecase-2}
+    \umlinclude{usecase-5}{usecase-2}
+    \umlinclude{usecase-6}{usecase-2}
+    \umlinclude{usecase-7}{usecase-2}
+    \umlinclude{usecase-8}{usecase-2}
+    \umlinclude{usecase-9}{usecase-2}
+    \umlinclude{usecase-10}{usecase-2}
+
+  \end{umlsystem}
+\end{tikzpicture}

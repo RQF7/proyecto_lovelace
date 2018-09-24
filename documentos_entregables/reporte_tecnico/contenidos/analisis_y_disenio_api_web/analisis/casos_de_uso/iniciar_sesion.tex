@@ -7,10 +7,10 @@
 \casoDeUso[cu:iniciar_sesion]
 {Iniciar sesión}
 {
-  Caso que permite que un visitante se identifique ante el sistema. El
+  Caso que permite que un \textbf{visitante} se identifique ante el sistema. El
   visitante introduce su correo electrónico y contraseña y, dependiendo de
-  si es un usuario o un administrador, es redirigido a la página de
-  inicio correspondiente.
+  si es un \textbf{cliente} o un \textbf{administrador}, es redirigido a la
+  página de inicio correspondiente.
 
   \begin{trayectoriaPrincipal}
 
@@ -22,15 +22,15 @@
       \hipervinculo{iu:iniciar_sesion} con el botón \textit{iniciar sesión}
       deshabilitado.
 
-    \item[datos] El visitante introduce su correo electrónico y contraseña
+    \item[datos] El visitante introduce su correo electrónico y contraseña;
       [\hipervinculoLocal{ta:cancelar}].
 
     \item El sistema habilita el botón \textit{iniciar sesión}.
 
-    \item El visitante presiona el botón \textit{iniciar sesión}
+    \item El visitante presiona el botón \textit{iniciar sesión};
       [\hipervinculoLocal{ta:cancelar}].
 
-    \item El sistema valida las credenciales del usuario[
+    \item El sistema valida las credenciales del usuario; [%
       \hipervinculoLocal{ta:credenciales_incorrectas},
       \hipervinculoLocal{ta:correo_no_verificado},
       \hipervinculoLocal{ta:cliente_no_aprobado},
@@ -40,15 +40,17 @@
     \item El sistema registra al usuario en las variables de sesión.
 
     \item El sistema identifica el tipo de actor que está iniciando
-      sesión [\hipervinculoLocal{ta:administrador}].
+      sesión; [\hipervinculoLocal{ta:administrador}].
 
     \item El sistema obtiene el estado del cliente.
 
     \item El sistema muestra la pantalla
-      \hipervinculo{iu:administracion_de_tokens} tomando en cuenta el estado
+      \hipervinculo{iu:control} tomando en cuenta el estado
       del cliente.
 
   \end{trayectoriaPrincipal}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:cancelar]
     {El visitante cancela la operación}
@@ -59,6 +61,8 @@
       \referenciaLocal{origen} de la trayectoria principal.
 
   \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:credenciales_incorrectas]
     {Credenciales incorrectas}
@@ -74,6 +78,8 @@
 
   \end{trayectoriaAlternativa}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:correo_no_verificado]
     {Correo no verificado}
 
@@ -84,6 +90,8 @@
       principal.
 
   \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:cliente_no_aprobado]
     {Cliente no aprobado}
@@ -96,6 +104,8 @@
 
   \end{trayectoriaAlternativa}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:cliente_rechazado]
     {Cliente rechazado}
 
@@ -107,6 +117,8 @@
 
   \end{trayectoriaAlternativa}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:cliente_en_lista_negra]
     {Cliente en lista negra}
 
@@ -117,6 +129,8 @@
       principal.
 
   \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:administrador]
     {El tipo de actor es un administrador}

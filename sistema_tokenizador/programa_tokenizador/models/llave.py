@@ -4,42 +4,43 @@
   Proyecto Lovelace.
 """
 
+import django
+import sistema_tokenizador.general as general
+
 from .algoritmo import Algoritmo
 from .estado_de_llave import EstadoDeLlave
-from ...general.models.usuario import Usuario
-from django.db import models
-from django.utils import timezone
 
-class Llave (models.Model):
+
+class Llave (django.db.models.Model):
   """
   """
 
   # OJO: es un char, no un campo binario: las llaves se almacenan codificadas
   # en base 64.
-  llave = models.CharField(
+  llave = django.db.models.CharField(
     verbose_name = 'representación en base 64 de la llave',
     unique = True,
     max_length = 100)
 
-  criptoperiodo = models.IntegerField(
+  criptoperiodo = django.db.models.IntegerField(
     verbose_name = 'duración del criptoperiodo en días')
 
-  fechaDeCreacion = models.DateTimeField(
-    default = timezone.now,
+  fechaDeCreacion = django.db.models.DateTimeField(
+    default = django.utils.timezone.now,
     verbose_name = 'fecha de creación de la llave')
 
-  algoritmo = models.ForeignKey(
+  algoritmo = django.db.models.ForeignKey(
     'Algoritmo',
-    models.PROTECT,
+    django.db.models.PROTECT,
     verbose_name = 'Algoritmo asociado')
 
   # Cuando se borra un usuario se borran sus llaves (models.CASCADE).
-  usuario = models.ForeignKey(
+  usuario = django.db.models.ForeignKey(
     'general.Usuario',
-    models.CASCADE,
+    django.db.models.CASCADE,
     verbose_name = 'Usuario asociado a la llave')
 
-  estadoDeLlave = models.ForeignKey(
+  estadoDeLlave = django.db.models.ForeignKey(
     'EstadoDeLlave',
-    models.PROTECT,
+    django.db.models.PROTECT,
     verbose_name = 'Estado de la llave')

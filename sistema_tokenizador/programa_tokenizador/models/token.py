@@ -7,9 +7,10 @@
   De momento están así para no matar el script de pruebas de c++.
 """
 
+import django
+
 from .estado_de_token import EstadoDeToken
-from ...general.models.usuario import Usuario
-from django.db import models
+
 
 def estadoPorDefecto ():
   return EstadoDeToken.objects.get(nombre = 'actual')
@@ -19,34 +20,33 @@ def usuarioPorDefecto ():
   return Usuario.objects.get(id = 1)
 
 
-class Token (models.Model):
+class Token (django.db.models.Model):
   """Relación entre PAN-token."""
 
-  token = models.CharField(
+  token = django.db.models.CharField(
     verbose_name = 'Token',
     max_length = 19)
 
-  pan = models.CharField(
+  pan = django.db.models.CharField(
     verbose_name = 'Número de tarjeta',
     max_length = 19)
 
-  # TODO:
-  # ¿Cambiar tipo de llave foránea a models.CASCADE?
-  usuario = models.ForeignKey(
+  usuario = django.db.models.ForeignKey(
     'general.Usuario',
-    models.PROTECT,
+    django.db.models.PROTECT,
     verbose_name = 'Usuario dueño del token',
-#    default = usuarioPorDefecto,
     default = None,
     null = True)
 
-  estadoDeToken = models.ForeignKey(
+  estadoDeToken = django.db.models.ForeignKey(
     'EstadoDeToken',
-    models.PROTECT,
+    django.db.models.PROTECT,
     verbose_name = 'Estado del token',
-#    default = estadoPorDefecto,
-    default = None,
+    default = estadoPorDefecto,
     null = True)
+
+  class Meta:
+    unique_together = ('usuario', 'token')
 
 
   def __str__(self):

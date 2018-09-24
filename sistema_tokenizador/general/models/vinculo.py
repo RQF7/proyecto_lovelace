@@ -4,17 +4,17 @@
   Proyecto Lovelace.
 """
 
-from django.db import models
+import django
 
-class Vinculo (models.Model):
+class Vinculo (django.db.models.Model):
   """Representación de un vinculo dentro del sistema."""
 
-  vinculo = models.CharField(
+  vinculo = django.db.models.CharField(
     verbose_name = 'vinculo',
     max_length = 100,
     unique = True)
 
-  fecha = models.DateTimeField(
+  fecha = django.db.models.DateTimeField(
     verbose_name = 'fecha del vinculo')
 
   def __str__(self):

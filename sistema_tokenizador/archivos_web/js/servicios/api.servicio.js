@@ -11,7 +11,7 @@ sistemaTokenizador.factory('api', [
   )
   {
     var API = {};
-    var RUTA_BASE = '/lovelace/api';
+    var RUTA_BASE = '/lovelace/api/general';
 
     /* Operaciones de sesión. */
 
@@ -28,8 +28,29 @@ sistemaTokenizador.factory('api', [
     };
 
     API.registrarCliente = function (cliente) {
-      return $http.post(RUTA_BASE + '/registrar_cliente', cliente);
+      return $http.post(RUTA_BASE + '/operar_cliente', cliente);
     };
+
+    API.actualizarCliente = function (cliente) {
+      return $http.put(RUTA_BASE + '/operar_cliente', cliente);
+    };
+
+    API.eliminarCliente = function () {
+      return $http.delete(RUTA_BASE + '/operar_cliente');
+    };
+
+    API.iniciarRefrescoDeLlaves = function () {
+      return $http.post(RUTA_BASE + '/iniciar_refresco_de_llaves');
+    };
+
+    API.terminarRefrescoDeLlaves = function () {
+      return $http.post(RUTA_BASE + '/terminar_refresco_de_llaves');
+    };
+
+    API.eliminarTokens = function () {
+      return $http.post(RUTA_BASE + '/eliminar_tokens');
+    };
+
 
     /* Operaciones de administrador. */
 

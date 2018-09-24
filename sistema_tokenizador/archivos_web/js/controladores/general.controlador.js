@@ -2,6 +2,9 @@
  * Controlador general de aplicación.
  * Aplicación web de sistema tokenizador.
  * Proyecto Lovelace.
+ *
+ * TODO: asegurarse de que, después de cerrar sesión, no se pueda regresar
+ * a una página protegida mediante el botón de "atrás" del navegador.
  */
 
 sistemaTokenizador.controller('controladorGeneral', [
@@ -114,7 +117,20 @@ sistemaTokenizador.controller('controladorGeneral', [
           .targetEvent(undefined)
           .ok('Aceptar');
         $mdDialog.show(aviso).then(function (respuesta) {
-          $mdDialog.hide();
+          $location.search('correo_verificado', null);
+        });
+      }
+
+      /* Verificación correcta. */
+      else if ($scope.$routeParams.nuevo_correo_verificado != undefined) {
+        var aviso = $mdDialog.alert()
+          .title('Verificación de correo correcta')
+          .textContent('Su cuenta ha sido verificada correctamente.')
+          .ariaLabel('Verificación de correo correcta')
+          .targetEvent(undefined)
+          .ok('Aceptar');
+        $mdDialog.show(aviso).then(function (respuesta) {
+          $location.search('nuevo_correo_verificado', null);
         });
       }
 
@@ -128,7 +144,7 @@ sistemaTokenizador.controller('controladorGeneral', [
           .targetEvent(undefined)
           .ok('Aceptar');
         $mdDialog.show(aviso).then(function (respuesta) {
-          $mdDialog.hide();
+          $location.search('correo_no_verificado', null);
         });
       }
     });
@@ -147,7 +163,7 @@ sistemaTokenizador.controller('controladorGeneral', [
             $location.path($scope.$routeParams.siguiente);
             $location.search('siguiente', null)
           } else if ($scope.usuario.fields.tipoDeUsuario == 'cliente') {
-            $location.path('/administración_de_tokens');
+            $location.path('/control');
           } else {
             $location.path('/administración');
           }
@@ -169,8 +185,12 @@ sistemaTokenizador.controller('controladorGeneral', [
       $mdDialog.show({
         parent: padre,
         targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/registrar_cliente.ventana.html',
-        controller: 'controladorFormularioRegistrarCliente'
+        templateUrl: '/estaticos/html/ventanas/operar_cliente.ventana.html',
+        controller: 'controladorFormularioOperarCliente',
+        locals: {
+          "tituloOperacion": "Registrar datos",
+          "operacion": "registrar"
+        }
       }).then(function (respuesta) {
         if (respuesta != undefined) {
           console.log(respuesta);

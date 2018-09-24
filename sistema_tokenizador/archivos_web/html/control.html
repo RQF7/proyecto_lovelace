@@ -1,0 +1,73 @@
+<!--
+  Html de página de administración de tokens.
+  Aplicación web de sistema tokenizador.
+  Proyecto Lovelace.
+-->
+
+<div
+  class="seccion"
+  flex="none"
+  layout="column">
+
+  <div>
+    <h3>Refresco de llaves</h3>
+
+    <p>
+      Las llaves son cadenas binarias que sirven como entrada de los
+      algoritmos de tokenización, estas se encargan de mantener la seguridad
+      de los datos tokenizados, dado que su desconocimiento hace imposible
+      obtener esta información a través de sus tokens representativos.
+    </p>
+
+    <p>
+      Estas llaves tienen un tiempo de vida, en el cual pueden ser usadas para
+      el proceso de tokenización y detokenización. Una vez que a una o a un
+      grupo de llaves se les termina el tiempo de vida, deben de ser
+      refrescadas, lo que significa que se cambiaran las mismas por
+      otras nuevas, con el fin de mantener la seguridad de la información.
+    </p>
+
+    <p>
+      A pesar del refresco automático de las llaves, hay ocasiones especiales
+      en las que se recomienda refrescarlas antes de que finalice su tiempo
+      de vida, como en caso de que se sospeche de que su integridad o la de
+      parte de la información que protege está comprometida.
+    </p>
+
+    <div
+      layout="row"
+      layout-align="center">
+      <md-button
+        ng-if="usuario.fields.estadoDeUsuario == 'aprobado'"
+        class="md-raised md-primary"
+        ng-click="iniciarRefrescoDeLlaves($event)">
+        Iniciar refresco de llaves
+      </md-button>
+      <md-button
+        ng-if="usuario.fields.estadoDeUsuario == 'en cambio de llaves'"
+        class="md-raised md-primary"
+        ng-click="terminarRefrescoDeLlaves($event)">
+        Terminar refresco de llaves
+      </md-button>
+    </div>
+  </div>
+
+  <div>
+    <h3>Cuenta</h3>
+    <div
+      layout="row"
+      layout-align="center">
+      <md-button
+        class="md-raised md-primary"
+        ng-click="actualizarCliente($event)">
+        Actualizar datos
+      </md-button>
+      <md-button
+        class="md-raised md-primary"
+        ng-click="eliminarCliente($event)">
+        Eliminar cuenta
+      </md-button>
+    </div>
+  </div>
+
+</div>

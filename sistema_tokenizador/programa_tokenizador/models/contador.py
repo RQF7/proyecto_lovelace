@@ -4,9 +4,9 @@
   Proyecto Lovelace.
 """
 
-from django.db import models
+import django
 
-class Contador (models.Model):
+class Contador (django.db.models.Model):
   """
   Estado interno para TKR
 
@@ -14,12 +14,12 @@ class Contador (models.Model):
   de la función RN. El registro se crea en «/datos_base.py».
   """
 
-  nombre = models.CharField(
+  nombre = django.db.models.CharField(
     verbose_name = 'nombre del contador',
     unique = True,
     max_length = 100)
 
-  valor = models.BigIntegerField(
+  valor = django.db.models.BigIntegerField(
     verbose_name = 'valor del contador')
 
 

@@ -7,12 +7,12 @@
 \casoDeUso[cu:retokenizar_token]
 {Retokenizar un token}
 {
-  Permite a un usuario tipo \textbf{cliente}, dada una conexión establecida,
-  obtener el token nuevo a partir de otro token.
+  Permite a un usuario tipo \textbf{aplicación cliente}, dada una conexión
+  establecida, obtener el token nuevo a partir de otro token.
 
   \begin{trayectoriaPrincipal}
 
-    \item El cliente envía una petición con los siguientes datos:
+    \item La aplicación cliente envía una petición con los siguientes datos:
       \begin{itemize}
         \item Token a retokenizar.
         \item Algoritmo tokenizador.
@@ -23,24 +23,24 @@
     \item El sistema verifica que el estado del cliente sea
       \textbf{en cambio de llaves} (tomando en cuenta la regla de negocios
       \hipervinculo{rn:estados_cliente});
-      [\hipervinculoLocal{ta:cliente_sin_permisos}].
+      [\hipervinculoLocal{ta:cliente_en_estado_incorrecto}].
 
     \item El sistema verifica que el el token dado sea válido (regla de
-      negocios \hipervinculo{rn:formato_de_token}).
-      [\hipervinculoLocal{ta:token_invalido}]
+      negocios \hipervinculo{rn:formato_token});
+      [\hipervinculoLocal{ta:token_invalido}].
 
     \item El sistema verifica que el tipo de algoritmo utilizado sea
       \textbf{irreversible} (tomando en cuenta la regla de negocios
       \hipervinculo{rn:tipo_de_algoritmo});
       [\hipervinculoLocal{ta:retokenizacion_reversible}].
 
-    \item El sistema verifica que el estado del token sea \textbf{anterior},
-      tomando en cuenta la regla de negocios \hipervinculo{rn:estados_token}
-      [\hipervinculoLocal{ta:error_estado_token}].
+    \item El sistema verifica que el estado del token sea \textbf{anterior}
+      o \textbf{retokenizado}, tomando en cuenta la regla de negocios
+      \hipervinculo{rn:estados_token};
+      [\hipervinculoLocal{ta:token_inexistente}].
 
     \item El sistema obtiene el número de tarjeta relacionado con este token
-      realizando una consulta a la base de datos
-      [\hipervinculoLocal{ta:token_inexistente}].
+      realizando una consulta a la base de datos.
 
     \item El sistema obtiene el token correspondiente al número de tarjeta
       obtenido en el paso anterior utilizando el algoritmo especificado y la
@@ -52,30 +52,26 @@
       \hipervinculo{rn:estados_token}.
 
     \item El sistema cambia el estado del token recibido en la petición
-      a \textbf{retokenizado} [\hipervinculoLocal{ta:error_actualizar_token}].
+      a \textbf{retokenizado}.
 
-    \item [regreso_token] El sistema regresa al cliente el token generado.
+    \item [regreso_token] El sistema regresa a la aplicación cliente el token
+      generado.
 
   \end{trayectoriaPrincipal}
 
-  \begin{trayectoriaAlternativa}[ta:cliente_sin_permisos]
-    {El cliente tiene un estado distinto a \textbf{en cambio de llaves}.}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    \item El sistema regresa un valor nulo al cliente.
-      % Hay que regresar un error aquí.
+  \begin{trayectoriaAlternativa}[ta:cliente_en_estado_incorrecto]
+    {El cliente tiene un estado distinto a \textbf{en cambio de llaves}}
 
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:error_estado_token]
-    {El token no se encuentra en estado \textbf{anterior}.}
-
-    \item El sistema regresa un valor nulo al cliente.
-      % Hay que regresar un error aquí.
+    \item El sistema regresa una respuesta \gls{gl:http} con código 403.
 
   \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:retokenizacion_reversible]
-    {El algoritmo especificado por el cliente es de tipo \textbf{reversible}.}
+    {El algoritmo especificado por el cliente es de tipo \textbf{reversible}}
 
     \item El sistema obtiene el número de tarjeta con el token y la llave
       asociada al algoritmo con estado \textbf{anterior}.
@@ -89,32 +85,47 @@
 
   \end{trayectoriaAlternativa}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:token_inexistente]
-    {EL token especificado no se encuentra registrado en la base de datos.}
+    {EL token especificado no se encuentra registrado en la base de datos}
 
     \item El sistema incrementa el contador de malas acciones del usuario
       en tres unidades (regla de negocios
       \hipervinculo{rn:malas_acciones}).
+    \item El sistema verifica que el contador de malas acciones del usuario no
+      sea igual o mayor al umbral permitido
+      (\hipervinculo{rn:top_malas_acciones});
+      [\hipervinculoLocal{ta:muchas_malas_acciones}].
 
-    \item El sistema regresa un valor nulo al cliente.
-
-  \end{trayectoriaAlternativa}
-
-  \begin{trayectoriaAlternativa}[ta:error_detokenizacion]
-    {Ocurrió un error durante el proceso de detokenización.}
-
-    \item El sistema regresa un valor nulo al cliente.
-      % Hay que regresar un error aquí.
+    \item El sistema regresa una respuesta \gls{gl:http} con código 400.
 
   \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:token_invalido]
     {Token con formato inválido}
 
     \item El sistema incrementa el contador de malas acciones del usuario
       en una unidad (regla de negocios \hipervinculo{rn:malas_acciones}).
+    \item El sistema verifica que el contador de malas acciones del usuario no
+      sea igual o mayor al umbral permitido
+      (\hipervinculo{rn:top_malas_acciones});
+      [\hipervinculoLocal{ta:muchas_malas_acciones}].
 
-    \item El sistema regresa un valor nulo al cliente.
+    \item El sistema regresa una respuesta \gls{gl:http} con código 400.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[ta:muchas_malas_acciones]
+    {Límite de malas acciones alcanzado}
+
+    \item El sistema cambia el estado del cliente a \textbf{en lista negra}.
+
+    \item El sistema regresa una respuesta \gls{gl:http} con código 400.
 
   \end{trayectoriaAlternativa}
 

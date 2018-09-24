@@ -4,9 +4,9 @@
   Proyecto Lovelace.
 """
 
-from django.db import models
+import django
 
-class TipoDeAlgoritmo (models.Model):
+class TipoDeAlgoritmo (django.db.models.Model):
   """
   Catálogo de tipos de algoritmos tokenizadores.
 
@@ -14,7 +14,7 @@ class TipoDeAlgoritmo (models.Model):
   * Irreversibles
   """
 
-  nombre = models.CharField(
+  nombre = django.db.models.CharField(
     verbose_name = 'nombre del tipo de algoritmo',
     unique = True,
     max_length = 100,

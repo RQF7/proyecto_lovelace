@@ -1,0 +1,46 @@
+%
+% Presentación para congreso.
+% Proyecto Lovelace.
+%
+
+\documentclass{beamer}
+\usepackage{formato}
+\newcommand{\Titulo}{Un vistazo a la tokenización}
+\newcommand{\Fecha}{Puebla, 14 de octubre de 2018}
+\usepackage{formato_presentaciones}
+
+\setbeameroption{show notes}
+
+\begin{document}
+
+  {\setbeamertemplate{footline}{}
+  \frame{\titlepage}}
+
+  \begin{frame}
+    \frametitle{Contenido}
+    \setcounter{tocdepth}{1}
+    \tableofcontents[pausesections]
+  \end{frame}
+
+  % Espacio entre párrafos
+  \setlength{\parskip}{0.5em}
+
+  \section{Introducción}
+
+  \section{Preliminares}
+
+  \section{Algoritmos tokenizadores}
+
+  \section{Resultados}
+
+  \begin{frame}[allowframebreaks]{Bibliografía}
+    \printbibliography
+  \end{frame}
+
+  % Espacio entre párrafos
+  \setlength{\parskip}{0.0em}
+
+  {\setbeamertemplate{footline}{}
+  \frame{\titlepage}}
+
+\end{document}

@@ -33,10 +33,10 @@ sistemaTokenizador.config(function($routeProvider, $locationProvider){
     controller: 'controladorDocumentacion'
   });
 
-  $routeProvider.when('/administración_de_tokens',
+  $routeProvider.when('/control',
   {
-    templateUrl: 'estaticos/html/administracion_de_tokens.html',
-    controller: 'controladorAdministracionDeTokens'
+    templateUrl: 'estaticos/html/control.html',
+    controller: 'controladorControl'
   });
 
   $routeProvider.when('/administración',

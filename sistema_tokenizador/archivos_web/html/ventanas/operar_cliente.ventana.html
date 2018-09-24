@@ -1,0 +1,111 @@
+<!--
+  Formulario de actualización de clientes,
+  Aplicación web de sistema tokenizador.
+  Proyecto Lovelace.
+-->
+
+<md-dialog
+  flex="20"
+  flex-lg="30"
+  flex-md="40"
+  flex-sm="60"
+  flex-xs="80">
+  <md-dialog-content>
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h1>{{tituloOperacion}}</h1>
+      </div>
+    </md-toolbar>
+    <div
+      layout="row"
+      layout-align="center center">
+      <form
+        name="formularioOperarCliente"
+        id="formularioOperarCliente"
+        novalidate
+        flex="90"
+        ng-submit="operar($event)">
+        <md-input-container>
+          <label>Correo electrónico</label>
+          <input
+            name="correo"
+            ng-model="cliente.correo"
+            ng-value="usuario.fields.correo"
+            md-no-asterisk
+            required
+            md-autofocus
+            ng-pattern="erCorreo"
+            autocomplete="off"
+            spellcheck="false">
+          <div ng-messages="formularioOperarCliente.correo.$error">
+            <div ng-message="pattern">
+              <!-- @@include('mensajes/correo_incorrecto.txt') -->
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container>
+          <label>Contraseña</label>
+          <input
+            name="contrasenia"
+            type="password"
+            ng-model="cliente.contrasenia"
+            md-no-asterisk
+            required
+            ng-pattern="erContrasenia"
+            autocomplete="off"
+            spellcheck="false">
+          <div ng-messages="formularioOperarCliente.contrasenia.$error">
+            <div ng-message="pattern">
+              <!-- @@include('mensajes/contrasenia_incorrecta.txt') -->
+            </div>
+          </div>
+        </md-input-container>
+        <!--
+          TODO: como al momento de cargar el formulario cliente.contrasenia
+          aún no está definido, entonces el ng-pattern de abajo es causa
+          de una excepción.
+          Esto, o resolver el porqué de la excepción que sale al cargar el
+          formulario.
+        -->
+        <md-input-container>
+          <label>Confirmación de contraseña</label>
+          <input
+            name="confirmacion"
+            type="password"
+            ng-model="cliente.confirmacion"
+            md-no-asterisk
+            required
+            ng-pattern="\b{{cliente.contrasenia}}\b"
+            autocomplete="off"
+            spellcheck="false">
+          <div ng-messages="formularioOperarCliente.confirmacion.$error">
+            <div ng-message="pattern">
+              <!-- @@include('mensajes/confirmacion_incorrecta.txt') -->
+            </div>
+          </div>
+        </md-input-container>
+        <div
+          ng-if="error"
+          class="mensajes"
+          md-colors="{color: 'accent'}">
+          <!-- @@include('mensajes/usuario_existente.txt') -->
+        </div>
+      </form>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button
+      ng-click="cancelar()"
+      class="md-primary">
+      Cancelar
+    </md-button>
+    <md-button
+      id="formularioBotonOperarCliente"
+      class="md-raised md-primary"
+      type="submit"
+      ng-disabled="formularioOperarCliente.$invalid"
+      form="formularioOperarCliente">
+      Aceptar
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

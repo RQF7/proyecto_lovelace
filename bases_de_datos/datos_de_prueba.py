@@ -25,6 +25,13 @@ from sistema_tokenizador.general.models.correo \
   import Correo
 from sistema_tokenizador.general.models.vinculo \
   import Vinculo
+from sistema_tokenizador.programa_tokenizador.models.algoritmo \
+  import Algoritmo
+from sistema_tokenizador.programa_tokenizador.models.estado_de_llave \
+  import EstadoDeLlave
+from sistema_tokenizador.programa_tokenizador.models.llave \
+  import Llave
+
 from datos_base \
   import guardar
 
@@ -61,6 +68,12 @@ if __name__ == '__main__':
         nombre = 'no verificado'),
       vinculo = Vinculo.objects.get(vinculo = 'a')),
     Correo(
+      correo = 'cliente-en-cambio-de-llaves@prueba.com',
+      contrasenia = hashlib.sha256(b"123456").digest(),
+      estadoDeCorreo = EstadoDeCorreo.objects.get(
+        nombre = 'verificado'),
+      vinculo = Vinculo.objects.get(vinculo = 'a')),
+    Correo(
       correo = 'cliente-rechazado@prueba.com',
       contrasenia = hashlib.sha256(b"123456").digest(),
       estadoDeCorreo = EstadoDeCorreo.objects.get(
@@ -90,6 +103,13 @@ if __name__ == '__main__':
         nombre = 'cliente'),
       estadoDeUsuario = EstadoDeUsuario.objects.get(
         nombre = 'en espera')),
+    Usuario(
+      correo = Correo.objects.get(
+        correo = 'cliente-en-cambio-de-llaves@prueba.com'),
+      tipoDeUsuario = TipoDeUsuario.objects.get(
+        nombre = 'cliente'),
+      estadoDeUsuario = EstadoDeUsuario.objects.get(
+        nombre = 'en cambio de llaves')),
     Usuario(
       correo = Correo.objects.get(
         correo = 'cliente-rechazado@prueba.com'),
@@ -142,3 +162,157 @@ if __name__ == '__main__':
           nombre = 'en espera'))]
 
     guardar(usuarios)
+
+  llaves = [
+
+    ## Llaves para cliente aprobado
+    Llave(
+      llave = 'Niq0QQ4j0tOgy4QL9Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'FFX'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(correo = 'cliente@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j1tOgy4QL9Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'BPS'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(correo = 'cliente@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j2tOgy4QL9Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'DRBG'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(correo = 'cliente@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j3tOgy4QL9Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'TKR'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(correo = 'cliente@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j3tOgy4QL9Yeyiw==Niq0QQ4j3tOgy4QL9Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'AHR'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(correo = 'cliente@prueba.com')).id
+    ),
+
+    ## Llaves para cliente en cambio de llaves (llaves actuales y anteriores)
+    Llave(
+      llave = 'Niq0QQ4j4tOgy4QL0Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'FFX'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(
+          correo = 'cliente-en-cambio-de-llaves@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j5tOgy4QL0Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'BPS'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(
+          correo = 'cliente-en-cambio-de-llaves@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j6tOgy4QL0Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'DRBG'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(
+          correo = 'cliente-en-cambio-de-llaves@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j7tOgy4QL0Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'TKR'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(
+          correo = 'cliente-en-cambio-de-llaves@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j8tOgy4QL0Yeyiw==Niq0QQ4j3tOgy4QL9Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'AHR'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'actual'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(
+          correo = 'cliente-en-cambio-de-llaves@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j0tOgy4QL1Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'FFX'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'anterior'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(
+          correo = 'cliente-en-cambio-de-llaves@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j1tOgy4QL1Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'BPS'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'anterior'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(
+          correo = 'cliente-en-cambio-de-llaves@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j2tOgy4QL1Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'DRBG'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'anterior'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(
+          correo = 'cliente-en-cambio-de-llaves@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j3tOgy4QL1Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'TKR'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'anterior'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(
+          correo = 'cliente-en-cambio-de-llaves@prueba.com')).id
+    ),
+    Llave(
+      llave = 'Niq0QQ4j4tOgy4QL1Yeyiw==Niq0QQ4j3tOgy4QL9Yeyiw==',
+      criptoperiodo = 180,
+      fechaDeCreacion = '2018-10-10',
+      algoritmo_id = Algoritmo.objects.get(nombre = 'AHR'),
+      estadoDeLlave_id = EstadoDeLlave.objects.get(nombre = 'anterior'),
+      usuario_id = Usuario.objects.get(
+        correo = Correo.objects.get(
+          correo = 'cliente-en-cambio-de-llaves@prueba.com')).id
+    )
+  ]
+
+  guardar(llaves)

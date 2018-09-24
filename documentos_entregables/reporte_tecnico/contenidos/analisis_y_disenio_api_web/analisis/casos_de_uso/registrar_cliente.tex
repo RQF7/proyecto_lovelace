@@ -7,9 +7,9 @@
 \casoDeUso[cu:registrar_cliente]
 {Registrar cliente}
 {
-  Caso que permite que un visitante se registre y pase a ser
-  un cliente del sistema tokenizador (en conformidad con la regla de negocio
-  \hipervinculo{rn:tipo_de_usuario}).
+  Caso que permite que un \textbf{visitante} se registre y pase a ser
+  un \textbf{cliente} del sistema tokenizador (en conformidad con la regla de
+  negocio \hipervinculo{rn:tipo_de_usuario}).
 
   \begin{trayectoriaPrincipal}
 
@@ -22,27 +22,27 @@
       deshabilitado.
 
     \item[datos] El visitante introduce un correo electrónico y una contraseña
-      (junto con su confirmación) [\hipervinculoLocal{ta:cancelar}].
+      (junto con su confirmación); [\hipervinculoLocal{ta:cancelar}].
 
     \item El sistema habilita el botón \textit{aceptar}.
 
     \item El visitante presiona el botón \textit{aceptar}.
 
     \item El sistema valida el correo electrónico de acuerdo a la regla
-      \hipervinculo{rn:correo_electronico}
+      \hipervinculo{rn:correo_electronico};
       [\hipervinculoLocal{ta:correo_incorrecto}].
 
     \item El sistema valida el formato de la contraseña de acuerdo a la regla
-      \hipervinculo{rn:formato_de_contrasenias}
+      \hipervinculo{rn:formato_de_contrasenias};
       [\hipervinculoLocal{ta:contrasenia_incorrecta}].
 
     \item El sistema valida que la confirmación de la contraseña coincida con
-      la contraseña introducida
+      la contraseña introducida;
       [\hipervinculoLocal{ta:confirmacion_incorrecta}].
 
     \item El sistema valida que el correo introducido no se encuentre ya asignado
       a un usuario tomando en cuenta la regla de negocios
-      \hipervinculo{rn:unicidad_correo}
+      \hipervinculo{rn:unicidad_correo};
       [\hipervinculoLocal{ta:usuario_existente}].
 
     \item El sistema crea un nuevo cliente en estado \textbf{en espera},
@@ -61,16 +61,18 @@
 
     \item El sistema verifica, mediante la fecha de creación del vínculo, que no
       haya expirado, tomando en cuenta la regla de negocios
-      \hipervinculo{rn:verificacion_de_cuentas}
+      \hipervinculo{rn:verificacion_de_cuentas_nuevas};
       [\hipervinculoLocal{ta:expiracion_de_vinculo}].
 
-    \item El sistema cambia el estado del cliente a \textbf{verificado},
-      según la regla de negocios \hipervinculo{rn:estados_cliente}.
+    \item El sistema cambia el estado del correo a \textbf{verificado},
+      según la regla de negocios \hipervinculo{rn:estados_correo}.
 
     \item El sistema muestra la ventana
       \hipervinculo{iu:aviso_de_espera_para_aprobacion}.
 
   \end{trayectoriaPrincipal}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:cancelar]
     {El visitante cancela la operación}
@@ -82,6 +84,8 @@
 
   \end{trayectoriaAlternativa}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:correo_incorrecto]
     {Correo electrónico incorrecto}
 
@@ -91,6 +95,8 @@
       principal.
 
   \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:contrasenia_incorrecta]
     {Contraseña incorrecta}
@@ -103,6 +109,8 @@
 
   \end{trayectoriaAlternativa}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:confirmacion_incorrecta]
     {Confirmación de contraseña incorrecta}
 
@@ -114,6 +122,8 @@
 
   \end{trayectoriaAlternativa}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:usuario_existente]
     {Correo registrado previamente}
 
@@ -124,6 +134,8 @@
       principal.
 
   \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:expiracion_de_vinculo]
     {Vínculo expirado}

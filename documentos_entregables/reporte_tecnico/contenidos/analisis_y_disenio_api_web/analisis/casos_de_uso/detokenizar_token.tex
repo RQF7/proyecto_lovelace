@@ -7,12 +7,12 @@
 \casoDeUso[cu:detokenizar_token]
 {Detokenizar un token}
 {
-  Permite a un usuario tipo \textbf{cliente}, dada una conexión establecida, obtener el
-  número de una tarjeta a partir de un token.
+  Permite a un usuario tipo \textbf{aplicación cliente}, dada una conexión
+  establecida, obtener el número de una tarjeta a partir de un token.
 
   \begin{trayectoriaPrincipal}
 
-    \item El cliente envía una petición con los siguientes datos:
+    \item La aplicación cliente envía una petición con los siguientes datos:
       \begin{itemize}
         \item Token.
         \item Algoritmo tokenizador.
@@ -26,8 +26,8 @@
       [\hipervinculoLocal{ta:cliente_sin_permisos}].
 
     \item El sistema verifica que el el token dado sea válido (regla de
-      negocios \hipervinculo{rn:formato_de_token}).
-      [\hipervinculoLocal{ta:token_invalido}]
+      negocios \hipervinculo{rn:formato_token});
+      [\hipervinculoLocal{ta:token_invalido}].
 
     \item El sistema verifica que el tipo de algoritmo utilizado sea
       \textbf{irreversible} (tomando en cuenta la regla de negocios
@@ -36,30 +36,33 @@
       \hipervinculoLocal{ta:cliente_en_cambio_reversible}].
 
     \item El sistema obtiene el número de tarjeta relacionado con este token
-      realizando una consulta a la base de datos
+      realizando una consulta a la base de datos;
       [\hipervinculoLocal{ta:token_inexistente}].
 
-    \item [regreso_tarjeta] El sistema regresa al cliente el número de tarjeta
-      obtenido en el paso anterior.
+    \item [regreso_tarjeta] El sistema regresa a la aplicación cliente el número
+      de tarjeta obtenido en el paso anterior.
 
   \end{trayectoriaPrincipal}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:cliente_sin_permisos]
     {El cliente tiene un estado distinto a \textbf{aceptado} o
-      \textbf{en cambio de llaves}.}
+      \textbf{en cambio de llaves}}
 
-    \item El sistema regresa un valor nulo al cliente.
-      % ¿Hay que regresar un error aquí o qué onda?
+    \item El sistema regresa una respuesta \gls{gl:http} con código 403.
 
   \end{trayectoriaAlternativa}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:cliente_aceptado_reversible]
     {El cliente se encuentra en estado \textbf{aceptado} y el algoritmo
-    especificado es de tipo \textbf{reversible}.}
+    especificado es de tipo \textbf{reversible}}
 
     \item El sistema obtiene el número de tarjeta con el token y la llave
       con estado \textbf{actual}, tomando en cuenta la regla de negocios
-      \hipervinculo{rn:detokenizacion}
+      \hipervinculo{rn:detokenizacion};
       [\hipervinculoLocal{ta:error_detokenizacion}].
 
     \item Regresar al paso \referenciaLocal{regreso_tarjeta} de la trayectoria
@@ -67,9 +70,11 @@
 
   \end{trayectoriaAlternativa}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:cliente_en_cambio_reversible]
     {El cliente se encuentra en estado \textbf{en cambio de llaves} y el
-    algoritmo especificado es de tipo \textbf{reversible}.}
+    algoritmo especificado es de tipo \textbf{reversible}}
 
     \item El sistema obtiene de la petición la llave con la que se realizará
       la operación de detokenización, tomando en cuenta la regla de negocios
@@ -83,17 +88,25 @@
 
   \end{trayectoriaAlternativa}
 
-  \begin{trayectoriaAlternativa}[ta:token_inexistente]
-    {EL token especificado no se encuentra registrado en la base de datos.}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+  \begin{trayectoriaAlternativa}[ta:token_inexistente]
+    {EL token especificado no se encuentra registrado en la base de datos}
 
     \item El sistema incrementa el contador de malas acciones del usuario
       en tres unidades (regla de negocios
       \hipervinculo{rn:malas_acciones}).
 
-    \item El sistema regresa un valor nulo al cliente.
+    \item El sistema verifica que el contador de malas acciones del usuario no
+      sea igual o mayor al umbral permitido
+      (\hipervinculo{rn:top_malas_acciones});
+      [\hipervinculoLocal{ta:muchas_malas_acciones}].
+
+    \item El sistema regresa una respuesta \gls{gl:http} con código 400.
 
   \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:token_invalido]
     {Token con formato inválido}
@@ -101,7 +114,23 @@
     \item El sistema incrementa el contador de malas acciones del usuario
       en una unidad (regla de negocios \hipervinculo{rn:malas_acciones}).
 
-    \item El sistema regresa un valor nulo al cliente.
+    \item El sistema verifica que el contador de malas acciones del usuario no
+      sea igual o mayor al umbral permitido
+      (\hipervinculo{rn:top_malas_acciones});
+      [\hipervinculoLocal{ta:muchas_malas_acciones}].
+
+    \item El sistema regresa una respuesta \gls{gl:http} con código 400.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[ta:muchas_malas_acciones]
+    {Límite de malas acciones alcanzado}
+
+    \item El sistema cambia el estado del cliente a \textbf{en lista negra}.
+
+    \item El sistema regresa una respuesta \gls{gl:http} con código 400.
 
   \end{trayectoriaAlternativa}
 }
