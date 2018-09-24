@@ -1,7 +1,7 @@
 """
-  Funciones comunes de backend,
-  Aplicación web de sistema tokenizador.
-  Proyecto Lovelace.
+Funciones comunes de backend,
+Aplicación web de sistema tokenizador.
+Proyecto Lovelace.
 """
 
 import django
@@ -12,8 +12,7 @@ import _thread
 
 
 def respuestaJSON (objeto):
-  """
-  Empaqueta el objeto dado como una respuesta HTTP con JSON.
+  """Empaqueta el objeto dado como una respuesta HTTP con JSON.
 
   Ocupa los serializadores de django, que solo están pensados para los propios
   modelos de django; si se quiere serializar algo externo, mejor ocupar
@@ -22,8 +21,7 @@ def respuestaJSON (objeto):
   TODO: ¿Por qué no estoy ocupando JSONResponse, de django?
 
   OJO: si el objeto dado no es iterable, es convertido a una lista
-  con un solo elemento, para que sea posible serializarlo.
-  """
+  con un solo elemento, para que sea posible serializarlo."""
   try:
     iterador = iter(objeto)
   except TypeError:
@@ -33,8 +31,7 @@ def respuestaJSON (objeto):
 
 
 def privilegiosRequeridos (tipoDeUsuario):
-  """
-  Fábrica de decoradores para vistas con privilegios.
+  """Fábrica de decoradores para vistas con privilegios.
 
   Permite decorar las funciones de vistas (todas las definiciones de funciones
   que hay en cualquier funciones.py) para reestringir el uso de esa función
@@ -53,8 +50,7 @@ def privilegiosRequeridos (tipoDeUsuario):
   privilegios). Cuando el decorador no recibe parámetros se pude utilizar
   sin la fábrica.
 
-  Definitivamente, mi función favorita.
-  """
+  Definitivamente, mi función favorita."""
 
   def decorador (funcion):
 
@@ -84,9 +80,8 @@ def privilegiosRequeridos (tipoDeUsuario):
   return decorador
 
 
-def enviarCorreo(destinatario, asunto, cuerpo):
-  """
-  Envolvente alededor de transacciones de correo
+def enviarCorreo (destinatario, asunto, cuerpo):
+  """Envolvente alededor de transacciones de correo
 
   La función opera en modo no bloqueante: crea un hilo para hacer la
   transacción del envío del correo y regresa, independientemente de
@@ -94,21 +89,18 @@ def enviarCorreo(destinatario, asunto, cuerpo):
 
   destinatario: cadena con correo destino.
   asunto: cadena con campo de subject en correo.
-  cuerpo: contenido del correo.
-  """
+  cuerpo: contenido del correo."""
   _thread.start_new_thread(transaccionDeCorreo, (destinatario, asunto, cuerpo))
 
 
-def transaccionDeCorreo(destinatario, asunto, cuerpo):
-  """
-  Envía un correo desde la cuenta de administración del servidor.
+def transaccionDeCorreo (destinatario, asunto, cuerpo):
+  """Envía un correo desde la cuenta de administración del servidor.
 
   destinatario: cadena con correo destino.
   asunto: cadena con campo de subject en correo.
   cuerpo: contenido del correo.
 
-  TODO: Quitar contraseña de aquí.
-  """
+  TODO: Quitar contraseña de aquí."""
   dominio = 'ricardo-quezada.159.65.96.59.xip.io'
   usuario = 'administracion'
   correo = usuario + '@' + dominio
@@ -129,11 +121,12 @@ def transaccionDeCorreo(destinatario, asunto, cuerpo):
     mensaje.as_string())
   servidor.close()
 
-def calcularAlgoritmoLuhn(arreglo):
-  """
-    Calcula el valor del digito verificador mediante el algoritmo de Luhn.
-    No toma en cuenta el último elemento del arreglo.
-  """
+
+def calcularAlgoritmoLuhn (arreglo):
+  """Cálculo de dígito de verificación.
+
+  Calcula el valor del digito verificador mediante el algoritmo de Luhn.
+  No toma en cuenta el último elemento del arreglo."""
 
   suma = 0
   i = len(arreglo) - 2
@@ -150,3 +143,4 @@ def calcularAlgoritmoLuhn(arreglo):
     j = j + 1
 
   return (suma * 9) % 10
+

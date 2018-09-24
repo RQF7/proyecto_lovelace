@@ -1,7 +1,7 @@
 """
-  Operaciones de negocio de backend,
-  Aplicación web de sistema tokenizador.
-  Proyecto Lovelace.
+Operaciones de negocio de backend,
+Aplicación web de sistema tokenizador.
+Proyecto Lovelace.
 """
 
 import datetime
@@ -16,12 +16,10 @@ from .models.vinculo import Vinculo
 
 
 def autentificar (usuarioEnPeticion):
-  """
-  Valida el usuario dado (correo y contraseña).
+  """Valida el usuario dado (correo y contraseña).
 
   En caso de no existir, regresa None; en caso correcto,
-  regresa el objeto del usuario.
-  """
+  regresa el objeto del usuario."""
   try:
     resultado = Usuario.objects.get(
       correo = Correo.objects.get(
@@ -34,8 +32,7 @@ def autentificar (usuarioEnPeticion):
 
 
 def enviarVinculoDeVerificacion (usuario, tipo):
-  """
-  Crea un nuevo vínculo de verificación y lo envía por correo.
+  """Crea un nuevo vínculo de verificación y lo envía por correo.
 
   Guarda en la base de datos un hash del correo más la hora
   actual. Envía el vínculo por correo al cliente.
@@ -43,8 +40,7 @@ def enviarVinculoDeVerificacion (usuario, tipo):
   Técnicamente, poner tantos datos en el código (el mensaje del correo
   electrónico), es una mala práctica, o cuando menos en lenguajes compilados,
   pues un cambio en los datos obliga a recompilar. En este caso, como es
-  lenguaje interpretado, no veo por qué sería algo malo.
-  """
+  lenguaje interpretado, no veo por qué sería algo malo."""
 
   fecha = datetime.datetime.utcnow()
   hash = hashlib.sha256()

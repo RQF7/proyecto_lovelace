@@ -1,10 +1,16 @@
 """
-  Operaciones de negocio de relacionadas con el programa tokenizador,
-  Aplicación web de sistema tokenizador.
-  Proyecto Lovelace.
+Operaciones de negocio de relacionadas con el programa tokenizador,
+Aplicación web de sistema tokenizador.
+Proyecto Lovelace.
 """
 
-import base64, hashlib, django, datetime, subprocess, os
+import base64
+import hashlib
+import django
+import datetime
+import subprocess
+import os
+
 import sistema_tokenizador.configuraciones as configuraciones
 import sistema_tokenizador.utilidades as utilidades
 import sistema_tokenizador.general as general
@@ -19,12 +25,12 @@ INCREMENTO_TOKEN_INVALIDO = 1
 INCREMENTO_TOKEN_INEXISTENTE = 3
 
 
-def aumentarContadorDeMalasAcciones(cliente, incremento):
-  """
+def aumentarContadorDeMalasAcciones (cliente, incremento):
+  """Incrementa el contador de malas acciones.
+
   Incrementa el contador de malas acciones del cliente dado. Después, verifica
   que el contador no haya  sobre pasado el límite de males acciones; de ser así,
-  cambia su estado a <<en lista negra>>.
-  """
+  cambia su estado a <<en lista negra>>."""
 
   cliente.contadorDeMalasAcciones = cliente.contadorDeMalasAcciones + incremento
   cliente.save()
@@ -36,15 +42,15 @@ def aumentarContadorDeMalasAcciones(cliente, incremento):
     cliente.save()
 
 
-def verificarUnicidadDePAN(PAN, cliente_id):
-  """
+def verificarUnicidadDePAN (PAN, cliente_id):
+  """Verifica que el pan dado sea único según el cliente.
+
   Verifica que el cliente indicado no tenga asociado el PAN señalado.
   Busca todos los registros del cliente que tengan ese PAN, si no regresa
   ninguno, es verdadero; si tiene uno o dos (actual, actual-retokenizado, viejo),
   regresa falso.
 
-  Regresa verdadero o falso.
-  """
+  Regresa verdadero o falso."""
   try:
     registro = Token.objects.filter(
       pan = PAN,
@@ -54,15 +60,15 @@ def verificarUnicidadDePAN(PAN, cliente_id):
   return 0
 
 
-def validarToken(token):
-  """
+def validarToken (token):
+  """Valida el token dado.
+
   Valida que el token ingresado sea un token válido:
     - Tiene una longitud entre 12 y 19 dígitos.
     - Valida el dígito verificador (mediante el algoritmo de Luhn) con desfase
       de uno.
 
-    Regresa uno si es válido, cero si no.
-  """
+  Regresa uno si es válido, cero si no."""
 
   numeroDeElementos = len(token)
 
@@ -74,14 +80,14 @@ def validarToken(token):
 
   return 1
 
-def validarPan(pan):
-  """
+def validarPan (pan):
+  """Valida el número de tarjeta dado.
+
   Valida que el PAN ingresado sea válido.
     - Tiene una longitud entre 12 y 19 dígitos.
     - Valida el dígito verificador (mediante el algoritmo de Luhn).
 
-    Regresa uno si es válido, cero si no.
-  """
+  Regresa uno si es válido, cero si no."""
 
   numeroDeElementos = len(pan)
 
@@ -94,26 +100,24 @@ def validarPan(pan):
   return 1
 
 
-def generarLlave(tamanio):
-  """
+def generarLlave (tamanio):
+  """Genera una llave del tamaño dado.
+
   Se genera una llave en un archivo, este se lee y se borra cuando ya se
-  obtuvo la llave.
-  """
-  dir_buffer = "BUFFER"
+  obtuvo la llave."""
+  dirBuffer = "BUFFER"
   resultado = subprocess.run([configuraciones.EJECUTABLE_TOKENIZADOR,
-    "-k", dir_buffer, str(tamanio)], stdout = subprocess.PIPE)
-  llave = open(dir_buffer).read()
-  os.remove(dir_buffer)
+    "-k", dirBuffer, str(tamanio)], stdout = subprocess.PIPE)
+  llave = open(dirBuffer).read()
+  os.remove(dirBuffer)
   return llave
 
 
-def generarLlaves(cliente):
-  """
-  Generación de llaves para el cliente dado.
+def generarLlaves (cliente):
+  """Generación de llaves para el cliente dado.
 
   Se crea una llave para cada uno de los algoritmos del catálogo. Estas llaves
-  están asociadas al cliente dado.
-  """
+  están asociadas al cliente dado."""
 
   fecha = datetime.datetime.utcnow();
   algoritmos = Algoritmo.objects.all()
@@ -127,3 +131,4 @@ def generarLlaves(cliente):
         nombre = 'actual'),
       usuario = cliente)
     llave.save()
+
