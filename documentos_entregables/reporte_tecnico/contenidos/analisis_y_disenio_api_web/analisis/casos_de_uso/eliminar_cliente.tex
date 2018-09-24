@@ -16,18 +16,23 @@
 
     \item El sistema muestra el mensaje \hipervinculo{msj:adv_eliminar_cliente}.
 
-    \item El cliente presiona el botón \textit{aceptar}
+    \item El cliente presiona el botón \textit{aceptar};
       [\hipervinculoLocal{ta:cancelar}].
 
-    \item El sistema elimina el registro del cliente en la base de datos.
+    \item El sistema elimina el registro del cliente en la base de datos
+      (\hipervinculo{rn:estados_correo}).
 
-    \item El sistema elimina todos los tokens y las llaves relacionadas con el
+    \item El sistema elimina todos los tokens (\hipervinculo{rn:estados_token})
+      y las llaves (\hipervinculo{rn:estados_llave}) relacionadas con el
       cliente.
 
     \item El sistema elimina las variables del sesión del cliente.
 
     \item El sistema muestra la interfaz \hipervinculo{iu:inicio}.
+
   \end{trayectoriaPrincipal}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:cancelar]
     {El cliente cancela la operación}

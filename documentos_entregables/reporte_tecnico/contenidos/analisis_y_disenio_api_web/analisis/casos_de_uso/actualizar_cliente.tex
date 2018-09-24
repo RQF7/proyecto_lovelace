@@ -19,53 +19,59 @@
       deshabilitado.
 
     \item[datos] El cliente introduce un correo electrónico y una contraseña
-      (junto con su confirmación) [\hipervinculoLocal{ta:cancelar}].
+      (junto con su confirmación); [\hipervinculoLocal{ta:cancelar}].
 
     \item El sistema habilita el botón \textit{aceptar}.
 
     \item El cliente presiona el botón \textit{aceptar}.
 
     \item El sistema valida el correo electrónico de acuerdo a la regla
-      \hipervinculo{rn:correo_electronico}
+      \hipervinculo{rn:correo_electronico};
       [\hipervinculoLocal{ta:correo_incorrecto}].
 
     \item El sistema valida el formato de la contraseña de acuerdo a la regla
-      \hipervinculo{rn:formato_de_contrasenias}
+      \hipervinculo{rn:formato_de_contrasenias};
       [\hipervinculoLocal{ta:contrasenia_incorrecta}].
 
     \item El sistema valida que la confirmación de la contraseña coincida con
-      la contraseña introducida
+      la contraseña introducida;
       [\hipervinculoLocal{ta:confirmacion_incorrecta}].
 
     \item El sistema valida que el correo introducido no se encuentre ya
       asignado a un usuario, tomando en cuenta la regla de negocios
-      \hipervinculo{rn:unicidad_correo}
+      \hipervinculo{rn:unicidad_correo};
       [\hipervinculoLocal{ta:usuario_existente}].
 
-      \item El sistema registra la nueva dirección del cliente en estado
-        \textbf{no verificado}, según la regla de negocios
-        \hipervinculo{rn:estados_cliente} y un nuevo vínculo tomando en cuenta
-        la regla de negocios
-        \hipervinculo{rn:hipervinculo_verificacion}, \hipervinculo{rn:estados_correo}.
+    \item El sistema registra la nueva dirección del cliente en estado
+      \textbf{no verificado}, según la regla de negocios
+      \hipervinculo{rn:estados_correo} y un nuevo vínculo tomando en cuenta
+      la regla de negocios
+      \hipervinculo{rn:hipervinculo_verificacion}.
 
-      \item El sistema manda un correo al cliente con un hipervínculo de
-        verificación.
+    \item El sistema elimina el correo con estado con estado \textbf{verificado}
+      (regla de negocion \hipervinculo{rn:estados_correo}).
 
-      \item El sistema muestra la ventana
-        \hipervinculo{iu:aviso_de_correo_de_confirmacion}.
+    \item El sistema manda un correo al cliente con un hipervínculo de
+      verificación.
 
-      \item El cliente accede a la \gls{gl:url} enviada a su correo.
+    \item El sistema muestra la ventana
+      \hipervinculo{iu:aviso_de_correo_de_confirmacion}.
 
-      \item El sistema verifica el correo, tomando en cuenta la regla de negocios
-        \hipervinculo{rn:verificacion_de_actualizacion_de_cuentas}.
+    \item El cliente accede a la \gls{gl:url} enviada a su correo.
 
-      \item El sistema cambia el estado del correo del cliente a \textbf{verificado},
-        según la regla de negocios \hipervinculo{rn:estados_correo}.
+    \item El sistema verifica el correo, tomando en cuenta la regla de negocios
+      \hipervinculo{rn:verificacion_de_actualizacion_de_cuentas}.
 
-      \item El sistema muestra la ventana
-        \hipervinculo{iu:aviso_de_verificacion_exitosa}.
+    \item El sistema cambia el estado del correo del cliente a
+      \textbf{verificado}, según la regla de negocios
+      \hipervinculo{rn:estados_correo}.
+
+    \item El sistema muestra la ventana
+      \hipervinculo{iu:aviso_de_verificacion_exitosa}.
 
   \end{trayectoriaPrincipal}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:cancelar]
     {El visitante cancela la operación}
@@ -77,6 +83,8 @@
 
   \end{trayectoriaAlternativa}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:correo_incorrecto]
     {Correo electrónico incorrecto}
 
@@ -86,6 +94,8 @@
       principal.
 
   \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:contrasenia_incorrecta]
     {Contraseña incorrecta}
@@ -98,6 +108,8 @@
 
   \end{trayectoriaAlternativa}
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   \begin{trayectoriaAlternativa}[ta:confirmacion_incorrecta]
     {Confirmación de contraseña incorrecta}
 
@@ -108,6 +120,8 @@
       principal.
 
   \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[ta:usuario_existente]
     {Correo registrado previamente}

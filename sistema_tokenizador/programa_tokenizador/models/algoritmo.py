@@ -4,10 +4,10 @@
   Proyecto Lovelace.
 """
 
+import django
 from .tipo_de_algoritmo import TipoDeAlgoritmo
-from django.db import models
 
-class Algoritmo (models.Model):
+class Algoritmo (django.db.models.Model):
   """
   Catálogo de algoritmos tokenizadores.
 
@@ -18,18 +18,18 @@ class Algoritmo (models.Model):
   * AHR
   """
 
-  nombre = models.CharField(
+  nombre = django.db.models.CharField(
     verbose_name = 'nombre del algoritmo',
     unique = True,
     max_length = 20,
     primary_key = True)
 
-  longitudDeLlave = models.IntegerField(
+  longitudDeLlave = django.db.models.IntegerField(
     verbose_name = 'Longitud de las llaves para este algoritmo')
 
-  tipoDeAlgoritmo = models.ForeignKey(
+  tipoDeAlgoritmo = django.db.models.ForeignKey(
     'TipoDeAlgoritmo',
-    models.PROTECT,
+    django.db.models.PROTECT,
     verbose_name = 'clasificación del algoritmo')
 
 

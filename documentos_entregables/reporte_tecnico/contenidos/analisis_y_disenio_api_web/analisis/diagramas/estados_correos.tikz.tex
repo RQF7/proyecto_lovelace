@@ -26,32 +26,94 @@
   \node[estado_inicial]
     (estado_inicial) {};
   \node[estado]
-    (no verificado)
-    [above right = 1.1in of estado_inicial]
+    (no_verificado)
+    [right = 2.2in of estado_inicial]
     {No verificado};
   \node[estado]
     (verificado)
-    [below right = 0.6in of actual]
+    [below = 1.4in of no_verificado]
     {Verificado};
 
+  % Estado final
+  \draw[
+    fill = black]
+    ($(verificado.west) + (-2.2in, 0)$)
+    circle
+    (6pt);
+  \draw[
+    draw = black]
+    ($(verificado.west) + (-2.2in, 0)$)
+    circle
+    (7.5pt);
+
   % Transiciones
+  % De inicial a no verificado
   \draw[-Stealth]
     (estado_inicial.north)
-    |-
+    --
+    ($(estado_inicial) + (0, 0.2in)$)
+    --
     node[
       etiqueta_transicion,
       text width = 1.6in,
-      below left]
-      {\hipervinculo{cu:registrar_cliente}}
-    (actual.west);
+      above]
+    {\hipervinculo{cu:registrar_cliente}}
+    ($(no_verificado.west) + (0, 0.2in)$);
   \draw[-Stealth]
-    (actual.east)
-    -|
+    (estado_inicial.north)
+    --
+    ($(estado_inicial) - (0, 0.2in)$)
+    --
     node[
       etiqueta_transicion,
       text width = 1.6in,
-      below right]
-      {\texttt{Cliente verifica correo}}
-    (anterior.north);
+      below]
+    {\hipervinculo{cu:actualizar_cliente}}
+    ($(no_verificado.west) - (0, 0.2in)$);
+
+  % De no verificado a verificado
+  \draw[-Stealth]
+    ($(no_verificado.south) + (0.2in, 0)$)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 1.6in,
+      right]
+    {\hipervinculo{cu:actualizar_cliente}}
+    ($(verificado.north) + (0.2in, 0)$);
+  \draw[-Stealth]
+    ($(no_verificado.south) + (-0.2in, 0)$)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 1.6in,
+      left,
+      align = right]
+    {\hipervinculo{cu:registrar_cliente}}
+    ($(verificado.north) - (0.2in, 0)$);
+
+    % De verificado a final
+    \draw[-Stealth]
+      ($(verificado.west) + (0, 0.2in)$)
+      --
+      node[
+        etiqueta_transicion,
+        text width = 1.6in,
+        above]
+        {\hipervinculo{cu:actualizar_cliente}}
+      ($(verificado.west) + (-2.2in, 0.2in)$)
+      --
+      ($(verificado.west) + (-2.2in, 0) + (0, 7.5pt)$);
+    \draw[-Stealth]
+        ($(verificado.west) - (0, 0.2in)$)
+        --
+        node[
+          etiqueta_transicion,
+          text width = 1.6in,
+          below]
+          {\hipervinculo{cu:eliminar_cliente}}
+      ($(verificado.west) + (-2.2in, -0.2in)$)
+      --
+      ($(verificado.west) + (-2.2in, 0) - (0, 7.5pt)$);
 
 \end{tikzpicture}

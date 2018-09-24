@@ -8,6 +8,7 @@
 #include "../acceso_a_datos/cabeceras/registro.hh"
 #include "../../utilidades/cabeceras/arreglo_de_digitos.hh"
 #include "../../utilidades/cabeceras/utilidades_matematicas.hh"
+#include <cppconn/exception.h>
 #include <iostream>
 
 using namespace Implementaciones;
@@ -63,7 +64,13 @@ ArregloDeDigitos TKR::tokenizar(
     informacion.colocarToken(temporal
       || ArregloDeDigitos{modulo(algoritmoDeLuhn(temporal) + 1, 10)});
     informacion.colocarPAN(pan);
-    mBaseDeDatos->guardar(informacion);
+    try
+    {
+      mBaseDeDatos->guardar(informacion);
+    } catch (sql::SQLException& error)
+    {
+      return this->tokenizar(pan);
+    }
   }
   return informacion.obtenerToken();
 }
