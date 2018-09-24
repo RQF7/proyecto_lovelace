@@ -13,6 +13,10 @@
     class="md-padding">
     <div
       flex="70"
+      flex-lg="85"
+      flex-md="100"
+      flex-sm="100"
+      flex-xs="100"
       layout="column">
 
       <h1>¿Qué es la tokenización?</h1>
@@ -126,108 +130,172 @@
         continuación se encuentra una breve descripción de cada uno.
       </p>
 
-      <div>
-        <h2>FFX (Format-preserving Feistel-based Encryption) o FF1</h2>
-        <p>
-          Este es un cifrado que permite cifrar cadenas de cualquier tamaño,
-          compuestas por cualquier tipo de caracteres, el cual es usado para
-          tokenizar. Fue publicado por Mihir Bellare, Phillip Rogaway y
-          Terence Spies en 2009, aunque en 2016 el National Institute of
-          Standards and Technology (NIST) le dio el nombre de FF1 a este
-          algoritmo.
-        </p>
-        <p>
-          De forma general, el algoritmo usa redes Feistel junto con primitivas
-          criptográficas (función hash o cifrados por bloques) adaptadas
-          en la función de ronda de la red para lograr preservar el formato
-          del dato dado para tokenizar; esto significa que el token tendrá
-          la misma longitud y se mantendrá en el mismo dominio que el dato
-          original.
-        </p>
-        <p>
-          Para conocer más sobre este algoritmo revise el siguiente artículo:
-          <a md-colors="{color: 'accent'}"
-            href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.304.1736&rep=rep1&type=pdf">
-            The FFX Mode of Operation for Format-PreservingEncryption
-          </a>.
-        </p>
-      </div>
-      <div>
-        <h2>BPS (Brier-Peyrin-Stern) o FF3</h2>
-        <p>
-          Es un cifrado que preserva el formato usado para tokenizar,
-          propuesto por Eric Brier, Thomas Peyrin y Jacques Stern en 2010 y
-          renombrado por el NIST como FF3.
-        </p>
-        <p>
-          Al igual que FFX, usa redes Feistel y primitivas criptográficas para
-          lograr que el token tenga el mismo formato que el dato original.
-        </p>
-        <p>
-          Para conocer más sobre este algoritmo revise el siguiente artículo:
-          <a md-colors="{color: 'accent'}"
-            href="https://pdfs.semanticscholar.org/0be5/d4c77e333d78ddab5c4bf55d15649a660771.pdf">
-            BPS: a Format-Preserving Encryption Proposal
-          </a>.
-        </p>
-      </div>
-      <div>
-        <h2>TKR</h2>
-        <p>
-          Propuesto por Sandra Díaz Santiago, Lil María Rodríguez Henríquez y
-          Debrup Chakraborty en 2016, es un algoritmo que usa primitivas
-          criptográficas para generar tokens aleatorios y almacenarlos en una
-          base de datos segura para guardar su relación con el dato original.
-        </p>
-        <p>
-          Para conocer más sobre este algoritmo revisa el artículo:
-          <a md-colors="{color: 'accent'}"
-            href="https://link.springer.com/article/10.1007%2Fs10207-015-0313-x">
-            A cryptographic study of tokenization systems
-          </a>.
-        </p>
-      </div>
-      <div>
-        <h2>AHR (Algoritmo Híbrido Reversible)</h2>
-        <p>
-          Algoritmo de tokenización publicado por Riccardo Aragona, Riccardo
-          Longo y Massimiliano Sala en 2017.
-        </p>
-        <p>
-          Este se basa en un cifrado de bloques y una caminata cíclica para
-          generar tokens que mantengan el formato; los tokens son almacenados en
-          una base de datos segura para guardar la relación con los datos
-          originales.
-        </p>
-        <p>
-          Para conocer más sobre este algoritmo revise el siguiente artículo:
-          <a md-colors="{color: 'accent'}"
-            href="https://link.springer.com/article/10.1007%2Fs00200-017-0313-3">
-            Several proofs of security for a tokenization algorithm
-          </a>.
-        </p>
-      </div>
-      <div>
-        <h2>
-          Tokenización por medio de un DRGB
-          (Deterministic Random Bit Generator)
-        </h2>
-        <p>
-          La tokenización por este medio se logra produciendo una cadena de
-          bits aleatoria con un DRBG que se interpreta de forma especial para
-          que tenga el formato del dato original.
-        </p>
-        <p>
-          El DRGB puede estar basado tanto en funciones hash como en cifrados
-          por bloque.
-        </p>
-        <p>
-          Para conocer más sobre este algoritmo revise el siguiente artículo:
-          <a md-colors="{color: 'accent'}"
-            href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf">
-            NIST Special Publication 800-90A Revision 1
-          </a>.
-        </p>
+      <div
+        layout="row"
+        layout-sm="column"
+        layout-xs="column">
+        <div
+          flex="33"
+          flex-sm="100"
+          flex-xs="100"
+          layout="column">
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">FFX</span>
+                <span class="md-subhead">
+                  Format-preserving Feistel-based Encryption
+                </span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <p>
+                Este es un cifrado que permite cifrar cadenas de cualquier
+                tamaño, compuestas por cualquier tipo de caracteres, el cual es
+                usado para tokenizar. Fue publicado por Mihir Bellare, Phillip
+                Rogaway y Terence Spies en 2009, aunque en 2016 el National
+                Institute of Standards and Technology (NIST) le dio el nombre de
+                FF1 a este algoritmo.
+              </p>
+              <p>
+                De forma general, el algoritmo usa redes Feistel junto con
+                primitivas criptográficas (función hash o cifrados por bloques)
+                adaptadas en la función de ronda de la red para lograr preservar
+                el formato del dato dado para tokenizar; esto significa que el
+                token tendrá la misma longitud y se mantendrá en el mismo
+                dominio que el dato original.
+              </p>
+              <p>
+                Para conocer más sobre este algoritmo revise el siguiente
+                artículo: <a md-colors="{color: 'accent'}"
+                  href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.304.1736&rep=rep1&type=pdf">
+                  The FFX Mode of Operation for Format-PreservingEncryption
+                </a>.
+              </p>
+            </md-card-content>
+          </md-card>
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">BPS</span>
+                <span class="md-subhead">
+                  Brier-Peyrin-Stern
+                </span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <p>
+                Es un cifrado que preserva el formato usado para tokenizar,
+                propuesto por Eric Brier, Thomas Peyrin y Jacques Stern en 2010
+                y renombrado por el NIST como FF3.
+              </p>
+              <p>
+                Al igual que FFX, usa redes Feistel y primitivas criptográficas
+                para lograr que el token tenga el mismo formato que el dato
+                original.
+              </p>
+              <p>
+                Para conocer más sobre este algoritmo revise el siguiente
+                artículo: <a md-colors="{color: 'accent'}"
+                  href="https://pdfs.semanticscholar.org/0be5/d4c77e333d78ddab5c4bf55d15649a660771.pdf">
+                  BPS: a Format-Preserving Encryption Proposal
+                </a>.
+              </p>
+            </md-card-content>
+          </md-card>
+        </div>
+        <div
+          flex="33"
+          flex-sm="100"
+          flex-xs="100"
+          layout="column">
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">TKR</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <p>
+                Propuesto por Sandra Díaz Santiago, Lil María Rodríguez
+                Henríquez y Debrup Chakraborty en 2016, es un algoritmo que usa
+                primitivas criptográficas para generar tokens aleatorios y
+                almacenarlos en una base de datos segura para guardar su
+                relación con el dato original.
+              </p>
+              <p>
+                Para conocer más sobre este algoritmo revisa el artículo:
+                <a md-colors="{color: 'accent'}"
+                  href="https://link.springer.com/article/10.1007%2Fs10207-015-0313-x">
+                  A cryptographic study of tokenization systems
+                </a>.
+              </p>
+            </md-card-content>
+          </md-card>
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">AHR</span>
+                <span class="md-subhead">
+                  Algoritmo Híbrido Reversible
+                </span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <p>
+                Algoritmo de tokenización publicado por Riccardo Aragona,
+                Riccardo Longo y Massimiliano Sala en 2017.
+              </p>
+              <p>
+                Este se basa en un cifrado de bloques y una caminata cíclica
+                para generar tokens que mantengan el formato; los tokens son
+                almacenados en una base de datos segura para guardar la relación
+                con los datos originales.
+              </p>
+              <p>
+                Para conocer más sobre este algoritmo revise el siguiente
+                artículo: <a md-colors="{color: 'accent'}"
+                  href="https://link.springer.com/article/10.1007%2Fs00200-017-0313-3">
+                  Several proofs of security for a tokenization algorithm
+                </a>.
+              </p>
+            </md-card-content>
+          </md-card>
+        </div>
+        <div
+          flex="33"
+          flex-sm="100"
+          flex-xs="100"
+          layout="column">
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">DRBG</span>
+                <span class="md-subhead">
+                  Deterministic Random Bit Generator
+                </span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <p>
+                La tokenización por este medio se logra produciendo una cadena
+                de bits aleatoria con un DRBG que se interpreta de forma
+                especial para que tenga el formato del dato original.
+              </p>
+              <p>
+                El DRGB puede estar basado tanto en funciones hash como en
+                cifrados por bloque.
+              </p>
+              <p>
+                Para conocer más sobre este algoritmo revise el siguiente
+                artículo: <a md-colors="{color: 'accent'}"
+                  href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf">
+                  NIST Special Publication 800-90A Revision 1
+                </a>.
+              </p>
+            </md-card-content>
+          </md-card>
+        </div>
       </div>
 
       <h1>Una comparación</h1>
