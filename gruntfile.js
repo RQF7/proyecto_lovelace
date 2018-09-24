@@ -118,7 +118,6 @@ module.exports = function (grunt) {
         options: {
           removeComments: true,
           collapseWhitespace: true,
-          maxLineLength: 80,
           preserveLineBreaks: true,
           quoteCharacter: "'",
         },
