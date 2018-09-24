@@ -42,29 +42,31 @@
       \hipervinculo{rn:unicidad_correo};
       [\hipervinculoLocal{ta:usuario_existente}].
 
-      \item El sistema registra la nueva dirección del cliente en estado
-        \textbf{no verificado}, según la regla de negocios
-        \hipervinculo{rn:estados_cliente} y un nuevo vínculo tomando en cuenta
-        la regla de negocios
-        \hipervinculo{rn:hipervinculo_verificacion}, \hipervinculo{rn:estados_correo}.
+    \item El sistema registra la nueva dirección del cliente en estado
+      \textbf{no verificado}, según la regla de negocios
+      \hipervinculo{rn:estados_cliente} y un nuevo vínculo tomando en cuenta
+      la regla de negocios
+      \hipervinculo{rn:hipervinculo_verificacion}, \hipervinculo{rn:estados_correo}.
 
-      \item El sistema manda un correo al cliente con un hipervínculo de
-        verificación.
+    \item El sistema elimina el correo con estado con estado \textbf{verificado}.
 
-      \item El sistema muestra la ventana
-        \hipervinculo{iu:aviso_de_correo_de_confirmacion}.
+    \item El sistema manda un correo al cliente con un hipervínculo de
+      verificación.
 
-      \item El cliente accede a la \gls{gl:url} enviada a su correo.
+    \item El sistema muestra la ventana
+      \hipervinculo{iu:aviso_de_correo_de_confirmacion}.
 
-      \item El sistema verifica el correo, tomando en cuenta la regla de negocios
-        \hipervinculo{rn:verificacion_de_actualizacion_de_cuentas}.
+    \item El cliente accede a la \gls{gl:url} enviada a su correo.
 
-      \item El sistema cambia el estado del correo del cliente a
-        \textbf{verificado}, según la regla de negocios
-        \hipervinculo{rn:estados_correo}.
+    \item El sistema verifica el correo, tomando en cuenta la regla de negocios
+      \hipervinculo{rn:verificacion_de_actualizacion_de_cuentas}.
 
-      \item El sistema muestra la ventana
-        \hipervinculo{iu:aviso_de_verificacion_exitosa}.
+    \item El sistema cambia el estado del correo del cliente a
+      \textbf{verificado}, según la regla de negocios
+      \hipervinculo{rn:estados_correo}.
+
+    \item El sistema muestra la ventana
+      \hipervinculo{iu:aviso_de_verificacion_exitosa}.
 
   \end{trayectoriaPrincipal}
 

@@ -1,49 +1,74 @@
 %
-% Diagrama de estados de llaves,
+% Diagrama de estados de una llave,
 % Aplicación web de sistema tokenizador.
 % Proyecto Lovelace.
 %
 
 \begin{tikzpicture}[
-    estado/.style = {
-        rectangle,
-        draw = black,
-        thin,
-        inner sep = 4mm,
-        text width = 25mm,
-        align = center,
-        minimum height = 1.5cm},
-      estado_inicial/.style = {
-        circle,
-        minimum size = 15pt,
-        fill = black,
-      },
-      etiqueta_transicion/.style = {
-        align = center
-      }]
+  estado/.style = {
+    rectangle,
+    draw = black,
+    thin,
+    inner sep = 4mm,
+    text width = 25mm,
+    align = center,
+    minimum height = 1.5cm},
+  estado_inicial/.style = {
+    circle,
+    minimum size = 15pt,
+    fill = black},
+  etiqueta_transicion/.style = {
+    align = center,
+    text width = 15mm}]
 
   % Estados
   \node[estado_inicial]
     (estado_inicial) {};
   \node[estado]
     (actual)
-    [above right = 1.1in of estado_inicial]
+    [right = 1.8in of estado_inicial]
     {Actual};
   \node[estado]
     (anterior)
     [below right = 0.6in of actual]
     {Anterior};
 
-  % Transiciones
+% Estado final
+  \draw[
+    fill = black]
+    ($(anterior.west) + (-3.6in, -0.8in)$)
+    circle
+    (7.5pt);
+  \draw[
+    draw = black]
+    ($(anterior.west) + (-3.6in, -0.8in)$)
+    circle
+    (10pt);
+
+
+% Transiciones
   \draw[-Stealth]
     (estado_inicial.north)
-    |-
+    --
+    ($(estado_inicial) + (0, 0.2in)$)
+    --
     node[
       etiqueta_transicion,
       text width = 1.6in,
-      below left]
-      {\texttt{Crear llave}}
-    (actual.west);
+      above]
+      {\hipervinculo{cu:iniciar_refresco}}
+    ($(actual.west) + (0, 0.2in)$);
+  \draw[-Stealth]
+    (estado_inicial.north)
+    --
+    ($(estado_inicial) - (0, 0.2in)$)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 1.6in,
+      below]
+      {\hipervinculo{cu:aprobar_cliente}}
+    ($(actual.west) - (0, 0.2in)$);
   \draw[-Stealth]
     (actual.east)
     -|
@@ -53,5 +78,29 @@
       below right]
       {\hipervinculo{cu:iniciar_refresco}}
     (anterior.north);
+
+  \draw[-Stealth]
+    ($(anterior.south) + (-0.1in, 0)$)
+    --
+    ($(anterior.south) + (-0.1in, -0.4in)$)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 1.6in,
+      above]
+      {\hipervinculo{cu:terminar_refresco}}
+    ($(anterior.west) + (-3.6in, -0.7in) + (10pt, 0)$);
+  \draw[-Stealth]
+    ($(anterior.south) + (+0.1in, 0)$)
+    --
+    ($(anterior.south) + (+0.1in, -0.6in)$)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 1.6in,
+      below]
+      {\hipervinculo{cu:eliminar_cliente}}
+    ($(anterior.west) + (-3.6in, -0.9in) + (10pt, 0)$);
+
 
 \end{tikzpicture}
