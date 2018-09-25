@@ -90,20 +90,10 @@ module.exports = function (grunt) {
             dest: cc + 'compilados/js/angular-mocks.js'
           },
           {
-            src: [cc + 'imagenes/icono.png'],
-            dest: cc + 'compilados/imagenes/icono.png'
-          },
-          {
-            src: [cc + 'imagenes/palomita.png'],
-            dest: cc + 'compilados/imagenes/palomita.png'
-          },
-          {
-            src: [cc + 'imagenes/todo_rev.png'],
-            dest: cc + 'compilados/imagenes/todo_rev.png'
-          },
-          {
-            src: [cc + 'imagenes/todo_irrev.png'],
-            dest: cc + 'compilados/imagenes/todo_irrev.png'
+            expand: true,
+            flatten: true,
+            src: [cc + 'imagenes/*.png'],
+            dest: cc + 'compilados/imagenes/'
           },
           {
             src: [cc + 'sass/sitio_publico.sass'],
