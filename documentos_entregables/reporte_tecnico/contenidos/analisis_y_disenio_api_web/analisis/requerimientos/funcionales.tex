@@ -148,15 +148,18 @@
     \item Algoritmo tokenizador.
     \item Credenciales.
   \end{itemize}
-  La operación regresa un token.
 
-  \subrequerimiento[rq:validar_clientes_tokenizar]
-  {Validar estado de clientes al tokenizar}
-  {
-    Para realizar una operación de tokenización, el \textbf{cliente} asociado a
-    la \textbf{aplicación cliente} debe encontrarse en estado \textbf{aceptado}
-    o \textbf{en cambio de llaves}.
-  }
+  \begin{hangparas}{2em}{0}
+    La operación regresa un token.
+
+    \subrequerimiento[rq:validar_clientes_tokenizar]
+    {Validar estado de clientes al tokenizar}
+    {
+      Para realizar una operación de tokenización, el \textbf{cliente} asociado a
+      la \textbf{aplicación cliente} debe encontrarse en estado \textbf{aceptado}
+      o \textbf{en cambio de llaves}.
+    }
+  \end{hangparas}
 }
 
 \requerimiento[rq:detokenizar_token]
@@ -169,17 +172,20 @@
     \item Token.
     \item Algoritmo tokenizador.
     \item Credenciales.
-    \item [Opcional] Versión de llaves a utilizar.
+    \item \texttt{[Opcional]} Versión de llaves a utilizar.
   \end{itemize}
-  La operación regresa un número de tarjeta.
 
-  \subrequerimiento[rq:validar_clientes_detokenizar]
-  {Validar estado de clientes al detokenizar}
-  {
-    Para realizar una operación de detokenización, el \textbf{cliente} asociado
-    a la \textbf{aplicación cliente} debe encontrarse en estado
-    \textbf{aceptado} o \textbf{en cambio de llaves}.
-  }
+  \begin{hangparas}{2em}{0}
+    La operación regresa un número de tarjeta.
+
+    \subrequerimiento[rq:validar_clientes_detokenizar]
+    {Validar estado de clientes al detokenizar}
+    {
+      Para realizar una operación de detokenización, el \textbf{cliente} asociado
+      a la \textbf{aplicación cliente} debe encontrarse en estado
+      \textbf{aceptado} o \textbf{en cambio de llaves}.
+    }
+  \end{hangparas}
 }
 
 \requerimiento[rq:retokenizar_token]
@@ -193,15 +199,18 @@
     \item Algoritmo tokenizador.
     \item Credenciales.
   \end{itemize}
-  La operación regresa el token actualizado.
 
-  \subrequerimiento[rq:validar_clientes_retokenizar]
-  {Validar estado de clientes al retokenizar}
-  {
-    Para realizar una operación de retokenización, el \textbf{cliente} asociado
-    a la \textbf{aplicación cliente} debe encontrarse en estado \textbf{en
-    cambio de llaves}.
-  }
+  \begin{hangparas}{2em}{0}
+    La operación regresa el token actualizado.
+
+    \subrequerimiento[rq:validar_clientes_retokenizar]
+    {Validar estado de clientes al retokenizar}
+    {
+      Para realizar una operación de retokenización, el \textbf{cliente} asociado
+      a la \textbf{aplicación cliente} debe encontrarse en estado \textbf{en
+      cambio de llaves}.
+    }
+  \end{hangparas}
 }
 
 \requerimiento[rq:algoritmos_para_tokenizar]
