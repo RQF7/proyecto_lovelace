@@ -18,12 +18,12 @@
   \end{itemize}
 
   \begin{hangparas}{2em}{0}
-    \subrequerimiento[rq:validar_clientes]
-    {Validar estado de clientes}
+    \subrequerimiento[rq:validar_clientes_iniciar_sesion]
+    {Validar estado de clientes al iniciar sesión}
     {
-      Aquellos \textit{clientes} que se encuentren en alguno de los siguientes
-      estados no deben poder iniciar sesión: \textit{no verificado},
-      \textit{verificado}, \textit{rechazado} o \textit{en lista negra}.
+      Aquellos \textbf{clientes} que se encuentren en alguno de los siguientes
+      estados no deben poder iniciar sesión: \textbf{en espera},
+      \textbf{rechazado} o \textbf{en lista negra}.
     }
   \end{hangparas}
 }
@@ -50,8 +50,8 @@
 \requerimiento[rq:verificar_cliente]
 {Verificar cliente}
 {
-  La aplicación web debe permitir a un usuario \textbf{cliente} que verifique
-  su correo al enviarle un enlace al registrarse.
+  La aplicación web debe permitir a un usuario \textbf{cliente} verificar
+  su correo mediante un enlace enviado al registrarse.
 }
 
 \requerimiento[rq:aprobar_cliente]
@@ -61,35 +61,120 @@
   y rechazar usuarios de tipo \textbf{cliente}.
 }
 
-\requerimiento[rq:mostrar_promocion]
-{Mostrar promoción del servicio tokenizador}
+\requerimiento[rq:vetar_cliente]
+{Poner cliente en lista negra}
 {
-  La aplicación web debe tener una página que promocione el servicio de
-  tokenización, esta página debe explicar qué es la tokenización y cómo
-  funcionan los algoritmos implementados.
+  La aplicación web debe permitir a un usuario \textbf{administrador} poner a
+  un \textbf{cliente} en la lista negra.
 }
 
-\requerimiento[rq:mostrar_documentacion]
-{Mostrar documentación del servicio tokenizador}
+\requerimiento[rq:desvetar_cliente]
+{Quitar cliente de lista negra}
 {
-  La aplicación web debe tener una página donde se muestre la documentación de la
-  API.
+  La aplicación web debe permitir a un usuario \textbf{administrador} quitar a
+  un \textbf{cliente} de la lista negra.
+}
+
+\requerimiento[rq:actualizar_cliente]
+{Actualizar datos de cliente}
+{
+  La aplicación web debe permitir a un usuario \textbf{cliente} actualizar sus
+  datos (correo electrónico y contraseña).
+}
+
+\requerimiento[rq:iniciar_refresco_de_llaves]
+{Iniciar refresco de llaves}
+{
+  La aplicación web debe permitir, a un \textbf{cliente}, iniciar el refresco de
+  sus llaves.
+}
+
+\requerimiento[rq:terminar_refresco_de_llaves]
+{Terminar refresco de llaves}
+{
+  La aplicación web debe permitir, a un \textbf{cliente}, terminar el refresco
+  de sus llaves.
+}
+
+\requerimiento[rq:recordatorio_refresco]
+{Recordatorio de refresco de llaves}
+{
+  El sistema debe mostrar un aviso en la página de inicio de un \textbf{cliente}
+  y enviar una notificación diaria a los clientes que tengan llaves cuyo
+  criptoperiodo haya caducado.
 }
 
 \requerimiento[rq:tokenizar_tarjeta]
 {Tokenizar número de tarjeta}
 {
-  La aplicación web debe permitir, a un cliente, realizar la tokenización de un
-  número de tarjeta. El cliente debe proporcionar los siguientes datos:
+  La aplicación web debe permitir, a un \textbf{cliente}, realizar la
+  tokenización de un número de tarjeta. El cliente debe proporcionar los
+  siguientes datos:
   \begin{itemize}
     \item Número de tarjeta a tokenizar.
     \item Algoritmo tokenizar.
+    \item Credenciales.
   \end{itemize}
   La operación regresa un token.
 
-  \begin{hangparas}{2em}{0}
-    Los algoritmos disponibles son:
-  \end{hangparas}
+  \subrequerimiento[rq:validar_clientes_tokenizar]
+  {Validar estado de clientes al tokenizar}
+  {
+    Para realizar una operación de tokenización, el \textbf{cliente} debe
+    encontrarse en estado \textbf{aceptado} o \textbf{en cambio de llaves}.
+  }
+}
+
+\requerimiento[rq:detokenizar_token]
+{Detokenizar token}
+{
+  La aplicación web debe permitir, a un \textbf{cliente}, realizar la
+  detokenización de un token. El cliente debe proporcionar los siguientes datos:
+  \begin{itemize}
+    \item Token.
+    \item Algoritmo tokenizador.
+    \item Credenciales.
+    \item [Opcional] Versión de llaves a utilizar.
+  \end{itemize}
+  La operación regresa un número de tarjeta.
+
+  \subrequerimiento[rq:validar_clientes_detokenizar]
+  {Validar estado de clientes al detokenizar}
+  {
+    Para realizar una operación de detokenización, el \textbf{cliente} debe
+    encontrarse en estado \textbf{aceptado} o \textbf{en cambio de llaves}.
+  }
+}
+
+\requerimiento[rq:retokenizar_token]
+{Retokenizar token}
+{
+  La aplicación web debe permitir, a un \textbf{cliente} que ha iniciado el
+  refresco de llaves, realizar la retokenización de un token. El cliente debe
+  proporcionar los siguientes datos:
+  \begin{itemize}
+    \item Token.
+    \item Algoritmo tokenizador.
+    \item Credenciales.
+  \end{itemize}
+  La operación regresa el token actualizado.
+
+  \subrequerimiento[rq:validar_clientes_retokenizar]
+  {Validar estado de clientes al retokenizar}
+  {
+    Para realizar una operación de retokenización, el \textbf{cliente} debe
+    encontrarse en estado \textbf{en cambio de llaves}.
+  }
+}
+
+\requerimiento[rq:algoritmos_para_tokenizar]
+{Algoritmos para tokenizar}
+{
+  Las operaciones de tokenización, detokenización y retokenización
+  (especificadas en \hipervinculo{rq:tokenizar_tarjeta},
+  \hipervinculo{rq:detokenizar_token} y \hipervinculo{rq:retokenizar_token}
+  respectivamente) deben especificar el algoritmo tokenizador con el que se
+  realizará la operación. Los algoritmos disponibles son:
   \begin{itemize}
     \item BPS
     \item FFX
@@ -99,28 +184,17 @@
   \end{itemize}
 }
 
-\requerimiento[rq:detokenizar_token]
-{Detokenizar token}
+\requerimiento[rq:mostrar_documentacion]
+{Mostrar documentación del servicio tokenizador}
 {
-  La aplicación web debe permitir, a un cliente, realizar la detokenización de
-  un token. El cliente debe proporcionar los siguientes datos:
-  \begin{itemize}
-    \item Token
-    \item Algoritmo tokenizador
-  \end{itemize}
-  La operación regresa un número de tarjeta.
+  La aplicación web debe tener una página donde se muestre la documentación de
+  la API.
 }
 
-\requerimiento[rq:recordatorio_refresco]
-{Recordatorio de refresco de llaves}
+\requerimiento[rq:mostrar_promocion]
+{Mostrar promoción del servicio tokenizador}
 {
-  El sistema debe enviar una notificación diaria a los clientes cuyo
-  criptoperiodo haya caducado.
-}
-
-\requerimiento[rq:refrescar_llaves]
-{Refrescar llaves}
-{
-  La aplicación web debe permitir, a un cliente, realizar el refresco de sus
-  llaves.
+  La aplicación web debe tener una página que promocione el servicio de
+  tokenización, esta página también debe explicar qué es la tokenización, qué es
+  un servicio de tokenización y cómo funcionan los algoritmos implementados.
 }
