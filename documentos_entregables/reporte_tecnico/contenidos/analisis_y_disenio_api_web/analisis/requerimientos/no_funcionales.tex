@@ -25,3 +25,11 @@
   contraseña introducida y se compara contra el que está almacenado en la base
   de datos. El algoritmo utilizado para estos hash debe de ser \gls{gl:sha}-256.
 }
+
+\requerimientoNoFuncional[rqnf_api:encabezados_de_autenticacion]
+{Sobre los encabezados de autenticación}
+{
+  Todas las peticiones de tokenización, detokenización y retokenización deben
+  hacer uso de los encabezados de autenticación provistos por el protocolo
+  HTTPS.
+}
