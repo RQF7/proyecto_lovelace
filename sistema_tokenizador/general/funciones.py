@@ -394,16 +394,13 @@ def verificarCorreoDeActualizacion (peticion, vinculo):
 def verificarCriptoperiodo(peticion):
   """Verifica el criptoperiodo del usuario en sesión.
 
-  Obtiene una llave en estado actual del usuario en sesión y verifica la
-  vigencia de la llave. Regresa un 1 en caso de que la llave ya haya caducado. =
-  en otro caso."""
+  Manda a llamar a la función correspondiente del negocio con el objeto del
+  usuario en sesión. Regresa un 1 en caso de ser necesario actualizar las
+  llaves; 0 en otro caso."""
 
-  llave = programa_tokenizador.models.llave.Llave.objects.filter(
-    usuario = Usuario.objects.get(
-      pk = obtenerId(peticion)),
-    estadoDeLlave = 'actual')[0]
-  if datetime.datetime.now() - llave.fechaDeCreacion > \
-    datetime.timedelta(days = llave.criptoperiodo):
+  if negocio.verificarCriptoperiodo(
+      Usuario.objects.get(
+        pk = obtenerId(peticion))):
     return django.http.HttpResponse("1")
   else:
     return django.http.HttpResponse("0")

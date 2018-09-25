@@ -1,10 +1,10 @@
 """
-  configuraciones.py Archivo de configuraciones de django.
-  Proyecto Lovelace.
+configuraciones.py Archivo de configuraciones de django.
+Proyecto Lovelace.
 
-  Documentación asociada:
-  https://docs.djangoproject.com/en/2.0/topics/settings/
-  https://docs.djangoproject.com/en/2.0/ref/settings/
+Documentación asociada:
+https://docs.djangoproject.com/en/2.0/topics/settings/
+https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
@@ -35,7 +35,8 @@ INSTALLED_APPS = [
   'django.contrib.sessions',
   'django.contrib.messages',
   'django.contrib.staticfiles',
-  'django_extensions'
+  'django_extensions',
+  "django_cron"
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sistema_tokenizador.servidor_web.application'
 
+CRON_CLASSES = [
+  "sistema_tokenizador.general.trabajos_de_cron.expiracion_de_llaves.ExpiracionDeLlaves",
+]
 
 # Base de datos ###############################################################
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
