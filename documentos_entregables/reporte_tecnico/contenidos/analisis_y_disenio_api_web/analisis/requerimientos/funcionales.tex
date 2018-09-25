@@ -35,13 +35,13 @@
 \requerimiento[rq:validar_correo_iniciar_sesion]
 {Validar estado de correo al iniciar sesión}
 {
-  El correo del cliente debe encontrarse en estado \textbf{valido}.
+  El correo del cliente debe encontrarse en estado \textbf{válido}.
 }
 
 \requerimiento[rq:registrar_cliente]
 {Registrar cliente}
 {
-  La aplicación web debe permitir a los usuarios \textbf{visitante}
+  La aplicación web debe permitir a los usuarios  de tipo \textbf{visitante}
   registrarse; el visitante debe proporcionar los siguientes datos:
   \begin{itemize}
     \item Correo electrónico válido
@@ -53,72 +53,73 @@
 \requerimiento[rq:verificar_cliente]
 {Verificar cliente}
 {
-  La aplicación web debe permitir a un usuario \textbf{cliente} verificar
-  su correo mediante un enlace enviado al registrarse.
+  La aplicación web debe permitir a un usuario de tipo \textbf{cliente}
+  verificar su correo mediante un enlace enviado al registrarse.
 }
 
 \requerimiento[rq:verificar_nuevo_correo]
 {Verificar nuevo correo}
 {
-  La aplicación web debe permitir a un usuario \textbf{cliente} verificar
-  su nuevo correo mediante un enlace enviado al terminar de editar sus datos.
+  La aplicación web debe permitir a un usuario de tipo \textbf{cliente}
+  verificar su nuevo correo mediante un enlace enviado al terminar de editar
+  sus datos.
 }
 
 \requerimiento[rq:aprobar_cliente]
 {Aprobar cliente}
 {
-  La aplicación web debe permitir a un usuario \textbf{administrador} aprobar
-  y rechazar usuarios de tipo \textbf{cliente}.
+  La aplicación web debe permitir a un usuario de tipo \textbf{administrador}
+  aprobar y rechazar usuarios de tipo \textbf{cliente}.
 }
 
 \requerimiento[rq:mostrar_clientes_en_espera]
 {Mostrar clientes en espera}
 {
-  La aplicación web debe permitir a un usuario \textbf{administrador} consultar
-  la lista de \textbf{clientes} en estado \textbf{en espera} con correo
-  \textbf{verificado}.
+  La aplicación web debe permitir a un usuario de tipo \textbf{administrador}
+  consultar la lista de \textbf{clientes} en estado \textbf{en espera} con
+  correo \textbf{verificado}.
 }
 
 \requerimiento[rq:mostrar_clientes_aprobados]
-{Mostrar clientes en espera}
+{Mostrar clientes aprobados}
 {
-  La aplicación web debe permitir a un usuario \textbf{administrador} consultar
-  la lista de \textbf{clientes} en estado \textbf{aprobado}.
+  La aplicación web debe permitir a un usuario de tipo \textbf{administrador}
+  consultar la lista de \textbf{clientes} en estado \textbf{aprobado}.
 }
 
 \requerimiento[rq:mostrar_clientes_vetados]
-{Mostrar clientes en espera}
+{Mostrar clientes en lista negra}
 {
-  La aplicación web debe permitir a un usuario \textbf{administrador} consultar
-  la lista de \textbf{clientes} en estado \textbf{en lista negra}.
+  La aplicación web debe permitir a un usuario de tipo \textbf{administrador}
+  consultar la lista de \textbf{clientes} en estado \textbf{en lista negra}.
 }
 
 \requerimiento[rq:administrar_vetados]
 {Administrar lista negra}
 {
-  La aplicación web debe permitir a un usuario \textbf{administrador} poner y
-  quitar a un \textbf{cliente} de la lista negra.
+  La aplicación web debe permitir a un usuario de tipo \textbf{administrador}
+  poner y quitar a un \textbf{cliente} de la lista negra.
 }
 
 \requerimiento[rq:desvetar_cliente]
 {Quitar cliente de lista negra}
 {
-  La aplicación web debe permitir a un usuario \textbf{administrador} quitar a
-  un \textbf{cliente} de la lista negra.
+  La aplicación web debe permitir a un usuario de tipo \textbf{administrador}
+  quitar a un \textbf{cliente} de la lista negra.
 }
 
 \requerimiento[rq:actualizar_cliente]
 {Actualizar datos de cliente}
 {
-  La aplicación web debe permitir a un usuario \textbf{cliente} actualizar sus
-  datos (correo electrónico y contraseña).
+  La aplicación web debe permitir a un usuario de tipo \textbf{cliente}
+  actualizar sus datos (correo electrónico y contraseña).
 }
 
 \requerimiento[rq:eliminar_cliente]
 {Eliminar datos de un cliente}
 {
-  La aplicación web debe permitir a un usuario \textbf{cliente} eliminar su
-  cuenta y datos del sistema.
+  La aplicación web debe permitir a un usuario de tipo \textbf{cliente} eliminar
+  su cuenta y datos del sistema.
 }
 
 \requerimiento[rq:administrar_refresco_de_llaves]
@@ -139,12 +140,12 @@
 \requerimiento[rq:tokenizar_tarjeta]
 {Tokenizar número de tarjeta}
 {
-  La aplicación web debe permitir, a un \textbf{cliente}, realizar la
-  tokenización de un número de tarjeta. El cliente debe proporcionar los
-  siguientes datos:
+  La aplicación web debe permitir, a una \textbf{aplicación cliente}, realizar
+  la tokenización de un número de tarjeta. La aplicación cliente debe
+  proporcionar los siguientes datos:
   \begin{itemize}
     \item Número de tarjeta a tokenizar.
-    \item Algoritmo tokenizar.
+    \item Algoritmo tokenizador.
     \item Credenciales.
   \end{itemize}
   La operación regresa un token.
@@ -152,16 +153,18 @@
   \subrequerimiento[rq:validar_clientes_tokenizar]
   {Validar estado de clientes al tokenizar}
   {
-    Para realizar una operación de tokenización, el \textbf{cliente} debe
-    encontrarse en estado \textbf{aceptado} o \textbf{en cambio de llaves}.
+    Para realizar una operación de tokenización, el \textbf{cliente} asociado a
+    la \textbf{aplicación cliente} debe encontrarse en estado \textbf{aceptado}
+    o \textbf{en cambio de llaves}.
   }
 }
 
 \requerimiento[rq:detokenizar_token]
 {Detokenizar token}
 {
-  La aplicación web debe permitir, a un \textbf{cliente}, realizar la
-  detokenización de un token. El cliente debe proporcionar los siguientes datos:
+  La aplicación web debe permitir, a una \textbf{aplicación cliente}, realizar
+  la detokenización de un token. La aplicación cliente debe proporcionar los
+  siguientes datos:
   \begin{itemize}
     \item Token.
     \item Algoritmo tokenizador.
@@ -173,17 +176,18 @@
   \subrequerimiento[rq:validar_clientes_detokenizar]
   {Validar estado de clientes al detokenizar}
   {
-    Para realizar una operación de detokenización, el \textbf{cliente} debe
-    encontrarse en estado \textbf{aceptado} o \textbf{en cambio de llaves}.
+    Para realizar una operación de detokenización, el \textbf{cliente} asociado
+    a la \textbf{aplicación cliente} debe encontrarse en estado
+    \textbf{aceptado} o \textbf{en cambio de llaves}.
   }
 }
 
 \requerimiento[rq:retokenizar_token]
 {Retokenizar token}
 {
-  La aplicación web debe permitir, a un \textbf{cliente} que ha iniciado el
-  refresco de llaves, realizar la retokenización de un token. El cliente debe
-  proporcionar los siguientes datos:
+  La aplicación web debe permitir, a una \textbf{aplicación cliente} cuyo
+  \textbf{cliente} ha iniciado el refresco de llaves, realizar la retokenización
+  de un token. La aplicación cliente debe proporcionar los siguientes datos:
   \begin{itemize}
     \item Token.
     \item Algoritmo tokenizador.
@@ -194,8 +198,9 @@
   \subrequerimiento[rq:validar_clientes_retokenizar]
   {Validar estado de clientes al retokenizar}
   {
-    Para realizar una operación de retokenización, el \textbf{cliente} debe
-    encontrarse en estado \textbf{en cambio de llaves}.
+    Para realizar una operación de retokenización, el \textbf{cliente} asociado
+    a la \textbf{aplicación cliente} debe encontrarse en estado \textbf{en
+    cambio de llaves}.
   }
 }
 
@@ -231,20 +236,14 @@
   un servicio de tokenización y cómo funcionan los algoritmos implementados.
 }
 
-%% OTROS------------
-\requerimiento[rq:notificar_cambio_cliente]
-{Notificar cliente}
-{
-  La aplicación web debe notificar a un \textbf{cliente} siempre que su estado
-  cambie, al iniciar sesión.
-}
-
 \requerimiento[rq:notificar_envio_correo]
 {Notificar cliente}
 {
   La aplicación web debe notificar a un \textbf{cliente} siempre que le envíe
   un correo de verificación.
 }
+
+% Otros
 
 \requerimiento[rq:notificar_cambio_administrador]
 {Notificar cliente por correo electrónico}
@@ -319,3 +318,4 @@
     \item \textbf{no verificado}
   \end{itemize}
 }
+
