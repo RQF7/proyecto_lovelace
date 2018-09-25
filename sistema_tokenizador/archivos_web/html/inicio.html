@@ -45,15 +45,16 @@
         de vigilar un castillo, se vigila una habitación).
       </p>
       <p>
-        La operación inversa, es decir dado un token, obtener el PAN que le
-        corresponde, es llamada <em>detokenización</em>.
+        La operación inversa, es decir dado un token, obtener el PAN (número de
+        cuenta, por sus siglas en inglés) que le corresponde, es llamada
+        <em>detokenización</em>.
       </p>
 
       <h1>¿Por qué utilizar un servicio de tokenización?</h1>
       <p>
         Desde que el comercio eletrónico comenzó a popularizarse, los fraudes
         relacionados con las tarjetas bancarias y el comercio en línea
-        crecieron, pues los sitios de bancarios y de comercion no estaban
+        crecieron, pues los sitios bancarios y de comercio no estaban
         preparados para la demanda y las amenazas de seguridad a las que
         comenzaron a enfrentarse. Por lo tanto, en 2004, fue publicado por
         primera vez un estándar (PCI DSS, respaldado por compañías como VISA y
@@ -64,9 +65,9 @@
       <p>
         Aunque este estándar no es obligatorio para aquellas entidades que
         realicen menos de 20 000 transacciones en un año; es extremadamente
-        recomendable que se sigan la guía para mantener segura la información y
+        recomendable que sigan la guía para mantener segura la información y
         transacciones.  Empero, satisfacer completamente el estándar es una
-        verdadera proeza, cuenta con más de 200 requerimientos para segurar la
+        verdadera proeza, cuenta con más de 200 requerimientos para asegurar la
         robustez y seguridad del sistema que trata con los datos y pagos con
         tarjetas bancarias.
       </p>
@@ -89,11 +90,11 @@
       <h1>¿Por qué utilizar ESTE servicio de tokenización?</h1>
       <p>
         A diferencia de otros competidores, nosotros somos transparentes
-        respecto a la manera en la que se generan los tokens; actualmente, hay
-        cinco algoritmos distintos para obtener tokens y usted puede decidir,
-        para cada token, el algoritmo que será utilizado: un poco más adelante
-        hay una sección que explica brevemente cada algoritmo y nuestras
-        implementaciones son públicas.
+        respecto a la manera en la que se generan los tokens (¡nuestras
+        implementaciones son públicas!); actualmente, hay cinco algoritmos
+        distintos para obtener tokens y usted puede decidir, para cada token, el
+        algoritmo que será utilizado: un poco más adelante hay una sección que
+        explica brevemente cada algoritmo.
       </p>
 
       <h1>¿Qué es el PCI SSC?</h1>
@@ -108,11 +109,6 @@
         Esta organización desarrolló el PCI Data Security Standard (DSS): un
         estándar en el que se indica la manera de mantener la información
         bancaria segura mediante la implementación de protocolos de seguridad.
-      </p>
-      <p>
-        Es importante resaltar que el PCI SSC ha establecido como requerimiento
-        la implementación del PCI DSS solo para aquellas entidades que realizan
-        un número de transacciones considerables (20 000 al año).
       </p>
 
       <h1>Sobre los algoritmos de tokenización</h1>
@@ -153,13 +149,13 @@
                 Este es un cifrado que permite cifrar cadenas de cualquier
                 tamaño, compuestas por cualquier tipo de caracteres, el cual es
                 usado para tokenizar. Fue publicado por Mihir Bellare, Phillip
-                Rogaway y Terence Spies en 2009, aunque en 2016 el National
+                Rogaway y Terence Spies en 2009, y, en 2016, el National
                 Institute of Standards and Technology (NIST) le dio el nombre de
                 FF1 a este algoritmo.
               </p>
               <p>
                 De forma general, el algoritmo usa redes Feistel junto con
-                primitivas criptográficas (función hash o cifrados por bloques)
+                primitivas criptográficas (funciones hash o cifrados por bloques)
                 adaptadas en la función de ronda de la red para lograr preservar
                 el formato del dato dado para tokenizar; esto significa que el
                 token tendrá la misma longitud y se mantendrá en el mismo

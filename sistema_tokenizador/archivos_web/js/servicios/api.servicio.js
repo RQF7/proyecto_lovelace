@@ -13,7 +13,7 @@ sistemaTokenizador.factory('api', [
     var API = {};
     var RUTA_BASE = '/lovelace/api/general';
 
-    /* Operaciones de sesión. */
+    /* Operaciones de sesión. *************************************************/
 
     API.obtenerUsuarioDeSesion = function () {
       return $http.get(RUTA_BASE + '/usuario_de_sesion');
@@ -26,6 +26,8 @@ sistemaTokenizador.factory('api', [
     API.cerrarSesion = function () {
       return $http.get(RUTA_BASE + '/cerrar_sesion');
     };
+
+    /* Operaciones de clientes. ***********************************************/
 
     API.registrarCliente = function (cliente) {
       return $http.post(RUTA_BASE + '/operar_cliente', cliente);
@@ -51,8 +53,11 @@ sistemaTokenizador.factory('api', [
       return $http.post(RUTA_BASE + '/eliminar_tokens');
     };
 
+    API.verificarCriptoperiodo = function () {
+      return $http.get(RUTA_BASE + '/verificar_criptoperiodo');
+    };
 
-    /* Operaciones de administrador. */
+    /* Operaciones de administrador. ******************************************/
 
     API.obtenerClientesEnEspera = function (pagina, limite) {
       return $http.get(RUTA_BASE + '/clientes_en_espera/'

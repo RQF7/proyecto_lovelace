@@ -390,6 +390,22 @@ def verificarCorreoDeActualizacion (peticion, vinculo):
   return django.http.HttpResponseRedirect('/?nuevo_correo_verificado')
 
 
+@utilidades.privilegiosRequeridos('cliente')
+def verificarCriptoperiodo(peticion):
+  """Verifica el criptoperiodo del usuario en sesión.
+
+  Manda a llamar a la función correspondiente del negocio con el objeto del
+  usuario en sesión. Regresa un 1 en caso de ser necesario actualizar las
+  llaves; 0 en otro caso."""
+
+  if negocio.verificarCriptoperiodo(
+      Usuario.objects.get(
+        pk = obtenerId(peticion))):
+    return django.http.HttpResponse("1")
+  else:
+    return django.http.HttpResponse("0")
+
+
 ################################################################################
 # Operaciones de administradores ###############################################
 ################################################################################
