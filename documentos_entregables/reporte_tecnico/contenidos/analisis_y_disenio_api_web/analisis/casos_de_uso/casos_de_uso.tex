@@ -4,7 +4,7 @@
 % Proyecto Lovelace.
 %
 % IMPORTANTE: Ver caso_de_uso.sty; los casos de uso definen un sistema de
-% referencias locales, para poder ocupar las mismas etquetas en casos de uso
+% referencias locales, para poder ocupar las mismas etiquetas en casos de uso
 % distintos.
 %
 
@@ -16,138 +16,190 @@ relación con los actores (regla de negocio \hipervinculo{rn:tipo_de_usuario})
 del sistema; mientras que en la tabla \ref{casos_de_uso_vs_requerimientos} se
 muestra la relación entre casos de uso y requerimientos.
 
-\begin{table}
-  \footnotesize
-  \centering
-  \begin{tabular}{|m{8.5cm}|m{8.5cm}|}
-    \hline
-    \textbf{Requerimiento} & \textbf{Caso de uso}                 \\ \hline
-    \hipervinculo{rq:gestionar_sesion}
-      & \multirow{8}{*}{\hipervinculo{cu:iniciar_sesion}}         \\ \cline{1-1}
-    \hipervinculo{rq:recordatorio_refresco}
-      &                                                           \\ \hline
-    \hipervinculo{rq:validar_credenciales_iniciar_sesion}
-      &                                                           \\ \hline
-    \hipervinculo{rq:validar_clientes_iniciar_sesion}
-      &                                                           \\ \hline
-    \hipervinculo{rq:validar_credenciales_iniciar_sesion}
-      &                                                           \\ \hline
-    \hipervinculo{rq:validar_correo_iniciar_sesion}
-      &                                                           \\ \hline
-    \hipervinculo{rq:mostrar_clientes_en_espera}
-      &                                                           \\ \hline
-    \hipervinculo{rq:mostrar_clientes_aprobados}
-      &                                                           \\ \hline
-    \hipervinculo{rq:mostrar_clientes_vetados}
-      &                                                           \\ \hline
-    \hipervinculo{rq:notificar_cambio_cliente}
-      &                                                           \\ \hline
+\begin{longtable}{| m{4.6in} | m{2.0in} |}
 
-    \hipervinculo{rq:gestionar_sesion}
-      & \hipervinculo{cu:cerrar_sesion}                           \\ \hline
+  % TODO:
+  % * En algunos puntos de la tabla se sobreponen líneas de los encabezados con
+  %   líneas de las celdas. Arreglar esto de forma independiente de la posición
+  %   con respecto a los saltos de página.
+  % * Hacer que no haya saltos de página que dividan un multirow a la mitad.
 
-    \hipervinculo{rq:registrar_cliente}
-      & \multirow{3}{*}{\hipervinculo{cu:registrar_cliente}}      \\ \cline{1-1}
-    \hipervinculo{rq:verificar_cliente}
-      &                                                           \\ \hline
-    \hipervinculo{rq:estados_cliente}
-      &                                                           \\ \hline
-    \hipervinculo{rq:estados_correo}
-      &                                                           \\ \hline
+  \hline
+  \textbf{Requerimiento} &
+  \textbf{Caso de uso} \\
+  \hline
+  \endfirsthead
 
-    \hipervinculo{rq:aprobar_cliente}
-      & \multirow{2}{*}{\hipervinculo{cu:aprobar_cliente}}    \\ \cline{1-1}
-    \hipervinculo{rq:mostrar_clientes_en_espera}
-      &                                                           \\ \hline
-    \hipervinculo{rq:notificar_cambio_administrador}
-      &                                                           \\ \hline
-    \hipervinculo{rq:estados_cliente}
-      &                                                           \\ \hline
-    \hipervinculo{rq:estados_llave}
-      &                                                           \\ \hline
+  \hline
+  \multicolumn{2}{|c|}{\textit{Continuación}}\\
+  \hline
+  \textbf{Requerimiento} &
+  \textbf{Caso de uso} \\
+  \hline
+  \endhead
 
-    \hipervinculo{rq:aprobar_cliente}
-      & \multirow{3}{*}{\hipervinculo{cu:rechazar_cliente}}   \\ \cline{1-1}
-    \hipervinculo{rq:mostrar_clientes_en_espera}
-      &                                                           \\ \hline
-    \hipervinculo{rq:notificar_cambio_administrador}
-      &                                                           \\ \hline
-    \hipervinculo{rq:confirmar_administrador}
-      &                                                           \\ \hline
-    \hipervinculo{rq:estados_cliente}
-      &                                                           \\ \hline
+  \hline
+  \multicolumn{2}{|c|}{\textit{Continúa en siguiente página}}\\
+  \hline
+  \endfoot
 
-    \hipervinculo{rq:administrar_vetados}
-      & \multirow{4}{*}{\hipervinculo{cu:vetar_cliente}}          \\ \hline
-    \hipervinculo{rq:mostrar_clientes_aprobados}
-        &                                                         \\ \hline
-    \hipervinculo{rq:mostrar_clientes_aprobados}
-        &                                                         \\ \hline
-    \hipervinculo{rq:notificar_cambio_administrador}
-      &                                                           \\ \hline
-    \hipervinculo{rq:confirmar_administrador}
-      &                                                           \\ \hline
-    \hipervinculo{rq:estados_cliente}
-      &                                                           \\ \hline
+  \endlastfoot
 
-    \hipervinculo{rq:administrar_vetados}
-      & \multirow{3}{*}{\hipervinculo{cu:desvetar_cliente}}       \\ \hline
-    \hipervinculo{rq:mostrar_clientes_vetados}
-        &                                                         \\ \hline
-    \hipervinculo{rq:notificar_cambio_administrador}
-      &                                                           \\ \hline
-    \hipervinculo{rq:estados_cliente}
-      &                                                           \\ \hline
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    \hipervinculo{rq:actualizar_cliente}
-      & \multirow{2}{*}{\hipervinculo{cu:actualizar_cliente}}    \\ \hline
-    \hipervinculo{rq:notificar_envio_correo}
-      &                                                           \\ \hline
-    \hipervinculo{rq:estados_correo}
-      &                                                           \\ \hline
+  \hipervinculo{rq:gestionar_sesion} &
+  \multirow{8}{*}
+  {\parbox{2in}
+  {\raggedright\hipervinculo{cu:iniciar_sesion}}}           \\\cline{1-1}
+  \hipervinculo{rq:validar_credenciales_iniciar_sesion}   & \\\cline{1-1}
+  \hipervinculo{rq:validar_clientes_iniciar_sesion}       & \\\cline{1-1}
+  \hipervinculo{rq:validar_correo_iniciar_sesion}         & \\\cline{1-1}
+  \hipervinculo{rq:mostrar_clientes_en_espera}            & \\\cline{1-1}
+  \hipervinculo{rq:mostrar_clientes_aprobados}            & \\\cline{1-1}
+  \hipervinculo{rq:mostrar_clientes_vetados}              & \\\cline{1-1}
+  \hipervinculo{rq:recordatorio_refresco}                 & \\\hline
 
-    \hipervinculo{rq:eliminar_cliente}
-      & \multirow{2}{*}{\hipervinculo{cu:eliminar_cliente}}       \\ \hline
-    \hipervinculo{rq:confirmar_cliente}
-      &                                                           \\ \hline
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    \hipervinculo{rq:administrar_refresco_de_llaves}
-      & \multirow{2}{*}{\hipervinculo{cu:iniciar_refresco}}       \\ \hline
-    \hipervinculo{rq:estados_tokens}
-      &                                                           \\ \hline
-    \hipervinculo{rq:estados_llaves}
-      &                                                           \\ \hline
-    \hipervinculo{rq:estados_clientes}
-      &                                                           \\ \hline
+  \hipervinculo{rq:gestionar_sesion} &
+  \hipervinculo{cu:cerrar_sesion}                         \\\hline
 
-    \hipervinculo{rq:administrar_refresco_de_llaves}
-      & \multirow{2}{*}{\hipervinculo{cu:terminar_refresco}}       \\ \hline
-    \hipervinculo{rq:estados_clientes}
-      &                                                           \\ \hline
-    \hipervinculo{rq:confirmar_cliente}
-      &                                                           \\ \hline
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    \hipervinculo{rq:tokenizar_tarjeta}
-      & \multirow{2}{*}{\hipervinculo{cu:tokenizar_tarjeta}}      \\ \cline{1-1}
-    \hipervinculo{rq:algoritmos_para_tokenizar}
-      &                                                           \\ \hline
+  \hipervinculo{rq:registrar_cliente} &
+  \multirow{4}{*}
+  {\parbox{2in}
+  {\raggedright\hipervinculo{cu:registrar_cliente}}}      \\\cline{1-1}
+  \hipervinculo{rq:verificar_cliente}                   & \\\cline{1-1}
+  \hipervinculo{rq:estados_cliente}                     & \\\cline{1-1}
+  \hipervinculo{rq:estados_correo}                      & \\\hline
 
-    \hipervinculo{rq:detokenizar_token}
-      & \multirow{2}{*}{\hipervinculo{cu:detokenizar_token}}        \\ \cline{1-1}
-    \hipervinculo{rq:algoritmos_para_tokenizar}
-      &                                                           \\ \hline
-    \hipervinculo{rq:retokenizar_token}
-      & \multirow{3}{*}{\hipervinculo{cu:retokenizar_token}}      \\ \cline{1-1}
-    \hipervinculo{rq:algoritmos_para_tokenizar}
-      &                                                           \\ \hline
-    \hipervinculo{rq:estados_tokens}
-      &                                                           \\ \hline
-  \end{tabular}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  %\hipervinculo{rq:aprobar_cliente} &
+  %\multirow{5}{*}
+  %{\parbox{2in}
+  %{\raggedright\hipervinculo{cu:aprobar_cliente}}}        \\\cline{1-1}
+  %\hipervinculo{rq:mostrar_clientes_en_espera}          & \\\cline{1-1}
+  %\hipervinculo{rq:notificar_cambio_administrador}      & \\\cline{1-1}
+  %\hipervinculo{rq:estados_cliente}                     & \\\cline{1-1}
+  %\hipervinculo{rq:estados_llave}                       & \\\hline
+
+  \hipervinculo{rq:aprobar_cliente}                     & \\
+  \hipervinculo{rq:mostrar_clientes_en_espera}          &
+  \multirow{4}{*}
+  {\parbox{2in}
+  {\raggedright\hipervinculo{cu:aprobar_cliente}}}        \\\cline{1-1}
+  \hipervinculo{rq:notificar_cambio_administrador}      & \\\cline{1-1}
+  \hipervinculo{rq:estados_cliente}                     & \\\cline{1-1}
+  \hipervinculo{rq:estados_llave}                       & \\\hline
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \hipervinculo{rq:aprobar_cliente} &
+  \multirow{5}{*}
+  {\parbox{2in}
+  {\raggedright\hipervinculo{cu:rechazar_cliente}}}       \\\cline{1-1}
+  \hipervinculo{rq:mostrar_clientes_en_espera}          & \\\cline{1-1}
+  \hipervinculo{rq:notificar_cambio_administrador}      & \\\cline{1-1}
+  \hipervinculo{rq:confirmar_administrador}             & \\\cline{1-1}
+  \hipervinculo{rq:estados_cliente}                     & \\\hline
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \hipervinculo{rq:mostrar_clientes_aprobados} &
+  \multirow{5}{*}
+  {\parbox{2in}
+  {\raggedright\hipervinculo{cu:vetar_cliente}}}          \\\cline{1-1}
+  \hipervinculo{rq:administrar_vetados}                 & \\\cline{1-1}
+  \hipervinculo{rq:notificar_cambio_administrador}      & \\\cline{1-1}
+  \hipervinculo{rq:confirmar_administrador}             & \\\cline{1-1}
+  \hipervinculo{rq:estados_cliente}                     & \\\hline
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \hipervinculo{rq:mostrar_clientes_vetados} &
+  \multirow{4}{*}
+  {\parbox{2in}
+  {\raggedright\hipervinculo{cu:desvetar_cliente}}}      \\\cline{1-1}
+  \hipervinculo{rq:administrar_vetados}                 & \\\cline{1-1}
+  \hipervinculo{rq:notificar_cambio_administrador}      & \\\cline{1-1}
+  \hipervinculo{rq:estados_cliente}                     & \\\hline
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \hipervinculo{rq:actualizar_cliente} &
+  \multirow{3}{*}
+  {\parbox{2in}
+  {\raggedright\hipervinculo{cu:actualizar_cliente}}}     \\\cline{1-1}
+  \hipervinculo{rq:notificar_envio_correo}              & \\\cline{1-1}
+  \hipervinculo{rq:estados_correo}                      & \\\hline
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \hipervinculo{rq:eliminar_cliente} &
+  \multirow{2}{*}
+  {\parbox{2in}
+  {\raggedright\hipervinculo{cu:eliminar_cliente}}}       \\\cline{1-1}
+  \hipervinculo{rq:confirmar_cliente}                   & \\\hline
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \hipervinculo{rq:administrar_refresco_de_llaves} &
+  \multirow{4}{*}
+  {\parbox{2in}
+  {\raggedright\hipervinculo{cu:iniciar_refresco}}}       \\\cline{1-1}
+  \hipervinculo{rq:estados_token}                       & \\\cline{1-1}
+  \hipervinculo{rq:estados_llave}                       & \\\cline{1-1}
+  \hipervinculo{rq:estados_cliente}                     & \\\hline
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \hipervinculo{rq:administrar_refresco_de_llaves} &
+  \multirow{3}{*}
+  {\parbox{2in}
+  {\raggedright\hipervinculo{cu:terminar_refresco}}}      \\\cline{1-1}
+  \hipervinculo{rq:estados_cliente}                     & \\\cline{1-1}
+  \hipervinculo{rq:confirmar_cliente}                   & \\\hline
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \hipervinculo{rq:tokenizar_tarjeta} &
+  \multirow{2}{*}
+  {\parbox{2in}
+  {\raggedright\hipervinculo{cu:tokenizar_tarjeta}}}      \\\cline{1-1}
+  \hipervinculo{rq:algoritmos_para_tokenizar}           & \\\hline
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \hipervinculo{rq:detokenizar_token} &
+  \multirow{2}{*}
+  {\parbox{2in}
+  {\raggedright\hipervinculo{cu:detokenizar_token}}}      \\\cline{1-1}
+  \hipervinculo{rq:algoritmos_para_tokenizar}           & \\\hline
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  %\hipervinculo{rq:retokenizar_token} &
+  %\multirow{3}{*}
+  %{\parbox{2in}
+  %{\raggedright\hipervinculo{cu:retokenizar_token}}}      \\\cline{1-1}
+  %\hipervinculo{rq:algoritmos_para_tokenizar}           & \\\cline{1-1}
+  %\hipervinculo{rq:estados_token}                       & \\\hline
+
+  \hipervinculo{rq:retokenizar_token}                    & \\
+  \hipervinculo{rq:algoritmos_para_tokenizar}            &
+  \multirow{2}{*}
+  {\parbox{2in}
+  {\raggedright\hipervinculo{cu:retokenizar_token}}}      \\\cline{1-1}
+  \hipervinculo{rq:estados_token}                       & \\\hline
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \caption{Relación de casos de uso y requerimientos}
   \label{casos_de_uso_vs_requerimientos}
-\end{table}
 
+\end{longtable}
 
 \begin{sidewaysfigure}
   \begin{center}
@@ -171,3 +223,4 @@ muestra la relación entre casos de uso y requerimientos.
 \subimport{/}{tokenizar_tarjeta.tex}
 \subimport{/}{detokenizar_token.tex}
 \subimport{/}{retokenizar_token.tex}
+
