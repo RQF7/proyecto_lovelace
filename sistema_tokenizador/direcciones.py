@@ -14,6 +14,7 @@ encarga de hacer la resolución (ver js/navegacion.configuracion.js).
 """
 
 import django
+import sistema_tokenizador.general as general
 
 urlpatterns = [
 
@@ -27,10 +28,11 @@ urlpatterns = [
     django.urls.include(
       'sistema_tokenizador.programa_tokenizador.direcciones')),
 
-  # Todo lo demás
-  django.urls.re_path(r'.*',
-    django.urls.include(
-      'sistema_tokenizador.general.direcciones'))
+  # URLs estáticas
+  django.urls.path('', general.funciones.inicio, name = 'inicio'),
+  django.urls.path('documentación', general.funciones.inicio),
+  django.urls.path('control', general.funciones.control),
+  django.urls.path('administración', general.funciones.administracion),
 
 ]
 

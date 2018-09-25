@@ -1,7 +1,7 @@
 """
-  Modelo de llave para algoritmos tokenizadores,
-  Aplicación web de sistena tokenizador.
-  Proyecto Lovelace.
+Modelo de llave para algoritmos tokenizadores,
+Aplicación web de sistena tokenizador.
+Proyecto Lovelace.
 """
 
 import django
@@ -12,8 +12,7 @@ from .estado_de_llave import EstadoDeLlave
 
 
 class Llave (django.db.models.Model):
-  """
-  """
+  """Modelo para una llave de un algoritmo tokenizador."""
 
   # OJO: es un char, no un campo binario: las llaves se almacenan codificadas
   # en base 64.
@@ -44,3 +43,4 @@ class Llave (django.db.models.Model):
     'EstadoDeLlave',
     django.db.models.PROTECT,
     verbose_name = 'Estado de la llave')
+

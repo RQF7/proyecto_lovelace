@@ -8,6 +8,7 @@ import datetime
 import hashlib
 
 import sistema_tokenizador.configuraciones as configuraciones
+import sistema_tokenizador.programa_tokenizador as programa_tokenizador
 import sistema_tokenizador.utilidades as utilidades
 
 from .models.correo import Correo
@@ -61,7 +62,7 @@ def enviarVinculoDeVerificacion (usuario, tipo):
     Para poder verificar su correo en el sistema tokenizador debe
     hacer clic en el siguiente vínculo:
 
-    {0}/api/verificar_correo/{1}/{2}
+    {0}/api/general/verificar_correo/{1}/{2}
 
     Atentamente,
     Departamento de verificación de cuentas,
@@ -76,3 +77,39 @@ def enviarVinculoDeVerificacionDeRegistro (usuario):
 
 def enviarVinculoDeVerificacionDeActualizacion (usuario):
   enviarVinculoDeVerificacion (usuario, "actualizacion")
+
+
+def verificarCriptoperiodo (usuario):
+  """Verifica el criptoperiodo del usuario dado.
+
+  Obtiene una llave en estado actual del usuario dado y verifica la
+  vigencia de la llave. Regresa verdadero en caso de que la llave ya haya
+  caducado; falso en otro caso."""
+
+  llave = programa_tokenizador.models.llave.Llave.objects.filter(
+    usuario = usuario,
+    estadoDeLlave = 'actual')[0]
+  if datetime.datetime.now() - llave.fechaDeCreacion > \
+    datetime.timedelta(days = llave.criptoperiodo):
+    return True
+  else:
+    return False
+
+
+def enviarRecordatorioDeRefresco (usuario):
+  """Envía correo de advertencia de llaves expiradas."""
+  utilidades.enviarCorreo(
+    usuario.correo.correo,
+    "Advertencia de llaves expiradas - Sistema tokenizador",
+    """
+    Estimado cliente:
+
+    Sus llaves han expirado. Es necesario iniciar el proceso de refresco de
+    llaves para retokenizar sus tokens.
+
+    Atentamente,
+    Departamento de gestión de llaves,
+    Sistema Tokenizador,
+    Proyecto Lovelace.
+    """)
+

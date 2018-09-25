@@ -10,12 +10,6 @@ from ..general import funciones
 
 urlpatterns = [
 
-  # Vistas
-  django.urls.path('', funciones.inicio, name = 'inicio'),
-  django.urls.path('documentación', funciones.inicio),
-  django.urls.path('control', funciones.control),
-  django.urls.path('administración', funciones.administracion),
-
   # Operaciones de sesión
   django.urls.path('usuario_de_sesion',
     funciones.usuarioDeSesion),
@@ -37,6 +31,8 @@ urlpatterns = [
     funciones.terminarRefrescoDeLlaves),
   django.urls.path('eliminar_tokens',
     funciones.eliminarTokens),
+  django.urls.path('verificar_criptoperiodo',
+    funciones.verificarCriptoperiodo),
 
   # Operaciones de administración
   django.urls.path('clientes_en_espera/<int:pagina>/<int:limite>',
