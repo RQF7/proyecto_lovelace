@@ -6,8 +6,6 @@
 \documentclass{beamer}
 \usepackage{formato}
 \newcommand{\Titulo}{Un vistazo a la tokenización}
-%\renewcommand{\Subtitulo}{Primera Reunión de
-%  Ciberseguridad para la Industria 4.0}
 \newcommand{\Fecha}{Puebla, 14 de octubre de 2018}
 \usepackage{formato_presentaciones}
 
@@ -91,7 +89,6 @@
     % 4. La tienda guarda el token y lo usa como si fuera el número de tarjeta.
     %    Regresa al cliente el resultado de su transacción.
     %
-
 
     \begin{figure}
       \centering
@@ -209,17 +206,43 @@
 
   \section{Clasificación del PCI}
 
-  \begin{frame}{Clasificación del PCI}
-    \begin{figure}[H]
-      \begin{center}
-        \includegraphics[width=0.8\linewidth]
-          {presentacion_rci/diagramas/clasificacion_pci.png}
-        \newline
-        \newline
-        \includegraphics[width=0.8\linewidth]
-          {presentacion_rci/diagramas/clasificacion_propia.png}
-      \end{center}
-    \end{figure}
+  \begin{frame}{Clasificación de los algoritmos tokenizadores}
+    \begin{center}
+      \begin{columns}
+        \begin{column}{0.5\textwidth}
+          Clasificación del PCI \cite{}:
+          \vspace{1.0em}
+          \begin{itemize}
+            \item Reversibles
+            \begin{itemize}
+              \item Criptográficos
+              \item No criptográficos
+            \end{itemize}
+            \item Irreversibles
+            \begin{itemize}
+              \item Autenticables
+              \item No autenticables
+            \end{itemize}
+          \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+          Clasificación propuesta:
+          \vspace{1.0em}
+          \begin{itemize}
+            \item Criptográficos
+            \begin{itemize}
+              \item Reversibles
+              \item Irreversibles
+            \end{itemize}
+            \item No criptográficos
+            \begin{itemize}
+              \item[]
+              \item[]
+            \end{itemize}
+          \end{itemize}
+        \end{column}
+      \end{columns}
+    \end{center}
   \end{frame}
 
   \section{Métodos reversibles: FFX y BPS}
