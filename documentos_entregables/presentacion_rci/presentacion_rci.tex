@@ -22,6 +22,19 @@
 
 \setbeameroption{show notes}
 
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows.meta,
+  decorations.pathmorphing,
+  backgrounds,
+  positioning,
+  calc,
+  scopes,
+  shapes}
+
+\tikzset{
+  font=\tiny}
+
 \begin{document}
 
   {\setbeamertemplate{footline}{}
@@ -61,6 +74,137 @@
         pero lo hacen sin detallar la forma en la que se realiza.
       \item En 2011 el PCI publicó las guías para la tokenización.
     \end{itemize}
+
+    %
+    % Explicación de diagrama:
+    % 1. El cliente introduce en la página de la tienda sus datos bancarios,
+    %    entre los que va el número de tarjeta.
+    % 2. La tienda hace una petición al sistema tokenizador. Es importante que
+    %    la tienda no guarde el número de tarjeta del cliente.
+    % 3. El sistema tokenizador genera un nuevo token; guarda (si es un método
+    %    reversible) en su base de datos el número de tarjeta junto con el token
+    %    generado; regresa a la tienda el token generado.
+    %    [Opcional] 2.1 Si se está realizando una transacción bancaria, el
+    %    sistema tokenizador manda al banco la solicitud de la transacción al
+    %    entorno bancario.
+    %    [Opcional] 2.2 El banco regresa el resultado de la operación.
+    % 4. La tienda guarda el token y lo usa como si fuera el número de tarjeta.
+    %    Regresa al cliente el resultado de su transacción.
+    %
+
+
+    \begin{figure}
+      \centering
+      \begin{tikzpicture}[
+        entorno/.style={
+          rectangle,
+          draw = black,
+          thin,
+          inner sep = 1mm,
+          text width = 15mm,
+          align = center,
+          minimum height = 1.0cm},
+        etiqueta/.style={
+          align = center
+        }]
+
+        \node[entorno]
+          (usuario)
+          {Usuario};
+        \node[entorno]
+          (tienda)
+          [right = of usuario]
+          {Tienda en línea};
+        \node[entorno]
+          (sistema_tokenizador)
+          [right = of tienda]
+          {Sistema tokenizador};
+        \node[entorno]
+          (banco)
+          [right = of sistema_tokenizador]
+          {Entorno bancario};
+
+        \draw[-Stealth]
+          ($(usuario.north) + (0.1in, 0)$)
+          --
+          ($(usuario.north) + (0.1in, 0.1in)$)
+          --
+          node[
+            etiqueta,
+            above]
+            {1. Tarjeta: \\ \texttt{1234567891234567}}
+          ($(tienda.north) + (-0.1in, 0.1in)$)
+          --
+          ($(tienda.north) + (-0.1in, 0)$);
+
+        \draw[-Stealth]
+          ($(tienda.north) + (0.1in, 0)$)
+          --
+          ($(tienda.north) + (0.1in, 0.1in)$)
+          --
+          node[
+            etiqueta,
+            above]
+            {2. Tarjeta: \\ \texttt{1234567891234567}}
+          ($(sistema_tokenizador.north) + (-0.1in, 0.1in)$)
+          --
+          ($(sistema_tokenizador.north) + (-0.1in, 0)$);
+
+        \draw[-Stealth]
+          ($(sistema_tokenizador.north) + (0.1in, 0)$)
+          --
+          ($(sistema_tokenizador.north) + (0.1in, 0.1in)$)
+          --
+          node[
+            etiqueta,
+            above]
+            {2.1. Tarjeta: \\ \texttt{1234567891234567}}
+          ($(banco.north) + (-0.1in, 0.1in)$)
+          --
+          ($(banco.north) + (-0.1in, 0)$);
+
+        \draw[-Stealth]
+          ($(banco.south) + (-0.1in, 0)$)
+          --
+          ($(banco.south) + (-0.1in, -0.1in)$)
+          --
+          node[
+            etiqueta,
+            below]
+            {2.2 Resultado de \\ operación}
+          ($(sistema_tokenizador.south) + (0.1in, -0.1in)$)
+          --
+          ($(sistema_tokenizador.south) + (0.1in, 0)$);
+
+        \draw[-Stealth]
+          ($(sistema_tokenizador.south) + (-0.1in, 0)$)
+          --
+          ($(sistema_tokenizador.south) + (-0.1in, -0.1in)$)
+          --
+          node[
+            etiqueta,
+            below]
+            {3. Token: \\ \texttt{1234567891234567}}
+          ($(tienda.south) + (0.1in, -0.1in)$)
+          --
+          ($(tienda.south) + (0.1in, 0)$);
+
+        \draw[-Stealth]
+          ($(tienda.south) + (-0.1in, 0)$)
+          --
+          ($(tienda.south) + (-0.1in, -0.1in)$)
+          --
+          node[
+            etiqueta,
+            below]
+            {4. Resultado de \\ operación}
+          ($(usuario.south) + (0.1in, -0.1in)$)
+          --
+          ($(usuario.south) + (0.1in, 0)$);
+
+      \end{tikzpicture}
+      \caption{Arquitectura típica de un sistema tokenizador.}
+    \end{figure}
   \end{frame}
 
   \section{Clasificación del PCI}

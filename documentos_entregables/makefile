@@ -133,6 +133,11 @@ referencias_rci:
 	biber --input-directory $(CARPETA_TEMPORAL) \
 		$(CARPETA_TEMPORAL)/$(PRESENTACION_RCI).bcf
 
+rci_autocompilable:
+	fswatch -1 $(CARPETA_PRESENTACION_RCI)/$(PRESENTACION_RCI).tex
+	make $(CARPETA_PRESENTACION_RCI)/$(PRESENTACION_RCI).pdf
+	make rci_autocompilable
+
 # Cronograma ##################################################################
 
 cronograma: cronograma.tex
