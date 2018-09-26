@@ -22,6 +22,7 @@
 
 \setbeameroption{show notes}
 
+\usepackage[caption=false,font=footnotesize]{subfig}
 \usepackage{tikz}
 \usetikzlibrary{
   arrows.meta,
@@ -226,18 +227,65 @@
 
   \begin{frame}{Métodos reversibles: FFX y BPS}
 
+    \begin{itemize}
+      \item Métodos que utilizan cifrados que preservan el formato.
+      \item Cifran la tarjeta y descifran el token.
+      \item Se volvieron estándares en 2016 y fueron renombrados por el NIST
+        a FF1 y FF3 respectivamente.
+      \item Están basados en redes Feistel.
+    \end{itemize}
+
   \end{frame}
 
   \section{Métodos irreversibles: TKR, AHR y DRGB}
 
   \begin{frame}{Métodos irreversibles: TKR, AHR y DRGB}
+    \begin{itemize}
+      \item Utilizan varias primitivas criptográficas (cifrados por bloque,
+        funciones HASH, generadores pseudoaleatorios).
+      \item Requieren guardar la relación tarjeta-token.
+      \item Su desempeño está ligado a la base de datos.
+    \end{itemize}
 
   \end{frame}
 
   \section{Resultados y conclusiones}
 
-  \begin{frame}{Resultados y conclusiones}
+  \begin{frame}{Resultados}
+    \begin{figure}[H]
+    \centering
+    \subfloat[Tokenización y detokenización]{ 
+      \includegraphics[width=0.5\linewidth]
+        {articulo-rci/tiempos_unitarios.png}}
+    \subfloat[Generación de tokens]{
+      \includegraphics[width=0.5\linewidth]
+        {articulo-rci/tiempos_tokenizacion.png}}
+    \end{figure}
+      % \begin{columns}
+      %   \begin{column}{0.5\textwidth}
+      %     \begin{figure}[H]
+      %       \begin{center}
+      %         \includegraphics[width=1.1\linewidth]
+      %           {articulo-rci/tiempos_tokenizacion.png}
+      %       \end{center}
+      %     \end{figure}
+      %   \end{column}
+      %
+      %   \begin{column}{0.5\textwidth}
+      %     \begin{figure}[H]
+      %       \begin{center}
+      %         \includegraphics[width=1.1\linewidth]
+      %           {articulo-rci/tiempos_unitarios.png}
+      %       \end{center}
+      %     \end{figure}
+      %   \end{column}
+      % \end{columns}
+  \end{frame}
 
+  \begin{frame}{Conclusiones}
+    \begin{itemize}
+      \item NO tenemos conclusiones, gracias.
+    \end{itemize}
   \end{frame}
 
   \begin{frame}[allowframebreaks]{Bibliografía}
