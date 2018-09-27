@@ -52,13 +52,14 @@
 
   \begin{frame}{El problema de la protección de datos bancarios}
     \begin{itemize}
-      \item El crecimiento del comercio en línea aunado a sistemas débilmente
+      \item El crecimiento del comercio en línea, aunado a sistemas débilmente
         protegidos propició un incremento en los robos de datos bancarios.
-      \item En el 2004 se publicó el PCI DSS\footnotemark.
-      \item Hasta este momento el enfoque es proteger la información en todo
-        lugar en el que se encuentre.
+      \item En el 2004 se publicó el PCI DSS\footnotemark \cite{pci_dss}.
+      \item Hasta este momento el enfoque era proteger la información en donde
+        sea que se encuentre.
       \item A pesar de la publicación del estándar, las filtraciones de datos
-        no han terminado.
+        no han cesado.
+
     \end{itemize}
     \footnotetext{\textit{Payment Card Industry, Data Security Standard}}
   \end{frame}
@@ -70,8 +71,9 @@
       \item Es la sustitución de datos sensibles por valores representativos
         sin una relación directa.
       \item Existen muchas empresas que proveen el servicio de tokenización,
-        pero lo hacen sin detallar la forma en la que se realiza.
-      \item En 2011 el PCI publicó las guías para la tokenización.
+        pero lo hacen sin detallar la forma en la que se
+        realiza~\cite{shif4_uno, braintree_uno, securosis}.
+      \item En 2011, el PCI publicó su guía de tokenización~\cite{pci_tokens}.
     \end{itemize}
 
     %
@@ -211,7 +213,7 @@
     \begin{center}
       \begin{columns}
         \begin{column}{0.5\textwidth}
-          Clasificación del PCI \cite{}:
+          Clasificación del PCI \cite{pci_tokens}:
           \vspace{1.0em}
           \begin{itemize}
             \item Reversibles
@@ -256,20 +258,20 @@
       \item Se volvieron estándares en 2016 y fueron renombrados por el NIST
         a FF1 y FF3 respectivamente.
       \item Están basados en redes Feistel.
+
     \end{itemize}
 
   \end{frame}
 
-  \section{Métodos irreversibles: TKR, AHR y DRGB}
+  \section{Métodos irreversibles: TKR, AHR y DRBG}
 
-  \begin{frame}{Métodos irreversibles: TKR, AHR y DRGB}
+  \begin{frame}{Métodos irreversibles: TKR, AHR y DRBG}
     \begin{itemize}
       \item Utilizan varias primitivas criptográficas (cifrados por bloque,
-        funciones HASH, generadores pseudoaleatorios).
+        funciones hash, generadores pseudoaleatorios).
       \item Requieren guardar la relación tarjeta-token.
       \item Su desempeño está ligado a la base de datos.
     \end{itemize}
-
   \end{frame}
 
   \section{Resultados y conclusiones}
@@ -277,37 +279,19 @@
   \begin{frame}{Resultados}
     \begin{figure}[H]
     \centering
-    \subfloat[Tokenización y detokenización]{ 
+    \subfloat[Tokenización y detokenización]{
       \includegraphics[width=0.5\linewidth]
         {articulo-rci/tiempos_unitarios.png}}
     \subfloat[Generación de tokens]{
       \includegraphics[width=0.5\linewidth]
         {articulo-rci/tiempos_tokenizacion.png}}
     \end{figure}
-      % \begin{columns}
-      %   \begin{column}{0.5\textwidth}
-      %     \begin{figure}[H]
-      %       \begin{center}
-      %         \includegraphics[width=1.1\linewidth]
-      %           {articulo-rci/tiempos_tokenizacion.png}
-      %       \end{center}
-      %     \end{figure}
-      %   \end{column}
-      %
-      %   \begin{column}{0.5\textwidth}
-      %     \begin{figure}[H]
-      %       \begin{center}
-      %         \includegraphics[width=1.1\linewidth]
-      %           {articulo-rci/tiempos_unitarios.png}
-      %       \end{center}
-      %     \end{figure}
-      %   \end{column}
-      % \end{columns}
   \end{frame}
 
   \begin{frame}{Conclusiones}
     \begin{itemize}
-      \item NO tenemos conclusiones, gracias.
+      \item La tokenización es una aplicación de la criptografía.
+      \item La denominación \textit{no criptográfica} del PCI es contradictoria.
     \end{itemize}
   \end{frame}
 
