@@ -54,12 +54,23 @@
     \begin{itemize}
       \item El crecimiento del comercio en línea, aunado a sistemas débilmente
         protegidos propició un incremento en los robos de datos bancarios.
+    \end{itemize}
+
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.9\linewidth]
+         {diagramas_comunes/intro/perdidas_fraude_bn.png}
+      \caption{P\'{e}rdidas debidas al fraude en l\'{i}nea (2001-2012)~\cite{wallethub}.}
+    \end{figure}
+  \end{frame}
+
+  \begin{frame}{El problema de la protección de datos bancarios}
+    \begin{itemize}
       \item En el 2004 se publicó el PCI DSS\footnotemark \cite{pci_dss}.
       \item Hasta este momento el enfoque era proteger la información en donde
         sea que se encuentre.
       \item A pesar de la publicación del estándar, las filtraciones de datos
         no han cesado.
-
     \end{itemize}
     \footnotetext{\textit{Payment Card Industry, Data Security Standard}}
   \end{frame}
@@ -270,13 +281,17 @@
 
   \begin{frame}{Resultados}
     \begin{figure}[H]
-    \centering
-    \subfloat[Tokenización y detokenización]{
-      \includegraphics[width=0.5\linewidth]
-        {articulo-rci/tiempos_unitarios.png}}
-    \subfloat[Generación de tokens]{
-      \includegraphics[width=0.5\linewidth]
-        {articulo-rci/tiempos_tokenizacion.png}}
+      \centering
+      \includegraphics[width=0.9\linewidth]{articulo-rci/tiempos_unitarios.png}
+      \caption{Tokenización y detokenización.}
+    \end{figure}
+  \end{frame}
+
+  \begin{frame}{Resultados}
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.9\linewidth]{articulo-rci/tiempos_tokenizacion.png}
+      \caption{Generación de tokens.}
     \end{figure}
   \end{frame}
 
