@@ -4,6 +4,7 @@
 %
 
 \documentclass{beamer}
+\usepackage{array}
 \usepackage{formato}
 \newcommand{\Titulo}{Un vistazo a la tokenización}
 \newcommand{\Fecha}{Puebla, 14 de octubre de 2018}
@@ -275,6 +276,39 @@
       \item Requieren guardar la relación tarjeta-token.
       \item Su desempeño está ligado a la base de datos.
     \end{itemize}
+
+    \begin{table}
+      \begin{tabular}{|m{2.5cm}|m{2.3cm}|m{2.3cm}|m{2.3cm}|}
+        \hline
+        Características & TKR & AHR & DRBG \\ \hline
+        \parbox{2.3cm}{%
+          \raggedright{Primitivas criptográficas}} &
+        \parbox{2.3cm}{%
+          \raggedright{Cifrado por bloque.}} &
+        \parbox{2.3cm}{%
+          \strut\raggedright{Cifrado por bloque, función hash.}\strut} &
+        \parbox{2.3cm}{%
+          \strut\raggedright{Función hash o cifrado por bloque.}\strut} \\\hline
+        \parbox{2.3cm}{%
+          \strut\raggedright{Tamaño de llave}\strut} &
+        \parbox{2.3cm}{%
+          \raggedright{16 bytes}} &
+        \parbox{2.3cm}{%
+          \raggedright{32 bytes}} &
+        \parbox{2.3cm}{%
+          \raggedright{-}} \\\hline
+        \parbox{2.3cm}{%
+          \strut\raggedright{Función para mantenerse en el dominio}\strut} &
+        \parbox{2.3cm}{%
+          \raggedright{Función RN}} &
+        \parbox{2.3cm}{%
+          \raggedright{Caminata cíclica}} &
+        \parbox{2.3cm}{%
+          \raggedright{-}}\\\hline
+      \end{tabular}
+      \caption{Caracter\'{i}sticas de los algoritmos tokenizadores.}
+      \label{tabla:algoritmos_irreversibles}
+    \end{table}
   \end{frame}
 
   \section{Resultados y conclusiones}
