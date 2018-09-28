@@ -5,7 +5,7 @@
 
 \documentclass{beamer}
 \usepackage{formato}
-\newcommand{\Titulo}{Un vistazo a la tokenización}
+\newcommand{\Titulo}{\textbf{Un vistazo a la tokenización}}
 \newcommand{\Fecha}{Puebla, 14 de octubre de 2018}
 \usepackage{formato_presentaciones}
 
@@ -21,6 +21,7 @@
 \setbeameroption{show notes}
 
 \usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{bold-extra}
 \usepackage{tikz}
 \usetikzlibrary{
   arrows.meta,
@@ -98,7 +99,7 @@
           (tienda)
           [right = of usuario]
           {Tienda en línea};
-        \node[entorno]
+        \node[entorno, fill=gray!30]
           (sistema_tokenizador)
           [right = of tienda]
           {Sistema tokenizador};
@@ -250,9 +251,88 @@
       \item Se volvieron estándares en 2016 y fueron renombrados por el NIST
         a FF1 y FF3 respectivamente.
       \item Están basados en redes Feistel.
-
     \end{itemize}
 
+    \begin{figure}
+      \centering
+      \begin{tikzpicture}[
+        entorno/.style={
+          rectangle,
+          draw = black,
+          thin,
+          inner sep = 1mm,
+          text width = 15mm,
+          align = center,
+          minimum height = 1.0cm},
+        etiqueta/.style={
+          align = center
+        }]
+
+        \node[entorno]
+          (fpe)
+          {$ FPE $};
+
+        \draw[-Stealth]
+          ($(fpe.west) + (0, 3mm) + (-0.5in, 0)$)
+          node[etiqueta, anchor = east]
+            {Este es un \\ mensaje secreto}
+          --
+          node[etiqueta, above]
+            {Mensaje}
+          ($(fpe.west) + (0, 3mm)$);
+
+        \draw[-Stealth]
+          ($(fpe.west) - (0, 3mm) + (-0.5in, 0)$)
+          node[etiqueta, anchor = east]
+            {$\{0,1\}^n$}
+          --
+          node[etiqueta, below]
+            {Llave}
+          ($(fpe.west) - (0, 3mm)$);
+
+        \draw[-Stealth]
+          (fpe.east)
+          --
+          node[etiqueta, above]
+            {Cifrado}
+          ($(fpe.east) + (0.5in, 0)$)
+          node[etiqueta, anchor = west]
+            {abf hyfhg \\ jfhn nh nmkr};
+
+        \node[entorno]
+          (fpe_inverso)
+          [below = 0.25in of fpe]
+          {$ {FPE}^{-1} $};
+
+        \draw[-Stealth]
+          ($(fpe_inverso.west) + (0, 3mm) + (-0.5in, 0)$)
+          node[etiqueta, anchor = east]
+            {abf hyfhg \\ jfhn nh nmkr}
+          --
+          node[etiqueta, above]
+            {Mensaje}
+          ($(fpe_inverso.west) + (0, 3mm)$);
+
+        \draw[-Stealth]
+          ($(fpe_inverso.west) - (0, 3mm) + (-0.5in, 0)$)
+          node[etiqueta, anchor = east]
+            {$\{0,1\}^n$}
+          --
+          node[etiqueta, below]
+            {Llave}
+          ($(fpe_inverso.west) - (0, 3mm)$);
+
+        \draw[-Stealth]
+          (fpe_inverso.east)
+          --
+          node[etiqueta, above]
+            {Mensaje}
+          ($(fpe_inverso.east) + (0.5in, 0)$)
+          node[etiqueta, anchor = west]
+            {Este es un \\ mensaje secreto};
+
+      \end{tikzpicture}
+    \end{figure}
   \end{frame}
 
   \section{Métodos irreversibles: TKR, AHR y DRBG}
@@ -264,6 +344,70 @@
       \item Requieren guardar la relación tarjeta-token.
       \item Su desempeño está ligado a la base de datos.
     \end{itemize}
+    \begin{figure}
+      \centering
+      \begin{tikzpicture}[
+        entorno/.style={
+          rectangle,
+          draw = black,
+          thin,
+          inner sep = 1mm,
+          text width = 15mm,
+          align = center,
+          minimum height = 1.0cm},
+        etiqueta/.style={
+          align = center
+        }]
+
+        \node[entorno]
+          (irreversible)
+          {Irreversible};
+
+        \node[entorno]
+          (base)
+          [right = 0.5in of irreversible]
+          {Base de datos};
+
+        \draw[-Stealth]
+          ($(irreversible.west) + (-0.5in, 0)$)
+          node[etiqueta, anchor = east]
+            {Número de \\ tarjeta}
+          --
+          (irreversible.west);
+
+        \draw[-Stealth]
+          (irreversible.east)
+          --
+          (base.west);
+
+        \draw[-Stealth]
+          (base.east)
+          --
+          ($(base.east) + (0.5in, 0)$)
+          node[etiqueta, anchor = west]
+            {Token};
+
+        \node[entorno]
+          (base_dos)
+          at ($(irreversible.south)!0.5!(base.south) + (0, -0.5in)$)
+          {Base de datos};
+
+        \draw[-Stealth]
+          ($(base_dos.west) + (-0.5in, 0)$)
+          node[etiqueta, anchor = east]
+            {Token}
+          --
+          (base_dos.west);
+
+        \draw[-Stealth]
+          (base_dos.east)
+          --
+          ($(base_dos.east) + (0.5in, 0)$)
+          node[etiqueta, anchor = west]
+            {Número de \\ tarjeta};
+
+      \end{tikzpicture}
+    \end{figure}
   \end{frame}
 
   \section{Resultados y conclusiones}
