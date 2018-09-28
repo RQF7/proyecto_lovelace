@@ -4,6 +4,7 @@
 %
 
 \documentclass{beamer}
+\usepackage{array}
 \usepackage{formato}
 \newcommand{\Titulo}{\textbf{Un vistazo a la tokenización}}
 \newcommand{\Fecha}{Puebla, 14 de octubre de 2018}
@@ -76,9 +77,21 @@
     \footnotetext{\textit{Payment Card Industry, Data Security Standard}}
   \end{frame}
 
+  \section{La tokenización en otros contextos}
+
+  \begin{frame}{La tokenización en otros contextos}
+    \begin{itemize}
+      \item Moneda de uso particular sin valor legal.
+      \item Componente de seguridad en la comunicación por sesiones.
+      \item Componente léxico de una gramática.
+      \item Una unidad lingüística básica.
+      \item Problema social.
+    \end{itemize}
+  \end{frame}
+
   \section{¿Qué es la tokenización?}
 
-  \begin{frame}{¿Qué es la tokenización?}
+  \begin{frame}{¿Qué es la tokenización en criptografía?}
     \begin{itemize}
       \item Es la sustitución de datos sensibles por valores representativos
         sin una relación directa.
@@ -185,7 +198,7 @@
           node[
             etiqueta,
             below]
-            {\only<1>{3. Token: \\ \texttt{1234567891234567}}
+            {\only<1>{3. Token: \\ \texttt{2954634586102951}}
              \only<2>{5. Resultado de \\ operación}}
           ($(tienda.south) + (0.1in, -0.1in)$)
           --
@@ -349,6 +362,29 @@
     \end{figure}
   \end{frame}
 
+  \begin{frame}{Comparativa: FFX y BPS}
+
+    \begin{table}
+      \begin{tabular}{|m{0.35\textwidth}|m{0.26\textwidth}|m{0.25\textwidth}|}
+        \hline
+        \textbf{Características} & \textbf{FFX} & \textbf{BPS}
+        \\\hline
+        Longitud de cadena & [4,36] caracteres & hasta $56 \cdot 2^{128}$ caracteres
+        \\\hline
+        Primitiva criptográfica & AES CBC-MAC & AES
+        \\\hline
+        Tamaño de llave & 128 bits & 128 bits
+        \\\hline
+        Tamaño de \textit{tweak} & menor a $2^{64}$ bits & 64 bits
+        \\\hline
+        Número de rondas & 12, 28 o 24 & 8 recomendadas
+        \\\hline
+      \end{tabular}
+      \caption{Comparativa de FFX y BPS.}
+    \end{table}
+
+  \end{frame}
+
   \section{Métodos irreversibles: TKR, AHR y DRBG}
 
   \begin{frame}{Métodos irreversibles: TKR, AHR y DRBG}
@@ -358,6 +394,7 @@
       \item Requieren guardar la relación tarjeta-token.
       \item Su desempeño está ligado a la base de datos.
     \end{itemize}
+
     \begin{figure}
       \centering
       \begin{tikzpicture}[
@@ -424,21 +461,60 @@
     \end{figure}
   \end{frame}
 
-  \section{Resultados y conclusiones}
+  \begin{frame}{Métodos irreversibles: TKR, AHR y DRBG}
+    \begin{table}
+      \begin{tabular}{|m{3cm}|m{2.0cm}|m{2.0cm}|m{2.0cm}|}
+        \hline
+        \textbf{Características}
+          & \textbf{TKR}
+          & \textbf{AHR}
+          & \strut \textbf{DRBG} \\ \hline
+        \parbox{3cm}{%
+          \raggedright{Primitivas criptográficas}} &
+        \parbox{2.0cm}{%
+          \raggedright{Cifrado por bloque.}} &
+        \parbox{2.0cm}{%
+          \strut\raggedright{Cifrado por bloque y función hash.}\strut} &
+        \parbox{2.0cm}{%
+          \strut\raggedright{Función hash o cifrado por bloque.}\strut} \\\hline
+        \parbox{3cm}{%
+          \strut\raggedright{Tamaño de llave}\strut} &
+        \parbox{2.0cm}{%
+          \raggedright{16 bytes}} &
+        \parbox{2.0cm}{%
+          \raggedright{32 bytes}} &
+        \parbox{2.0cm}{%
+          \raggedright{-}} \\\hline
+        \parbox{3cm}{%
+          \strut\raggedright{Función para mantenerse en el dominio}\strut} &
+        \parbox{2.0cm}{%
+          \raggedright{Función RN}} &
+        \parbox{2.0cm}{%
+          \raggedright{Caminata cíclica}} &
+        \parbox{2.0cm}{%
+          \raggedright{-}}\\\hline
+      \end{tabular}
+      \caption{Características de los algoritmos tokenizadores irreversibles.}
+      \label{tabla:algoritmos_irreversibles}
+    \end{table}
+  \end{frame}
 
+  \section{Resultados y conclusiones}
   \begin{frame}{Resultados}
     \begin{figure}[H]
       \centering
-      \includegraphics[width=0.9\linewidth]{articulo-rci/tiempos_unitarios.png}
-      \caption{Tokenización y detokenización.}
+      \includegraphics[width=0.9\linewidth]
+        {articulo-rci/tiempos_unitarios.png}
+        \caption{Tokenización y detokenización.}
     \end{figure}
   \end{frame}
 
   \begin{frame}{Resultados}
     \begin{figure}[H]
       \centering
-      \includegraphics[width=0.9\linewidth]{articulo-rci/tiempos_tokenizacion.png}
-      \caption{Generación de tokens.}
+      \includegraphics[width=0.9\linewidth]
+        {articulo-rci/tiempos_tokenizacion.png}
+        \caption{Generación de tokens.}
     \end{figure}
   \end{frame}
 
@@ -446,11 +522,18 @@
     \begin{itemize}
       \item La tokenización es una aplicación de la criptografía.
       \item La denominación \textit{no criptográfica} del PCI es contradictoria.
+      \item Los algoritmos reversibles son más últiles cuando se necesita tanto tokenizar como detokenizar con frecuencia.
+      \item Los algoritmos irreversibles son más últiles cuando se requiere detokenizar con frecuencia.
     \end{itemize}
   \end{frame}
 
   \begin{frame}[allowframebreaks]{Bibliografía}
     \printbibliography
+  \end{frame}
+
+  \begin{frame}{}
+    \centering \Huge
+    \textsc{Gracias por su atención.}
   \end{frame}
 
   % Espacio entre párrafos
