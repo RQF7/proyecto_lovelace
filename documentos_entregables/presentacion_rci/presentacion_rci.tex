@@ -214,42 +214,45 @@
   \section{Clasificación del PCI}
 
   \begin{frame}{Clasificación de los algoritmos tokenizadores}
-    \begin{center}
-      \begin{columns}
-        \begin{column}{0.5\textwidth}
-          Clasificación del PCI \cite{pci_tokens}:
-          \vspace{1.0em}
-          \begin{itemize}
-            \item Reversibles
-            \begin{itemize}
-              \item Criptográficos
-              \item No criptográficos
-            \end{itemize}
-            \item Irreversibles
-            \begin{itemize}
-              \item Autenticables
-              \item No autenticables
-            \end{itemize}
-          \end{itemize}
-        \end{column}
-        \begin{column}{0.5\textwidth}
-          Clasificación propuesta:
-          \vspace{1.0em}
-          \begin{itemize}
-            \item Criptográficos
-            \begin{itemize}
-              \item Reversibles
-              \item Irreversibles
-            \end{itemize}
-            \item No criptográficos
-            \begin{itemize}
-              \item[]
-              \item[]
-            \end{itemize}
-          \end{itemize}
-        \end{column}
-      \end{columns}
-    \end{center}
+    {Clasificación del PCI \cite{pci_tokens}}
+    \begin{itemize}
+      \item \textbf{Reversibles:} se puede regresar, a partir del token, al
+        número de tarjeta original.
+        \begin{itemize}
+          \item \textbf{Criptográficos:} cifran el token y descifran la
+            tarjeta.
+          \item \textbf{No criptográficos:} ocupan una base de datos para
+            guardar la relación entre números de tarjetas y tokens.
+        \end{itemize}
+      \item \textbf{Irreversibles:} no se puede regresar al número de tarjeta a
+        partir del token.
+        \begin{itemize}
+          \item \textbf{Autenticables:} permiten validar cuando un token
+            corresponde a un número de tarjeta dado.
+          \item \textbf{No autenticables:} no permiten hacer la validación
+            anterior.
+        \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Clasificación de los algoritmos tokenizadores}
+    {Clasificación propuesta}
+    \begin{itemize}
+      \item \textbf{Criptográficos:} ocupan primitivas criptográficas en su
+        operación.
+      \begin{itemize}
+        \item \textbf{Reversibles:} cifran el token y descifran la
+          tarjeta.
+        \item \textbf{Irreversibles:} ocupan una base de datos para
+          guardar la relación entre números de tarjetas y tokens.
+      \end{itemize}
+      \item \textbf{No criptográficos:} no ocupan nada relacionado con la
+          criptografía.
+      \begin{itemize}
+        \item[]
+        \item[]
+      \end{itemize}
+    \end{itemize}
   \end{frame}
 
   \section{Métodos reversibles: FFX y BPS}
