@@ -1,0 +1,125 @@
+%
+% Diagrama de arquitectura de sistema tokenizador,,
+% presentación en RCI.
+% Proyecto Lovelace.
+%
+% IMPORTANTE: estpa hecho para ir dentro de una presentación de beamer.
+% En el mprimer marco se muestra la operación de tokenización; en el segundo
+% se muestra una transacción con el entorno del banco.
+%
+
+\begin{tikzpicture}[
+  entorno/.style={
+    rectangle,
+    draw = black,
+    thin,
+    inner sep = 1mm,
+    text width = 15mm,
+    align = center,
+    minimum height = 1.0cm},
+  etiqueta/.style={
+    align = center
+  }]
+
+  \node[entorno]
+    (usuario)
+    {Usuario};
+  \node[entorno]
+    (tienda)
+    [right = of usuario]
+    {Tienda en línea};
+  \node[entorno, fill=gray!30]
+    (sistema_tokenizador)
+    [right = of tienda]
+    {Sistema tokenizador};
+  \only<2>{
+    \node[entorno]
+      (banco)
+      [right = of sistema_tokenizador]
+      {Entorno bancario};}
+
+  \draw[-Stealth]
+    ($(usuario.north) + (0.1in, 0)$)
+    --
+    ($(usuario.north) + (0.1in, 0.1in)$)
+    --
+    node[
+      etiqueta,
+      above]
+      {1.
+        \only<1>{Tarjeta: \\ \texttt{1234567891234567}}
+        \only<2>{Petición de \\ compra}}
+    ($(tienda.north) + (-0.1in, 0.1in)$)
+    --
+    ($(tienda.north) + (-0.1in, 0)$);
+
+  \draw[-Stealth]
+    ($(tienda.north) + (0.1in, 0)$)
+    --
+    ($(tienda.north) + (0.1in, 0.1in)$)
+    --
+    node[
+      etiqueta,
+      above]
+      {2.
+        \only<1>{Tarjeta: \\ \texttt{1234567891234567}}
+        \only<2>{Petición de \\ compra}}
+    ($(sistema_tokenizador.north) + (-0.1in, 0.1in)$)
+    --
+    ($(sistema_tokenizador.north) + (-0.1in, 0)$);
+
+  \only<2>{
+    \draw[-Stealth]
+      ($(sistema_tokenizador.north) + (0.1in, 0)$)
+      --
+      ($(sistema_tokenizador.north) + (0.1in, 0.1in)$)
+      --
+      node[
+        etiqueta,
+        above]
+        {3. Petición de \\ transacción}
+      ($(banco.north) + (-0.1in, 0.1in)$)
+      --
+      ($(banco.north) + (-0.1in, 0)$);
+
+    \draw[-Stealth]
+      ($(banco.south) + (-0.1in, 0)$)
+      --
+      ($(banco.south) + (-0.1in, -0.1in)$)
+      --
+      node[
+        etiqueta,
+        below]
+        {4. Resultado de \\ operación}
+      ($(sistema_tokenizador.south) + (0.1in, -0.1in)$)
+      --
+      ($(sistema_tokenizador.south) + (0.1in, 0)$);}
+
+  \draw[-Stealth]
+    ($(sistema_tokenizador.south) + (-0.1in, 0)$)
+    --
+    ($(sistema_tokenizador.south) + (-0.1in, -0.1in)$)
+    --
+    node[
+      etiqueta,
+      below]
+      {\only<1>{3. Token: \\ \texttt{2954634586102951}}
+       \only<2>{5. Resultado de \\ operación}}
+    ($(tienda.south) + (0.1in, -0.1in)$)
+    --
+    ($(tienda.south) + (0.1in, 0)$);
+
+  \draw[-Stealth]
+    ($(tienda.south) + (-0.1in, 0)$)
+    --
+    ($(tienda.south) + (-0.1in, -0.1in)$)
+    --
+    node[
+      etiqueta,
+      below]
+      {\only<1>{4}\only<2>{6}. Resultado de \\ operación}
+    ($(usuario.south) + (0.1in, -0.1in)$)
+    --
+    ($(usuario.south) + (0.1in, 0)$);
+
+\end{tikzpicture}

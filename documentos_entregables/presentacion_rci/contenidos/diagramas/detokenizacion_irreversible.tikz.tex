@@ -1,0 +1,38 @@
+%
+% Diagram de detokenización con métodos irreversibles,
+% presentacion RCI.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[
+  entorno/.style={
+    rectangle,
+    draw = black,
+    thin,
+    inner sep = 1mm,
+    text width = 15mm,
+    align = center,
+    minimum height = 1.0cm},
+  etiqueta/.style={
+    align = center
+  }]
+
+  \node[entorno]
+    (base_dos)
+    {Base de datos};
+
+  \draw[-Stealth]
+    ($(base_dos.west) + (-0.5in, 0)$)
+    node[etiqueta, anchor = east]
+      {Token}
+    --
+    (base_dos.west);
+
+  \draw[-Stealth]
+    (base_dos.east)
+    --
+    ($(base_dos.east) + (0.5in, 0)$)
+    node[etiqueta, anchor = west]
+      {Número de \\ tarjeta};
+
+\end{tikzpicture}

@@ -134,7 +134,7 @@ referencias_rci:
 		$(CARPETA_TEMPORAL)/$(PRESENTACION_RCI).bcf
 
 rci_autocompilable:
-	fswatch -1 $(CARPETA_PRESENTACION_RCI)/$(PRESENTACION_RCI).tex
+	fswatch -1 $(FUENTES_PRESENTACION_RCI)
 	make $(CARPETA_PRESENTACION_RCI)/$(PRESENTACION_RCI).pdf
 	make rci_autocompilable
 

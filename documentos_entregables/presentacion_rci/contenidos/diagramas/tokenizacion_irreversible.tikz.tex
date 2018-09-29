@@ -1,0 +1,55 @@
+%
+% Diagram de tokenización con métodos irreversibles,
+% presentacion RCI.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[
+  entorno/.style={
+    rectangle,
+    draw = black,
+    thin,
+    inner sep = 1mm,
+    text width = 15mm,
+    align = center,
+    minimum height = 1.0cm},
+  etiqueta/.style={
+    align = center
+  }]
+
+  \node[entorno]
+    (irreversible)
+    {Algoritmo \\ tokenizador};
+
+  \node[entorno]
+    (base)
+    [right = 0.5in of irreversible]
+    {Base de datos};
+
+  \draw[-Stealth]
+    ($(irreversible.west) + (-0.5in, 0) + (0, 3mm)$)
+    node[etiqueta, anchor = east]
+      {Número de \\ tarjeta}
+    --
+    ($(irreversible.west) + (0, 3mm)$);
+
+  \draw[-Stealth]
+    ($(irreversible.west) + (-0.5in, 0) - (0, 3mm)$)
+    node[etiqueta, anchor = east]
+      {Llave}
+    --
+    ($(irreversible.west) - (0, 3mm)$);
+
+  \draw[-Stealth]
+    (irreversible.east)
+    --
+    (base.west);
+
+  \draw[-Stealth]
+    (base.east)
+    --
+    ($(base.east) + (0.5in, 0)$)
+    node[etiqueta, anchor = west]
+      {Token};
+
+\end{tikzpicture}
