@@ -55,14 +55,14 @@
   \begin{frame}{El problema de la protección de datos bancarios}
     \begin{itemize}
       \item El crecimiento del comercio en línea, aunado a sistemas débilmente
-        protegidos propició un incremento en los robos de datos bancarios.
+        protegidos, propició un incremento en los robos de datos bancarios.
     \end{itemize}
 
     \begin{figure}[H]
       \centering
       \includegraphics[width=0.9\linewidth]
          {diagramas_comunes/intro/perdidas_fraude_bn.png}
-      \caption{P\'{e}rdidas debidas al fraude en l\'{i}nea (2001-2012)~\cite{wallethub}.}
+      \caption{Pérdidas debidas al fraude en línea (2001-2012)~\cite{wallethub}.}
     \end{figure}
   \end{frame}
 
@@ -85,13 +85,13 @@
       \item Componente de seguridad en la comunicación por sesiones.
       \item Componente léxico de una gramática.
       \item Una unidad lingüística básica.
-      \item Problema social.
+      \item Fenómeno social.
     \end{itemize}
   \end{frame}
 
   \section{¿Qué es la tokenización?}
 
-  \begin{frame}{¿Qué es la tokenización en criptografía?}
+  \begin{frame}{¿Qué es la tokenización?}
     \begin{itemize}
       \item Es la sustitución de datos sensibles por valores representativos
         sin una relación directa.
@@ -232,17 +232,17 @@
       \item \textbf{Reversibles:} se puede regresar, a partir del token, al
         número de tarjeta original.
         \begin{itemize}
-          \item \textbf{Criptográficos:} cifran el token y descifran la
-            tarjeta.
-          \item \textbf{No criptográficos:} ocupan una base de datos para
-            guardar la relación entre números de tarjetas y tokens.
+          \item \textbf{Criptográficos:} cifran la tarjeta y descifran el
+            token.
+          \item \textbf{No criptográficos:} utilizan una base de datos para
+            guardar la relación entre números de tarjeta y tokens.
         \end{itemize}
       \item \textbf{Irreversibles:} no se puede regresar al número de tarjeta a
         partir del token.
         \begin{itemize}
           \item \textbf{Autenticables:} permiten validar cuando un token
             corresponde a un número de tarjeta dado.
-          \item \textbf{No autenticables:} no permiten hacer la validación
+          \item \textbf{No autenticables:} no se puede hacer la validación
             anterior.
         \end{itemize}
     \end{itemize}
@@ -254,17 +254,13 @@
       \item \textbf{Criptográficos:} ocupan primitivas criptográficas en su
         operación.
       \begin{itemize}
-        \item \textbf{Reversibles:} cifran el token y descifran la
-          tarjeta.
-        \item \textbf{Irreversibles:} ocupan una base de datos para
+        \item \textbf{Reversibles:} cifran la tarjeta y descifran el
+          token.
+        \item \textbf{Irreversibles:} requieren una base de datos para
           guardar la relación entre números de tarjetas y tokens.
       \end{itemize}
-      \item \textbf{No criptográficos:} no ocupan nada relacionado con la
+      \item \textbf{No criptográficos:} no utilizan nada relacionado con la
           criptografía.
-      \begin{itemize}
-        \item[]
-        \item[]
-      \end{itemize}
     \end{itemize}
   \end{frame}
 
@@ -276,89 +272,100 @@
       \item Métodos que utilizan cifrados que preservan el formato.
       \item Cifran la tarjeta y descifran el token.
       \item Se volvieron estándares en 2016 y fueron renombrados por el NIST
-        a FF1 y FF3 respectivamente.
+        a FF1 y FF3 respectivamente~\cite{nist_fpe}.
       \item Están basados en redes Feistel.
     \end{itemize}
 
     \begin{figure}
       \centering
-      \begin{tikzpicture}[
-        entorno/.style={
-          rectangle,
-          draw = black,
-          thin,
-          inner sep = 1mm,
-          text width = 15mm,
-          align = center,
-          minimum height = 1.0cm},
-        etiqueta/.style={
-          align = center
-        }]
+      \subfloat[Proceso de tokenización]{
+        \begin{tikzpicture}[
+          entorno/.style={
+            rectangle,
+            draw = black,
+            thin,
+            inner sep = 1mm,
+            text width = 15mm,
+            align = center,
+            minimum height = 1.0cm},
+          etiqueta/.style={
+            align = center
+          }]
 
-        \node[entorno]
-          (fpe)
-          {$ FPE $};
+          \node[entorno]
+            (fpe)
+            {$ FPE $};
 
-        \draw[-Stealth]
-          ($(fpe.west) + (0, 3mm) + (-0.5in, 0)$)
-          node[etiqueta, anchor = east]
-            {Este es un \\ mensaje secreto}
-          --
-          node[etiqueta, above]
-            {Mensaje}
-          ($(fpe.west) + (0, 3mm)$);
+          \draw[-Stealth]
+            ($(fpe.west) + (0, 3mm) + (-0.5in, 0)$)
+            node[etiqueta, anchor = east]
+              {\texttt{5221 3001 9867 8764}}
+            --
+            node[etiqueta, above]
+              {Mensaje}
+            ($(fpe.west) + (0, 3mm)$);
 
-        \draw[-Stealth]
-          ($(fpe.west) - (0, 3mm) + (-0.5in, 0)$)
-          node[etiqueta, anchor = east]
-            {$\{0,1\}^n$}
-          --
-          node[etiqueta, below]
-            {Llave}
-          ($(fpe.west) - (0, 3mm)$);
+          \draw[-Stealth]
+            ($(fpe.west) - (0, 3mm) + (-0.5in, 0)$)
+            --
+            node[etiqueta, below]
+              {Llave}
+            ($(fpe.west) - (0, 3mm)$);
 
-        \draw[-Stealth]
-          (fpe.east)
-          --
-          node[etiqueta, above]
-            {Cifrado}
-          ($(fpe.east) + (0.5in, 0)$)
-          node[etiqueta, anchor = west]
-            {abf hyfhg \\ jfhn nh nmkr};
+          \draw[-Stealth]
+            (fpe.east)
+            --
+            node[etiqueta, above]
+              {Cifrado}
+            ($(fpe.east) + (0.5in, 0)$)
+            node[etiqueta, anchor = west]
+              {\texttt{1758 9855 9830 7620}};
+        \end{tikzpicture}
+      }
+      \\
+      \vspace{0.1in}
+      \subfloat[Proceso de detokenización]{
+        \begin{tikzpicture}[
+          entorno/.style={
+            rectangle,
+            draw = black,
+            thin,
+            inner sep = 1mm,
+            text width = 15mm,
+            align = center,
+            minimum height = 1.0cm},
+          etiqueta/.style={
+            align = center
+          }]
+          \node[entorno]
+            (fpe_inverso)
+            {$ {FPE}^{-1} $};
 
-        \node[entorno]
-          (fpe_inverso)
-          [below = 0.25in of fpe]
-          {$ {FPE}^{-1} $};
+          \draw[-Stealth]
+            ($(fpe_inverso.west) + (0, 3mm) + (-0.5in, 0)$)
+            node[etiqueta, anchor = east]
+              {\texttt{1758 9855 9830 7620}}
+            --
+            node[etiqueta, above]
+              {Cifrado}
+            ($(fpe_inverso.west) + (0, 3mm)$);
 
-        \draw[-Stealth]
-          ($(fpe_inverso.west) + (0, 3mm) + (-0.5in, 0)$)
-          node[etiqueta, anchor = east]
-            {abf hyfhg \\ jfhn nh nmkr}
-          --
-          node[etiqueta, above]
-            {Mensaje}
-          ($(fpe_inverso.west) + (0, 3mm)$);
+          \draw[-Stealth]
+            ($(fpe_inverso.west) - (0, 3mm) + (-0.5in, 0)$)
+            --
+            node[etiqueta, below]
+              {Llave}
+            ($(fpe_inverso.west) - (0, 3mm)$);
 
-        \draw[-Stealth]
-          ($(fpe_inverso.west) - (0, 3mm) + (-0.5in, 0)$)
-          node[etiqueta, anchor = east]
-            {$\{0,1\}^n$}
-          --
-          node[etiqueta, below]
-            {Llave}
-          ($(fpe_inverso.west) - (0, 3mm)$);
-
-        \draw[-Stealth]
-          (fpe_inverso.east)
-          --
-          node[etiqueta, above]
-            {Mensaje}
-          ($(fpe_inverso.east) + (0.5in, 0)$)
-          node[etiqueta, anchor = west]
-            {Este es un \\ mensaje secreto};
-
-      \end{tikzpicture}
+          \draw[-Stealth]
+            (fpe_inverso.east)
+            --
+            node[etiqueta, above]
+              {Mensaje}
+            ($(fpe_inverso.east) + (0.5in, 0)$)
+            node[etiqueta, anchor = west]
+              {\texttt{5221 3001 9867 8764}};
+        \end{tikzpicture}}
     \end{figure}
   \end{frame}
 
@@ -367,20 +374,35 @@
     \begin{table}
       \begin{tabular}{|m{0.35\textwidth}|m{0.26\textwidth}|m{0.25\textwidth}|}
         \hline
-        \textbf{Características} & \textbf{FFX} & \textbf{BPS}
+        \parbox{0.35\textwidth}{\textbf{Características}} &
+        \parbox{0.26\textwidth}{\textbf{FFX}} &
+        \parbox{0.25\textwidth}{\textbf{BPS}}
         \\\hline
-        Longitud de cadena & [4,36] caracteres & hasta $56 \cdot 2^{128}$ caracteres
+        \parbox{0.35\textwidth}{%
+          \strut Longitud de cadena \\
+          {\scriptsize(en caracteres)} \strut} &
+        \parbox{0.26\textwidth}{$4 \ - \ 36$} &
+        \parbox{0.25\textwidth}{$0 \ - \ 1.9x10^{40}$}
         \\\hline
-        Primitiva criptográfica & AES CBC-MAC & AES
+        \parbox{0.35\textwidth}{\strut Primitivas \\ criptográficas\strut} &
+        \parbox{0.26\textwidth}{AES CBC-MAC} &
+        \parbox{0.25\textwidth}{AES}
         \\\hline
-        Tamaño de llave & 128 bits & 128 bits
+        \parbox{0.35\textwidth}{Tamaño de llave} &
+        \parbox{0.26\textwidth}{128 bits} &
+        \parbox{0.25\textwidth}{128 bits}
         \\\hline
-        Tamaño de \textit{tweak} & menor a $2^{64}$ bits & 64 bits
+        \parbox{0.35\textwidth}{Tamaño de \textit{tweak}} &
+        \parbox{0.26\textwidth}{menor a $2^{64}$ bits} &
+        \parbox{0.25\textwidth}{64 bits}
         \\\hline
-        Número de rondas & 12, 28 o 24 & 8 recomendadas
+        \parbox{0.35\textwidth}{Número de rondas} &
+        \parbox{0.26\textwidth}{12, 24 o 28} &
+        \parbox{0.25\textwidth}{\strut mínimo 8 recomendadas \strut}
         \\\hline
       \end{tabular}
-      \caption{Comparativa de FFX y BPS.}
+      \caption{Características de los algoritmos tokenizadores
+        reveribles~\cite{ffx_1, bps}.}
     \end{table}
 
   \end{frame}
@@ -397,67 +419,92 @@
 
     \begin{figure}
       \centering
-      \begin{tikzpicture}[
-        entorno/.style={
-          rectangle,
-          draw = black,
-          thin,
-          inner sep = 1mm,
-          text width = 15mm,
-          align = center,
-          minimum height = 1.0cm},
-        etiqueta/.style={
-          align = center
-        }]
+      \subfloat[Proceso de tokenización]{
+        \begin{tikzpicture}[
+          entorno/.style={
+            rectangle,
+            draw = black,
+            thin,
+            inner sep = 1mm,
+            text width = 15mm,
+            align = center,
+            minimum height = 1.0cm},
+          etiqueta/.style={
+            align = center
+          }]
 
-        \node[entorno]
-          (irreversible)
-          {Irreversible};
+          \node[entorno]
+            (irreversible)
+            {Algoritmo \\ tokenizador};
 
-        \node[entorno]
-          (base)
-          [right = 0.5in of irreversible]
-          {Base de datos};
+          \node[entorno]
+            (base)
+            [right = 0.5in of irreversible]
+            {Base de datos};
 
-        \draw[-Stealth]
-          ($(irreversible.west) + (-0.5in, 0)$)
-          node[etiqueta, anchor = east]
-            {Número de \\ tarjeta}
-          --
-          (irreversible.west);
+          \draw[-Stealth]
+            ($(irreversible.west) + (-0.5in, 0) + (0, 3mm)$)
+            node[etiqueta, anchor = east]
+              {Número de \\ tarjeta}
+            --
+            ($(irreversible.west) + (0, 3mm)$);
 
-        \draw[-Stealth]
-          (irreversible.east)
-          --
-          (base.west);
+          \draw[-Stealth]
+            ($(irreversible.west) + (-0.5in, 0) - (0, 3mm)$)
+            node[etiqueta, anchor = east]
+              {Llave}
+            --
+            ($(irreversible.west) - (0, 3mm)$);
 
-        \draw[-Stealth]
-          (base.east)
-          --
-          ($(base.east) + (0.5in, 0)$)
-          node[etiqueta, anchor = west]
-            {Token};
+          \draw[-Stealth]
+            (irreversible.east)
+            --
+            (base.west);
 
-        \node[entorno]
-          (base_dos)
-          at ($(irreversible.south)!0.5!(base.south) + (0, -0.5in)$)
-          {Base de datos};
+          \draw[-Stealth]
+            (base.east)
+            --
+            ($(base.east) + (0.5in, 0)$)
+            node[etiqueta, anchor = west]
+              {Token};
 
-        \draw[-Stealth]
-          ($(base_dos.west) + (-0.5in, 0)$)
-          node[etiqueta, anchor = east]
-            {Token}
-          --
-          (base_dos.west);
+        \end{tikzpicture}
+      }
+      \\
+      \vspace{0.1in}
+      \subfloat[Proceso de detokenización]{
+        \begin{tikzpicture}[
+          entorno/.style={
+            rectangle,
+            draw = black,
+            thin,
+            inner sep = 1mm,
+            text width = 15mm,
+            align = center,
+            minimum height = 1.0cm},
+          etiqueta/.style={
+            align = center
+          }]
 
-        \draw[-Stealth]
-          (base_dos.east)
-          --
-          ($(base_dos.east) + (0.5in, 0)$)
-          node[etiqueta, anchor = west]
-            {Número de \\ tarjeta};
+          \node[entorno]
+            (base_dos)
+            {Base de datos};
 
-      \end{tikzpicture}
+          \draw[-Stealth]
+            ($(base_dos.west) + (-0.5in, 0)$)
+            node[etiqueta, anchor = east]
+              {Token}
+            --
+            (base_dos.west);
+
+          \draw[-Stealth]
+            (base_dos.east)
+            --
+            ($(base_dos.east) + (0.5in, 0)$)
+            node[etiqueta, anchor = west]
+              {Número de \\ tarjeta};
+
+        \end{tikzpicture}}
     \end{figure}
   \end{frame}
 
@@ -465,10 +512,10 @@
     \begin{table}
       \begin{tabular}{|m{3cm}|m{2.0cm}|m{2.0cm}|m{2.0cm}|}
         \hline
-        \textbf{Características}
-          & \textbf{TKR}
-          & \textbf{AHR}
-          & \strut \textbf{DRBG} \\ \hline
+        \parbox{3.0cm}{\textbf{Características}}
+        & \parbox{2.0cm}{\textbf{TKR}}
+        & \parbox{2.0cm}{\textbf{AHR}}
+        & \parbox{2.0cm}{\textbf{DRBG}} \\\hline
         \parbox{3cm}{%
           \raggedright{Primitivas criptográficas}} &
         \parbox{2.0cm}{%
@@ -486,20 +533,34 @@
         \parbox{2.0cm}{%
           \raggedright{-}} \\\hline
         \parbox{3cm}{%
-          \strut\raggedright{Función para mantenerse en el dominio}\strut} &
+          \strut\raggedright{¿Utiliza \textit{tweak}?}\strut} &
         \parbox{2.0cm}{%
-          \raggedright{Función RN}} &
+          \raggedright{Sí}} &
         \parbox{2.0cm}{%
-          \raggedright{Caminata cíclica}} &
+          \raggedright{Sí}} &
         \parbox{2.0cm}{%
-          \raggedright{-}}\\\hline
+          \raggedright{No}}\\\hline
       \end{tabular}
-      \caption{Características de los algoritmos tokenizadores irreversibles.}
+      \caption{Características de los algoritmos tokenizadores
+        irreversibles~\cite{doc_sandra, aragona, nist_aleatorios}.}
       \label{tabla:algoritmos_irreversibles}
     \end{table}
   \end{frame}
 
   \section{Resultados y conclusiones}
+  \begin{frame}{Resultados}
+    Las pruebas de desempeño de llevaron a cabo en una computadora con las
+    siguientes características:
+    \begin{itemize}
+      \item \textbf{Procesador:} Intel i5-7200U (2.5 GHz) de 4 núcleos.
+      \item \textbf{Sistema operativo:} Arch Linux, kernel 4.18.
+      \item \textbf{Base de datos:} MariaDB 10.1.
+      \item \textbf{Compilador:} GCC 8.1.1.
+    \end{itemize}
+    El procesador utiliza los conjuntos de instrucciones de Intel
+    AES-NI y RD-SEED~\cite{aesni_wp}.
+  \end{frame}
+
   \begin{frame}{Resultados}
     \begin{figure}[H]
       \centering
@@ -522,8 +583,10 @@
     \begin{itemize}
       \item La tokenización es una aplicación de la criptografía.
       \item La denominación \textit{no criptográfica} del PCI es contradictoria.
-      \item Los algoritmos reversibles son más últiles cuando se necesita tanto tokenizar como detokenizar con frecuencia.
-      \item Los algoritmos irreversibles son más últiles cuando se requiere detokenizar con frecuencia.
+      \item Los algoritmos reversibles son más últiles cuando se necesita tanto
+        tokenizar como detokenizar con frecuencia.
+      \item Los algoritmos irreversibles son más últiles cuando se requiere
+        detokenizar con frecuencia.
     \end{itemize}
   \end{frame}
 
