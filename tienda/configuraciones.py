@@ -28,6 +28,8 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
   'tienda.general.configuracion.Configuracion',
+  'tienda.libreria.configuracion.Configuracion',
+  'tienda.tienda.configuracion.Configuracion',
   'django.contrib.contenttypes',
   'django.contrib.sessions',
   'django.contrib.messages',
