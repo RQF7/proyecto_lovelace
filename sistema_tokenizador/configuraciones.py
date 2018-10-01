@@ -131,7 +131,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 # Dirección en donde se copian todos los archivos estáticos
-# &python administrar.py collectstatic
+# &python administrar_sistema_tokenizador.py collectstatic
 STATIC_ROOT = os.path.join(BASE_DIR, 'archivos_estaticos')
 
 STATIC_URL = '/estaticos/'
