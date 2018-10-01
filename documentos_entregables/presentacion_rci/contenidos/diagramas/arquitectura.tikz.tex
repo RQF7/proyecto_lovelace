@@ -3,7 +3,7 @@
 % presentación en RCI.
 % Proyecto Lovelace.
 %
-% IMPORTANTE: estpa hecho para ir dentro de una presentación de beamer.
+% IMPORTANTE: está hecho para ir dentro de una presentación de beamer.
 % En el mprimer marco se muestra la operación de tokenización; en el segundo
 % se muestra una transacción con el entorno del banco.
 %
@@ -28,10 +28,12 @@
     (tienda)
     [right = of usuario]
     {Tienda en línea};
-  \node[entorno, fill=gray!30]
+  \node[entorno,
+    fill=gray!40,
+    thick]
     (sistema_tokenizador)
     [right = of tienda]
-    {Sistema tokenizador};
+    {\textbf{Sistema tokenizador}};
   \only<2>{
     \node[entorno]
       (banco)
