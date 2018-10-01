@@ -53,18 +53,18 @@ WSGI_APPLICATION = 'tienda.servidor_web.application'
 # Base de datos ###############################################################
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-# DATABASES = {
-#   'default': {
-#     'ENGINE': 'django.db.backends.mysql',
-#     'NAME': 'lovelace_cdv',
-#     'USER': 'administrador_lovelace_cdv',
-#     'PASSWORD': 'l0v3lac3-admin',
-#     'HOST': 'localhost',
-#     'OPTIONS' : {
-#       'init_command': "SET sql_mode='STRICT_ALL_TABLES'"
-#     }
-#   }
-# }
+DATABASES = {
+  'default': {
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'tienda_caso_de_prueba',
+    'USER': 'administrador_tienda_caso_de_prueba',
+    'PASSWORD': 't13nd4-admin',
+    'HOST': 'localhost',
+    'OPTIONS' : {
+      'init_command': "SET sql_mode='STRICT_ALL_TABLES'"
+    }
+  }
+}
 
 # Internacionalización ########################################################
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
