@@ -24,21 +24,21 @@
       deshabilitado.
 
     \item[datos] El visitante introduce su correo electrónico y contraseña;
-      [\hipervinculoLocal{ta:cancelar}].
+      [\hipervinculoLocal{lib_ta:cancelar}].
 
     \item El sistema habilita el botón \textit{iniciar sesión}.
 
     \item El visitante presiona el botón \textit{iniciar sesión};
-      [\hipervinculoLocal{ta:cancelar}].
+      [\hipervinculoLocal{lib_ta:cancelar}].
 
     \item El sistema valida las credenciales del usuario; [%
-      \hipervinculoLocal{ta:credenciales_incorrectas},
-      \hipervinculoLocal{ta:correo_no_verificado}].
+      \hipervinculoLocal{lib_ta:credenciales_incorrectas},
+      \hipervinculoLocal{lib_ta:correo_no_verificado}].
 
     \item El sistema registra al usuario en las variables de sesión.
 
     \item El sistema verifica que el usuario no esté realizando una compra
-      [\hipervinculoLocal{ta:mitad_de_compra}].
+      [\hipervinculoLocal{lib_ta:mitad_de_compra}].
 
     \item El sistema muestra la pantalla \hipervinculo{lib_iu:inicio}.
 
@@ -46,7 +46,7 @@
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \begin{trayectoriaAlternativa}[ta:cancelar]
+  \begin{trayectoriaAlternativa}[lib_ta:cancelar]
     {El visitante cancela la operación}
 
     \item El visitante presiona el botón \textit{cancelar}.
@@ -58,7 +58,7 @@
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \begin{trayectoriaAlternativa}[ta:credenciales_incorrectas]
+  \begin{trayectoriaAlternativa}[lib_ta:credenciales_incorrectas]
     {Credenciales incorrectas}
 
     \item El correo electrónico no se encuentra registrado en el sistema o la
@@ -74,7 +74,7 @@
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \begin{trayectoriaAlternativa}[ta:correo_no_verificado]
+  \begin{trayectoriaAlternativa}[lib_ta:correo_no_verificado]
     {Correo no verificado}
 
     \item El sistema muestra el mensaje
@@ -87,7 +87,7 @@
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \begin{trayectoriaAlternativa}[ta:mitad_de_compra]
+  \begin{trayectoriaAlternativa}[lib_ta:mitad_de_compra]
     {El cliente estaba finalizando una compra}
 
     \item El sistema obtiene los datos de todos los libros que se encuentran en
