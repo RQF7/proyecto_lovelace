@@ -1,0 +1,162 @@
+%
+% Caso de uso para registrar a un cliente,
+% Capítulo de análisis y diseño de tienda en línea,
+% Proyecto Lovelace.
+%
+
+\casoDeUso[lib_cu:registrar_cliente]
+{Registrar cliente}
+{
+  Caso que permite que un \textbf{visitante} se registre en el sistema,
+  permiténdole identificarse como un \textbf{cliente} una vez terminado el
+  proceso e iniciado sesión. Debe proveer su nombre, correo electrónico y
+  una contraseña.
+
+  \begin{trayectoriaPrincipal}
+
+    \item[origen] El \textbf{visitante} presiona el botón de
+      \textit{Registrarse} en cualquier interfaz en la que se
+      encuentre.
+
+    \item El sistema muestra la interfaz \hipervinculo{lib_iu:registro}
+      con el botón \textit{Aceptar} inhabilitado.
+
+    \item[datos] El \textbf{visitante} introduce los siguientes datos
+      [\hipervinculoLocal{lib_ta:cancelar}]:
+      \begin{itemize}
+        \item Nombre
+        \item Correo electrónico
+        \item Contraseña (y su confirmación)
+      \end{itemize}
+
+    \item El sistema habilita el botón de \textit{aceptar}.
+
+    \item El \textbf{cliente} presiona el botón de \textit{aceptar}.
+
+    \item EL sistema valida que el correo electrónico sea válido
+      al cumplir con el \gls{gl:rfc}
+      5322~\cite{DBLP:journals/rfc/rfc5322}, mediante la expresión
+      regular
+
+      \expresionRegular{expresiones_regulares/correo.txt}
+
+      [\hipervinculoLocal{lib_ta:correo_incorrecto}]
+
+    \item El sistema valida que el correo electrónico no esté ya
+      registrado en el sistema; pues dos \textbf{usuarios} no pueden
+      compartir el mismo correo;
+      [\hipervinculoLocal{lib_ta:usuario_existente}].
+
+
+    \item El sistema valida el formato de la contraseña de acuerdo con
+      la expresión regular
+
+      \expresionRegular{expresiones_regulares/contrasenia.txt}
+
+      [\hipervinculoLocal{lib_ta:contrasenia_incorrecta}].
+
+    \item El sistema verifica que la confirmación de contraseña
+      ingresada coincida con la contraseña.
+      [\hipervinculoLocal{lib_ta:confirmacion_incorrecta}].
+
+    \item El sistema crea un nuevo cliente con estado
+      \textbf{no verificado} con la información ingresada y un nuevo
+      vínculo de verificación (asociado al cliente) con la fecha actual.
+
+    \item El sistema envía un correo al cliente con el hipervínculo de
+      verificación.
+
+    \item El sistema muestra la ventana
+      \hipervinculo{lib_iu:aviso_de_correo_de_confirmacion}.
+
+    \item El \textbf{cliente} accede a la \gls{gl:url} enviada a su
+      correo.
+
+    \item El sistema verifica que no haya más de 72 HRS de diferencia
+      entre la fecha de creación del vínculo y la hora actual;
+      [\hipervinculoLocal{lib_ta:expiracion_de_vinculo}].
+
+    \item El sistema cambia el estado del \textbf{cliente} a
+      \textbf{verificado}.
+
+    \item El sistema muestra la pantalla \hipervinculo{lib_iu:inicio}.
+
+  \end{trayectoriaPrincipal}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:cancelar]
+    {El visitante cancela la operación}
+
+    \item El visitante presiona el botón \textit{cancelar}.
+
+    \item El sistema muestra la interfaz de origen del paso
+      \referenciaLocal{origen} de la trayectoria principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:correo_incorrecto]
+    {Correo electrónico incorrecto}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:correo_invalido}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:contrasenia_incorrecta]
+    {Contraseña incorrecta}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:contrasenia_incorrecta}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:confirmacion_incorrecta]
+    {Confirmación de contraseña incorrecta}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:confirmacion_incorrecta}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:usuario_existente]
+    {Correo registrado previamente}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:usuario_existente}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:expiracion_de_vinculo]
+    {Vínculo expirado}
+
+    \item El sistema muestra la ventana
+      \hipervinculo{lib_iu:aviso_de_correo_de_confirmacion}.
+
+    \item El sistema elimina el registro del usuario.
+
+  \end{trayectoriaAlternativa}
+
+}
