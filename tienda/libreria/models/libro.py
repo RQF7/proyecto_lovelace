@@ -58,4 +58,4 @@ class Libro (django.db.models.Model):
 
   def __str__(self):
     """Representación en cadena de un autor de libros."""
-    return self.nombre
+    return self.titulo
