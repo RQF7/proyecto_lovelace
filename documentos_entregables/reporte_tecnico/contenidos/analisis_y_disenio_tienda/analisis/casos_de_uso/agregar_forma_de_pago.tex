@@ -10,10 +10,12 @@
   Caso que permite que un \textbf{cliente} agregue una forma de pago; debe
   proporcionar la siguiente información relacionada a la tarjeta a agregar:
   \begin{itemize}
-    \item Número de tarjeta
+    \item Nombre del titular de la tarjeta
+    \item Dirección de facturación de la tarjeta
+    \item Tipo de la tarjeta (crédito/débito)
+    \item Emisor de la tarjeta (American Express, VISA, MasterCard, ...)
+    \item Número de la tarjeta
     \item Fecha de vencimiento
-    \item Nombre del titular
-    \item Dirección de facturación
   \end{itemize}
   El sistema no guardará el número de tarjeta, sino que realizará una
   operación de tokenización con el número de tarjeta en el servicio tokenizador
