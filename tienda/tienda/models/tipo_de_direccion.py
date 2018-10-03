@@ -16,7 +16,7 @@ class TipoDeDireccion (django.db.models.Model):
   nombre = django.db.models.CharField(
     verbose_name = 'catálogo de tipos de dirección',
     max_length = 50,
-    unique = True)
+    primary_key = True)
 
   def __str__(self):
     """Representación en cadena de un tipo de dirección."""

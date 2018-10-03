@@ -15,7 +15,7 @@ class Metodo (django.db.models.Model):
   nombre = django.db.models.CharField(
     verbose_name = 'metodo con el que se tokenizó una tarjeta',
     max_length = 20,
-    unique = True)
+    primary_key = True)
 
   def __str__(self):
     """Representación en cadena del método de tokenización."""

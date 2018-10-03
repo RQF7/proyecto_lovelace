@@ -15,7 +15,7 @@ class Estado (django.db.models.Model):
   nombre = django.db.models.CharField(
     verbose_name = 'estado (ubicación) de una dirección',
     max_length = 100,
-    unique = True)
+    primary_key = True)
 
   def __str__(self):
     """Representación en cadena de un estado."""

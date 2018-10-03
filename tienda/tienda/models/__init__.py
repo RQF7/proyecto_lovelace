@@ -12,6 +12,3 @@ from .paquete               import Paquete
 from .metodo                import Metodo
 from .estado                import Estado
 from .tipo_de_direccion     import TipoDeDireccion
-# from .tarjeta_de_usuario    import TarjetaDeUsuario
-# from .direccion_de_tarjeta  import DireccionDeTarjeta
-# from .direccion_de_usuario  import DireccionDeUsuario
