@@ -73,8 +73,8 @@
       algoritmo a utilizar por defecto;
       [\hipervinculoLocal{lib_ta:error_al_tokenizar}].
 
-    \item El sistema crea un nuevo registro con el token y la información
-      proporcionada en el formulario.
+    \item El sistema crea un nuevo registro de forma de pago con el token, la
+      información proporcionada en el formulario y estado \textbf{activo}.
 
     \item El sistema muestra la interfaz de origen del paso
       \referenciaLocal{origen} de la trayectoria principal.
@@ -124,8 +124,24 @@
   \begin{trayectoriaAlternativa}[lib_ta:tarjeta_existente]
     {La tarjeta ingresada ya ha sido almacenada}
 
+    \item El sistema verifica que el registro de la tarjeta existente sea
+      \textbf{activo}; [\hipervinculoLocal{lib_ta:tarjeta_existente_inactiva}].
+
     \item El sistema muestra el mensaje
       \hipervinculo{lib_msj:tarjeta_existente}.
+
+    \item El sistema muestra la interfaz de origen del paso
+      \referenciaLocal{origen} de la trayectoria principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:tarjeta_existente_inactiva]
+    {La tarjeta ingresada ya ha sido almacenada y se encuentra inactiva}
+
+    \item El sistema actualiza el registro del estado de la tarjeta a
+      \textbf{activo}.
 
     \item El sistema muestra la interfaz de origen del paso
       \referenciaLocal{origen} de la trayectoria principal.
