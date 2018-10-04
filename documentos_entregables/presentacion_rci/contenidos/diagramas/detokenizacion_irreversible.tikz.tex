@@ -15,11 +15,28 @@
     minimum height = 1.0cm},
   etiqueta/.style={
     align = center
+  },
+  database/.style={
+    scale=0.6,
+    cylinder,
+    cylinder uses custom fill,
+    cylinder body fill=white!50,
+    cylinder end fill=white!50,
+    shape border rotate=90,
+    aspect=0.25,
+    node distance=0.8cm,
+    minimum width=3.5cm,
+    minimum height=1.2cm,
+    font=\footnotesize,
+    draw
   }]
 
-  \node[entorno]
-    (base_dos)
-    {Base de datos};
+  \node[database, right = 0.5in of irreversible, yshift = -0.31in]
+    (base_dos_down) [text=white] {Base de datos};
+  \node[database, above of=base_dos_down]
+    (base_dos) [text=black] {Base de datos};
+  \node[database, above of=base_dos]
+    (base_dos_top) [text=white] {Base de datos};
 
   \draw[-Stealth]
     ($(base_dos.west) + (-0.5in, 0)$)

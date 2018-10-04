@@ -15,16 +15,32 @@
     minimum height = 1.0cm},
   etiqueta/.style={
     align = center
+  },
+  database/.style={
+    scale=0.6,
+    cylinder,
+    cylinder uses custom fill,
+    cylinder body fill=white!50,
+    cylinder end fill=white!50,
+    shape border rotate=90,
+    aspect=0.25,
+    node distance=0.8cm,
+    minimum width=3.5cm,
+    minimum height=1.2cm,
+    font=\footnotesize,
+    draw
   }]
 
   \node[entorno]
     (irreversible)
     {Algoritmo \\ tokenizador};
 
-  \node[entorno]
-    (base)
-    [right = 0.5in of irreversible]
-    {Base de datos};
+  \node[database, right = 0.5in of irreversible, yshift = -0.31in]
+    (base_down) [text=white] {Base de datos};
+  \node[database, above of=base_down]
+    (base) [text=black] {Base de datos};
+  \node[database, above of=base]
+    (base_top) [text=white] {Base de datos};
 
   \draw[-Stealth]
     ($(irreversible.west) + (-0.5in, 0) + (0, 3mm)$)
