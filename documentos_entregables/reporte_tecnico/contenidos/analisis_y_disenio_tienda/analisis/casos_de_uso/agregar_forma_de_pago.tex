@@ -17,14 +17,22 @@
     \item Número de la tarjeta
     \item Fecha de vencimiento
   \end{itemize}
-  El sistema no guardará el número de tarjeta, sino que realizará una
-  operación de tokenización con el número de tarjeta en el servicio tokenizador
-  y guardará el token que regrese como resultado y el algoritmo que fue
-  utilizado.
 
-  El sistema también debe mostrar un aviso que aclare qué servicio de
-  tokenización se está utilizando y aclarar que la tienda no guardará el
-  número de tarjeta (sino el sistema tokenizador).
+  \begin{hangparas}{2em}{0}
+    Ya que este es un caso de prueba para el sistema tokenizador, el
+    \textbf{cliente} puede escoger el método con el que se creará el token.
+    En un ambiente de producción, es más probable que todos sus tokenizaciones
+    sean hechas con un mismo algoritmo.
+
+    El sistema no guardará el número de tarjeta, sino que realizará una
+    operación de tokenización con el número de tarjeta en el servicio tokenizador
+    y guardará el token que regrese como resultado y el algoritmo que fue
+    utilizado.
+
+    El sistema también debe mostrar un aviso que aclare qué servicio de
+    tokenización se está utilizando y aclarar que la tienda no guardará el
+    número de tarjeta (sino el sistema tokenizador).
+  \end{hangparas}
 
   \begin{trayectoriaPrincipal}
 
@@ -35,17 +43,20 @@
 
     \item El sistema muestra la interfaz
       \hipervinculo{lib_iu:formulario_informacion_bancaria} con el botón
-      \textit{Agregar tarjeta} inhabilitado.
+      \textit{Agregar tarjeta} inhabilitado y una lista con las direcciones
+      que se tienen registradas (si se tienen direcciones registradas).
 
     \item[datos] El \textbf{cliente} ingresa la siguiente información;
-      [\hipervinculoLocal{lib_ta:cancelar}]:
+      [\hipervinculoLocal{lib_ta:usar_direccion_existente},
+      \hipervinculoLocal{lib_ta:cancelar}]:
       \begin{itemize}
         \item Nombre del titular de la tarjeta
-        \item Dirección de facturación de la tarjeta
         \item Tipo de la tarjeta (crédito/débito)
         \item Emisor de la tarjeta (American Express, VISA, MasterCard, ...)
         \item Número de la tarjeta
+        \item Algoritmo tokenizador
         \item Fecha de vencimiento
+        \item Dirección de facturación de la tarjeta
       \end{itemize}
 
     \item El sistema habilita el botón \textit{Agregar tarjeta}.
@@ -65,23 +76,41 @@
       la fecha actual; [\hipervinculoLocal{lib_ta:tarjeta_expirada}].
 
     \item El sistema verifica que no exista otra tarjeta relacionada al
-      \textbf{cliente} que tenga el mismo tipo, emisor, fecha de vencimiento
-      y últimos tres dígitos; [\hipervinculoLocal{lib_ta:tarjeta_existente}].
+      \textbf{cliente} que tenga el mismo tipo, emisor, titular y últimos tres
+      dígitos; [\hipervinculoLocal{lib_ta:tarjeta_existente}].
 
     \item El sistema envía la petición de tokenización del número de tarjeta
-      ingresado al servicio de tokenización; obtiene de la base de datos el
-      algoritmo a utilizar por defecto;
+      ingresado y el algoritmo seleccionado al servicio de tokenización;
       [\hipervinculoLocal{lib_ta:error_al_tokenizar}].
 
     \item El sistema crea un nuevo registro de forma de pago con el token, la
       información proporcionada en el formulario y estado \textbf{activo}.
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:metodo_de_pago_agregado}.
 
     \item El sistema muestra la interfaz de origen del paso
       \referenciaLocal{origen} de la trayectoria principal.
 
   \end{trayectoriaPrincipal}
 
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:usar_direccion_existente]
+    {El \textbf{cliente} selecciona una de las direcciones ya guardadas}
+
+    \item El \textbf{cliente} presiona selecciona una de las direcciones ya
+      guardadas.
+
+    \item El sistema completa con la información de la dirección seleccionada
+      los campos de la dirección.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[lib_ta:cancelar]
     {El \textbf{cliente} cancela la operación}
@@ -93,7 +122,7 @@
 
   \end{trayectoriaAlternativa}
 
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[lib_ta:tarjeta_invalida]
     {La tarjeta ingresada es inválida}
@@ -106,7 +135,7 @@
 
   \end{trayectoriaAlternativa}
 
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[lib_ta:tarjeta_expirada]
     {La tarjeta ingresada está expirada}
@@ -119,13 +148,17 @@
 
   \end{trayectoriaAlternativa}
 
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[lib_ta:tarjeta_existente]
     {La tarjeta ingresada ya ha sido almacenada}
 
     \item El sistema verifica que el registro de la tarjeta existente sea
       \textbf{activo}; [\hipervinculoLocal{lib_ta:tarjeta_existente_inactiva}].
+
+    \item El sistema verifica que la fecha de vencimiento ingresada coincida
+      con la que se tiene almacenada;
+      [\hipervinculoLocal{lib_ta:actualizar_tarjeta}].
 
     \item El sistema muestra el mensaje
       \hipervinculo{lib_msj:tarjeta_existente}.
@@ -135,20 +168,43 @@
 
   \end{trayectoriaAlternativa}
 
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[lib_ta:tarjeta_existente_inactiva]
     {La tarjeta ingresada ya ha sido almacenada y se encuentra inactiva}
 
+    \item El sistema actualiza el registro de la tarjeta con la fecha de
+      vencimiento y dirección ingresada.
+
     \item El sistema actualiza el registro del estado de la tarjeta a
       \textbf{activo}.
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:metodo_de_pago_agregado}.
 
     \item El sistema muestra la interfaz de origen del paso
       \referenciaLocal{origen} de la trayectoria principal.
 
   \end{trayectoriaAlternativa}
 
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:actualizar_tarjeta]
+    {La tarjeta ingresada se encuentra activa y se quiere actualizar la fecha
+    de vencimiento}
+
+    \item El sistema actualiza el registro de la tarjeta con la fecha de
+      vencimiento y dirección ingresada.
+
+      \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:metodo_de_pago_actualizado}.
+
+    \item El sistema muestra la interfaz de origen del paso
+      \referenciaLocal{origen} de la trayectoria principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{trayectoriaAlternativa}[lib_ta:error_al_tokenizar]
     {El código HTTP de respuesta no es un 2XX}
