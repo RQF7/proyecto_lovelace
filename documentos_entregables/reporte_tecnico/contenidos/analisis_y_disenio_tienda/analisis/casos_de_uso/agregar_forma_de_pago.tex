@@ -158,7 +158,6 @@
 
     \item El sistema verifica que la fecha de vencimiento ingresada coincida
       con la que se tiene almacenada;
-      [\hipervinculoLocal{lib_ta:actualizar_tarjeta}].
 
     \item El sistema muestra el mensaje
       \hipervinculo{lib_msj:tarjeta_existente}.
@@ -181,23 +180,6 @@
 
     \item El sistema muestra el mensaje
       \hipervinculo{lib_msj:metodo_de_pago_agregado}.
-
-    \item El sistema muestra la interfaz de origen del paso
-      \referenciaLocal{origen} de la trayectoria principal.
-
-  \end{trayectoriaAlternativa}
-
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-  \begin{trayectoriaAlternativa}[lib_ta:actualizar_tarjeta]
-    {La tarjeta ingresada se encuentra activa y se quiere actualizar la fecha
-    de vencimiento}
-
-    \item El sistema actualiza el registro de la tarjeta con la fecha de
-      vencimiento y dirección ingresada.
-
-      \item El sistema muestra el mensaje
-      \hipervinculo{lib_msj:metodo_de_pago_actualizado}.
 
     \item El sistema muestra la interfaz de origen del paso
       \referenciaLocal{origen} de la trayectoria principal.
