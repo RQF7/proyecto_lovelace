@@ -6,7 +6,7 @@ Proyecto Loevlace.
 
 import django
 
-class Configuracion(django.apps.AppConfig):
+class Configuracion (django.apps.AppConfig):
   """Clase de configuración para la app de la tienda."""
   name = 'tienda.tienda'
   verbose_name = 'Módulo correspondiente a la tienda'

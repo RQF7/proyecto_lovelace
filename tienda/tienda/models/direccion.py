@@ -1,6 +1,6 @@
 """
   Modelo de caso de prueba,
-  Tienda en linea, módulo de la tienda.
+  Tienda en línea, módulo de la tienda.
   Proyecto Lovelace.
 """
 
@@ -27,11 +27,11 @@ class Direccion (django.db.models.Model):
     verbose_name = 'nombre de la calle de la dirección',
     max_length = 100)
 
-  numero_interior = django.db.models.CharField(
+  numeroInterior = django.db.models.CharField(
     verbose_name = 'número interior de la calle de la dirección',
     max_length = 5)
 
-  numero_exterior = django.db.models.CharField(
+  numeroExterior = django.db.models.CharField(
     verbose_name = 'número exterior de la calle de la dirección',
     max_length = 5)
 

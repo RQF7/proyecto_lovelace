@@ -1,6 +1,6 @@
 """
   Modelo de caso de prueba,
-  Tienda en linea, módulo de la librería.
+  Tienda en línea, módulo de la librería.
   Proyecto Lovelace.
 """
 
@@ -15,7 +15,7 @@ class Libro (django.db.models.Model):
   """
 
   titulo = django.db.models.CharField(
-    verbose_name = 'titulo de un libro',
+    verbose_name = 'título de un libro',
     max_length = 100)
 
   autor = django.db.models.ManyToManyField(Autor)
@@ -25,7 +25,7 @@ class Libro (django.db.models.Model):
 
   genero = django.db.models.ForeignKey('Genero',
     django.db.models.PROTECT,
-    verbose_name = 'genero del libro',
+    verbose_name = 'género del libro',
     null = True)
 
   editorial = django.db.models.ForeignKey('Editorial',
@@ -41,7 +41,7 @@ class Libro (django.db.models.Model):
     verbose_name = 'año de publicación')
 
   paginas = django.db.models.PositiveIntegerField(
-    verbose_name = 'número de paginas del libro')
+    verbose_name = 'número de páginas del libro')
 
   existencias = django.db.models.PositiveIntegerField(
     verbose_name = 'número de libros que se tienen',
@@ -57,5 +57,5 @@ class Libro (django.db.models.Model):
     max_length = 1000)
 
   def __str__(self):
-    """Representación en cadena de un autor de libros."""
+    """Representación en cadena de un libros."""
     return self.titulo

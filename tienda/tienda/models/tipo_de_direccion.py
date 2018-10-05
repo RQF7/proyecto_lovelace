@@ -1,6 +1,6 @@
 """
   Modelo de caso de prueba,
-  Tienda en linea, módulo de la tienda.
+  Tienda en línea, módulo de la tienda.
   Proyecto Lovelace.
 """
 
