@@ -39,10 +39,10 @@
     \item El sistema valida que esa dirección no esté asociada ya al cliente;
       [\hipervinculoLocal{lib_ta:direccion_existente}].
 
-    \item El sistema crea un nuevo registro con la dirección ingresada y la
-      asocia al cliente.
+    \item El sistema crea un nuevo registro con la dirección ingresada,
+      estado \textbf{activo} y la asocia al cliente.
 
-    \item El sistema muestra el mensaje
+    \item[mensaje] El sistema muestra el mensaje
       \hipervinculoLocal{lib_msj:direccion_de_entrega_guardada}
 
     \item El sistema muestra la interfaz del paso \referenciaLocal{origen}
@@ -67,10 +67,25 @@
   \begin{trayectoriaAlternativa}[lib_ta:direccion_existente]
     {Dirección ya existente}
 
+    \item El sistema verifica que la dirección tenga estado \textbf{activo};
+      [\hipervinculoLocal{lib_ta:direccion_inactiva_existente}].
+
     \item El sistema muestra el mensaje
       \hipervinculo{lib_msj:direccion_de_entrega_existente}.
 
     \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:direccion_inactiva_existente]
+    {Dirección existente pero inactiva}
+
+    \item El sistema cambia el estado de la dirección a \textbf{activo}.
+
+    \item Se regresa al paso \referenciaLocal{mensaje} de la trayectoria
       principal.
 
   \end{trayectoriaAlternativa}
