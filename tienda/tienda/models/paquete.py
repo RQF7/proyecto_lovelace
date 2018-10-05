@@ -13,7 +13,7 @@ class Paquete (django.db.models.Model):
   Paquetes pertenecientes a una compra.
   Realmente esta es una es una parte de compra y se puede ver
   como un conjunto de libros.
-  Ya que la relación de compra tenia atributos propios y de N:M
+  Ya que la relación de compra tenía atributos propios y de N:M
   lo dividí en 2, compra y paquetes.
   """
 

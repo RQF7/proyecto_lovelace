@@ -13,7 +13,7 @@ class Metodo (django.db.models.Model):
   """
 
   nombre = django.db.models.CharField(
-    verbose_name = 'metodo con el que se tokenizó una tarjeta',
+    verbose_name = 'método con el que se tokenizó una tarjeta',
     max_length = 20,
     primary_key = True)
 

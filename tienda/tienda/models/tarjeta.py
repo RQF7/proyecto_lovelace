@@ -9,7 +9,7 @@ from .direccion import Direccion
 
 class Tarjeta (django.db.models.Model):
   """
-  Un tarjeta bancaria.
+  Una tarjeta bancaria.
   """
 
   token = django.db.models.CharField(
@@ -22,7 +22,7 @@ class Tarjeta (django.db.models.Model):
 
   metodo = django.db.models.ForeignKey('Metodo',
     django.db.models.PROTECT,
-    verbose_name = 'método con el que se genero el token',
+    verbose_name = 'método con el que se generó el token',
     null = True)
 
   titular = django.db.models.CharField(

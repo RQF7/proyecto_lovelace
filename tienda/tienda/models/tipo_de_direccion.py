@@ -8,7 +8,7 @@ import django
 
 class TipoDeDireccion (django.db.models.Model):
   """
-  Catalogo de tipos de dirección, se tienen:
+  Catálogo de tipos de dirección, se tienen:
   "punto de entrega": las direcciones asociadas a usuarios.
   "facturación": las asociadas a una tarjeta bancaria.
   """
