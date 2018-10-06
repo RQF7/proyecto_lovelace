@@ -7,5 +7,38 @@
 \casoDeUso[lib_cu:agregar_libro]
 {Agregar libro}
 {
-  Caso en el que un \textit{cliente} agrega un libro al carrito de compra.
+  Caso que permite que un \textit{cliente} o un \textit{visitante} agreguen
+  libros al carrito de compra.
+
+  \begin{trayectoriaPrincipal}
+
+    \item El usuario presiona el botón \textit{agregar al carrito} en
+      cualquiera de estas interfaces:
+      \begin{itemize}
+        \item En \hipervinculo{lib_iu:inicio}, en el botón correspondiente
+          al libro deseado.
+        \item En \hipervinculo{lib_iu:detalles_de_libro}.
+      \end{itemize}
+
+      \item El sistema actualiza la interfaz para reflejar que el libro
+        seleccionado se encuentra en el carrito.
+
+      \item El sistema guarda el libro en los datos de sesión.
+
+      \item El sistema muestra una entrada numérica para introducir la cantidad
+        de ejemplares a comprar con un valor por defecto de uno;
+        [\hipervinculoLocal{lib_ta:modificar_cantidad}].
+
+  \end{trayectoriaPrincipal}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:modificar_cantidad]
+    {El usuario modifica la cantidad por defecto}
+
+    \item El usuario introduce la cantidad de ejemplares del libro deseado.
+
+    \item El sistema guarda el dato introducido en los datos de sesión.
+
+  \end{trayectoriaAlternativa}
 }
