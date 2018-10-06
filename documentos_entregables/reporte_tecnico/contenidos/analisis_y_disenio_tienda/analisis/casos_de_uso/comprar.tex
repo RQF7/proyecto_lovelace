@@ -1,12 +1,67 @@
 %
-% Caso de uso para realizar una compra.
-% Analisis y diseño de tinda en línea.
+% Caso de uso para realizar una compra,
+% análisis y diseño de tienda en línea.
 % Proyecto Lovelace.
 %
 
 \casoDeUso[lib_cu:comprar]
 {Comprar}
 {
-  Caso que permite que un \textit{cliente} realice la compra de los libros que
-  hay en el carrito. 
+  Caso que permite que un \textbf{cliente} realice la compra de los libros que
+  hay en el carrito.
+
+  \begin{trayectoriaPrincipal}
+
+    \item El cliente presiona el botón \textit{Finalizar compra} en la
+      interfaz \hipervinculo{lib_iu:finalizar_compra}.
+
+    \item El sistema obtiene las formas de pago del cliente en sesión.
+
+    \item El sistema muestra la interfaz
+      \hipervinculo{lib_iu:seleccionar_forma_de_pago}.
+
+    \item El cliente selecciona la forma de pago deseada;
+      [\hipervinculoLocal{ta:cancelar}].
+
+    \item El cliente presiona el botón \textit{Continuar};
+      [\hipervinculoLocal{ta:cancelar}].
+
+    \item El sistema muestra la interfaz
+      \hipervinculo{lib_iu:seleccionar_direccion_de_entrega}.
+
+    \item El cliente selecciona la dirección de entrega deseada;
+      [\hipervinculoLocal{ta:cancelar}].
+
+    \item El cliente presiona el botón \textit{Continuar};
+      [\hipervinculoLocal{ta:cancelar}].
+
+    \item El sistema muestra la interfaz
+      \hipervinculo{lib_iu:resumen_de_compra}.
+
+    \item El cliente presiona el botón \textit{Aceptar};
+      [\hipervinculoLocal{ta:cancelar}].
+
+    % Supongo que en estos últimos pasos se refleja lo incompleto de la tienda:
+    % una tienda más en serio tendría que preocuparse por el envío de los
+    % libros.
+
+    \item El sistema registra la compra.
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:compra_registrada}.
+
+  \end{trayectoriaPrincipal}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:cancelar]
+    {El cliente cancela la operación}
+
+    \item El cliente presiona el botón \textit{cancelar}.
+
+    \item El sistema muestra la interfaz
+      \hipervinculo{lib_iu:finalizar_compra}.
+
+  \end{trayectoriaAlternativa}
+
 }
