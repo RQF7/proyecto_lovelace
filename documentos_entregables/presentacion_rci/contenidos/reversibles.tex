@@ -1,0 +1,65 @@
+%
+% Algoritmos reveribles,
+% presentación en RCI.
+% Proyecto Lovelace.
+%
+
+\section{Métodos reversibles: FFX y BPS}
+
+\begin{frame}{Métodos reversibles: FFX y BPS}
+
+  \begin{itemize}
+    \item Métodos que utilizan cifrados que preservan el formato.
+    \item Cifran la tarjeta y descifran el token.
+    \item Se volvieron estándares en 2016 y fueron renombrados por el NIST
+      a FF1 y FF3 respectivamente~\cite{nist_fpe}.
+    \item Están basados en redes Feistel.
+  \end{itemize}
+
+  \begin{figure}
+    \centering
+    \subfloat[Proceso de tokenización]{
+      \subimport{diagramas/}{tokenizacion_reversible.tikz.tex}}
+    \\\vspace{0.1in}
+    \subfloat[Proceso de detokenización]{
+      \subimport{diagramas/}{detokenizacion_reversible.tikz.tex}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Comparativa: FFX y BPS}
+
+  \begin{table}
+    \begin{tabular}{|m{0.35\textwidth}|m{0.26\textwidth}|m{0.25\textwidth}|}
+      \hline
+      \parbox{0.35\textwidth}{\textbf{Características}} &
+      \parbox{0.26\textwidth}{\textbf{FFX}} &
+      \parbox{0.25\textwidth}{\textbf{BPS}}
+      \\\hline
+      \parbox{0.35\textwidth}{%
+        \strut Longitud de cadena \\
+        {\scriptsize(en caracteres)} \strut} &
+      \parbox{0.26\textwidth}{$4 \ - \ 36$} &
+      \parbox{0.25\textwidth}{$0 \ - \ 1.9x10^{40}$}
+      \\\hline
+      \parbox{0.35\textwidth}{\strut Primitivas \\ criptográficas\strut} &
+      \parbox{0.26\textwidth}{AES CBC-MAC} &
+      \parbox{0.25\textwidth}{AES}
+      \\\hline
+      \parbox{0.35\textwidth}{Tamaño de llave} &
+      \parbox{0.26\textwidth}{128 bits} &
+      \parbox{0.25\textwidth}{128 bits}
+      \\\hline
+      \parbox{0.35\textwidth}{Tamaño de \textit{tweak}} &
+      \parbox{0.26\textwidth}{menor a $2^{64}$ bits} &
+      \parbox{0.25\textwidth}{64 bits}
+      \\\hline
+      \parbox{0.35\textwidth}{Número de rondas} &
+      \parbox{0.26\textwidth}{12, 24 o 28} &
+      \parbox{0.25\textwidth}{\strut mínimo 8 recomendadas \strut}
+      \\\hline
+    \end{tabular}
+    \caption{Características de los algoritmos tokenizadores
+      reveribles~\cite{ffx_1, bps}.}
+  \end{table}
+
+\end{frame}

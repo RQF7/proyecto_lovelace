@@ -1,0 +1,64 @@
+%
+% Algoritmos irreveribles,
+% presentación en RCI.
+% Proyecto Lovelace.
+%
+
+\section{Métodos irreversibles: TKR, AHR y DRBG}
+
+\begin{frame}{Métodos irreversibles: TKR, AHR y DRBG}
+  \begin{itemize}
+    \item Utilizan varias primitivas criptográficas (cifrados por bloque,
+      funciones hash, generadores pseudoaleatorios).
+    \item Requieren guardar la relación tarjeta-token.
+    \item Su desempeño está ligado a la base de datos.
+  \end{itemize}
+
+  \begin{figure}
+    \centering
+    \subfloat[Proceso de tokenización]{
+      \subimport{diagramas/}{tokenizacion_irreversible.tikz.tex}}
+    \\\vspace{0.1in}
+    \subfloat[Proceso de detokenización]{
+      \subimport{diagramas/}{detokenizacion_irreversible.tikz.tex}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Métodos irreversibles: TKR, AHR y DRBG}
+  \begin{table}
+    \begin{tabular}{|m{3cm}|m{2.0cm}|m{2.0cm}|m{2.0cm}|}
+      \hline
+      \parbox{3.0cm}{\textbf{Características}}
+      & \parbox{2.0cm}{\textbf{TKR}}
+      & \parbox{2.0cm}{\textbf{AHR}}
+      & \parbox{2.0cm}{\textbf{DRBG}} \\\hline
+      \parbox{3cm}{%
+        \raggedright{Primitivas criptográficas}} &
+      \parbox{2.0cm}{%
+        \raggedright{Cifrado por bloque.}} &
+      \parbox{2.0cm}{%
+        \strut\raggedright{Cifrado por bloque y función hash.}\strut} &
+      \parbox{2.0cm}{%
+        \strut\raggedright{Función hash o cifrado por bloque.}\strut} \\\hline
+      \parbox{3cm}{%
+        \strut\raggedright{Tamaño de llave}\strut} &
+      \parbox{2.0cm}{%
+        \raggedright{16 bytes}} &
+      \parbox{2.0cm}{%
+        \raggedright{32 bytes}} &
+      \parbox{2.0cm}{%
+        \raggedright{-}} \\\hline
+      \parbox{3cm}{%
+        \strut\raggedright{¿Utiliza \textit{tweak}?}\strut} &
+      \parbox{2.0cm}{%
+        \raggedright{Sí}} &
+      \parbox{2.0cm}{%
+        \raggedright{Sí}} &
+      \parbox{2.0cm}{%
+        \raggedright{No}}\\\hline
+    \end{tabular}
+    \caption{Características de los algoritmos tokenizadores
+      irreversibles~\cite{doc_sandra, aragona, nist_aleatorios}.}
+    \label{tabla:algoritmos_irreversibles}
+  \end{table}
+\end{frame}

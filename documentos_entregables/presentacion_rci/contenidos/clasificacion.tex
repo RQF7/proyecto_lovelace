@@ -1,0 +1,45 @@
+%
+% Clasificación de algoritmos tokenizadores,
+% presentación en RCI.
+% Proyecto Lovelace.
+%
+
+\section{Clasificación del PCI}
+
+\begin{frame}{Clasificación de los algoritmos tokenizadores}
+  {Clasificación del PCI \cite{pci_tokens}}
+  \begin{itemize}
+    \item \textbf{Reversibles:} se puede regresar, a partir del token, al
+      número de tarjeta original.
+      \begin{itemize}
+        \item \textbf{Criptográficos:} cifran la tarjeta y descifran el
+          token.
+        \item \textbf{No criptográficos:} utilizan una base de datos para
+          guardar la relación entre números de tarjeta y tokens.
+      \end{itemize}
+    \item \textbf{Irreversibles:} no se puede regresar al número de tarjeta a
+      partir del token.
+      \begin{itemize}
+        \item \textbf{Autenticables:} permiten validar cuando un token
+          corresponde a un número de tarjeta dado.
+        \item \textbf{No autenticables:} no se puede hacer la validación
+          anterior.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Clasificación de los algoritmos tokenizadores}
+  {Clasificación propuesta}
+  \begin{itemize}
+    \item \textbf{Criptográficos:} ocupan primitivas criptográficas en su
+      operación.
+    \begin{itemize}
+      \item \textbf{Reversibles:} cifran la tarjeta y descifran el
+        token.
+      \item \textbf{Irreversibles:} requieren una base de datos para
+        guardar la relación entre números de tarjetas y tokens.
+    \end{itemize}
+    \item \textbf{No criptográficos:} no utilizan nada relacionado con la
+        criptografía.
+  \end{itemize}
+\end{frame}
