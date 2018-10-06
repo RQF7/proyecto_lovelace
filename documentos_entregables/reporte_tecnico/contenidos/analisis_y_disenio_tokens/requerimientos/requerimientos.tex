@@ -13,7 +13,7 @@ el proceso de tokenización:
 
   \item \label{dm:gen_tokens} \textbf{Generación de \glspl{gl:token}.}
     Para cada clase tokenizadora, este dominio se encarga de definir
-    consideraciones para generación segura de \glspl{gl:token}. Cubre los
+    consideraciones para la generación segura de \glspl{gl:token}. Cubre los
     dispositivos, procesos, mecanismos y algoritmos que son utilizados para
     crear los \glspl{gl:token}.
 
@@ -35,10 +35,37 @@ el proceso de tokenización:
 \end{enumerate}
 
 En esta sección se detallan los requerimientos que deben de satisfacer los
-\glspl{gl:token}. Para comenzar, se enlistan los requerimientos
+\glspl{gl:token} según las guías de tokenización del \gls{gl:pci}
+\gls{gl:dss}~\cite{pci_tokens}. Para comenzar, se enlistan los requerimientos
 aplicables a todos, sin importar su categoría; después de esto, se agrupan los
 requerimientos correspondientes a cada una de las categorías presentadas en
 la sección \ref{sec:pci_dss}.
+
+Para un seguimiento posterior, cada requerimiento se clasifica según la
+entidad responsable de su cumplimiento; estas categorías son:
+
+\begin{enumerate}
+
+  \item \textbf{\hypertarget{clasificacion:algoritmos}{Algoritmos}.}
+    Requerimiento cuyo cumplimiento es responsabilidad del diseñador de un
+    algoritmo tokenizador.
+
+  \item \textbf{\hypertarget{clasificacion:implementaciones}{Implementaciones}.}
+    Requerimiento cuyo cumplimiento es responsabilidad del implementador de un
+    algoritmo tokenizador.
+
+  \item \textbf{\hypertarget{clasificacion:sistema}{Sistema tokenizador}.}
+    Requerimiento cuyo cumplimiento es responsabilidad de un proveedor de
+    servicios de tokenización.
+
+\end{enumerate}
+
+Los requerimientos de la primera categoría se encuentran fuera de los
+propósitos de este trabajo. En la segunda y tercera categorías se agrupan
+los requerimientos que, en efecto, un trabajo como este deben de cumplir.
+A los de la segunda categoría se les da segumiento en la sección \ref{};
+los de la tercera son parte del siguiente módulo de este proyecto y se les
+da seguimiento en la sección \ref{}.
 
 % GT1
 \requerimiento[rq_pci:productos_de_hardware]
@@ -46,7 +73,9 @@ la sección \ref{sec:pci_dss}.
 {
   Si se usa un producto de hardware para la tokenización, este debe de ser
   validado por \gls{gl:fips} 140-2 nivel 3 o superior (descrito en
-  \cite{nist_modulos_criptograficos}).
+  \cite{nist_modulos_criptograficos}). \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
 }
 
 % GT2 se lo chutaron.
@@ -56,7 +85,9 @@ la sección \ref{sec:pci_dss}.
 {
   Si se usa un producto de software para la tokenización, este debe de ser
   validado por \gls{gl:fips} 140-2 nivel 2 o superior (descrito en
-  \cite{nist_modulos_criptograficos}).
+  \cite{nist_modulos_criptograficos}). \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
 }
 
 % GT4
@@ -67,7 +98,9 @@ la sección \ref{sec:pci_dss}.
   \gls{gl:pan} no debe de ser capaz de determinar otros \gls{gl:pan} a partir
   de solamente \glspl{gl:token}. En otras palabras, los \glspl{gl:token}
   deben ser resistentes a ataques con texto en claro conocido (sección
-  \ref{sec:criptoanalisis}).
+  \ref{sec:criptoanalisis}). \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
 }
 
 % GT5
@@ -82,7 +115,9 @@ la sección \ref{sec:pci_dss}.
 {
   Recuperar un \gls{gl:pan} a partir de un \gls{gl:token} debe de ser
   \gls{gl:computacionalmente_no_factible} (resistencia a ataques con sólo
-  texto cifrado, sección \ref{sec:criptoanalisis}).
+  texto cifrado, sección \ref{sec:criptoanalisis}). \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
 }
 
 % GT6
@@ -92,7 +127,9 @@ la sección \ref{sec:pci_dss}.
   Se deben de implementar disparadores que permitan detectar
   irregularidades en el sistema (anomalías, funcionamientos erróneos,
   comportamientos sospechosos). El producto debe registrar dichos eventos y
-  avisar al personal correspondiente.
+  avisar al personal correspondiente. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
 }
 
 % GT7
@@ -102,7 +139,9 @@ la sección \ref{sec:pci_dss}.
   Se debe contar con un mecanismo para distinguir entre \glspl{gl:token}
   y \gls{gl:pan}. Los proveedores del servicio de tokenización deben
   compartir este mecanismo con la entidad (o entidades) que usa los
-  \glspl{gl:token}.
+  \glspl{gl:token}. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:implementaciones}.
 }
 
 % GT8
@@ -110,7 +149,9 @@ la sección \ref{sec:pci_dss}.
 {Guía de instalación}
 {
   Se debe de contar con una guía de instalación y uso para el correcto
-  funcionamiento del producto de tokenización.
+  funcionamiento del producto de tokenización. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
 }
 
 % GT9
@@ -118,7 +159,9 @@ la sección \ref{sec:pci_dss}.
 {Integridad del proceso de tokenización}
 {
   Deben de implementarse mecanismos que garanticen la integridad del proceso
-  de generación de \glspl{gl:token}.
+  de generación de \glspl{gl:token}.  \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:implementaciones}.
 }
 
 % GT10, RC2A, RN2B y RN3B
@@ -128,14 +171,16 @@ la sección \ref{sec:pci_dss}.
   Solo los usuarios autenticados y componentes del sistema tienen permitido
   acceder al proceso de tokenización y detokenización. Los métodos utilizados
   deben ser al menos tan rigurosos como lo indicado en el requerimiento 8 del
-  \gls{gl:pci} \gls{gl:dss} \cite{pci_dss}.
+  \gls{gl:pci} \gls{gl:dss} \cite{pci_dss}. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
 
   % GT10.1, RC2A-1, RC2A-2, RN2B, RN3B
   \subrequerimiento[rq_pci:control_de_peticiones]
   {Control de peticiones}
   {
     Todas las peticiones deben pasar a través de una \gls{gl:api} que controle
-    todos los intentos de acceso y aplique de manera uniforma reglas de
+    todos los intentos de acceso y aplique de manera uniforme reglas de
     control de acceso.
   }
 
@@ -183,7 +228,9 @@ la sección \ref{sec:pci_dss}.
   No se debe poder pasar de un primer \gls{gl:token} válido a un segundo,
   también válido; forzosamente debe existir un estado intermedio: del primer
   \gls{gl:token} se pasa al \gls{gl:pan} correspondiente (operación de
-  detokenización) y de este se pasa al segundo \gls{gl:token}.
+  detokenización) y de este se pasa al segundo \gls{gl:token}. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:implementaciones}.
 }
 
 % GT12
@@ -193,7 +240,9 @@ la sección \ref{sec:pci_dss}.
   Se deben implementar medidas en contra de las vulnerabilidades de
   seguridad más comunes (\cite{dss_pa}, requerimiento 5.2). Algunas de estas
   medidas pueden ser el uso de herramientas de análisis de código estático,
-  o el uso de lenguajes de programación especializados.
+  o el uso de lenguajes de programación especializados. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:implementaciones}.
 }
 
 % GT13
@@ -202,7 +251,9 @@ la sección \ref{sec:pci_dss}.
 {
   Las primitivas criptográficas que se usen deben estar basadas en
   estándares nacionales (referentes a Estados Unidos) o internacionales (p. ej.
-  \gls{gl:aes}). Ver sección \ref{sec:primitivas}.
+  \gls{gl:aes}). Ver sección \ref{sec:primitivas}. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:implementaciones}.
 }
 
 % TODO:
@@ -218,7 +269,9 @@ la sección \ref{sec:pci_dss}.
   En donde se usen llaves para la generación y protección de \gls{gl:token},
   se deben seguir buenas prácticas criptográficas para la administración de
   estas. En particular, se deben cumplir con las recomendaciones del
-  \gls{gl:nist} en \cite{nist_llaves} y \cite{nist_disenio_llaves}.
+  \gls{gl:nist} en \cite{nist_llaves} y \cite{nist_disenio_llaves}. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
 
   % IT4A-1, RC4B-1
   \subrequerimiento[rq_pci:ciclo_de_vida_llaves]

@@ -13,7 +13,9 @@
   La generación de un \gls{gl:token} debe realizarse independientemente de
   su \gls{gl:pan}, y la relación entre un \gls{gl:pan} y su \gls{gl:token}
   sólo tiene que estar almacenada en la base de datos (\gls{gl:cdv})
-  establecida.
+  establecida. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
 }
 
 % RN 1B
@@ -21,7 +23,9 @@
 {Probabilidad de encontrar un PAN (no criptográficos)}
 {
   La probabilidad de encontrar un \gls{gl:pan} a partir de su respectivo
-  \gls{gl:token} debe de ser menor que $1$ en $10^6$.
+  \gls{gl:token} debe de ser menor que $1$ en $10^6$. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
 
   % RN 1B-1
   \subrequerimiento[rq_pci:nc_distribucion_equiprobable]
@@ -87,7 +91,9 @@ que  la generación del \gls{gl:token} es independiente del \gls{gl:pan}
 {
   El proceso de generación de \glspl{gl:token} debe garantizar una
   distribución de \glspl{gl:token} imparcial, esto significa que la
-  probabilidad de cualquier par \gls{gl:pan}/\gls{gl:token} debe ser igual.
+  probabilidad de cualquier par \gls{gl:pan}/\gls{gl:token} debe ser igual. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
 }
 
 % RN 1D
@@ -95,7 +101,10 @@ que  la generación del \gls{gl:token} es independiente del \gls{gl:pan}
 {Instancias estadísticamente independientes (no criptográficos)}
 {
   Si varias o diferentes instancias de la bases de datos (\gls{gl:cdv}) son
-  usadas, cada una de estas debe ser \glspl{gl:estidisticamente_independiente}.
+  usadas, cada una de estas debe ser
+  \glspl{gl:estidisticamente_independiente}. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
 }
 
 % RN 2A
@@ -104,7 +113,9 @@ que  la generación del \gls{gl:token} es independiente del \gls{gl:pan}
 {
   El proceso de detokenización debe realizarse por medio de una búsqueda de
   datos o un índice dentro de la base de datos (\gls{gl:cdv}), y no por medio
-  de métodos criptográficos.
+  de métodos criptográficos. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
 
   % RN 2A-1
   %\subrequerimiento{Asignación probabilísticamente independiente}
@@ -131,7 +142,9 @@ los cuales son métodos matemáticos.
 {Cifrado de la base de datos (no criptográficos)}
 {
   Dentro de la base de datos (\gls{gl:cdv}), los \gls{gl:pan} deben ser
-  cifrados con una llave de mínimo 128 bits de \gls{gl:fuerza_efectiva}.
+  cifrados con una llave de mínimo 128 bits de \gls{gl:fuerza_efectiva}. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:implementaciones}.
 }
 
 % RN4A
@@ -142,5 +155,7 @@ los cuales son métodos matemáticos.
   deben realizarse en un dispositivo criptográfico seguro y aprobado: el
   \gls{gl:pci} \gls{gl:ssc} se encarga de hacer validaciones; también puede ser
   cualquier dispositivo validado por \gls{gl:fips} 140-2 nivel 3 o superior
-  \cite{nist_modulos_criptograficos} o por la \gls{gl:iso} 13491-1.
+  \cite{nist_modulos_criptograficos} o por la \gls{gl:iso} 13491-1. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
 }

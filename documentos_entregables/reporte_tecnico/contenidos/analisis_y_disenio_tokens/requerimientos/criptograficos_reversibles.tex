@@ -11,7 +11,9 @@
 \requerimiento{Probabilidad de adivinar relaciones (criptográficos)}
 {
   La probabilidad de adivinar la relación entre un \gls{gl:token} y un
-  \gls{gl:pan} debe de ser menor que $ 1 $ en $ 10^6 $.
+  \gls{gl:pan} debe de ser menor que $ 1 $ en $ 10^6 $. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
 
   % RC1B-1
   \subrequerimiento[rq_pci:cr_distribucion_uniforme]
@@ -71,7 +73,9 @@
 {Almacenamiento de tokens (criptográficos)}
 {
   Los \glspl{gl:token} generados no se deben almacenar en ningún punto del
-  sistema.
+  sistema. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
 }
 
 El requerimiento anterior (\hipervinculo{rq_pci:cr_almacenamiento_tokens},
@@ -92,7 +96,9 @@ reflejar este hecho.
   deben realizarse en un dispositivo criptográfico seguro y aprobado: el
   \gls{gl:pci} \gls{gl:ssc} se encarga de hacer validaciones; también puede ser
   cualquier dispositivo validado por \gls{gl:fips} 140-2 nivel 3 o superior
-  \cite{nist_modulos_criptograficos} o por la \gls{gl:iso} 13491-1.
+  \cite{nist_modulos_criptograficos} o por la \gls{gl:iso} 13491-1. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
 }
 
 % RC4C-1 y 2
@@ -102,14 +108,18 @@ reflejar este hecho.
   Las llaves para \textit{tokenizar} deben tener una
   \gls{gl:fuerza_efectiva} de, al menos, 128 bits. Cualquier llave utilizada
   para proteger o para derivar la llave del \gls{gl:token} debe de ser de igual
-  o mayor \gls{gl:fuerza_efectiva}.
+  o mayor \gls{gl:fuerza_efectiva}. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:implementaciones}.
 }
 
 % RC4D
 \requerimiento[rq_pci:cr_independencia_estadistica]
 {Independencia estadística (criptográficos)}
 {
-  Si el espacio de llaves es usado para producir \glspl{gl:token} es dos
+  Si el espacio de llaves es usado para producir \glspl{gl:token} en dos
   contextos distintos (p. ej. para distintos comerciantes), estas deben ser
-  \glspl{gl:estidisticamente_independiente}.
+  \glspl{gl:estidisticamente_independiente}. \\
+  \nopagebreak[4]
+  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
 }
