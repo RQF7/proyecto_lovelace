@@ -17,10 +17,6 @@ class Usuario (django.db.models.Model):
     verbose_name = 'nombre del usuario',
     max_length = 100)
 
-  telefono = django.db.models.CharField(
-    verbose_name = 'teléfono del usuario',
-    max_length = 14)
-
   correo = django.db.models.CharField(
     verbose_name = 'correo electrónico',
     primary_key = True,
@@ -34,5 +30,5 @@ class Usuario (django.db.models.Model):
   direccion = django.db.models.ManyToManyField(Direccion)
 
   def __str__(self):
-    """Representación en cadena de un tipo de ... ."""
+    """Representación en cadena de un tipo de usuario."""
     return self.nombre

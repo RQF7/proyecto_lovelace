@@ -23,6 +23,14 @@ class Direccion (django.db.models.Model):
     verbose_name = 'estado de la dirección',
     null = True)
 
+  municipio = django.db.models.CharField(
+    verbose_name = 'nombre del municipio de la dirección',
+    max_length = 100)
+
+  colonia = django.db.models.CharField(
+    verbose_name = 'nombre de la colonia de la dirección',
+    max_length = 100)
+
   calle = django.db.models.CharField(
     verbose_name = 'nombre de la calle de la dirección',
     max_length = 100)
@@ -38,6 +46,9 @@ class Direccion (django.db.models.Model):
   cp = django.db.models.CharField(
     verbose_name = 'código postal',
     max_length = 8)
+
+  activa = django.db.models.BooleanField(
+    verbose_name = 'bandera para saber si la dirección esta activa o inactiva')
 
   def __str__(self):
     """Representación en cadena de una dirección."""

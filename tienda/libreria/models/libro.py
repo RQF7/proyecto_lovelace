@@ -21,7 +21,10 @@ class Libro (django.db.models.Model):
   autor = django.db.models.ManyToManyField(Autor)
 
   esEditor = django.db.models.BooleanField(
-    verbose_name = 'Bandera para saber si el autor en verdad es un editor')
+    verbose_name = 'bandera para saber si el autor en verdad es un editor')
+
+  foto = django.db.models.FileField(
+    verbose_name = 'foto de la portada del libro')
 
   genero = django.db.models.ForeignKey('Genero',
     django.db.models.PROTECT,
@@ -54,7 +57,8 @@ class Libro (django.db.models.Model):
 
   oferta = django.db.models.CharField(
     verbose_name = 'descripción alguna oferta sobre el libro',
-    max_length = 1000)
+    max_length = 1000,
+    null = True)
 
   def __str__(self):
     """Representación en cadena de un libros."""

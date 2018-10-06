@@ -11,4 +11,6 @@ from .compra                import Compra
 from .paquete               import Paquete
 from .metodo                import Metodo
 from .estado                import Estado
+from .emisor                import Emisor
+from .tipo_de_tarjeta       import TipoDeTarjeta
 from .tipo_de_direccion     import TipoDeDireccion

@@ -7,6 +7,7 @@
 import django
 from .tarjeta import Tarjeta
 from .usuario import Usuario
+from .direccion import Direccion
 
 class Compra (django.db.models.Model):
   """
@@ -24,6 +25,11 @@ class Compra (django.db.models.Model):
   usuario = django.db.models.ForeignKey('Usuario',
     django.db.models.PROTECT,
     verbose_name = 'el usuario que hizo la compra',
+    null = True)
+
+  direccion = django.db.models.ForeignKey('Direccion',
+    django.db.models.PROTECT,
+    verbose_name = 'punto de entrega',
     null = True)
 
   def __str__(self):
