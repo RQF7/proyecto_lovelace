@@ -22,54 +22,54 @@
 {
   La probabilidad de encontrar un \gls{gl:pan} a partir de su respectivo
   \gls{gl:token} debe de ser menor que $1$ en $10^6$.
+}
 
-  % RN 1B-1
-  \subrequerimiento[rq_pci:nc_distribucion_equiprobable]
-  {Distribución equiprobable (no criptográficos)}
-  {
-    Para un \gls{gl:pan} dado, todos sus \glspl{gl:token} respectivos
-    deben ser \glspl{gl:equiprobable}, esto es que el sistema
-    \textit{tokenizador} no debe exhibir patrones probabilísticos que
-    lo vulneren a un ataque estadístico.
-  }
+% RN 1B-1
+\subrequerimiento[rq_pci:nc_distribucion_equiprobable]
+{Distribución equiprobable (no criptográficos)}
+{
+  Para un \gls{gl:pan} dado, todos sus \glspl{gl:token} respectivos
+  deben ser \glspl{gl:equiprobable}, esto es que el sistema
+  \textit{tokenizador} no debe exhibir patrones probabilísticos que
+  lo vulneren a un ataque estadístico.
+}
 
-  % RN 1B-2
-  \subrequerimiento[rq_pci:nc_permutaciones_aleatorias]
-  {Permutaciones aleatorias (no criptográficos)}
-  {
-    El método de tokenización debe actuar como una familia de
-    \glspl{gl:permutacion} aleatoria en el espacio efectivo de los
-    \glspl{gl:pan} al espacio de \glspl{gl:token}.
-  }
+% RN 1B-2
+\subrequerimiento[rq_pci:nc_permutaciones_aleatorias]
+{Permutaciones aleatorias (no criptográficos)}
+{
+  El método de tokenización debe actuar como una familia de
+  \glspl{gl:permutacion} aleatoria en el espacio efectivo de los
+  \glspl{gl:pan} al espacio de \glspl{gl:token}.
+}
 
-  % RN 1B-3
-  \subrequerimiento[rq_pci:nc_parametros_de_tokenizacion]
-  {Parámetros de tokenización (no criptográficos)}
-  {
-    El método de tokenización debe incluir parámetros tales que, un
-    cambio en estos parámetros resulte en un \gls{gl:token} diferente;
-    por ejemplo, un cambio en la instancia del proceso debe derivar en
-    una secuencia de \glspl{gl:token} distintos, incluso cuando es usada
-    la misma secuencia de \glspl{gl:token}.
-  }
+% RN 1B-3
+\subrequerimiento[rq_pci:nc_parametros_de_tokenizacion]
+{Parámetros de tokenización (no criptográficos)}
+{
+  El método de tokenización debe incluir parámetros tales que, un
+  cambio en estos parámetros resulte en un \gls{gl:token} diferente;
+  por ejemplo, un cambio en la instancia del proceso debe derivar en
+  una secuencia de \glspl{gl:token} distintos, incluso cuando es usada
+  la misma secuencia de \glspl{gl:token}.
+}
 
-  % RN 1B-4
-  % Contradoctoria con RN 1A, si el token es independiete, no debe
-  % reflejar cambios.
-  %\subrequerimiento{Reflejo de cambios}
-  %{
-  %  Al cambiar parte de un \gls{gl:pan}, debe cambiar su \gls{gl:token}
-  %  resultante.
-  %}
+% RN 1B-4
+% Contradoctoria con RN 1A, si el token es independiete, no debe
+% reflejar cambios.
+%\subrequerimiento{Reflejo de cambios}
+%{
+%  Al cambiar parte de un \gls{gl:pan}, debe cambiar su \gls{gl:token}
+%  resultante.
+%}
 
-  % RN 1B-5
-  \subrequerimiento[rq_pci:nr_aleatoriedad_digitos]
-  {Verificación de la aleatoriedad (no criptográficos)}
-  {
-    Se debe tener un medio para verificar de forma práctica la aleatorización
-    de dígitos, de acuerdo a lo establecido en \gls{gl:nist} 800-90A
-    \cite{nist_aleatorios}.
-  }
+% RN 1B-5
+\subrequerimiento[rq_pci:nr_aleatoriedad_digitos]
+{Verificación de la aleatoriedad (no criptográficos)}
+{
+  Se debe tener un medio para verificar de forma práctica la aleatorización
+  de dígitos, de acuerdo a lo establecido en \gls{gl:nist} 800-90A
+  \cite{nist_aleatorios}.
 }
 
 En \cite{pci_tokens} se establece un subrequerimiento más de
@@ -105,16 +105,16 @@ que  la generación del \gls{gl:token} es independiente del \gls{gl:pan}
   El proceso de detokenización debe realizarse por medio de una búsqueda de
   datos o un índice dentro de la base de datos (\gls{gl:cdv}), y no por medio
   de métodos criptográficos.
-
-  % RN 2A-1
-  %\subrequerimiento{Asignación probabilísticamente independiente}
-  %{
-  %  El \gls{gl:pan} y el \gls{gl:token} debe ser probabilísticamente
-  %  independientes. Cualquier método lógico o matemático no debe ser
-  %  usado para \textit{tokenizar} el \gls{gl:pan} o \textit{detokenizar}
-  %  el \gls{gl:token}.
-  %}
 }
+
+% RN 2A-1
+%\subrequerimiento{Asignación probabilísticamente independiente}
+%{
+%  El \gls{gl:pan} y el \gls{gl:token} debe ser probabilísticamente
+%  independientes. Cualquier método lógico o matemático no debe ser
+%  usado para \textit{tokenizar} el \gls{gl:pan} o \textit{detokenizar}
+%  el \gls{gl:token}.
+%}
 
 Un subrequerimiento de \hipervinculo{rq_pci:nc_proceso_detokenizacion} que
 aquí se omite establece: «\textit{El \gls{gl:pan} y el \gls{gl:token} debe ser

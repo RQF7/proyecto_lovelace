@@ -12,54 +12,53 @@
 {
   La probabilidad de adivinar la relación entre un \gls{gl:token} y un
   \gls{gl:pan} debe de ser menor que $ 1 $ en $ 10^6 $.
+}
 
-  % RC1B-1
-  \subrequerimiento[rq_pci:cr_distribucion_uniforme]
-  {Distribución uniforme (criptográficos)}
-  {
-    Para un \gls{gl:pan} dado, todos los \glspl{gl:token} deben ser
-    equiprobables; esto es, el mecanismo tokenizador no debe exhibir
-    tendencias probabilísticas que lo expongan a ataques estadísticos.
-  }
+% RC1B-1
+\subrequerimiento[rq_pci:cr_distribucion_uniforme]
+{Distribución uniforme (criptográficos)}
+{
+  Para un \gls{gl:pan} dado, todos los \glspl{gl:token} deben ser
+  equiprobables; esto es, el mecanismo tokenizador no debe exhibir
+  tendencias probabilísticas que lo expongan a ataques estadísticos.
+}
 
-  % RC1B-2 permutación aleatoria
-  % TODO: ¿Cuál es la diferencia entre una «permutación aleatoria» y una
-  % «permutación aleatoria fuerte»?
-  % Si el mapeo es entre dos espacios distintos... ya no se llama
-  % permutación, ¿o sí?
-  \subrequerimiento[rq_pci:cr_permutacion_aleatoria]
-  {Permutación aleatoria (criptográficos)}
-  {
-    El método de tokenización debe actuar como una familia de
-    \glspl{gl:permutacion} aleatoria desde el espacio de \gls{gl:pan} al
-    espacio de \glspl{gl:token}.
-  }
+% RC1B-2 permutación aleatoria
+% TODO: ¿Cuál es la diferencia entre una «permutación aleatoria» y una
+% «permutación aleatoria fuerte»?
+% Si el mapeo es entre dos espacios distintos... ya no se llama
+% permutación, ¿o sí?
+\subrequerimiento[rq_pci:cr_permutacion_aleatoria]
+{Permutación aleatoria (criptográficos)}
+{
+  El método de tokenización debe actuar como una familia de
+  \glspl{gl:permutacion} aleatoria desde el espacio de \gls{gl:pan} al
+  espacio de \glspl{gl:token}.
+}
 
-  % RC1B-3
-  \subrequerimiento[rq_pci:cr_cambio_de_llave]
-  {Cambio de llave (criptográficos)}
-  {
-    Un cambio en la llave se debe ver reflejado en un cambio en el
-    \gls{gl:token} resultado.
-  }
+% RC1B-3
+\subrequerimiento[rq_pci:cr_cambio_de_llave]
+{Cambio de llave (criptográficos)}
+{
+  Un cambio en la llave se debe ver reflejado en un cambio en el
+  \gls{gl:token} resultado.
+}
 
-  % RC1B-4
-  \subrequerimiento[rq_pci:cr_cambio_de_pan]
-  {Cambio de \gls{gl:pan} (criptográficos)}
-  {
-    Un cambio en el \gls{gl:pan} se debe ver reflejado en un cambio en el
-    \gls{gl:token} resultado.
-  }
+% RC1B-4
+\subrequerimiento[rq_pci:cr_cambio_de_pan]
+{Cambio de \gls{gl:pan} (criptográficos)}
+{
+  Un cambio en el \gls{gl:pan} se debe ver reflejado en un cambio en el
+  \gls{gl:token} resultado.
+}
 
-  % RC1B-5
-  \subrequerimiento[rq_pci:cr_aleatoriedad_digitos]
-  {Verificación de la aleatoriedad (criptográficos)}
-  {
-    Se debe tener un medio para verificar de forma práctica la aleatorización
-    de dígitos, de acuerdo a lo establecido en \gls{gl:nist} 800-90A
-    \cite{nist_aleatorios}.
-  }
-
+% RC1B-5
+\subrequerimiento[rq_pci:cr_aleatoriedad_digitos]
+{Verificación de la aleatoriedad (criptográficos)}
+{
+  Se debe tener un medio para verificar de forma práctica la aleatorización
+  de dígitos, de acuerdo a lo establecido en \gls{gl:nist} 800-90A
+  \cite{nist_aleatorios}.
 }
 
 % RC1C almacenamiento duplicado
