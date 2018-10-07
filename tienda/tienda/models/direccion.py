@@ -48,7 +48,7 @@ class Direccion (django.db.models.Model):
     max_length = 8)
 
   activa = django.db.models.BooleanField(
-    verbose_name = 'bandera para saber si la dirección esta activa o inactiva')
+    verbose_name = 'bandera para saber si la dirección está activa o inactiva')
 
   def __str__(self):
     """Representación en cadena de una dirección."""
