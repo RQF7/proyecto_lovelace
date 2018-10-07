@@ -68,39 +68,36 @@ los de la tercera son parte del siguiente módulo de este proyecto y se les
 da seguimiento en la sección \ref{}.
 
 % GT1
-\requerimiento[rq_pci:productos_de_hardware]
+\requerimientoConClasificacion[rq_pci:productos_de_hardware]
 {Validación de productos de hardware}
+{clasificacion:sistema}
 {
   Si se usa un producto de hardware para la tokenización, este debe de ser
   validado por \gls{gl:fips} 140-2 nivel 3 o superior (descrito en
-  \cite{nist_modulos_criptograficos}). \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
+  \cite{nist_modulos_criptograficos}).
 }
 
 % GT2 se lo chutaron.
 % GT3
-\requerimiento[rq_pci:productos_de_software]
+\requerimientoConClasificacion[rq_pci:productos_de_software]
 {Validación de productos de software}
+{clasificacion:sistema}
 {
   Si se usa un producto de software para la tokenización, este debe de ser
   validado por \gls{gl:fips} 140-2 nivel 2 o superior (descrito en
-  \cite{nist_modulos_criptograficos}). \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
+  \cite{nist_modulos_criptograficos}).
 }
 
 % GT4
-\requerimiento[rq_pci:resistencia_texto_claro_conocido]
+\requerimientoConClasificacion[rq_pci:resistencia_texto_claro_conocido]
 {Resistencia a texto claro conocido}
+{clasificacion:algoritmos}
 {
   Un atacante con acceso a múltiples pares de \glspl{gl:token} y
   \gls{gl:pan} no debe de ser capaz de determinar otros \gls{gl:pan} a partir
   de solamente \glspl{gl:token}. En otras palabras, los \glspl{gl:token}
   deben ser resistentes a ataques con texto en claro conocido (sección
-  \ref{sec:criptoanalisis}). \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
+  \ref{sec:criptoanalisis}).
 }
 
 % GT5
@@ -110,70 +107,64 @@ da seguimiento en la sección \ref{}.
 % a GT4 con una disyunción.
 % Creo que ya había leído esto mismo en alguno de los artículos que nos pasó
 % Sandra.
-\requerimiento[rq_pci:resistencia_solo_texto_cifrado]
+\requerimientoConClasificacion[rq_pci:resistencia_solo_texto_cifrado]
 {Resistencia a sólo texto cifrado}
+{clasificacion:algoritmos}
 {
   Recuperar un \gls{gl:pan} a partir de un \gls{gl:token} debe de ser
   \gls{gl:computacionalmente_no_factible} (resistencia a ataques con sólo
-  texto cifrado, sección \ref{sec:criptoanalisis}). \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
+  texto cifrado, sección \ref{sec:criptoanalisis}).
 }
 
 % GT6
-\requerimiento[rq_pci:deteccion_anomalias]
+\requerimientoConClasificacion[rq_pci:deteccion_anomalias]
 {Detección de anomalías}
+{clasificacion:sistema}
 {
   Se deben de implementar disparadores que permitan detectar
   irregularidades en el sistema (anomalías, funcionamientos erróneos,
   comportamientos sospechosos). El producto debe registrar dichos eventos y
-  avisar al personal correspondiente. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
+  avisar al personal correspondiente.
 }
 
 % GT7
-\requerimiento[rq_pci:distincion_token_pan]
+\requerimientoConClasificacion[rq_pci:distincion_token_pan]
 {Distinción entre \glspl{gl:token} y \gls{gl:pan}}
+{clasificacion:implementaciones}
 {
   Se debe contar con un mecanismo para distinguir entre \glspl{gl:token}
   y \gls{gl:pan}. Los proveedores del servicio de tokenización deben
   compartir este mecanismo con la entidad (o entidades) que usa los
-  \glspl{gl:token}. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:implementaciones}.
+  \glspl{gl:token}.
 }
 
 % GT8
-\requerimiento[rq_pci:guia_de_instalacion]
+\requerimientoConClasificacion[rq_pci:guia_de_instalacion]
 {Guía de instalación}
+{clasificacion:sistema}
 {
   Se debe de contar con una guía de instalación y uso para el correcto
-  funcionamiento del producto de tokenización. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
+  funcionamiento del producto de tokenización.
 }
 
 % GT9
-\requerimiento[rq_pci:integridad_ejecutables]
+\requerimientoConClasificacion[rq_pci:integridad_ejecutables]
 {Integridad del proceso de tokenización}
+{clasificacion:implementaciones}
 {
   Deben de implementarse mecanismos que garanticen la integridad del proceso
-  de generación de \glspl{gl:token}.  \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:implementaciones}.
+  de generación de \glspl{gl:token}.
 }
 
 % GT10, RC2A, RN2B y RN3B
-\requerimiento[rq_pci:acceso_a_producto]
+\requerimientoConClasificacion[rq_pci:acceso_a_producto]
 {Acceso al proceso detokenización}
+{clasificacion:sistema}
 {
   Solo los usuarios autenticados y componentes del sistema tienen permitido
   acceder al proceso de tokenización y detokenización. Los métodos utilizados
   deben ser al menos tan rigurosos como lo indicado en el requerimiento 8 del
-  \gls{gl:pci} \gls{gl:dss} \cite{pci_dss}. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
+  \gls{gl:pci} \gls{gl:dss} \cite{pci_dss}.
 
   % GT10.1, RC2A-1, RC2A-2, RN2B, RN3B
   \subrequerimiento[rq_pci:control_de_peticiones]
@@ -222,38 +213,35 @@ da seguimiento en la sección \ref{}.
 }
 
 % GT11
-\requerimiento[rq_pci:token_a_token_prohibido]
+\requerimientoConClasificacion[rq_pci:token_a_token_prohibido]
 {Mapeos de \gls{gl:token} a \gls{gl:token} prohibidos}
+{clasificacion:implementaciones}
 {
   No se debe poder pasar de un primer \gls{gl:token} válido a un segundo,
   también válido; forzosamente debe existir un estado intermedio: del primer
   \gls{gl:token} se pasa al \gls{gl:pan} correspondiente (operación de
-  detokenización) y de este se pasa al segundo \gls{gl:token}. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:implementaciones}.
+  detokenización) y de este se pasa al segundo \gls{gl:token}.
 }
 
 % GT12
-\requerimiento[rq_pci:vulnerabilidades_comunes]
+\requerimientoConClasificacion[rq_pci:vulnerabilidades_comunes]
 {Protección contra vulnerabilidades comunes}
+{clasificacion:implementaciones}
 {
   Se deben implementar medidas en contra de las vulnerabilidades de
   seguridad más comunes (\cite{dss_pa}, requerimiento 5.2). Algunas de estas
   medidas pueden ser el uso de herramientas de análisis de código estático,
-  o el uso de lenguajes de programación especializados. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:implementaciones}.
+  o el uso de lenguajes de programación especializados.
 }
 
 % GT13
-\requerimiento[rq_pci:primitivas_usadas]
+\requerimientoConClasificacion[rq_pci:primitivas_usadas]
 {Primitivas criptográficas usadas}
+{clasificacion:implementaciones}
 {
   Las primitivas criptográficas que se usen deben estar basadas en
   estándares nacionales (referentes a Estados Unidos) o internacionales (p. ej.
-  \gls{gl:aes}). Ver sección \ref{sec:primitivas}. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:implementaciones}.
+  \gls{gl:aes}). Ver sección \ref{sec:primitivas}.
 }
 
 % TODO:
@@ -263,15 +251,14 @@ da seguimiento en la sección \ref{}.
 % Para eliminar repeticiones:
 
 % IT4A, RC4B, RN4B
-\requerimiento[rq_pci:manejo_de_llaves]
+\requerimientoConClasificacion[rq_pci:manejo_de_llaves]
 {Sobre el manejo adecuado de llaves}
+{clasificacion:sistema}
 {
   En donde se usen llaves para la generación y protección de \gls{gl:token},
   se deben seguir buenas prácticas criptográficas para la administración de
   estas. En particular, se deben cumplir con las recomendaciones del
-  \gls{gl:nist} en \cite{nist_llaves} y \cite{nist_disenio_llaves}. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
+  \gls{gl:nist} en \cite{nist_llaves} y \cite{nist_disenio_llaves}.
 
   % IT4A-1, RC4B-1
   \subrequerimiento[rq_pci:ciclo_de_vida_llaves]

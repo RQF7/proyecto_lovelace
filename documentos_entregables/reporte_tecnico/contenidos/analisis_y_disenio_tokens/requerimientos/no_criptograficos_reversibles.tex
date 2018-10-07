@@ -7,25 +7,23 @@
 \subsection{No criptográficos reversibles}
 
 % RN 1A
-\requerimiento[rq_pci:nc_generacion_y_almacenamiento]
+\requerimientoConClasificacion[rq_pci:nc_generacion_y_almacenamiento]
 {Generación y almacenamiento de tokens (no criptográficos)}
+{clasificacion:algoritmos}
 {
   La generación de un \gls{gl:token} debe realizarse independientemente de
   su \gls{gl:pan}, y la relación entre un \gls{gl:pan} y su \gls{gl:token}
   sólo tiene que estar almacenada en la base de datos (\gls{gl:cdv})
-  establecida. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
+  establecida.
 }
 
 % RN 1B
-\requerimiento[rq_pci:nc_seguridad]
+\requerimientoConClasificacion[rq_pci:nc_seguridad]
 {Probabilidad de encontrar un PAN (no criptográficos)}
+{clasificacion:algoritmos}
 {
   La probabilidad de encontrar un \gls{gl:pan} a partir de su respectivo
-  \gls{gl:token} debe de ser menor que $1$ en $10^6$. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
+  \gls{gl:token} debe de ser menor que $1$ en $10^6$.
 
   % RN 1B-1
   \subrequerimiento[rq_pci:nc_distribucion_equiprobable]
@@ -86,36 +84,33 @@ que  la generación del \gls{gl:token} es independiente del \gls{gl:pan}
 
 % RN 1C
 % TODO: ¿Diferencias con RB1B-1?
-\requerimiento[rq_pci:nc_distribucion_imparcial]
+\requerimientoConClasificacion[rq_pci:nc_distribucion_imparcial]
 {Distribución imparcial (no criptográficos)}
+{clasificacion:algoritmos}
 {
   El proceso de generación de \glspl{gl:token} debe garantizar una
   distribución de \glspl{gl:token} imparcial, esto significa que la
-  probabilidad de cualquier par \gls{gl:pan}/\gls{gl:token} debe ser igual. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
+  probabilidad de cualquier par \gls{gl:pan}/\gls{gl:token} debe ser igual.
 }
 
 % RN 1D
-\requerimiento[rq_pci:nc_independencia_estadistica]
+\requerimientoConClasificacion[rq_pci:nc_independencia_estadistica]
 {Instancias estadísticamente independientes (no criptográficos)}
+{clasificacion:sistema}
 {
   Si varias o diferentes instancias de la bases de datos (\gls{gl:cdv}) son
   usadas, cada una de estas debe ser
-  \glspl{gl:estidisticamente_independiente}. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
+  \glspl{gl:estidisticamente_independiente}.
 }
 
 % RN 2A
-\requerimiento[rq_pci:nc_proceso_detokenizacion]
+\requerimientoConClasificacion[rq_pci:nc_proceso_detokenizacion]
 {Proceso de detokenización (no criptográficos)}
+{clasificacion:algoritmos}
 {
   El proceso de detokenización debe realizarse por medio de una búsqueda de
   datos o un índice dentro de la base de datos (\gls{gl:cdv}), y no por medio
-  de métodos criptográficos. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:algoritmos}.
+  de métodos criptográficos.
 
   % RN 2A-1
   %\subrequerimiento{Asignación probabilísticamente independiente}
@@ -138,24 +133,22 @@ común para generar \glspl{gl:token} no criptográficos es usar \gls{gl:prng},
 los cuales son métodos matemáticos.
 
 % RN3A
-\requerimiento[rq_pci:nc_cifrado_de_base]
+\requerimientoConClasificacion[rq_pci:nc_cifrado_de_base]
 {Cifrado de la base de datos (no criptográficos)}
+{clasificacion:implementaciones}
 {
   Dentro de la base de datos (\gls{gl:cdv}), los \gls{gl:pan} deben ser
-  cifrados con una llave de mínimo 128 bits de \gls{gl:fuerza_efectiva}. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:implementaciones}.
+  cifrados con una llave de mínimo 128 bits de \gls{gl:fuerza_efectiva}.
 }
 
 % RN4A
-\requerimiento[rq_pci:nc_administracion_llaves]
+\requerimientoConClasificacion[rq_pci:nc_administracion_llaves]
 {Seguridad de la administración de llaves (no criptográficos)}
+{clasificacion:sistema}
 {
   Todas la operaciones sobre la administración de las llaves criptográficas
   deben realizarse en un dispositivo criptográfico seguro y aprobado: el
   \gls{gl:pci} \gls{gl:ssc} se encarga de hacer validaciones; también puede ser
   cualquier dispositivo validado por \gls{gl:fips} 140-2 nivel 3 o superior
-  \cite{nist_modulos_criptograficos} o por la \gls{gl:iso} 13491-1. \\
-  \nopagebreak[4]
-  \textbf{Clasificación:} \hipervinculo{clasificacion:sistema}.
+  \cite{nist_modulos_criptograficos} o por la \gls{gl:iso} 13491-1.
 }
