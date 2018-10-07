@@ -38,7 +38,7 @@ En esta sección se detallan los requerimientos que deben de satisfacer los
 \glspl{gl:token}. Para comenzar, se enlistan los requerimientos
 aplicables a todos, sin importar su categoría; después de esto, se agrupan los
 requerimientos correspondientes a cada una de las categorías presentadas en
-la sección \ref{sec:pci_dss}.
+la sección~\ref{sec:pci_dss}.
 
 % GT1
 \requerimiento[rq_pci:productos_de_hardware]
@@ -46,7 +46,7 @@ la sección \ref{sec:pci_dss}.
 {
   Si se usa un producto de hardware para la tokenización, este debe de ser
   validado por \gls{gl:fips} 140-2 nivel 3 o superior (descrito en
-  \cite{nist_modulos_criptograficos}).
+ ~\cite{nist_modulos_criptograficos}).
 }
 
 % GT2 se lo chutaron.
@@ -56,7 +56,7 @@ la sección \ref{sec:pci_dss}.
 {
   Si se usa un producto de software para la tokenización, este debe de ser
   validado por \gls{gl:fips} 140-2 nivel 2 o superior (descrito en
-  \cite{nist_modulos_criptograficos}).
+ ~\cite{nist_modulos_criptograficos}).
 }
 
 % GT4
@@ -67,7 +67,7 @@ la sección \ref{sec:pci_dss}.
   \gls{gl:pan} no debe de ser capaz de determinar otros \gls{gl:pan} a partir
   de solamente \glspl{gl:token}. En otras palabras, los \glspl{gl:token}
   deben ser resistentes a ataques con texto en claro conocido (sección
-  \ref{sec:criptoanalisis}).
+ ~\ref{sec:criptoanalisis}).
 }
 
 % GT5
@@ -82,7 +82,7 @@ la sección \ref{sec:pci_dss}.
 {
   Recuperar un \gls{gl:pan} a partir de un \gls{gl:token} debe de ser
   \gls{gl:computacionalmente_no_factible} (resistencia a ataques con sólo
-  texto cifrado, sección \ref{sec:criptoanalisis}).
+  texto cifrado, sección~\ref{sec:criptoanalisis}).
 }
 
 % GT6
@@ -128,7 +128,7 @@ la sección \ref{sec:pci_dss}.
   Solo los usuarios autenticados y componentes del sistema tienen permitido
   acceder al proceso de tokenización y detokenización. Los métodos utilizados
   deben ser al menos tan rigurosos como lo indicado en el requerimiento 8 del
-  \gls{gl:pci} \gls{gl:dss} \cite{pci_dss}.
+  \gls{gl:pci} \gls{gl:dss}~\cite{pci_dss}.
 }
 
   % GT10.1, RC2A-1, RC2A-2, RN2B, RN3B
@@ -155,7 +155,7 @@ la sección \ref{sec:pci_dss}.
   Se deben registrar todos los eventos de acceso, de tokenización y
   de detokenización. Esta funcionalidad debe ser configurable de manera
   segura. Para esto se debe seguir el requerimiento 4 del
-  \gls{gl:pa}-\gls{gl:dss} \cite{dss_pa}.
+  \gls{gl:pa}-\gls{gl:dss}~\cite{dss_pa}.
 }
 
 % GT10.3
@@ -210,7 +210,7 @@ la sección \ref{sec:pci_dss}.
 {
   Las primitivas criptográficas que se usen deben estar basadas en
   estándares nacionales (referentes a Estados Unidos) o internacionales (p. ej.
-  \gls{gl:aes}). Ver sección \ref{sec:primitivas}.
+  \gls{gl:aes}). Ver sección~\ref{sec:primitivas}.
 }
 
 % TODO:
@@ -226,7 +226,7 @@ la sección \ref{sec:pci_dss}.
   En donde se usen llaves para la generación y protección de \gls{gl:token},
   se deben seguir buenas prácticas criptográficas para la administración de
   estas. En particular, se deben cumplir con las recomendaciones del
-  \gls{gl:nist} en \cite{nist_llaves} y \cite{nist_disenio_llaves}.
+  \gls{gl:nist} en~\cite{nist_llaves} y~\cite{nist_disenio_llaves}.
 }
 
 % IT4A-1, RC4B-1
@@ -235,7 +235,7 @@ la sección \ref{sec:pci_dss}.
 {
   La llave tokenizadora debe seguir la política de los ciclos de llaves
   descritos en el \acrshort{gl:iso}/\acrshort{gl:iec} 115681 (ver
-  sección \ref{sec:administracion_llaves}).
+  sección~\ref{sec:administracion_llaves}).
 }
 
 % IT4A-2, RC4B-2
@@ -285,7 +285,7 @@ la sección \ref{sec:pci_dss}.
 \subimport{/}{criptograficos_reversibles}
 \subimport{/}{no_criptograficos_reversibles}
 
-%En la tabla \ref{resumen_general} se clasifican los requerimientos presentados
+%En la tabla~\ref{resumen_general} se clasifican los requerimientos presentados
 %hasta ahora. Las categorías posibles son: \textit{aplicables}, \textit{no
 %aplicables} y \textit{fuera de alcance}. Los \textit{aplicables} son aquellos
 %que  se  encuentran dentro del alcance de este trabajo y que, por lo tanto, son
@@ -294,7 +294,7 @@ la sección \ref{sec:pci_dss}.
 
 Los siguientes requerimientos son referentes al cumplimiento
 de distintos estándares y recomendaciones (principalmente del \gls{gl:nist});
-en la sección \ref{parte:apendices} se resume el contenido de cada uno de
+en la sección~\ref{parte:apendices} se resume el contenido de cada uno de
 estos:
 
 \begin{itemize}
@@ -305,7 +305,7 @@ estos:
   \item \hipervinculo{rq_pci:cr_aleatoriedad_digitos}.
 \end{itemize}
 
-La tabla \ref{resumen_general} es una relación entre la lista de
+La tabla~\ref{resumen_general} es una relación entre la lista de
 requerimientos aquí presentada y la notación del \gls{gl:pci} \gls{gl:ssc} en
 \cite{pci_tokens}. Sobre todo en cuanto a los requerimientos
 \hipervinculo{rq_pci:acceso_a_producto} y

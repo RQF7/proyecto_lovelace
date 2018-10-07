@@ -40,7 +40,7 @@ Donde:
   \item $b$ es la longitud del bloque a cifrar,
     cumpliendo con $b \leq 2 \cdot |log_s(2^{f-32})|$.
   \item $w$ es el número (par) de rondas de la red Feistel interna
-    (véase \ref{sec:red_feistel}).
+    (véase~\ref{sec:red_feistel}).
   \item $X$ es la cadena o bloque de longitud $b$ a cifrar.
   \item $K$ es una llave acorde al cifrado por bloques $F$.
   \item $T$ es un \textit{tweak} de 64 bits.
@@ -98,7 +98,7 @@ Para poder cifrar la cadena $X$:
     ($Y_L \parallel Y_R$) dan la cadena de salida $Y$.
 
     El proceso para hacer la descomposición se muestra en el pseudocódigo
-    \ref{descomposicion_Lw_Rw}.
+   ~\ref{descomposicion_Lw_Rw}.
 
 \begin{pseudocodigo}[caption={Proceso de descomposición de $L_w$ o $R_w$.},
     label={descomposicion_Lw_Rw}]
@@ -234,7 +234,7 @@ label={descifrado_BC}]
 \label{sec:bps_modo_operacion}
 
 En cuanto al modo de operación de \gls{gl:bps}, se puede decir que es un
-equivalente al modo de operación \gls{gl:cbc} (véase \ref{sec:cbc}), ya que el
+equivalente al modo de operación \gls{gl:cbc} (véase~\ref{sec:cbc}), ya que el
 bloque $BC_n$ utiliza el texto cifrado de la salida del bloque $BC_{n-1}$, con la
 distinción de que en lugar de aplicar operaciones \textit{xor} usa sumas
 modulares carácter por carácter, y de que no utiliza un
@@ -247,7 +247,7 @@ Algo importante a resaltar de este modo de operación es que, en caso de que el
 texto en claro no tenga una longitud total que sea múltiplo de la longitud de
 bloque $b$, al cifrar el último bloque se recorre el cursor que determina
 el inicio del mismo, hasta que su longitud concuerde con $b$, esto se puede
-ver de forma gráfica en la figura \ref{cursor_BPS}.
+ver de forma gráfica en la figura~\ref{cursor_BPS}.
 
 \begin{figure}
   \begin{center}
@@ -259,7 +259,7 @@ ver de forma gráfica en la figura \ref{cursor_BPS}.
    \end{center}
 \end{figure}
 
-En la figura \ref{modo_de_operacion_BPS} se ve de manera gráfica el
+En la figura~\ref{modo_de_operacion_BPS} se ve de manera gráfica el
 funcionamiento del modo de operación de \gls{gl:bps}.
 
 \begin{figure}
