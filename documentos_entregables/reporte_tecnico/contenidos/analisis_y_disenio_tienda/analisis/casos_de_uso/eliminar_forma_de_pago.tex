@@ -9,7 +9,8 @@
 {
   Caso que permite que un \textbf{cliente} elimine una de las formas de pago
   que tiene guardadas. Para mantener consistencia en la base, el registro de
-  la tarjeta no será eliminado; sino que cambiará su estado a \textbf{inactivo}
+  la tarjeta no será eliminado; sino que cambiará su estado a
+  \textbf{inactivo}.
 
   \begin{trayectoriaPrincipal}
 
@@ -23,6 +24,10 @@
       emergente; [\hipervinculoLocal{lib_ta:cancelar}].
 
     \item El sistema cambia el estado de la tarjeta a \textbf{inactivo}.
+
+    \item El sistema verifica que la dirección de facturación asociada a esta
+      forma de pago no tenga otra tarjeta y cambia su estado
+      a \textbf{inactivo}.
 
     \item El sistema muestra la interfaz
       \hipervinculo{lib_iu:informacion_bancaria}.

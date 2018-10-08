@@ -33,14 +33,14 @@
 
     \item El \textbf{cliente} presiona el botón de \textit{aceptar}.
 
-    \item EL sistema valida que el correo electrónico sea válido
+    \item El sistema valida que el correo electrónico sea válido
       al cumplir con el \gls{gl:rfc}
       5322~\cite{DBLP:journals/rfc/rfc5322}, mediante la expresión
       regular
 
       \expresionRegular{expresiones_regulares/correo.txt}
 
-      [\hipervinculoLocal{lib_ta:correo_incorrecto}]
+      [\hipervinculoLocal{lib_ta:correo_incorrecto}].
 
     \item El sistema valida que el correo electrónico no esté ya
       registrado en el sistema; pues dos \textbf{usuarios} no pueden
@@ -152,8 +152,8 @@
   \begin{trayectoriaAlternativa}[lib_ta:expiracion_de_vinculo]
     {Vínculo expirado}
 
-    \item El sistema muestra la ventana
-      \hipervinculo{lib_iu:aviso_de_correo_de_confirmacion}.
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:vinculo_expirado}.
 
     \item El sistema elimina el registro del usuario.
 

@@ -37,9 +37,11 @@
   \begin{trayectoriaPrincipal}
 
     \item[origen] El \textbf{cliente} presiona el botón de
-      \textit{agregar forma de pago} en la interfaz
-      \hipervinculo{lib_iu:informacion_bancaria} o en
-      \hipervinculo{lib_iu:seleccionar_forma_de_pago}.
+      \textit{Agregar forma de pago} en la interfaz
+      \hipervinculo{lib_iu:informacion_bancaria}, en
+      \hipervinculo{lib_iu:seleccionar_forma_de_pago} o presiona
+      \textit{Finalizar compra} en \hipervinculo{lib_iu:finalizar_compra}
+      sin tener formas de pago asociadas.
 
     \item El sistema muestra la interfaz
       \hipervinculo{lib_iu:formulario_informacion_bancaria} con el botón
@@ -76,8 +78,8 @@
       la fecha actual; [\hipervinculoLocal{lib_ta:tarjeta_expirada}].
 
     \item El sistema verifica que no exista otra tarjeta relacionada al
-      \textbf{cliente} que tenga el mismo tipo, emisor, titular y últimos tres
-      dígitos; [\hipervinculoLocal{lib_ta:tarjeta_existente}].
+      \textbf{cliente} que tenga el mismo tipo, emisor, titular y últimos
+      cuatro dígitos; [\hipervinculoLocal{lib_ta:tarjeta_existente}].
 
     \item El sistema envía la petición de tokenización del número de tarjeta
       ingresado y el algoritmo seleccionado al servicio de tokenización;
@@ -99,7 +101,7 @@
   \begin{trayectoriaAlternativa}[lib_ta:usar_direccion_existente]
     {El \textbf{cliente} selecciona una de las direcciones ya guardadas}
 
-    \item El \textbf{cliente} presiona selecciona una de las direcciones ya
+    \item El \textbf{cliente} selecciona una de las direcciones ya
       guardadas.
 
     \item El sistema completa con la información de la dirección seleccionada
@@ -158,7 +160,7 @@
 
     \item El sistema verifica que la fecha de vencimiento ingresada coincida
       con la que se tiene almacenada;
-      [\hipervinculoLocal{lib_ta:actualizar_tarjeta}].
+      [\hipervinculoLocal{lib_ta:tarjeta_existente_con_distinta_expiracion}].
 
     \item El sistema muestra el mensaje
       \hipervinculo{lib_msj:tarjeta_existente}.
@@ -189,15 +191,11 @@
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \begin{trayectoriaAlternativa}[lib_ta:actualizar_tarjeta]
-    {La tarjeta ingresada se encuentra activa y se quiere actualizar la fecha
-    de vencimiento}
+  \begin{trayectoriaAlternativa}[lib_ta:error_al_tokenizar]
+    {El código HTTP de respuesta no es un 2XX}
 
-    \item El sistema actualiza el registro de la tarjeta con la fecha de
-      vencimiento y dirección ingresada.
-
-      \item El sistema muestra el mensaje
-      \hipervinculo{lib_msj:metodo_de_pago_actualizado}.
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:error_al_tokenizar}.
 
     \item El sistema muestra la interfaz de origen del paso
       \referenciaLocal{origen} de la trayectoria principal.
@@ -206,11 +204,13 @@
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \begin{trayectoriaAlternativa}[lib_ta:error_al_tokenizar]
-    {El código HTTP de respuesta no es un 2XX}
+  \begin{trayectoriaAlternativa}
+    [lib_ta:tarjeta_existente_con_distinta_expiracion]
+    {Hay una tarjeta existente y activa con los mismos datos, excepto la fecha
+    de vencimiento}
 
     \item El sistema muestra el mensaje
-      \hipervinculo{lib_msj:error_al_tokenizar}.
+      \hipervinculo{lib_msj:tarjeta_existente_con_distinta_expiracion}.
 
     \item El sistema muestra la interfaz de origen del paso
       \referenciaLocal{origen} de la trayectoria principal.
