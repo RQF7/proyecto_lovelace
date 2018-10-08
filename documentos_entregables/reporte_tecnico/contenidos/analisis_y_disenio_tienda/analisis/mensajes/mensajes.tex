@@ -1,0 +1,60 @@
+%
+% Catálogo de mensajes para tienda en línea
+% Capítulo de análisis y diseño de tienda en línea
+% Prpyecto Lovelace.
+%
+% El contenido del mensaje es un archivo separado para poder manejarlo
+% como recurso estático en la aplicación web. #DRY
+%
+
+\subsection{Catálogo de mensajes}
+
+% Iniciar sesión %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mensaje[lib_msj:credenciales_incorrectas]
+{Credenciales incorrectas}{\subimport{/}{credenciales_incorrectas.txt}}
+
+\mensaje[lib_msj:correo_no_verificado]
+{Correo no verificado}{\subimport{/}{correo_no_verificado.txt}}
+
+% Registrar usuario %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mensaje[lib_msj:correo_invalido]
+{Correo electrónico inválido}{\subimport{/}{correo_incorrecto.txt}}
+
+\mensaje[lib_msj:contrasenia_incorrecta]
+{Contraseña incorrecta}{\subimport{/}{contrasenia_incorrecta.txt}}
+
+\mensaje[lib_msj:confirmacion_incorrecta]
+{Confirmación de contraseña incorrecta}
+{\subimport{/}{confirmacion_incorrecta.txt}}
+
+\mensaje[lib_msj:usuario_existente]
+{Correo registrado previamente}{\subimport{/}{usuario_existente.txt}}
+
+% Agregar forma de pago %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mensaje[lib_msj:tarjeta_invalida]
+{Tarjeta inválida}{\subimport{/}{tarjeta_invalida.txt}}
+
+\mensaje[lib_msj:tarjeta_expirada]
+{Tarjeta expirada}{\subimport{/}{tarjeta_expirada.txt}}
+
+\mensaje[lib_msj:tarjeta_existente]
+{Tarjeta existente}{\subimport{/}{tarjeta_existente.txt}}
+
+\mensaje[lib_msj:error_al_tokenizar]
+{Error al tokenizar}{\subimport{/}{error_al_tokenizar.txt}}
+
+\mensaje[lib_msj:metodo_de_pago_agregado]
+{Método de pago agregado}{\subimport{/}{metodo_de_pago_agregado.txt}}
+
+\mensaje[lib_msj:tarjeta_existente_con_distinta_expiracion]
+  {Dos tarjetas con el mismo número y distinta fecha de vencimiento}
+  {\subimport{/}{tarjeta_existente_con_distinta_expiracion.txt}}
+
+% Eliminar forma de pago %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mensaje[lib_msj:adv_eliminar_forma_de_pago]
+{Advertencia al eliminar una forma de pago}
+{\subimport{/}{adv_eliminar_forma_de_pago.txt}}
