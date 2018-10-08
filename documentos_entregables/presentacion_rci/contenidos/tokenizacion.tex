@@ -1,0 +1,36 @@
+%
+% Definición de tokenización,
+% presentación en RCI.
+% Proyecto Lovelace.
+%
+
+\section{¿Qué es la tokenización?}
+
+\begin{frame}{La tokenización en otros contextos}
+  \begin{itemize}
+    \item Moneda de uso particular sin valor legal.
+    \item Componente de seguridad en la comunicación por sesiones.
+    \item Componente léxico de una gramática.
+    \item Una unidad lingüística básica.
+    \item Fenómeno social.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{¿Qué es la tokenización?}
+  \begin{itemize}
+    \item Es la sustitución de datos sensibles por valores representativos
+      sin una relación directa.
+    \item Existen muchas empresas que proveen el servicio de tokenización,
+      pero lo hacen sin detallar la forma en la que se
+      realiza~\cite{shif4_uno, braintree_uno, securosis}.
+    \item En 2011, el PCI publicó su guía de tokenización~\cite{pci_tokens}.
+  \end{itemize}
+
+  \begin{figure}
+    \centering
+    \subimport{diagramas/}{arquitectura.tikz.tex}
+    \caption{Arquitectura de sistema tokenizador:
+      \only<1>{operación de tokenización}%
+      \only<2>{transacción bancaria}.}
+  \end{figure}
+\end{frame}

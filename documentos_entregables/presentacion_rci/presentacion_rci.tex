@@ -4,12 +4,35 @@
 %
 
 \documentclass{beamer}
+\usepackage{array}
 \usepackage{formato}
-\newcommand{\Titulo}{Un vistazo a la tokenización}
+\newcommand{\Titulo}{\textbf{Un vistazo a la tokenización}}
 \newcommand{\Fecha}{Puebla, 14 de octubre de 2018}
 \usepackage{formato_presentaciones}
 
-\setbeameroption{show notes}
+\renewcommand{\Autor}{Daniel Ayala Zamorano \\\vspace{-2mm}
+  {\tiny \texttt{daz23ayala@gmail.com}} \\
+  Laura Natalia Borbolla Palacios \\\vspace{-2mm}
+  {\tiny \texttt{ln.borbolla.42@gmail.com}} \\
+  Ricardo Quezada Figueroa \\\vspace{-2mm}
+  {\tiny \texttt{qf7.ricardo@gmail.com}} \\
+  Sandra Díaz Santiago \\\vspace{-2mm}
+  {\tiny \texttt{sdiazs@gmail.com}}}
+
+\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{bold-extra}
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows.meta,
+  decorations.pathmorphing,
+  backgrounds,
+  positioning,
+  calc,
+  scopes,
+  shapes}
+
+\tikzset{
+  font=\tiny}
 
 \begin{document}
 
@@ -19,22 +42,26 @@
   \begin{frame}
     \frametitle{Contenido}
     \setcounter{tocdepth}{1}
-    \tableofcontents[pausesections]
+    \tableofcontents
   \end{frame}
 
   % Espacio entre párrafos
   \setlength{\parskip}{0.5em}
 
-  \section{Introducción}
-
-  \section{Preliminares}
-
-  \section{Algoritmos tokenizadores}
-
-  \section{Resultados}
+  \import{presentacion_rci/contenidos/}{problema}
+  \import{presentacion_rci/contenidos/}{tokenizacion}
+  \import{presentacion_rci/contenidos/}{clasificacion}
+  \import{presentacion_rci/contenidos/}{reversibles}
+  \import{presentacion_rci/contenidos/}{irreversibles}
+  \import{presentacion_rci/contenidos/}{conclusiones}
 
   \begin{frame}[allowframebreaks]{Bibliografía}
     \printbibliography
+  \end{frame}
+
+  \begin{frame}{}
+    \centering \Huge
+    \textsc{Gracias por su atención.}
   \end{frame}
 
   % Espacio entre párrafos
