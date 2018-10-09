@@ -25,8 +25,10 @@
 
       \item El sistema guarda el libro en los datos de sesión.
 
-      \item El sistema muestra una entrada numérica para introducir la cantidad
-        de ejemplares a comprar con un valor por defecto de uno;
+      \item Si la pantalla de origen del paso 1 es
+        \hipervinculo{lib_iu:detalles_de_libro} el sistema muestra un entrada
+        numérica para introducir la cantidad de ejemplares a comprar (con un
+        valor por defecto de uno);
         [\hipervinculoLocal{lib_ta:modificar_cantidad}].
 
   \end{trayectoriaPrincipal}
@@ -36,9 +38,27 @@
   \begin{trayectoriaAlternativa}[lib_ta:modificar_cantidad]
     {El usuario modifica la cantidad por defecto}
 
-    \item El usuario introduce la cantidad de ejemplares del libro deseado.
+    \item El usuario introduce la cantidad de ejemplares del
+      libro deseado.
+
+    \item El sistema verifica que las existencias del libro seleccionado
+      sean suficientes para la cantidad de ejemplares introducida por el
+      usuario; [\hipervinculoLocal{lib_ta:ejemplares_insuficientes}].
 
     \item El sistema guarda el dato introducido en los datos de sesión.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:ejemplares_insuficientes]
+    {Ejemplares insuficientes}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:ejemplares_insuficientes}.
+
+    \item Se regresa al paso 1 de la trayectoria
+      anterior.
 
   \end{trayectoriaAlternativa}
 }
