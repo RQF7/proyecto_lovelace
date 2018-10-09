@@ -1,0 +1,95 @@
+%
+% Caso de uso para editar la información de un cliente,
+% Capítulo de análisis y diseño de tienda en línea,
+% Proyecto Lovelace.
+%
+
+\casoDeUso[lib_cu:agregar_direccion_entrega]
+{Agregar dirección de entrega}
+{
+  Caso que permite que un \textbf{cliente} agregue una dirección de entrega.
+
+  \begin{trayectoriaPrincipal}
+
+    \item[origen] El \textbf{cliente} presiona el botón de
+      \textit{Agregar dirección de entrega} en la interfaz
+      \hipervinculo{lib_iu:formulario_informacion_personal},
+      \textit{Nueva dirección} en
+      la interfaz \hipervinculo{lib_iu:seleccionar_direccion_de_entrega} o
+      presiona \textit{Continuar} en
+      \hipervinculo{lib_iu:seleccionar_forma_de_pago} sin tener direcciones
+      de entrega guardadas.
+
+    \item El sistema muestra la interfaz
+      \hipervinculo{lib_iu:formulario_direccion_de_entrega} con el botón
+      \textit{Guardar dirección} inhabilitado.
+
+    \item[datos] El \textbf{cliente} ingresa la siguiente información:
+      \begin{itemize}
+        \item Calle
+        \item Número exterior e interior
+        \item Colonia o localidad
+        \item Delegación o municipio
+        \item Estado
+        \item Código postal
+      \end{itemize}
+
+    \item El sistema habilita el botón \textit{Guardar dirección}.
+
+    \item El \textbf{cliente} presiona el botón \textit{Guardar dirección};
+      [\hipervinculoLocal{lib_ta:cancelar}].
+
+    \item El sistema valida que esa dirección no esté asociada ya al cliente;
+      [\hipervinculoLocal{lib_ta:direccion_existente}].
+
+    \item El sistema crea un nuevo registro con la dirección ingresada,
+      estado \textbf{activo} y la asocia al cliente.
+
+    \item[mensaje] El sistema muestra el mensaje
+      \hipervinculoLocal{lib_msj:direccion_de_entrega_guardada}
+
+    \item El sistema muestra la interfaz del paso \referenciaLocal{origen}
+      de la trayectoria principal.
+
+  \end{trayectoriaPrincipal}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:cancelar]
+    {El visitante cancela la operación}
+
+    \item El visitante presiona el botón \textit{cancelar}.
+
+    \item El sistema muestra la interfaz de origen del paso
+      \referenciaLocal{origen} de la trayectoria principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:direccion_existente]
+    {Dirección ya existente}
+
+    \item El sistema verifica que la dirección tenga estado \textbf{activo};
+      [\hipervinculoLocal{lib_ta:direccion_inactiva_existente}].
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:direccion_de_entrega_existente}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:direccion_inactiva_existente]
+    {Dirección existente pero inactiva}
+
+    \item El sistema cambia el estado de la dirección a \textbf{activo}.
+
+    \item Se regresa al paso \referenciaLocal{mensaje} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+}

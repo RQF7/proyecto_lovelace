@@ -1,0 +1,2 @@
+La tarjeta ingresada ha expirado; verifique la fecha ingresada o intente con
+otra.

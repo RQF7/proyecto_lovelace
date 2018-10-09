@@ -1,0 +1,48 @@
+%
+% Caso de uso para eliminar una forma de pago,
+% Capítulo de análisis y diseño de tienda en línea,
+% Proyecto Lovelace.
+%
+
+\casoDeUso[lib_cu:eliminar_forma_de_pago]
+{Eliminar forma de pago}
+{
+  Caso que permite que un \textbf{cliente} elimine una de las formas de pago
+  que tiene guardadas. Para mantener consistencia en la base, el registro de
+  la tarjeta no será eliminado; sino que cambiará su estado a
+  \textbf{inactivo}.
+
+  \begin{trayectoriaPrincipal}
+
+    \item[origen] El \textbf{cliente} presiona el botón de \textit{Eliminar}
+      en la interfaz \hipervinculo{lib_iu:informacion_bancaria}.
+
+    \item El sistema muestra el mensaje emergente
+      \hipervinculo{lib_msj:adv_eliminar_forma_de_pago}.
+
+    \item El \textbf{cliente} presiona \textit{Aceptar} en el mensaje
+      emergente; [\hipervinculoLocal{lib_ta:cancelar}].
+
+    \item El sistema cambia el estado de la tarjeta a \textbf{inactivo}.
+
+    \item El sistema verifica que la dirección de facturación asociada a esta
+      forma de pago no tenga otra tarjeta y cambia su estado
+      a \textbf{inactivo}.
+
+    \item El sistema muestra la interfaz
+      \hipervinculo{lib_iu:informacion_bancaria}.
+
+  \end{trayectoriaPrincipal}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:cancelar]
+    {El \textbf{cliente} cancela la operación}
+
+    \item El \textbf{cliente} presiona el botón \textit{cancelar}.
+
+    \item El sistema muestra la interfaz
+      \hipervinculo{lib_iu:informacion_bancaria}.
+
+  \end{trayectoriaAlternativa}
+}
