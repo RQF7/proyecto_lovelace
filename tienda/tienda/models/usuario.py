@@ -25,9 +25,13 @@ class Usuario (django.db.models.Model):
   contrasenia = django.db.models.BinaryField(
     verbose_name = 'hash de contraseña')
 
-  tarjeta = django.db.models.ManyToManyField(Tarjeta)
+  tarjeta = django.db.models.ManyToManyField(
+    Tarjeta,
+    blank = True)
 
-  direccion = django.db.models.ManyToManyField(Direccion)
+  direccion = django.db.models.ManyToManyField(
+    Direccion,
+    blank = True)
 
   def __str__(self):
     """Representación en cadena de un tipo de usuario."""
