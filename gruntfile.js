@@ -77,7 +77,7 @@ module.exports = function (grunt) {
       },
       scripts_tienda: {
         src: [
-          cc_tienda + 'js/sistema_tokenizador.aplicacion.js',
+          cc_tienda + 'js/tienda.aplicacion.js',
           cc_tienda + 'js/configuraciones/*.configuracion.js',
           cc_tienda + 'js/servicios/*.servicio.js',
           cc_tienda + 'js/controladores/*.controlador.js',
