@@ -1,0 +1,97 @@
+%
+% Diagrama de casos de uso,
+% Capítulo de análisis y diseño de tienda en línea,
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}
+  \umlactor[x=10,   y=06.75,  scale=1.5]{Visitante}
+  \umlactor[x=-4,   y=06.00,  scale=1.5]{Cliente}
+
+  \begin{umlsystem}{Tienda de libros}
+
+    % CU de un visistante
+    \umlusecase[x=06, y=7.5, width=2.5cm,
+      name=registrar_cliente, fill=white]
+      {\hipervinculo{lib_cu:registrar_cliente}}
+      % {LIBCU-01 Registrar cliente}
+
+    \umlusecase[x=06, y=06,  width=2.5cm,
+      name=iniciar_sesion, fill=white]
+      {\hipervinculo{lib_cu:iniciar_sesion}}
+      % {LIBCU-02 Iniciar sesión}
+
+    \umlassoc{Visitante}{registrar_cliente}
+    \umlassoc{Visitante}{iniciar_sesion}
+
+    % CU de un cliente
+    \umlusecase[x=00, y=10.5, width=2.5cm,
+      name=agregar_direccion_entrega, fill=white]
+      {\hipervinculo{lib_cu:agregar_direccion_entrega}}
+      % {LIBCU-XX Agregar dirección de entrega}
+
+    \umlusecase[x=00, y=09, width=2.5cm,
+      name=eliminar_direccion_entrega, fill=white]
+      {\hipervinculo{lib_cu:agregar_direccion_entrega}}
+      % {LIBCU-XX Eliminar dirección de entrega}
+
+    \umlusecase[x=00, y=7.5, width=2.5cm,
+      name=actualizar_informacion, fill=white]
+      {\hipervinculo{lib_cu:actualizar_informacion_personal}}
+      % {LIBCU-XX Actualizar información de cliente}
+
+    \umlusecase[x=00, y=06, width=2.5cm,
+      name=agregar_forma_de_pago, fill=white]
+    {\hipervinculo{lib_cu:agregar_forma_de_pago}}
+    % {LIBCU-XX Agregar forma de pago}
+
+    \umlusecase[x=00, y=4.5, width=2.5cm,
+      name=eliminar_forma_de_pago, fill=white]
+    {\hipervinculo{lib_cu:eliminar_forma_de_pago}}
+    % {LIBCU-XX Eliminar forma de pago}
+
+    \umlusecase[x=00, y=03, width=2.5cm,
+      name=cerrar_sesion, fill=white]
+      {\hipervinculo{lib_cu:cerrar_sesion}}
+      % {LIBCU-XX Cerrar sesión}
+
+    \umlusecase[x=00, y=1.5, width=2.5cm,
+      name=comprar, fill=white]
+      % {\hipervinculo{lib_cu:cerrar_sesion}}
+      {LIBCU-XX Comprar}
+
+    \umlusecase[x=06, y=03, width=2.5cm,
+      name=eliminar_libro, fill=white]
+      % {\hipervinculo{lib_cu:cerrar_sesion}}
+      {LIBCU-XX Eliminar libro de carrito}
+
+    \umlusecase[x=06, y=1.5, width=2.5cm,
+      name=agregar_libro, fill=white]
+      % {\hipervinculo{lib_cu:cerrar_sesion}}
+      {LIBCU-XX Agregar libro a carrito}
+
+    \umlassoc{Cliente}{agregar_direccion_entrega}
+    \umlassoc{Cliente}{eliminar_direccion_entrega}
+    \umlassoc{Cliente}{actualizar_informacion}
+    \umlassoc{Cliente}{agregar_forma_de_pago}
+    \umlassoc{Cliente}{eliminar_forma_de_pago}
+    \umlassoc{Cliente}{cerrar_sesion}
+    \umlassoc{Cliente}{comprar}
+
+    % Comprar incluye agregar un libro
+    \umlinclude{comprar}{agregar_libro}
+
+    % Puedes eliminar (o no) un libro solo cuando lo agregas
+    \umlextend{agregar_libro}{eliminar_libro}
+
+    % Casi todo incluye a niciar sesión
+    \umlinclude{agregar_direccion_entrega}{iniciar_sesion}
+    \umlinclude{eliminar_direccion_entrega}{iniciar_sesion}
+    \umlinclude{actualizar_informacion}{iniciar_sesion}
+    \umlinclude{agregar_forma_de_pago}{iniciar_sesion}
+    \umlinclude{eliminar_forma_de_pago}{iniciar_sesion}
+    \umlinclude{cerrar_sesion}{iniciar_sesion}
+    \umlinclude{comprar}{iniciar_sesion}
+
+  \end{umlsystem}
+\end{tikzpicture}
