@@ -8,7 +8,7 @@
 
 El formato de las \glspl{gl:expresion_regular}, por cuestiones de optimización
 en tiempos de desarrollo, se presenta según el formato de \textit{JavaScript},
-definido en \cite{mozilla_er}.
+definido en~\cite{mozilla_er}.
 
 \reglaDeNegocio[rn:formato_numero_de_tarjeta]
 {Composición de números de tarjeta}
@@ -20,8 +20,8 @@ definido en \cite{mozilla_er}.
   El número se divide en tres partes: el identificador del emisor (primeros 6
   dígitos), el número de cuenta y el dígito verificador (último dígito). Para
   más detalles sobre este tema consultar la sección
-  \ref{sec:composicion_tarjeta}. El dígito verificador se obtiene de tal forma
-  que el algoritmo de Luhn (sección \ref{sec:algoritmo_luhn}) dé como resultado
+ ~\ref{sec:composicion_tarjeta}. El dígito verificador se obtiene de tal forma
+  que el algoritmo de Luhn (sección~\ref{sec:algoritmo_luhn}) dé como resultado
   cero.
 }
 
@@ -31,7 +31,7 @@ definido en \cite{mozilla_er}.
   El formato de un token es el mismo que para un número de tarjeta
   (\hipervinculo{rn:formato_numero_de_tarjeta}) con la única excepción de que el
   último dígito, el dígito verificador, se calcule de forma que el algoritmo de
-  Luhn (sección \ref{sec:algoritmo_luhn}) dé como resultado un uno.
+  Luhn (sección~\ref{sec:algoritmo_luhn}) dé como resultado un uno.
 }
 
 \reglaDeNegocio[rn:unicidad_correo]
@@ -45,7 +45,7 @@ definido en \cite{mozilla_er}.
 {Formato de correos electrónicos}
 {
   Un correo electrónico queda definido, de acuerdo al \gls{gl:rfc} 5322
-  \cite{DBLP:journals/rfc/rfc5322}, por la expresión regular:
+ ~\cite{DBLP:journals/rfc/rfc5322}, por la expresión regular:
 
   \expresionRegular{expresiones_regulares/correo.txt}
 }
@@ -86,7 +86,7 @@ definido en \cite{mozilla_er}.
     y los administradores deben iniciar sesión para ser identificados por el
     sistema; un vistante puede convertirse en cliente al registrarse y ser
     aprobado. Las transiciones entre los tipos de usuarios pueden observarse en
-    el diagrama \ref{estados_actores}. Una aplicación cliente es aquella que
+    el diagrama~\ref{estados_actores}. Una aplicación cliente es aquella que
     utiliza el servicio de tokenización (por ejemplo, una tienda en línea); cada
     cliente representa a una aplicación cliente.
   \end{hangparas}
@@ -123,7 +123,7 @@ definido en \cite{mozilla_er}.
     \textbf{en cambio de llaves}. Finalmente, el administrador puede cambiar su
     estado a \textbf{en lista negra} (y regresarlo a \textbf{aprobado} o
     \textbf{en cambio de llaves}). Estas transiciones se pueden observar en la
-    Figura \ref{estados_cliente}.
+    Figura~\ref{estados_cliente}.
   \end{hangparas}
 }
 
@@ -158,7 +158,7 @@ definido en \cite{mozilla_er}.
     \textbf{anterior}. Cuando un cliente solicita la retokenización de un token,
     se cambia su estado a \textbf{retokenizado}. Al terminar el refresco de
     llaves o al eliminar la cuenta de un cliente, el token se elimina. Estas
-    transiciones se pueden observar en la Figura \ref{estados_token}.
+    transiciones se pueden observar en la Figura~\ref{estados_token}.
   \end{hangparas}
 }
 
@@ -184,7 +184,7 @@ definido en \cite{mozilla_er}.
     inicia el refresco de llaves, la llave existente cambia a estado
     \textbf{anterior}. La llave se elimina cuando termina el refresco de llaves
     o cuando se elimina la cuenta de un cliente. Estas transiciones se pueden
-    observar mejor en la Figura \ref{estados_llave}.
+    observar mejor en la Figura~\ref{estados_llave}.
   \end{hangparas}
 }
 
@@ -211,7 +211,7 @@ definido en \cite{mozilla_er}.
     presiona un vínculo de validación válido (véase
     \hipervinculo{rn:verificacion_de_cuentas_nuevas}); se elimina cuando se
     borra la cuenta del cliente o cuando este actualiza su información. Estas
-    transiciones se pueden observar mejor en la Figura \ref{estados_correo}.
+    transiciones se pueden observar mejor en la Figura~\ref{estados_correo}.
   \end{hangparas}
 }
 
@@ -286,7 +286,7 @@ definido en \cite{mozilla_er}.
 {
   El criptoperiodo de todas las llaves usadas para la tokenización (y
   detokenización) es de seis meses (ver el Apéndice
-  \ref{sec:administracion_llaves}).
+ ~\ref{sec:administracion_llaves}).
 }
 
 \reglaDeNegocio[rn:unicidad_tarjeta_cliente]

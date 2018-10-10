@@ -20,8 +20,8 @@ De forma general, el módulo de \gls{gl:bps} consta de los 2 métodos principale
 el de cifrar y el de descifrar, los cuales son la implementación del modo de
 operación utilizado por \gls{gl:bps} y que se describe en la sección
 \ref{sec:bps_modo_operacion}. Estos métodos se muestran en los códigos
-\ref{codigo:bps_cifrado_1}, \ref{codigo:bps_cifrado_2},
-\ref{codigo:bps_descifrado_1} y \ref{codigo:bps_descifrado_2}.
+\ref{codigo:bps_cifrado_1},~\ref{codigo:bps_cifrado_2},
+\ref{codigo:bps_descifrado_1} y~\ref{codigo:bps_descifrado_2}.
 
 
 \begin{listing}
@@ -53,9 +53,9 @@ operación utilizado por \gls{gl:bps} y que se describe en la sección
 \end{listing}
 
 Otro parte crucial de \gls{gl:bps} es el cifrado interno BC, por lo cual es
-importante mostrar su implementación. Los códigos \ref{codigo:bps_cifrador_bc_1}
-y \ref{codigo:bps_cifrador_bc_2} están basados en el pseudocódigo para el
-cifrado BC descrito en \ref{sec:bps_cifrador_interno_bc}.
+importante mostrar su implementación. Los códigos~\ref{codigo:bps_cifrador_bc_1}
+y~\ref{codigo:bps_cifrador_bc_2} están basados en el pseudocódigo para el
+cifrado BC descrito en~\ref{sec:bps_cifrador_interno_bc}.
 
 \begin{listing}
   \inputminted[firstline=111, lastline=165]
@@ -71,7 +71,7 @@ cifrado BC descrito en \ref{sec:bps_cifrador_interno_bc}.
   \label{codigo:bps_cifrador_bc_2}
 \end{listing}
 
-Como se observa en el código \ref{codigo:bps_cifrador_bc_2}, el cifrado
+Como se observa en el código~\ref{codigo:bps_cifrador_bc_2}, el cifrado
 interno usa a su vez un cifrado de ronda, que es un cifrado por bloques
 (en este caso \gls{gl:aes} o \gls{gl:des}), el cual se hizo usando la
 librería de Crypto++.

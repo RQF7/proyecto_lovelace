@@ -7,7 +7,7 @@
 \label{sec:tes}
 
 La información que aquí se presenta puede ser consultada con mayor detalle en
-\cite{cifradores_de_disco} y \cite{tweaks}.
+\cite{cifradores_de_disco} y~\cite{tweaks}.
 
 La principal motivación para el diseño de \gls{gl:tes} son los \gls{gl:tbc},
 los cuales fueron pensados como un medio de proveer de variabilidad a
@@ -28,7 +28,7 @@ seguridad; de hecho, una condición en el diseño de \gls{gl:tbc} es que la
 seguridad del cifrado por bloques no se ve incrementada (ni decrementada) por
 la introducción del \textit{tweak}.
 
-En la ecuación \ref{eq:tbc} se muestra la firma para un cifrado por bloques
+En la ecuación~\ref{eq:tbc} se muestra la firma para un cifrado por bloques
 con un \textit{tweak}. Comparando esta función con la de la ecuación
 \ref{cifrado_bloques_def} (véase sección de cifrados por bloques,
 \ref{sec:bloques}) se agrega un conjunto más al producto cruz de la entrada:
@@ -62,8 +62,8 @@ En las siguientes ecuaciones se muestran algunas de las construcciones para
 % de que h(k, x) xor h(k, y) = z sea menor a e (para una llave aleatoria k).
 
 Con los \gls{gl:tbc} se pueden crear modos de operación análogos a los que se
-usan con los cifrados por bloques estándares. En la figura \ref{figura:tbc}
-el \gls{gl:tbc_modo}, que es análogo a \gls{gl:cbc} (sección \ref{sec:cbc}).
+usan con los cifrados por bloques estándares. En la figura~\ref{figura:tbc}
+el \gls{gl:tbc_modo}, que es análogo a \gls{gl:cbc} (sección~\ref{sec:cbc}).
 
 \begin{figure}
   \centering
@@ -89,7 +89,7 @@ existen dos clasificaciones: \textit{encrypt-mask-encrypt} y
 que cuentan con dos capas de cifrado y una de enmascaramiento; algunos ejemplos
 de esta son \gls{gl:cmc}, \gls{gl:eme} y \gls{gl:abl}. La segunda consiste en
 dos funciones hash con un cifrado por bloques en modo de operación de contador
-(sección \ref{sec:ctr}); algunos ejemplos son \gls{gl:xcb}, \gls{gl:hctr}
+(sección~\ref{sec:ctr}); algunos ejemplos son \gls{gl:xcb}, \gls{gl:hctr}
 y HCH.
 
 % ATENCIÓN, La pregunta de Sandra fué: ¿Cuál es la diferencia entre el

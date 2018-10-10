@@ -19,7 +19,7 @@ bases matemáticas para la \gls{gl:criptologia} en general.
 
 Una manera de clasificar es de acuerdo a las técnicas y métodos empleados
 para cifrar la información, esta clasificación se puede observar en la
-figura \ref{clasificacion_cripto}.
+figura~\ref{clasificacion_cripto}.
 
 \begin{figure}
   \begin{center}
@@ -50,7 +50,7 @@ utilizando únicamente una llave que permanece secreta.
   \end{center}
 \end{figure}
 
-En la figura \ref{cripto_simetrica} se puede observar el proceso para
+En la figura~\ref{cripto_simetrica} se puede observar el proceso para
 establecer una comunicación segura por medio de la criptografía simétrica.
 Primero, tanto Alice como Bob deben de establecer una llave única y
 compartida $k$, para que después, Alice, actuando como el emisor, cifre un
@@ -63,9 +63,9 @@ $m$.
 Gran parte de los algoritmos de cifrado que caen en este tipo de criptografía
 están basados en las redes Feistel, que son un método de cifrado propuesto
 por el criptógrafo Horst Feistel, mismo que desarrolló el \gls{gl:des}
-(sección \ref{sec:des}) a principios de la década de los 70, que fue el
+(sección~\ref{sec:des}) a principios de la década de los 70, que fue el
 cifrado usado por el gobierno estadounidense hasta 2002, año en que el
-\gls{gl:aes} (sección \ref{sec:aes}) lo sustituyó.
+\gls{gl:aes} (sección~\ref{sec:aes}) lo sustituyó.
 
 Ahora, adentrándose en la criptografía asimétrica, se tiene que su idea
 principal es el uso de 2 llaves distintas para cada persona, una llave
@@ -79,7 +79,7 @@ cifra un mensaje $m$ con la llave pública de Bob $pk$, y usa el algoritmo de
 cifrado $E(pk,m)$ para obtener $c$ y enviarlo. Después Bob como receptor,
 se encarga de descifrar $c$ por medio del algoritmo de descifrado
 $D(sk,c)$ haciendo uso de su llave privada $sk$. Este proceso se refleja
-gráficamente el la figura \ref{cripto_asimetrica}.
+gráficamente el la figura~\ref{cripto_asimetrica}.
 
 \begin{figure}
   \begin{center}
@@ -118,7 +118,7 @@ certificados digitales.
 % El algoritmo de \gls{gl:rsa} consta de 3 partes, la generación de llaves,
 % el cifrado y el descifrado. El proceso para poder generar un par de llaves
 % (pública y privada) con \gls{gl:rsa} se muestra en el pseudocódigo
-% \ref{rsa:1}.
+%~\ref{rsa:1}.
 
 % % Me pasé de 80 caracteres porque dentro del pseudocódigo me marca el salto
 % % de línea en el pdf.
@@ -137,7 +137,7 @@ certificados digitales.
 % \end{pseudocodigo}
 
 % Las funciones de cifrado y descifrado, están definidas en las ecuaciones
-% \ref{funcion_cifrado_rsa} y \ref{funcion_descifrado_rsa} respectivamente,
+%~\ref{funcion_cifrado_rsa} y~\ref{funcion_descifrado_rsa} respectivamente,
 % y se aplican números enteros o bloques de bits, siendo funciones biyectivas
 % e inversas entre sí.
 % \begin{align}
