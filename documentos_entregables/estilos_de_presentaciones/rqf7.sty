@@ -10,14 +10,12 @@
   \begin{center}
     \usebeamerfont{title}\inserttitle\par
     \bigskip
-    \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
-    \bigskip
+    \usebeamerfont{subtitle}
     {\scriptsize Presentan}\par
     \usebeamerfont{author}\insertauthor\par
     \bigskip
-    {\scriptsize Directora}\par
-    \usebeamerfont{institute}Dra. Sandra Díaz Santiago\par
-    \bigskip
+    \usebeamerfont{institute}Primera Reunión de Ciberseguridad
+    para la Industria 4.0\par
     \usebeamerfont{institute}\insertdate\par
     \bigskip
     \usebeamerfont{institute}\insertinstitute\par
@@ -58,6 +56,6 @@
 % Número de diapositivas en pie.
 \setbeamertemplate{sidebar right}{}
 \setbeamertemplate{footline}{%
-\hfill\usebeamertemplate***{navigation symbols}
-\hspace{7.3cm} {\tiny \usebeamercolor[fg]{navigation symbols}
-\insertframenumber{}/\inserttotalframenumber}}
+  %\hfill\usebeamertemplate***{navigation symbols}
+  {\hspace{12cm}\scriptsize
+  \insertframenumber{}/\inserttotalframenumber}\vskip2pt}
