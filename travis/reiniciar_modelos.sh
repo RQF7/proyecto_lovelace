@@ -11,7 +11,7 @@ cd bases_de_datos
 cd ..
 rm -Rfv sistema_tokenizador/general/migrations \
   sistema_tokenizador/programa_tokenizador/migrations
-python administrar.py makemigrations general programa_tokenizador
-python administrar.py migrate
+python administrar_sistema_tokenizador.py makemigrations general programa_tokenizador
+python administrar_sistema_tokenizador.py migrate
 python bases_de_datos/datos_base.py
 python bases_de_datos/datos_de_prueba.py
