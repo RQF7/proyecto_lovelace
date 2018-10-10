@@ -12,6 +12,11 @@ import tienda.general as general
 
 urlpatterns = [
 
+  # Operaciones de módulo general
+  django.urls.path('api/tienda/',
+    django.urls.include(
+      'tienda.tienda.direcciones')),
+
   # URLs estáticas
   django.urls.path('', general.funciones.inicio)
 

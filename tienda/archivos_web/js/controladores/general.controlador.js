@@ -12,6 +12,7 @@ tienda.controller('controladorGeneral', [
   '$timeout',
   '$mdSidenav',
   '$mdDialog',
+  'api',
   function (
     $scope,
     $route,
@@ -19,7 +20,8 @@ tienda.controller('controladorGeneral', [
     $location,
     $timeout,
     $mdSidenav,
-    $mdDialog
+    $mdDialog,
+    api
   )
   {
     /* Datos públicos. *******************************************************/
@@ -83,6 +85,42 @@ tienda.controller('controladorGeneral', [
       return rebotar(function() {
         $mdSidenav(identificador).toggle()
       }, 200);
+    };
+
+    /* Operaciones de sesión **************************************************/
+
+    $scope.usuario = undefined;
+    api.obtenerUsuarioDeSesion().then(function (respuesta) {
+      if (respuesta.data != '') {
+        console.log("DEBUG 1", respuesta.data);
+        $scope.usuario = respuesta.data;
+      }
+    });
+
+    $scope.iniciarSesion = function ($event) {
+      var padre = angular.element(document.body);
+      $mdDialog.show({
+        parent: padre,
+        targetEvent: $event,
+        templateUrl: '/estaticos/html/ventanas/iniciar_sesion.ventana.html',
+        controller: 'controladorFormularioIniciarSesion'
+      }).then(function (respuesta) {
+        console.log("DEBUG 2", respuesta);
+        if (respuesta != undefined) {
+          $scope.usuario = respuesta;
+          // if ($scope.$routeParams.siguiente != undefined) {
+          //   $location.path($scope.$routeParams.siguiente);
+          //   $location.search('siguiente', null)
+          // }
+        }
+      });
+    };
+
+    $scope.cerrarSesion = function () {
+      api.cerrarSesion().then(function (respuesta) {
+        $scope.usuario = undefined;
+        $location.path('/');
+      });
     };
 
     /* Secuencia de inicio. **************************************************/
