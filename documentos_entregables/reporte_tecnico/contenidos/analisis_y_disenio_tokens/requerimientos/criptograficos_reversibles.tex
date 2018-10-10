@@ -8,7 +8,9 @@
 
 % RC1B
 % TODO: el documento explica por qué esta cantidad; aún no lo entiendo.
-\requerimiento{Probabilidad de adivinar relaciones (criptográficos)}
+\requerimientoConClasificacion
+{Probabilidad de adivinar relaciones (criptográficos)}
+{clasificacion:algoritmos}
 {
   La probabilidad de adivinar la relación entre un \gls{gl:token} y un
   \gls{gl:pan} debe de ser menor que $ 1 $ en $ 10^6 $.
@@ -66,8 +68,9 @@
 % nunca se almacenaba el token?; segundo, aún suponiendo que este
 % requerimiento fuera en realidad para los no criptográficos, ¿Cuál es la
 % diferencia entre guardar el PAN completo y guardar el PAN truncado?
-\requerimiento[rq_pci:cr_almacenamiento_tokens]
+\requerimientoConClasificacion[rq_pci:cr_almacenamiento_tokens]
 {Almacenamiento de tokens (criptográficos)}
+{clasificacion:sistema}
 {
   Los \glspl{gl:token} generados no se deben almacenar en ningún punto del
   sistema.
@@ -84,8 +87,9 @@ almacenar bajo ninguna circunstancia (según la propia clasificación del
 reflejar este hecho.
 
 % RC4A
-\requerimiento[rq_pci:cr_administracion_llaves]
+\requerimientoConClasificacion[rq_pci:cr_administracion_llaves]
 {Seguridad de la administración de llaves (criptográficos)}
+{clasificacion:sistema}
 {
   Todas la operaciones sobre la administración de las llaves criptográficas
   deben realizarse en un dispositivo criptográfico seguro y aprobado: el
@@ -95,8 +99,9 @@ reflejar este hecho.
 }
 
 % RC4C-1 y 2
-\requerimiento[rq_pci:cr_longitud_llaves]
+\requerimientoConClasificacion[rq_pci:cr_longitud_llaves]
 {Sobre la longitud de las llaves (criptográficos)}
+{clasificacion:implementaciones}
 {
   Las llaves para \textit{tokenizar} deben tener una
   \gls{gl:fuerza_efectiva} de, al menos, 128 bits. Cualquier llave utilizada
@@ -105,10 +110,11 @@ reflejar este hecho.
 }
 
 % RC4D
-\requerimiento[rq_pci:cr_independencia_estadistica]
+\requerimientoConClasificacion[rq_pci:cr_independencia_estadistica]
 {Independencia estadística (criptográficos)}
+{clasificacion:algoritmos}
 {
-  Si el espacio de llaves es usado para producir \glspl{gl:token} es dos
+  Si el espacio de llaves es usado para producir \glspl{gl:token} en dos
   contextos distintos (p. ej. para distintos comerciantes), estas deben ser
   \glspl{gl:estidisticamente_independiente}.
 }
