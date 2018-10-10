@@ -10,6 +10,20 @@
   Caso que permite que un \textbf{cliente} realice la compra de los libros que
   hay en el carrito.
 
+  Como caso de prueba del sistema tokenizador, al momento de registrar la
+  compra, se hace una operación de detokenización para simular la posible
+  interacción con el entorno bancario. Una implementación real se podría
+  hacer de dos maneras:
+
+  \begin{itemize}
+    \item El sistema tokenizador funciona como intermediario entre la tienda
+      y el entorno bancario. En este caso, en lugar de la operación de
+      detokenización, se haría una petición de transacción.
+    \item Es la tienda la que se ocupa de interactuar con el banco. En este
+      caso, después de la operación de detokenización, la tienda tendría que
+      implementar la transacción bancaria.
+  \end{itemize}
+
   \begin{trayectoriaPrincipal}
 
     \item El cliente presiona el botón \textit{Finalizar compra} en la
@@ -21,29 +35,32 @@
       \hipervinculo{lib_iu:seleccionar_forma_de_pago}.
 
     \item El cliente selecciona la forma de pago deseada;
-      [\hipervinculoLocal{ta:cancelar}].
+      [\hipervinculoLocal{lib_ta:cancelar}].
 
     \item El cliente presiona el botón \textit{Continuar};
-      [\hipervinculoLocal{ta:cancelar}].
+      [\hipervinculoLocal{lib_ta:cancelar}].
 
     \item El sistema muestra la interfaz
       \hipervinculo{lib_iu:seleccionar_direccion_de_entrega}.
 
     \item El cliente selecciona la dirección de entrega deseada;
-      [\hipervinculoLocal{ta:cancelar}].
+      [\hipervinculoLocal{lib_ta:cancelar}].
 
     \item El cliente presiona el botón \textit{Continuar};
-      [\hipervinculoLocal{ta:cancelar}].
+      [\hipervinculoLocal{lib_ta:cancelar}].
 
     \item El sistema muestra la interfaz
       \hipervinculo{lib_iu:resumen_de_compra}.
 
     \item El cliente presiona el botón \textit{Aceptar};
-      [\hipervinculoLocal{ta:cancelar}].
+      [\hipervinculoLocal{lib_ta:cancelar}].
 
     % Supongo que en estos últimos pasos se refleja lo incompleto de la tienda:
     % una tienda más en serio tendría que preocuparse por el envío de los
     % libros.
+
+    \item El sistema envía la petición de detokenización del token del
+      cliente en sesión\footnotemark.
 
     \item El sistema registra la compra y resta de las existencias los libros
       comprados.
@@ -52,6 +69,11 @@
       \hipervinculo{lib_msj:compra_registrada}.
 
   \end{trayectoriaPrincipal}
+
+
+  \footnotetext{
+    Después de este paso es en donde una tienda real tendría que hacer la
+    transacción bancaria.}
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
