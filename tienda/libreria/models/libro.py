@@ -16,7 +16,8 @@ class Libro (django.db.models.Model):
 
   titulo = django.db.models.CharField(
     verbose_name = 'título de un libro',
-    max_length = 100)
+    max_length = 100,
+    unique = True)
 
   autor = django.db.models.ManyToManyField(Autor)
 
@@ -24,7 +25,8 @@ class Libro (django.db.models.Model):
     verbose_name = 'bandera para saber si el autor en verdad es un editor')
 
   foto = django.db.models.FileField(
-    verbose_name = 'foto de la portada del libro')
+    verbose_name = 'foto de la portada del libro',
+    null = True)
 
   genero = django.db.models.ForeignKey('Genero',
     django.db.models.PROTECT,
@@ -41,7 +43,8 @@ class Libro (django.db.models.Model):
     default = 1)
 
   anio = django.db.models.PositiveIntegerField(
-    verbose_name = 'año de publicación')
+    verbose_name = 'año de publicación',
+    null = True)
 
   paginas = django.db.models.PositiveIntegerField(
     verbose_name = 'número de páginas del libro')
