@@ -1,0 +1,14 @@
+%
+% Plantilla para requerimientos funcionales que tienen una clasificación.
+% Proyecto Lovelace.
+%
+% Solo es un envolvente alrededor del comando de requerimiento funcional.
+%
+
+\newcommand{\requerimientoConClasificacion}[4]
+[rq:\formatearnumero{contador_requerimientos}]
+{
+  \requerimiento[#1]{#2}{%
+    \textbf{Clasificación:} \hipervinculo{#3}. \\
+    #4}
+}

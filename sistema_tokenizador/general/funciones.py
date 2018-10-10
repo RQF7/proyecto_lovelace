@@ -1,5 +1,5 @@
 """
-funciones.py Funciones de parte pública de sitio,
+funciones.py Funciones para módulo general,
 Aplicación web de sistema tokenizador.
 Proyecto Lovelace.
 """
@@ -603,4 +603,3 @@ def desvetarCliente (peticion, idDeCliente):
     Proyecto Lovelace.
     """)
   return django.http.HttpResponse()
-

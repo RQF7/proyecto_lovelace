@@ -1,6 +1,7 @@
 """
-  servidor_web.py Archivo de configuraciones de de interfaz WSGI.
-  Proyecto Lovelace.
+servidor_web.py Archivo de configuraciones de de interfaz WSGI.
+Sistema tokenizador.
+Proyecto Lovelace.
 """
 
 import os

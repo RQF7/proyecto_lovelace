@@ -34,7 +34,7 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
         funciones.
     \end{enumerate}
     El algoritmo de la función de instanciación se puede observar en el
-    pseudocódigo \ref{drbg:1}.
+    pseudocódigo~\ref{drbg:1}.
 
 \begin{pseudocodigo}[caption={DRBG, instanciación.}, label={drbg:1}]
     entrada:  $nivel\_seguridad\_requerido$, $bandera\_prediccion$, $cadena\_personalizacion$
@@ -96,7 +96,7 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
       \item Nuevo estado de trabajo interno.
     \end{enumerate}
     El proceso para cambiar la \gls{gl:semilla} se observa en el pseudocódigo
-    \ref{drbg:2}.
+   ~\ref{drbg:2}.
 \begin{pseudocodigo}[caption={DRBG, cambio de semilla.}, label={drbg:2}]
     entrada:  $bandera\_prediccion$, $manejador\_estado$, $entrada\_adicional$
               $entrada\_entropia$, $estado\_interno$
@@ -141,7 +141,7 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
       \item Nuevo estado de trabajo.
     \end{enumerate}
     El proceso para generar bits se puede observar en el pseudocódigo
-    \ref{drbg:3}.
+   ~\ref{drbg:3}.
 \begin{pseudocodigo}[caption={DRBG, generación.}, label={drbg:3}]
     entrada:  $bandera\_prediccion$, $manejador\_estado$, $entrada\_adicional$
               $nivel\_seguridad\_requerido$, $no\_bits\_requeridos$, $estado\_interno$
@@ -190,7 +190,7 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
     de una instancia al borrar el contenido de su estado interno. La función
     requiere del manejador de estado de la instancia que se va a eliminar y
     regresa el estado de la función. El proceso para eliminar una instancia se
-    puede observar en el pseudocódigo \ref{drbg:4}.
+    puede observar en el pseudocódigo~\ref{drbg:4}.
 
 \begin{pseudocodigo}[caption={DRBG, desinstanciación.}, label={drbg:4}]
     entrada:  $manejador\_estado$

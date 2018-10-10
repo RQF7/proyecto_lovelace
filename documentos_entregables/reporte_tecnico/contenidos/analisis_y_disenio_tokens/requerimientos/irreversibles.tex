@@ -7,57 +7,59 @@
 \subsection{Irreversibles}
 
 % IT1A
-\requerimiento{Sobre la generación de \glspl{gl:token} (irreversibles)}
+\requerimientoConClasificacion
+{Sobre la generación de \glspl{gl:token} (irreversibles)}
+{clasificacion:algoritmos}
 {
   El mecanismo utilizado para la generación de los \glspl{gl:token}
   no es reversible (o improbable).
-
-  % IT1A-1
-  \subrequerimiento[rq_pci:ir_mecanismo_generador]
-  {Sobre el mecanismo generador (irreversibles)}
-  {
-    El proceso para crear \glspl{gl:token} clasificado como irreversible
-    debe asegurar que el mecanismo, proceso o algoritmo utilizado para
-    crear el \gls{gl:token} no sea reversible. Si una función hash (véase
-    sección \ref{sec:hash}) es utilizada, esta debe ser una
-    \gls{gl:primitiva_criptografica} y utilizar una llave secreta $k$ tal que
-    el mero conocimiento de la función hash no permita la creación de un
-    \gls{gl:oraculo}.
-  }
-
-  % IT1A-2
-  \subrequerimiento[rq_pci:ir_contenido_en_claro]
-  {Contenido en claro (irreversibles)}
-  {
-    Los \glspl{gl:token} irreversibles no deben contener dígitos en claro del
-    \gls{gl:pan} original, excepto que estos dígitos sean una coincidencia.
-  }
-
-  % IT1A-3
-  \subrequerimiento[rq_pci:ir_diccionario_imposible]
-  {Creación de un diccionario (irreversibles)}
-  {
-    La creación de una tabla o \textit{diccionario} de \glspl{gl:token}
-    estáticos debería ser imposible, o, al menos, al punto de satisfacer que
-    la probabilidad de predecir correctamente el \gls{gl:pan} sea menor que
-    $\frac{1}{10^6}$.
-  }
-
-  % IT1A-4
-  \subrequerimiento[rq_pci:ir_busqueda_exhaustiva]
-  {Sobre el proceso de autenticación (irreversibles)}
-  {
-    En el caso de los \glspl{gl:token} autenticables, el proceso de
-    autenticación no debe revelar información suficiente para realizar
-    búsquedas, excepto una exhaustiva (\gls{gl:pan} por \gls{gl:pan}) y se
-    deben implementar controles para detectar estas últimas.
-  }
 }
 
-%En la tabla \ref{resumen_irreversibles} se clasifican los requerimientos
-%que en el documento del \gls{gl:pci} \gls{gl:ssc} \cite{pci_tokens} están
+% IT1A-1
+\subrequerimiento[rq_pci:ir_mecanismo_generador]
+{Sobre el mecanismo generador (irreversibles)}
+{
+  El proceso para crear \glspl{gl:token} clasificado como irreversible
+  debe asegurar que el mecanismo, proceso o algoritmo utilizado para
+  crear el \gls{gl:token} no sea reversible. Si una función hash (véase
+  sección~\ref{sec:hash}) es utilizada, esta debe ser una
+  \gls{gl:primitiva_criptografica} y utilizar una llave secreta $k$ tal que
+  el mero conocimiento de la función hash no permita la creación de un
+  \gls{gl:oraculo}.
+}
+
+% IT1A-2
+\subrequerimiento[rq_pci:ir_contenido_en_claro]
+{Contenido en claro (irreversibles)}
+{
+  Los \glspl{gl:token} irreversibles no deben contener dígitos en claro del
+  \gls{gl:pan} original, excepto que estos dígitos sean una coincidencia.
+}
+
+% IT1A-3
+\subrequerimiento[rq_pci:ir_diccionario_imposible]
+{Creación de un diccionario (irreversibles)}
+{
+  La creación de una tabla o \textit{diccionario} de \glspl{gl:token}
+  estáticos debería ser imposible, o, al menos, al punto de satisfacer que
+  la probabilidad de predecir correctamente el \gls{gl:pan} sea menor que
+  $\frac{1}{10^6}$.
+}
+
+% IT1A-4
+\subrequerimiento[rq_pci:ir_busqueda_exhaustiva]
+{Sobre el proceso de autenticación (irreversibles)}
+{
+  En el caso de los \glspl{gl:token} autenticables, el proceso de
+  autenticación no debe revelar información suficiente para realizar
+  búsquedas, excepto una exhaustiva (\gls{gl:pan} por \gls{gl:pan}) y se
+  deben implementar controles para detectar estas últimas.
+}
+
+%En la tabla~\ref{resumen_irreversibles} se clasifican los requerimientos
+%que en el documento del \gls{gl:pci} \gls{gl:ssc}~\cite{pci_tokens} están
 %catalogados como irreversibles. En la lista de este documento se procura no
-%hacer tal división, para evitar las repeticiones en exceso que \cite{pci_tokens}
+%hacer tal división, para evitar las repeticiones en exceso que~\cite{pci_tokens}
 %manifiesta en algunas ocasiones. Por ejemplo, el requerimiento
 %\cite{rq_pci:manejo_de_llaves} es aplicable tanto a los irreversibles como a
 %los reversibles criptográficos (y de hecho también a los no criptográficos, dado

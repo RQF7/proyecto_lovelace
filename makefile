@@ -98,4 +98,4 @@ $(CARPETA_IMAGENES)/aviso_de_expiracion_de_vinculo_1920x1080.png: \
 	python $(SCRIPTS_CAPTURAS)/inicio.py $(DOMINIO)/?correo_no_verificado $@
 
 modelo_de_datos:
-	python administrar.py graph_models -g -o documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_api_web/analisis/diagramas/modelo_de_datos.png general programa_tokenizador
+	python administrar_sistema_tokenizador.py graph_models -g -o documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_api_web/analisis/diagramas/modelo_de_datos.png general programa_tokenizador

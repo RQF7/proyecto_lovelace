@@ -9,7 +9,7 @@
 \label{sec:drbg_disenio}
 
 Las clases relacionadas con el generador de números pseudoaleatorio se muestran
-en la figura \ref{clases_drbg}. Nuevamente, todas las clases pertenecen al
+en la figura~\ref{clases_drbg}. Nuevamente, todas las clases pertenecen al
 paquete de las implementaciones.
 
 Un \gls{gl:drbg} implementa la interfaz de una función que recibe enteros sin
@@ -25,11 +25,11 @@ aleatoriedad). Siguiendo el esquema de débil acomplamiento dado por las
 interfaces de las funciones, la fuente de entropia es una función que recibe un
 entero y regresa un arreglo de bytes. En el costado izquierdo del diagrama se
 muestran dos de las posibles fuentes de entropia: aleatoriedad trivial y
-aleatoriedad por hardware (para más detalles, ver sección \ref{sec:intel}).
+aleatoriedad por hardware (para más detalles, ver sección~\ref{sec:intel}).
 
 Existen dos implementaciones concretas para el generador de números
 pseudoaleatorios: una basada en una función hash y la otra basada en un cifrado
-por bloques (sección \ref{sec:drbg_lista}). Ambos agregan sus propios datos
+por bloques (sección~\ref{sec:drbg_lista}). Ambos agregan sus propios datos
 miembro al estado del generador, sobrecargan las funciones de cambio de semilla
 y desintanciación e implementan el método abstracto de la superclase. También se
 utilizan enumeraciones para indicar al código cliente cuales son las distintas
