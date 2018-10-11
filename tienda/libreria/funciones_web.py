@@ -36,6 +36,7 @@ def obtenerLibros (peticion, pagina, limite):
       'titulo': libro.titulo,
       'precio': str(libro.precio),
       'foto': str(libro.foto),
+      'existencias': libro.existencias,
       'autor': autores})
   return django.http.HttpResponse(json.dumps(lista))
 

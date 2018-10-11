@@ -1,0 +1,108 @@
+<!--
+  Html de página de carrito.
+  Tienda en línea.
+  Proyecto Lovelace.
+-->
+
+<div
+  class="seccion"
+  flex="none"
+  layout="column">
+  <md-table-container>
+  <table md-table>
+    <thead md-head>
+      <tr md-row>
+        <th md-column>
+          Cantidad
+        </th>
+        <th md-column>
+          Libro
+        </th>
+        <th md-column md-numeric>
+          P. Unitario
+        </th>
+        <th md-column md-numeric>
+          Total
+        </th>
+        <th md-column></th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row ng-repeat="libro in carrito.libros">
+        <td md-cell>
+          <div layout="row">
+            <md-input-container>
+              <input
+                ng-model="libro.cantidad"
+                md-no-asterisk
+                required
+                type="number"
+                min="1"
+                max="{{libro.existencias}}"
+                autocomplete="off"
+                ng-change="cambioDeCantidad()"
+                aria-label="cantidad">
+            </md-input-container>
+            <span flex></span>
+          </div>
+        </td>
+        <td md-cell>
+          <p>
+            {{libro.titulo}}
+          </p>
+        </td>
+        <td md-cell>
+          <p>
+            {{libro.precio | currency}}
+          </p>
+        </td>
+        <td md-cell>
+          <p>
+            {{libro.precio * libro.cantidad | currency}}
+          </p>
+        </td>
+        <td md-cell>
+          <div layout="row">
+            <span flex></span>
+            <div>
+              <md-button class="md-primary" layout="column"
+                ng-click="quitarDelCarrito(libro)">
+                <span flex></span>
+                <md-tooltip md-direction="left">
+                  Quitar libro del carrito
+                </md-tooltip>
+                <i class="material-icons">clear</i>
+                <span flex></span>
+              </md-button>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr md-row ng-if="carrito.libros.length == 0">
+        <td md-cell colspan="5">
+          <div layout="row">
+            <span flex></span>
+            <p>
+              <i>
+                No hay ningún libro en el carrito.
+              </i>
+            </p>
+            <span flex></span>
+          </div>
+        </td>
+      </tr>
+      <tr md-row>
+        <td md-cell colspan="3">
+          <p>
+            <b>Total</b>
+          </p>
+        </td>
+        <td md-cell>
+          {{carrito.total | currency}}
+        </td>
+        <td md-cell></td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+</div>

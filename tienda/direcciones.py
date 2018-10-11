@@ -23,7 +23,8 @@ urlpatterns = [
       'tienda.libreria.direcciones')),
 
   # URLs estáticas
-  django.urls.path('', general.funciones.inicio)
+  django.urls.path('', general.funciones.inicio),
+  django.urls.path('carrito', general.funciones.inicio)
 
 ]
 

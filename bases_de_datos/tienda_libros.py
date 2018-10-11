@@ -3,6 +3,10 @@ Estado inicial de base de datos.
 Catálogos de la tienda en línea.
 Caso de pruebas.
 Proyecto Lovelace.
+
+TODO:
+  * No confundir datos con código.
+  * Quitar nombres de libros y autores que están en mayúsculas.
 """
 
 import os, sys, django
