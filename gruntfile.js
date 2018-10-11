@@ -163,6 +163,12 @@ module.exports = function (grunt) {
             dest: cc_tienda + 'compilados/imagenes/'
           },
           {
+            expand: true,
+            flatten: true,
+            src: [cc_tienda + '../img/*.jpg'],
+            dest: cc_tienda + 'compilados/imagenes/libros/'
+          },
+          {
             src: [cc_tienda + 'sass/estilos.sass'],
             dest: cc_tienda + 'compilados/css/sistema_tokenizador/archivos_web/sass/estilos.sass'
           },

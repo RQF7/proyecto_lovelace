@@ -2,6 +2,9 @@
   Html de página de inicio.
   Tienda en línea.
   Proyecto Lovelace.
+
+  TODO:
+  * Agregar barra de búsqueda/filtros.
 -->
 
 <div
@@ -11,8 +14,14 @@
   <div
     layout="row"
     layout-align="center center">
-    <md-input-container>
-      <label>Página</label>
+    <p flex="none"
+      class="texto-de-formulario">
+      Página:
+    </p>
+    <!-- TODO: Agregar botones de siguiente y anterior a paginador. -->
+    <md-input-container
+      flex="10"
+      layout-margin="10">
       <md-select
         ng-model="paginador.pagina"
         ng-change="obtenerLibros()">
@@ -23,7 +32,8 @@
         </md-option>
       </md-select>
     </md-input-container>
-    <p>
+    <p flex="none"
+      class="texto-de-formulario">
       {{(paginador.pagina - 1) * paginador.limite + 1}} -
       {{(paginador.pagina * paginador.limite > totalDeLibros) ?
         totalDeLibros :
@@ -31,9 +41,56 @@
       de {{totalDeLibros}}
     </p>
   </div>
-  <ul>
-    <li ng-repeat="libro in libros">
-      {{libro.fields.titulo}}
-    </li>
-  </ul>
+  <md-grid-list
+    md-cols="4"
+    md-cols-xs="1"
+    md-cols-sm="2"
+    md-cols-md="3"
+    md-cols-xl="5"
+    md-row-height="230px"
+    md-gutter="10px">
+    <md-grid-tile ng-repeat="libro in libros">
+      <md-whiteframe
+        class="md-whiteframe-2dp tarjeta">
+        <div layout="row">
+          <div flex="40">
+            <!-- TODO: ¿De donde sale la «l» del prefijo -->
+            <!-- TODO: En la consola salen peticiones a imágnes inexistentes.-->
+            <img src="estaticos/imagenes/libros/l{{libro.foto}}"/>
+          </div>
+          <div
+            flex="60"
+            class="descripcion">
+            <div class="etiqueta">
+              <p class="etiqueta-descripcion">
+                Título
+              </p>
+              <p class="etiqueta-contenido">
+                {{libro.titulo | limitTo: 25}}
+                {{libro.titulo.length > 25 ? '...' : ''}}
+              </p>
+            </div>
+            <!-- TODO:
+            comportamiento dinámico para cuando hay varios autores. -->
+            <div class="etiqueta">
+              <p class="etiqueta-descripcion">
+                Autor
+              </p>
+              <p class="etiqueta-contenido">
+                {{libro.autor[0]}}
+              </p>
+            </div>
+            <div class="etiqueta">
+              <p class="etiqueta-descripcion">
+                Precio
+              </p>
+              <p class="etiqueta-contenido">
+                {{libro.precio | currency}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </md-whiteframe>
+    </md-grid-tile>
+  </md-grid-list>
 </div>
