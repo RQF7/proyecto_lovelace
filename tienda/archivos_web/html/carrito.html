@@ -48,7 +48,7 @@
         </td>
         <td md-cell>
           <p>
-            {{libro.titulo}}
+            <em>{{libro.titulo}}</em>, {{libro.autor[0]}}
           </p>
         </td>
         <td md-cell>
@@ -97,8 +97,11 @@
             <b>Total</b>
           </p>
         </td>
-        <td md-cell>
-          {{carrito.total | currency}}
+        <!-- TODO: ¡este style no debería de ir aquí! -->
+        <td md-cell style="text-align: right">
+          <p>
+            {{carrito.total | currency}}
+          </p>
         </td>
         <td md-cell></td>
       </tr>

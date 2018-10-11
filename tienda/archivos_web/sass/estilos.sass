@@ -219,6 +219,26 @@ md-dialog-content
   font-size: 8pt
   vertical-align: middle
 
+/* De tabla del carrito. *****************************************************/
 
+/* El complemento de las tablas no funciona bien con el tema obscuro: */
 md-table-container, table.md-table td.md-cell, table.md-table th.md-column
   color: white
+
+  p
+    margin: 0px
+
+/* Selectores de cantidad adentro de tablas. */
+table
+  md-input-container
+    margin: 0px
+    width: 50px
+
+    .md-errors-spacer
+      min-height: 0px
+
+    .md-input
+      border-width: 0px
+
+table.md-table td.md-cell
+  border-color: white
