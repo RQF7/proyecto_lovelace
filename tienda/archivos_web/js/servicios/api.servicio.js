@@ -40,6 +40,16 @@
        return $http.get(RUTA_BASE + RUTA_LIBRERIA + '/total_de_libros');
      };
 
+     /* Operaciones de carrito. **********************************************/
+
+     API.guardarCarrito = function (carrito) {
+       return $http.post(RUTA_BASE + RUTA_TIENDA + '/carrito', carrito);
+     };
+
+     API.obtenerCarrito = function () {
+       return $http.get(RUTA_BASE + RUTA_TIENDA + '/carrito');
+     };
+
      return API;
    }
  ]);

@@ -18,4 +18,8 @@ urlpatterns = [
   django.urls.path('cerrar_sesion',
     funciones_web.cerrarSesion),
 
+  # Operaciones de carrito
+  django.urls.path('carrito',
+    funciones_web.operarCarrito)
+
 ]

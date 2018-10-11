@@ -92,7 +92,6 @@ tienda.controller('controladorGeneral', [
     $scope.usuario = undefined;
     api.obtenerUsuarioDeSesion().then(function (respuesta) {
       if (respuesta.data != '') {
-        console.log("DEBUG 1", respuesta.data);
         $scope.usuario = respuesta.data;
       }
     });
@@ -105,7 +104,6 @@ tienda.controller('controladorGeneral', [
         templateUrl: '/estaticos/html/ventanas/iniciar_sesion.ventana.html',
         controller: 'controladorFormularioIniciarSesion'
       }).then(function (respuesta) {
-        console.log("DEBUG 2", respuesta);
         if (respuesta != undefined) {
           $scope.usuario = respuesta;
           // if ($scope.$routeParams.siguiente != undefined) {
@@ -128,9 +126,15 @@ tienda.controller('controladorGeneral', [
     $scope.carrito.total = 0.0;
     $scope.carrito.libros = [];
 
+    api.obtenerCarrito().then(function (respuesta) {
+      if (respuesta.data != '') {
+        $scope.carrito = respuesta.data;
+      }
+    });
+
     $scope.buscarEnCarrito = function(idDeLibro) {
       for (var i = 0; i < $scope.carrito.libros.length; i++)
-        if (idDeLibro == $scope.carrito.libros[i])
+        if (idDeLibro == $scope.carrito.libros[i].pk)
           return i;
       return -1;
     };
@@ -140,14 +144,16 @@ tienda.controller('controladorGeneral', [
       libro.enCarrito = true;
       $scope.carrito.libros.push(libro);
       $scope.carrito.total += Number(libro.precio);
-      console.log("Agregar al carrito: ", libro, $scope.carrito)
+      api.guardarCarrito($scope.carrito);
     };
 
     $scope.quitarDelCarrito = function (libro) {
       libro.enCarrito = false;
-      $scope.carrito.total -= Number(libro.precio) * libro.cantidad;
-      $scope.carrito.libros.splice($scope.buscarEnCarrito(libro.pk), 1);
-      console.log("Quitar del carrito: ", libro, $scope.carrito)
+      idDeLibro = $scope.buscarEnCarrito(libro.pk);
+      $scope.carrito.total -= libro.precio
+        * $scope.carrito.libros[idDeLibro].cantidad;
+      $scope.carrito.libros.splice(idDeLibro, 1)
+      api.guardarCarrito($scope.carrito);
     };
 
   }

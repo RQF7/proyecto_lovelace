@@ -23,13 +23,16 @@ tienda.controller('controladorInicio', [
     /* Acciones públicas. ****************************************************/
     $scope.obtenerLibros = function () {
       api.obtenerLibros($scope.paginador.pagina,
-        $scope.paginador.limite).then(function (respuesta){
+        $scope.paginador.limite).then(function (respuesta) {
           $scope.libros = respuesta.data;
-          for (var i = 0; i < $scope.libros.length; i++)
-            if ($scope.buscarEnCarrito($scope.libros[i].pk) > 0)
+          for (var i = 0; i < $scope.libros.length; i++) {
+            $scope.libros[i].precio = Number($scope.libros[i].precio)
+            if ($scope.buscarEnCarrito($scope.libros[i].pk) >= 0) {
               $scope.libros[i].enCarrito = true;
-            else
+            } else {
               $scope.libros[i].enCarrito = false;
+            }
+          }
         });
     };
 
