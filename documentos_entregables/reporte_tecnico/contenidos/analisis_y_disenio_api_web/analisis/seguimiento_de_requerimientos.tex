@@ -26,13 +26,14 @@ requerimiento fue satisfecho o no y cómo o por qué no.
     \textit{anomalías} en el uso del sistema tokenizador; es aumentado cuando
     se reciben peticiones con \glspl{gl:token} o \glspl{gl:pan} inválidos, o
     cuando se intenta detokenizar un \gls{gl:token} que no está asociado
-    al cliente que mandó la petición. Por lo tanto, este requerimiento es
-    satisfecho.
+    al cliente que mandó la petición (véase \hipervinculo{rn:malas_acciones}).
+    Por lo tanto, este requerimiento es satisfecho.
 
   \item \textbf{\hipervinculo{rq_pci:guia_de_instalacion}.}
     La API tiene documentación en su sitio en línea que permite saber cómo
     comunicarse con ella y cuáles son los posibles errores; además, el código
-    es libre y público. Por lo tanto, este requerimiento es satisfecho.
+    es libre y público (véase \hipervinculo{rq:mostrar_documentacion}).
+    Por lo tanto, este requerimiento es satisfecho.
 
   \item \textbf{\hipervinculo{rq_pci:acceso_a_producto}.}
     Este requerimiento contiene varios subrequerimientos que se listan
@@ -41,7 +42,10 @@ requerimiento fue satisfecho o no y cómo o por qué no.
       \item \textbf{\hipervinculo{rq_pci:control_de_peticiones}.}
         Ya que la única manera de acceder al sistema tokenizador es mediante
         peticiones y en cada una se debe mandar un token de autenticación,
-        este requerimiento es satisfecho.
+        este requerimiento es satisfecho (véase
+        \hipervinculo{rq:tokenizar_tarjeta},
+        \hipervinculo{rq:detokenizar_token},
+        \hipervinculo{rq:retokenizar_token}).
 
       \item \textbf{\hipervinculo{rq_pci:registros_de_acceso}.}
         Ya que el sistema no matiene un registro de los eventos y las
@@ -53,14 +57,15 @@ requerimiento fue satisfecho o no y cómo o por qué no.
         satisfecho.
 
       \item \textbf{\hipervinculo{rq_pci:acceso_de_sistema}.}
-        Los cliente se identifican en cada petición ante el sistema mediante
+        Los clientes se identifican en cada petición ante el sistema mediante
         sus credenciales (usuario y contraseña); el sistema se identifica
         ante el cliente mediante \acrshort{gl:tls}/\acrshort{gl:ssl}. Por lo
         tanto, este requerimiento es satisfecho.
 
       \item \textbf{\hipervinculo{rq_pci:acceso_administrativo}.}
         Ya que no tenemos accesos administrativos desde fuera de la consola,
-        este requerimiento es satisfecho por vacuidad.
+        este requerimiento es satisfecho por vacuidad. El usuario tipo
+        administrador no tiene permisos para utilizar el programa tokenizador.
 
     \end{itemize}
     Como se puede observar, este requerimiento es satisfecho parcialmente, pues
@@ -71,11 +76,12 @@ requerimiento fue satisfecho o no y cómo o por qué no.
     continuación:
     \begin{itemize}
       \item \textbf{\hipervinculo{rq_pci:ciclo_de_vida_llaves}.}
-        Los criptoperiodos por defecto en el sistema son de 3 meses, lo que
+        Los criptoperiodos por defecto en el sistema son de 6 meses, lo que
         es un tiempo relativamente corto; sin embargo, el sistema no inicia
         por sí mismo un refresco de llaves, sino que es el cliente quien debe
-        realizar el refresco. Por lo tanto, como no es responsabilidad del
-        sistema, este requerimiento es satisfecho.
+        realizar el refresco (véase \hipervinculo{rn:criptoperiodo_llave}).
+        Por lo tanto, como no es responsabilidad del sistema, este
+        requerimiento es satisfecho.
 
       \item \textbf{\hipervinculo{rq_pci:periodo_llaves}.}
         Dependiendo de a quién se le brinde la atención, el servicio de
