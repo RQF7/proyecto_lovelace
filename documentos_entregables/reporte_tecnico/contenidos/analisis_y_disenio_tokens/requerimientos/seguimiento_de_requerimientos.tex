@@ -13,24 +13,40 @@ del \hipervinculo{clasificacion:implementaciones} mencionados en la sección
 requerimiento fue satisfecho o no y cómo o por qué no.
 
 \begin{itemize}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
-  \item \textbf{\hipervinculo{rq_pci:}.}
+  \item \textbf{\hipervinculo{rq_pci:distincion_token_pan}.}
+    El programa tokenizador es capaz de distinguir entre un \acrshort{gl:pan}
+    y un \gls{gl:token} porque el segundo tiene el dígito de verificación
+    calculado con el algoritmo de Luhn desfasado en uno (le suma uno al
+    resultado). Por lo tanto, este requerimiento es satisfecho.
+
+  \item \textbf{\hipervinculo{rq_pci:integridad_ejecutables}.}
+    No hay mecanismos que garanticen la integridad del proceso de generación
+    de \glspl{gl:token}; por lo tanto, este requerimiento no es satisfecho.
+
+  \item \textbf{\hipervinculo{rq_pci:token_a_token_prohibido}.}
+    El programa verifica que, cuando se va a realizar una tokenización, la
+    entrada sea un \acrshort{gl:pan}, por lo que no es posible pasar de un
+    \gls{gl:token} a otro \gls{gl:token} sin haber detokenizado primero. Por
+    lo tanto, este requerimiento es satisfecho.
+
+  \item \textbf{\hipervinculo{rq_pci:vulnerabilidades_comunes}.}
+    \textit{Probablemente este requerimiento sea satisfecho por las banderitas
+      del compilador}, RQF7.
+
+  \item \textbf{\hipervinculo{rq_pci:primitivas_usadas}.}
+    Los algoritmos que utiliza el programa tokenizador implementan estándares,
+    por ejemplo, los cinco algoritmos utilizan AES y varios utilizan SHA-256.
+    Por lo tanto, este algoritmo es satisfecho.
+
+  \item \textbf{\hipervinculo{rq_pci:cr_longitud_llaves}.}
+    Las llaves utilizadas en los algoritmos son de, mínimo, 128 bits
+    (en \ref{sec:ahr}, se utiliza una de 256 bits); por lo tanto, este
+    requerimiento es satisfecho.
+
+  \item \textbf{\hipervinculo{rq_pci:nc_cifrado_de_base}.}
+    Dado que este es un estudio propio de los algoritmos y su desempeño, y no
+    de un sistema tokenizador, se decidió no cifrar los \glspl{gl:token} en la
+    base, pues ralentizaban mucho el desempeño. Por lo tanto, este
+    requerimiento no es satisfecho.
 
 \end{itemize}
