@@ -101,10 +101,18 @@
             layout="row"
             layout-align="center center">
             <md-button
+              ng-if="!libro.enCarrito"
               ng-click="agregarAlCarrito(libro)"
               class="md-primary conIcono">
               <i class="material-icons">add_shopping_cart</i>
               <md-tooltip>Agregar al carrito</md-tooltip>
+            </md-button>
+            <md-button
+              ng-if="libro.enCarrito"
+              ng-click="quitarDelCarrito(libro)"
+              class="md-primary conIcono">
+              <i class="material-icons">remove_shopping_cart</i>
+              <md-tooltip>Quitar del carrito</md-tooltip>
             </md-button>
             <md-button
               ng-click="verDetalles(libro)"

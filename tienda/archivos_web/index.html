@@ -115,6 +115,22 @@
             md-colors="{background: 'accent'}">
           </div>
         </md-button>
+
+        <!-- Finalizar compra/Carrito. -->
+        <md-button
+          ng-if="carrito.libros.length > 0"
+          flex="none"
+          href="/carrito">
+          Carrito
+          <span class="total-de-carrito">
+            {{carrito.total | currency}}
+          </span>
+          <div
+            class="circulo-marca"
+            ng-if="seccion == 2"
+            md-colors="{background: 'accent'}">
+          </div>
+        </md-button>
       </md-content>
     </md-sidenav>
 

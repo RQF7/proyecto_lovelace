@@ -123,7 +123,32 @@ tienda.controller('controladorGeneral', [
       });
     };
 
-    /* Secuencia de inicio. **************************************************/
-    //console.log("DEBUG: controlador general");
+    /* Control de carrito. ***************************************************/
+    $scope.carrito = {};
+    $scope.carrito.total = 0.0;
+    $scope.carrito.libros = [];
+
+    $scope.buscarEnCarrito = function(idDeLibro) {
+      for (var i = 0; i < $scope.carrito.libros.length; i++)
+        if (idDeLibro == $scope.carrito.libros[i])
+          return i;
+      return -1;
+    };
+
+    $scope.agregarAlCarrito = function (libro) {
+      libro.cantidad = 1;
+      libro.enCarrito = true;
+      $scope.carrito.libros.push(libro);
+      $scope.carrito.total += Number(libro.precio);
+      console.log("Agregar al carrito: ", libro, $scope.carrito)
+    };
+
+    $scope.quitarDelCarrito = function (libro) {
+      libro.enCarrito = false;
+      $scope.carrito.total -= Number(libro.precio) * libro.cantidad;
+      $scope.carrito.libros.splice($scope.buscarEnCarrito(libro.pk), 1);
+      console.log("Quitar del carrito: ", libro, $scope.carrito)
+    };
+
   }
 ]);
