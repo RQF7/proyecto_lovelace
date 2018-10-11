@@ -156,5 +156,13 @@ tienda.controller('controladorGeneral', [
       api.guardarCarrito($scope.carrito);
     };
 
+    $scope.cambioDeCantidad = function () {
+      $scope.carrito.total = 0;
+      for (var i = 0; i < $scope.carrito.libros.length; i++)
+        $scope.carrito.total += $scope.carrito.libros[i].precio
+          * $scope.carrito.libros[i].cantidad;
+      api.guardarCarrito($scope.carrito)
+    };
+
   }
 ]);
