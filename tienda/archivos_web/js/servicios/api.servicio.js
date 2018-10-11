@@ -13,8 +13,9 @@
      var API = {};
      var RUTA_BASE = '/api';
      var RUTA_TIENDA = '/tienda';
+     var RUTA_LIBRERIA = '/libreria';
 
-     /* Operaciones de sesión. *************************************************/
+     /* Operaciones de sesión. ************************************************/
 
      API.obtenerUsuarioDeSesion = function () {
        return $http.get(RUTA_BASE + RUTA_TIENDA + '/usuario_de_sesion');
@@ -26,6 +27,17 @@
 
      API.cerrarSesion = function () {
        return $http.get(RUTA_BASE + RUTA_TIENDA + '/cerrar_sesion');
+     };
+
+     /* Operaciones con api de librería. *************************************/
+
+     API.obtenerLibros = function (pagina, limite) {
+       return $http.get(RUTA_BASE + RUTA_LIBRERIA + '/libros/'
+        + pagina + '/' + limite);
+     };
+
+     API.obtenerTotalDeLibros = function () {
+       return $http.get(RUTA_BASE + RUTA_LIBRERIA + '/total_de_libros');
      };
 
      return API;

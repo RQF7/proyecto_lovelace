@@ -8,7 +8,32 @@
   class="seccion"
   flex="none"
   layout="column">
-  <p>
-    Contenido temporal
-  </p>
+  <div
+    layout="row"
+    layout-align="center center">
+    <md-input-container>
+      <label>Página</label>
+      <md-select
+        ng-model="paginador.pagina"
+        ng-change="obtenerLibros()">
+        <md-option
+          ng-repeat="pagina in paginador.paginas"
+          value="{{pagina}}">
+          {{pagina}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+    <p>
+      {{(paginador.pagina - 1) * paginador.limite + 1}} -
+      {{(paginador.pagina * paginador.limite > totalDeLibros) ?
+        totalDeLibros :
+        paginador.pagina * paginador.limite}}
+      de {{totalDeLibros}}
+    </p>
+  </div>
+  <ul>
+    <li ng-repeat="libro in libros">
+      {{libro.fields.titulo}}
+    </li>
+  </ul>
 </div>

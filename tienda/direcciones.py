@@ -17,6 +17,11 @@ urlpatterns = [
     django.urls.include(
       'tienda.tienda.direcciones')),
 
+  # Operaciones de módulo general
+  django.urls.path('api/libreria/',
+    django.urls.include(
+      'tienda.libreria.direcciones')),
+
   # URLs estáticas
   django.urls.path('', general.funciones.inicio)
 
