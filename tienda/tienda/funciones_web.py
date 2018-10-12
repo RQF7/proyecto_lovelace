@@ -6,8 +6,10 @@ Proyecto Lovelace.
 
 import django
 import json
+import datetime
 
 from ..tienda import negocio
+from .models.usuario import Usuario
 
 ################################################################################
 # Gestión de sesión ############################################################
@@ -66,3 +68,64 @@ def cerrarSesion (peticion):
   """Elimina el objeto usuario de la sesión."""
   del peticion.session['usuario']
   return django.http.HttpResponse()
+
+
+################################################################################
+# Operaciones de clientes ######################################################
+################################################################################
+
+
+def operarUsuario (peticion):
+  """Función diccionario para operaciones sobre un usuario."""
+
+  if(peticion.method == 'POST'):
+    return registrarUsuario(peticion)
+
+#  elif (peticion.method == 'PUT'):
+#    return actualizarUsuario(peticion, obtenerId(peticion))
+#
+#  elif (peticion.method == 'DELETE'):
+#    return eliminarUsuario(peticion, obtenerId(peticion))
+
+
+def registrarUsuario (peticion):
+  """Registra a un nuevo usuario en la base de datos.
+
+  Registra al usuario dado en la base de datos y envía un correo con
+  el vínculo de verificación
+
+  Regresa
+    0 en caso de exito.
+    1 en caso de que el usuario ya exista.                 """
+
+  usuarioEnPeticion = json.loads(peticion.body)
+
+  # verifica si ya existe el usuario
+  if negocio.existeUsuario(usuarioEnPeticion):
+    return django.http.HttpResponse("1")
+
+  # Guarda al usuario
+  usuario = negocio.guardarUsuario(usuarioEnPeticion)
+
+  # Envia el vinculo
+  negocio.enviarVinculoDeVerificacion(usuario,"registro")
+
+  return django.http.HttpResponse("0")
+
+
+def verificarCorreoDeRegistro (peticion, vinculo):
+  """Verifica el correo asociado al vínculo de registro dado, haciendo
+  la verificación de fecha."""
+  usuario = Usuario.objects.get(vinculo = vinculo)
+
+  # Anterior a 72 horas, error:
+  if datetime.datetime.now() - usuario.fecha > datetime.timedelta(hours = 72):
+    usuario.delete()
+    return django.http.HttpResponseRedirect('/?correo_no_verificado')
+
+  # Operación correcta:
+  else:
+    usuario.verificado = 1
+    usuario.vinculo = None
+    usuario.save()
+    return django.http.HttpResponseRedirect('/?correo_verificado')

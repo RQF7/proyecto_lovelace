@@ -25,6 +25,9 @@ class Usuario (django.db.models.Model):
   contrasenia = django.db.models.BinaryField(
     verbose_name = 'hash de contraseña')
 
+  verificado = django.db.models.BooleanField(
+    verbose_name = 'bandera para saber si el usuario esta verificado')
+
   tarjeta = django.db.models.ManyToManyField(
     Tarjeta,
     blank = True)
@@ -36,7 +39,8 @@ class Usuario (django.db.models.Model):
   vinculo = django.db.models.CharField(
     verbose_name = 'vinculo de verificación',
     max_length = 100,
-    unique = True)
+    unique = True,
+    null = True)
 
   fecha = django.db.models.DateTimeField(
     verbose_name = 'fecha de creación del vinculo')
