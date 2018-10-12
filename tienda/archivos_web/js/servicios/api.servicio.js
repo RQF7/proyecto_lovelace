@@ -50,6 +50,22 @@
        return $http.get(RUTA_BASE + RUTA_TIENDA + '/carrito');
      };
 
+     API.registrarCompra = function (compra) {
+       return $http.post(RUTA_BASE + RUTA_TIENDA + '/compra', compra);
+     };
+
+     /* Operaciones sobre tarjetas *******************************************/
+
+     API.obtenerTarjetas = function () {
+       return $http.get(RUTA_BASE + RUTA_TIENDA + '/tarjetas');
+     };
+
+     /* Operaciones sobre direcciones ****************************************/
+
+     API.obtenerDirecciones = function () {
+       return $http.get(RUTA_BASE + RUTA_TIENDA + '/direcciones');
+     };
+
      return API;
    }
  ]);

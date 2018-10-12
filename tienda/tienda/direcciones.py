@@ -20,6 +20,16 @@ urlpatterns = [
 
   # Operaciones de carrito
   django.urls.path('carrito',
-    funciones_web.operarCarrito)
+    funciones_web.operarCarrito),
+  django.urls.path('compra',
+    funciones_web.registrarCompra),
+
+  # Operaciones sobre tarjetas
+  django.urls.path('tarjetas',
+    funciones_web.obtenerTarjetas),
+
+  # Opeaciones sobre direcciones
+  django.urls.path('direcciones',
+    funciones_web.obtenerDirecciones),
 
 ]

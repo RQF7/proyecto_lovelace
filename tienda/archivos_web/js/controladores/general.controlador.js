@@ -97,19 +97,14 @@ tienda.controller('controladorGeneral', [
     });
 
     $scope.iniciarSesion = function ($event) {
-      var padre = angular.element(document.body);
       $mdDialog.show({
-        parent: padre,
+        parent: angular.element(document.body),
         targetEvent: $event,
         templateUrl: '/estaticos/html/ventanas/iniciar_sesion.ventana.html',
         controller: 'controladorFormularioIniciarSesion'
       }).then(function (respuesta) {
         if (respuesta != undefined) {
           $scope.usuario = respuesta;
-          // if ($scope.$routeParams.siguiente != undefined) {
-          //   $location.path($scope.$routeParams.siguiente);
-          //   $location.search('siguiente', null)
-          // }
         }
       });
     };
@@ -122,15 +117,18 @@ tienda.controller('controladorGeneral', [
     };
 
     /* Control de carrito. ***************************************************/
-    $scope.carrito = {};
-    $scope.carrito.total = 0.0;
-    $scope.carrito.libros = [];
 
     api.obtenerCarrito().then(function (respuesta) {
       if (respuesta.data != '') {
         $scope.carrito = respuesta.data;
       }
     });
+
+    $scope.reiniciarCarrito = function () {
+      $scope.carrito = {};
+      $scope.carrito.total = 0.0;
+      $scope.carrito.libros = [];
+    };
 
     $scope.buscarEnCarrito = function(idDeLibro) {
       for (var i = 0; i < $scope.carrito.libros.length; i++)
@@ -163,6 +161,8 @@ tienda.controller('controladorGeneral', [
           * $scope.carrito.libros[i].cantidad;
       api.guardarCarrito($scope.carrito)
     };
+
+    $scope.reiniciarCarrito();
 
   }
 ]);
