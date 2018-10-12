@@ -225,25 +225,25 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: cc_tienda,
+            cwd: cc_tienda + 'compilados/',
             src: ['*.html'],
             dest: cc_tienda + 'compilados/'
           },
           {
             expand: true,
-            cwd: cc_tienda + 'html/',
+            cwd: cc_tienda + 'compilados/html',
             src: ['*.html'],
             dest: cc_tienda + 'compilados/html/'
           },
           {
             expand: true,
-            cwd: cc_tienda + 'html/plantillas',
+            cwd: cc_tienda + 'compilados/html/plantillas',
             src: ['*.html'],
             dest: cc_tienda + 'compilados/html/plantillas/'
           },
           {
             expand: true,
-            cwd: cc_tienda + 'html/ventanas',
+            cwd: cc_tienda + 'compilados/html/ventanas',
             src: ['*.html'],
             dest: cc_tienda + 'compilados/html/ventanas/'
           }
@@ -262,7 +262,7 @@ module.exports = function (grunt) {
         ],
         tasks: [
           "concat:scripts_tokens",
-          "includereplace:js",
+          "includereplace:js_tokens",
           "uglify:tokens"
         ]
       },
@@ -274,6 +274,7 @@ module.exports = function (grunt) {
         ],
         tasks: [
           "concat:scripts_tienda",
+          "includereplace:js_tienda",
           "uglify:tienda"
         ]
       },
@@ -285,7 +286,7 @@ module.exports = function (grunt) {
           cc_tokens + 'html/ventanas/*.html'
         ],
         tasks: [
-          "includereplace:html",
+          "includereplace:html_tokens",
           "htmlmin:tokens"
         ]
       },
@@ -297,6 +298,7 @@ module.exports = function (grunt) {
           cc_tienda + 'html/ventanas/*.html'
         ],
         tasks: [
+          "includereplace:html_tienda",
           "htmlmin:tienda"
         ]
       },
@@ -343,7 +345,7 @@ module.exports = function (grunt) {
     /* Configuración de sustituciones. ***************************************/
 
     includereplace: {
-      html: {
+      html_tokens: {
         options: {
           prefix: '<!-- @@',
           suffix: ' -->',
@@ -382,7 +384,7 @@ module.exports = function (grunt) {
        * correctamente en el documento (que no se salgan del margen,
        * cuando menos), pero para js es un error tener una expersión
        * con un salto de línea en medio. */
-      js: {
+      js_tokens: {
         options: {
           includesDir: 'documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_api_web/analisis/',
           processIncludeContents: function(contenido) {
@@ -392,6 +394,51 @@ module.exports = function (grunt) {
         files: {
           'sistema_tokenizador/archivos_web/compilados/js/scripts.preprocesado.js':
             [cc_tokens + 'compilados/js/scripts.js']
+        }
+      },
+      html_tienda: {
+        options: {
+          prefix: '<!-- @@',
+          suffix: ' -->',
+          includesDir: 'documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_tienda/analisis/'
+        },
+        files: [
+          {
+            expand: true,
+            cwd: cc_tienda,
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/'
+          },
+          {
+            expand: true,
+            cwd: cc_tienda + 'html',
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/html/'
+          },
+          {
+            expand: true,
+            cwd: cc_tienda + 'html/plantillas',
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/html/plantillas/'
+          },
+          {
+            expand: true,
+            cwd: cc_tienda + 'html/ventanas',
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/html/ventanas/'
+          }
+        ]
+      },
+      js_tienda: {
+        options: {
+          includesDir: 'documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_tienda/analisis/',
+          processIncludeContents: function(contenido) {
+            return contenido.replace(/(?:\r\n|\r|\n)/g, '');
+          }
+        },
+        files: {
+          'tienda/archivos_web/compilados/js/scripts.js':
+            [cc_tienda + 'compilados/js/scripts.js']
         }
       }
     }

@@ -125,5 +125,60 @@ tienda.controller('controladorGeneral', [
 
     /* Secuencia de inicio. **************************************************/
     //console.log("DEBUG: controlador general");
+
+    /* Registrar cliente *****************************************************/
+
+    $scope.registrarse = function ($event) {
+      var padre = angular.element(document.body);
+      $mdDialog.show({
+        parent: padre,
+        targetEvent: $event,
+        templateUrl: '/estaticos/html/ventanas/operar_usuario.ventana.html',
+        controller: 'controladorFormularioOperarUsuario',
+        locals: {
+          "tituloOperacion": "Registrar datos",
+          "operacion": "registrar"
+        }
+      }).then(function (respuesta) {
+        if (respuesta != undefined) {
+          console.log(respuesta);
+        }
+      });
+    };
+
+    $scope.$on('$routeChangeSuccess', function () {
+
+      if ($scope.$routeParams.siguiente != undefined) {
+        $scope.iniciarSesion(undefined);
+      }
+
+      /* Verificación correcta. */
+      else if ($scope.$routeParams.correo_verificado != undefined) {
+        var aviso = $mdDialog.alert()
+          .title('Verificación de correo correcta')
+          .textContent('Su cuenta ha sido verificada correctamente.')
+          .ariaLabel('Verificación de correo correcta')
+          .targetEvent(undefined)
+          .ok('Aceptar');
+        $mdDialog.show(aviso).then(function (respuesta) {
+          $location.search('correo_verificado', null);
+        });
+      }
+
+      /* Verificación incorrecta. */
+      else if ($scope.$routeParams.correo_no_verificado != undefined) {
+        var aviso = $mdDialog.alert()
+          .title('Vínculo expirado')
+          .textContent('Han transcurrido más de 72 horas desde su registro.'
+            + 'Para verificar su correo vuelva a registrarse.')
+          .ariaLabel('Vínculo expirado')
+          .targetEvent(undefined)
+          .ok('Aceptar');
+        $mdDialog.show(aviso).then(function (respuesta) {
+          $location.search('correo_no_verificado', null);
+        });
+      }
+    });
+
   }
 ]);

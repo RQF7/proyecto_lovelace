@@ -1,0 +1,122 @@
+<!--
+  Formulario de inicio de sesión,
+  Tienda en línea.
+  Proyecto Lovelace.
+-->
+
+<md-dialog
+  flex="20"
+  flex-lg="30"
+  flex-md="40"
+  flex-sm="60"
+  flex-xs="80">
+  <md-dialog-content>
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h1>{{tituloOperacion}}</h1>
+      </div>
+    </md-toolbar>
+    <div
+      layout="row"
+      layout-align="center center">
+      <form
+        name="formularioOperarUsuario"
+        id="formularioOperarUsuario"
+        novalidate
+        flex="90"
+        ng-submit="operar($event)">
+        <md-input-container>
+          <label>Nombre de Usuario</label>
+          <input
+            name="nombre"
+            ng-model="usuario.nombre"
+            ng-value="usuario.fields.nombre"
+            md-no-asterisk
+            required
+            md-autofocus
+            ng-pattern="erNombre"
+            autocomplete="off"
+            spellcheck="false">
+          <div ng-messages="formularioOperarUsuario.nombre.$error">
+            <div ng-message="pattern">
+              Nombre inválido
+              <!---->
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container>
+          <label>Correo electrónico</label>
+          <input
+            name="correo"
+            ng-model="usuario.correo"
+            ng-value="usuario.fields.correo"
+            md-no-asterisk
+            required
+            ng-pattern="erCorreo"
+            autocomplete="off"
+            spellcheck="false">
+          <div ng-messages="formularioOperarUsuario.correo.$error">
+            <div ng-message="pattern">
+              <!-- @@include('mensajes/correo_incorrecto.txt') -->
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container>
+          <label>Contraseña</label>
+          <input
+            name="contrasenia"
+            type="password"
+            ng-model="usuario.contrasenia"
+            md-no-asterisk
+            required
+            ng-pattern="erContrasenia"
+            autocomplete="off"
+            spellcheck="false">
+          <div ng-messages="formularioOperarUsuario.contrasenia.$error">
+            <div ng-message="pattern">
+              <!-- @@include('mensajes/contrasenia_incorrecta.txt') -->
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container>
+          <label>Confirmación de contraseña</label>
+          <input
+            name="confirmacion"
+            type="password"
+            ng-model="usuario.confirmacion"
+            md-no-asterisk
+            required
+            ng-pattern="\b{{usuario.contrasenia}}\b"
+            autocomplete="off"
+            spellcheck="false">
+          <div ng-messages="formularioOperarUsuario.confirmacion.$error">
+            <div ng-message="pattern">
+              <!-- @@include('mensajes/confirmacion_incorrecta.txt') -->
+            </div>
+          </div>
+        </md-input-container>
+        <div
+          ng-if="error"
+          class="mensajes"
+          md-colors="{color: 'accent'}">
+          <!-- @@include('mensajes/usuario_existente.txt') -->
+        </div>
+      </form>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button
+      ng-click="cancelar()"
+      class="md-primary">
+      Cancelar
+    </md-button>
+    <md-button
+      id="formularioBotonOperarUsuario"
+      class="md-raised md-primary"
+      type="submit"
+      ng-disabled="formularioOperarUsuario.$invalid"
+      form="formularioOperarUsuario">
+      Aceptar
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
