@@ -48,7 +48,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'tienda.direcciones'
 
-
 WSGI_APPLICATION = 'tienda.servidor_web.application'
 
 # Base de datos ###############################################################

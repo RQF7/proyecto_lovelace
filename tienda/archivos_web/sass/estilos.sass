@@ -18,7 +18,7 @@ a
 
 p
   font-size: 1.1rem
-  font-weight: 400 
+  font-weight: 400
   letter-spacing: 0.010em
   line-height: 1.6em
   margin: 0.8em 0 1.6em
@@ -74,6 +74,9 @@ button.conIcono
   font-style: italic
   font-size: 10pt
   text-align: center
+
+.texto-de-formulario
+  margin: 0px
 
 /* Barra de título ***********************************************************/
 
@@ -186,3 +189,56 @@ md-dialog-content
   width: 80%
   @media only screen and (max-width: 600px)
     width: 95%
+
+
+/* De vista de libros. *******************************************************/
+
+.tarjeta
+  padding: 10px
+  width: 100%
+  height: 85%
+
+  img
+    width: 100%
+
+  .descripcion
+    margin-left: 10px
+
+    .etiqueta
+      margin-bottom: 10px
+
+      p
+        margin: 0px
+
+      .etiqueta-descripcion
+        font-size: 8pt
+
+      .etiqueta-contenido
+
+.total-de-carrito
+  font-size: 8pt
+  vertical-align: middle
+
+/* De tabla del carrito. *****************************************************/
+
+/* El complemento de las tablas no funciona bien con el tema obscuro: */
+md-table-container, table.md-table td.md-cell, table.md-table th.md-column
+  color: white
+
+  p
+    margin: 0px
+
+/* Selectores de cantidad adentro de tablas. */
+table
+  md-input-container
+    margin: 0px
+    width: 50px
+
+    .md-errors-spacer
+      min-height: 0px
+
+    .md-input
+      border-width: 0px
+
+table.md-table td.md-cell
+  border-color: white

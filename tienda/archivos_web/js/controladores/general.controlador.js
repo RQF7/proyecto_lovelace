@@ -92,7 +92,6 @@ tienda.controller('controladorGeneral', [
     $scope.usuario = undefined;
     api.obtenerUsuarioDeSesion().then(function (respuesta) {
       if (respuesta.data != '') {
-        console.log("DEBUG 1", respuesta.data);
         $scope.usuario = respuesta.data;
       }
     });
@@ -105,7 +104,6 @@ tienda.controller('controladorGeneral', [
         templateUrl: '/estaticos/html/ventanas/iniciar_sesion.ventana.html',
         controller: 'controladorFormularioIniciarSesion'
       }).then(function (respuesta) {
-        console.log("DEBUG 2", respuesta);
         if (respuesta != undefined) {
           $scope.usuario = respuesta;
           // if ($scope.$routeParams.siguiente != undefined) {
@@ -122,6 +120,7 @@ tienda.controller('controladorGeneral', [
         $location.path('/');
       });
     };
+
 
     /* Secuencia de inicio. **************************************************/
     //console.log("DEBUG: controlador general");
@@ -179,6 +178,50 @@ tienda.controller('controladorGeneral', [
         });
       }
     });
+
+
+    /* Control de carrito. ***************************************************/
+    $scope.carrito = {};
+    $scope.carrito.total = 0.0;
+    $scope.carrito.libros = [];
+
+    api.obtenerCarrito().then(function (respuesta) {
+      if (respuesta.data != '') {
+        $scope.carrito = respuesta.data;
+      }
+    });
+
+    $scope.buscarEnCarrito = function(idDeLibro) {
+      for (var i = 0; i < $scope.carrito.libros.length; i++)
+        if (idDeLibro == $scope.carrito.libros[i].pk)
+          return i;
+      return -1;
+    };
+
+    $scope.agregarAlCarrito = function (libro) {
+      libro.cantidad = 1;
+      libro.enCarrito = true;
+      $scope.carrito.libros.push(libro);
+      $scope.carrito.total += Number(libro.precio);
+      api.guardarCarrito($scope.carrito);
+    };
+
+    $scope.quitarDelCarrito = function (libro) {
+      libro.enCarrito = false;
+      idDeLibro = $scope.buscarEnCarrito(libro.pk);
+      $scope.carrito.total -= libro.precio
+        * $scope.carrito.libros[idDeLibro].cantidad;
+      $scope.carrito.libros.splice(idDeLibro, 1)
+      api.guardarCarrito($scope.carrito);
+    };
+
+    $scope.cambioDeCantidad = function () {
+      $scope.carrito.total = 0;
+      for (var i = 0; i < $scope.carrito.libros.length; i++)
+        $scope.carrito.total += $scope.carrito.libros[i].precio
+          * $scope.carrito.libros[i].cantidad;
+      api.guardarCarrito($scope.carrito)
+    };
 
   }
 ]);

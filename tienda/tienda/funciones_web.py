@@ -17,7 +17,7 @@ from .models.usuario import Usuario
 
 
 def usuarioDeSesion (peticion):
-  """ Regresa el usuario de la sesión.
+  """Regresa el usuario de la sesión.
 
   En caso de no existir, se regresa un http vacío."""
 
@@ -74,7 +74,6 @@ def cerrarSesion (peticion):
 # Operaciones de clientes ######################################################
 ################################################################################
 
-
 def operarUsuario (peticion):
   """Función diccionario para operaciones sobre un usuario."""
 
@@ -129,3 +128,33 @@ def verificarCorreoDeRegistro (peticion, vinculo):
     usuario.vinculo = None
     usuario.save()
     return django.http.HttpResponseRedirect('/?correo_verificado')
+
+
+################################################################################
+# Operaciones de carrito #######################################################
+################################################################################
+
+def operarCarrito (peticion):
+  """Gestión del recurso del carrito."""
+  if peticion.method == 'GET':
+    return obtenerCarrito(peticion)
+  elif peticion.method == 'POST':
+    return guardarCarrito(peticion)
+  else:
+    return django.http.HttpResponseNotAllowed()
+
+
+def obtenerCarrito (peticion):
+  """Regresa el carrito en sesión.
+
+  En caso de no existir, regresa un HTTP vacío."""
+  if 'carrito' in peticion.session:
+    return django.http.HttpResponse(peticion.session['carrito'])
+  else:
+    return django.http.HttpResponse()
+
+
+def guardarCarrito (peticion):
+  """Guarda la representación del carrito en las variables de sesión."""
+  peticion.session['carrito'] = peticion.body.decode('utf-8')
+  return django.http.HttpResponse()

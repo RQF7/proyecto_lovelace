@@ -14,6 +14,12 @@ tienda.config(function($routeProvider, $locationProvider){
     controller: 'controladorInicio'
   });
 
+  $routeProvider.when('/carrito',
+  {
+    templateUrl: 'estaticos/html/carrito.html',
+    controller: 'controladorCarrito'
+  });
+
   $locationProvider.hashPrefix('');
   $locationProvider.html5Mode(true);
 

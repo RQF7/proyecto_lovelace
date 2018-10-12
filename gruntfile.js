@@ -79,6 +79,7 @@ module.exports = function (grunt) {
         src: [
           cc_tienda + 'js/tienda.aplicacion.js',
           cc_tienda + 'js/configuraciones/*.configuracion.js',
+          cc_tienda + 'js/filtros/*.filtro.js',
           cc_tienda + 'js/servicios/*.servicio.js',
           cc_tienda + 'js/controladores/*.controlador.js',
           cc_tienda + 'js/controladores/secundarios/*.controlador.js'
@@ -161,6 +162,12 @@ module.exports = function (grunt) {
             flatten: true,
             src: [cc_tienda + 'imagenes/*.png'],
             dest: cc_tienda + 'compilados/imagenes/'
+          },
+          {
+            expand: true,
+            flatten: true,
+            src: [cc_tienda + '../img/*.jpg'],
+            dest: cc_tienda + 'compilados/imagenes/libros/'
           },
           {
             src: [cc_tienda + 'sass/estilos.sass'],
