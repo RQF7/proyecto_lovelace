@@ -35,11 +35,19 @@ urlpatterns = [
     funciones_web.obtenerTarjetas),
   django.urls.path('tarjeta/<int:idDeTarjeta>',
     funciones_web.operarTarjeta),
+  django.urls.path('emisores',
+    funciones_web.obtenerEmisores),
+  django.urls.path('metodos',
+    funciones_web.obtenerMetodos),
+  django.urls.path('tipos',
+    funciones_web.obtenerTipos),
 
   # Opeaciones sobre direcciones
   django.urls.path('direcciones',
     funciones_web.obtenerDirecciones),
   django.urls.path('direccion/<int:idDeDireccion>',
     funciones_web.operarDireccion),
+  django.urls.path('estados',
+    funciones_web.obtenerEstados),
 
 ]

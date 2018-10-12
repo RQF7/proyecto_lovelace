@@ -14,8 +14,12 @@ import tienda.libreria as libreria
 
 from .models.compra import Compra
 from .models.direccion import Direccion
+from .models.emisor import Emisor
+from .models.estado import Estado
+from .models.metodo import Metodo
 from .models.paquete import Paquete
 from .models.tarjeta import Tarjeta
+from .models.tipo_de_tarjeta import TipoDeTarjeta
 from .models.usuario import Usuario
 from ..tienda import negocio
 from .models.usuario import Usuario
@@ -233,6 +237,24 @@ def eliminarTarjeta (peticion, idDeTarjeta):
   return django.http.HttpResponse()
 
 
+def obtenerEmisores (peticion):
+  """Regresa el catálogo de emisores."""
+  emisores = Emisor.objects.all()
+  return utilidades.respuestaJSON(emisores)
+
+
+def obtenerMetodos (peticion):
+  """Regresa el catálogo de métodos (algoritmos tokenizadores)."""
+  metodos = Metodo.objects.all()
+  return utilidades.respuestaJSON(metodos)
+
+
+def obtenerTipos (peticion):
+  """Regresa el catálogo de tipos de tarjeta."""
+  tipos = TipoDeTarjeta.objects.all()
+  return utilidades.respuestaJSON(tipos)
+
+
 ################################################################################
 # Operaciones sobre direcciones ################################################
 ################################################################################
@@ -270,3 +292,9 @@ def eliminarDireccion (peticion, idDeDireccion):
   direccion.activa = False;
   direccion.save()
   return django.http.HttpResponse()
+
+
+def obtenerEstados (peticion):
+  """Regresa el catálogo de estados."""
+  estados = Estado.objects.all()
+  return utilidades.respuestaJSON(estados)

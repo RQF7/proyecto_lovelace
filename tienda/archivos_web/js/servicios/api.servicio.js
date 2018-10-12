@@ -85,6 +85,18 @@
          + idDeTarjeta);
      };
 
+     API.obtenerEmisores = function () {
+       return $http.get(RUTA_BASE + RUTA_TIENDA + '/emisores')
+     };
+
+     API.obtenerMetodos = function () {
+       return $http.get(RUTA_BASE + RUTA_TIENDA + '/metodos')
+     };
+
+     API.obtenerTipos = function () {
+       return $http.get(RUTA_BASE + RUTA_TIENDA + '/tipos')
+     };
+
      /* Operaciones sobre direcciones ****************************************/
 
      API.obtenerDirecciones = function () {
@@ -94,6 +106,10 @@
      API.eliminarDireccion = function (idDeDireccion) {
        return $http.delete(RUTA_BASE + RUTA_TIENDA + '/direccion/'
          + idDeDireccion);
+     };
+
+     API.obtenerEstados = function () {
+       return $http.get(RUTA_BASE + RUTA_TIENDA + '/estados')
      };
 
      return API;

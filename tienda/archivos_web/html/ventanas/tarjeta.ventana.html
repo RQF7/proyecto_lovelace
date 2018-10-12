@@ -1,0 +1,90 @@
+<!--
+  Formulario de método de pago,
+  Tienda en línea.
+  Proyecto Lovelace.
+-->
+
+<md-dialog
+  flex="60">
+  <md-dialog-content>
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h1>Agregar método de pago</h1>
+      </div>
+    </md-toolbar>
+    <div
+      layout="row"
+      layout-align="center center">
+      <form
+        name="formularioTarjeta"
+        id="formularioTarjeta"
+        novalidate
+        flex="90"
+        layout="row"
+        ng-submit="aceptar($event)">
+        <div
+          flex
+          layou="row"
+          layout-align="center center">
+          <md-input-container flex="45">
+            <label>Número de tarjeta</label>
+            <input name="nombre"
+              ng-model="tarjeta.pan"
+              md-no-asterisk
+              required
+              md-maxlength="19"
+              ng-minlength="12"
+              type="number"
+              md-autofocus
+              autocomplete="off"
+              spellcheck="false">
+            <div ng-messages="formularioTarjeta.nombre.$error">
+              <div ng-message="required">
+                Campo obligatorio.
+              </div>
+              <div ng-message="md-maxlength">
+                Longitud máxima: 19 dígitos.
+              </div>
+              <div ng-message="minlength">
+                Longitud mínima: 12 digitos.
+              </div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="45">
+            <label>Tituar</label>
+            <input name="nombre"
+              ng-model="tarjeta.titular"
+              md-no-asterisk
+              required
+              ng-minlength="15"
+              md-autofocus
+              autocomplete="off"
+              spellcheck="false">
+            <div ng-messages="formularioTarjeta.nombre.$error">
+              <div ng-message="required">
+                Campo obligatorio.
+              </div>
+              <div ng-message="minlength">
+                Longitud mínima: 5 caracteres.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+      </form>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button
+      ng-click="cancelar()"
+      class="md-primary">
+      Cancelar
+    </md-button>
+    <md-button
+      class="md-raised md-primary"
+      type="submit"
+      ng-disabled="formularioTarjeta.$invalid"
+      form="formularioTarjeta">
+      Aceptar
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
