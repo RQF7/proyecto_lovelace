@@ -45,6 +45,11 @@
     Métodos de pago
   </h2>
   <md-divider class="divisor-de-seccion"></md-divider>
+  <p ng-if="tarjetas.length == 0">
+    <em>
+      No hay ningún método de pago guardado.
+    </em>
+  </p>
   <md-grid-list
     md-cols="4"
     md-cols-xs="1"
@@ -132,6 +137,11 @@
     Direcciones de entrega
   </h2>
   <md-divider class="divisor-de-seccion"></md-divider>
+  <p ng-if="direcciones.length == 0">
+    <em>
+      No hay ninguna dirección de entrega guardada.
+    </em>
+  </p>
   <md-grid-list
     md-cols="4"
     md-cols-xs="1"

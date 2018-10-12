@@ -14,6 +14,13 @@
   <div
     layout="row"
     layout-align="center center">
+    <md-button
+      ng-disabled="paginador.pagina == 1"
+      ng-click="retrocederPagina()"
+      class="md-primary conIcono">
+      <i class="material-icons">navigate_before</i>
+      <md-tooltip>Página anterior</md-tooltip>
+    </md-button>
     <p flex="none"
       class="texto-de-formulario">
       Página:
@@ -40,6 +47,14 @@
         paginador.pagina * paginador.limite}}
       de {{totalDeLibros}}
     </p>
+    <md-button
+      ng-disabled="paginador.pagina ==
+        paginador.paginas[paginador.paginas.length - 1]"
+      ng-click="avanzarPagina()"
+      class="md-primary conIcono">
+      <i class="material-icons">navigate_next</i>
+      <md-tooltip>Siguiente página</md-tooltip>
+    </md-button>
   </div>
   <!--
     TODO:

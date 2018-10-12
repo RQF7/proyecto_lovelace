@@ -36,6 +36,16 @@ tienda.controller('controladorInicio', [
         });
     };
 
+    $scope.avanzarPagina = function () {
+      $scope.paginador.pagina++;
+      $scope.obtenerLibros();
+    };
+
+    $scope.retrocederPagina = function () {
+      $scope.paginador.pagina--;
+      $scope.obtenerLibros();
+    };
+
     /* Secuencia de inicio. **************************************************/
     $scope.cambiarTitulo("Catálogo", 1);
     $scope.obtenerLibros();
