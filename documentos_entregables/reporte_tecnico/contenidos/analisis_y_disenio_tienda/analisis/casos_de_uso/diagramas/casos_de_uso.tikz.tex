@@ -1,0 +1,98 @@
+%
+% Diagrama de casos de uso,
+% Capítulo de análisis y diseño de tienda en línea,
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}
+  \umlactor[x=11,   y=4.25,  scale=1.5]{Visitante}
+  \umlactor[x=-4,   y=06.00,  scale=1.5]{Cliente}
+
+  \begin{umlsystem}{Tienda de libros}
+
+    % Casos de uso %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % CU de un visistante
+    \umlusecase[x=07, y=7.5, width=2.6cm,
+      name=registrar_cliente, fill=white]
+      {\hipervinculo{lib_cu:registrar_cliente}}
+
+    \umlusecase[x=07, y=06,  width=2.6cm,
+      name=iniciar_sesion, fill=white]
+      {\hipervinculo{lib_cu:iniciar_sesion}}
+
+    % CU de un cliente
+    \umlusecase[x=00, y=10.5, width=2.6cm,
+      name=agregar_direccion_entrega, fill=white]
+      {\hipervinculo{lib_cu:agregar_direccion_entrega}}
+
+    \umlusecase[x=00, y=09, width=2.6cm,
+      name=eliminar_direccion_entrega, fill=white]
+      {\hipervinculo{lib_cu:eliminar_direccion_de_entrega}}
+
+    \umlusecase[x=00, y=7.5, width=2.6cm,
+      name=actualizar_informacion, fill=white]
+      {\hipervinculo{lib_cu:actualizar_informacion_personal}}
+
+    \umlusecase[x=00, y=06, width=2.6cm,
+      name=agregar_forma_de_pago, fill=white]
+    {\hipervinculo{lib_cu:agregar_forma_de_pago}}
+
+    \umlusecase[x=00, y=4.5, width=2.6cm,
+      name=eliminar_forma_de_pago, fill=white]
+    {\hipervinculo{lib_cu:eliminar_forma_de_pago}}
+
+    \umlusecase[x=00, y=03, width=2.6cm,
+      name=cerrar_sesion, fill=white]
+      {\hipervinculo{lib_cu:cerrar_sesion}}
+
+    \umlusecase[x=00, y=1.5, width=2.6cm,
+      name=comprar, fill=white]
+      {\hipervinculo{lib_cu:comprar}}
+
+    \umlusecase[x=07, y=03, width=2.6cm,
+      name=eliminar_libro, fill=white]
+      {\hipervinculo{lib_cu:quitar_libro}}
+
+    \umlusecase[x=07, y=1.5, width=2.6cm,
+      name=agregar_libro, fill=white]
+      {\hipervinculo{lib_cu:agregar_libro}}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Relaciones entre actor y caso de uso %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Relaciones entre cliente y sus casos de uso.
+    \umlassoc{Cliente}{agregar_direccion_entrega}
+    \umlassoc{Cliente}{eliminar_direccion_entrega}
+    \umlassoc{Cliente}{actualizar_informacion}
+    \umlassoc{Cliente}{agregar_forma_de_pago}
+    \umlassoc{Cliente}{eliminar_forma_de_pago}
+    \umlassoc{Cliente}{cerrar_sesion}
+    \umlassoc{Cliente}{comprar}
+
+    % Relaciones entre visitante y sus casos de uso.
+    \umlassoc{Visitante}{registrar_cliente}
+    \umlassoc{Visitante}{iniciar_sesion}
+    \umlassoc{Visitante}{agregar_libro}
+    \umlassoc{Visitante}{eliminar_libro}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Relaciones entre casos de uso %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Comprar incluye agregar un libro
+    \umlinclude{comprar}{agregar_libro}
+
+    % Puedes eliminar (o no) un libro solo cuando lo agregas
+    \umlextend{agregar_libro}{eliminar_libro}
+
+    % Casi todo incluye a niciar sesión
+    \umlinclude{agregar_direccion_entrega}{iniciar_sesion}
+    \umlinclude{eliminar_direccion_entrega}{iniciar_sesion}
+    \umlinclude{actualizar_informacion}{iniciar_sesion}
+    \umlinclude{agregar_forma_de_pago}{iniciar_sesion}
+    \umlinclude{eliminar_forma_de_pago}{iniciar_sesion}
+    \umlinclude{cerrar_sesion}{iniciar_sesion}
+    \umlinclude{comprar}{iniciar_sesion}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \end{umlsystem}
+\end{tikzpicture}

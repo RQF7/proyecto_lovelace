@@ -85,7 +85,7 @@ aplica, la licencia que tiene, y se coloca la versión ocupada.
   Sin licencia}{https://github.com/amiralis/libaesni}
 {%
   Envoltura en C alrededor de las instrucciones de ensamblador de Intel para
-  \gls{gl:aes} (sección \ref{sec:intel}). La razón de ser de esta librería
+  \gls{gl:aes} (sección~\ref{sec:intel}). La razón de ser de esta librería
   dentro de las dependencias es para evitar tener que escribir código
   directamente en ensamblador. Este programa funciona como interfaz en C con las
   instrucciones de Intel.
@@ -146,7 +146,7 @@ conjuntos de instrucciones desarrollados por Intel: el primero es AES-NI y el
 segundo RD-SEED.
 
 AES-NI son siete instrucciones que implementan directamente, a nivel de
-hardware, algunos de los procesos del algoritmo de AES (sección \ref{sec:aes}).
+hardware, algunos de los procesos del algoritmo de AES (sección~\ref{sec:aes}).
 Estas instrucciones fueron sacadas al mercado en en septiembre de 2010, para la
 familia de procesadorer de microarquitectua de 32nm\cite{aesni_wp}. Su objetivo
 es acelerar la operación de AES, una de los cifrados por bloque más
@@ -155,14 +155,14 @@ utilizados.
 RD-SEED se publicó junto con otra instrucción, RD-RAND. RD-SEED es un generador
 de números aleatorios que obtiene entropía de procesos físicos relacionados con
 el ptrocesador; cumple con los estándares definidos por el NIST en
-\cite{nist_aleatorios} (sección \ref{sec:generadores_pseudoaleatorios}). Su
+\cite{nist_aleatorios} (sección~\ref{sec:generadores_pseudoaleatorios}). Su
 función es servir como fuente de entropía a generadores pseudoaleatorios.
 RD-RAND es un generador de números pseudoaleatorios que cumple con el estándar
 del NIST 800-90A. Ambas instrucciones estuvieron disponibles a partir de 2014,
 con la versión de procesadores de microarquitectura \textit{broadwell}
 \cite{aesni_wp}. Para los fines de este proyecto, la instrucción que ocupamos
 es RD-SEED; RD-RAND es equivalente a nuestra implementación del generador
-pseudoaleatorio (sección \ref{sec:implementacion_drbg}). También es importante
+pseudoaleatorio (sección~\ref{sec:implementacion_drbg}). También es importante
 recalcar que RD-RAND, por su naturaleza de algoritmo, se encuentra disponible en
 casi todos los procesadores de Intel y AMD, mientras que RD-SEED implica
 funcionalidades en hardware que solo soportan algunas versiones de procesadores

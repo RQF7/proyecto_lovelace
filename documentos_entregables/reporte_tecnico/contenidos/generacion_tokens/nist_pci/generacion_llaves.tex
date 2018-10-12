@@ -20,7 +20,7 @@ o indirecta deben estar basadas en la salida de un \gls{gl:rbg}.
 
 \paragraph{Donde generar las llaves}
 La generación de llaves criptográficas debe ir de acuerdo con el \gls{gl:fips}
-140 (descrito en \cite{nist_modulos_criptograficos}), y si es necesario que
+140 (descrito en~\cite{nist_modulos_criptograficos}), y si es necesario que
 las llaves sean transferidas, se debe de hacer por medio de un canal seguro.
 Además, todos los valores aleatorios requeridos para la generación de las
 llaves deben ser generados dentro de un mismo módulo criptográfico.
@@ -79,7 +79,7 @@ las compartirán, o por un tercero de confianza capaz de compartirlas de una
 manera segura.
 
 Las llaves que son generadas directamente de un \gls{gl:rbg} deben de cumplir
-con la forma establecida en la ecuación \ref{bits_K}.
+con la forma establecida en la ecuación~\ref{bits_K}.
 
 Cuando sea necesario compartir una llave, su distribución debe de ser manual,
 o por medio de un envolvimiento de la misma o \textit{key wrapping}, el cual
@@ -165,7 +165,7 @@ iteración, ya que definen las entradas que se tendrán y el orden de los campos
 de salida en cada ciclo.
 
 \paragraph{Counter mode}
-En la figura \ref{diagrama_counter_mode} se aprecia la forma de operación de
+En la figura~\ref{diagrama_counter_mode} se aprecia la forma de operación de
 este modo de iteración, en el que los datos de entrada son concatenados en una
 cadena binaria de la forma: $Label \parallel 0x00 \parallel Context \parallel
 {[L]}_2$ donde el $Label$ es un valor que identifica el propósito del
@@ -202,7 +202,7 @@ label={mi:1}]
 \paragraph{Feedback mode}
 Este modo de iteración opera tomando la salida de la \gls{gl:prf} en la
 iteración anterior como parte los datos de entrada de la iteración actual.
-Cabe resaltar que como se muestra en la figura \ref{diagrama_feedback_mode},
+Cabe resaltar que como se muestra en la figura~\ref{diagrama_feedback_mode},
 es opcional tener un contador concatenado a estos datos, que son iguales que
 en el modo de operación anterior, solo que con un
 \gls{gl:vector_de_inicializacion} $IV$.

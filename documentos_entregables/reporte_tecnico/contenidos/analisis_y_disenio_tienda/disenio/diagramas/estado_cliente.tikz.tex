@@ -1,0 +1,72 @@
+%
+% Diagrama de estados de un cliente,
+% Capítulo de análisis y diseño para una librería.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[
+  estado/.style = {
+    rectangle,
+    draw = black,
+    thin,
+    inner sep = 4mm,
+    text width = 25mm,
+    align = center,
+    minimum height = 1.5cm},
+  estado_inicial/.style = {
+    circle,
+    minimum size = 15pt,
+    fill = black},
+  etiqueta_transicion/.style = {
+    align = center,
+    text width = 15mm}]
+
+  % Estados
+  \node[estado_inicial]
+    (estado_inicial) {};
+  \node[estado]
+    (noVerificado)
+    [right = 2.2in of estado_inicial]
+    {no Verificado};
+  \node[estado]
+    (verificado)
+    [below = 1in of noVerificado]
+    {Verificado};
+
+% Transiciones
+  \draw[-Stealth]
+    (estado_inicial.east)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 1.6in,
+      above]
+      {\hipervinculo{lib_cu:registrar_cliente}}
+      % {Registrar usuario}
+    (noVerificado.west);
+
+  \draw[-Stealth]
+    (noVerificado.east)
+    --
+    ($(noVerificado.east) + (+0.7in, 0)$)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 2in,
+      right]
+      {\hipervinculo{lib_cu:registrar_cliente}\\\hipervinculo{lib_cu:actualizar_informacion_personal}}
+    ($(verificado.east) + (+0.7in, 0)$)
+    --
+    (verificado.east);
+
+  \draw[-Stealth]
+    ($(verificado.north) + (-0.3in, 0)$)
+    --
+    node[
+      etiqueta_transicion,
+      text width = 2in,
+      left]
+      {\hipervinculo{lib_cu:registrar_cliente}\\\hipervinculo{lib_cu:actualizar_informacion_personal}}
+    ($(noVerificado.south) + (-0.3in, 0)$);
+
+\end{tikzpicture}
