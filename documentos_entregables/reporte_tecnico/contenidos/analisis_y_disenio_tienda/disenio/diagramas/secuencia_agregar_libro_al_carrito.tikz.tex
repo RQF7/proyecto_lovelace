@@ -1,0 +1,50 @@
+%
+% Diagrama de secuencia para agregar un libro al carrito,
+% Análisis y diseño de tienda en línea,
+% Reporte técnico.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[]
+  \begin {umlseqdiag}
+
+    % Líneas de vida
+    \umlactor[class = Usuario]{visitante}
+    \umlboundary[no ddots]{navegador}
+    \umlcontrol[class = Servicio]{servicioGeneral}
+    \umldatabase[no ddots]{Modelo}
+
+    % Obtener detalles del libro %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{umlcall}[%
+      op = {Botón «Detalles»},%
+      return = IULIB-13]{visitante}{navegador}
+      \begin{umlcall}[%
+        op = {GET /libro/{isbn}},%
+        return = {200 OK libro}]{navegador}{servicioGeneral}
+        \begin{umlcall}[%
+          op = {obtenerLibro(isbn)},%
+          return = libro]{servicioGeneral}{Modelo}
+        \end{umlcall}
+      \end{umlcall}
+    \end{umlcall}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Presionar agregar al carrito %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{umlcall}[%
+      op = {Botón «Agregar al carrito»},%
+      return = IULIB-13]{visitante}{navegador}
+    \end{umlcall}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Guardar en variables de sesión %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{umlcall}[%
+      op = GuardarEnVariableSesion{libro},
+      return = {200 OK}]{visitante}{navegador}
+    \end{umlcall}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \end{umlseqdiag}
+\end{tikzpicture}
