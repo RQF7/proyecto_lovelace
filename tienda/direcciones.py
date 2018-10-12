@@ -12,8 +12,25 @@ import tienda.general as general
 
 urlpatterns = [
 
+  # Operaciones de módulo general
+  django.urls.path('api/tienda/',
+    django.urls.include(
+      'tienda.tienda.direcciones')),
+
+  # Operaciones de módulo general
+  django.urls.path('api/libreria/',
+    django.urls.include(
+      'tienda.libreria.direcciones')),
+
   # URLs estáticas
-  django.urls.path('', general.funciones.inicio)
+  django.urls.path('',
+    general.funciones.inicio),
+  django.urls.path('carrito',
+    general.funciones.inicio),
+  django.urls.path('cuenta',
+    general.funciones.inicio),
+  django.urls.path('libro/<int:idDeLibro>',
+    general.funciones.inicio),
 
 ]
 

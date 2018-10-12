@@ -10,7 +10,7 @@ from .direccion import Direccion
 
 class Usuario (django.db.models.Model):
   """
-  Descripción
+  Un usuario de la tienda.
   """
 
   nombre = django.db.models.CharField(
@@ -25,10 +25,27 @@ class Usuario (django.db.models.Model):
   contrasenia = django.db.models.BinaryField(
     verbose_name = 'hash de contraseña')
 
-  tarjeta = django.db.models.ManyToManyField(Tarjeta)
+  verificado = django.db.models.BooleanField(
+    verbose_name = 'bandera para saber si el usuario esta verificado')
 
-  direccion = django.db.models.ManyToManyField(Direccion)
+  tarjeta = django.db.models.ManyToManyField(
+    Tarjeta,
+    blank = True)
+
+  direccion = django.db.models.ManyToManyField(
+    Direccion,
+    blank = True)
+
+  vinculo = django.db.models.CharField(
+    verbose_name = 'vinculo de verificación',
+    max_length = 100,
+    unique = True,
+    null = True)
+
+  fecha = django.db.models.DateTimeField(
+    verbose_name = 'fecha de creación del vinculo',
+    null = True)
 
   def __str__(self):
-    """Representación en cadena de un tipo de usuario."""
+    """Representación en cadena de un usuario."""
     return self.nombre

@@ -26,7 +26,8 @@ def guardar(modelos):
     try:
       modelo.save()
     except django.db.utils.IntegrityError:
-      print('Entrada duplicada: ' + str(modelo))
+      print('Entrada duplicada: ' + str(modelo),
+        django.db.utils.IntegrityError)
 
 
 if __name__ == '__main__':

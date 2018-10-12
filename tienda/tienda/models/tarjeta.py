@@ -44,7 +44,7 @@ class Tarjeta (django.db.models.Model):
   expiracion = django.db.models.DateField(
     verbose_name = 'fecha de expiración de la tarjeta')
 
-  tipo_de_tarjeta = django.db.models.ForeignKey('TipoDeTarjeta',
+  tipoDeTarjeta = django.db.models.ForeignKey('TipoDeTarjeta',
     django.db.models.PROTECT,
     verbose_name = 'tipo de tarjeta',
     null = True)

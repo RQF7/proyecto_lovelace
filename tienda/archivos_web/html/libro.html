@@ -1,0 +1,119 @@
+<!--
+  Html de página de detalles de libro.
+  Tienda en línea.
+  Proyecto Lovelace.
+
+  TODO:
+    Hacer que esto funcione en pantallas de proporción vertical.
+    Agregar entrada numérica para cantidad.
+-->
+
+<div
+  class="seccion"
+  flex="none"
+  layout="column">
+  <div
+    layout="row"
+    layout-margin="20">
+    <div
+      layout="column"
+      layout-align="start center">
+      <img src="estaticos/imagenes/libros/l{{libro.foto}}"/>
+      <div>
+        <md-button
+          ng-if="!libro.enCarrito"
+          ng-click="agregarAlCarrito(libro)"
+          class="md-primary conIcono"
+          ng-disabled="libro.existencias == 0">
+          <i class="material-icons">add_shopping_cart</i>
+          <md-tooltip>Agregar al carrito</md-tooltip>
+        </md-button>
+        <md-tooltip
+          ng-if="libro.existencias == 0">
+          Sin existencias
+        </md-tooltip>
+      </div>
+      <md-button
+        ng-if="libro.enCarrito"
+        ng-click="quitarDelCarrito(libro)"
+        class="md-primary conIcono">
+        <i class="material-icons">remove_shopping_cart</i>
+        <md-tooltip>Quitar del carrito</md-tooltip>
+      </md-button>
+    </div>
+    <div>
+      <div class="etiqueta">
+        <p class="etiqueta-descripcion">
+          Título
+        </p>
+        <p class="etiqueta-contenido">
+          {{libro.titulo}}
+        </p>
+      </div>
+      <div class="etiqueta">
+        <p class="etiqueta-descripcion">
+          Autor
+        </p>
+        <p class="etiqueta-contenido">
+          {{libro.autor[0] | nombre}}
+        </p>
+      </div>
+      <div class="etiqueta">
+        <p class="etiqueta-descripcion">
+          Editorial
+        </p>
+        <p class="etiqueta-contenido">
+          {{libro.editorial}}
+        </p>
+      </div>
+      <div class="etiqueta">
+        <p class="etiqueta-descripcion">
+          Edición
+        </p>
+        <p class="etiqueta-contenido">
+          {{libro.edicion}}
+        </p>
+      </div>
+      <div class="etiqueta">
+        <p class="etiqueta-descripcion">
+          Año
+        </p>
+        <p class="etiqueta-contenido">
+          {{libro.anio}}
+        </p>
+      </div>
+      <div class="etiqueta">
+        <p class="etiqueta-descripcion">
+          Número de páginas
+        </p>
+        <p class="etiqueta-contenido">
+          {{libro.paginas}}
+        </p>
+      </div>
+      <div class="etiqueta">
+        <p class="etiqueta-descripcion">
+          Género
+        </p>
+        <p class="etiqueta-contenido">
+          {{libro.genero}}
+        </p>
+      </div>
+      <div class="etiqueta">
+        <p class="etiqueta-descripcion">
+          Precio
+        </p>
+        <p class="etiqueta-contenido">
+          {{libro.precio | currency}}
+        </p>
+      </div>
+      <div class="etiqueta">
+        <p class="etiqueta-descripcion">
+          Ejemplares en existencias
+        </p>
+        <p class="etiqueta-contenido">
+          {{libro.existencias}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

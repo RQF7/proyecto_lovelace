@@ -1,0 +1,294 @@
+/*
+ * Definición de reglas de estilo,
+ * tienda en línea,
+ * Proyecto Lovelace.
+ */
+
+$margen-lateral-grande: 40px
+$margen-lateral-chico: 20px
+
+/* Generales *****************************************************************/
+
+html
+  font-size: 90%
+
+a
+  text-decoration: none
+  color: #0D47A1
+
+p
+  font-size: 1.1rem
+  font-weight: 400
+  letter-spacing: 0.010em
+  line-height: 1.6em
+  margin: 0.8em 0 1.6em
+
+h1
+  font-size: 1.6rem
+h2
+  font-size: 1.4rem
+
+@font-face
+  font-family: 'Material Icons'
+  font-style: normal
+  font-weight: 400
+  src: url(/estaticos/fuentes/MaterialIcons-Regular.eot)
+  src: local('Material Icons')
+  src: local('MaterialIcons-Regular')
+  src: url(/estaticos/fuentes/MaterialIcons-Regular.woff2) format('woff2')
+  src: url(/estaticos/fuentes/MaterialIcons-Regular.woff) format('woff')
+  src: url(/estaticos/fuentes/MaterialIcons-Regular.ttf) format('truetype')
+
+.material-icons
+  font-family: 'Material Icons'
+  font-weight: normal
+  font-style: normal
+  font-size: 24px
+  display: inline-block
+  line-height: 1
+  text-transform: none
+  letter-spacing: normal
+  word-wrap: normal
+  white-space: nowrap
+  direction: ltr
+  -webkit-font-smoothing: antialiased
+  text-rendering: optimizeLegibility
+  -moz-osx-font-smoothing: grayscale
+  font-feature-settings: 'liga'
+
+/* De formularios ************************************************************/
+
+md-input-container
+  width: 100%
+
+.md-datepicker-input
+  font-size: 100%
+
+button.conIcono, a.conIcono
+  min-width: 0px
+
+  .material-icons
+    vertical-align: middle
+
+.mensajes
+  font-style: italic
+  font-size: 10pt
+  text-align: center
+
+.texto-de-formulario
+  margin: 0px
+
+/* Hack para inputs de fechas
+ * https://github.com/angular/material/issues/9550 */
+
+.date-picker
+	&._md-datepicker-floating-label
+		&._md-datepicker-has-calendar-icon
+			> label
+				&:not(.md-no-float)
+					&:not(.md-container-ignore)
+						left: 34px
+						right: 0
+
+	md-datepicker
+		display: inline-block
+		padding: 0
+		width: 100%
+
+		.md-datepicker-button
+			margin-left: -12px
+
+		.md-datepicker-input-container
+			display: flex
+
+			.md-datepicker-input
+				max-width: 100%
+				min-width: 100%
+
+			.md-datepicker-triangle-button
+				right: 8px
+
+	.md-input-messages-animation
+		.md-input-message-animation
+			margin-left: 34px
+
+md-input-container .md-errors-spacer
+  min-height: 0px
+
+/* Barra de título ***********************************************************/
+
+#contenidos
+  padding: 0
+
+  .titulo
+    margin: 0px
+    margin-left: 320px
+    @media only screen and (max-width: 1279px)
+      margin-left: 0px
+    height: 87px
+    min-height: 87px
+    max-height: 87px
+    padding: 0px
+    padding-right: $margen-lateral-grande
+    @media only screen and (max-width: 600px)
+      padding-right: $margen-lateral-chico
+    position: fixed
+    left: 0px
+    right: 0px
+    z-index: 10
+
+    h1
+      text-align: left
+      margin: 0px
+      margin-left: $margen-lateral-grande
+      @media only screen and (max-width: 600px)
+        margin-left: $margen-lateral-chico
+
+  #contenidos-internos
+    margin-top: 87px
+    padding: 0px $margen-lateral-grande
+    @media only screen and (max-width: 600px)
+      padding: 0px $margen-lateral-chico
+
+    .seccion
+      margin-top: 20px
+      margin-bottom: 30px
+
+
+.sin-estilo
+  font-size: 12pt
+  line-height: normal
+  margin: 0px
+
+/* Controles de menú lateral *************************************************/
+
+.icono-menu
+  margin: 0px
+  padding: 0px
+  width: 40px
+  min-width: 40px
+  max-width: 40px
+  height: 40px
+  min-height: 40px
+  max-height: 40px
+  i
+    font-size: 40px
+
+#icono-menu-afuera
+  margin-left: $margen-lateral-grande
+  @media only screen and (max-width: 600px)
+    margin-left: $margen-lateral-chico
+
+#icono-menu-adentro
+  margin-right: 16px
+
+/* Barra lateral *************************************************************/
+
+md-sidenav md-content .md-button
+  text-align: left
+  margin: 0px 0px
+
+.circulo-marca
+  height: 10px
+  width: 10px
+  border-radius: 10px
+  display: inline-block
+  margin-left: 10px
+
+/* Texto de firma ************************************************************/
+
+#licencia
+  margin: 0px
+  text-align: center
+  min-height: 36px
+  line-height: 36px
+  vertical-align: middle
+  font-size: 10px
+  font-style: oblique
+
+/* De ventanas emergentes. ***************************************************/
+
+md-dialog-content
+  margin-bottom: 20px
+  md-toolbar
+    margin-bottom: 20px
+
+
+/* De paginadores. ***********************************************************/
+
+.nuevo-paginador
+  border-top: 1px rgba(0,0,0,.12) solid
+  md-table-pagination
+    border-top: 0
+
+
+/* De descripción de inicio. *************************************************/
+
+.grafica
+  text-align: center
+
+.grafica img
+  width: 80%
+  @media only screen and (max-width: 600px)
+    width: 95%
+
+
+/* De vista de libros. *******************************************************/
+
+.tarjeta
+  padding: 10px
+  width: 100%
+  height: 85%
+
+  img
+    width: 100%
+
+  .descripcion
+    margin-left: 10px
+
+.etiqueta
+  margin-bottom: 10px
+
+  p
+    margin: 0px
+
+  .etiqueta-descripcion
+    font-size: 8pt
+
+  .etiqueta-contenido
+
+.total-de-carrito
+  font-size: 8pt
+  vertical-align: middle
+
+/* De tabla del carrito. ***************************************************/
+
+/* El complemento de las tablas no funciona bien con el tema obscuro: */
+md-table-container, table.md-table td.md-cell, table.md-table th.md-column
+  color: white
+
+  p
+    margin: 0px
+
+/* Selectores de cantidad adentro de tablas. */
+table
+  md-input-container
+    margin: 0px
+    width: 50px
+
+    .md-errors-spacer
+      min-height: 0px
+
+    .md-input
+      border-width: 0px
+
+table.md-table td.md-cell
+  border-color: white
+
+/* Página de administración de cuenta. ****************************************/
+
+.boton-en-texto
+  margin: 10px 0px 20px 0px
+
+.divisor-de-seccion
+  margin-bottom: 10px

@@ -1,8 +1,12 @@
 """
-  Proyecto Lovelace
-  Caso de pruebas
-  Estado inicial de base de datos.
-  Catálogos de la tienda en línea.
+Estado inicial de base de datos.
+Catálogos de la tienda en línea.
+Caso de pruebas.
+Proyecto Lovelace.
+
+TODO:
+  * No confundir datos con código.
+  * Quitar nombres de libros y autores que están en mayúsculas.
 """
 
 import os, sys, django
@@ -67,7 +71,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Pablo Neruda']],
 
-  
+
     [Libro(
       titulo = 'Vivir bien la vida',
       editorial = Editorial('Salamandra'),
@@ -81,7 +85,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['J. K. Rowling']],
 
-  
+
     [Libro(
       titulo = 'Pequeño país',
       editorial = Editorial('Salamandra'),
@@ -95,7 +99,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Gaël Faye']],
 
-  
+
     [Libro(
       titulo = 'Los hornos de Hitler',
       editorial = Editorial('BOOKET'),
@@ -109,7 +113,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Olga Lengyel']],
 
-  
+
     [Libro(
       titulo = 'El libro tachado',
       editorial = Editorial('TURNER DE MEXICO'),
@@ -123,7 +127,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['PATRICIO PRON']],
 
-  
+
     [Libro(
       titulo = 'PEDRO PÁRAMO',
       editorial = Editorial('RM'),
@@ -136,7 +140,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Juan Rulfo']],
 
-  
+
     [Libro(
       titulo = 'Momo',
       editorial = Editorial('Loqueleo'),
@@ -150,7 +154,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Michael Ende']],
 
-  
+
     [Libro(
       titulo = 'Cuentos de buenas noches para niñas rebeldes',
       editorial = Editorial('Planeta'),
@@ -164,7 +168,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Elena Favilli']],
 
-  
+
     [Libro(
       titulo = 'MINDFULNESS PARA PRINCIPIANTES C/CD',
       editorial = Editorial('KAIROS'),
@@ -176,7 +180,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['JON KABAT ZINN']],
 
-  
+
     [Libro(
       titulo = 'Las batallas en el desierto',
       editorial = Editorial('Ediciones Era'),
@@ -190,7 +194,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['José Emilio Pacheco']],
 
-  
+
     [Libro(
       titulo = 'Casadas con el Imperio',
       editorial = Editorial('La Esfera de los Libros'),
@@ -204,7 +208,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Pilar Tejera Osuna']],
 
-  
+
     [Libro(
       titulo = 'Chanoc',
       editorial = Editorial('Editorial Porrúa México'),
@@ -218,7 +222,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Ángel Mora Suárez']],
 
-  
+
     [Libro(
       titulo = 'CARTAS A TOMAS SEGOVIA',
       editorial = Editorial('FONDO D CUL ECONOMICA (ME)'),
@@ -231,7 +235,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Octavio Paz']],
 
-  
+
     [Libro(
       titulo = 'Un sol más vivo. Antología poética',
       editorial = Editorial('Ediciones Era'),
@@ -245,7 +249,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Octavio Paz']],
 
-  
+
     [Libro(
       titulo = 'Lo mejor de Octavio Paz',
       editorial = Editorial('Booket'),
@@ -259,7 +263,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Octavio Paz']],
 
-  
+
     [Libro(
       titulo = 'El esclavo',
       editorial = Editorial('CAMINO ROJO'),
@@ -273,7 +277,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Swami Anand Dilvar']],
 
-  
+
     [Libro(
       titulo = 'LOS 43 DE IGUALA',
       editorial = Editorial('COLOFON'),
@@ -286,7 +290,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['SERGIO GONZALEZ RODRIGUEZ']],
 
-  
+
     [Libro(
       titulo = 'El artista adolescente que confundía el mundo con un cómic',
       editorial = Editorial('Literatura Random House'),
@@ -300,7 +304,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Sergio González Rodríguez']],
 
-  
+
     [Libro(
       titulo = 'EL SENDERO DE LOS GATOS',
       editorial = Editorial('FONDO D CUL ECONOMICA (ME)'),
@@ -313,7 +317,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['SERGIO GONZALEZ RODRIGUEZ']],
 
-  
+
     [Libro(
       titulo = 'Charlie Parker: Tiempos oscuros',
       editorial = Editorial('Tusquets Editores México'),
@@ -327,7 +331,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['John Connolly']],
 
-  
+
     [Libro(
       titulo = 'Infecciosa',
       editorial = Editorial('RANDOM HOUSE MONDADORI'),
@@ -339,7 +343,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['SERGIO GONZALEZ RODRIGUEZ']],
 
-  
+
     [Libro(
       titulo = 'Perfil asesino',
       editorial = Editorial('Tusquets Editores México'),
@@ -351,7 +355,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['JOHN CONNOLLY']],
 
-  
+
     [Libro(
       titulo = 'CAMINO BLANCO, EL',
       editorial = Editorial('Tusquets Editores México'),
@@ -364,7 +368,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['JOHN CONNOLLY']],
 
-  
+
     [Libro(
       titulo = 'PODER DE LAS TINIEBLAS, EL',
       editorial = Editorial('Tusquets Editores México'),
@@ -376,7 +380,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['JOHN CONNOLLY']],
 
-  
+
     [Libro(
       titulo = 'La sociedad literaria del pastel de piel de patata de Guernsey',
       editorial = Editorial('Salamandra'),
@@ -390,7 +394,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Annie / Shaffer Barrows']],
 
-  
+
     [Libro(
       titulo = 'CUERVOS',
       editorial = Editorial('Tusquets Editores México'),
@@ -402,7 +406,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['JOHN CONNOLLY']],
 
-  
+
     [Libro(
       titulo = 'Insomnia',
       editorial = Editorial('Debolsillo'),
@@ -416,7 +420,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Stephen King']],
 
-  
+
     [Libro(
       titulo = 'Mr Mercedes',
       editorial = Editorial('Debolsillo'),
@@ -430,7 +434,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Stephen King']],
 
-  
+
     [Libro(
       titulo = 'Poesía completa',
       editorial = Editorial('Debolsillo'),
@@ -444,7 +448,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Alejandra Pizarnik']],
 
-  
+
     [Libro(
       titulo = 'Pequeñas ideas antes de vivir en pareja',
       editorial = Editorial('Maeva Ediciones'),
@@ -458,7 +462,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Bom & Bon']],
 
-  
+
     [Libro(
       titulo = 'Las nueve revelaciones',
       editorial = Editorial('Vergara'),
@@ -472,7 +476,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['James Redfield']],
 
-  
+
     [Libro(
       titulo = 'Al Abordaje Pirata… ',
       editorial = Editorial('ICB Editores'),
@@ -486,7 +490,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Silvia Riera Caldado']],
 
-  
+
     [Libro(
       titulo = 'Ciencia, tecnología, sociedad y valores',
       editorial = Editorial('Grupo Editorial Patria'),
@@ -500,7 +504,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Francisco José Paoli Bolio']],
 
-  
+
     [Libro(
       titulo = 'Las ciencias sociales',
       editorial = Editorial('TRILLAS'),
@@ -512,7 +516,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Francisco José Paoli Bolio']],
 
-  
+
     [Libro(
       titulo = 'Programación orientada a objetos con Java usando BlueJ',
       editorial = Editorial('Pearson Educación'),
@@ -526,7 +530,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['David J. Barnes']],
 
-  
+
     [Libro(
       titulo = 'Cómo programar en C++',
       editorial = Editorial('Pearson Educación'),
@@ -540,7 +544,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Paul J. Deitel']],
 
-  
+
     [Libro(
       titulo = 'PROGRAMACION ORIENTADA A OBJETOS CON JAVA ',
       editorial = Editorial('PRENTICE HALL/PEARSON'),
@@ -553,7 +557,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['DAVID J. BARNES']],
 
-  
+
     [Libro(
       titulo = 'E COMMERCE NEGOCIOS TECNOLOGIA SOCIEDAD',
       editorial = Editorial('PRENTICE HALL/PEARSON'),
@@ -565,7 +569,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['KENNETH C. LAUDON']],
 
-  
+
     [Libro(
       titulo = 'Sistemas de información gerencial',
       editorial = Editorial('Pearson Educación'),
@@ -579,7 +583,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Jane P. / Laudon Laudon']],
 
-  
+
     [Libro(
       titulo = 'El arte de la guerra',
       editorial = Editorial('Grupo Editorial Tomo'),
@@ -593,7 +597,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Sun Tzu']],
 
-  
+
     [Libro(
       titulo = 'ESSENTIALS OF MANAGEMENT INFORMATION SYSTEMS',
       editorial = Editorial('PRENTICE HALL/PEARSON'),
@@ -605,7 +609,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['KENNETH C. LAUDON']],
 
-  
+
     [Libro(
       titulo = 'Temas de Física para bachilleratos tecnológicos',
       editorial = Editorial('Grupo Editorial Patria'),
@@ -619,7 +623,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Héctor Pérez Montiel']],
 
-  
+
     [Libro(
       titulo = 'El arte de escuchar',
       editorial = Editorial('Paidós'),
@@ -633,7 +637,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Erich Fromm']],
 
-  
+
     [Libro(
       titulo = 'Física 3',
       editorial = Editorial('Grupo Editorial Patria'),
@@ -647,7 +651,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['HECTOR PEREZ MONTIEL']],
 
-  
+
     [Libro(
       titulo = 'Fluyan mis lágrimas, dijo el policía',
       editorial = Editorial('Minotauro'),
@@ -661,7 +665,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Philip K. Dick']],
 
-  
+
     [Libro(
       titulo = '¿Sueñan los androides con ovejas eléctricas?',
       editorial = Editorial('Minotauro'),
@@ -675,7 +679,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Philip K. Dick']],
 
-  
+
     [Libro(
       titulo = 'Blade Runner',
       editorial = Editorial('Edhasa'),
@@ -689,7 +693,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Philip Kindred Dick']],
 
-  
+
     [Libro(
       titulo = 'Tratado de Derecho Civil Tomo VII',
       editorial = Editorial('Editorial Porrúa México'),
@@ -703,7 +707,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Julián Güitrón Fuentevilla']],
 
-  
+
     [Libro(
       titulo = 'El hombre en el castillo',
       editorial = Editorial('Minotauro'),
@@ -717,7 +721,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Philip K. Dick']],
 
-  
+
     [Libro(
       titulo = 'Albur y neurociencia',
       editorial = Editorial('Ediciones Obelisco'),
@@ -731,7 +735,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Juan Antonio Barrera Méndez']],
 
-  
+
     [Libro(
       titulo = 'P.D. Desde París (Ella y Él)',
       editorial = Editorial('Planeta'),
@@ -745,7 +749,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Marc Levy']],
 
-  
+
     [Libro(
       titulo = 'Huesos de lagartija',
       editorial = Editorial('EDICIONES SM'),
@@ -759,7 +763,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Federico Navarrete']],
 
-  
+
     [Libro(
       titulo = 'Margarita',
       editorial = Editorial('Ediciones Idampa'),
@@ -773,7 +777,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Rubén Darío']],
 
-  
+
     [Libro(
       titulo = 'Los cuatro acuerdos',
       editorial = Editorial('EDICIONES URANO'),
@@ -787,7 +791,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Miguel Ruiz']],
 
-  
+
     [Libro(
       titulo = 'Regina',
       editorial = Editorial('PENGUIN RANDOM HOUSE'),
@@ -800,7 +804,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Antonio Velasco Piña']],
 
-  
+
     [Libro(
       titulo = 'El retorno de lo sagrado',
       editorial = Editorial('Penguin Random House Grupo Editorial'),
@@ -814,7 +818,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Antonio Velasco Piña']],
 
-  
+
     [Libro(
       titulo = 'Los siete rayos',
       editorial = Editorial('Penguin Random House Grupo Editorial'),
@@ -828,7 +832,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Antonio Velasco Piña']],
 
-  
+
     [Libro(
       titulo = 'El terror',
       editorial = Editorial('Roca Editorial'),
@@ -842,7 +846,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Dan Simmons']],
 
-  
+
     [Libro(
       titulo = 'Los reyes de la arena',
       editorial = Editorial('Plaza Janés'),
@@ -856,7 +860,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['George R. R. Martin']],
 
-  
+
     [Libro(
       titulo = 'Danza de dragones : Canción de hielo y fuego 5',
       editorial = Editorial('Penguin Random House Grupo Editorial'),
@@ -870,7 +874,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['George R. R. Martin']],
 
-  
+
     [Libro(
       titulo = 'Choque de reyes',
       editorial = Editorial('ED RANDOM HOUSE/PLAZA Y JANES'),
@@ -883,7 +887,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['George R. R. Martin']],
 
-  
+
     [Libro(
       titulo = 'Los viajes de Tuf',
       editorial = Editorial('Ediciones B'),
@@ -897,7 +901,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['George R. R. Martin']],
 
-  
+
     [Libro(
       titulo = 'Medicina de urgencias',
       editorial = Editorial('MEDICA PANAMERICANA'),
@@ -911,7 +915,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Isauro Ramón Gutiérrez Vázquez']],
 
-  
+
     [Libro(
       titulo = 'Medicina holística chica en tu vida diaria',
       editorial = Editorial('Grupo Editorial Tomo'),
@@ -925,7 +929,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Steven Cardoza']],
 
-  
+
     [Libro(
       titulo = 'Deadpool dibujando al mercenario bocón',
       editorial = Editorial('Panini Books'),
@@ -939,7 +943,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Matthew K. Manning']],
 
-  
+
     [Libro(
       titulo = 'Batman. La historia visual',
       editorial = Editorial('DORLING KINDERSLEY'),
@@ -953,7 +957,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Matthew K. Manning']],
 
-  
+
     [Libro(
       titulo = 'Don Abundio, el del Potrero',
       editorial = Editorial('Diana'),
@@ -967,7 +971,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Catón']],
 
-  
+
     [Libro(
       titulo = 'Teologías para ateos',
       editorial = Editorial('Diana'),
@@ -981,7 +985,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Catón']],
 
-  
+
     [Libro(
       titulo = 'Judy Moody está de mal humor',
       editorial = Editorial('Penguin Random House Grupo Editorial'),
@@ -995,7 +999,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['PETER H. REYNOLDS']],
 
-  
+
     [Libro(
       titulo = 'Soda Stereo: La biografía total',
       editorial = Editorial('Grijalbo'),
@@ -1009,7 +1013,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Marcelo Fernández Bitar']],
 
-  
+
     [Libro(
       titulo = 'Paul McCartney la biografía',
       editorial = Editorial('Malpaso'),
@@ -1023,7 +1027,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Philip Norman']],
 
-  
+
     [Libro(
       titulo = 'Partículas elementales',
       editorial = Editorial('Booket'),
@@ -1037,7 +1041,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Gerardt Hooft']],
 
-  
+
     [Libro(
       titulo = 'Inglés sin maestro',
       editorial = Editorial('Selector'),
@@ -1051,7 +1055,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Mónica Stevens']],
 
-  
+
     [Libro(
       titulo = '500 años después... de una larga siesta',
       editorial = Editorial('Editorial Porrúa México'),
@@ -1065,7 +1069,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['M. B. Brozon']],
 
-  
+
     [Libro(
       titulo = 'El método Catfulness',
       editorial = Editorial('EDICIONES URANO'),
@@ -1079,7 +1083,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Paolo Valentino']],
 
-  
+
     [Libro(
       titulo = 'Introducción a la computación',
       editorial = Editorial('Grupo Editorial Patria'),
@@ -1093,7 +1097,7 @@ if __name__ == '__main__':
       existencias = 10),
     ['Jorge Vasconcelos Santillán']],
 
-  
+
     [Libro(
       titulo = 'Nietzsche voluntad de poder',
       editorial = Editorial('Clave Editorial'),

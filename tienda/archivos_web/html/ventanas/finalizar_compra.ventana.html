@@ -1,0 +1,121 @@
+<!--
+  Pasos para finalizar una compra,
+  Tienda en línea.
+  Proyecto Lovelace.
+
+  TODO:
+  Agregar contenidos de resumen de compra.
+-->
+
+<md-dialog
+  flex="40"
+  flex-lg="50"
+  flex-md="70"
+  flex-sm="80"
+  flex-xs="90">
+  <md-dialog-content>
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h1>Finalizar compra</h1>
+      </div>
+    </md-toolbar>
+    <div
+      ng-if="secuencia == 1"
+      layout="column"
+      layout-align="center center">
+      <h3>
+        Selecciona el método de pago
+      </h3>
+      <md-divider></md-divider>
+      <md-radio-group ng-model="tarjeta">
+        <div
+          ng-repeat='tarjeta in tarjetas'
+          class="row">
+          <div flex
+            layout='row'
+            layout-padding
+            layout-align="start center">
+            <md-radio-button
+              flex
+              ng-value="tarjeta.pk"
+              class="md-primary">
+              {{tarjeta.fields.titular}} -
+              <em>
+                XXXX XXXX XXXX {{tarjeta.fields.terminacion}}
+              </em> -
+              ({{tarjeta.fields.emisor}})
+            </md-radio-button>
+          </div>
+        </div>
+      </md-radio-group>
+      <md-button
+        class="md-primary">
+        Agregar método de pago
+      </md-button>
+    </div>
+    <div
+      ng-if="secuencia == 2"
+      layout="column"
+      layout-align="center center">
+      <h3>
+        Selecciona la dirección de entrega
+      </h3>
+      <md-divider></md-divider>
+      <md-radio-group ng-model="direccion">
+        <div
+          ng-repeat='direccion in direcciones'
+          class="row">
+          <div flex
+            layout='row'
+            layout-padding
+            layout-align="start center">
+            <md-radio-button
+              flex
+              ng-value="direccion.pk"
+              class="md-primary">
+              {{direccion.fields.calle}},
+              {{direccion.fields.numeroInterior}} -
+              {{direccion.fields.numeroExterior}},
+              {{direccion.fields.colonia}},
+              {{direccion.fields.municipio}},
+              {{direccion.fields.estado}}
+            </md-radio-button>
+          </div>
+        </div>
+      </md-radio-group>
+      <md-button
+        class="md-primary">
+        Agregar dirección de entrega
+      </md-button>
+    </div>
+    <div
+      ng-if="secuencia == 3"
+      layout="column"
+      layout-align="center center">
+      <h3>
+        Resumen de compra
+      </h3>
+      <p>
+        En construcción.
+      </p>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button
+      ng-click="cancelar()"
+      class="md-primary">
+      Cancelar
+    </md-button>
+    <md-button
+      ng-if="secuencia != 1"
+      ng-click="regresar()"
+      class="md-primary">
+      Regresar
+    </md-button>
+    <md-button
+      ng-click="continuar($event)"
+      class="md-raised md-primary">
+      Continuar
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
