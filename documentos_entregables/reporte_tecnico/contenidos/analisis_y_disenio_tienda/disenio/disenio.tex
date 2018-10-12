@@ -9,8 +9,18 @@ En esta sección se incluyen los aspectos del diseño del caso de prueba
 librería en línea.
 
 \subsection{Diseño de la base de datos}
-En la figura \ref{lib_fig:relacional} se encuentra el diagrama relacional de
+En~\ref{lib_fig:entidad_relacion} se puede observar el diagrama
+entidad relación de la tienda en línea; mientras que
+en la figura~\ref{lib_fig:relacional} se encuentra el diagrama relacional de
 la base de datos.
+
+\begin{figure}
+  \begin{center}
+    \subimport{diagramas/}{entidad_relacion.tikz.tex}
+    \caption{Diagrama entidad-relación para la tienda en línea.}
+    \label{lib_fig:entidad_relacion}
+  \end{center}
+\end{figure}
 
 \begin{figure}
   \begin{center}
@@ -19,6 +29,8 @@ la base de datos.
     \label{lib_fig:relacional}
   \end{center}
 \end{figure}
+
+\subsection{Vista estática}
 
 \subsection{Vista dinámica}
 Comenzando con los diagramas de secuencia para algunos de las acciones, en la

@@ -1,0 +1,208 @@
+%
+% Diagrama de entidad relación para tienda en línea.
+% Capítulo de análisis y diseño de aplicación web.
+% Proyecto Lovelace.
+%
+
+\tikzset{every entity/.style={fill=white}}
+\tikzset{every relationship/.style={fill=white}}
+\tikzset{every attribute/.style={fill=white, node distance=5em}}
+\newcommand{\key}[1]{\underline{#1}}
+
+\begin{tikzpicture}
+
+  % Genero %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \node[entity](Genero) % [node distance=5em, below of = Editorial]
+    {Genero};
+
+    \node[attribute][node distance=7em, left of=Genero]
+      {\key{Nombre}} edge (Genero);
+
+    % Libro-Genero-Editorial %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \node[relationship](Libro_Editorial_Genero) [node distance=7em, right of = Genero]
+      {Tiene}
+      edge node[above, node distance=0.5em]{1} (Genero);
+
+  % Editorial %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \node[entity](Editorial) [node distance=5em, above of = Genero]
+    {Editorial}
+    edge node [above right, node distance =0.5em]{1}(Libro_Editorial_Genero);
+
+    \node[attribute][node distance=7em, left of=Editorial]
+      {\key{Nombre}} edge (Editorial);
+
+  % Autor %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \node[entity](Autor) [node distance=5em, below of = Genero]
+    {Autor};
+
+    \node[attribute][below left of=Autor]
+      {\key{Id}} edge (Autor);
+
+    \node[attribute][node distance=7em, left of=Autor]
+      {Nombre} edge (Autor);
+
+    % Autor-Libro %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \node[relationship](Libro_Autor) [node distance=7em, right of = Autor]
+      {Tiene}
+      edge node[above, node distance=0.5em]{n} (Autor);
+
+  % Libro %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \node[entity](Libro) [node distance=6.5em, right of = Libro_Editorial_Genero]
+    {Libro}
+    edge node [above right, node distance =0.5em]{n}(Libro_Editorial_Genero)
+    edge node [above, node distance =0.5em]{n}(Libro_Autor);
+
+    \node[attribute][node distance=9em, above left of=Libro]
+      {Foto} edge (Libro);
+
+    \node[attribute][node distance=9em, above of=Libro]
+      {Año} edge (Libro);
+
+    \node[attribute][node distance=9em, above right of=Libro]
+      {EsEditor} edge (Libro);
+
+
+    \node[attribute][node distance=5em, above left of=Libro]
+      {Título} edge (Libro);
+
+    \node[attribute][node distance=5em, above of=Libro]
+      {\key{Id}} edge (Libro);
+
+    \node[attribute][node distance=5em, above right of=Libro]
+      {Páginas} edge (Libro);
+
+    \node[attribute][node distance=17em, right of=Libro]
+      {Existencias} edge (Libro);
+
+    \node[attribute][node distance=11em, right of=Libro]
+      {Precio} edge (Libro);
+
+    \node[attribute][node distance=6em, right of=Libro]
+      {Oferta} edge (Libro);
+
+    % Libro-Paquete %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \node[relationship](Libro_Paquete) [node distance=5em, below of = Libro]
+      {Contiene}
+      edge node[right, node distance=0.5em]{n} (Libro);
+
+  % Paquete %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \node[entity](Paquete) [node distance=10em, below of = Libro]
+    {Paquete}
+    edge node [right, node distance =0.5em]{n}(Libro_Paquete);
+
+    \node[attribute][node distance=5em, above right of=Paquete]
+      {\key{Id}} edge (Paquete);
+
+    \node[attribute][node distance=9em, left of=Paquete]
+      {Precio unitario} edge (Paquete);
+
+    \node[attribute][node distance=9em, right of=Paquete]
+      {Cantidad} edge (Paquete);
+
+    % Paquete-Compra %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \node[relationship](Paquete_Compra)[node distance=5em,
+      below of = Paquete]
+      {Tiene}
+      edge node[right, node distance=0.5em]{n} (Paquete);
+
+  % Compra %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \node[entity](Compra) [node distance=13.5em, left of = Paquete_Compra]
+    {Compra}
+    edge node [above, node distance =0.5em]{1}(Paquete_Compra);
+
+    % Paquete-Tarjeta-Usuario-Dirección %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \node[relationship](Paquete_Usuario_Tarjeta_Direccion)[node distance=14em,
+      below of = Compra]
+      {Compuesta por}
+      edge node[right, node distance=0.5em]{n} (Compra);
+
+  % Tarjeta %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \node[entity](Tarjeta) [node distance=5em, below of = Paquete_Compra]
+    {Tarjeta}
+    edge node [above, node distance =0.5em]{1}(Paquete_Usuario_Tarjeta_Direccion);
+
+    \node[attribute][node distance=15em, right of=Tarjeta]
+      {Expiración} edge (Tarjeta);
+
+    \node[attribute][node distance=9em, right of=Tarjeta]
+      {Titular} edge (Tarjeta);
+
+    \node[attribute][node distance=9em, above right of=Tarjeta]
+      {Terminación} edge (Tarjeta);
+
+    \node[attribute][node distance=5em, right of=Tarjeta]
+      {\key{Id}} edge (Tarjeta);
+
+    \node[attribute][node distance=5em, above right of=Tarjeta]
+      {Token} edge (Tarjeta);
+
+    \node[attribute][node distance=6.5em, left of=Tarjeta]
+      {Activa} edge (Tarjeta);
+
+    % Tarjeta-Usuario %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \node[relationship](Usuario_Tarjeta)[node distance=4.5em,
+      below of = Tarjeta]
+      {Tiene}
+      edge node[right, node distance=0.5em]{n} (Tarjeta);
+
+  % Usuario %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \node[entity](Usuario) [node distance=13.5em, right of = Paquete_Usuario_Tarjeta_Direccion]
+    {Usuario}
+    edge node [above, node distance =0.5em]{1}(Paquete_Usuario_Tarjeta_Direccion)
+    edge node [right, node distance =0.5em]{n}(Usuario_Tarjeta);
+
+    \node[attribute][node distance=5em, above right of=Usuario]
+      {\key{Correo}} edge (Usuario);
+
+    \node[attribute][node distance=7em, right of=Usuario]
+      {Nombre} edge (Usuario);
+
+    \node[attribute][node distance=5em, below right of=Usuario]
+      {Nombre} edge (Usuario);
+
+    % Usuario-Direccion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \node[relationship](Direccion_Usuario)[node distance=4.5em,
+      below of = Usuario]
+      {Tiene}
+      edge node[right, node distance=0.5em]{1} (Usuario);
+
+  % Dirección %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Tarjeta-Direccion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \node[relationship](Direccion_Tarjeta)[node distance=15em,
+      right of = Usuario]
+      {Tiene}
+      edge node[right, node distance=0.5em]{n} (Tarjeta);
+
+  \node[entity](Direccion) [node distance=5em, below of = Direccion_Usuario]
+    {Dirección}
+    edge node [above, node distance =0.5em]{1}(Paquete_Usuario_Tarjeta_Direccion)
+    edge node [right, node distance =0.5em]{n}(Direccion_Usuario)
+    edge node [above, node distance =0.5em]{1}(Direccion_Tarjeta);
+
+    \node[attribute][node distance=15em, right of=Direccion]
+      {Municipio} edge (Direccion);
+
+    \node[attribute][node distance=11em, left of=Direccion]
+    {Colonia} edge (Direccion);
+
+    \node[attribute][node distance=9em, right of=Direccion]
+      {Activa} edge (Direccion);
+
+    \node[attribute][node distance=7em, below left of=Direccion]
+      {Calle} edge (Direccion);
+
+    \node[attribute][node distance=7em, below of=Direccion]
+      {Numero int.} edge (Direccion);
+
+    \node[attribute][node distance=7em, below right of=Direccion]
+      {Número ext.} edge (Direccion);
+
+    \node[attribute][node distance=5em, right of=Direccion]
+      {\key{Id}} edge (Direccion);
+
+    \node[attribute][node distance=6em, left of=Direccion]
+      {C. P.} edge (Direccion);
+
+
+
+\end{tikzpicture}
