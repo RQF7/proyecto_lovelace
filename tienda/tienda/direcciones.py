@@ -33,9 +33,13 @@ urlpatterns = [
   # Operaciones sobre tarjetas
   django.urls.path('tarjetas',
     funciones_web.obtenerTarjetas),
+  django.urls.path('tarjeta/<int:idDeTarjeta>',
+    funciones_web.operarTarjeta),
 
   # Opeaciones sobre direcciones
   django.urls.path('direcciones',
     funciones_web.obtenerDirecciones),
+  django.urls.path('direccion/<int:idDeDireccion>',
+    funciones_web.operarDireccion),
 
 ]

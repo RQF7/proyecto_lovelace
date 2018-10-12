@@ -75,10 +75,20 @@
        return $http.get(RUTA_BASE + RUTA_TIENDA + '/tarjetas');
      };
 
+     API.eliminarTarjeta = function (idDeTarjeta) {
+       return $http.delete(RUTA_BASE + RUTA_TIENDA + '/tarjeta/'
+         + idDeTarjeta);
+     };
+
      /* Operaciones sobre direcciones ****************************************/
 
      API.obtenerDirecciones = function () {
        return $http.get(RUTA_BASE + RUTA_TIENDA + '/direcciones');
+     };
+
+     API.eliminarDireccion = function (idDeDireccion) {
+       return $http.delete(RUTA_BASE + RUTA_TIENDA + '/direccion/'
+         + idDeDireccion);
      };
 
      return API;

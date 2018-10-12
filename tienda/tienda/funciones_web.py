@@ -212,6 +212,27 @@ def obtenerTarjetas (peticion):
   return utilidades.respuestaJSON(tarjetas)
 
 
+def operarTarjeta (peticion, idDeTarjeta):
+  """Gestión de tarjetas.
+
+  TODO:
+  * Agregar decorador de privilegios."""
+  if peticion.method == 'DELETE':
+    return eliminarTarjeta(peticion, idDeTarjeta)
+  else:
+    return django.http.HttpResponseNotAllowed()
+
+
+def eliminarTarjeta (peticion, idDeTarjeta):
+  """Elimina la tarjeta dada.
+
+  Pasa la tarjeta (dada por su identificador) a estado inactivo."""
+  tarjeta = Tarjeta.objects.get(pk = idDeTarjeta)
+  tarjeta.activa = False;
+  tarjeta.save()
+  return django.http.HttpResponse()
+
+
 ################################################################################
 # Operaciones sobre direcciones ################################################
 ################################################################################
@@ -228,3 +249,24 @@ def obtenerDirecciones (peticion):
   direcciones = Usuario.objects.get(pk = identificador).direccion.filter(
     activa = True)
   return utilidades.respuestaJSON(direcciones)
+
+
+def operarDireccion (peticion, idDeDireccion):
+  """Gestión de direcciones.
+
+  TODO:
+  * Agregar decorador de privilegios."""
+  if peticion.method == 'DELETE':
+    return eliminarDireccion(peticion, idDeDireccion)
+  else:
+    return django.http.HttpResponseNotAllowed()
+
+
+def eliminarDireccion (peticion, idDeDireccion):
+  """Elimina la tarjeta dada.
+
+  Pasa la tarjeta (dada por su identificador) a estado inactivo."""
+  direccion = Direccion.objects.get(pk = idDeDireccion)
+  direccion.activa = False;
+  direccion.save()
+  return django.http.HttpResponse()

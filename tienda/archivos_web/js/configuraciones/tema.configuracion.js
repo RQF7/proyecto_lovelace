@@ -7,7 +7,7 @@
 tienda.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('grey', {
-      'default': '300',
+      'default': '200',
       'hue-1': '400',
       'hue-2': '500',
       'hue-3': '600'
