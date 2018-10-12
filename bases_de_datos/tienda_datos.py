@@ -81,7 +81,7 @@ if __name__ == '__main__':
   guardar(direcciones)
 
   # !!
-  # ¿Qué pasa con las bunas prácticas?
+  # ¿Qué pasa con las buenas prácticas?
   # Debería ser «direcciones», no «direccion».
   usuarios[0].direccion.add(direcciones[2])
   usuarios[0].direccion.add(direcciones[3])
@@ -96,7 +96,8 @@ if __name__ == '__main__':
       titular = "Ricardo Quezada Figueroa",
       direccion = direcciones[0],
       tipoDeTarjeta = TipoDeTarjeta.objects.get(nombre = "Débito"),
-      activa = True),
+      activa = True,
+      expiracion = '2020-10-10'),
     Tarjeta(
       token = "98765432123456",
       terminacion = "5698",
@@ -105,6 +106,14 @@ if __name__ == '__main__':
       titular = "Nombre de Prueba",
       direccion = direcciones[1],
       tipoDeTarjeta = TipoDeTarjeta.objects.get(nombre = "Débito"),
-      activa = True)]
+      activa = True,
+      expiracion = '2020-10-10')]
 
   guardar(tarjetas)
+
+  # !!
+  # ¿Qué pasa con las buenas prácticas?
+  # Debería ser «tarjetas», no «tarjeta».
+  usuarios[0].tarjeta.add(tarjetas[0])
+  usuarios[0].tarjeta.add(tarjetas[1])
+  usuarios[0].save()
