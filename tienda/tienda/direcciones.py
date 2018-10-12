@@ -22,7 +22,7 @@ urlpatterns = [
   django.urls.path('operar_usuario',
     funciones_web.operarUsuario),
   django.urls.path('verificar_correo/registro/<vinculo>',
-    funciones_web.verificarCorreoDeRegistro)
+    funciones_web.verificarCorreoDeRegistro),
 
   # Operaciones de carrito
   django.urls.path('carrito',

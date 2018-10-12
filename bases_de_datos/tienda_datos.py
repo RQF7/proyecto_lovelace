@@ -27,7 +27,8 @@ if __name__ == '__main__':
     Usuario(
       nombre = 'Cliente',
       correo = 'cliente@prueba.com',
-      contrasenia = hashlib.sha256(b"123456").digest())]
+      contrasenia = hashlib.sha256(b"123456").digest(),
+      verificado = True)]
 
 
   guardar(usuarios)

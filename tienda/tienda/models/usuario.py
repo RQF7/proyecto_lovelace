@@ -43,7 +43,8 @@ class Usuario (django.db.models.Model):
     null = True)
 
   fecha = django.db.models.DateTimeField(
-    verbose_name = 'fecha de creación del vinculo')
+    verbose_name = 'fecha de creación del vinculo',
+    null = True)
 
   def __str__(self):
     """Representación en cadena de un usuario."""
