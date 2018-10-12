@@ -1,0 +1,81 @@
+%
+% Diagrama de entidad relación para tienda en línea.
+% Capítulo de análisis y diseño de aplicación web.
+% Proyecto Lovelace.
+%
+
+\tikzset{every entity/.style={fill=white}}
+\tikzset{every relationship/.style={fill=white}}
+\tikzset{every attribute/.style={fill=white, node distance=5em}}
+\newcommand{\key}[1]{\underline{#1}}
+
+\begin{tikzpicture}
+
+  % Genero %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \node[entity](Genero) % [node distance=5em, below of = Editorial]
+    {Genero};
+
+    \node[attribute][node distance=7em, left of=Genero]
+      {\key{Nombre}} edge (Genero);
+
+    % Libro-Genero %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \node[relationship](Libro_Editorial) [node distance=7em, right of = Genero]
+      {Tiene} edge node[above, node distance=0.5em]{1} (Genero);
+
+
+  % Editorial %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \node[entity](Editorial) [node distance=5em, above of = Genero]
+    {Editorial} edge node [above right, node distance =0.5em]{1}(Libro_Editorial);
+
+    \node[attribute][node distance=7em, left of=Editorial]
+      {\key{Nombre}} edge (Editorial);
+
+    % % Libro-Editorial %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % \node[relationship](Libro_Editorial) [node distance=5em, right of = Editorial]
+    %   {Tiene} edge node[above, node distance=0.5em]{1} (Editorial);
+
+
+  % Autor %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \node[entity](Autor) [node distance=5em, below of = Genero]
+    {Autor};
+
+    \node[attribute][below left of=Autor]
+      {\key{Id}} edge (Autor);
+
+    \node[attribute][node distance=7em, left of=Autor]
+      {Nombre} edge (Autor);
+
+  % Libro %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \node[entity](Libro) [node distance=6em, right of = Libro_Editorial]
+    {Libro} edge node [above right, node distance =0.5em]{1}(Libro_Editorial);
+
+    \node[attribute][node distance=9em, above left of=Libro]
+      {Foto} edge (Libro);
+
+    \node[attribute][node distance=9em, above of=Libro]
+      {Año} edge (Libro);
+
+    \node[attribute][node distance=9em, above right of=Libro]
+      {EsEditor} edge (Libro);
+
+
+    \node[attribute][node distance=5em, above left of=Libro]
+      {Título} edge (Libro);
+
+    \node[attribute][node distance=5em, above of=Libro]
+      {\key{Id}} edge (Libro);
+
+    \node[attribute][node distance=5em, above right of=Libro]
+      {Páginas} edge (Libro);
+
+    \node[attribute][node distance=17em, right of=Libro]
+      {Existencias} edge (Libro);
+
+    \node[attribute][node distance=11em, right of=Libro]
+      {Precio} edge (Libro);
+
+    \node[attribute][node distance=6em, right of=Libro]
+      {Oferta} edge (Libro);
+
+
+\end{tikzpicture}
