@@ -26,6 +26,12 @@ tienda.config(function($routeProvider, $locationProvider){
     controller: 'controladorCuenta'
   });
 
+  $routeProvider.when('/libro/:idDeLibro',
+  {
+    templateUrl: 'estaticos/html/libro.html',
+    controller: 'controladorLibro'
+  });
+
   $locationProvider.hashPrefix('');
   $locationProvider.html5Mode(true);
 

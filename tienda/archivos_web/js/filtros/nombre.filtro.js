@@ -6,6 +6,8 @@
 
 tienda.filter('nombre', function() {
   return function(entrada) {
+    if (entrada == undefined)
+      return;
     entrada = entrada.toLowerCase()
     var palabras = entrada.split(" ")
     var resultado = ""

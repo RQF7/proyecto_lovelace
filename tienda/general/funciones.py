@@ -9,7 +9,7 @@ import django
 import tienda.configuraciones as configuraciones
 
 
-def inicio (peticion):
+def inicio (peticion, idDeLibro = ''):
   """Liga a archivo estático de página de inicio.
 
   Todas las urls de vistas principales pasan por aquí. index.html solamente

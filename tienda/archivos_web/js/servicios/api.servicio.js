@@ -51,6 +51,11 @@
         + pagina + '/' + limite);
      };
 
+     API.obtenerLibro = function (idDeLibro) {
+       return $http.get(RUTA_BASE + RUTA_LIBRERIA + '/libro/'
+         + idDeLibro);
+     };
+
      API.obtenerTotalDeLibros = function () {
        return $http.get(RUTA_BASE + RUTA_LIBRERIA + '/total_de_libros');
      };

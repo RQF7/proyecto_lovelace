@@ -41,6 +41,38 @@ def obtenerLibros (peticion, pagina, limite):
   return django.http.HttpResponse(json.dumps(lista))
 
 
+def operarLibro (peticion, idDeLibro):
+  """Índice de métodos para el recurso libro."""
+  if peticion.method == 'GET':
+    return obtenerLibro(peticion, idDeLibro)
+  else:
+    return django.http.HttpResponseNotAllowed()
+
+
+def obtenerLibro (peticion, idDeLibro):
+  """Regresa los datos completos del libro dado.
+
+  A diferencia de «obtenerLibros», aquí se regresan casi todos los campos
+  del modelo. También aquí se tiene que hacer una serialización manual (vía
+  diccionario)."""
+  libro = Libro.objects.get(pk = idDeLibro)
+  autores = []
+  for autor in libro.autor.all():
+    autores.append(autor.nombre)
+  return django.http.HttpResponse(json.dumps({
+    'pk': libro.pk,
+    'titulo': libro.titulo,
+    'precio': str(libro.precio),
+    'foto': str(libro.foto),
+    'existencias': libro.existencias,
+    'genero': libro.genero.nombre,
+    'editorial': libro.editorial.nombre,
+    'edicion': libro.edicion,
+    'anio': libro.anio,
+    'paginas': libro.paginas,
+    'autor': autores}))
+
+
 def obtenerTotalDeLibros (peticion):
   """Regresa el total de libros en la base de datos."""
   todos = Libro.objects.all().count()
