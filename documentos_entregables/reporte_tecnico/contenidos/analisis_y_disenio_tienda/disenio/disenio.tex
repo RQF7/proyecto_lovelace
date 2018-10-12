@@ -41,6 +41,10 @@ figura~\ref{lib_fig:secuencia_agregar_libro_al_carrito}, el diagrama para
 agregar un libro al carrito; finalmente, en~\ref{lib_fig:secuencia_comprar},
 se observa la secuencia para realizar una compra.
 
+En la figura~\ref{lib_fig:estado_cliente} se encuentra el diagrama de estados
+para un cliente, en~\ref{lib_fig:estado_tarjeta}, para una tarjeta; y
+en~\ref{lib_fig:estado_direccion}, para una dirección.
+
 \begin{figure}
   \begin{center}
     \subimport{diagramas/}{secuencia_registrar_cliente.tikz.tex}
@@ -64,3 +68,27 @@ se observa la secuencia para realizar una compra.
     \label{lib_fig:secuencia_comprar}
   \end{center}
 \end{sidewaysfigure}
+
+\begin{figure}
+  \begin{center}
+    \subimport{diagramas/}{estado_cliente.tikz.tex}
+    \caption{Diagrama de estados para un cliente.}
+    \label{lib_fig:estado_cliente}
+  \end{center}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \subimport{diagramas/}{estado_tarjeta.tikz.tex}
+    \caption{Diagrama de estados para una tarjeta.}
+    \label{lib_fig:estado_tarjeta}
+  \end{center}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \subimport{diagramas/}{estado_direccion.tikz.tex}
+    \caption{Diagrama de estados para una dirección.}
+    \label{lib_fig:estado_direccion}
+  \end{center}
+\end{figure}
