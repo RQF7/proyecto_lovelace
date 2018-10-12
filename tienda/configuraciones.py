@@ -12,6 +12,7 @@ import os
 
 # Configuraciones propias #####################################################
 
+DOMINIO = 'http://127.0.0.1:8081'
 DIRECTORIO_BASE = ''
 
 # Configuraciones generales ###################################################
