@@ -103,13 +103,24 @@
             flex="none"
             layout="row"
             layout-align="center center">
-            <md-button
-              ng-if="!libro.enCarrito"
-              ng-click="agregarAlCarrito(libro)"
-              class="md-primary conIcono">
-              <i class="material-icons">add_shopping_cart</i>
-              <md-tooltip>Agregar al carrito</md-tooltip>
-            </md-button>
+            <!--
+            TODO: el tooltip «sin existencias» tarda demasiado en aparecer
+            en chromium. 
+            -->
+            <div>
+              <md-button
+                ng-if="!libro.enCarrito"
+                ng-click="agregarAlCarrito(libro)"
+                class="md-primary conIcono"
+                ng-disabled="libro.existencias == 0">
+                <i class="material-icons">add_shopping_cart</i>
+                <md-tooltip>Agregar al carrito</md-tooltip>
+              </md-button>
+              <md-tooltip
+                ng-if="libro.existencias == 0">
+                Sin existencias
+              </md-tooltip>
+            </div>
             <md-button
               ng-if="libro.enCarrito"
               ng-click="quitarDelCarrito(libro)"
