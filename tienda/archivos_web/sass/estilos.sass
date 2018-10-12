@@ -78,6 +78,43 @@ button.conIcono, a.conIcono
 .texto-de-formulario
   margin: 0px
 
+/* Hack para inputs de fechas
+ * https://github.com/angular/material/issues/9550 */
+
+.date-picker
+	&._md-datepicker-floating-label
+		&._md-datepicker-has-calendar-icon
+			> label
+				&:not(.md-no-float)
+					&:not(.md-container-ignore)
+						left: 34px
+						right: 0
+
+	md-datepicker
+		display: inline-block
+		padding: 0
+		width: 100%
+
+		.md-datepicker-button
+			margin-left: -12px
+
+		.md-datepicker-input-container
+			display: flex
+
+			.md-datepicker-input
+				max-width: 100%
+				min-width: 100%
+
+			.md-datepicker-triangle-button
+				right: 8px
+
+	.md-input-messages-animation
+		.md-input-message-animation
+			margin-left: 34px
+
+md-input-container .md-errors-spacer
+  min-height: 0px
+
 /* Barra de título ***********************************************************/
 
 #contenidos
