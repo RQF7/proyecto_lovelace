@@ -20,6 +20,12 @@ tienda.config(function($routeProvider, $locationProvider){
     controller: 'controladorCarrito'
   });
 
+  $routeProvider.when('/cuenta',
+  {
+    templateUrl: 'estaticos/html/cuenta.html',
+    controller: 'controladorCuenta'
+  });
+
   $locationProvider.hashPrefix('');
   $locationProvider.html5Mode(true);
 

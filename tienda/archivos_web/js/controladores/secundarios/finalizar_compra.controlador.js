@@ -61,13 +61,11 @@ tienda.controller('controladorFinalizarCompra', [
     api.obtenerTarjetas().then(function (respuesta) {
       $scope.tarjetas = respuesta.data;
       $scope.tarjeta = $scope.tarjetas[0].pk;
-      console.log("Tarjtas", $scope.tarjetas);
     });
 
     api.obtenerDirecciones().then(function (respuesta) {
       $scope.direcciones = respuesta.data;
       $scope.direccion = $scope.direcciones[0].pk;
-      console.log("Direcciones", $scope.direcciones);
     });
   }
 ]);

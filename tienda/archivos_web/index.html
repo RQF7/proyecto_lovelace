@@ -131,6 +131,19 @@
             md-colors="{background: 'accent'}">
           </div>
         </md-button>
+
+        <!-- Administración de cuenta. -->
+        <md-button
+          ng-if="usuario != undefined"
+          flex="none"
+          href="/cuenta">
+          Cuenta
+          <div
+            class="circulo-marca"
+            ng-if="seccion == 3"
+            md-colors="{background: 'accent'}">
+          </div>
+        </md-button>
       </md-content>
     </md-sidenav>
 
