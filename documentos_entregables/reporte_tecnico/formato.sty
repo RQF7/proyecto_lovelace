@@ -450,4 +450,32 @@
       \end{minipage}\end{\epigraphflush}%
       \vspace{\afterepigraphskip}}}
 
+  % Redefinición de entradas de capítulos en tabla de contenidos.
+  % En lugar de «\penalty\@highpenalty», después de la línea producto,
+  % ocupo «\nopagebreak[4]».
+  % No estoy muy seguro de cuál es la diferencia (se supone que la
+  % penalización más alta es 4), el caso es que la segunda funciona:
+  % no se deja que haya un salto de página después de la entrada de un
+  % capítulo.
+  %
+  % La definición original salió de:
+  % /usr/share/texmf-dist/tex/latex/base/book.cls
+  \renewcommand*\l@chapter[2]{%
+    \ifnum \c@tocdepth >\m@ne
+      %\addpenalty{-\@highpenalty}%
+      \vskip 1.0em \@plus\p@
+      \setlength\@tempdima{1.5em}%
+      \begingroup
+        \parindent \z@ \rightskip \@pnumwidth
+        \parfillskip -\@pnumwidth
+        \leavevmode \bfseries
+        \advance\leftskip\@tempdima
+        \hskip -\leftskip
+        #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+        \nopagebreak[4]
+        %\penalty\@highpenalty
+      \endgroup
+    \fi}
+
+
 \makeatother
