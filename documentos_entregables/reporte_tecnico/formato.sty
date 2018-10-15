@@ -62,8 +62,7 @@
 
 % http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/manual.pdf
 \RequirePackage{hyperref}
-\hypersetup
-{
+\hypersetup{
   pdftitle={\Titulo},
   pdfsubject={\Subtitulo},
   bookmarksnumbered=true,
@@ -79,8 +78,7 @@
   menubordercolor=white,
   urlbordercolor=white,
   pdfborder={0 0 0},
-  frenchlinks
-}
+  frenchlinks}
 
 % Caracteres de salto de línea en URLs:
 % \def\UrlBreaks{\do\/\do-\do p}
@@ -227,8 +225,7 @@
   fontsize=\scriptsize,
   linenos,
   numbersep=6pt,
-  samepage=true
-}
+  samepage=true}
 
 % http://ctan.math.washington.edu/tex-archive/macros/latex/contrib/
 % epigraph/epigraph.pdf
@@ -307,8 +304,8 @@
      de \pageref{LastPage}}                 % Derecha abajo
   \fancyfoot[RE, LO]{\Subtitulo}            % Izquierda abajo
   \renewcommand{\headrulewidth}{0.4pt}      % Línea encabezado
-  \renewcommand{\footrulewidth}{0.4pt}      % Línea pie
-}
+  \renewcommand{\footrulewidth}{0.4pt}}     % Línea pie
+
 
 % Estilo de páginas previas al primer capítulo
 \fancypagestyle{intro} {
@@ -317,8 +314,7 @@
   \fancyfoot[LE, RO]{Página \thepage}
   \fancyfoot[RE, LO]{\Subtitulo}
   \renewcommand{\headrulewidth}{0.4pt}
-  \renewcommand{\footrulewidth}{0.4pt}
-}
+  \renewcommand{\footrulewidth}{0.4pt}}
 
 % 0.4pt es el equivalente de \thin en tikz. Este es el grosor
 % por defecto utilizado en los diagramas.
@@ -330,15 +326,13 @@
   \fancyfoot[LO, RE]{}
   \fancyhead[CE, CO]{}
   \renewcommand{\headrulewidth}{0.0pt}
-  \renewcommand{\footrulewidth}{0.0pt}
-}
+  \renewcommand{\footrulewidth}{0.0pt}}
 
 % Alto de celdas de tablas
 %\renewcommand{\arraystretch}{1.8}
 
 % Cambios en las traducciones de babel
-\addto\captionsspanish
-{
+\addto\captionsspanish{
   \renewcommand*\contentsname{Índice}
   \renewcommand*\listfigurename{Lista de figuras}
   \renewcommand*\tablename{Tabla}
@@ -348,8 +342,7 @@
   \renewcommand*{\andname}{y}               % En listas de referencias cruzadas.
   \renewcommand*\appendixname{Apéndice}
   \renewcommand*\appendixtocname{Apéndice}
-  \renewcommand*\appendixpagename{Apéndices}
-}
+  \renewcommand*\appendixpagename{Apéndices}}
 
 % Babel no define traducciones para esto. Por eso están afuera.
 \renewcommand\listingscaption{Código fuente}
@@ -386,43 +379,37 @@
   % Redefinición de listas y de bibliografía.
   % Se hacen secciones en lugar de capítulos.
 
-  \renewcommand\listoffigures{
-    \section*{\listfigurename}
-      \@mkboth{\MakeUppercase\listfigurename}
-              {\MakeUppercase\listfigurename}
-    \@starttoc{lof}
-  }
+  \renewcommand\listoffigures{%
+    \section*{\listfigurename}%
+      \@mkboth{\MakeUppercase\listfigurename}%
+              {\MakeUppercase\listfigurename}%
+    \@starttoc{lof}}
 
-  \renewcommand\listoftables{
-    \section*{\listtablename}
-      \@mkboth{\MakeUppercase\listtablename}
-              {\MakeUppercase\listtablename}
-    \@starttoc{lot}
-  }
+  \renewcommand\listoftables{%
+    \section*{\listtablename}%
+      \@mkboth{\MakeUppercase\listtablename}%
+              {\MakeUppercase\listtablename}%
+    \@starttoc{lot}}
 
-  \renewcommand\lstlistoflistings{
-    \section*{\lstlistlistingname}
-      \@mkboth{\MakeUppercase\lstlistlistingname}
-              {\MakeUppercase\lstlistlistingname}
-    \@starttoc{lol}
-  }
+  \renewcommand\lstlistoflistings{%
+    \section*{\lstlistlistingname}%
+      \@mkboth{\MakeUppercase\lstlistlistingname}%
+              {\MakeUppercase\lstlistlistingname}%
+    \@starttoc{lol}}
 
-  \renewcommand\tableofcontents{
-    \section*{\contentsname}
-      \@mkboth{\MakeUppercase\contentsname}
-              {\MakeUppercase\contentsname}
-    \@starttoc{toc}
-  }
+  \renewcommand\tableofcontents{%
+    \section*{\contentsname}%
+      \@mkboth{\MakeUppercase\contentsname}%
+              {\MakeUppercase\contentsname}%
+    \@starttoc{toc}}
 
   % Redefinir hypertarget para guardar referencia en .aux
   \let\hypertargetanterior\hypertarget
   \renewcommand{\hypertarget}[2]{%
     \hypertargetanterior{#1}{#2}%
     \protected@write\@mainaux{}{%
-      \string\expandafter\string\gdef
-      \string\csname\string\detokenize{#1}\string\endcsname{#2}%
-    }%
-  }
+      \string\expandafter\string\gdef%
+      \string\csname\string\detokenize{#1}\string\endcsname{#2}}}
 
   % Redefinición de lista de referencias cruzadas para el glosario:
   % solamente se agrega el punto final.
@@ -433,24 +420,21 @@
 
   % Redefinición de «claerdoublepage» para que las páginas en blanco no
   % tengan encabezado ni pie.
-  \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+  \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else%
    \hbox{}\thispagestyle{empty}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
 
   % Redefinición de frontmatter y mainmatter
   \renewcommand{\frontmatter}{
-    \cleardoublepage
-    \@mainmatterfalse
-    \pagenumbering{Roman}
-    \pagestyle{intro}
-  }
+    \cleardoublepage%
+    \@mainmatterfalse%
+    \pagenumbering{Roman}%
+    \pagestyle{intro}}
 
-  \renewcommand{\mainmatter}{
-    \cleardoublepage
-    \@mainmattertrue
-    \pagenumbering{arabic}
-    \pagestyle{contenido}
-    %\setcounter{page}{2}
-  }
+  \renewcommand{\mainmatter}{%
+    \cleardoublepage%
+    \@mainmattertrue%
+    \pagenumbering{arabic}%
+    \pagestyle{contenido}}
 
   % Para poder centrar una columna especifica en una tabla.
   \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
@@ -461,9 +445,9 @@
   % Redefinición de los epígrafes para aumentar el espaciado entre cita y
   % fuente.
   \renewcommand{\epigraph}[2]{\vspace{\beforeepigraphskip}
-    {\epigraphsize\begin{\epigraphflush}\begin{minipage}{\epigraphwidth}
-      \@epitext{#1}\\ \vspace{0.8em}\\ \@episource{#2}
-      \end{minipage}\end{\epigraphflush}
+    {\epigraphsize\begin{\epigraphflush}\begin{minipage}{\epigraphwidth}%
+      \@epitext{#1}\\ \vspace{0.8em}\\ \@episource{#2}%
+      \end{minipage}\end{\epigraphflush}%
       \vspace{\afterepigraphskip}}}
 
 \makeatother
