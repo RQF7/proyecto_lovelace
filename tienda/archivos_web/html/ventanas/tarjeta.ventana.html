@@ -22,7 +22,7 @@
         name="formularioTarjeta"
         id="formularioTarjeta"
         novalidate
-        flex="90  "
+        flex="90"
         ng-submit="aceptar($event)">
         <h3>
           Datos de tarjeta
@@ -30,9 +30,9 @@
         <md-divider class="divisor-de-seccion"></md-divider>
         <div
           flex
-          layou="row"
+          layout="row"
           layout-align="center center">
-          <md-input-container flex="45">
+          <md-input-container flex="50">
             <label>Número de tarjeta</label>
             <input name="nombre"
               ng-model="tarjeta.pan"
@@ -56,7 +56,7 @@
               </div>
             </div>
           </md-input-container>
-          <md-input-container flex="45">
+          <md-input-container flex="50">
             <label>Titular</label>
             <input name="nombre"
               ng-model="tarjeta.titular"
@@ -76,10 +76,10 @@
           </md-input-container>
         </div>
         <div
-          layou="row"
+          layout="row"
           layout-align="center center">
           <md-input-container
-            flex="30"
+            flex="33"
             class="date-picker">
             <label>
               Fecha de expiración
@@ -105,7 +105,7 @@
             </div>
           </md-input-container>
           <md-input-container
-            flex="30">
+            flex="33">
             <label>
               Emisor
             </label>
@@ -125,7 +125,7 @@
             </div>
           </md-input-container>
           <md-input-container
-            flex="30">
+            flex="33">
             <label>
               Tipo de tarjeta
             </label>
@@ -146,14 +146,14 @@
           </md-input-container>
         </div>
         <div
-          layou="row"
+          layout="row"
           layout-align="center center">
           <!--
             TODO:
             * Agregar aclaración sobre este campo.
          -->
           <md-input-container
-            flex="30">
+            flex="33">
             <label>
               Método de tokenización
             </label>
@@ -178,7 +178,7 @@
         </h3>
         <md-divider class="divisor-de-seccion"></md-divider>
         <div
-          layou="row"
+          layout="row"
           layout-align="center center">
           <md-input-container flex="70">
             <label>Calle</label>
@@ -197,7 +197,7 @@
               </div>
             </div>
           </md-input-container>
-          <md-input-container flex="10">
+          <md-input-container flex="15">
             <label>No. int.</label>
             <input name="numeroInterior"
               ng-model="direccion.numeroInterior"
@@ -206,7 +206,7 @@
               ng-minlength="5"
               spellcheck="false">
           </md-input-container>
-          <md-input-container flex="10">
+          <md-input-container flex="15">
             <label>No. ext.</label>
             <input name="numeroExterior"
               ng-model="direccion.numeroExterior"
@@ -222,9 +222,10 @@
           </md-input-container>
         </div>
         <div
-          layou="row"
+          layout="row"
           layout-align="center center">
-          <md-input-container flex="30">
+          <md-input-container
+            flex="33">
             <label>Colonia</label>
             <input name="colonia"
               ng-model="direccion.colonia"
@@ -241,7 +242,8 @@
               </div>
             </div>
           </md-input-container>
-          <md-input-container flex="30">
+          <md-input-container
+            flex="33">
             <label>Municipio</label>
             <input name="municipio"
               ng-model="direccion.municipio"
@@ -259,7 +261,7 @@
             </div>
           </md-input-container>
           <md-input-container
-            flex="30">
+            flex="33">
             <label>
               Estado
             </label>
