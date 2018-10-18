@@ -55,15 +55,20 @@ def iniciarSesion (peticion):
 
   objetoDePeticion = json.loads(peticion.body)
   usuario = negocio.autentificar(objetoDePeticion)
-  if usuario != None:
-    peticion.session['usuario'] = \
-      json.dumps({
-        'pk': usuario.pk,
-        'nombre': usuario.nombre,
-        'correo': usuario.correo})
-    return django.http.HttpResponse(peticion.session['usuario'])
-  else:
+  print(usuario.nombre, usuario.correo, usuario.verificado)
+
+  if usuario == None:
     return django.http.HttpResponse("0")
+
+  if usuario.verificado == False:
+    return django.http.HttpResponse("1")
+
+  peticion.session['usuario'] = \
+    json.dumps({
+      'pk': usuario.pk,
+      'nombre': usuario.nombre,
+      'correo': usuario.correo})
+  return django.http.HttpResponse(peticion.session['usuario'])
 
 
 def cerrarSesion (peticion):
