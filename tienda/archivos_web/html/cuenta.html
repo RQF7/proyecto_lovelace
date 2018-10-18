@@ -16,21 +16,25 @@
     Información personal
   </h2>
   <md-divider class="divisor-de-seccion"></md-divider>
-  <div class="etiqueta">
-    <p class="etiqueta-descripcion">
-      Nombre de usuario
-    </p>
-    <p class="etiqueta-contenido">
-      {{usuario.nombre}}
-    </p>
-  </div>
-  <div class="etiqueta">
-    <p class="etiqueta-descripcion">
-      Correo electrónico
-    </p>
-    <p class="etiqueta-contenido">
-      {{usuario.correo}}
-    </p>
+  <div
+    layout="row">
+    <div class="etiqueta">
+      <p class="etiqueta-descripcion">
+        Nombre de usuario
+      </p>
+      <p class="etiqueta-contenido">
+        {{usuario.nombre}}
+      </p>
+    </div>
+    <div class="separador-horizontal"></div>
+    <div class="etiqueta">
+      <p class="etiqueta-descripcion">
+        Correo electrónico
+      </p>
+      <p class="etiqueta-contenido">
+        {{usuario.correo}}
+      </p>
+    </div>
   </div>
   <div
     layout="row"
@@ -57,10 +61,11 @@
     md-cols-md="3"
     md-cols-xl="5"
     md-row-height="420px"
-    md-gutter="10px">
+    md-gutter="20px">
     <md-grid-tile ng-repeat="tarjeta in tarjetas">
       <md-whiteframe
-        class="md-whiteframe-4dp tarjeta">
+        class="md-whiteframe-6dp tarjeta"
+        md-colors="{background: 'background-hue-2'}">
         <div layout="column" style="height: 100%">
           <div class="etiqueta">
             <p class="etiqueta-descripcion">
@@ -149,10 +154,11 @@
     md-cols-md="3"
     md-cols-xl="5"
     md-row-height="480px"
-    md-gutter="10px">
+    md-gutter="20px">
     <md-grid-tile ng-repeat="direccion in direcciones">
       <md-whiteframe
-        class="md-whiteframe-4dp tarjeta">
+        class="md-whiteframe-6dp tarjeta"
+        md-colors="{background: 'background-hue-2'}">
         <div layout="column" style="height: 100%">
           <div class="etiqueta">
             <p class="etiqueta-descripcion">
