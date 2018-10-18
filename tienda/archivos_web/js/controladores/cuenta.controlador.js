@@ -81,8 +81,28 @@ tienda.controller('controladorCuenta', [
     $scope.tarjetas = [];
     $scope.direcciones = [];
 
+    /* TODO:
+     * * La dirección de una tarjeta tendría que venir desde la primera
+     *   petición (es una llave foranea); esto se arregla encontrando
+     *   un serializador funcinal para las últimas versiones de django.
+     * * La función de retorno de petición de dirección de tarjeta
+     *   debería poder acceder al contexto del for desde el que
+     *   fue llamada (para no volver a recorrer todo); seguro que hay
+     *   sintaxis para eso. */
+
     api.obtenerTarjetas().then(function (respuesta) {
       $scope.tarjetas = respuesta.data;
+      for (var i = 0; i < $scope.tarjetas.length; i++) {
+        api.obtenerDireccionDeTarjeta($scope.tarjetas[i].fields.direccion)
+          .then(function (respuesta) {
+            for (var i = 0; i < $scope.tarjetas.length; i++) {
+              if ($scope.tarjetas[i].fields.direccion == respuesta.data[0].pk) {
+                $scope.tarjetas[i].direccion = respuesta.data[0];
+                break;
+              }
+            }
+          });
+      }
     });
 
     api.obtenerDirecciones().then(function (respuesta) {

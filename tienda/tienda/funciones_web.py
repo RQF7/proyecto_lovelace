@@ -216,6 +216,17 @@ def obtenerTarjetas (peticion):
   return utilidades.respuestaJSON(tarjetas)
 
 
+def obtenerDireccionDeTarjeta (peticion, idDeDireccion):
+  """Regresa la dirección asociada a la tarjeta dada.
+
+  TODO:
+  * Agregar decorador de privilegios.
+  * Validar que la dirección pedida sea del cliente en sesión."""
+  direccion = Direccion.objects.get(pk = idDeDireccion)
+  return utilidades.respuestaJSON(direccion)
+
+
+
 def operarTarjeta (peticion, idDeTarjeta):
   """Gestión de tarjetas.
 
@@ -230,7 +241,10 @@ def operarTarjeta (peticion, idDeTarjeta):
 def eliminarTarjeta (peticion, idDeTarjeta):
   """Elimina la tarjeta dada.
 
-  Pasa la tarjeta (dada por su identificador) a estado inactivo."""
+  Pasa la tarjeta (dada por su identificador) a estado inactivo.
+  TODO:
+  * Validar que el identificador dado sea de una tarjeta del cliente en
+    sesión."""
   tarjeta = Tarjeta.objects.get(pk = idDeTarjeta)
   tarjeta.activa = False;
   tarjeta.save()
@@ -287,7 +301,10 @@ def operarDireccion (peticion, idDeDireccion):
 def eliminarDireccion (peticion, idDeDireccion):
   """Elimina la tarjeta dada.
 
-  Pasa la tarjeta (dada por su identificador) a estado inactivo."""
+  Pasa la tarjeta (dada por su identificador) a estado inactivo.
+  TODO:
+  * Validar que el identificador dado sea de una dirección del cliente en
+    sesión."""
   direccion = Direccion.objects.get(pk = idDeDireccion)
   direccion.activa = False;
   direccion.save()
