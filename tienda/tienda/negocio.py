@@ -89,7 +89,7 @@ def guardarUsuario (usuarioEnPeticion):
 
 
 def actualizarUsuario (usuarioEnPeticion, pk):
-  """ La función regresa 1 si se modifico el correo y 0 si no """
+  """ La función regresa 1 si se modificó el correo y 0 si no."""
   usuario = Usuario.objects.get(pk = pk)
   if usuario.correo == usuarioEnPeticion["correo"]:
     usuario.nombre = usuarioEnPeticion["nombre"]
