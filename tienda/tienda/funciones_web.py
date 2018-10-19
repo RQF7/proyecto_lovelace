@@ -23,7 +23,6 @@ from .models.tipo_de_direccion import TipoDeDireccion
 from .models.tipo_de_tarjeta import TipoDeTarjeta
 from .models.usuario import Usuario
 from ..tienda import negocio
-from .models.usuario import Usuario
 
 
 ################################################################################
@@ -317,21 +316,7 @@ def agregarTarjeta (peticion):
         # TODO: Para evitar posibles duplicados, antes de insertar la nueva
         # dirección se tendría que buscar entre las direcciones inactivas.
         print("Nueva dirección")
-        direccion = Direccion(
-          tipoDeDireccion = TipoDeDireccion.objects.get(
-            nombre = 'Facturación'),
-          estado = Estado.objects.get(
-            pk = objetoDePeticion['direccion']['fields']['estado']),
-          municipio = objetoDePeticion['direccion']['fields']['municipio'],
-          colonia = objetoDePeticion['direccion']['fields']['colonia'],
-          calle = objetoDePeticion['direccion']['fields']['calle'],
-          cp = objetoDePeticion['direccion']['fields']['cp'],
-          activa = True,
-          numeroInterior =
-            objetoDePeticion['direccion']['fields']['numeroInterior'],
-          numeroExterior =
-            objetoDePeticion['direccion']['fields']['numeroExterior'])
-        direccion.save()
+        direccion = negocio.crearDireccion(objetoDePeticion['direccion'])
         similar.direccion = direccion;
 
       else:
@@ -347,8 +332,32 @@ def agregarTarjeta (peticion):
   except Tarjeta.DoesNotExist:
     pass
 
+  # Trayectoria principal
   print("Nueva tarjeta")
-  return django.http.HttpResponse("1")
+  direccion = None
+  if objetoDePeticion['direccion']['pk'] == 0:
+    direccion = negocio.crearDireccion(objetoDePeticion['direccion'])
+  else:
+    direccion = Direccion.objects.get(
+      pk = objetoDePeticion['direccion']['pk'])
+
+  tarjeta = Tarjeta(
+    token = '0000000000000000',
+    terminacion = objetoDePeticion['pan'][-4:],
+    metodo = Metodo.objects.get(nombre = objetoDePeticion['metodo']),
+    emisor = Emisor.objects.get(pk = objetoDePeticion['emisor']),
+    titular = objetoDePeticion['titular'],
+    direccion = direccion,
+    expiracion = django.utils.dateparse.parse_datetime(
+      objetoDePeticion['expiracion']),
+    tipoDeTarjeta = TipoDeTarjeta.objects.get(pk = objetoDePeticion['tipo']),
+    activa = True)
+  tarjeta.save()
+
+  usuario = Usuario.objects.get(pk = identificador)
+  usuario.tarjeta.add(tarjeta);
+  usuario.save()
+  return utilidades.respuestaJSON(tarjeta)
 
 
 def obtenerEmisores (peticion):

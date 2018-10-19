@@ -70,13 +70,16 @@ tienda.controller('controladorFormularioTarjeta', [
           if (respuesta.data == "1") {
             titulo = "Error";
             mensaje = "@@include('mensajes/tarjeta_existente.txt')";
+            resultado = undefined;
           } else if (respuesta.data == "2") {
             /* TODO: cambiar el nombre de este txt por algo más corto. */
             titulo = "Error";
             mensaje = "@@include('mensajes/tarjeta_existente_con_distinta_expiracion.txt')";
+            resultado = undefined;
           } else {
             titulo = "Operación exitosa";
             mensaje = "@@include('mensajes/metodo_de_pago_agregado.txt')";
+            resultado = respuesta.data[0];
           }
           var aviso = $mdDialog.alert()
             .title(titulo)
@@ -86,7 +89,7 @@ tienda.controller('controladorFormularioTarjeta', [
             .ok('Aceptar')
             .multiple(true);
           $mdDialog.show(aviso).then(function (respuesta) {
-            $mdDialog.hide();
+            $mdDialog.hide(resultado);
           });
         }
       });

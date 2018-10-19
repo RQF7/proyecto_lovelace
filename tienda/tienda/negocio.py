@@ -7,6 +7,15 @@ Proyecto Lovelace.
 import hashlib
 import datetime
 
+from .models.compra import Compra
+from .models.direccion import Direccion
+from .models.emisor import Emisor
+from .models.estado import Estado
+from .models.metodo import Metodo
+from .models.paquete import Paquete
+from .models.tarjeta import Tarjeta
+from .models.tipo_de_direccion import TipoDeDireccion
+from .models.tipo_de_tarjeta import TipoDeTarjeta
 from .models.usuario import Usuario
 import tienda.configuraciones as configuraciones
 import tienda.utilidades as utilidades
@@ -78,3 +87,21 @@ def guardarUsuario (usuarioEnPeticion):
   usuario.save()
   return usuario
 
+
+def crearDireccion (direccion):
+  """Genera una nueva diercción en la base de datos.
+
+  Recibe un objeto de tipo diccionario con los datos de la nueva dirección;
+  regresa la instancia de la dirección ya guardada en la base."""
+  direccion = Direccion(
+    tipoDeDireccion = TipoDeDireccion.objects.get(nombre = 'Facturación'),
+    estado = Estado.objects.get(pk = direccion['fields']['estado']),
+    municipio = direccion['fields']['municipio'],
+    colonia = direccion['fields']['colonia'],
+    calle = direccion['fields']['calle'],
+    cp = direccion['fields']['cp'],
+    activa = True,
+    numeroInterior = direccion['fields']['numeroInterior'],
+    numeroExterior = direccion['fields']['numeroExterior'])
+  direccion.save()
+  return direccion
