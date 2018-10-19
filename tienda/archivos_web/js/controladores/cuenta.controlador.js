@@ -64,9 +64,23 @@ tienda.controller('controladorCuenta', [
     };
 
     $scope.agregarMetodoDePago = function($event) {
-      var direccionesDeTarjetas = []
-      for (var i = 0; i < $scope.tarjetas.length; i++)
-        direccionesDeTarjetas.push($scope.tarjetas[i].direccion);
+
+      /* Armar arreglo de direcciones asociadas. */
+      var direccionesDeTarjetas = [];
+      var banderaAgregado;
+      for (var i = 0; i < $scope.tarjetas.length; i++) {
+        banderaAgregado = false;
+        for (var j = 0; j < direccionesDeTarjetas.length; j++) {
+          if (direccionesDeTarjetas[j].pk == $scope.tarjetas[i].direccion.pk) {
+            banderaAgregado = true;
+            break;
+          }
+        }
+        if (!banderaAgregado)
+          direccionesDeTarjetas.push($scope.tarjetas[i].direccion);
+      }
+
+      /* Mostrar formulario. */
       $mdDialog.show({
         parent: angular.element(document.body),
         targetEvent: $event,
@@ -102,10 +116,11 @@ tienda.controller('controladorCuenta', [
         api.obtenerDireccionDeTarjeta($scope.tarjetas[i].fields.direccion)
           .then(function (respuesta) {
             for (var i = 0; i < $scope.tarjetas.length; i++) {
-              if ($scope.tarjetas[i].fields.direccion == respuesta.data[0].pk) {
-                $scope.tarjetas[i].direccion = respuesta.data[0];
-                break;
-              }
+              if ($scope.tarjetas[i].fields.direccion == respuesta.data[0].pk
+                && $scope.tarjetas[i].direccion == undefined) {
+                  $scope.tarjetas[i].direccion = respuesta.data[0];
+                  break;
+                }
             }
           });
       }

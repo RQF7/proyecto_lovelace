@@ -81,6 +81,10 @@
        + idDeDireccion)
      };
 
+     API.agregarTarjeta = function (tarjeta) {
+       return $http.post(RUTA_BASE + RUTA_TIENDA + '/tarjeta', tarjeta);
+     };
+
      API.eliminarTarjeta = function (idDeTarjeta) {
        return $http.delete(RUTA_BASE + RUTA_TIENDA + '/tarjeta/'
          + idDeTarjeta);

@@ -58,7 +58,39 @@ tienda.controller('controladorFormularioTarjeta', [
           $scope.direcciones[i].banderaDeSeleccion = false;
         }
       }
-    }
+    };
+
+    $scope.aceptar = function ($event) {
+      $scope.tarjeta.direccion = $scope.direccion;
+      if ($scope.objetoPadre.direccionAnterior == undefined)
+        $scope.tarjeta.direccion.pk = 0;
+      api.agregarTarjeta($scope.tarjeta).then(function (respuesta) {
+        if (respuesta != undefined) {
+          var mensaje, titulo, resultado;
+          if (respuesta.data == "1") {
+            titulo = "Error";
+            mensaje = "@@include('mensajes/tarjeta_existente.txt')";
+          } else if (respuesta.data == "2") {
+            /* TODO: cambiar el nombre de este txt por algo más corto. */
+            titulo = "Error";
+            mensaje = "@@include('mensajes/tarjeta_existente_con_distinta_expiracion.txt')";
+          } else {
+            titulo = "Operación exitosa";
+            mensaje = "@@include('mensajes/metodo_de_pago_agregado.txt')";
+          }
+          var aviso = $mdDialog.alert()
+            .title(titulo)
+            .textContent(mensaje)
+            .ariaLabel(titulo)
+            .targetEvent($event)
+            .ok('Aceptar')
+            .multiple(true);
+          $mdDialog.show(aviso).then(function (respuesta) {
+            $mdDialog.hide();
+          });
+        }
+      });
+    };
 
     /* Secuencia de inicio. **************************************************/
 
