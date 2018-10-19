@@ -8,6 +8,15 @@
  */
 
 tienda.config(function($mdThemingProvider) {
+
+  /* Extensión de tema. */
+  var paletaObscura = $mdThemingProvider.extendPalette('grey', {
+    '500': '000000',
+    '900': '101010',
+    'contrastDefaultColor': 'light'});
+  $mdThemingProvider.definePalette('negro', paletaObscura);
+
+  /* Definición para aplicación. */
   $mdThemingProvider.theme('default')
     .primaryPalette('grey', {
       'default': '200',
@@ -21,11 +30,11 @@ tienda.config(function($mdThemingProvider) {
     .warnPalette('yellow', {
       'default' : 'A400'
     })
-    .backgroundPalette('grey',   {
-      'default' : '800',
-      'hue-1': '900',
-      'hue-2': '900',
-      'hue-3': '900'
+    .backgroundPalette('negro', {
+      'default' : '900',
+      'hue-1': '500',
+      'hue-2': '500',
+      'hue-3': '500'
     })
     .dark();
     $mdThemingProvider.enableBrowserColor();
