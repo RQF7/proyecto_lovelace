@@ -19,6 +19,7 @@ from .models.estado import Estado
 from .models.metodo import Metodo
 from .models.paquete import Paquete
 from .models.tarjeta import Tarjeta
+from .models.tipo_de_direccion import TipoDeDireccion
 from .models.tipo_de_tarjeta import TipoDeTarjeta
 from .models.usuario import Usuario
 from ..tienda import negocio
@@ -250,11 +251,23 @@ def obtenerTarjetas (peticion):
   return utilidades.respuestaJSON(tarjetas)
 
 
+def obtenerDireccionDeTarjeta (peticion, idDeDireccion):
+  """Regresa la dirección asociada a la tarjeta dada.
+
+  TODO:
+  * Agregar decorador de privilegios.
+  * Validar que la dirección pedida sea del cliente en sesión."""
+  direccion = Direccion.objects.get(pk = idDeDireccion)
+  return utilidades.respuestaJSON(direccion)
+
+
 @utilidades.privilegiosRequeridos
-def operarTarjeta (peticion, idDeTarjeta):
+def operarTarjeta (peticion, idDeTarjeta = 0):
   """Gestión de tarjetas."""
   if peticion.method == 'DELETE':
     return eliminarTarjeta(peticion, idDeTarjeta)
+  elif peticion.method == 'POST':
+    return agregarTarjeta(peticion)
   else:
     return django.http.HttpResponseNotAllowed()
 
@@ -268,6 +281,88 @@ def eliminarTarjeta (peticion, idDeTarjeta):
   tarjeta.activa = False;
   tarjeta.save()
   return django.http.HttpResponse()
+
+
+def agregarTarjeta (peticion):
+  """Registra un nuevo método de pago del cliente en sesión.
+
+  Respuestas:
+  * En caso de una inserción exitosa, se regresa el objeto
+    de la nueva tarjeta.
+  * En caso de una inserción duplicada se regresa un 1.
+  * En caso de una inserción duplicada excepto por la fecha de
+    expiración, se regresa un 2."""
+  objetoDePeticion = json.loads(peticion.body)
+  identificador = json.loads(peticion.session['usuario'])['pk']
+  print("DEBUG", objetoDePeticion)
+
+  try:
+    # Buscar tarjetas iguales
+    # Si no hay, se lanza excepción.
+    similar = Usuario.objects.get(pk = identificador).tarjeta.get(
+      terminacion = objetoDePeticion['pan'][-4:],
+      tipoDeTarjeta = TipoDeTarjeta.objects.get(pk = objetoDePeticion['tipo']),
+      emisor = Emisor.objects.get(pk = objetoDePeticion['emisor']),
+      titular = objetoDePeticion['titular'])
+
+    # Trayectoria alternativa 05E: La tarjeta ingresada ya ha sido almacenada.
+    if similar.activa == True:
+      fecha_uno = similar.expiracion
+      fecha_dos = django.utils.dateparse.parse_datetime(
+        objetoDePeticion['expiracion'])
+      print(fecha_uno, fecha_dos)
+      if fecha_uno.year == fecha_dos.year and \
+        fecha_uno.month == fecha_dos.month:
+        return django.http.HttpResponse("1")
+
+      # Trayectoria alternativa 05H: Hay una tarjeta existente y activa
+      # con los mismos datos, excepto la fecha de vencimiento.
+      else:
+        return django.http.HttpResponse("2")
+
+    # Trayectoria alternativa 05F: La tarjeta ingresada ya ha sido
+    # almacenada y se encuentra inactiva.
+    else:
+      print("Tarjeta existente inactiva")
+      similar.expiracion = django.utils.dateparse.parse_datetime(
+        objetoDePeticion['expiracion'])
+      if objetoDePeticion['direccion']['pk'] == 0:
+        # Crear nueva dirección
+        # TODO: Para evitar posibles duplicados, antes de insertar la nueva
+        # dirección se tendría que buscar entre las direcciones inactivas.
+        print("Nueva dirección")
+        direccion = Direccion(
+          tipoDeDireccion = TipoDeDireccion.objects.get(
+            nombre = 'Facturación'),
+          estado = Estado.objects.get(
+            pk = objetoDePeticion['direccion']['fields']['estado']),
+          municipio = objetoDePeticion['direccion']['fields']['municipio'],
+          colonia = objetoDePeticion['direccion']['fields']['colonia'],
+          calle = objetoDePeticion['direccion']['fields']['calle'],
+          cp = objetoDePeticion['direccion']['fields']['cp'],
+          activa = True,
+          numeroInterior =
+            objetoDePeticion['direccion']['fields']['numeroInterior'],
+          numeroExterior =
+            objetoDePeticion['direccion']['fields']['numeroExterior'])
+        direccion.save()
+        similar.direccion = direccion;
+
+      else:
+        # Dirección existente
+        print("Dirección existente")
+        similar.direccion = Direccion.objects.get(
+          pk = objetoDePeticion['direccion']['pk'])
+
+      similar.activa = True
+      similar.save()
+      return utilidades.respuestaJSON(similar)
+
+  except Tarjeta.DoesNotExist:
+    pass
+
+  print("Nueva tarjeta")
+  return django.http.HttpResponse("1")
 
 
 def obtenerEmisores (peticion):
