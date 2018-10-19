@@ -83,7 +83,7 @@ def operarUsuario (peticion):
   if peticion.method == 'POST':
     return registrarUsuario(peticion)
 
-  elif (peticion.method == 'PUT'):
+  elif peticion.method == 'PUT':
     return actualizarUsuario(peticion)
 
 #  elif (peticion.method == 'DELETE'):
