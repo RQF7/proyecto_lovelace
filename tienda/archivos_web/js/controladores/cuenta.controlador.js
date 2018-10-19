@@ -1,5 +1,5 @@
 /*
- * Controlador de página de carrito.
+ * Controlador de cuenta de usuario.
  * Tienda en línea.
  * Proyecto Lovelace.
  */
@@ -22,6 +22,19 @@ tienda.controller('controladorCuenta', [
   {
     /* Funciones públicas. ***************************************************/
 
+    $scope.agregarMetodoDePago = function($event) {
+      $mdDialog.show({
+        parent: angular.element(document.body),
+        targetEvent: $event,
+        templateUrl: '/estaticos/html/ventanas/tarjeta.ventana.html',
+        controller: 'controladorFormularioTarjeta'
+      }).then(function (respuesta) {
+        if (respuesta != undefined) {
+          console.log(respuesta);
+        }
+      });
+    };
+
     $scope.quitarMetodoDePago = function($event, tarjeta) {
       var confirmacion = $mdDialog.confirm()
         .title('Advertencia')
@@ -40,6 +53,19 @@ tienda.controller('controladorCuenta', [
             }
         });
       }, function () {});
+    };
+
+    $scope.agregarDireccionDeEntrega = function($event) {
+      $mdDialog.show({
+        parent: angular.element(document.body),
+        targetEvent: $event,
+        templateUrl: '/estaticos/html/ventanas/direccion.ventana.html',
+        controller: 'controladorFormularioDireccionEntrega'
+      }).then(function (respuesta) {
+        if (respuesta != undefined) {
+          console.log(respuesta);
+        }
+      });
     };
 
     $scope.quitarDireccionDeEntrega = function($event, direccion) {
@@ -63,18 +89,6 @@ tienda.controller('controladorCuenta', [
       }, function () {});
     };
 
-    $scope.agregarMetodoDePago = function($event) {
-      $mdDialog.show({
-        parent: angular.element(document.body),
-        targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/tarjeta.ventana.html',
-        controller: 'controladorFormularioTarjeta'
-      }).then(function (respuesta) {
-        if (respuesta != undefined) {
-          console.log(respuesta);
-        }
-      });
-    };
 
     /* Secuencia de inicio. **************************************************/
     $scope.cambiarTitulo("Administración de cuenta", 3);
