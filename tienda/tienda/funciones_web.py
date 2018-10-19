@@ -116,7 +116,7 @@ def registrarUsuario (peticion):
 
 
 def actualizarUsuario (peticion):
-  """Actualiza a un nuevo usuario en la base de datos.
+  """Actualiza el usuario en sesión con los datos dados.
 
   Actualiza los datos del usuario dado en la base de datos y
   envía un correo con el vínculo de verificación
