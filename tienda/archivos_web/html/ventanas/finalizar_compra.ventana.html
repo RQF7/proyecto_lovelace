@@ -73,12 +73,7 @@
               flex
               ng-value="direccion.pk"
               class="md-primary">
-              {{direccion.fields.calle}},
-              {{direccion.fields.numeroInterior}} -
-              {{direccion.fields.numeroExterior}},
-              {{direccion.fields.colonia}},
-              {{direccion.fields.municipio}},
-              {{direccion.fields.estado}}
+              <ego-direccion informacion="direccion"></ego-direccion>
             </md-radio-button>
           </div>
         </div>
