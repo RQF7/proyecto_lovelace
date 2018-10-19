@@ -36,6 +36,15 @@ def existeUsuario (usuarioEnPeticion):
     return 0
 
 
+def existeCorreo (usuarioEnPeticion, pk):
+  """Verifica si un usuario existe."""
+  try:
+    Usuario.objects.exclude(pk = pk).get(correo = usuarioEnPeticion["correo"])
+    return 1
+  except Usuario.DoesNotExist:
+    return 0
+
+
 def crearVinculoDeVerificacion (correo):
   """Crea un nuevo vínculo de verificación."""
   fecha = datetime.datetime.utcnow()
@@ -77,4 +86,29 @@ def guardarUsuario (usuarioEnPeticion):
     verificado = 0)
   usuario.save()
   return usuario
+
+
+def actualizarUsuario (usuarioEnPeticion, pk):
+  """ La función regresa 1 si se modifico el correo y 0 si no """
+  usuario = Usuario.objects.get(pk = pk)
+  if usuario.correo == usuarioEnPeticion["correo"]:
+    usuario.nombre = usuarioEnPeticion["nombre"]
+    usuario.contrasenia = hashlib.sha256(
+      usuarioEnPeticion["contrasenia"].encode('UTF-8')).digest()
+    usuario.save(force_update=True)
+    correoActualizado = "2"
+  else:
+    vinculo = crearVinculoDeVerificacion(usuarioEnPeticion["correo"])
+    usuario = Usuario(pk = pk,
+    nombre = usuarioEnPeticion["nombre"],
+    correo = usuarioEnPeticion["correo"],
+    contrasenia = hashlib.sha256(
+      usuarioEnPeticion["contrasenia"].encode('UTF-8')).digest(),
+    vinculo = vinculo["vinculo"],
+    fecha = vinculo["fecha"],
+    verificado = 0)
+    enviarVinculoDeVerificacion(usuario,"actualizacion")
+    usuario.save(force_update=True)
+    correoActualizado = "0"
+  return {"usuario":usuario, "correoActualizado":correoActualizado}
 

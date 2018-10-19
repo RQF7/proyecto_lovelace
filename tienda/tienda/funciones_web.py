@@ -76,15 +76,16 @@ def cerrarSesion (peticion):
 # Operaciones de clientes ######################################################
 ################################################################################
 
+
 def operarUsuario (peticion):
   """Función diccionario para operaciones sobre un usuario."""
 
   if(peticion.method == 'POST'):
     return registrarUsuario(peticion)
 
-#  elif (peticion.method == 'PUT'):
-#    return actualizarUsuario(peticion, obtenerId(peticion))
-#
+  elif (peticion.method == 'PUT'):
+    return actualizarUsuario(peticion)
+
 #  elif (peticion.method == 'DELETE'):
 #    return eliminarUsuario(peticion, obtenerId(peticion))
 
@@ -114,6 +115,32 @@ def registrarUsuario (peticion):
   return django.http.HttpResponse("0")
 
 
+def actualizarUsuario (peticion):
+  """Actualiza a un nuevo usuario en la base de datos.
+
+  Actualiza los datos del usuario dado en la base de datos y
+  envía un correo con el vínculo de verificación
+
+  Regresa
+    0 en caso de exito.
+    1 en caso de que el erro.                              """
+
+  usuarioEnPeticion = json.loads(peticion.body)
+  pk = json.loads(peticion.session['usuario'])['pk']
+
+  # verifica si ya existe el correo
+  if negocio.existeCorreo(usuarioEnPeticion,pk):
+    return django.http.HttpResponse("1")
+
+  # Guarda al usuario
+  respuesta = negocio.actualizarUsuario(usuarioEnPeticion,pk)
+  usuario = respuesta["usuario"]
+  correoActualizado = respuesta["correoActualizado"]
+  print(correoActualizado)
+
+  return django.http.HttpResponse(correoActualizado)
+
+
 def verificarCorreoDeRegistro (peticion, vinculo):
   """Verifica el correo asociado al vínculo de registro dado, haciendo
   la verificación de fecha."""
@@ -130,6 +157,15 @@ def verificarCorreoDeRegistro (peticion, vinculo):
     usuario.vinculo = None
     usuario.save()
     return django.http.HttpResponseRedirect('/?correo_verificado')
+
+
+def verificarCorreoDeActualizacion (peticion, vinculo):
+  """Verifica el correo asociado al vínculo de actualización dado."""
+  usuario = Usuario.objects.get(vinculo = vinculo)
+  usuario.verificado = 1
+  usuario.vinculo = None
+  usuario.save()
+  return django.http.HttpResponseRedirect('/?correo_verificado')
 
 
 ################################################################################

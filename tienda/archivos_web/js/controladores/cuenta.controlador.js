@@ -22,6 +22,24 @@ tienda.controller('controladorCuenta', [
   {
     /* Funciones públicas. ***************************************************/
 
+    $scope.actualizarUsuario = function ($event) {
+      var padre = angular.element(document.body);
+      $mdDialog.show({
+        parent: padre,
+        targetEvent: $event,
+        templateUrl: '/estaticos/html/ventanas/operar_usuario.ventana.html',
+        controller: 'controladorFormularioOperarUsuario',
+        locals: {
+          "tituloOperacion": "Actualizar datos",
+          "operacion": "actualizar"
+        }
+      }).then(function (respuesta) {
+        if (respuesta != undefined) {
+          console.log(respuesta);
+        }
+      });
+    };
+
     $scope.quitarMetodoDePago = function($event, tarjeta) {
       var confirmacion = $mdDialog.confirm()
         .title('Advertencia')

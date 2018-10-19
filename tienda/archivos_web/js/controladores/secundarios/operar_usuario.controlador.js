@@ -35,6 +35,15 @@ tienda.controller('controladorFormularioOperarUsuario', [
       + 'correo electrónico (revise su carpeta de spam).'
 
 
+    /* Operaciones de sesión **************************************************/
+
+    $scope.usuario = undefined;
+    api.obtenerUsuarioDeSesion().then(function (respuesta) {
+      if (respuesta.data != '') {
+        $scope.usuario = respuesta.data;
+      }
+    });
+
     /* Acciones públicas. ****************************************************/
 
     $scope.cancelar = function () {
@@ -68,9 +77,9 @@ tienda.controller('controladorFormularioOperarUsuario', [
       });
     };
 
-/*
+
     $scope.aceptarActualizacion = function ($event) {
-      api.actualizarCliente($scope.cliente).then(function (respuesta) {
+      api.actualizarUsuario($scope.usuario).then(function (respuesta) {
         if (respuesta.data == '0') {
           var aviso = $mdDialog.alert()
             .title('Actualización exitosa')
@@ -94,7 +103,6 @@ tienda.controller('controladorFormularioOperarUsuario', [
         }
       });
     };
-*/
 
   }
 ]);
