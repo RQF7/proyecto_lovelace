@@ -82,33 +82,18 @@
             <div
               flex="60"
               class="descripcion">
-              <div class="etiqueta">
-                <p class="etiqueta-descripcion">
-                  Título
-                </p>
-                <p class="etiqueta-contenido">
-                  {{libro.titulo | limitTo: 25}}
-                  {{libro.titulo.length > 25 ? '...' : ''}}
-                </p>
-              </div>
+              <ego-etiqueta descripcion="'Título'">
+                {{libro.titulo | limitTo: 25}}
+                {{libro.titulo.length > 25 ? '...' : ''}}
+              </ego-etiqueta>
               <!-- TODO:
               comportamiento dinámico para cuando hay varios autores. -->
-              <div class="etiqueta">
-                <p class="etiqueta-descripcion">
-                  Autor
-                </p>
-                <p class="etiqueta-contenido">
-                  {{libro.autor[0] | nombre}}
-                </p>
-              </div>
-              <div class="etiqueta">
-                <p class="etiqueta-descripcion">
-                  Precio
-                </p>
-                <p class="etiqueta-contenido">
-                  {{libro.precio | currency}}
-                </p>
-              </div>
+              <ego-etiqueta descripcion="'Autor'">
+                {{libro.autor[0] | nombre}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Precio'">
+                {{libro.precio | currency}}
+              </ego-etiqueta>
             </div>
           </div>
           <span flex></span>

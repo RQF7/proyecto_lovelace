@@ -60,55 +60,57 @@
     md-gutter="10px">
     <md-grid-tile ng-repeat="tarjeta in tarjetas">
       <md-whiteframe
-        class="md-whiteframe-4dp tarjeta">
-        <div layout="column" style="height: 100%">
-          <div class="etiqueta">
-            <p class="etiqueta-descripcion">
-              Titular de cuenta
-            </p>
-            <p class="etiqueta-contenido">
-              {{tarjeta.fields.titular}}
-            </p>
-          </div>
-          <div class="etiqueta">
-            <p class="etiqueta-descripcion">
-              Terminación
-            </p>
-            <p class="etiqueta-contenido">
-              <em>{{tarjeta.fields.terminacion}}</em>
-            </p>
-          </div>
-          <div class="etiqueta">
-            <p class="etiqueta-descripcion">
-              Fecha de expiración
-            </p>
-            <p class="etiqueta-contenido">
-              {{tarjeta.fields.expiracion | date}}
-            </p>
-          </div>
-          <div class="etiqueta">
-            <p class="etiqueta-descripcion">
-              Emisor
-            </p>
-            <p class="etiqueta-contenido">
-              {{tarjeta.fields.emisor}}
-            </p>
-          </div>
-          <div class="etiqueta">
-            <p class="etiqueta-descripcion">
-              Tipo de tarjeta
-            </p>
-            <p class="etiqueta-contenido">
-              {{tarjeta.fields.tipoDeTarjeta}}
-            </p>
-          </div>
-          <div class="etiqueta">
-            <p class="etiqueta-descripcion">
-              Método de tokenización
-            </p>
-            <p class="etiqueta-contenido">
-              {{tarjeta.fields.metodo}}
-            </p>
+        class="md-whiteframe-6dp tarjeta"
+        md-colors="{background: 'background-hue-2'}">
+        <div
+          layout="column"
+          style="height: 100%">
+          <div
+            layout="row">
+            <div
+              layout="column"
+              flex="50">
+              <ego-etiqueta descripcion="'Titular'">
+                {{tarjeta.fields.titular}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Terminación'">
+                <em>{{tarjeta.fields.terminacion}}</em>
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Fecha de expiración'">
+                {{tarjeta.fields.expiracion | date}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Emisor'">
+                {{tarjeta.fields.emisor}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Tipo de tarjeta'">
+                {{tarjeta.fields.tipoDeTarjeta}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Método de tokenización'">
+                {{tarjeta.fields.metodo}}
+              </ego-etiqueta>
+            </div>
+            <div
+              layout="column"
+              flex="50">
+              <ego-etiqueta descripcion="'Calle'">
+                {{tarjeta.direccion.fields.calle}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Número interior'">
+                {{tarjeta.direccion.fields.numeroInterior}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Número exterior'">
+                {{tarjeta.direccion.fields.numeroExterior}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Colonia'">
+                {{tarjeta.direccion.fields.colonia}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Municipio'">
+                {{tarjeta.direccion.fields.municipio}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Estado'">
+                {{tarjeta.direccion.fields.estado}}
+              </ego-etiqueta>
+            </div>
           </div>
           <span flex></span>
           <div
@@ -155,62 +157,27 @@
       <md-whiteframe
         class="md-whiteframe-4dp tarjeta">
         <div layout="column" style="height: 100%">
-          <div class="etiqueta">
-            <p class="etiqueta-descripcion">
-              Calle
-            </p>
-            <p class="etiqueta-contenido">
-              {{direccion.fields.calle}}
-            </p>
-          </div>
-          <div class="etiqueta">
-            <p class="etiqueta-descripcion">
-              Número interior
-            </p>
-            <p class="etiqueta-contenido">
-              {{direccion.fields.numeroInterior}}
-            </p>
-          </div>
-          <div class="etiqueta">
-            <p class="etiqueta-descripcion">
-              Número exterior
-            </p>
-            <p class="etiqueta-contenido">
-              {{direccion.fields.numeroExterior}}
-            </p>
-          </div>
-          <div class="etiqueta">
-            <p class="etiqueta-descripcion">
-              Colonia
-            </p>
-            <p class="etiqueta-contenido">
-              {{direccion.fields.colonia}}
-            </p>
-          </div>
-          <div class="etiqueta">
-            <p class="etiqueta-descripcion">
-              Municipio
-            </p>
-            <p class="etiqueta-contenido">
-              {{direccion.fields.municipio}}
-            </p>
-          </div>
-          <div class="etiqueta">
-            <p class="etiqueta-descripcion">
-              Estado
-            </p>
-            <p class="etiqueta-contenido">
-              {{direccion.fields.estado}}
-            </p>
-          </div>
-          <div class="etiqueta">
-            <p class="etiqueta-descripcion">
-              Código postal
-            </p>
-            <p class="etiqueta-contenido">
-              {{direccion.fields.cp}}
-            </p>
-          </div>
+          <ego-etiqueta descripcion="'Calle'">
+            {{direccion.fields.calle}}
+          </ego-etiqueta>
+          <ego-etiqueta descripcion="'Número interior'">
+            {{direccion.fields.numeroInterior}}
+          </ego-etiqueta>
+          <ego-etiqueta descripcion="'Número exterior'">
+            {{direccion.fields.numeroExterior}}
+          </ego-etiqueta>
+          <ego-etiqueta descripcion="'Colonia'">
+            {{direccion.fields.colonia}}
+          </ego-etiqueta>
+          <ego-etiqueta descripcion="'Municipio'">
+            {{direccion.fields.municipio}}
+          </ego-etiqueta>
+          <ego-etiqueta descripcion="'Estado'">
+            {{direccion.fields.estado}}
+          </ego-etiqueta>
+          <ego-etiqueta descripcion="'Código postal'">
+            {{direccion.fields.cp}}
+          </ego-etiqueta>
           <span flex></span>
           <div
             layout="row"
