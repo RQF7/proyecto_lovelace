@@ -108,7 +108,7 @@ def actualizarUsuario (usuarioEnPeticion, pk):
     fecha = vinculo["fecha"],
     verificado = False)
     enviarVinculoDeVerificacion(usuario,"actualizacion")
-    usuario.save(force_update=True)
+    usuario.save(force_update = True)
     correoActualizado = "0"
   return {"usuario":usuario, "correoActualizado":correoActualizado}
 
