@@ -123,7 +123,7 @@ def actualizarUsuario (peticion):
 
   Regresa
     0 en caso de exito.
-    1 en caso de que el erro.                              """
+    1 en caso de error.                                    """
 
   usuarioEnPeticion = json.loads(peticion.body)
   pk = json.loads(peticion.session['usuario'])['pk']
