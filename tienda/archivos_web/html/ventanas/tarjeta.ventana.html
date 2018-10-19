@@ -306,12 +306,7 @@
               <md-radio-button
                 ng-repeat="direccion in direcciones"
                 ng-value="direccion.pk">
-                {{direccion.fields.calle}},
-                {{direccion.fields.numeroInterior}} -
-                {{direccion.fields.numeroExterior}},
-                {{direccion.fields.colonia}},
-                {{direccion.fields.municipio}},
-                {{direccion.fields.estado}}.
+                <ego-direccion informacion="direccion"></ego-direccion>
               </md-radio-button>
             </md-radio-group>
           </div>
