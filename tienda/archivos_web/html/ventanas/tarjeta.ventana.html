@@ -177,7 +177,7 @@
         <div
           layout="row">
           <div
-            flex="70"
+            flex="{{direcciones.length != 0 ? '70' : '100'}}"
             layout="column">
             <div
               layout="row"
@@ -185,12 +185,12 @@
               <md-input-container flex="70">
                 <label>Calle</label>
                 <input name="calle"
-                  ng-model="direccion.calle"
+                  ng-model="direccion.fields.calle"
                   md-no-asterisk
                   required
                   ng-minlength="5"
                   spellcheck="false"
-                  ng-disabled="direccionAnterior != undefined">
+                  ng-disabled="objetoPadre.direccionAnterior != undefined">
                 <div ng-messages="formularioTarjeta.calle.$error">
                   <div ng-message="required">
                     Campo obligatorio.
@@ -203,22 +203,20 @@
               <md-input-container flex="15">
                 <label>No. int.</label>
                 <input name="numeroInterior"
-                  ng-model="direccion.numeroInterior"
+                  ng-model="direccion.fields.numeroInterior"
                   md-no-asterisk
-                  type="number"
                   ng-minlength="5"
                   spellcheck="false"
-                  ng-disabled="direccionAnterior != undefined">
+                  ng-disabled="objetoPadre.direccionAnterior != undefined">
               </md-input-container>
               <md-input-container flex="15">
                 <label>No. ext.</label>
                 <input name="numeroExterior"
-                  ng-model="direccion.numeroExterior"
+                  ng-model="direccion.fields.numeroExterior"
                   required
                   md-no-asterisk
-                  type="number"
                   spellcheck="false"
-                  ng-disabled="direccionAnterior != undefined">
+                  ng-disabled="objetoPadre.direccionAnterior != undefined">
                 <div ng-messages="formularioTarjeta.numeroExterior.$error">
                   <div ng-message="required">
                     Campo obligatorio.
@@ -233,12 +231,12 @@
                 flex="33">
                 <label>Colonia</label>
                 <input name="colonia"
-                  ng-model="direccion.colonia"
+                  ng-model="direccion.fields.colonia"
                   md-no-asterisk
                   required
                   ng-minlength="5"
                   spellcheck="false"
-                  ng-disabled="direccionAnterior != undefined">
+                  ng-disabled="objetoPadre.direccionAnterior != undefined">
                 <div ng-messages="formularioTarjeta.colonia.$error">
                   <div ng-message="required">
                     Campo obligatorio.
@@ -252,12 +250,12 @@
                 flex="33">
                 <label>Municipio</label>
                 <input name="municipio"
-                  ng-model="direccion.municipio"
+                  ng-model="direccion.fields.municipio"
                   md-no-asterisk
                   required
                   ng-minlength="5"
                   spellcheck="false"
-                  ng-disabled="direccionAnterior != undefined">
+                  ng-disabled="objetoPadre.direccionAnterior != undefined">
                 <div ng-messages="formularioTarjeta.municipio.$error">
                   <div ng-message="required">
                     Campo obligatorio.
@@ -274,10 +272,10 @@
                 </label>
                 <md-select
                   name="estado"
-                  ng-model="estado.emisor"
+                  ng-model="direccion.fields.estado"
                   required
                   md-no-asterisk
-                  ng-disabled="direccionAnterior != undefined">
+                  ng-disabled="objetoPadre.direccionAnterior != undefined">
                   <md-option
                     ng-repeat="estado in estados"
                     ng-value="estado.pk">
@@ -290,16 +288,21 @@
               </md-input-container>
             </div>
           </div>
-          <div class="separador-horizontal-40"></div>
+          <div
+            class="separador-horizontal-40"
+            ng-if="direcciones.length != 0"></div>
           <div
             flex="30"
-            layout="column">
+            layout="column"
+            ng-if="direcciones.length != 0">
             <div class="etiqueta">
               <p class="etiqueta-descripcion">
                 Otras direcciones asociadas:
               </p>
             </div>
-            <md-radio-group ng-model="direccionAnterior">
+            <md-radio-group
+              ng-model="objetoPadre.direccionAnterior"
+              ng-click="cambioEnDireccionAnterior()">
               <md-radio-button
                 ng-repeat="direccion in direcciones"
                 ng-value="direccion.pk">

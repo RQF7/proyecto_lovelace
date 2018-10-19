@@ -22,11 +22,36 @@ tienda.controller('controladorFormularioTarjeta', [
       $mdDialog.hide();
     };
 
+    $scope.cambioEnDireccionAnterior = function () {
+      for (var i = 0; i < $scope.direcciones.length; i++) {
+        if ($scope.direcciones[i].pk == $scope.objetoPadre.direccionAnterior) {
+          if ($scope.direcciones[i].banderaDeSeleccion) {
+            $scope.objetoPadre.direccionAnterior = undefined;
+            $scope.direcciones[i].banderaDeSeleccion = false;
+            $scope.direccion = {};
+          } else {
+            $scope.direcciones[i].banderaDeSeleccion = true;
+            $scope.direccion = $scope.direcciones[i];
+          }
+        } else {
+          $scope.direcciones[i].banderaDeSeleccion = false;
+        }
+      }
+    }
+
     /* Secuencia de inicio. **************************************************/
     $scope.tarjeta = {};
     $scope.direccion = {};
     $scope.direcciones = direcciones;
-    $scope.direccionAnterior = undefined;
+    $scope.objetoPadre = {};
+    $scope.objetoPadre.direccionAnterior = undefined;
+
+    /* El «objetoPadre» es para colocar el modelo de los radiobuttons
+     * adentro de un objeto y así poder acceder a su valor desde este
+     * controlador. Sin él, se modifica «direccionAnterior» en un controlador
+     * virtual hijo definido por el nf-if. Ver:
+     * https://stackoverflow.com/questions/18342917/
+     * angularjs-ng-model-doesnt-work-inside-ng-if#18342974 */
 
     $scope.emisores = [];
     $scope.metodos = [];
@@ -43,10 +68,14 @@ tienda.controller('controladorFormularioTarjeta', [
 
     api.obtenerTipos().then(function (respuesta) {
       $scope.tipos = respuesta.data;
-    })
+    });
 
     api.obtenerEstados().then(function (respuesta) {
       $scope.estados = respuesta.data;
-    })
+    });
+
+    for (var i = 0; i < $scope.direcciones.length; i++) {
+      $scope.direcciones[i].banderaDeSeleccion = false;
+    }
   }
 ]);
