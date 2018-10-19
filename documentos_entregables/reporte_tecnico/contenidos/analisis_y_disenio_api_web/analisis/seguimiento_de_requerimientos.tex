@@ -1,0 +1,131 @@
+%
+% Seguimiento de requerimientos de tokens,
+% Capítulo de análisis y diseño API web
+% Proyecto Lovelace.
+%
+
+\subsection{Seguimiento de requerimientos de \glspl{gl:token}}
+\label{sec:seguimiento_api}
+
+A continuación se encuentran los requerimientos que caen en la clasificación
+del \hipervinculo{clasificacion:sistema} mencionados en la sección
+\ref{sec:requerimientos}. Se indica, para cada requerimiento, si el
+requerimiento fue satisfecho o no y cómo o por qué no.
+
+\begin{itemize}
+  \item \textbf{\hipervinculo{rq_pci:productos_de_hardware}.}
+    Como no se utilizan productos de hardware en el sistema tokenizador, este
+    requerimiento se satisface por vacuidad.
+
+  \item \textbf{\hipervinculo{rq_pci:productos_de_software}.}
+    Ya que este requerimiento necesita de una auditoria por parte del
+    \gls{gl:fips}, este requerimiento no es satisfecho.
+
+  \item \textbf{\hipervinculo{rq_pci:deteccion_anomalias}.}
+    El contador de malas acciones es el encargado de encontrar
+    \textit{anomalías} en el uso del sistema tokenizador; es aumentado cuando
+    se reciben peticiones con \glspl{gl:token} o \glspl{gl:pan} inválidos, o
+    cuando se intenta detokenizar un \gls{gl:token} que no está asociado
+    al cliente que mandó la petición (véase \hipervinculo{rn:malas_acciones}).
+    Por lo tanto, este requerimiento es satisfecho.
+
+  \item \textbf{\hipervinculo{rq_pci:guia_de_instalacion}.}
+    La API tiene documentación en su sitio en línea que permite saber cómo
+    comunicarse con ella y cuáles son los posibles errores; además, el código
+    es libre y público (véase \hipervinculo{rq:mostrar_documentacion}).
+    Por lo tanto, este requerimiento es satisfecho.
+
+  \item \textbf{\hipervinculo{rq_pci:acceso_a_producto}.}
+    Este requerimiento contiene varios subrequerimientos que se listan
+    a continuación:
+    \begin{itemize}
+      \item \textbf{\hipervinculo{rq_pci:control_de_peticiones}.}
+        Ya que la única manera de acceder al sistema tokenizador es mediante
+        peticiones y en cada una se debe mandar un token de autenticación,
+        este requerimiento es satisfecho (véase
+        \hipervinculo{rq:tokenizar_tarjeta},
+        \hipervinculo{rq:detokenizar_token},
+        \hipervinculo{rq:retokenizar_token}).
+
+      \item \textbf{\hipervinculo{rq_pci:registros_de_acceso}.}
+        Ya que el sistema no matiene un registro de los eventos y las
+        operaciones realizadas, este requerimiento no es satisfecho.
+
+      \item \textbf{\hipervinculo{rq_pci:autenticacion_multifactor}.}
+        Debido al alcance (y presupuesto) del proyecto, no se cuenta con
+        autenticación multifactor; por lo tanto, este requerimiento no es
+        satisfecho.
+
+      \item \textbf{\hipervinculo{rq_pci:acceso_de_sistema}.}
+        Los clientes se identifican en cada petición ante el sistema mediante
+        sus credenciales (usuario y contraseña); el sistema se identifica
+        ante el cliente mediante \acrshort{gl:tls}/\acrshort{gl:ssl}. Por lo
+        tanto, este requerimiento es satisfecho.
+
+      \item \textbf{\hipervinculo{rq_pci:acceso_administrativo}.}
+        Ya que no tenemos accesos administrativos desde fuera de la consola,
+        este requerimiento es satisfecho por vacuidad. El usuario tipo
+        administrador no tiene permisos para utilizar el programa tokenizador.
+
+    \end{itemize}
+    Como se puede observar, este requerimiento es satisfecho parcialmente, pues
+    hay subrequerimientos con los que no se cumple.
+
+  \item \textbf{\hipervinculo{rq_pci:manejo_de_llaves}.}
+    Este requerimiento contiene varios subrequerimientos que se listan a
+    continuación:
+    \begin{itemize}
+      \item \textbf{\hipervinculo{rq_pci:ciclo_de_vida_llaves}.}
+        Los criptoperiodos por defecto en el sistema son de 6 meses, lo que
+        es un tiempo relativamente corto; sin embargo, el sistema no inicia
+        por sí mismo un refresco de llaves, sino que es el cliente quien debe
+        realizar el refresco (véase \hipervinculo{rn:criptoperiodo_llave}).
+        Por lo tanto, como no es responsabilidad del sistema, este
+        requerimiento es satisfecho.
+
+      \item \textbf{\hipervinculo{rq_pci:periodo_llaves}.}
+        Dependiendo de a quién se le brinde la atención, el servicio de
+        tokenización puede ser muy variado, dependiendo de las necesidades de
+        cada cliente. Ya que no se describe el periodo criptográfico, este
+        requerimiento no es satisfecho.
+
+      \item \textbf{\hipervinculo{rq_pci:destruccion_de_llaves}.}
+        El cliente puede, en cualquier momento hacer un refresco de llaves
+        (destruir las nuevas y crear unas nuevas) sin tener que alterar el
+        sistema; por lo tanto, el requerimiento es satisfecho.
+
+      \item \textbf{\hipervinculo{rq_pci:exportar_llaves_en_claro}.}
+        El sistema no permite exportar llaves, así que este requerimiento
+        es satisfecho.
+
+      \item \textbf{\hipervinculo{rq_pci:entropia_generacion_llaves}.}
+        Las llaves son generadas mediante un \acrshort{gl:drbg} que funciona
+        con una función hash que tiene 256 bits de entropía; por lo tanto, este
+        requerimiento es satisfecho.
+
+      \item \textbf{\hipervinculo{rq_pci:llaves_de_uso_unico}.}
+        Cada cliente tiene un juego de llaves; una para cada algoritmo; además,
+        todas las llaves son únicas en la base de datos y no se utilizan para
+        nada más. Por lo tanto este requerimiento es satisfecho.
+
+    \end{itemize}
+
+  \item \textbf{\hipervinculo{rq_pci:cr_almacenamiento_tokens}.}
+    Para los algoritmos reversibles implementados (\acrshort{gl:ffx} y
+    \acrshort{gl:bps}), el sistema no guarda los \glspl{gl:token} generados;
+    por lo tanto, este requerimiento es satisfecho.
+
+  \item \textbf{\hipervinculo{rq_pci:cr_administracion_llaves}.}
+    Dado el alcance del proyecto y que este requerimiento involucra auditorías
+    o validaciones de organizaciones externas, no es satisfecho.
+
+  \item \textbf{\hipervinculo{rq_pci:nc_independencia_estadistica}.}
+    Ya que el sistema tiene una sola instancia de la base de datos, este
+    requerimiento es satisfecho.
+
+  \item \textbf{\hipervinculo{rq_pci:nc_administracion_llaves}.}
+    Dado el alcance del proyecto y que este requerimiento involucra auditorías
+    o validaciones de organizaciones externas, no es satisfecho.
+
+
+\end{itemize}

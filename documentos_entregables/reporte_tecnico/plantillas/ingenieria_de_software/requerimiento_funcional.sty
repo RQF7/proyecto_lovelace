@@ -50,17 +50,18 @@
     leftmargin = 4em}
 
   % Código efectivo
-  \vspace{1.0em}
-  \noindent
-  \textbf{\hypertarget{#1}
-    {REQF\prefijo-\formatearnumero{contador_requerimientos}~#2}.}
-  \pdfbookmark[4]
-    {REQF\prefijo-\formatearnumero{contador_requerimientos}~#2}{#1}
-  \par
-  \nopagebreak[4]
-  \begin{hangparas}{2em}{0}
-    #3
-  \end{hangparas}
+  \begin{unidadirrompible}
+    \vspace{1.0em}
+    \noindent
+    \textbf{\hypertarget{#1}
+      {REQF\prefijo-\formatearnumero{contador_requerimientos}~#2}.}
+    \pdfbookmark[4]
+      {REQF\prefijo-\formatearnumero{contador_requerimientos}~#2}{#1}
+    \par
+    \begin{hangparas}{2em}{0}
+      #3
+    \end{hangparas}
+  \end{unidadirrompible}
 
   % Regresar a estado previo
   \setlength{\parskip}{\separacionAnterior}
@@ -82,20 +83,25 @@
   % Configuración
   \setcounter{contador_subsubrequerimientos}{0}
   \refstepcounter{contador_subrequerimientos}
+  \setlength{\separacionAnterior}{\parskip}
+  \setlength{\parskip}{0em}
   \setitemize{
     leftmargin = 6em}
 
   % Código efectivo
-  \vspace{1.0em}
-  \textbf{\hypertarget{#1}
-    {SUBREQF\prefijo-\formatearnumero{contador_requerimientos}%
-      /\arabic{contador_subrequerimientos} #2}.}
-  \par
-  \nopagebreak[4]
-  \begin{hangparas}{4em}{0}
-    #3
-  \end{hangparas}
+  \begin{unidadirrompible}
+    \vspace{1.0em}
+    \textbf{\hypertarget{#1}
+      {SUBREQF\prefijo-\formatearnumero{contador_requerimientos}%
+        /\arabic{contador_subrequerimientos} #2}.}
+    \par
+    \begin{hangparas}{4em}{0}
+      #3
+    \end{hangparas}
+  \end{unidadirrompible}
 
+  % Regresar a estado previo
+  \setlength{\parskip}{\separacionAnterior}
   \setitemize{
     leftmargin = 4em}
 }
@@ -113,6 +119,8 @@
 {
   % Configuración
   \refstepcounter{contador_subsubrequerimientos}
+  \setlength{\separacionAnterior}{\parskip}
+  \setlength{\parskip}{0em}
   \setitemize{
     leftmargin = 8em}
 
@@ -123,11 +131,12 @@
       /\arabic{contador_subrequerimientos}%
       \Alph{contador_subsubrequerimientos} #2}.}
   \par
-  \nopagebreak[4]
   \begin{hangparas}{6em}{0}
     #3
   \end{hangparas}
 
+  % Configuración anterior
+  \setlength{\parskip}{\separacionAnterior}
   \setitemize{
     leftmargin = 6em}
 }

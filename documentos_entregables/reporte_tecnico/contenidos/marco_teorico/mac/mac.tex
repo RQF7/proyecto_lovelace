@@ -30,7 +30,7 @@ un mensaje de longitud $n$.
 \end{equation}
 
 El algoritmo \gls{gl:mac} más usado basado en un cifrado de bloque que
-utiliza el modo de operación \gls{gl:cbc} (véase sección \ref{sec:cbc}).
+utiliza el modo de operación \gls{gl:cbc} (véase sección~\ref{sec:cbc}).
 Cuando \gls{gl:des} es utilizado como el cifrado de bloque $E$, el tamaño
 de bloque es de 64 bits y la llave \gls{gl:mac} es de 56 bits.
 
@@ -47,8 +47,8 @@ veces más largo que el \gls{gl:md4}.
 
 \paragraph{\texorpdfstring{\acrlong{gl:prf}}{Función pseudoaleatoria}}
 Es posible generar códigos de verificación mediante el uso de funciones
-pseudoaleatorias \gls{gl:prf}. Se define en \ref{mac:1} el algoritmo para
-obtener el código de verificación y en \ref{mac:2} el algoritmo para verificar
+pseudoaleatorias \gls{gl:prf}. Se define en~\ref{mac:1} el algoritmo para
+obtener el código de verificación y en~\ref{mac:2} el algoritmo para verificar
 si es correcto o no el \gls{gl:mac}.
 
 \begin{pseudocodigo}[caption={\gls{gl:mac} mediante \gls{gl:prf}, obtener código.},
@@ -79,7 +79,7 @@ Este algoritmo está basado en el modo de operación \gls{gl:cbc} y una función
 $F$ que puede ser, por ejemplo, un cifrado por bloques. Se encarga de
 cifrar con una llave $l_1$ todo el mensaje $m$, pero lo único que se toma en
 cuenta es el último bloque, que es tomado como el código de autenticación
-(véase figura \ref{mac:cbc1}). En algunos casos, se cifra de nuevo, con la misma
+(véase figura~\ref{mac:cbc1}). En algunos casos, se cifra de nuevo, con la misma
 función $F$, pero utilizando una llave $l_2$ distinta (véase
 figura~\ref{mac:cbc2}).
 

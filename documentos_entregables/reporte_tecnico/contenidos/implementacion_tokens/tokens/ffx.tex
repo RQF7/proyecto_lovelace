@@ -6,10 +6,10 @@
 
 \subsection{Módulo de FFX}
 
-La operación \gls{gl:ffx} A10 se describió en la sección \ref{sec:ffx}. La
+La operación \gls{gl:ffx} A10 se describió en la sección~\ref{sec:ffx}. La
 parte medular de su operación se encuentra en la función de ronda que ocupa
-la red Feistel interna (pseudocódigo \ref{pc:ffx_a10}); la implementación de
-esta función se muestra en el código fuente \ref{codigo:ffx_ronda}.
+la red Feistel interna (pseudocódigo~\ref{pc:ffx_a10}); la implementación de
+esta función se muestra en el código fuente~\ref{codigo:ffx_ronda}.
 \gls{gl:ffx} A10 funciona con una red Feistel alternante (sección
 \ref{sec:red_feistel_alternante}), por lo que también es importante la
 implementación de este proceso; el código fuente
@@ -25,9 +25,9 @@ implementación de este proceso; el código fuente
 
 Como se mostró en el diseño del programa (capítulo
 \ref{sec:analisis_y_disenio}), la función de ronda implementa la
-interfaz de una función con inverso simétrico (diagrama \ref{clases_ffx}), por
+interfaz de una función con inverso simétrico (diagrama~\ref{clases_ffx}), por
 lo que la función \texttt{operar} correspone a la definida por la interfaz.
-Otro aspecto importante del código \ref{codigo:ffx_ronda} es la primitiva
+Otro aspecto importante del código~\ref{codigo:ffx_ronda} es la primitiva
 criptográfica usada: una instancia de \gls{gl:aes} \gls{gl:cbc} \gls{gl:mac} de
 Crypto++. La operación de esa función se puede dividir en tres partes
 claramente distingibles: el armado de la entrada a la primitiva (hasta la línea
@@ -50,7 +50,7 @@ formateo de la salida para la preservación del formato (el resto de la función
 
 Una red Feistel alternante es una red Feistel, la cuál a su vez implementa a
 una función con inverso; es por esto que los métodos mostrados en los códigos
-fuente \ref{codigo:red_feistel_operar} y \ref{codigo:red_feistel_deoperar} se
+fuente~\ref{codigo:red_feistel_operar} y~\ref{codigo:red_feistel_deoperar} se
 llaman \texttt{operar} y \texttt{deoperar}, respectivamente. La red feistel
 alternante tiene dos funciones de  ronda: una para las pares y otra para las
 impares. Estas son clases que  tengan la forma de una función con inverso: la

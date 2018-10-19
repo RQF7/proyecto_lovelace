@@ -6,13 +6,13 @@
 
 \subsection{Módulo de AHR}
 En esta sección se explica, de manera general, la implementación del algoritmo
-AHR, descrito en la sección \ref{sec:ahr}.
+AHR, descrito en la sección~\ref{sec:ahr}.
 
 Partiendo de lo general hacia lo particular, en la sección de código
 \ref{codigo:ahr_tok} se ve el método \textit{principal}; primero, dependiendo de
 la longitud del \gls{gl:pan} calcula los límites entre los cuales el
 \gls{gl:token} será válido. Posteriormente, mediante el método
-\textit{crearBloqueT}, descrito en \ref{codigo:ahr_tok1}, se concatena a la
+\textit{crearBloqueT}, descrito en~\ref{codigo:ahr_tok1}, se concatena a la
 salida de la función SHA256 (que recibe como entrada el \gls{gl:iin}), la
 representación binaria de la entrada $X$, que es el número de cuenta que se
 va a tokenizar. Una vez que se tiene el bloque $T$, se cifra mediante

@@ -1,5 +1,6 @@
 """
 configuraciones.py Archivo de configuraciones de django.
+Sistema tokenizador.
 Proyecto Lovelace.
 
 Documentación asociada:
@@ -30,7 +31,6 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
   'sistema_tokenizador.programa_tokenizador.configuracion.Configuracion',
   'sistema_tokenizador.general.configuracion.Configuracion',
-#  'django.contrib.auth',
   'django.contrib.contenttypes',
   'django.contrib.sessions',
   'django.contrib.messages',
@@ -96,27 +96,6 @@ DATABASES = {
   }
 }
 
-
-# Validación de contraseñas ###################################################
-# https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
-
-#AUTH_PASSWORD_VALIDATORS = [
-#  {
-#    'NAME':
-#    'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-#  },
-#  {
-#    'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-#  },
-#  {
-#    'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-#  },
-#  {
-#    'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-#  },
-#]
-
-
 # Internacionalización ########################################################
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -131,8 +110,8 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 # Dirección en donde se copian todos los archivos estáticos
-# &python administrar.py collectstatic
-STATIC_ROOT = os.path.join(BASE_DIR, 'archivos_estaticos')
+# &python administrar_sistema_tokenizador.py collectstatic
+STATIC_ROOT = os.path.join(BASE_DIR, 'archivos_web')
 
 STATIC_URL = '/estaticos/'
 STATICFILES_DIRS = [

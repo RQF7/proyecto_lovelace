@@ -1,15 +1,11 @@
 /*
  * Configuración de tareas de grunt.
  * Proyecto Lovelace.
- *
- * TODO:
- * * Hacer tarea personalizada para que los archivos estáticos con mensajes
- *   y expresiones regulares se copien en la fase de compilación. Ahorita
- *   se hacen GET por cada uno, en tiempo de ejecución.
  */
 
 /* Carpeta base */
-var cc = 'sistema_tokenizador/archivos_web/'
+var cc_tokens = 'sistema_tokenizador/archivos_web/';
+var cc_tienda = 'tienda/archivos_web/';
 
 module.exports = function (grunt) {
 
@@ -25,14 +21,21 @@ module.exports = function (grunt) {
         separator: '\n',
         stripBanners: false
       },
-      librerias_css: {
+      librerias_css_tokens: {
         src: [
           'node_modules/angular-material/angular-material.min.css',
           'node_modules/angular-material-data-table/dist/md-data-table.min.css'
         ],
-        dest: cc + 'compilados/css/librerias.min.css'
+        dest: cc_tokens + 'compilados/css/librerias.min.css'
       },
-      librerias_js: {
+      librerias_css_tienda: {
+        src: [
+          'node_modules/angular-material/angular-material.min.css',
+          'node_modules/angular-material-data-table/dist/md-data-table.min.css'
+        ],
+        dest: cc_tienda + 'compilados/css/librerias.min.css'
+      },
+      librerias_js_tokens: {
         src: [
           'node_modules/moment/moment.js',
           'node_modules/angular/angular.min.js',
@@ -45,17 +48,43 @@ module.exports = function (grunt) {
           'node_modules/angular-material/angular-material.min.js',
           'node_modules/angular-material-data-table/dist/md-data-table.min.js'
         ],
-        dest: cc + 'compilados/js/librerias.min.js'
+        dest: cc_tokens + 'compilados/js/librerias.min.js'
       },
-      sitio_publico: {
+      librerias_js_tienda: {
         src: [
-          cc + 'js/sistema_tokenizador.aplicacion.js',
-          cc + 'js/configuraciones/*.configuracion.js',
-          cc + 'js/servicios/*.servicio.js',
-          cc + 'js/controladores/*.controlador.js',
-          cc + 'js/controladores/secundarios/*.controlador.js'
+          'node_modules/moment/moment.js',
+          'node_modules/angular/angular.min.js',
+          'node_modules/angular-i18n/angular-locale_es-mx.js',
+          'node_modules/angular-route/angular-route.min.js',
+          'node_modules/angular-sanitize/angular-sanitize.min.js',
+          'node_modules/angular-animate/angular-animate.min.js',
+          'node_modules/angular-messages/angular-messages.min.js',
+          'node_modules/angular-aria/angular-aria.min.js',
+          'node_modules/angular-material/angular-material.min.js',
+          'node_modules/angular-material-data-table/dist/md-data-table.min.js'
         ],
-        dest: cc + 'compilados/js/scripts.js'
+        dest: cc_tienda + 'compilados/js/librerias.min.js'
+      },
+      scripts_tokens: {
+        src: [
+          cc_tokens + 'js/sistema_tokenizador.aplicacion.js',
+          cc_tokens + 'js/configuraciones/*.configuracion.js',
+          cc_tokens + 'js/servicios/*.servicio.js',
+          cc_tokens + 'js/controladores/*.controlador.js',
+          cc_tokens + 'js/controladores/secundarios/*.controlador.js'
+        ],
+        dest: cc_tokens + 'compilados/js/scripts.js'
+      },
+      scripts_tienda: {
+        src: [
+          cc_tienda + 'js/tienda.aplicacion.js',
+          cc_tienda + 'js/configuraciones/*.configuracion.js',
+          cc_tienda + 'js/filtros/*.filtro.js',
+          cc_tienda + 'js/servicios/*.servicio.js',
+          cc_tienda + 'js/controladores/*.controlador.js',
+          cc_tienda + 'js/controladores/secundarios/*.controlador.js'
+        ],
+        dest: cc_tienda + 'compilados/js/scripts.js'
       }
     },
 
@@ -63,14 +92,24 @@ module.exports = function (grunt) {
      * https://www.npmjs.com/package/grunt-contrib-uglify */
 
     uglify: {
-      principal: {
+      tokens: {
         options: {
           mangle: false,
           sourceMap: true
         },
         files: {
           'sistema_tokenizador/archivos_web/compilados/js/scripts.min.js':
-            [cc + 'compilados/js/scripts.preprocesado.js']
+            [cc_tokens + 'compilados/js/scripts.preprocesado.js']
+        }
+      },
+      tienda: {
+        options: {
+          mangle: false,
+          sourceMap: true
+        },
+        files: {
+          'tienda/archivos_web/compilados/js/scripts.min.js':
+            [cc_tienda + 'compilados/js/scripts.js']
         }
       }
     },
@@ -79,31 +118,66 @@ module.exports = function (grunt) {
      * https://www.npmjs.com/package/grunt-contrib-copy */
 
     copy: {
-      principal: {
+      tokens: {
         files: [
           {
             src: ['node_modules/angular-aria/angular-aria.min.js.map'],
-            dest: cc + 'compilados/js/angular-aria.min.js.map'
+            dest: cc_tokens + 'compilados/js/angular-aria.min.js.map'
           },
           {
             src: ['node_modules/angular-mocks/angular-mocks.js'],
-            dest: cc + 'compilados/js/angular-mocks.js'
+            dest: cc_tokens + 'compilados/js/angular-mocks.js'
           },
           {
             expand: true,
             flatten: true,
-            src: [cc + 'imagenes/*.png'],
-            dest: cc + 'compilados/imagenes/'
+            src: [cc_tokens + 'imagenes/*.png'],
+            dest: cc_tokens + 'compilados/imagenes/'
           },
           {
-            src: [cc + 'sass/sitio_publico.sass'],
-            dest: cc + 'compilados/css/sistema_tokenizador/archivos_web/sass/sitio_publico.sass'
+            src: [cc_tokens + 'sass/estilos.sass'],
+            dest: cc_tokens + 'compilados/css/sistema_tokenizador/archivos_web/sass/estilos.sass'
           },
           {
             expand: true,
             flatten: true,
             src: ['node_modules/material-design-icons/iconfont/*'],
-            dest: cc + 'compilados/fuentes/',
+            dest: cc_tokens + 'compilados/fuentes/',
+            filter: 'isFile'
+          }
+        ]
+      },
+      tienda: {
+        files: [
+          {
+            src: ['node_modules/angular-aria/angular-aria.min.js.map'],
+            dest: cc_tienda + 'compilados/js/angular-aria.min.js.map'
+          },
+          {
+            src: ['node_modules/angular-mocks/angular-mocks.js'],
+            dest: cc_tienda + 'compilados/js/angular-mocks.js'
+          },
+          {
+            expand: true,
+            flatten: true,
+            src: [cc_tienda + 'imagenes/*.png'],
+            dest: cc_tienda + 'compilados/imagenes/'
+          },
+          {
+            expand: true,
+            flatten: true,
+            src: [cc_tienda + '../img/*.jpg'],
+            dest: cc_tienda + 'compilados/imagenes/libros/'
+          },
+          {
+            src: [cc_tienda + 'sass/estilos.sass'],
+            dest: cc_tienda + 'compilados/css/sistema_tokenizador/archivos_web/sass/estilos.sass'
+          },
+          {
+            expand: true,
+            flatten: true,
+            src: ['node_modules/material-design-icons/iconfont/*'],
+            dest: cc_tienda + 'compilados/fuentes/',
             filter: 'isFile'
           }
         ]
@@ -114,7 +188,7 @@ module.exports = function (grunt) {
      * https://github.com/gruntjs/grunt-contrib-htmlmin *********************/
 
     htmlmin: {
-      todo: {
+      tokens: {
         options: {
           removeComments: true,
           collapseWhitespace: true,
@@ -124,27 +198,61 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: cc + 'compilados/preprocesados/',
+            cwd: cc_tokens + 'compilados/preprocesados/',
             src: ['*.html'],
-            dest: cc + 'compilados/'
+            dest: cc_tokens + 'compilados/'
           },
           {
             expand: true,
-            cwd: cc + 'compilados/preprocesados/html',
+            cwd: cc_tokens + 'compilados/preprocesados/html',
             src: ['*.html'],
-            dest: cc + 'compilados/html/'
+            dest: cc_tokens + 'compilados/html/'
           },
           {
             expand: true,
-            cwd: cc + 'compilados/preprocesados/html/plantillas',
+            cwd: cc_tokens + 'compilados/preprocesados/html/plantillas',
             src: ['*.html'],
-            dest: cc + 'compilados/html/plantillas/'
+            dest: cc_tokens + 'compilados/html/plantillas/'
           },
           {
             expand: true,
-            cwd: cc + 'compilados/preprocesados/html/ventanas',
+            cwd: cc_tokens + 'compilados/preprocesados/html/ventanas',
             src: ['*.html'],
-            dest: cc + 'compilados/html/ventanas/'
+            dest: cc_tokens + 'compilados/html/ventanas/'
+          }
+        ]
+      },
+      tienda: {
+        options: {
+          removeComments: true,
+          collapseWhitespace: true,
+          preserveLineBreaks: true,
+          quoteCharacter: "'",
+        },
+        files: [
+          {
+            expand: true,
+            cwd: cc_tienda + 'compilados/',
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/'
+          },
+          {
+            expand: true,
+            cwd: cc_tienda + 'compilados/html',
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/html/'
+          },
+          {
+            expand: true,
+            cwd: cc_tienda + 'compilados/html/plantillas',
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/html/plantillas/'
+          },
+          {
+            expand: true,
+            cwd: cc_tienda + 'compilados/html/ventanas',
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/html/ventanas/'
           }
         ]
       }
@@ -153,33 +261,65 @@ module.exports = function (grunt) {
     /* Configuración de seguidor. ********************************************/
 
     watch: {
-      js: {
+      js_tokens: {
         files: [
-          cc + 'js/*.js',
-          cc + 'js/**/*.js',
-          cc + 'js/**/**/*.js'
+          cc_tokens + 'js/*.js',
+          cc_tokens + 'js/**/*.js',
+          cc_tokens + 'js/**/**/*.js'
         ],
         tasks: [
-          "concat:sitio_publico",
-          "includereplace:js",
-          "uglify"
+          "concat:scripts_tokens",
+          "includereplace:js_tokens",
+          "uglify:tokens"
         ]
       },
-      html: {
+      js_tienda: {
         files: [
-          cc + '*.html',
-          cc + 'html/*.html',
-          cc + 'html/plantillas/*.html',
-          cc + 'html/ventanas/*.html'
+          cc_tienda + 'js/*.js',
+          cc_tienda + 'js/**/*.js',
+          cc_tienda + 'js/**/**/*.js'
         ],
         tasks: [
-          "includereplace:html",
-          "htmlmin:todo"
+          "concat:scripts_tienda",
+          "includereplace:js_tienda",
+          "uglify:tienda"
         ]
       },
-      css: {
+      html_tokens: {
         files: [
-          cc + 'sass/*.sass'
+          cc_tokens + '*.html',
+          cc_tokens + 'html/*.html',
+          cc_tokens + 'html/plantillas/*.html',
+          cc_tokens + 'html/ventanas/*.html'
+        ],
+        tasks: [
+          "includereplace:html_tokens",
+          "htmlmin:tokens"
+        ]
+      },
+      html_tienda: {
+        files: [
+          cc_tienda + '*.html',
+          cc_tienda + 'html/*.html',
+          cc_tienda + 'html/plantillas/*.html',
+          cc_tienda + 'html/ventanas/*.html'
+        ],
+        tasks: [
+          "includereplace:html_tienda",
+          "htmlmin:tienda"
+        ]
+      },
+      css_tokens: {
+        files: [
+          cc_tokens + 'sass/*.sass'
+        ],
+        tasks: [
+          "sass"
+        ]
+      },
+      css_tienda: {
+        files: [
+          cc_tienda + 'sass/*.sass'
         ],
         tasks: [
           "sass"
@@ -193,11 +333,18 @@ module.exports = function (grunt) {
       options: {
         sourceMapEmbed: true
       },
-      dist: {
+      tokens: {
         files:
         {
           'sistema_tokenizador/archivos_web/compilados/css/estilos.css':
-            cc + 'sass/estilos.sass'
+            cc_tokens + 'sass/estilos.sass'
+        }
+      },
+      tienda: {
+        files:
+        {
+          'tienda/archivos_web/compilados/css/estilos.css':
+            cc_tienda + 'sass/estilos.sass'
         }
       }
     },
@@ -205,7 +352,7 @@ module.exports = function (grunt) {
     /* Configuración de sustituciones. ***************************************/
 
     includereplace: {
-      html: {
+      html_tokens: {
         options: {
           prefix: '<!-- @@',
           suffix: ' -->',
@@ -214,27 +361,27 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: cc,
+            cwd: cc_tokens,
             src: ['*.html'],
-            dest: cc + 'compilados/preprocesados/'
+            dest: cc_tokens + 'compilados/preprocesados/'
           },
           {
             expand: true,
-            cwd: cc + 'html',
+            cwd: cc_tokens + 'html',
             src: ['*.html'],
-            dest: cc + 'compilados/preprocesados/html/'
+            dest: cc_tokens + 'compilados/preprocesados/html/'
           },
           {
             expand: true,
-            cwd: cc + 'html/plantillas',
+            cwd: cc_tokens + 'html/plantillas',
             src: ['*.html'],
-            dest: cc + 'compilados/preprocesados/html/plantillas/'
+            dest: cc_tokens + 'compilados/preprocesados/html/plantillas/'
           },
           {
             expand: true,
-            cwd: cc + 'html/ventanas',
+            cwd: cc_tokens + 'html/ventanas',
             src: ['*.html'],
-            dest: cc + 'compilados/preprocesados/html/ventanas/'
+            dest: cc_tokens + 'compilados/preprocesados/html/ventanas/'
           }
         ]
       },
@@ -244,7 +391,7 @@ module.exports = function (grunt) {
        * correctamente en el documento (que no se salgan del margen,
        * cuando menos), pero para js es un error tener una expersión
        * con un salto de línea en medio. */
-      js: {
+      js_tokens: {
         options: {
           includesDir: 'documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_api_web/analisis/',
           processIncludeContents: function(contenido) {
@@ -253,7 +400,52 @@ module.exports = function (grunt) {
         },
         files: {
           'sistema_tokenizador/archivos_web/compilados/js/scripts.preprocesado.js':
-            [cc + 'compilados/js/scripts.js']
+            [cc_tokens + 'compilados/js/scripts.js']
+        }
+      },
+      html_tienda: {
+        options: {
+          prefix: '<!-- @@',
+          suffix: ' -->',
+          includesDir: 'documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_tienda/analisis/'
+        },
+        files: [
+          {
+            expand: true,
+            cwd: cc_tienda,
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/'
+          },
+          {
+            expand: true,
+            cwd: cc_tienda + 'html',
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/html/'
+          },
+          {
+            expand: true,
+            cwd: cc_tienda + 'html/plantillas',
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/html/plantillas/'
+          },
+          {
+            expand: true,
+            cwd: cc_tienda + 'html/ventanas',
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/html/ventanas/'
+          }
+        ]
+      },
+      js_tienda: {
+        options: {
+          includesDir: 'documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_tienda/analisis/',
+          processIncludeContents: function(contenido) {
+            return contenido.replace(/(?:\r\n|\r|\n)/g, '');
+          }
+        },
+        files: {
+          'tienda/archivos_web/compilados/js/scripts.js':
+            [cc_tienda + 'compilados/js/scripts.js']
         }
       }
     }

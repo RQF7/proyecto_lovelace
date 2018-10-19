@@ -22,3 +22,15 @@ expect "Enter password: "
 send -- $contrasenia
 send -- "\n"
 expect eof
+
+spawn mysql -u root -p lovelace_cdv -e "drop database tienda_caso_de_prueba"
+expect "Enter password: "
+send -- $contrasenia
+send -- "\n"
+expect eof
+
+spawn mysql -u root -p -e "source crear_base_de_tienda.sql"
+expect "Enter password: "
+send -- $contrasenia
+send -- "\n"
+expect eof

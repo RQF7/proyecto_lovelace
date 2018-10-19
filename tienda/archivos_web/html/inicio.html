@@ -1,0 +1,155 @@
+<!--
+  Html de página de inicio.
+  Tienda en línea.
+  Proyecto Lovelace.
+
+  TODO:
+  * Agregar barra de búsqueda/filtros.
+-->
+
+<div
+  class="seccion"
+  flex="none"
+  layout="column">
+  <div
+    layout="row"
+    layout-align="center center">
+    <md-button
+      ng-disabled="paginador.pagina == 1"
+      ng-click="retrocederPagina()"
+      class="md-primary conIcono">
+      <i class="material-icons">navigate_before</i>
+      <md-tooltip>Página anterior</md-tooltip>
+    </md-button>
+    <p flex="none"
+      class="texto-de-formulario">
+      Página:
+    </p>
+    <!-- TODO: Agregar botones de siguiente y anterior a paginador. -->
+    <md-input-container
+      flex="10"
+      layout-margin="10">
+      <md-select
+        ng-model="paginador.pagina"
+        ng-change="obtenerLibros()">
+        <md-option
+          ng-repeat="pagina in paginador.paginas"
+          value="{{pagina}}">
+          {{pagina}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+    <p flex="none"
+      class="texto-de-formulario">
+      {{(paginador.pagina - 1) * paginador.limite + 1}} -
+      {{(paginador.pagina * paginador.limite > totalDeLibros) ?
+        totalDeLibros :
+        paginador.pagina * paginador.limite}}
+      de {{totalDeLibros}}
+    </p>
+    <md-button
+      ng-disabled="paginador.pagina ==
+        paginador.paginas[paginador.paginas.length - 1]"
+      ng-click="avanzarPagina()"
+      class="md-primary conIcono">
+      <i class="material-icons">navigate_next</i>
+      <md-tooltip>Siguiente página</md-tooltip>
+    </md-button>
+  </div>
+  <!--
+    TODO:
+      Hacer que los botones salgan al pie del marco.
+  -->
+  <md-grid-list
+    md-cols="4"
+    md-cols-xs="1"
+    md-cols-sm="2"
+    md-cols-md="3"
+    md-cols-xl="5"
+    md-row-height="290px"
+    md-gutter="10px">
+    <md-grid-tile ng-repeat="libro in libros">
+      <md-whiteframe
+        class="md-whiteframe-4dp tarjeta">
+        <div layout="column" style="height: 100%">
+          <div
+            layout="row">
+            <div flex="40">
+              <!-- TODO: ¿De donde sale la «l» del prefijo -->
+              <!-- TODO: En la consola salen peticiones a imágnes inexistentes.-->
+              <img src="estaticos/imagenes/libros/l{{libro.foto}}"/>
+            </div>
+            <div
+              flex="60"
+              class="descripcion">
+              <div class="etiqueta">
+                <p class="etiqueta-descripcion">
+                  Título
+                </p>
+                <p class="etiqueta-contenido">
+                  {{libro.titulo | limitTo: 25}}
+                  {{libro.titulo.length > 25 ? '...' : ''}}
+                </p>
+              </div>
+              <!-- TODO:
+              comportamiento dinámico para cuando hay varios autores. -->
+              <div class="etiqueta">
+                <p class="etiqueta-descripcion">
+                  Autor
+                </p>
+                <p class="etiqueta-contenido">
+                  {{libro.autor[0] | nombre}}
+                </p>
+              </div>
+              <div class="etiqueta">
+                <p class="etiqueta-descripcion">
+                  Precio
+                </p>
+                <p class="etiqueta-contenido">
+                  {{libro.precio | currency}}
+                </p>
+              </div>
+            </div>
+          </div>
+          <span flex></span>
+          <div
+            flex="none"
+            layout="row"
+            layout-align="center center">
+            <!--
+            TODO: el tooltip «sin existencias» tarda demasiado en aparecer
+            en chromium.
+            -->
+            <div>
+              <md-button
+                ng-if="!libro.enCarrito"
+                ng-click="agregarAlCarrito(libro)"
+                class="md-primary conIcono"
+                ng-disabled="libro.existencias == 0">
+                <i class="material-icons">add_shopping_cart</i>
+                <md-tooltip>Agregar al carrito</md-tooltip>
+              </md-button>
+              <md-tooltip
+                ng-if="libro.existencias == 0">
+                Sin existencias
+              </md-tooltip>
+            </div>
+            <md-button
+              ng-if="libro.enCarrito"
+              ng-click="quitarDelCarrito(libro)"
+              class="md-primary conIcono">
+              <i class="material-icons">remove_shopping_cart</i>
+              <md-tooltip>Quitar del carrito</md-tooltip>
+            </md-button>
+            <md-button
+              ng-href="/libro/{{libro.pk}}"
+              class="md-primary conIcono">
+              <i class="material-icons">details</i>
+              <md-tooltip>Ver detalles</md-tooltip>
+            </md-button>
+          </div>
+        </div>
+      </md-whiteframe>
+    </md-grid-tile>
+  </md-grid-list>
+</div>

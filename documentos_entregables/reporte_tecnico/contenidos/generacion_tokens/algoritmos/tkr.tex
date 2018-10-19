@@ -7,7 +7,7 @@
 \subsection{Algoritmo TKR2}
 \label{sec:tkr}
 
-En \cite{doc_sandra} se analiza formalmente el problema de la generación de
+En~\cite{doc_sandra} se analiza formalmente el problema de la generación de
 \glspl{gl:token} y se propone un algoritmo que no está basado en \gls{gl:fpe}.
 Hasta antes de la publicación de este documento, los únicos métodos para
 generar \glspl{gl:token} cuya seguridad estaba formalmente demostrada eran los
@@ -22,8 +22,8 @@ criptográfico}) resulta un tanto confuso, dado que toda la contrucción del
 algoritmo y las pruebas de su seguridad se basan en fundamentos de la
 criptografía.
 
-En el pseudocódigo \ref{tkr2_cifrado} se muestra el proceso de tokenización,
-mientras que en \ref{tkr2_descifrado} está la detokenización.
+En el pseudocódigo~\ref{tkr2_cifrado} se muestra el proceso de tokenización,
+mientras que en~\ref{tkr2_descifrado} está la detokenización.
 
 \begin{pseudocodigo}[%
     caption={\textit{TKR2}, método de tokenización},
@@ -66,8 +66,8 @@ La mayor parte del proceso de tokenización y toda la detokenización son
 bastante fáciles de comprender; lo único que queda por esclarecer es la
 función generadora de \glspl{gl:token} aleatorios $ RN_k $. Idealmente,
 esta función debe regresar un elemento uniformemente aleatorio del espacio
-de \glspl{gl:token}. La propuesta que se hace en \cite{doc_sandra} para
-instanciar esta función se presenta en el pseudocódigo \ref{tkr2_rn}.
+de \glspl{gl:token}. La propuesta que se hace en~\cite{doc_sandra} para
+instanciar esta función se presenta en el pseudocódigo~\ref{tkr2_rn}.
 Aquí, la variable \textit{contador} mantiene un estado del algoritmo (mantiene
 su valor a lo largo de las distintas llamadas); el espacio de \glspl{gl:token}
 contiene cadenas de longitud fija $ \mu $ de un alfabeto $ AL $ cuya
@@ -99,7 +99,7 @@ alfabeto se guardan en $ \lambda = \lceil \log_2 l \rceil$.
 % Creo que utilizo «primitiva criptográfica» con bastante flexibilidad para
 % referirme a algo que no quiero explicar en este momento.
 
-En el pseudocódigo \ref{tkr2_rn} lo primero que se hace es utilizar una
+En el pseudocódigo~\ref{tkr2_rn} lo primero que se hace es utilizar una
 \gls{gl:primitiva_criptografica} $ f $ para generar una cadena binaria
 (hablaremos sobre este punto más adelante); esta cadena (nombrada $ X $) se
 parte en subcadenas de $ \lambda $ bits; después se itera de manera
@@ -113,8 +113,8 @@ veces.
 
 Existen varios candidatos viables para $ f $: un cifrado de flujo, pues el
 flujo de llave de estos produce cadenas de aspecto aleatorio; un cifrado por
-bloques (sección \ref{sec:bloques}), utilizando un modo de operación de
-contador (sección \ref{sec:ctr}); un \gls{gl:trng} para obtener secuencias de
+bloques (sección~\ref{sec:bloques}), utilizando un modo de operación de
+contador (sección~\ref{sec:ctr}); un \gls{gl:trng} para obtener secuencias de
 bits verdaderamente aleatorias.
 
 Por último hay que aclarar que el algoritmo presentado en el pseudocódigo

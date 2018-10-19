@@ -13,7 +13,7 @@ el proceso de tokenización:
 
   \item \label{dm:gen_tokens} \textbf{Generación de \glspl{gl:token}.}
     Para cada clase tokenizadora, este dominio se encarga de definir
-    consideraciones para generación segura de \glspl{gl:token}. Cubre los
+    consideraciones para la generación segura de \glspl{gl:token}. Cubre los
     dispositivos, procesos, mecanismos y algoritmos que son utilizados para
     crear los \glspl{gl:token}.
 
@@ -35,39 +35,70 @@ el proceso de tokenización:
 \end{enumerate}
 
 En esta sección se detallan los requerimientos que deben de satisfacer los
-\glspl{gl:token}. Para comenzar, se enlistan los requerimientos
-aplicables a todos, sin importar su categoría; después de esto, se agrupan los
-requerimientos correspondientes a cada una de las categorías presentadas en
-la sección \ref{sec:pci_dss}.
+\glspl{gl:token} según las guías de tokenización del \gls{gl:pci}
+\gls{gl:dss}~\cite{pci_tokens}. Para comenzar, se enlistan los requerimientos
+aplicables a todos los \glspl{gl:token}, sin importar su categoría; después de
+esto, se agrupan los requerimientos correspondientes a cada una de las
+categorías presentadas en la sección \ref{sec:pci_dss}.
+
+Para su posterior seguimiento, cada requerimiento se clasifica según la
+entidad responsable de su cumplimiento; estas categorías son:
+
+\begin{enumerate}
+
+  \item \textbf{\hypertarget{clasificacion:algoritmos}{Algoritmos}.}
+    Requerimiento cuyo cumplimiento es responsabilidad del diseñador de un
+    algoritmo tokenizador.
+
+  \item \textbf{\hypertarget{clasificacion:implementaciones}{Implementaciones}.}
+    Requerimiento cuyo cumplimiento es responsabilidad del implementador de un
+    algoritmo tokenizador.
+
+  \item \textbf{\hypertarget{clasificacion:sistema}{Sistema tokenizador}.}
+    Requerimiento cuyo cumplimiento es responsabilidad de un proveedor de
+    servicios de tokenización.
+
+\end{enumerate}
+
+Los requerimientos de la primera categoría se encuentran fuera de los
+propósitos de este trabajo. En las categorías dos y tres se agrupan
+los requerimientos que, en efecto, un trabajo como este debe de cumplir.
+A los de la segunda categoría se les da segumiento en la sección
+\ref{sec:seguimiento_token}; los de la tercera son parte del siguiente módulo
+de este proyecto y se les da seguimiento en la sección
+\ref{sec:seguimiento_api}.
 
 % GT1
-\requerimiento[rq_pci:productos_de_hardware]
+\requerimientoConClasificacion[rq_pci:productos_de_hardware]
 {Validación de productos de hardware}
+{clasificacion:sistema}
 {
   Si se usa un producto de hardware para la tokenización, este debe de ser
   validado por \gls{gl:fips} 140-2 nivel 3 o superior (descrito en
-  \cite{nist_modulos_criptograficos}).
+ ~\cite{nist_modulos_criptograficos}).
 }
 
 % GT2 se lo chutaron.
 % GT3
-\requerimiento[rq_pci:productos_de_software]
+\requerimientoConClasificacion[rq_pci:productos_de_software]
 {Validación de productos de software}
+{clasificacion:sistema}
 {
   Si se usa un producto de software para la tokenización, este debe de ser
   validado por \gls{gl:fips} 140-2 nivel 2 o superior (descrito en
-  \cite{nist_modulos_criptograficos}).
+ ~\cite{nist_modulos_criptograficos}).
 }
 
 % GT4
-\requerimiento[rq_pci:resistencia_texto_claro_conocido]
+\requerimientoConClasificacion[rq_pci:resistencia_texto_claro_conocido]
 {Resistencia a texto claro conocido}
+{clasificacion:algoritmos}
 {
   Un atacante con acceso a múltiples pares de \glspl{gl:token} y
   \gls{gl:pan} no debe de ser capaz de determinar otros \gls{gl:pan} a partir
   de solamente \glspl{gl:token}. En otras palabras, los \glspl{gl:token}
   deben ser resistentes a ataques con texto en claro conocido (sección
-  \ref{sec:criptoanalisis}).
+ ~\ref{sec:criptoanalisis}).
 }
 
 % GT5
@@ -77,17 +108,19 @@ la sección \ref{sec:pci_dss}.
 % a GT4 con una disyunción.
 % Creo que ya había leído esto mismo en alguno de los artículos que nos pasó
 % Sandra.
-\requerimiento[rq_pci:resistencia_solo_texto_cifrado]
+\requerimientoConClasificacion[rq_pci:resistencia_solo_texto_cifrado]
 {Resistencia a sólo texto cifrado}
+{clasificacion:algoritmos}
 {
   Recuperar un \gls{gl:pan} a partir de un \gls{gl:token} debe de ser
   \gls{gl:computacionalmente_no_factible} (resistencia a ataques con sólo
-  texto cifrado, sección \ref{sec:criptoanalisis}).
+  texto cifrado, sección~\ref{sec:criptoanalisis}).
 }
 
 % GT6
-\requerimiento[rq_pci:deteccion_anomalias]
+\requerimientoConClasificacion[rq_pci:deteccion_anomalias]
 {Detección de anomalías}
+{clasificacion:sistema}
 {
   Se deben de implementar disparadores que permitan detectar
   irregularidades en el sistema (anomalías, funcionamientos erróneos,
@@ -96,8 +129,9 @@ la sección \ref{sec:pci_dss}.
 }
 
 % GT7
-\requerimiento[rq_pci:distincion_token_pan]
+\requerimientoConClasificacion[rq_pci:distincion_token_pan]
 {Distinción entre \glspl{gl:token} y \gls{gl:pan}}
+{clasificacion:implementaciones}
 {
   Se debe contar con un mecanismo para distinguir entre \glspl{gl:token}
   y \gls{gl:pan}. Los proveedores del servicio de tokenización deben
@@ -106,79 +140,83 @@ la sección \ref{sec:pci_dss}.
 }
 
 % GT8
-\requerimiento[rq_pci:guia_de_instalacion]
+\requerimientoConClasificacion[rq_pci:guia_de_instalacion]
 {Guía de instalación}
+{clasificacion:sistema}
 {
   Se debe de contar con una guía de instalación y uso para el correcto
   funcionamiento del producto de tokenización.
 }
 
 % GT9
-\requerimiento[rq_pci:integridad_ejecutables]
+\requerimientoConClasificacion[rq_pci:integridad_ejecutables]
 {Integridad del proceso de tokenización}
+{clasificacion:implementaciones}
 {
   Deben de implementarse mecanismos que garanticen la integridad del proceso
   de generación de \glspl{gl:token}.
 }
 
 % GT10, RC2A, RN2B y RN3B
-\requerimiento[rq_pci:acceso_a_producto]
+\requerimientoConClasificacion[rq_pci:acceso_a_producto]
 {Acceso al proceso detokenización}
+{clasificacion:sistema}
 {
   Solo los usuarios autenticados y componentes del sistema tienen permitido
   acceder al proceso de tokenización y detokenización. Los métodos utilizados
   deben ser al menos tan rigurosos como lo indicado en el requerimiento 8 del
-  \gls{gl:pci} \gls{gl:dss} \cite{pci_dss}.
+  \gls{gl:pci} \gls{gl:dss}~\cite{pci_dss}.
+}
 
-  % GT10.1, RC2A-1, RC2A-2, RN2B, RN3B
-  \subrequerimiento[rq_pci:control_de_peticiones]
-  {Control de peticiones}
-  {
-    Todas las peticiones deben pasar a través de una \gls{gl:api} que controle
-    todos los intentos de acceso y aplique de manera uniforma reglas de
-    control de acceso.
-  }
+% GT10.1, RC2A-1, RC2A-2, RN2B, RN3B
+\subrequerimiento[rq_pci:control_de_peticiones]
+{Control de peticiones}
+{
+  Todas las peticiones deben pasar a través de una \gls{gl:api} que controle
+  todos los intentos de acceso y aplique de manera uniforme reglas de
+  control de acceso.
+}
 
-  % GT10.2
-  \subrequerimiento[rq_pci:registros_de_acceso]
-  {Registros de acceso}
-  {
-    Se deben registrar todos los eventos de acceso, de tokenización y
-    de detokenización. Esta funcionalidad debe ser configurable de manera
-    segura. Para esto se debe seguir el requerimiento 4 del
-    \gls{gl:pa}-\gls{gl:dss} \cite{dss_pa}.
-  }
+% GT10.2
+\subrequerimiento[rq_pci:registros_de_acceso]
+{Registros de acceso}
+{
+  Se deben registrar todos los eventos de acceso, de tokenización y
+  de detokenización. Esta funcionalidad debe ser configurable de manera
+  segura. Para esto se debe seguir el requerimiento 4 del
+  \gls{gl:pa}-\gls{gl:dss}~\cite{dss_pa}.
+}
 
-  % GT10.3
-  \subrequerimiento[rq_pci:autenticacion_multifactor]
-  {\Gls{gl:autenticacion_multifactor}}
-  {
-    El sistema debe soportar \gls{gl:autenticacion_multifactor} para todos
-    los tipos de usuario: accesos administrativos, operaciones de tokenización
-    y detokenización, mantenimiento, etcétera.
-  }
+% GT10.3
+\subrequerimiento[rq_pci:autenticacion_multifactor]
+{\Gls{gl:autenticacion_multifactor}}
+{
+  El sistema debe soportar \gls{gl:autenticacion_multifactor} para todos
+  los tipos de usuario: accesos administrativos, operaciones de tokenización
+  y detokenización, mantenimiento, etcétera.
+}
 
-  % GT10.4
-  \subrequerimiento[rq_pci:acceso_de_sistema]
-  {Accesos a nivel de sistema}
-  {
-    Todos los accesos a nivel de sistema deben soportar
-    \gls{gl:autenticacion_mutua}, incluyendo a las peticiones de tokenización
-    y detokenización.
-  }
+% GT10.4
+\subrequerimiento[rq_pci:acceso_de_sistema]
+{Accesos a nivel de sistema}
+{
+  Todos los accesos a nivel de sistema deben soportar
+  \gls{gl:autenticacion_mutua}, incluyendo a las peticiones de tokenización
+  y detokenización.
+}
 
-  % GT10.5
-  \subrequerimiento[rq_pci:acceso_administrativo]
-  {Accesos administrativos}
-  {
-    Se debe utilizar \gls{gl:criptografia_fuerte} para todos los accesos
-    administrativos que no se hagan desde consola.
-  }
+% GT10.5
+\subrequerimiento[rq_pci:acceso_administrativo]
+{Accesos administrativos}
+{
+  Se debe utilizar \gls{gl:criptografia_fuerte} para todos los accesos
+  administrativos que no se hagan desde consola.
 }
 
 % GT11
-\requerimiento[rq_pci:token_a_token_prohibido]
+\requerimientoConClasificacion[rq_pci:token_a_token_prohibido]
 {Mapeos de \gls{gl:token} a \gls{gl:token} prohibidos}
+{clasificacion:implementaciones}
 {
   No se debe poder pasar de un primer \gls{gl:token} válido a un segundo,
   también válido; forzosamente debe existir un estado intermedio: del primer
@@ -187,8 +225,9 @@ la sección \ref{sec:pci_dss}.
 }
 
 % GT12
-\requerimiento[rq_pci:vulnerabilidades_comunes]
+\requerimientoConClasificacion[rq_pci:vulnerabilidades_comunes]
 {Protección contra vulnerabilidades comunes}
+{clasificacion:implementaciones}
 {
   Se deben implementar medidas en contra de las vulnerabilidades de
   seguridad más comunes (\cite{dss_pa}, requerimiento 5.2). Algunas de estas
@@ -197,12 +236,13 @@ la sección \ref{sec:pci_dss}.
 }
 
 % GT13
-\requerimiento[rq_pci:primitivas_usadas]
+\requerimientoConClasificacion[rq_pci:primitivas_usadas]
 {Primitivas criptográficas usadas}
+{clasificacion:implementaciones}
 {
   Las primitivas criptográficas que se usen deben estar basadas en
   estándares nacionales (referentes a Estados Unidos) o internacionales (p. ej.
-  \gls{gl:aes}). Ver sección \ref{sec:primitivas}.
+  \gls{gl:aes}). Ver sección~\ref{sec:primitivas}.
 }
 
 % TODO:
@@ -212,72 +252,73 @@ la sección \ref{sec:pci_dss}.
 % Para eliminar repeticiones:
 
 % IT4A, RC4B, RN4B
-\requerimiento[rq_pci:manejo_de_llaves]
+\requerimientoConClasificacion[rq_pci:manejo_de_llaves]
 {Sobre el manejo adecuado de llaves}
+{clasificacion:sistema}
 {
   En donde se usen llaves para la generación y protección de \gls{gl:token},
   se deben seguir buenas prácticas criptográficas para la administración de
   estas. En particular, se deben cumplir con las recomendaciones del
-  \gls{gl:nist} en \cite{nist_llaves} y \cite{nist_disenio_llaves}.
+  \gls{gl:nist} en~\cite{nist_llaves} y~\cite{nist_disenio_llaves}.
+}
 
-  % IT4A-1, RC4B-1
-  \subrequerimiento[rq_pci:ciclo_de_vida_llaves]
-  {Sobre el ciclo de vida}
-  {
-    La llave tokenizadora debe seguir la política de los ciclos de llaves
-    descritos en el \acrshort{gl:iso}/\acrshort{gl:iec} 115681 (ver
-    sección \ref{sec:administracion_llaves}).
-  }
+% IT4A-1, RC4B-1
+\subrequerimiento[rq_pci:ciclo_de_vida_llaves]
+{Sobre el ciclo de vida}
+{
+  La llave tokenizadora debe seguir la política de los ciclos de llaves
+  descritos en el \acrshort{gl:iso}/\acrshort{gl:iec} 115681 (ver
+  sección~\ref{sec:administracion_llaves}).
+}
 
-  % IT4A-2, RC4B-2
-  \subrequerimiento[rq_pci:periodo_llaves]
-  {Descripción del periodo criptográfico activo}
-  {
-    La política sobre el tiempo de vida de la llave debe incluir una
-    descripción sobre el periodo criptográfico activo de la llave
-    tokenizadora en cuestión.
-  }
+% IT4A-2, RC4B-2
+\subrequerimiento[rq_pci:periodo_llaves]
+{Descripción del periodo criptográfico activo}
+{
+  La política sobre el tiempo de vida de la llave debe incluir una
+  descripción sobre el periodo criptográfico activo de la llave
+  tokenizadora en cuestión.
+}
 
-  % IT4A-3, RC4B-3
-  \subrequerimiento[rq_pci:destruccion_de_llaves]
-  {Sobre la destrucción de las llaves}
-  {
-   	El proveedor debe incorporar una función que permita la destrucción
-   	de sus llaves criptográficas sin tener que alterar o abrir el
-   	dispositivo.
-  }
+% IT4A-3, RC4B-3
+\subrequerimiento[rq_pci:destruccion_de_llaves]
+{Sobre la destrucción de las llaves}
+{
+  El proveedor debe incorporar una función que permita la destrucción
+  de sus llaves criptográficas sin tener que alterar o abrir el
+  dispositivo.
+}
 
-  % RC1A-1
-  \subrequerimiento[rq_pci:exportar_llaves_en_claro]
-  {Exportar llave en claro prohibido}
-  {
-    Las llaves usadas para generar \glspl{gl:token} no se deben poder
-    exportar en claro desde el programa.
-  }
+% RC1A-1
+\subrequerimiento[rq_pci:exportar_llaves_en_claro]
+{Exportar llave en claro prohibido}
+{
+  Las llaves usadas para generar \glspl{gl:token} no se deben poder
+  exportar en claro desde el programa.
+}
 
-  % RC1A-2
-  % TODO: ¿Cómo funciona la entropía de una fuente generadora?
-  \subrequerimiento[rq_pci:entropia_generacion_llaves]
-  {Entropía de generación de llaves}
-  {
-    La fuente generadora de llaves debe tener, al menos, 128 bits de
-    \gls{gl:entropia}.
-  }
+% RC1A-2
+% TODO: ¿Cómo funciona la entropía de una fuente generadora?
+\subrequerimiento[rq_pci:entropia_generacion_llaves]
+{Entropía de generación de llaves}
+{
+  La fuente generadora de llaves debe tener, al menos, 128 bits de
+  \gls{gl:entropia}.
+}
 
-  % RC1A-3
-  \subrequerimiento[rq_pci:llaves_de_uso_unico]
-  {Llaves de uso único}
-  {
-    Las llaves criptográficas usadas para generar \glspl{gl:token} no
-    deben ser usadas para ningún otro fin.
-  }
+% RC1A-3
+\subrequerimiento[rq_pci:llaves_de_uso_unico]
+{Llaves de uso único}
+{
+  Las llaves criptográficas usadas para generar \glspl{gl:token} no
+  deben ser usadas para ningún otro fin.
 }
 
 \subimport{/}{irreversibles}
 \subimport{/}{criptograficos_reversibles}
 \subimport{/}{no_criptograficos_reversibles}
 
-%En la tabla \ref{resumen_general} se clasifican los requerimientos presentados
+%En la tabla~\ref{resumen_general} se clasifican los requerimientos presentados
 %hasta ahora. Las categorías posibles son: \textit{aplicables}, \textit{no
 %aplicables} y \textit{fuera de alcance}. Los \textit{aplicables} son aquellos
 %que  se  encuentran dentro del alcance de este trabajo y que, por lo tanto, son
@@ -286,7 +327,7 @@ la sección \ref{sec:pci_dss}.
 
 Los siguientes requerimientos son referentes al cumplimiento
 de distintos estándares y recomendaciones (principalmente del \gls{gl:nist});
-en la sección \ref{parte:apendices} se resume el contenido de cada uno de
+en la sección~\ref{parte:apendices} se resume el contenido de cada uno de
 estos:
 
 \begin{itemize}
@@ -297,7 +338,7 @@ estos:
   \item \hipervinculo{rq_pci:cr_aleatoriedad_digitos}.
 \end{itemize}
 
-La tabla \ref{resumen_general} es una relación entre la lista de
+La tabla~\ref{resumen_general} es una relación entre la lista de
 requerimientos aquí presentada y la notación del \gls{gl:pci} \gls{gl:ssc} en
 \cite{pci_tokens}. Sobre todo en cuanto a los requerimientos
 \hipervinculo{rq_pci:acceso_a_producto} y
@@ -305,7 +346,11 @@ requerimientos aquí presentada y la notación del \gls{gl:pci} \gls{gl:ssc} en
 bastante repetitivo: se colocan 3 versiones (una para cada categoría) con
 prácticamente el mismo contenido.
 
-\begin{longtable}{| m{4.2in} | m{2.4in} |}
+\newcommand{\columnaUno}{4.0in}
+\newcommand{\columnaDos}{2.0in}
+
+\clearpage
+\begin{longtable}{| m{\columnaUno} | m{\columnaDos} |}
 
   \hline
   \textbf{Requerimiento} &
@@ -329,149 +374,195 @@ prácticamente el mismo contenido.
 
   % Generales:
 
-  \hipervinculo{rq_pci:productos_de_hardware} &
-  GT1 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:productos_de_hardware}} &
+  \celdaConParrafo{\columnaDos}{GT1} \\\hline
 
-  \hipervinculo{rq_pci:productos_de_software} &
-  GT3 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:productos_de_software}} &
+  \celdaConParrafo{\columnaDos}{GT3} \\\hline
 
-  \hipervinculo{rq_pci:resistencia_texto_claro_conocido} &
-  GT4 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:resistencia_texto_claro_conocido}} &
+  \celdaConParrafo{\columnaDos}{GT4} \\\hline
 
-  \hipervinculo{rq_pci:resistencia_solo_texto_cifrado} &
-  GT5 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:resistencia_solo_texto_cifrado}} &
+  \celdaConParrafo{\columnaDos}{GT5} \\\hline
 
-  \hipervinculo{rq_pci:deteccion_anomalias} &
-  GT6 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:deteccion_anomalias}} &
+  \celdaConParrafo{\columnaDos}{GT6} \\\hline
 
-  \hipervinculo{rq_pci:distincion_token_pan} &
-  GT7 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:distincion_token_pan}} &
+  \celdaConParrafo{\columnaDos}{GT7} \\\hline
 
-  \hipervinculo{rq_pci:guia_de_instalacion} &
-  GT8 \\\hline
+  \celdaConParrafo{\columnaUno}{
+    \hipervinculo{rq_pci:guia_de_instalacion}} &
+  \celdaConParrafo{\columnaDos}{GT8} \\\hline
 
-  \hipervinculo{rq_pci:integridad_ejecutables} &
-  GT9 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:integridad_ejecutables}} &
+  \celdaConParrafo{\columnaDos}{GT9} \\\hline
 
-  \hipervinculo{rq_pci:control_de_peticiones} &
-  GT10.1, RC2A-1, RC2A-2 RN2B y RN3B \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:control_de_peticiones}} &
+  \celdaConParrafo{\columnaDos}{GT10.1, RC2A-1, RC2A-2 RN2B y RN3B} \\\hline
 
-  \hipervinculo{rq_pci:registros_de_acceso} &
-  GT10.2 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:registros_de_acceso}} &
+  \celdaConParrafo{\columnaDos}{GT10.2} \\\hline
 
-  \hipervinculo{rq_pci:autenticacion_multifactor} &
-  GT10.3 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:autenticacion_multifactor}} &
+  \celdaConParrafo{\columnaDos}{GT10.3} \\\hline
 
-  \hipervinculo{rq_pci:acceso_de_sistema} &
-  GT10.4 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:acceso_de_sistema}} &
+  \celdaConParrafo{\columnaDos}{GT10.4} \\\hline
 
-  \hipervinculo{rq_pci:acceso_administrativo} &
-  GT10.5 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:acceso_administrativo}} &
+  \celdaConParrafo{\columnaDos}{GT10.5} \\\hline
 
-  \hipervinculo{rq_pci:token_a_token_prohibido} &
-  GT11 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:token_a_token_prohibido}} &
+  \celdaConParrafo{\columnaDos}{GT11} \\\hline
 
-  \hipervinculo{rq_pci:vulnerabilidades_comunes} &
-  GT12 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:vulnerabilidades_comunes}} &
+  \celdaConParrafo{\columnaDos}{GT12} \\\hline
 
-  \hipervinculo{rq_pci:primitivas_usadas} &
-  GT13 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:primitivas_usadas}} &
+  \celdaConParrafo{\columnaDos}{GT13} \\\hline
 
-  \hipervinculo{rq_pci:ciclo_de_vida_llaves} &
-  IT4A-1 y RC4B-1 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:ciclo_de_vida_llaves}} &
+  \celdaConParrafo{\columnaDos}{IT4A-1 y RC4B-1} \\\hline
 
-  \hipervinculo{rq_pci:periodo_llaves} &
-  IT4A-2 y RC4B-2 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:periodo_llaves}} &
+  \celdaConParrafo{\columnaDos}{IT4A-2 y RC4B-2} \\\hline
 
-  \hipervinculo{rq_pci:destruccion_de_llaves} &
-  IT4A-3 y RC4B-3 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:destruccion_de_llaves}} &
+  \celdaConParrafo{\columnaDos}{IT4A-3 y RC4B-3} \\\hline
 
-  \hipervinculo{rq_pci:exportar_llaves_en_claro} &
-  RC1A-1 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:exportar_llaves_en_claro} }&
+  \celdaConParrafo{\columnaDos}{RC1A-1} \\\hline
 
-  \hipervinculo{rq_pci:entropia_generacion_llaves} &
-  RC1A-2 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:entropia_generacion_llaves}} &
+  \celdaConParrafo{\columnaDos}{RC1A-2} \\\hline
 
-  \hipervinculo{rq_pci:llaves_de_uso_unico} &
-  RC1A-3 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:llaves_de_uso_unico}} &
+  \celdaConParrafo{\columnaDos}{RC1A-3} \\\hline
 
   % Irreversibles:
 
-  \hipervinculo{rq_pci:ir_mecanismo_generador} &
-  IT1A-1 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:ir_mecanismo_generador}} &
+  \celdaConParrafo{\columnaDos}{IT1A-1} \\\hline
 
-  \hipervinculo{rq_pci:ir_contenido_en_claro} &
-  IT1A-2 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:ir_contenido_en_claro}} &
+  \celdaConParrafo{\columnaDos}{IT1A-2} \\\hline
 
-  \hipervinculo{rq_pci:ir_diccionario_imposible} &
-  IT1A-3 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:ir_diccionario_imposible}} &
+  \celdaConParrafo{\columnaDos}{IT1A-3} \\\hline
 
-  \hipervinculo{rq_pci:ir_busqueda_exhaustiva} &
-  IT1A-4 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:ir_busqueda_exhaustiva}} &
+  \celdaConParrafo{\columnaDos}{IT1A-4} \\\hline
 
   % Criptográficos:
 
-  \hipervinculo{rq_pci:cr_distribucion_uniforme} &
-  RC1B-1 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:cr_distribucion_uniforme}} &
+  \celdaConParrafo{\columnaDos}{RC1B-1} \\\hline
 
-  \hipervinculo{rq_pci:cr_permutacion_aleatoria} &
-  RC1B-2 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:cr_permutacion_aleatoria}} &
+  \celdaConParrafo{\columnaDos}{RC1B-2} \\\hline
 
-  \hipervinculo{rq_pci:cr_cambio_de_llave} &
-  RC1B-3 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:cr_cambio_de_llave}} &
+  \celdaConParrafo{\columnaDos}{RC1B-3} \\\hline
 
-  \hipervinculo{rq_pci:cr_cambio_de_pan} &
-  RC1B-4 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:cr_cambio_de_pan}} &
+  \celdaConParrafo{\columnaDos}{RC1B-4} \\\hline
 
-  \hipervinculo{rq_pci:cr_cambio_de_pan} &
-  RC1B-4 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:cr_cambio_de_pan}} &
+  \celdaConParrafo{\columnaDos}{RC1B-4} \\\hline
 
-  \hipervinculo{rq_pci:cr_aleatoriedad_digitos} &
-  RC1B-5 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:cr_aleatoriedad_digitos}} &
+  \celdaConParrafo{\columnaDos}{RC1B-5} \\\hline
 
-  \hipervinculo{rq_pci:cr_almacenamiento_tokens} &
-  RC1C \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:cr_almacenamiento_tokens}} &
+  \celdaConParrafo{\columnaDos}{RC1C} \\\hline
 
-  \hipervinculo{rq_pci:cr_administracion_llaves} &
-  RC4A \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:cr_administracion_llaves}} &
+  \celdaConParrafo{\columnaDos}{RC4A} \\\hline
 
-  \hipervinculo{rq_pci:cr_longitud_llaves} &
-  RC4C \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:cr_longitud_llaves}} &
+  \celdaConParrafo{\columnaDos}{RC4C} \\\hline
 
-  \hipervinculo{rq_pci:cr_independencia_estadistica} &
-  RC4D \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:cr_independencia_estadistica}} &
+  \celdaConParrafo{\columnaDos}{RC4D} \\\hline
 
   % No criptográficos:
 
-  \hipervinculo{rq_pci:nc_generacion_y_almacenamiento} &
-  RN1A \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:nc_generacion_y_almacenamiento}} &
+  \celdaConParrafo{\columnaDos}{RN1A} \\\hline
 
-  \hipervinculo{rq_pci:nc_distribucion_equiprobable} &
-  RN1B-1 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:nc_distribucion_equiprobable}} &
+  \celdaConParrafo{\columnaDos}{RN1B-1} \\\hline
 
-  \hipervinculo{rq_pci:nc_permutaciones_aleatorias} &
-  RN1B-2 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:nc_permutaciones_aleatorias}} &
+  \celdaConParrafo{\columnaDos}{RN1B-2} \\\hline
 
-  \hipervinculo{rq_pci:nc_parametros_de_tokenizacion} &
-  RN1B-3 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:nc_parametros_de_tokenizacion}} &
+  \celdaConParrafo{\columnaDos}{RN1B-3} \\\hline
 
-  \hipervinculo{rq_pci:nr_aleatoriedad_digitos} &
-  RN1B-5 \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:nr_aleatoriedad_digitos}} &
+  \celdaConParrafo{\columnaDos}{RN1B-5} \\\hline
 
-  \hipervinculo{rq_pci:nc_distribucion_imparcial} &
-  RN1C \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:nc_distribucion_imparcial}} &
+  \celdaConParrafo{\columnaDos}{RN1C} \\\hline
 
-  \hipervinculo{rq_pci:nc_independencia_estadistica} &
-  RN1D \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:nc_independencia_estadistica}} &
+  \celdaConParrafo{\columnaDos}{RN1D} \\\hline
 
-  \hipervinculo{rq_pci:nc_proceso_detokenizacion} &
-  RN2A \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:nc_proceso_detokenizacion}} &
+  \celdaConParrafo{\columnaDos}{RN2A} \\\hline
 
-  \hipervinculo{rq_pci:nc_cifrado_de_base} &
-  RN3A \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:nc_cifrado_de_base}} &
+  \celdaConParrafo{\columnaDos}{RN3A} \\\hline
 
-  \hipervinculo{rq_pci:nc_administracion_llaves} &
-  RN4A \\\hline
+  \celdaConParrafo{\columnaUno}{%
+    \hipervinculo{rq_pci:nc_administracion_llaves}} &
+  \celdaConParrafo{\columnaDos}{RN4A} \\\hline
 
   \caption{Resumen de requerimientos del \gls{gl:pci} \gls{gl:ssc} para
     los sistemas tokenizadores.}

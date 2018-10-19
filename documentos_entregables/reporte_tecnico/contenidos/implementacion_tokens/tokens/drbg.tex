@@ -7,10 +7,10 @@
 \subsection{Módulo de DRBG}
 \label{sec:implementacion_drbg}
 
-En la sección \ref{sec:generadores_pseudoaleatorios} se resume el estándar del
-\gls{gl:nist} para la  creación de un \gls{gl:drbg}. En \ref{sec:drbg_lista} se
+En la sección~\ref{sec:generadores_pseudoaleatorios} se resume el estándar del
+\gls{gl:nist} para la  creación de un \gls{gl:drbg}. En~\ref{sec:drbg_lista} se
 muestran dos posibles implementaciones concretas: una basada en una función
-hash y la  otra basada en un cifrado por bloques. En \ref{sec:drbg_disenio} se
+hash y la  otra basada en un cifrado por bloques. En~\ref{sec:drbg_disenio} se
 explica la distribución de las clases creada para este módulo. En esta sección
 se muestran los apsectos más significativos de las implementaciones.
 
@@ -21,14 +21,14 @@ se muestran los apsectos más significativos de las implementaciones.
   \label{codigo:drbg}
 \end{listing}
 
-Como se muestra en el diagrama \ref{clases_drbg}, un generador solamente
+Como se muestra en el diagrama~\ref{clases_drbg}, un generador solamente
 expone una función pública: \texttt{operar} para la generación de bytes; el
 nombre viene dado por el contrato con la interfaz de una función que
-recibe enteros y regresa arreglos de bytes. El código fuente \ref{codigo:drbg}
+recibe enteros y regresa arreglos de bytes. El código fuente~\ref{codigo:drbg}
 muestra esta implementación, la cuál depende de \texttt{generarBytes}, que
 dentro del contexto de un \gls{gl:drbg} genérico, es abstracta.
 
-De acuerdo a lo explicado en la sección \ref{}, el comportamiento por defecto del constructor de un DRBG es determinar, en tiempo de ejecución, si el soportador actual soporta la instrucción de ensamblador RD-SEED. En caso positivo, la fuente de entropía es una instancia de la clase de aleatoriedad por hardware. En caso negativo, la entropía es una instancia de la clase de aleatoriedad trivial. También existe la posibilidad de que el constructor reciba una fuente de aleatoriedad creada con anterioridad; en este caso, el DRBG no es responsable de la gestión de la memoria. Esta segunda característica permite instanciar varios generadores con una misma fuente de aleatoriedad.
+De acuerdo a lo explicado en la sección~\ref{}, el comportamiento por defecto del constructor de un DRBG es determinar, en tiempo de ejecución, si el soportador actual soporta la instrucción de ensamblador RD-SEED. En caso positivo, la fuente de entropía es una instancia de la clase de aleatoriedad por hardware. En caso negativo, la entropía es una instancia de la clase de aleatoriedad trivial. También existe la posibilidad de que el constructor reciba una fuente de aleatoriedad creada con anterioridad; en este caso, el DRBG no es responsable de la gestión de la memoria. Esta segunda característica permite instanciar varios generadores con una misma fuente de aleatoriedad.
 
 \begin{listing}
   \inputminted[firstline=117, lastline=135]
@@ -44,7 +44,7 @@ De acuerdo a lo explicado en la sección \ref{}, el comportamiento por defecto d
   \label{codigo:hash_drbg_dos}
 \end{listing}
 
-En los códigos fuente \ref{codigo:hash_drbg_uno} y \ref{codigo:hash_drbg_dos}
+En los códigos fuente~\ref{codigo:hash_drbg_uno} y~\ref{codigo:hash_drbg_dos}
 se muestran las dos operaciones más importantes del generador basado en
 funciones hash: la generación de bytes y una función de generación interna.
 Como se puede ver en el primero de los códigos, la función de generación de
@@ -65,9 +65,9 @@ la función de generación de bytes, se encarga de actualizar el estado interno.
   \label{codigo:hash_ctr_dos}
 \end{listing}
 
-En los códigos fuente \ref{codigo:hash_ctr_uno} y \ref{codigo:hash_ctr_dos}
+En los códigos fuente~\ref{codigo:hash_ctr_uno} y~\ref{codigo:hash_ctr_dos}
 se muestran las dos operaciones más importantes del generador basado en un
 cifrado por bloques. La primera se trata de la función de generación de bytes;
 como se puede observar, su operación es idéntica al modo de operación de
-contador (sección \ref{sec:ctr}). La segunda función actualiza el estado
+contador (sección~\ref{sec:ctr}). La segunda función actualiza el estado
 cada vez que hay un cambio de semilla.

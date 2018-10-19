@@ -24,17 +24,17 @@ puede definir un modelo general con las siguientes tres ecuaciones.
 \end{align}
 La letra $ e $ representa el estado del cifrado, $ K $ es la llave, $ k $ es
 la salida del flujo de llave, $ c $ es el texto cifrado y $ m $ es el texto en
-claro. La función de la ecuación \ref{sinc:cambio_de_estado} ($ f $) es la que
+claro. La función de la ecuación~\ref{sinc:cambio_de_estado} ($ f $) es la que
 describe el cambio de estado; este se determina a partir del estado actual y
-de la llave. En la ecuación \ref{sinc:flujo_de_llave} se describe la acción del
+de la llave. En la ecuación~\ref{sinc:flujo_de_llave} se describe la acción del
 flujo de llave ($ g $): para determinar el próximo símbolo se emplea solamente
 el estado actual y la llave. La tercera ecuación (\ref{sinc:funcion_de_salida},
 $ h $) describe la acción de combinar el flujo de la llave con el mensaje, y
 así obtener el texto cifrado.
 
-En la figura \ref{flujo_sincrono} se describe de manera gráfica las operaciones
+En la figura~\ref{flujo_sincrono} se describe de manera gráfica las operaciones
 de cifrado y descifrado; estas guardan muchas similitudes con el modo de
-operación \gls{gl:ofb} (sección \ref{sec:ofb}), con la única excepción de
+operación \gls{gl:ofb} (sección~\ref{sec:ofb}), con la única excepción de
 que este trabaja con bloques del tamaño del cifrado subyacente. En otras
 palabras, si se definiera el tamaño del bloque (y en consecuencia el tamaño del
 \gls{gl:vector_de_inicializacion}) como 1, entonces \gls{gl:ofb} sería un
@@ -80,10 +80,10 @@ cifrados. Las ecuaciones que describen su comportamiento son las siguientes.
   \label{asinc:funcion_de_salida}
   c_i &= h(k_i, m_i)
 \end{align}
-La notación es la misma que en las ecuaciones \ref{sinc:cambio_de_estado},
-\ref{sinc:flujo_de_llave} y \ref{sinc:funcion_de_salida}. En este caso, el
+La notación es la misma que en las ecuaciones~\ref{sinc:cambio_de_estado},
+\ref{sinc:flujo_de_llave} y~\ref{sinc:funcion_de_salida}. En este caso, el
 próximo estado depende de $ t $ (el tamaño de la ventana) dígitos cifrados
-anteriormente. En la figura \ref{flujo_asincrono} se describe de manera
+anteriormente. En la figura~\ref{flujo_asincrono} se describe de manera
 gráfica el proceso de cifrado y descifrado.
 
 \begin{figure}

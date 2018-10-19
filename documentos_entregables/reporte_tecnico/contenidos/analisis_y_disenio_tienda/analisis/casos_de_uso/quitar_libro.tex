@@ -1,0 +1,32 @@
+%
+% Caso para quitar un libro del carrito,
+% análisis y diseño de tienda en línea.
+% Proyecto Lovelace.
+%
+
+\casoDeUso[lib_cu:quitar_libro]
+{Quitar libro}
+{
+  Caso que permite que un \textbf{cliente} o un \textbf{visitante} quiten
+  libros del carrito de compra.
+
+  \begin{trayectoriaPrincipal}
+
+    \item El usuario presiona el botón \textit{Quitar del carrito} en
+      cualquiera de estas interfaces:
+      \begin{itemize}
+        \item En \hipervinculo{lib_iu:inicio}, en el botón correspondiente
+          al libro que se desea quitar.
+        \item En \hipervinculo{lib_iu:detalles_de_libro}.
+        \item En \hipervinculo{lib_iu:finalizar_compra}, en el botón
+          correspondiente al libro que se desea quitar.
+      \end{itemize}
+
+    \item El sistema actualiza la interfaz para reflejar que el libro
+      seleccionado ya no se encuentra en el carrito.
+
+    \item El sistema elimina el registro correspondiente en los datos de
+      sesión.
+
+  \end{trayectoriaPrincipal}
+}

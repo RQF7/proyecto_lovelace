@@ -9,14 +9,14 @@
 \subsection{Tokenización mediante generador de números pseudoaleatorios}
 \label{sec:drbg_lista}
 
-En la sección \ref{sec:generadores_pseudoaleatorios} se habló sobre el
+En la sección~\ref{sec:generadores_pseudoaleatorios} se habló sobre el
 estándar del \gls{gl:nist} para la generación de números aleatorios. En esta
 mostramos cómo estos métodos pueden ser utilizadas para tokenizar y detokenizar
 números de tarjetas. Primero se muestran dos posibles instanciaciones
 con \glspl{gl:primitiva_criptografica} del método general descrito en
 \ref{sec:generadores_pseudoaleatorios}: una basada en funciones hash
-(sección \ref{sec:hash}) y otra basada en cifrados por bloque (sección
-\ref{sec:bloques}); ambas presentadas en \cite{nist_aleatorios}.
+(sección~\ref{sec:hash}) y otra basada en cifrados por bloque (sección
+\ref{sec:bloques}); ambas presentadas en~\cite{nist_aleatorios}.
 
 \subsubsection{DRBG basado en funciones hash}
 
@@ -28,7 +28,7 @@ la entrada de entropía. Por tanto, las funciones de instanciación,
 cambio de semilla y desinstanciación se deben modificar para incluir
 a este segundo valor.
 
-En el pseudocódigo \ref{drbg_hash} se muestra la función de generación de bits
+En el pseudocódigo~\ref{drbg_hash} se muestra la función de generación de bits
 pseudoaleatorios basada en una función hash. \textit{tamanioDeHash} regresa el
 tamaño de los \textit{digest} retornados por la función hash usada.
 
@@ -58,7 +58,7 @@ cifrado por bloque subyacente. Esta llave se genera a partir de la
 entrada de entropía y debe ser tratada de igual forma que la semilla por
 las funciones de instanciación, cambio de semilla y desinstanciación.
 
-En el pseudocódigo \ref{ctr_drbg} se muestra la función de generación de
+En el pseudocódigo~\ref{ctr_drbg} se muestra la función de generación de
 bits psudoaleatorios basada en un cifrado por bloques.
 
 \begin{pseudocodigo}[%
@@ -79,7 +79,7 @@ bits psudoaleatorios basada en un cifrado por bloques.
 \subsubsection{Uso como algoritmo tokenizador}
 
 Un \gls{gl:drbg} puede ser utilizado de manera bastante similar a la
-función RN del algoritmo TKR (sección \ref{sec:tkr}): en lugar de utlizar
+función RN del algoritmo TKR (sección~\ref{sec:tkr}): en lugar de utlizar
 la función $ f $ como método para obtener bits pseudoaleatorios, se ocupa
 el generador pseudoaleatorio. El pseudocódigo para esto se muestra en
 \ref{tkr_drbg}; la función \textit{drbg} es una llamada a la operación
