@@ -64,11 +64,17 @@ tienda.controller('controladorCuenta', [
     };
 
     $scope.agregarMetodoDePago = function($event) {
+      var direccionesDeTarjetas = []
+      for (var i = 0; i < $scope.tarjetas.length; i++)
+        direccionesDeTarjetas.push($scope.tarjetas[i].direccion);
       $mdDialog.show({
         parent: angular.element(document.body),
         targetEvent: $event,
         templateUrl: '/estaticos/html/ventanas/tarjeta.ventana.html',
-        controller: 'controladorFormularioTarjeta'
+        controller: 'controladorFormularioTarjeta',
+        locals: {
+          'direcciones': direccionesDeTarjetas
+        }
       }).then(function (respuesta) {
         if (respuesta != undefined) {
           console.log(respuesta);

@@ -8,10 +8,12 @@ tienda.controller('controladorFormularioTarjeta', [
   '$scope',
   '$mdDialog',
   'api',
+  'direcciones',
   function (
     $scope,
     $mdDialog,
-    api
+    api,
+    direcciones
   )
   {
     /* Funciones públicas. ***************************************************/
@@ -23,6 +25,8 @@ tienda.controller('controladorFormularioTarjeta', [
     /* Secuencia de inicio. **************************************************/
     $scope.tarjeta = {};
     $scope.direccion = {};
+    $scope.direcciones = direcciones;
+    $scope.direccionAnterior = undefined;
 
     $scope.emisores = [];
     $scope.metodos = [];

@@ -2,9 +2,6 @@
   Formulario de método de pago,
   Tienda en línea.
   Proyecto Lovelace.
-
-  TODO:
-  * Centrar el formulario.
 -->
 
 <md-dialog
@@ -178,108 +175,143 @@
         </h3>
         <md-divider class="divisor-de-seccion"></md-divider>
         <div
-          layout="row"
-          layout-align="center center">
-          <md-input-container flex="70">
-            <label>Calle</label>
-            <input name="calle"
-              ng-model="direccion.calle"
-              md-no-asterisk
-              required
-              ng-minlength="5"
-              spellcheck="false">
-            <div ng-messages="formularioTarjeta.calle.$error">
-              <div ng-message="required">
-                Campo obligatorio.
-              </div>
-              <div ng-message="minlength">
-                Longitud mínima: 5 caracteres.
-              </div>
+          layout="row">
+          <div
+            flex="70"
+            layout="column">
+            <div
+              layout="row"
+              layout-align="center center">
+              <md-input-container flex="70">
+                <label>Calle</label>
+                <input name="calle"
+                  ng-model="direccion.calle"
+                  md-no-asterisk
+                  required
+                  ng-minlength="5"
+                  spellcheck="false"
+                  ng-disabled="direccionAnterior != undefined">
+                <div ng-messages="formularioTarjeta.calle.$error">
+                  <div ng-message="required">
+                    Campo obligatorio.
+                  </div>
+                  <div ng-message="minlength">
+                    Longitud mínima: 5 caracteres.
+                  </div>
+                </div>
+              </md-input-container>
+              <md-input-container flex="15">
+                <label>No. int.</label>
+                <input name="numeroInterior"
+                  ng-model="direccion.numeroInterior"
+                  md-no-asterisk
+                  type="number"
+                  ng-minlength="5"
+                  spellcheck="false"
+                  ng-disabled="direccionAnterior != undefined">
+              </md-input-container>
+              <md-input-container flex="15">
+                <label>No. ext.</label>
+                <input name="numeroExterior"
+                  ng-model="direccion.numeroExterior"
+                  required
+                  md-no-asterisk
+                  type="number"
+                  spellcheck="false"
+                  ng-disabled="direccionAnterior != undefined">
+                <div ng-messages="formularioTarjeta.numeroExterior.$error">
+                  <div ng-message="required">
+                    Campo obligatorio.
+                  </div>
+                </div>
+              </md-input-container>
             </div>
-          </md-input-container>
-          <md-input-container flex="15">
-            <label>No. int.</label>
-            <input name="numeroInterior"
-              ng-model="direccion.numeroInterior"
-              md-no-asterisk
-              type="number"
-              ng-minlength="5"
-              spellcheck="false">
-          </md-input-container>
-          <md-input-container flex="15">
-            <label>No. ext.</label>
-            <input name="numeroExterior"
-              ng-model="direccion.numeroExterior"
-              required
-              md-no-asterisk
-              type="number"
-              spellcheck="false">
-            <div ng-messages="formularioTarjeta.numeroExterior.$error">
-              <div ng-message="required">
-                Campo obligatorio.
-              </div>
+            <div
+              layout="row"
+              layout-align="center center">
+              <md-input-container
+                flex="33">
+                <label>Colonia</label>
+                <input name="colonia"
+                  ng-model="direccion.colonia"
+                  md-no-asterisk
+                  required
+                  ng-minlength="5"
+                  spellcheck="false"
+                  ng-disabled="direccionAnterior != undefined">
+                <div ng-messages="formularioTarjeta.colonia.$error">
+                  <div ng-message="required">
+                    Campo obligatorio.
+                  </div>
+                  <div ng-message="minlength">
+                    Longitud mínima: 5 caracteres.
+                  </div>
+                </div>
+              </md-input-container>
+              <md-input-container
+                flex="33">
+                <label>Municipio</label>
+                <input name="municipio"
+                  ng-model="direccion.municipio"
+                  md-no-asterisk
+                  required
+                  ng-minlength="5"
+                  spellcheck="false"
+                  ng-disabled="direccionAnterior != undefined">
+                <div ng-messages="formularioTarjeta.municipio.$error">
+                  <div ng-message="required">
+                    Campo obligatorio.
+                  </div>
+                  <div ng-message="minlength">
+                    Longitud mínima: 5 caracteres.
+                  </div>
+                </div>
+              </md-input-container>
+              <md-input-container
+                flex="33">
+                <label>
+                  Estado
+                </label>
+                <md-select
+                  name="estado"
+                  ng-model="estado.emisor"
+                  required
+                  md-no-asterisk
+                  ng-disabled="direccionAnterior != undefined">
+                  <md-option
+                    ng-repeat="estado in estados"
+                    ng-value="estado.pk">
+                    {{estado.pk}}
+                  </md-option>
+                </md-select>
+                <div ng-messages="formularioTarjeta.emisor.$error">
+                  <div ng-message="required">Campo obligatorio.</div>
+                </div>
+              </md-input-container>
             </div>
-          </md-input-container>
-        </div>
-        <div
-          layout="row"
-          layout-align="center center">
-          <md-input-container
-            flex="33">
-            <label>Colonia</label>
-            <input name="colonia"
-              ng-model="direccion.colonia"
-              md-no-asterisk
-              required
-              ng-minlength="5"
-              spellcheck="false">
-            <div ng-messages="formularioTarjeta.colonia.$error">
-              <div ng-message="required">
-                Campo obligatorio.
-              </div>
-              <div ng-message="minlength">
-                Longitud mínima: 5 caracteres.
-              </div>
+          </div>
+          <div class="separador-horizontal-40"></div>
+          <div
+            flex="30"
+            layout="column">
+            <div class="etiqueta">
+              <p class="etiqueta-descripcion">
+                Otras direcciones asociadas:
+              </p>
             </div>
-          </md-input-container>
-          <md-input-container
-            flex="33">
-            <label>Municipio</label>
-            <input name="municipio"
-              ng-model="direccion.municipio"
-              md-no-asterisk
-              required
-              ng-minlength="5"
-              spellcheck="false">
-            <div ng-messages="formularioTarjeta.municipio.$error">
-              <div ng-message="required">
-                Campo obligatorio.
-              </div>
-              <div ng-message="minlength">
-                Longitud mínima: 5 caracteres.
-              </div>
-            </div>
-          </md-input-container>
-          <md-input-container
-            flex="33">
-            <label>
-              Estado
-            </label>
-            <md-select
-              name="estado"
-              ng-model="estado.emisor"
-              required
-              md-no-asterisk>
-              <md-option
-                ng-repeat="estado in estados"
-                ng-value="estado.pk">
-                {{estado.pk}}
-              </md-option>
-            </md-select>
-            <div ng-messages="formularioTarjeta.emisor.$error">
-              <div ng-message="required">Campo obligatorio.</div>
-            </div>
-          </md-input-container>
+            <md-radio-group ng-model="direccionAnterior">
+              <md-radio-button
+                ng-repeat="direccion in direcciones"
+                ng-value="direccion.pk">
+                {{direccion.fields.calle}},
+                {{direccion.fields.numeroInterior}} -
+                {{direccion.fields.numeroExterior}},
+                {{direccion.fields.colonia}},
+                {{direccion.fields.municipio}},
+                {{direccion.fields.estado}}.
+              </md-radio-button>
+            </md-radio-group>
+          </div>
         </div>
       </form>
     </div>
