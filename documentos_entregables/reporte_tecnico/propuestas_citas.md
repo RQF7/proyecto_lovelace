@@ -107,8 +107,8 @@ citas para cada uno.
     símbolos y que sólo es verdad lo que sucede cada trescientas noches, JLB
 9. >Babilonia no es otra cosa que un infinito juego de azares, JLB
 10. >Por supuesto que la paz es el respeto al derecho ajeno, en eso tzodos
-    estamos de acuerdo. En lo que nadie está de acuerdo es en cuál es el derecho
-    ajeno, Jorge Ibargüengoitia, Instrucciones para vivir en México.
+     estamos de acuerdo. En lo que nadie está de acuerdo es en cuál es el
+     derecho ajeno, Jorge Ibargüengoitia, Instrucciones para vivir en México.
 11. >How do people go to sleep? I'm afraid I've lost the knack, Dorothy Parker
 12. >Contrafactus, GEB:
       * Cangrejo: ... un maravilloso concierto de piano para dos manos
@@ -127,3 +127,12 @@ citas para cada uno.
 3. >"Begin at the beginning," the King said, very gravely, "and go on till you
     came to the end: then stop."
     Lewis Carroll.
+4. >People who think they know everything are a great annoyance to those
+    of us who do. Isaac Asimov.
+5. >Violence is the last refuge of the incompetent. Isaac Asimov, Fundación.
+6. >Never let your sense of morals get in the way of doing what's right.
+    Isaac Asimov, Fundación (creo).
+7. >You don't have to burn books to destroy a culture. Just get people to stop  
+    reading them. Ray Bradbury.
+8. >She believed in nothing; only her skepticism kept her from being
+    an atheist. Jean-Paul Sartre.
