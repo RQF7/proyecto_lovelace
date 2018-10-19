@@ -80,7 +80,7 @@ def cerrarSesion (peticion):
 def operarUsuario (peticion):
   """Función diccionario para operaciones sobre un usuario."""
 
-  if(peticion.method == 'POST'):
+  if peticion.method == 'POST':
     return registrarUsuario(peticion)
 
   elif (peticion.method == 'PUT'):
