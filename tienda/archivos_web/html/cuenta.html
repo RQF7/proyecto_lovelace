@@ -4,7 +4,6 @@
   Proyecto Lovelace.
 
   TODO:
-  * Agregar a la vista de métodos de pago la dirección de facturación.
   * Agregar el historial de compras.
 -->
 
@@ -18,23 +17,13 @@
   <md-divider class="divisor-de-seccion"></md-divider>
   <div
     layout="row">
-    <div class="etiqueta">
-      <p class="etiqueta-descripcion">
-        Nombre de usuario
-      </p>
-      <p class="etiqueta-contenido">
-        {{usuario.nombre}}
-      </p>
-    </div>
+    <ego-etiqueta descripcion="'Nombre de usuario'">
+      {{usuario.nombre}}
+    </ego-etiqueta>
     <div class="separador-horizontal-40"></div>
-    <div class="etiqueta">
-      <p class="etiqueta-descripcion">
-        Correo electrónico
-      </p>
-      <p class="etiqueta-contenido">
-        {{usuario.correo}}
-      </p>
-    </div>
+    <ego-etiqueta descripcion="'Correo electrónico'">
+      {{usuario.correo}}
+    </ego-etiqueta>
   </div>
   <div
     layout="row"
@@ -60,7 +49,7 @@
     md-cols-sm="2"
     md-cols-md="3"
     md-cols-xl="3"
-    md-row-height="420px"
+    md-row-height="480px"
     md-gutter="20px">
     <!--
       TODO: Agregar reglas para que no se rompan lineas en los
@@ -117,6 +106,9 @@
               </ego-etiqueta>
               <ego-etiqueta descripcion="'Estado'">
                 {{tarjeta.direccion.fields.estado}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Código postal'">
+                {{tarjeta.direccion.fields.cp}}
               </ego-etiqueta>
             </div>
           </div>

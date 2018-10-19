@@ -228,7 +228,7 @@
               layout="row"
               layout-align="center center">
               <md-input-container
-                flex="33">
+                flex="50">
                 <label>Colonia</label>
                 <input name="colonia"
                   ng-model="direccion.fields.colonia"
@@ -247,7 +247,7 @@
                 </div>
               </md-input-container>
               <md-input-container
-                flex="33">
+                flex="50">
                 <label>Municipio</label>
                 <input name="municipio"
                   ng-model="direccion.fields.municipio"
@@ -265,8 +265,12 @@
                   </div>
                 </div>
               </md-input-container>
+            </div>
+            <div
+              layout="row"
+              layout-align="center center">
               <md-input-container
-                flex="33">
+                flex="50">
                 <label>
                   Estado
                 </label>
@@ -284,6 +288,25 @@
                 </md-select>
                 <div ng-messages="formularioTarjeta.emisor.$error">
                   <div ng-message="required">Campo obligatorio.</div>
+                </div>
+              </md-input-container>
+              <md-input-container
+                flex="50">
+                <label>Código postal</label>
+                <input name="cp"
+                  ng-model="direccion.fields.cp"
+                  md-no-asterisk
+                  required
+                  ng-minlength="5"
+                  spellcheck="false"
+                  ng-disabled="objetoPadre.direccionAnterior != undefined">
+                <div ng-messages="formularioTarjeta.cp.$error">
+                  <div ng-message="required">
+                    Campo obligatorio.
+                  </div>
+                  <div ng-message="minlength">
+                    Longitud mínima: 5 caracteres.
+                  </div>
                 </div>
               </md-input-container>
             </div>
