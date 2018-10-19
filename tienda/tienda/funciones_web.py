@@ -22,7 +22,6 @@ from .models.tarjeta import Tarjeta
 from .models.tipo_de_tarjeta import TipoDeTarjeta
 from .models.usuario import Usuario
 from ..tienda import negocio
-from .models.usuario import Usuario
 
 
 ################################################################################
@@ -85,10 +84,9 @@ def operarUsuario (peticion):
 
   elif peticion.method == 'PUT':
     return actualizarUsuario(peticion)
-    else:
-      return django.http.HttpResponseNotAllowed()
-#  elif (peticion.method == 'DELETE'):
-#    return eliminarUsuario(peticion, obtenerId(peticion))
+
+  else:
+    return django.http.HttpResponseNotAllowed()
 
 
 def registrarUsuario (peticion):
@@ -98,20 +96,17 @@ def registrarUsuario (peticion):
   el vínculo de verificación
 
   Regresa
-    0 en caso de exito.
+    0 en caso de éxito.
     1 en caso de que el usuario ya exista.                 """
 
   usuarioEnPeticion = json.loads(peticion.body)
 
   # verifica si ya existe el usuario
-  if negocio.existeUsuario(usuarioEnPeticion):
+  if negocio.correoPreviamenteRegistrado(usuarioEnPeticion):
     return django.http.HttpResponse("1")
 
   # Guarda al usuario
   usuario = negocio.guardarUsuario(usuarioEnPeticion)
-
-  # Envia el vinculo
-  negocio.enviarVinculoDeVerificacion(usuario,"registro")
 
   return django.http.HttpResponse("0")
 
@@ -123,49 +118,49 @@ def actualizarUsuario (peticion):
   envía un correo con el vínculo de verificación
 
   Regresa
-    0 en caso de exito.
+    0 en caso de éxito.
     1 en caso de error.                                    """
 
   usuarioEnPeticion = json.loads(peticion.body)
   pk = json.loads(peticion.session['usuario'])['pk']
 
   # verifica si ya existe el correo
-  if negocio.existeCorreo(usuarioEnPeticion, pk):
+  if negocio.correoPreviamenteRegistrado(usuarioEnPeticion, pk):
     return django.http.HttpResponse("1")
 
   # Guarda al usuario
-  respuesta = negocio.actualizarUsuario(usuarioEnPeticion, pk)
-  usuario = respuesta["usuario"]
-  correoActualizado = respuesta["correoActualizado"]
+  banderaCorreoModificado = negocio.actualizarUsuario(usuarioEnPeticion, pk)
 
-  return django.http.HttpResponse(correoActualizado)
+  if banderaCorreoModificado:
+    return django.http.HttpResponse("2")
+  else:
+    return django.http.HttpResponse("0")
 
 
-def verificarCorreoDeRegistro (peticion, vinculo):
-  """Verifica el correo asociado al vínculo de registro dado, haciendo
-  la verificación de fecha."""
+def verificarCorreo (peticion, vinculo, hrs = None):
+  """ Verifica el correo asociado al vínculo dado.
+      Se puede o no poner las horas que tenia de 'vida' el vinculo,
+      para ver si este ya expiro.                                   """
+
   usuario = Usuario.objects.get(vinculo = vinculo)
-
-  # Anterior a 72 horas, error:
-  if datetime.datetime.now() - usuario.fecha > datetime.timedelta(hours = 72):
+  if hrs != None and datetime.datetime.now() - usuario.fecha > datetime.timedelta(hours = hrs):
     usuario.delete()
     return django.http.HttpResponseRedirect('/?correo_no_verificado')
-
-  # Operación correcta:
   else:
-    usuario.verificado = 1
+    usuario.verificado = True
     usuario.vinculo = None
     usuario.save()
     return django.http.HttpResponseRedirect('/?correo_verificado')
 
 
+def verificarCorreoDeRegistro (peticion, vinculo):
+  """Verifica el correo asociado al vínculo de registro dado."""
+  return verificarCorreo(peticion, vinculo, 72)
+
+
 def verificarCorreoDeActualizacion (peticion, vinculo):
   """Verifica el correo asociado al vínculo de actualización dado."""
-  usuario = Usuario.objects.get(vinculo = vinculo)
-  usuario.verificado = 1
-  usuario.vinculo = None
-  usuario.save()
-  return django.http.HttpResponseRedirect('/?correo_verificado')
+  return verificarCorreo(peticion, vinculo)
 
 
 ################################################################################

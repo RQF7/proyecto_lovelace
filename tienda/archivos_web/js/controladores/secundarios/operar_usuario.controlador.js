@@ -11,18 +11,20 @@ tienda.controller('controladorFormularioOperarUsuario', [
   'api',
   'tituloOperacion',
   'operacion',
+  'usuario',
   function (
     $scope,
     $location,
     $mdDialog,
     api,
     tituloOperacion,
-    operacion
+    operacion,
+    usuario
   )
   {
     /* Datos públicos. *******************************************************/
 
-    $scope.usuario = {};
+    $scope.usuario = usuario;
     $scope.erNombre = '';
     $scope.erCorreo = @@include('expresiones_regulares/correo.txt');
     $scope.erContrasenia = @@include('expresiones_regulares/contrasenia.txt');
@@ -33,16 +35,6 @@ tienda.controller('controladorFormularioOperarUsuario', [
     mensaje = 'Para poder iniciar sesión es necesario que '
       + 'verifique su cuenta accediendo al vínculo enviado a su '
       + 'correo electrónico (revise su carpeta de spam).'
-
-
-    /* Operaciones de sesión **************************************************/
-
-    $scope.usuario = undefined;
-    api.obtenerUsuarioDeSesion().then(function (respuesta) {
-      if (respuesta.data != '') {
-        $scope.usuario = respuesta.data;
-      }
-    });
 
     /* Acciones públicas. ****************************************************/
 

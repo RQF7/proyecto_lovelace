@@ -31,11 +31,8 @@ tienda.controller('controladorCuenta', [
         controller: 'controladorFormularioOperarUsuario',
         locals: {
           "tituloOperacion": "Actualizar datos",
-          "operacion": "actualizar"
-        }
-      }).then(function (respuesta) {
-        if (respuesta != undefined) {
-          console.log(respuesta);
+          "operacion": "actualizar",
+          "usuario": $scope.usuario
         }
       });
     };
