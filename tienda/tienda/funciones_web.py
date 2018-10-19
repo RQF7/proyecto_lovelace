@@ -55,7 +55,6 @@ def iniciarSesion (peticion):
 
   objetoDePeticion = json.loads(peticion.body)
   usuario = negocio.autentificar(objetoDePeticion)
-  print(usuario.nombre, usuario.correo, usuario.verificado)
 
   if usuario == None:
     return django.http.HttpResponse("0")
