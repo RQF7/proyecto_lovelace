@@ -33,7 +33,8 @@ LISTA_DE_FUENTES     := inicio_1920x1080.png \
 LISTA_DE_OBJETOS     := $(addprefix $(CARPETA_IMAGENES)/, \
 	                      $(LISTA_DE_FUENTES))
 
-LIB_CARPETA_IMAGENES := documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_tienda/analisis/capturas
+RUTA_BASE            := documentos_entregables/reporte_tecnico/contenidos/
+LIB_CARPETA_IMAGENES := $(RUTA_BASE)analisis_y_disenio_tienda/analisis/capturas
 LIB_CARPETA_FUENTES  := tienda/archivos_web
 LIB_LISTA_DE_FUENTES := inicio_1920x1080.png \
 												iniciar_sesion_1920x1080.png
