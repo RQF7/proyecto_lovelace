@@ -245,9 +245,24 @@ def eliminarTarjeta (peticion, idDeTarjeta):
   TODO:
   * Validar que el identificador dado sea de una tarjeta del cliente en
     sesión."""
+
+  # Pasar a estado inactivo:
   tarjeta = Tarjeta.objects.get(pk = idDeTarjeta)
   tarjeta.activa = False;
   tarjeta.save()
+
+  # Operar la dirección:
+  identificador = json.loads(peticion.session['usuario'])['pk']
+
+  # Si la consulta regresa al menos una tarjeta, entonces no se hace nada
+  # con la dirección.
+  tarjetas = Usuario.objects.get(pk = identificador).tarjeta.filter(
+    direccion = tarjeta.direccion).exclude(pk = tarjeta.pk).count()
+  if tarjetas == 0:
+    # La dirección no está asociada a ninguna tarjeta. Pasa a inactivo.
+    tarjeta.direccion.activa = False
+    tarjeta.direccion.save()
+
   return django.http.HttpResponse()
 
 
