@@ -32,10 +32,19 @@ LISTA_DE_FUENTES     := inicio_1920x1080.png \
 												aviso_de_expiracion_de_vinculo_1920x1080.png
 LISTA_DE_OBJETOS     := $(addprefix $(CARPETA_IMAGENES)/, \
 	                      $(LISTA_DE_FUENTES))
+
+LIB_CARPETA_IMAGENES := documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_tienda/analisis/capturas
+LIB_CARPETA_FUENTES  := tienda/archivos_web
+LIB_LISTA_DE_FUENTES := inicio_1920x1080.png \
+												iniciar_sesion_1920x1080.png
+LIB_LISTA_DE_OBJETOS := $(addprefix $(LIB_CARPETA_IMAGENES)/, \
+	                      $(LIB_LISTA_DE_FUENTES))
+
 DEPENDENCIAS_COMUNES := index.html \
 												js/configuraciones/tema.configuracion.js
 SCRIPTS_CAPTURAS     := utilidades/capturas_selenium
 DOMINIO 						 := http://127.0.0.1:8080
+LIB_DOMINIO 				 := http://127.0.0.1:8000
 
 # Las fuentes están todas en los archivos web
 VPATH := $(CARPETA_FUENTES)
@@ -99,3 +108,19 @@ $(CARPETA_IMAGENES)/aviso_de_expiracion_de_vinculo_1920x1080.png: \
 
 modelo_de_datos:
 	python administrar_sistema_tokenizador.py graph_models -g -o documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_api_web/analisis/diagramas/modelo_de_datos.png general programa_tokenizador
+
+
+# Capturas para el caso de prueba: librería
+
+lib_toma_de_capturas: $(LIB_LISTA_DE_OBJETOS)
+	@echo "Toma de capturas de librería lista"
+
+$(LIB_CARPETA_IMAGENES)/inicio_1920x1080.png: \
+		html/inicio.html \
+		$(DEPENDENCIAS_COMUNES)
+	python $(SCRIPTS_CAPTURAS)/inicio.py $(LIB_DOMINIO)/ $@
+
+$(LIB_CARPETA_IMAGENES)/iniciar_sesion_1920x1080.png: \
+		html/ventanas/iniciar_sesion.ventana.html \
+		$(DEPENDENCIAS_COMUNES)
+	python $(SCRIPTS_CAPTURAS)/iniciar_sesion.py $(LIB_DOMINIO)/ $@
