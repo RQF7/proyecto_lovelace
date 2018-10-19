@@ -95,7 +95,7 @@ def actualizarUsuario (usuarioEnPeticion, pk):
     usuario.nombre = usuarioEnPeticion["nombre"]
     usuario.contrasenia = hashlib.sha256(
       usuarioEnPeticion["contrasenia"].encode('UTF-8')).digest()
-    usuario.save(force_update=True)
+    usuario.save(force_update = True)
     correoActualizado = "2"
   else:
     vinculo = crearVinculoDeVerificacion(usuarioEnPeticion["correo"])
