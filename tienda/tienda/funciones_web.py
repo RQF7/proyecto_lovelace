@@ -129,7 +129,7 @@ def actualizarUsuario (peticion):
   pk = json.loads(peticion.session['usuario'])['pk']
 
   # verifica si ya existe el correo
-  if negocio.existeCorreo(usuarioEnPeticion,pk):
+  if negocio.existeCorreo(usuarioEnPeticion, pk):
     return django.http.HttpResponse("1")
 
   # Guarda al usuario
