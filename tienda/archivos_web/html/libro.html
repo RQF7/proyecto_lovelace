@@ -42,78 +42,33 @@
       </md-button>
     </div>
     <div>
-      <div class="etiqueta">
-        <p class="etiqueta-descripcion">
-          Título
-        </p>
-        <p class="etiqueta-contenido">
-          {{libro.titulo}}
-        </p>
-      </div>
-      <div class="etiqueta">
-        <p class="etiqueta-descripcion">
-          Autor
-        </p>
-        <p class="etiqueta-contenido">
-          {{libro.autor[0] | nombre}}
-        </p>
-      </div>
-      <div class="etiqueta">
-        <p class="etiqueta-descripcion">
-          Editorial
-        </p>
-        <p class="etiqueta-contenido">
-          {{libro.editorial}}
-        </p>
-      </div>
-      <div class="etiqueta">
-        <p class="etiqueta-descripcion">
-          Edición
-        </p>
-        <p class="etiqueta-contenido">
-          {{libro.edicion}}
-        </p>
-      </div>
-      <div class="etiqueta">
-        <p class="etiqueta-descripcion">
-          Año
-        </p>
-        <p class="etiqueta-contenido">
-          {{libro.anio}}
-        </p>
-      </div>
-      <div class="etiqueta">
-        <p class="etiqueta-descripcion">
-          Número de páginas
-        </p>
-        <p class="etiqueta-contenido">
-          {{libro.paginas}}
-        </p>
-      </div>
-      <div class="etiqueta">
-        <p class="etiqueta-descripcion">
-          Género
-        </p>
-        <p class="etiqueta-contenido">
-          {{libro.genero}}
-        </p>
-      </div>
-      <div class="etiqueta">
-        <p class="etiqueta-descripcion">
-          Precio
-        </p>
-        <p class="etiqueta-contenido">
-          {{libro.precio | currency}}
-        </p>
-      </div>
-      <div class="etiqueta">
-        <p class="etiqueta-descripcion">
-          Ejemplares en existencias
-        </p>
-        <p class="etiqueta-contenido">
-          {{libro.existencias}}
-        </p>
-      </div>
+      <ego-etiqueta descripcion="'Título'">
+        {{libro.titulo}}
+      </ego-etiqueta>
+      <ego-etiqueta descripcion="'Autor'">
+        {{libro.autor[0] | nombre}}
+      </ego-etiqueta>
+      <ego-etiqueta descripcion="'Editorial'">
+        {{libro.editorial}}
+      </ego-etiqueta>
+      <ego-etiqueta descripcion="'Edición'">
+        {{libro.edicion}}
+      </ego-etiqueta>
+      <ego-etiqueta descripcion="'Año'">
+        {{libro.anio}}
+      </ego-etiqueta>
+      <ego-etiqueta descripcion="'Número de páginas'">
+        {{libro.paginas}}
+      </ego-etiqueta>
+      <ego-etiqueta descripcion="'Género'">
+        {{libro.genero}}
+      </ego-etiqueta>
+      <ego-etiqueta descripcion="'Precio'">
+        {{libro.precio | currency}}
+      </ego-etiqueta>
+      <ego-etiqueta descripcion="'Ejemplares en existencias'">
+        {{libro.existencias}}
+      </ego-etiqueta>
     </div>
   </div>
 </div>
