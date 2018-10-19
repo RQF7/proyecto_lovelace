@@ -80,6 +80,7 @@ module.exports = function (grunt) {
           cc_tienda + 'js/tienda.aplicacion.js',
           cc_tienda + 'js/configuraciones/*.configuracion.js',
           cc_tienda + 'js/filtros/*.filtro.js',
+          cc_tienda + 'js/directivas/*.directiva.js',
           cc_tienda + 'js/componentes/*.componente.js',
           cc_tienda + 'js/servicios/*.servicio.js',
           cc_tienda + 'js/controladores/*.controlador.js',

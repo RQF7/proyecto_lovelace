@@ -16,6 +16,27 @@ tienda.controller('controladorFormularioTarjeta', [
     direcciones
   )
   {
+    /* Datos públicos. *******************************************************/
+    $scope.tarjeta = {};
+    $scope.direccion = {};
+    $scope.direcciones = direcciones;
+    $scope.objetoPadre = {};
+    $scope.objetoPadre.direccionAnterior = undefined;
+
+    /* El «objetoPadre» es para colocar el modelo de los radiobuttons
+     * adentro de un objeto y así poder acceder a su valor desde este
+     * controlador. Sin él, se modifica «direccionAnterior» en un controlador
+     * virtual hijo definido por el nf-if. Ver:
+     * https://stackoverflow.com/questions/18342917/
+     * angularjs-ng-model-doesnt-work-inside-ng-if#18342974 */
+
+    $scope.emisores = [];
+    $scope.metodos = [];
+    $scope.tipos = [];
+    $scope.estados = [];
+    $scope.erTarjeta = @@include('expresiones_regulares/numero_de_tarjeta.txt');
+    $scope.hoy = new Date();
+
     /* Funciones públicas. ***************************************************/
 
     $scope.cancelar = function () {
@@ -40,23 +61,6 @@ tienda.controller('controladorFormularioTarjeta', [
     }
 
     /* Secuencia de inicio. **************************************************/
-    $scope.tarjeta = {};
-    $scope.direccion = {};
-    $scope.direcciones = direcciones;
-    $scope.objetoPadre = {};
-    $scope.objetoPadre.direccionAnterior = undefined;
-
-    /* El «objetoPadre» es para colocar el modelo de los radiobuttons
-     * adentro de un objeto y así poder acceder a su valor desde este
-     * controlador. Sin él, se modifica «direccionAnterior» en un controlador
-     * virtual hijo definido por el nf-if. Ver:
-     * https://stackoverflow.com/questions/18342917/
-     * angularjs-ng-model-doesnt-work-inside-ng-if#18342974 */
-
-    $scope.emisores = [];
-    $scope.metodos = [];
-    $scope.tipos = [];
-    $scope.estados = [];
 
     api.obtenerEmisores().then(function (respuesta) {
       $scope.emisores = respuesta.data;

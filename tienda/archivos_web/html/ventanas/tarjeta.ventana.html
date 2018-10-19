@@ -31,35 +31,36 @@
           layout-align="center center">
           <md-input-container flex="50">
             <label>Número de tarjeta</label>
-            <input name="nombre"
+            <input name="pan"
               ng-model="tarjeta.pan"
               md-no-asterisk
               required
-              md-maxlength="19"
-              ng-minlength="12"
-              type="number"
+              ng-pattern="erTarjeta"
+              ng-algoritmo-de-luhn
               md-autofocus
               autocomplete="off"
               spellcheck="false">
-            <div ng-messages="formularioTarjeta.nombre.$error">
+            <div ng-messages="formularioTarjeta.pan.$error">
               <div ng-message="required">
                 Campo obligatorio.
               </div>
-              <div ng-message="md-maxlength">
-                Longitud máxima: 19 dígitos.
+              <div ng-message="pattern">
+                <!-- @@include('mensajes/tarjeta_invalida.txt') -->
               </div>
-              <div ng-message="minlength">
-                Longitud mínima: 12 digitos.
+              <div ng-message="algoritmoDeLuhn">
+                <!-- TODO: ¿Mostrar mensaje particular? -->
+                <!-- @@include('mensajes/tarjeta_invalida.txt') -->
               </div>
             </div>
           </md-input-container>
+          <!-- TODO: Esto necesita una expresión regular. -->
           <md-input-container flex="50">
             <label>Titular</label>
             <input name="nombre"
               ng-model="tarjeta.titular"
               md-no-asterisk
               required
-              ng-minlength="15"
+              ng-minlength="10"
               autocomplete="off"
               spellcheck="false">
             <div ng-messages="formularioTarjeta.nombre.$error">
@@ -67,7 +68,7 @@
                 Campo obligatorio.
               </div>
               <div ng-message="minlength">
-                Longitud mínima: 5 caracteres.
+                Longitud mínima: 10 caracteres.
               </div>
             </div>
           </md-input-container>
@@ -75,6 +76,7 @@
         <div
           layout="row"
           layout-align="center center">
+          <!-- TODO: la fecha solo tiene que mostrar meses y años. -->
           <md-input-container
             flex="33"
             class="date-picker">
@@ -87,14 +89,15 @@
               md-open-on-focus
               md-min-date="hoy"
               md-no-asterisk
-              required>
+              required
+              md-mode="month">
             </md-datepicker>
             <div ng-messages="formularioTarjeta.fecha.$error">
               <div ng-message="valid">
                 Formato inválido
               </div>
               <div ng-message="mindate">
-                La fecha de expiración debe ser posterior a la fecha actual.
+                <!-- @@include('mensajes/tarjeta_expirada.txt') -->
               </div>
               <div ng-message="required">
                 Campo obligatorio.
@@ -205,7 +208,6 @@
                 <input name="numeroInterior"
                   ng-model="direccion.fields.numeroInterior"
                   md-no-asterisk
-                  ng-minlength="5"
                   spellcheck="false"
                   ng-disabled="objetoPadre.direccionAnterior != undefined">
               </md-input-container>
