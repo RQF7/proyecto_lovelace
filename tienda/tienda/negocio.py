@@ -106,7 +106,7 @@ def actualizarUsuario (usuarioEnPeticion, pk):
       usuarioEnPeticion["contrasenia"].encode('UTF-8')).digest(),
     vinculo = vinculo["vinculo"],
     fecha = vinculo["fecha"],
-    verificado = 0)
+    verificado = False)
     enviarVinculoDeVerificacion(usuario,"actualizacion")
     usuario.save(force_update=True)
     correoActualizado = "0"
