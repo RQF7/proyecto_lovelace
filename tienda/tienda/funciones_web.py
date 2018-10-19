@@ -85,7 +85,8 @@ def operarUsuario (peticion):
 
   elif peticion.method == 'PUT':
     return actualizarUsuario(peticion)
-
+    else:
+      return django.http.HttpResponseNotAllowed()
 #  elif (peticion.method == 'DELETE'):
 #    return eliminarUsuario(peticion, obtenerId(peticion))
 
