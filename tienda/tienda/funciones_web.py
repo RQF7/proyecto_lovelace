@@ -133,7 +133,7 @@ def actualizarUsuario (peticion):
     return django.http.HttpResponse("1")
 
   # Guarda al usuario
-  respuesta = negocio.actualizarUsuario(usuarioEnPeticion,pk)
+  respuesta = negocio.actualizarUsuario(usuarioEnPeticion, pk)
   usuario = respuesta["usuario"]
   correoActualizado = respuesta["correoActualizado"]
   print(correoActualizado)
