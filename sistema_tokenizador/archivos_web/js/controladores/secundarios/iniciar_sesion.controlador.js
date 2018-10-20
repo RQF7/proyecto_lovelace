@@ -1,5 +1,5 @@
 /*
- * Controlador de formulario de inicip de sesión,
+ * Controlador de formulario de inicio de sesión,
  * Aplicación web de sistema tokenizador.
  * Proyecto Lovelace.
  */

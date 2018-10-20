@@ -1,5 +1,5 @@
 """
-Operaciones de negocio de backend,
+Operaciones de negocio de módulo general,
 Aplicación web de sistema tokenizador.
 Proyecto Lovelace.
 """
@@ -112,4 +112,3 @@ def enviarRecordatorioDeRefresco (usuario):
     Sistema Tokenizador,
     Proyecto Lovelace.
     """)
-

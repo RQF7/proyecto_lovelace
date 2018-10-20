@@ -17,10 +17,10 @@ urlpatterns = [
     funciones.iniciarSesion),
   django.urls.path('cerrar_sesion',
     funciones.cerrarSesion),
-  django.urls.path('operar_cliente',
-    funciones.operarCliente),
 
   # Operaciones de cliente
+  django.urls.path('operar_cliente',
+    funciones.operarCliente),
   django.urls.path('verificar_correo/registro/<vinculo>',
     funciones.verificarCorreoDeRegistro),
   django.urls.path('verificar_correo/actualizacion/<vinculo>',
