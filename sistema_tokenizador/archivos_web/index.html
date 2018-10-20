@@ -244,9 +244,13 @@
           ng-if="usuario != undefined">
           <span flex></span>
           <div layout="row">
-            <p>
-              {{usuario.fields.correo}} &nbsp;
-            </p>
+            <div layout="column">
+              <span flex></span>
+              <p class="sin-estilo">
+                {{usuario.fields.correo}} &nbsp;
+              </p>
+              <span flex></span>
+            </div>
             <md-button
               id="botonCerrarSesion"
               ng-click="cerrarSesion()"
