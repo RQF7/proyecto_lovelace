@@ -23,8 +23,7 @@
 
     \item El sistema muestra la interfaz
       \hipervinculo{lib_iu:formulario_informacion_personal} con la información
-      del cliente, una lista con las direcciones de entrega y el botón
-      \textit{Guardar cambios} inhabilitado.
+      del cliente, y el botón \textit{Guardar cambios} inhabilitado.
 
     \item[datos] El \textbf{cliente} actualiza los siguientes campos
       [\hipervinculoLocal{lib_ta:cancelar}]:
@@ -63,9 +62,9 @@
       ingresada coincida con la contraseña.
       [\hipervinculoLocal{lib_ta:confirmacion_incorrecta}].
 
-    \item El sistema registra la nueva dirección del cliente, la nueva
-      contraseña y un nuevo vínculo de verificación (asociado al cliente) con
-      la fecha actual, cambiando el estado a \textbf{no verificado}.
+    \item El sistema registra el nuevo nombre de usuario, el nuevo correo, la
+      nueva contraseña y un nuevo vínculo de verificación (asociado al cliente)
+      con la fecha actual, cambiando el estado a \textbf{no verificado}.
 
     \item El sistema envía un correo al cliente con el hipervínculo de
       verificación.
@@ -76,9 +75,6 @@
     \item El \textbf{cliente} accede a la \gls{gl:url} enviada a su
       correo.
 
-    \item El sistema verifica que no haya más de 72 HRS de diferencia
-      entre la fecha de creación del vínculo y la hora actual;
-      [\hipervinculoLocal{lib_ta:expiracion_de_vinculo}].
 
     \item El sistema cambia el estado del \textbf{cliente} a
       \textbf{verificado}.
@@ -148,18 +144,6 @@
 
     \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
       principal.
-
-  \end{trayectoriaAlternativa}
-
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-  \begin{trayectoriaAlternativa}[lib_ta:expiracion_de_vinculo]
-    {Vínculo expirado}
-
-    \item El sistema muestra la ventana
-      \hipervinculo{lib_iu:aviso_de_correo_de_confirmacion}.
-
-    \item El sistema elimina el registro del usuario.
 
   \end{trayectoriaAlternativa}
 
