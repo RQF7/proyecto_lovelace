@@ -19,7 +19,7 @@ class Usuario (django.db.models.Model):
 
   correo = django.db.models.CharField(
     verbose_name = 'correo electrónico',
-    primary_key = True,
+    unique = True,
     max_length = 100)
 
   contrasenia = django.db.models.BinaryField(

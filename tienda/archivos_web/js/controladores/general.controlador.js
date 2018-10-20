@@ -131,11 +131,8 @@ tienda.controller('controladorGeneral', [
         controller: 'controladorFormularioOperarUsuario',
         locals: {
           "tituloOperacion": "Registrar datos",
-          "operacion": "registrar"
-        }
-      }).then(function (respuesta) {
-        if (respuesta != undefined) {
-          console.log(respuesta);
+          "operacion": "registrar",
+          "usuario": undefined
         }
       });
     };
