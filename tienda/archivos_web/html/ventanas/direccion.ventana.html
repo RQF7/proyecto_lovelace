@@ -26,7 +26,7 @@
         </h3>
         <md-divider class="divisor-de-seccion"></md-divider>
         <div
-          layou="row"
+          layout="row"
           layout-align="center center">
           <md-input-container flex="70">
             <label>Calle</label>
@@ -51,7 +51,6 @@
               ng-model="direccion.numeroInterior"
               md-no-asterisk
               type="number"
-              ng-minlength="5"
               spellcheck="false">
           </md-input-container>
           <md-input-container flex="10">
@@ -70,7 +69,7 @@
           </md-input-container>
         </div>
         <div
-          layou="row"
+          layout="row"
           layout-align="center center">
           <md-input-container flex="30">
             <label>Colonia</label>
@@ -113,7 +112,7 @@
             </label>
             <md-select
               name="estado"
-              ng-model="estado.emisor"
+              ng-model="direccion.estado"
               required
               md-no-asterisk>
               <md-option
@@ -124,6 +123,38 @@
             </md-select>
             <div ng-messages="formularioDireccionEntrega.emisor.$error">
               <div ng-message="required">Campo obligatorio.</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div
+          layout="row"
+          layout-align="center center">
+          <md-input-container
+            flex="30">
+            <label>Código postal</label>
+            <input name="cp"
+              ng-model="direccion.cp"
+              md-no-asterisk
+              required
+              ng-minlength="5"
+              spellcheck="false"
+              ng-disabled="objetoPadre.direccionAnterior != undefined">
+            <div ng-messages="formularioTarjeta.cp.$error">
+              <div ng-message="required">
+                Campo obligatorio.
+              </div>
+              <div ng-message="minlength">
+                Longitud mínima: 5 caracteres.
+              </div>
+            </div>
+          </md-input-container>
+          <md-input-container
+            flex="60">
+            <div
+              ng-if="error == 'repetida'"
+              class="mensajes"
+              md-colors="{color: 'accent'}">
+              <!-- @@include('mensajes/direccion_de_entrega_existente.txt') -->
             </div>
           </md-input-container>
         </div>

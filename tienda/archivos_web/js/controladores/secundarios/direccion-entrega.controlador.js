@@ -14,6 +14,10 @@ tienda.controller('controladorFormularioDireccionEntrega', [
     api
   )
   {
+    /* Datos. ****************************************************************/
+    $scope.direccion = {};
+    $scope.estados = [];
+
     /* Funciones públicas. ***************************************************/
 
     $scope.cancelar = function () {
@@ -21,21 +25,21 @@ tienda.controller('controladorFormularioDireccionEntrega', [
     };
 
     $scope.aceptar = function () {
-      api.iniciarSesion($scope.usuario).then(function (respuesta) {
+      api.agregarDireccionDeEntrega($scope.direccion).then(function (respuesta){
         if (respuesta.data == '0') {
-          $scope.error = 'incorrecto';
-        } else if (respuesta.data == '1') {
-          $scope.error = 'no verificado';
+          $scope.error = 'repetida';
         } else {
-          $mdDialog.hide(respuesta.data);
+          var aviso = $mdDialog.alert()
+            .title('Operación exitosa')
+            .textContent("@@include('mensajes/direccion_de_entrega_guardada.txt')")
+            .ok('Aceptar')
+            .multiple(true);
+          $mdDialog.show(aviso).then(function (resultado) {
+            $mdDialog.hide(respuesta.data);
+          });
         }
       });
     };
-
-    /* Secuencia de inicio. **************************************************/
-    $scope.direccion = {};
-
-    $scope.estados = [];
 
     api.obtenerEstados().then(function (respuesta) {
       $scope.estados = respuesta.data;

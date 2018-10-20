@@ -103,6 +103,12 @@
        return $http.get(RUTA_BASE + RUTA_TIENDA + '/direcciones');
      };
 
+     API.agregarDireccionDeEntrega = function (direccion) {
+       return $http.post(
+         RUTA_BASE + RUTA_TIENDA + '/agregarDireccionDeEntrega',
+         direccion)
+     };
+
      API.eliminarDireccion = function (idDeDireccion) {
        return $http.delete(RUTA_BASE + RUTA_TIENDA + '/direccion/'
          + idDeDireccion);
