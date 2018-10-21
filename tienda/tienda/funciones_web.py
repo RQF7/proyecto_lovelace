@@ -7,7 +7,7 @@ Proyecto Lovelace.
 import datetime
 import django
 import json
-import datetime
+import traceback
 
 import tienda.utilidades as utilidades
 import tienda.libreria as libreria
@@ -336,8 +336,9 @@ def agregarTarjeta (peticion):
   try:
     token = negocio.tokenizar(
       objetoDePeticion['pan'], objetoDePeticion['metodo'])
-  except SystemError:
+  except Exception as error:
     # Trayectoria alternativa 05G: El código HTTP de respuesta no es un 2XX.
+    print(traceback.format_exc())
     return django.http.HttpResponse("3")
 
   direccion = None
