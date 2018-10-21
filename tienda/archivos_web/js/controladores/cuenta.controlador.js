@@ -63,78 +63,9 @@ tienda.controller('controladorCuenta', [
       }, function () {});
     };
 
-    $scope.agregarMetodoDePago = function($event) {
-
-      /* Armar arreglo de direcciones asociadas. */
-      var direccionesDeTarjetas = [];
-      var banderaAgregado;
-      for (var i = 0; i < $scope.tarjetas.length; i++) {
-        banderaAgregado = false;
-        for (var j = 0; j < direccionesDeTarjetas.length; j++) {
-          if (direccionesDeTarjetas[j].pk == $scope.tarjetas[i].direccion.pk) {
-            banderaAgregado = true;
-            break;
-          }
-        }
-        if (!banderaAgregado)
-          direccionesDeTarjetas.push($scope.tarjetas[i].direccion);
-      }
-
-      /* Mostrar formulario. */
-      $mdDialog.show({
-        parent: angular.element(document.body),
-        targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/tarjeta.ventana.html',
-        controller: 'controladorFormularioTarjeta',
-        locals: {
-          'direcciones': direccionesDeTarjetas
-        }
-      }).then(function (respuesta) {
-        if (respuesta != undefined) {
-          $scope.tarjetas.push(respuesta);
-          api.obtenerDireccionDeTarjeta(respuesta.fields.direccion)
-            .then(function (respuesta) {
-              for (var i = 0; i < $scope.tarjetas.length; i++) {
-                if ($scope.tarjetas[i].fields.direccion == respuesta.data[0].pk
-                  && $scope.tarjetas[i].direccion == undefined) {
-                    $scope.tarjetas[i].direccion = respuesta.data[0];
-                    break;
-                }
-              }
-            });
-        }
-      });
-    };
-
     /* Secuencia de inicio. **************************************************/
     $scope.cambiarTitulo("Administración de cuenta", 3);
-    $scope.tarjetas = [];
     $scope.direcciones = [];
-
-    /* TODO:
-     * * La dirección de una tarjeta tendría que venir desde la primera
-     *   petición (es una llave foranea); esto se arregla encontrando
-     *   un serializador funcional para las últimas versiones de django.
-     * * La función de retorno de petición de dirección de tarjeta
-     *   debería poder acceder al contexto del for desde el que
-     *   fue llamada (para no volver a recorrer todo); seguro que hay
-     *   sintaxis para eso. */
-
-    api.obtenerTarjetas().then(function (respuesta) {
-      $scope.tarjetas = respuesta.data;
-      for (var i = 0; i < $scope.tarjetas.length; i++) {
-        api.obtenerDireccionDeTarjeta($scope.tarjetas[i].fields.direccion)
-          .then(function (respuesta) {
-            for (var i = 0; i < $scope.tarjetas.length; i++) {
-              if ($scope.tarjetas[i].fields.direccion == respuesta.data[0].pk
-                && $scope.tarjetas[i].direccion == undefined) {
-                  $scope.tarjetas[i].direccion = respuesta.data[0];
-                  break;
-                }
-            }
-          });
-      }
-    });
 
     api.obtenerDirecciones().then(function (respuesta) {
       $scope.direcciones = respuesta.data
