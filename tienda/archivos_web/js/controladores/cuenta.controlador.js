@@ -91,7 +91,6 @@ tienda.controller('controladorCuenta', [
         }
       }).then(function (respuesta) {
         if (respuesta != undefined) {
-          console.log("DEBUG", respuesta);
           $scope.tarjetas.push(respuesta);
           api.obtenerDireccionDeTarjeta(respuesta.fields.direccion)
             .then(function (respuesta) {
