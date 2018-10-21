@@ -32,13 +32,12 @@
     /* Operaciones de clientes. ***********************************************/
 
     API.registrarUsuario = function (usuario) {
-      console.log(usuario)
       return $http.post(RUTA_BASE + RUTA_TIENDA + '/operar_usuario', usuario);
     };
 
-    //API.actualizarUsuario = function (usuario) {
-    //  return $http.put(RUTA_BASE + RUTA_TIENDA + '/operar_usuario', usuario);
-    //};
+    API.actualizarUsuario = function (usuario) {
+      return $http.put(RUTA_BASE + RUTA_TIENDA + '/operar_usuario', usuario);
+    };
 
      /* Operaciones con api de librería. *************************************/
 

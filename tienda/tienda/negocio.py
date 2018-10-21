@@ -40,13 +40,18 @@ def autentificar (usuarioEnPeticion):
     return None
 
 
-def existeUsuario (usuarioEnPeticion):
-  """Verifica si un usuario existe."""
+def correoPreviamenteRegistrado (usuarioEnPeticion, pk = None):
+  """ Verifica si un usuario ya esta registrado.
+      Si se da una pk, se excluye el registro con la misma. """
   try:
-    Usuario.objects.get(correo = usuarioEnPeticion["correo"])
-    return 1
+    if pk != None:
+      Usuario.objects.exclude(pk = pk).get(
+        correo = usuarioEnPeticion["correo"])
+    else:
+      Usuario.objects.get(correo = usuarioEnPeticion["correo"])
+    return True
   except Usuario.DoesNotExist:
-    return 0
+    return False
 
 
 def crearVinculoDeVerificacion (correo):
@@ -79,6 +84,8 @@ def enviarVinculoDeVerificacion (usuario, tipo):
 
 
 def guardarUsuario (usuarioEnPeticion):
+  """ Función para guardar un usuario en petición en la BD,
+      la función retorna el objeto usuario.                  """
   vinculo = crearVinculoDeVerificacion(usuarioEnPeticion["correo"])
   usuario = Usuario(
     nombre = usuarioEnPeticion["nombre"],
@@ -89,7 +96,36 @@ def guardarUsuario (usuarioEnPeticion):
     fecha = vinculo["fecha"],
     verificado = 0)
   usuario.save()
-  return usuario
+  enviarVinculoDeVerificacion(usuario,"registro")
+
+
+def actualizarUsuario (usuarioEnPeticion, pk):
+  """ Función para actualizar a un usuario en la BD,
+      la función retorna una bandera para saber si la
+      actualización abarco al correo del usuario.     """
+
+  usuario = Usuario.objects.get(pk = pk)
+
+  if usuario.correo == usuarioEnPeticion["correo"]:
+    usuario.nombre = usuarioEnPeticion["nombre"]
+    usuario.contrasenia = hashlib.sha256(
+      usuarioEnPeticion["contrasenia"].encode('UTF-8')).digest()
+    banderaCorreoModificado = True
+  else:
+    vinculo = crearVinculoDeVerificacion(usuarioEnPeticion["correo"])
+    usuario.nombre = usuarioEnPeticion["nombre"]
+    usuario.correo = usuarioEnPeticion["correo"]
+    usuario.contrasenia = hashlib.sha256(
+      usuarioEnPeticion["contrasenia"].encode('UTF-8')).digest()
+    usuario.vinculo = vinculo["vinculo"]
+    usuario.fecha = vinculo["fecha"]
+    usuario.verificado = False
+    enviarVinculoDeVerificacion(usuario,"actualizacion")
+    banderaCorreoModificado = False
+
+  usuario.save(force_update = True)
+
+  return banderaCorreoModificado
 
 
 def crearDireccion (direccion):
