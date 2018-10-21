@@ -4,8 +4,14 @@ Tienda en línea.
 Proyecto Lovelace.
 """
 
-import hashlib
+
 import datetime
+import hashlib
+import json
+import requests
+
+import tienda.configuraciones as configuraciones
+import tienda.utilidades as utilidades
 
 from .models.compra import Compra
 from .models.direccion import Direccion
@@ -17,8 +23,6 @@ from .models.tarjeta import Tarjeta
 from .models.tipo_de_direccion import TipoDeDireccion
 from .models.tipo_de_tarjeta import TipoDeTarjeta
 from .models.usuario import Usuario
-import tienda.configuraciones as configuraciones
-import tienda.utilidades as utilidades
 
 
 def autentificar (usuarioEnPeticion):
@@ -105,3 +109,21 @@ def crearDireccion (direccion):
     numeroExterior = direccion['fields']['numeroExterior'])
   direccion.save()
   return direccion
+
+
+def tokenizar (numeroDeTarjeta, metodo):
+  """Realiza una operación de tokenización.
+
+  Hace un post al sistema tokenizador. Para la conexión se ocupan los valores
+  definidos en las configuraciones de la tienda: url, usuario y contrasenia.
+  En caso de error, se levanta una excepción de error de sistema.
+  """
+  peticion = requests.post(
+    configuraciones.SISTEMA_TOKENIZADOR
+    + '/api/programa_tokenizador/tokenizar',
+    auth = (configuraciones.USUARIO_ST, configuraciones.CONTRASENIA_ST),
+    data = json.dumps({'pan': numeroDeTarjeta, 'metodo': metodo}))
+  if peticion.status_code != 200:
+    raise SystemError(
+      'Error en tokenización: {0}'.format(peticion.status_code))
+  return peticion.text

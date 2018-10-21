@@ -276,7 +276,10 @@ def agregarTarjeta (peticion):
     de la nueva tarjeta.
   * En caso de una inserción duplicada se regresa un 1.
   * En caso de una inserción duplicada excepto por la fecha de
-    expiración, se regresa un 2."""
+    expiración, se regresa un 2.
+  * En caso de error al comunicarse con el sistema tokenizador,
+    se regresa un 3."""
+
   objetoDePeticion = json.loads(peticion.body)
   identificador = json.loads(peticion.session['usuario'])['pk']
   print("DEBUG", objetoDePeticion)
@@ -295,7 +298,6 @@ def agregarTarjeta (peticion):
       fecha_uno = similar.expiracion
       fecha_dos = django.utils.dateparse.parse_datetime(
         objetoDePeticion['expiracion'])
-      print(fecha_uno, fecha_dos)
       if fecha_uno.year == fecha_dos.year and \
         fecha_uno.month == fecha_dos.month:
         return django.http.HttpResponse("1")
@@ -308,20 +310,17 @@ def agregarTarjeta (peticion):
     # Trayectoria alternativa 05F: La tarjeta ingresada ya ha sido
     # almacenada y se encuentra inactiva.
     else:
-      print("Tarjeta existente inactiva")
       similar.expiracion = django.utils.dateparse.parse_datetime(
         objetoDePeticion['expiracion'])
       if objetoDePeticion['direccion']['pk'] == 0:
         # Crear nueva dirección
         # TODO: Para evitar posibles duplicados, antes de insertar la nueva
         # dirección se tendría que buscar entre las direcciones inactivas.
-        print("Nueva dirección")
         direccion = negocio.crearDireccion(objetoDePeticion['direccion'])
         similar.direccion = direccion;
 
       else:
         # Dirección existente
-        print("Dirección existente")
         similar.direccion = Direccion.objects.get(
           pk = objetoDePeticion['direccion']['pk'])
 
@@ -333,7 +332,14 @@ def agregarTarjeta (peticion):
     pass
 
   # Trayectoria principal
-  print("Nueva tarjeta")
+  token = None
+  try:
+    token = negocio.tokenizar(
+      objetoDePeticion['pan'], objetoDePeticion['metodo'])
+  except SystemError:
+    # Trayectoria alternativa 05G: El código HTTP de respuesta no es un 2XX.
+    return django.http.HttpResponse("3")
+
   direccion = None
   if objetoDePeticion['direccion']['pk'] == 0:
     direccion = negocio.crearDireccion(objetoDePeticion['direccion'])
@@ -342,7 +348,7 @@ def agregarTarjeta (peticion):
       pk = objetoDePeticion['direccion']['pk'])
 
   tarjeta = Tarjeta(
-    token = '0000000000000000',
+    token = token,
     terminacion = objetoDePeticion['pan'][-4:],
     metodo = Metodo.objects.get(nombre = objetoDePeticion['metodo']),
     emisor = Emisor.objects.get(pk = objetoDePeticion['emisor']),

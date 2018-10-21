@@ -76,6 +76,10 @@ tienda.controller('controladorFormularioTarjeta', [
             titulo = "Error";
             mensaje = "@@include('mensajes/tarjeta_existente_con_distinta_expiracion.txt')";
             resultado = undefined;
+          } else if (respuesta.data == "3") {
+            titulo = "Error";
+            mensaje = "@@include('mensajes/error_al_tokenizar.txt')";
+            resultado = undefined;
           } else {
             titulo = "Operación exitosa";
             mensaje = "@@include('mensajes/metodo_de_pago_agregado.txt')";
