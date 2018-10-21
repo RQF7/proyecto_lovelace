@@ -39,7 +39,8 @@ LIB_CARPETA_IMAGENES := $(RUTA_BASE)analisis_y_disenio_tienda/analisis/capturas
 LIB_CARPETA_FUENTES  := tienda/archivos_web
 LIB_LISTA_DE_FUENTES := inicio_1920x1080.png \
 												iniciar_sesion_1920x1080.png \
-												cuenta_1920x1080.png
+												cuenta_1920x1080.png \
+												formulario_tarjeta_1920x1080.png
 LIB_LISTA_DE_OBJETOS := $(addprefix $(LIB_CARPETA_IMAGENES)/, \
 	                      $(LIB_LISTA_DE_FUENTES))
 
@@ -137,4 +138,9 @@ $(LIB_CARPETA_IMAGENES)/iniciar_sesion_1920x1080.png: \
 $(LIB_CARPETA_IMAGENES)/cuenta_1920x1080.png: \
 		html/cuenta.html
 	python $(SCRIPTS_CAPTURAS)/libreria_cuenta.py \
+		$(LIB_DOMINIO)/ $@ $(LIB_DOMINIO)/cuenta
+
+$(LIB_CARPETA_IMAGENES)/formulario_tarjeta_1920x1080.png: \
+		html/cuenta.html html/ventanas/tarjeta.ventana.html
+	python $(SCRIPTS_CAPTURAS)/libreria_agregar_tarjeta.py \
 		$(LIB_DOMINIO)/ $@ $(LIB_DOMINIO)/cuenta
