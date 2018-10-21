@@ -227,6 +227,7 @@ tienda.controller('controladorGeneral', [
     $scope.reiniciarCarrito();
 
     /* Para acciones comunes a varias páginas. *******************************/
+    /* TODO: lo de las direcciones también debe de ir aquí. */
     $scope.tarjetas = [];
 
     $scope.agregarMetodoDePago = function($event) {
@@ -252,6 +253,7 @@ tienda.controller('controladorGeneral', [
         targetEvent: $event,
         templateUrl: '/estaticos/html/ventanas/tarjeta.ventana.html',
         controller: 'controladorFormularioTarjeta',
+        multiple: true,
         locals: {
           'direcciones': direccionesDeTarjetas
         }
