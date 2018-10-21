@@ -283,6 +283,7 @@ def eliminarTarjeta (peticion, idDeTarjeta):
   return django.http.HttpResponse()
 
 
+@utilidades.privilegiosRequeridos
 def agregarTarjeta (peticion):
   """Registra un nuevo método de pago del cliente en sesión.
 
