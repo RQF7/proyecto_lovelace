@@ -282,7 +282,6 @@ def agregarTarjeta (peticion):
 
   objetoDePeticion = json.loads(peticion.body)
   identificador = json.loads(peticion.session['usuario'])['pk']
-  print("DEBUG", objetoDePeticion)
 
   try:
     # Buscar tarjetas iguales
