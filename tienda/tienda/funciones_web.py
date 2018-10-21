@@ -115,6 +115,7 @@ def registrarUsuario (peticion):
   return django.http.HttpResponse("0")
 
 
+@utilidades.privilegiosRequeridos
 def actualizarUsuario (peticion):
   """Actualiza el usuario en sesión con los datos dados.
 
@@ -143,11 +144,12 @@ def actualizarUsuario (peticion):
 
 def verificarCorreo (peticion, vinculo, hrs = None):
   """ Verifica el correo asociado al vínculo dado.
-      Se puede o no poner las horas que tenia de 'vida' el vinculo,
-      para ver si este ya expiro.                                   """
+      Se puede o no poner las horas que tenía de vida el vínculo,
+      para ver si este ya expiró.                                   """
 
   usuario = Usuario.objects.get(vinculo = vinculo)
-  if hrs != None and datetime.datetime.now() - usuario.fecha > datetime.timedelta(hours = hrs):
+  if hrs != None and datetime.datetime.now() - usuario.fecha > \
+    datetime.timedelta(hours = hrs):
     usuario.delete()
     return django.http.HttpResponseRedirect('/?correo_no_verificado')
   else:
@@ -197,12 +199,9 @@ def guardarCarrito (peticion):
   return django.http.HttpResponse()
 
 
+@utilidades.privilegiosRequeridos
 def registrarCompra (peticion):
-  """Registra una compra del cliete en sesión.
-
-  TODO:
-  * Agregar decorador de privilegios.
-  """
+  """Registra una compra del cliete en sesión."""
 
   objetoDePeticion = json.loads(peticion.body)
   carrito = json.loads(peticion.session['carrito'])
@@ -237,13 +236,13 @@ def registrarCompra (peticion):
 # Operaciones sobre tarjetas ###################################################
 ################################################################################
 
+@utilidades.privilegiosRequeridos
 def obtenerTarjetas (peticion):
   """Regresa arreglo con las tarjetas del usuario en sesión.
 
   TODO:
   *  El campo «tarjeta», del usuario, debería de ser «tarjetas»: por algo es un
      campo muchos a muchos.
-  *  Falta agregar decorador con permisos.
   """
   identificador = json.loads(peticion.session['usuario'])['pk']
   tarjetas = Usuario.objects.get(pk = identificador).tarjeta.filter(
@@ -251,11 +250,9 @@ def obtenerTarjetas (peticion):
   return utilidades.respuestaJSON(tarjetas)
 
 
+@utilidades.privilegiosRequeridos
 def operarTarjeta (peticion, idDeTarjeta):
-  """Gestión de tarjetas.
-
-  TODO:
-  * Agregar decorador de privilegios."""
+  """Gestión de tarjetas."""
   if peticion.method == 'DELETE':
     return eliminarTarjeta(peticion, idDeTarjeta)
   else:
@@ -265,7 +262,8 @@ def operarTarjeta (peticion, idDeTarjeta):
 def eliminarTarjeta (peticion, idDeTarjeta):
   """Elimina la tarjeta dada.
 
-  Pasa la tarjeta (dada por su identificador) a estado inactivo."""
+  Pasa la tarjeta (dada por su identificador) a estado inactivo.
+  TODO: validar que la tarjeta dada corresponda al usuario en sesión."""
   tarjeta = Tarjeta.objects.get(pk = idDeTarjeta)
   tarjeta.activa = False;
   tarjeta.save()
@@ -294,13 +292,13 @@ def obtenerTipos (peticion):
 # Operaciones sobre direcciones ################################################
 ################################################################################
 
+@utilidades.privilegiosRequeridos
 def obtenerDirecciones (peticion):
   """Regresa arreglo con las direcciones del usuario en sesión.
 
   TODO:
-  *  El campo «tdireccion», del usuario, debería de ser «direcciones»: por
+  *  El campo «direccion», del usuario, debería de ser «direcciones»: por
      algo es un campo muchos a muchos.
-  *  Falta agregar decorador con permisos.
   """
   identificador = json.loads(peticion.session['usuario'])['pk']
   direcciones = Usuario.objects.get(pk = identificador).direccion.filter(
@@ -308,21 +306,20 @@ def obtenerDirecciones (peticion):
   return utilidades.respuestaJSON(direcciones)
 
 
+@utilidades.privilegiosRequeridos
 def operarDireccion (peticion, idDeDireccion):
-  """Gestión de direcciones.
-
-  TODO:
-  * Agregar decorador de privilegios."""
+  """Gestión de direcciones."""
   if peticion.method == 'DELETE':
     return eliminarDireccion(peticion, idDeDireccion)
   else:
     return django.http.HttpResponseNotAllowed()
 
 
+@utilidades.privilegiosRequeridos
 def eliminarDireccion (peticion, idDeDireccion):
   """Elimina la tarjeta dada.
 
-  Pasa la tarjeta (dada por su identificador) a estado inactivo."""
+  TODO: Validar que la dirección dada sea del usuario en sesión."""
   direccion = Direccion.objects.get(pk = idDeDireccion)
   direccion.activa = False;
   direccion.save()
