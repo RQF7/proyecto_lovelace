@@ -2,10 +2,6 @@
   Html de página de administración de cuenta.
   Tienda en línea.
   Proyecto Lovelace.
-
-  TODO:
-  * Agregar a la vista de métodos de pago la dirección de facturación.
-  * Agregar el historial de compras.
 -->
 
 <div
@@ -16,21 +12,15 @@
     Información personal
   </h2>
   <md-divider class="divisor-de-seccion"></md-divider>
-  <div class="etiqueta">
-    <p class="etiqueta-descripcion">
-      Nombre de usuario
-    </p>
-    <p class="etiqueta-contenido">
+  <div
+    layout="row">
+    <ego-etiqueta descripcion="'Nombre de usuario'">
       {{usuario.nombre}}
-    </p>
-  </div>
-  <div class="etiqueta">
-    <p class="etiqueta-descripcion">
-      Correo electrónico
-    </p>
-    <p class="etiqueta-contenido">
+    </ego-etiqueta>
+    <div class="separador-horizontal-40"></div>
+    <ego-etiqueta descripcion="'Correo electrónico'">
       {{usuario.correo}}
-    </p>
+    </ego-etiqueta>
   </div>
   <div
     layout="row"
@@ -55,9 +45,13 @@
     md-cols-xs="1"
     md-cols-sm="2"
     md-cols-md="3"
-    md-cols-xl="5"
-    md-row-height="420px"
-    md-gutter="10px">
+    md-cols-xl="3"
+    md-row-height="480px"
+    md-gutter="20px">
+    <!--
+      TODO: Agregar reglas para que no se rompan lineas en los
+      campos de las etiquetas.
+    -->
     <md-grid-tile ng-repeat="tarjeta in tarjetas">
       <md-whiteframe
         class="md-whiteframe-6dp tarjeta"
@@ -110,6 +104,9 @@
               <ego-etiqueta descripcion="'Estado'">
                 {{tarjeta.direccion.fields.estado}}
               </ego-etiqueta>
+              <ego-etiqueta descripcion="'Código postal'">
+                {{tarjeta.direccion.fields.cp}}
+              </ego-etiqueta>
             </div>
           </div>
           <span flex></span>
@@ -152,10 +149,11 @@
     md-cols-md="3"
     md-cols-xl="5"
     md-row-height="480px"
-    md-gutter="10px">
+    md-gutter="20px">
     <md-grid-tile ng-repeat="direccion in direcciones">
       <md-whiteframe
-        class="md-whiteframe-4dp tarjeta">
+        class="md-whiteframe-6dp tarjeta"
+        md-colors="{background: 'background-hue-2'}">
         <div layout="column" style="height: 100%">
           <ego-etiqueta descripcion="'Calle'">
             {{direccion.fields.calle}}
@@ -201,8 +199,4 @@
       Agregar dirección de entrega
     </md-button>
   </div>
-  <h2>
-    Historial de compras
-  </h2>
-  <md-divider class="divisor-de-seccion"></md-divider>
 </div>

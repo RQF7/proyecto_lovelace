@@ -39,10 +39,6 @@
       return $http.put(RUTA_BASE + RUTA_TIENDA + '/operar_usuario', usuario);
     };
 
-    //API.eliminarUsuario = function () {
-    //  return $http.delete(RUTA_BASE + RUTA_TIENDA + '/operar_usuario');
-    //};
-
      /* Operaciones con api de librería. *************************************/
 
      API.obtenerLibros = function (pagina, limite) {
@@ -77,6 +73,15 @@
 
      API.obtenerTarjetas = function () {
        return $http.get(RUTA_BASE + RUTA_TIENDA + '/tarjetas');
+     };
+
+     API.obtenerDireccionDeTarjeta = function (idDeDireccion) {
+       return $http.get(RUTA_BASE + RUTA_TIENDA + '/direccion_de_tarjeta/'
+       + idDeDireccion)
+     };
+
+     API.agregarTarjeta = function (tarjeta) {
+       return $http.post(RUTA_BASE + RUTA_TIENDA + '/tarjeta', tarjeta);
      };
 
      API.eliminarTarjeta = function (idDeTarjeta) {

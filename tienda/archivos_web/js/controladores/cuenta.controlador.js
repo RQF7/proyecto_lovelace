@@ -78,27 +78,9 @@ tienda.controller('controladorCuenta', [
       }, function () {});
     };
 
-    $scope.agregarMetodoDePago = function($event) {
-      $mdDialog.show({
-        parent: angular.element(document.body),
-        targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/tarjeta.ventana.html',
-        controller: 'controladorFormularioTarjeta'
-      }).then(function (respuesta) {
-        if (respuesta != undefined) {
-          console.log(respuesta);
-        }
-      });
-    };
-
     /* Secuencia de inicio. **************************************************/
     $scope.cambiarTitulo("Administración de cuenta", 3);
-    $scope.tarjetas = [];
     $scope.direcciones = [];
-
-    api.obtenerTarjetas().then(function (respuesta) {
-      $scope.tarjetas = respuesta.data;
-    });
 
     api.obtenerDirecciones().then(function (respuesta) {
       $scope.direcciones = respuesta.data

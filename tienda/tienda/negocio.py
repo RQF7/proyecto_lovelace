@@ -4,12 +4,25 @@ Tienda en línea.
 Proyecto Lovelace.
 """
 
-import hashlib
-import datetime
 
-from .models.usuario import Usuario
+import datetime
+import hashlib
+import json
+import requests
+
 import tienda.configuraciones as configuraciones
 import tienda.utilidades as utilidades
+
+from .models.compra import Compra
+from .models.direccion import Direccion
+from .models.emisor import Emisor
+from .models.estado import Estado
+from .models.metodo import Metodo
+from .models.paquete import Paquete
+from .models.tarjeta import Tarjeta
+from .models.tipo_de_direccion import TipoDeDireccion
+from .models.tipo_de_tarjeta import TipoDeTarjeta
+from .models.usuario import Usuario
 
 
 def autentificar (usuarioEnPeticion):
@@ -114,3 +127,39 @@ def actualizarUsuario (usuarioEnPeticion, pk):
 
   return banderaCorreoModificado
 
+
+def crearDireccion (direccion):
+  """Genera una nueva diercción en la base de datos.
+
+  Recibe un objeto de tipo diccionario con los datos de la nueva dirección;
+  regresa la instancia de la dirección ya guardada en la base."""
+  direccion = Direccion(
+    tipoDeDireccion = TipoDeDireccion.objects.get(nombre = 'Facturación'),
+    estado = Estado.objects.get(pk = direccion['fields']['estado']),
+    municipio = direccion['fields']['municipio'],
+    colonia = direccion['fields']['colonia'],
+    calle = direccion['fields']['calle'],
+    cp = direccion['fields']['cp'],
+    activa = True,
+    numeroInterior = direccion['fields']['numeroInterior'],
+    numeroExterior = direccion['fields']['numeroExterior'])
+  direccion.save()
+  return direccion
+
+
+def tokenizar (numeroDeTarjeta, metodo):
+  """Realiza una operación de tokenización.
+
+  Hace un post al sistema tokenizador. Para la conexión se ocupan los valores
+  definidos en las configuraciones de la tienda: url, usuario y contrasenia.
+  En caso de error, se levanta una excepción de error de sistema.
+  """
+  peticion = requests.post(
+    configuraciones.SISTEMA_TOKENIZADOR
+    + '/api/programa_tokenizador/tokenizar',
+    auth = (configuraciones.USUARIO_ST, configuraciones.CONTRASENIA_ST),
+    data = json.dumps({'pan': numeroDeTarjeta, 'metodo': metodo}))
+  if peticion.status_code != 200:
+    raise SystemError(
+      'Error en tokenización: {0}'.format(peticion.status_code))
+  return peticion.text

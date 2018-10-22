@@ -25,7 +25,6 @@
       class="texto-de-formulario">
       Página:
     </p>
-    <!-- TODO: Agregar botones de siguiente y anterior a paginador. -->
     <md-input-container
       flex="10"
       layout-margin="10">
@@ -56,10 +55,6 @@
       <md-tooltip>Siguiente página</md-tooltip>
     </md-button>
   </div>
-  <!--
-    TODO:
-      Hacer que los botones salgan al pie del marco.
-  -->
   <md-grid-list
     md-cols="4"
     md-cols-xs="1"
@@ -67,7 +62,7 @@
     md-cols-md="3"
     md-cols-xl="5"
     md-row-height="290px"
-    md-gutter="10px">
+    md-gutter="20px">
     <md-grid-tile ng-repeat="libro in libros">
       <ego-libro
         datos="libro" 
