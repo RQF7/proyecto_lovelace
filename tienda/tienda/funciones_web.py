@@ -217,6 +217,8 @@ def registrarCompra (peticion):
     direccion = Direccion.objects.get(pk = objetoDePeticion['direccion']))
   compra.save()
 
+  tarjeta = Tarjeta.objects.get(pk = objetoDePeticion['tarjeta'])
+
   # Registrar libros de compra
   for libro in carrito['libros']:
     paquete = Paquete(
@@ -231,7 +233,14 @@ def registrarCompra (peticion):
     paquete.libro.save()
 
   del peticion.session['carrito']
-  return django.http.HttpResponse()
+
+  try:
+    numeroDeTarjeta = negocio.detokenizar(tarjeta.token, str(tarjeta.metodo))
+    numeroDeTarjeta = numeroDeTarjeta.replace('\n','')
+    return django.http.HttpResponse(numeroDeTarjeta)
+  except Exception as error:
+    print(traceback.format_exc())
+    return django.http.HttpResponse()
 
 
 ################################################################################
@@ -260,7 +269,6 @@ def obtenerDireccionDeTarjeta (peticion, idDeDireccion):
   * Validar que la dirección pedida sea del cliente en sesión."""
   direccion = Direccion.objects.get(pk = idDeDireccion)
   return utilidades.respuestaJSON(direccion)
-
 
 
 def operarTarjeta (peticion, idDeTarjeta = 0):
@@ -371,6 +379,7 @@ def agregarTarjeta (peticion):
   try:
     token = negocio.tokenizar(
       objetoDePeticion['pan'], objetoDePeticion['metodo'])
+    token = token.replace('\n','')
   except Exception as error:
     # Trayectoria alternativa 05G: El código HTTP de respuesta no es un 2XX.
     print(traceback.format_exc())

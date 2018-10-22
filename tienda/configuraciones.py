@@ -25,7 +25,8 @@ LOGIN_URL = '/'
 SECRET_KEY = 'pdm$49m@g!kedc&f!t+tem!hex-t4p^3+id(4v354lmog3su0c'
 DEBUG = True
 ALLOWED_HOSTS = [
-  "127.0.0.1"
+  "127.0.0.1",
+  "10.100.71.89"
 ]
 
 # Definición de aplicaciones ##################################################
