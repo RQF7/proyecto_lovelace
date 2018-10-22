@@ -28,54 +28,19 @@ def respuestaJSON (objeto):
     django.core.serializers.serialize("json", objeto))
 
 
-def privilegiosRequeridos (tipoDeUsuario):
-  """Fábrica de decoradores para vistas con privilegios.
+def privilegiosRequeridos (funcion):
+  """Decorador de privilegios.
 
-  Permite decorar las funciones de vistas (todas las definiciones de funciones
-  que hay en cualquier funciones.py) para reestringir el uso de esa función
-  a cierto tipo de usuario. El argumento recibido es un entero que representa
-  el identificador de los tipos de usuarios que deben poder acceder a la
-  función.
+  Valida que haya un registro de usuario en las variables de sesión."""
+  
+  @functools.wraps(funcion)
+  def envolturaDePrivilegios(peticion, *argumentos, **argumentosEnDiccionario):
+    if 'usuario' not in peticion.session:
+      return django.http.HttpResponseForbidden()
+    else:
+      return funcion(peticion, *argumentos, **argumentosEnDiccionario)
 
-  Si no hay ningún usuario en sesión o el usuario de sesión no tiene los
-  privilegios necesarios, se regresa un 304 para obligar al cliente a ir
-  a la pantalla de inicio de sesión.
-
-  Las fábricas de decoradores se ven, en el código cliente, igual que
-  un decorador normal. En su papel de fábrica, debe de regresar un decorador.
-  Las fábricas de decoradores se utilizan para que las funciones decoradoras
-  puedan recibir parámetros (en este caso el tipo de usuario de los
-  privilegios). Cuando el decorador no recibe parámetros se pude utilizar
-  sin la fábrica.
-
-  Definitivamente, mi función favorita."""
-
-  def decorador (funcion):
-
-    @functools.wraps(funcion)
-    def envolturaDePrivilegios(peticion, *argumentos, **argumentosEnDiccionario):
-
-      if 'usuario' not in peticion.session:
-        return django.http.HttpResponseRedirect('/?siguiente=' + peticion.path)
-
-      else:
-        usuario = None
-        for objetoDescerializado \
-          in django.core.serializers.deserialize("json",
-            peticion.session['usuario']):
-          usuario = objetoDescerializado
-          break
-        if str(usuario.object.tipoDeUsuario) != tipoDeUsuario:
-          return django.http.HttpResponseRedirect('/?siguiente=' + peticion.path)
-
-        else:
-          return funcion(peticion, *argumentos, **argumentosEnDiccionario)
-
-    # Retorno de función decoradora, decorador.
-    return envolturaDePrivilegios
-
-  # Retorno de función fábrica, privilegiosRequeridos.
-  return decorador
+  return envolturaDePrivilegios
 
 
 def enviarCorreo (destinatario, asunto, cuerpo):
