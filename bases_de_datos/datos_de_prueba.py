@@ -31,6 +31,8 @@ from sistema_tokenizador.programa_tokenizador.models.estado_de_llave \
   import EstadoDeLlave
 from sistema_tokenizador.programa_tokenizador.models.llave \
   import Llave
+from sistema_tokenizador.programa_tokenizador.negocio \
+  import generarLlaves
 
 from datos_base \
   import guardar
@@ -78,6 +80,12 @@ if __name__ == '__main__':
       contrasenia = hashlib.sha256(b"123456").digest(),
       estadoDeCorreo = EstadoDeCorreo.objects.get(
         nombre = 'verificado'),
+      vinculo = Vinculo.objects.get(vinculo = 'd')),
+    Correo(
+      correo = 'administracion@tienda-en-linea.com',
+      contrasenia = hashlib.sha256(b"123456").digest(),
+      estadoDeCorreo = EstadoDeCorreo.objects.get(
+        nombre = 'verificado'),
       vinculo = Vinculo.objects.get(vinculo = 'd'))]
 
   guardar(correos)
@@ -116,9 +124,22 @@ if __name__ == '__main__':
       tipoDeUsuario = TipoDeUsuario.objects.get(
         nombre = 'cliente'),
       estadoDeUsuario = EstadoDeUsuario.objects.get(
-        nombre = 'rechazado'))]
+        nombre = 'rechazado')),
+    Usuario(
+      correo = Correo.objects.get(
+        correo = 'administracion@tienda-en-linea.com'),
+      tipoDeUsuario = TipoDeUsuario.objects.get(
+        nombre = 'cliente'),
+      estadoDeUsuario = EstadoDeUsuario.objects.get(
+        nombre = 'aprobado'))]
 
   guardar(usuarios)
+
+  # Generar juego de llaves para usuario de tienda
+  generarLlaves(
+    Usuario.objects.get(
+      correo = Correo.objects.get(
+        correo = 'administracion@tienda-en-linea.com')))
 
   for i in range(20):
 

@@ -38,7 +38,9 @@ LISTA_DE_OBJETOS     := $(addprefix $(CARPETA_IMAGENES)/, \
 LIB_CARPETA_IMAGENES := $(RUTA_BASE)analisis_y_disenio_tienda/analisis/capturas
 LIB_CARPETA_FUENTES  := tienda/archivos_web
 LIB_LISTA_DE_FUENTES := inicio_1920x1080.png \
-												iniciar_sesion_1920x1080.png
+												iniciar_sesion_1920x1080.png \
+												cuenta_1920x1080.png \
+												formulario_tarjeta_1920x1080.png
 LIB_LISTA_DE_OBJETOS := $(addprefix $(LIB_CARPETA_IMAGENES)/, \
 	                      $(LIB_LISTA_DE_FUENTES))
 
@@ -46,13 +48,16 @@ DEPENDENCIAS_COMUNES := index.html \
 												js/configuraciones/tema.configuracion.js
 SCRIPTS_CAPTURAS     := utilidades/capturas_selenium
 DOMINIO 						 := http://127.0.0.1:8080
-LIB_DOMINIO 				 := http://127.0.0.1:8000
+LIB_DOMINIO 				 := http://127.0.0.1:8081
+
+todo: toma_de_capturas lib_toma_de_capturas
+	@echo "Toma de capturas lista"
 
 # Las fuentes están todas en los archivos web
 VPATH := $(CARPETA_FUENTES)
 
 toma_de_capturas: $(LISTA_DE_OBJETOS)
-	@echo "Toma de capturas lista"
+	@echo "Toma de capturas de sistema tokenizador lista"
 
 $(CARPETA_IMAGENES)/inicio_1920x1080.png: \
 		html/inicio.html \
@@ -116,15 +121,26 @@ modelo_de_datos:
 
 # Capturas para el caso de prueba: librería
 
+# Las fuentes están todas en los archivos web
+VPATH := $(LIB_CARPETA_FUENTES)
+
 lib_toma_de_capturas: $(LIB_LISTA_DE_OBJETOS)
 	@echo "Toma de capturas de librería lista"
 
 $(LIB_CARPETA_IMAGENES)/inicio_1920x1080.png: \
-		html/inicio.html \
-		$(DEPENDENCIAS_COMUNES)
+		html/inicio.html
 	python $(SCRIPTS_CAPTURAS)/inicio.py $(LIB_DOMINIO)/ $@
 
 $(LIB_CARPETA_IMAGENES)/iniciar_sesion_1920x1080.png: \
-		html/ventanas/iniciar_sesion.ventana.html \
-		$(DEPENDENCIAS_COMUNES)
+		html/ventanas/iniciar_sesion.ventana.html
 	python $(SCRIPTS_CAPTURAS)/iniciar_sesion.py $(LIB_DOMINIO)/ $@
+
+$(LIB_CARPETA_IMAGENES)/cuenta_1920x1080.png: \
+		html/cuenta.html
+	python $(SCRIPTS_CAPTURAS)/libreria_cuenta.py \
+		$(LIB_DOMINIO)/ $@ $(LIB_DOMINIO)/cuenta
+
+$(LIB_CARPETA_IMAGENES)/formulario_tarjeta_1920x1080.png: \
+		html/cuenta.html html/ventanas/tarjeta.ventana.html
+	python $(SCRIPTS_CAPTURAS)/libreria_agregar_tarjeta.py \
+		$(LIB_DOMINIO)/ $@ $(LIB_DOMINIO)/cuenta

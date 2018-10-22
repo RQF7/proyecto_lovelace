@@ -7,7 +7,7 @@ Proyecto Lovelace.
 import datetime
 import django
 import json
-import datetime
+import traceback
 
 import tienda.utilidades as utilidades
 import tienda.libreria as libreria
@@ -280,6 +280,19 @@ def eliminarTarjeta (peticion, idDeTarjeta):
   tarjeta = Tarjeta.objects.get(pk = idDeTarjeta)
   tarjeta.activa = False;
   tarjeta.save()
+
+  # Operar la dirección:
+  identificador = json.loads(peticion.session['usuario'])['pk']
+
+  # Si la consulta regresa al menos una tarjeta, entonces no se hace nada
+  # con la dirección.
+  tarjetas = Usuario.objects.get(pk = identificador).tarjeta.filter(
+    direccion = tarjeta.direccion).exclude(pk = tarjeta.pk).count()
+  if tarjetas == 0:
+    # La dirección no está asociada a ninguna tarjeta. Pasa a inactivo.
+    tarjeta.direccion.activa = False
+    tarjeta.direccion.save()
+
   return django.http.HttpResponse()
 
 
@@ -292,10 +305,12 @@ def agregarTarjeta (peticion):
     de la nueva tarjeta.
   * En caso de una inserción duplicada se regresa un 1.
   * En caso de una inserción duplicada excepto por la fecha de
-    expiración, se regresa un 2."""
+    expiración, se regresa un 2.
+  * En caso de error al comunicarse con el sistema tokenizador,
+    se regresa un 3."""
+
   objetoDePeticion = json.loads(peticion.body)
   identificador = json.loads(peticion.session['usuario'])['pk']
-  print("DEBUG", objetoDePeticion)
 
   try:
     # Buscar tarjetas iguales
@@ -311,7 +326,6 @@ def agregarTarjeta (peticion):
       fecha_uno = similar.expiracion
       fecha_dos = django.utils.dateparse.parse_datetime(
         objetoDePeticion['expiracion'])
-      print(fecha_uno, fecha_dos)
       if fecha_uno.year == fecha_dos.year and \
         fecha_uno.month == fecha_dos.month:
         return django.http.HttpResponse("1")
@@ -324,34 +338,17 @@ def agregarTarjeta (peticion):
     # Trayectoria alternativa 05F: La tarjeta ingresada ya ha sido
     # almacenada y se encuentra inactiva.
     else:
-      print("Tarjeta existente inactiva")
       similar.expiracion = django.utils.dateparse.parse_datetime(
         objetoDePeticion['expiracion'])
       if objetoDePeticion['direccion']['pk'] == 0:
         # Crear nueva dirección
         # TODO: Para evitar posibles duplicados, antes de insertar la nueva
         # dirección se tendría que buscar entre las direcciones inactivas.
-        print("Nueva dirección")
-        direccion = Direccion(
-          tipoDeDireccion = TipoDeDireccion.objects.get(
-            nombre = 'Facturación'),
-          estado = Estado.objects.get(
-            pk = objetoDePeticion['direccion']['fields']['estado']),
-          municipio = objetoDePeticion['direccion']['fields']['municipio'],
-          colonia = objetoDePeticion['direccion']['fields']['colonia'],
-          calle = objetoDePeticion['direccion']['fields']['calle'],
-          cp = objetoDePeticion['direccion']['fields']['cp'],
-          activa = True,
-          numeroInterior =
-            objetoDePeticion['direccion']['fields']['numeroInterior'],
-          numeroExterior =
-            objetoDePeticion['direccion']['fields']['numeroExterior'])
-        direccion.save()
+        direccion = negocio.crearDireccion(objetoDePeticion['direccion'])
         similar.direccion = direccion;
 
       else:
         # Dirección existente
-        print("Dirección existente")
         similar.direccion = Direccion.objects.get(
           pk = objetoDePeticion['direccion']['pk'])
 
@@ -362,8 +359,40 @@ def agregarTarjeta (peticion):
   except Tarjeta.DoesNotExist:
     pass
 
-  print("Nueva tarjeta")
-  return django.http.HttpResponse("1")
+  # Trayectoria principal
+  token = None
+  try:
+    token = negocio.tokenizar(
+      objetoDePeticion['pan'], objetoDePeticion['metodo'])
+  except Exception as error:
+    # Trayectoria alternativa 05G: El código HTTP de respuesta no es un 2XX.
+    print(traceback.format_exc())
+    return django.http.HttpResponse("3")
+
+  direccion = None
+  if objetoDePeticion['direccion']['pk'] == 0:
+    direccion = negocio.crearDireccion(objetoDePeticion['direccion'])
+  else:
+    direccion = Direccion.objects.get(
+      pk = objetoDePeticion['direccion']['pk'])
+
+  tarjeta = Tarjeta(
+    token = token,
+    terminacion = objetoDePeticion['pan'][-4:],
+    metodo = Metodo.objects.get(nombre = objetoDePeticion['metodo']),
+    emisor = Emisor.objects.get(pk = objetoDePeticion['emisor']),
+    titular = objetoDePeticion['titular'],
+    direccion = direccion,
+    expiracion = django.utils.dateparse.parse_datetime(
+      objetoDePeticion['expiracion']),
+    tipoDeTarjeta = TipoDeTarjeta.objects.get(pk = objetoDePeticion['tipo']),
+    activa = True)
+  tarjeta.save()
+
+  usuario = Usuario.objects.get(pk = identificador)
+  usuario.tarjeta.add(tarjeta);
+  usuario.save()
+  return utilidades.respuestaJSON(tarjeta)
 
 
 def obtenerEmisores (peticion):
@@ -415,7 +444,10 @@ def operarDireccion (peticion, idDeDireccion):
 def eliminarDireccion (peticion, idDeDireccion):
   """Elimina la tarjeta dada.
 
-  TODO: Validar que la dirección dada sea del usuario en sesión."""
+  Pasa la tarjeta (dada por su identificador) a estado inactivo.
+  TODO:
+  * Validar que el identificador dado sea de una dirección del cliente en
+    sesión."""
   direccion = Direccion.objects.get(pk = idDeDireccion)
   direccion.activa = False;
   direccion.save()

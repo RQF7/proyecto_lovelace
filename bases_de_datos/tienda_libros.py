@@ -30,26 +30,27 @@ def guardar_libros(libros):
     except:
       Genero(nombre = str(libro.genero)).save()
       libro.genero = Genero.objects.get(nombre = str(libro.genero))
-      print('Genero "' + str(libro.genero) + '" creado')
+      # print('Genero "' + str(libro.genero) + '" creado')
 
     try:
       Editorial.objects.get(nombre = str(libro.editorial))
     except:
       Editorial(nombre = str(libro.editorial)).save()
       libro.editorial = Editorial.objects.get(nombre = str(libro.editorial))
-      print('Editorial "' + str(libro.editorial) + '" creada')
+      # print('Editorial "' + str(libro.editorial) + '" creada')
 
     try:
       libro.save()
     except django.db.utils.IntegrityError:
-      print('Error en el libro: ' + str(libro))
+      pass
+      # print('Error en el libro: ' + str(libro))
 
     for autor in autores:
       try:
         Autor.objects.get(nombre = autor)
       except:
         Autor(nombre = autor).save()
-        print('Autor "' + autor + '" creado')
+        # print('Autor "' + autor + '" creado')
       libro = Libro.objects.get(titulo = str(libro.titulo))
       libro.autor.add(Autor.objects.get(nombre = autor))
 

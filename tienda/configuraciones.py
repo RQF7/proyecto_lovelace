@@ -14,6 +14,9 @@ import os
 
 DOMINIO = 'http://127.0.0.1:8081'
 DIRECTORIO_BASE = ''
+SISTEMA_TOKENIZADOR = 'http://127.0.0.1:8080'
+USUARIO_ST = 'administracion@tienda-en-linea.com'
+CONTRASENIA_ST = '123456'
 
 # Configuraciones generales ###################################################
 

@@ -38,7 +38,7 @@
             <md-radio-button
               flex
               ng-value="tarjeta.pk"
-              class="md-primary">
+              class="md-accent">
               {{tarjeta.fields.titular}} -
               <em>
                 XXXX XXXX XXXX {{tarjeta.fields.terminacion}}
@@ -49,6 +49,7 @@
         </div>
       </md-radio-group>
       <md-button
+        ng-click="agregarMetodoDePago($event)"
         class="md-primary">
         Agregar método de pago
       </md-button>
@@ -72,13 +73,8 @@
             <md-radio-button
               flex
               ng-value="direccion.pk"
-              class="md-primary">
-              {{direccion.fields.calle}},
-              {{direccion.fields.numeroInterior}} -
-              {{direccion.fields.numeroExterior}},
-              {{direccion.fields.colonia}},
-              {{direccion.fields.municipio}},
-              {{direccion.fields.estado}}
+              class="md-accent">
+              <ego-direccion informacion="direccion"></ego-direccion>
             </md-radio-button>
           </div>
         </div>
