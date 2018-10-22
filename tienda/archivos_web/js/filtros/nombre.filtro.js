@@ -16,4 +16,4 @@ tienda.filter('nombre', function() {
         + palabras[i].slice(1) + ' ';
     return resultado;
   };
-})
+});
