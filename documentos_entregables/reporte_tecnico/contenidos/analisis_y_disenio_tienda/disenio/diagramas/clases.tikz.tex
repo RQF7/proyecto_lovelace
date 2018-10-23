@@ -23,7 +23,7 @@
       - operaciones web}{
       + configurarURLs()}
 
-    \umlclass[x = 6, y = -1]{Negocio TV}{
+    \umlclass[x = 5, y = -1]{Negocio TV}{
       - utilidades : Utilidades}{
       + autentificar(credenciales) \\
       + tokenizar(tarjeta, metodo) \\
@@ -31,10 +31,10 @@
 
     \umlcompo[%
       mult1 = 1,
-      anchor2 = 34.5]{Direcciones TV}{Operaciones web TV}
+      anchor2 = 37]{Direcciones TV}{Operaciones web TV}
     \umlcompo[%
       mult1 = 1,
-      anchor1 = -22]{Operaciones web TV}{Negocio TV}
+      anchor1 = -27]{Operaciones web TV}{Negocio TV}
 
     \begin{umlpackage}[x = 2.75, y = -5.5]{Modelos}
       \umlsimpleclass{Compra}
@@ -112,10 +112,12 @@
     anchors = 180 and 90]{Direcciones}{Direcciones TV}
   \umlcompo[%
     geometry = |-|,
-    % anchor2 = 238,
-    anchor2 = 232,
+    anchor2 = 250,
     anchor1 = 61]{Operaciones web TV}{Utilidades}
   \umlcompo[%
-    anchors = 150 and 300]{Negocio TV}{Utilidades}
+    % anchors = 200 and 300]{Negocio TV}{Utilidades}
+    % anchors = 220 and 300]{Negocio TV}{Utilidades}
+    % anchor2 = 220]{Negocio TV}{Utilidades}
+    geometry = |-|, anchor2 = 300, anchor1 = 493.5]{Negocio TV}{Utilidades}
 
 \end{tikzpicture}
