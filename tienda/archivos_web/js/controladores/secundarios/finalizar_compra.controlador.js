@@ -45,8 +45,11 @@ tienda.controller('controladorFinalizarCompra', [
           .then(function (respuesta) {
             var aviso = $mdDialog.alert()
               .title('Registro exitoso')
-              .textContent('Procesando la compra con el número de tarjeta: '
-                + respuesta.data)
+              .textContent('Su compra ha sido registrada con el número de tarjeta: '
+                + respuesta.data.substring(0, 4) + ' '
+                + respuesta.data.substring(4, 8) + ' '
+                + respuesta.data.substring(8, 12) + ' '
+                + respuesta.data.substring(12, 16) + '.')
               .ariaLabel('Registro exitoso')
               .targetEvent($event)
               .ok('Aceptar')
@@ -63,9 +66,10 @@ tienda.controller('controladorFinalizarCompra', [
     };
 
     /* Secuencia de inicio. ***************************************************/
+
     $scope.libros = libros;
     $scope.precioTotal = 0;
-    for (i=0; i<libros.length; i++) {
+    for (i = 0; i < libros.length; i++) {
       $scope.precioTotal += libros[i].cantidad * libros[i].precio
     }
 
@@ -96,7 +100,7 @@ tienda.controller('controladorFinalizarCompra', [
     if ($scope.tarjetas.length == 0) {
       $scope.agregarMetodoDePago(undefined);
     } else {
-      $scope.tarjeta = $scope.tarjetas[0];
+      $scope.temporal.tarjeta = $scope.tarjetas[0];
     }
   }
 ]);

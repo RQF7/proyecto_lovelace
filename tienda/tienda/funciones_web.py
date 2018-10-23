@@ -236,7 +236,6 @@ def registrarCompra (peticion):
 
   try:
     numeroDeTarjeta = negocio.detokenizar(tarjeta.token, str(tarjeta.metodo))
-    numeroDeTarjeta = numeroDeTarjeta.replace('\n','')
     return django.http.HttpResponse(numeroDeTarjeta)
   except Exception as error:
     print(traceback.format_exc())
@@ -379,7 +378,6 @@ def agregarTarjeta (peticion):
   try:
     token = negocio.tokenizar(
       objetoDePeticion['pan'], objetoDePeticion['metodo'])
-    token = token.replace('\n','')
   except Exception as error:
     # Trayectoria alternativa 05G: El código HTTP de respuesta no es un 2XX.
     print(traceback.format_exc())
