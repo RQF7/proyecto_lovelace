@@ -216,6 +216,8 @@ def registrarCompra (peticion):
     direccion = Direccion.objects.get(pk = objetoDePeticion['direccion']))
   compra.save()
 
+  tarjeta = Tarjeta.objects.get(pk = objetoDePeticion['tarjeta'])
+
   # Registrar libros de compra
   for libro in carrito['libros']:
     paquete = Paquete(
@@ -230,7 +232,13 @@ def registrarCompra (peticion):
     paquete.libro.save()
 
   del peticion.session['carrito']
-  return django.http.HttpResponse()
+
+  try:
+    numeroDeTarjeta = negocio.detokenizar(tarjeta.token, str(tarjeta.metodo))
+    return django.http.HttpResponse(numeroDeTarjeta)
+  except Exception as error:
+    print(traceback.format_exc())
+    return django.http.HttpResponse()
 
 
 ################################################################################
