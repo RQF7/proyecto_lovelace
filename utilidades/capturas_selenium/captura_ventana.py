@@ -15,7 +15,7 @@ class CapturaVentana (CapturaConSesion):
   """
 
   def __init__ (ego, urlInicial, rutaArchivo, correo,
-    contrasenia, urlFinal, idDeBoton):
+    contrasenia, urlFinal, idDeBoton = None):
     """Constructor de clase.
 
     Además de los parámetros que necesita la captura con sesión agrega el
