@@ -12,32 +12,34 @@
 % #3 -> Descripción.
 
 \newcommand{\reglaDeNegocio}[3]
-[rn:\formatearnumero{contador_reglas_de_negocio}]
-{
+[rn:\formatearnumero{contador_reglas_de_negocio}]{%
+  %
   % Configuración
-  \refstepcounter{contador_reglas_de_negocio}
-  \setlength{\separacionAnterior}{\parskip}
-  \setlength{\parskip}{0em}
-  \setitemize{
-    leftmargin = 4em}
-
+  %
+  \refstepcounter{contador_reglas_de_negocio}%
+  \setlength{\separacionAnterior}{\parskip}%
+  \setlength{\parskip}{0em}%
+  \setitemize{%
+    leftmargin = 4em,%
+    nosep}%
+  \renewcommand{\etiqueta}{%
+    RN\prefijo-\formatearnumero{contador_reglas_de_negocio}~#2}%
+  %
   % Código efectivo
-  \vspace{1.0em}
-  \begin{unidadirrompible}
-    \noindent
-    \textbf{\hypertarget{#1}
-      {RN\prefijo-\formatearnumero{contador_reglas_de_negocio}~#2}.}
-    \pdfbookmark[3]
-      {RN\prefijo-\formatearnumero{contador_reglas_de_negocio}~#2}{#1}
-    \par%
-    \nopagebreak[4]
-    \begin{hangparas}{2em}{0}
-      #3
-    \end{hangparas}
+  %
+  \pdfbookmark[3]{\etiqueta}{#1}
+  \vspace{1.0em}%
+  \begin{unidadirrompible}%
+    \noindent%
+    \textbf{\hypertarget{#1}{\etiqueta}.}\par%
+    \begin{hangparas}{2em}{0}%
+      #3\par%
+    \end{hangparas}%
   \end{unidadirrompible}
-
+  \pagebreak[3]%
+  %
   % Estado previo
-  \setlength{\parskip}{\separacionAnterior}
-  \setitemize{
-    leftmargin = 2em}
-}
+  %
+  \setlength{\parskip}{\separacionAnterior}%
+  \setitemize{}%
+  \renewcommand{\etiqueta}{}}
