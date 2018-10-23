@@ -44,7 +44,9 @@ LIB_LISTA_DE_FUENTES := inicio_1920x1080.png \
 												cuenta_1920x1080.png \
 												formulario_tarjeta_1920x1080.png \
 												formulario_actualizacion_de_usuario_1920x1080.png \
-												forma_de_pago_1920x1080.png
+												forma_de_pago_1920x1080.png \
+												direccion_de_entrega_1920x1080.png \
+												resumen_de_compra_1920x1080.png
 LIB_LISTA_DE_OBJETOS := $(addprefix $(LIB_CARPETA_IMAGENES)/, \
 	                      $(LIB_LISTA_DE_FUENTES))
 
@@ -168,3 +170,14 @@ $(LIB_CARPETA_IMAGENES)/forma_de_pago_1920x1080.png: \
 	python $(SCRIPTS_CAPTURAS)/libreria_forma_de_pago.py \
 	$(LIB_DOMINIO)/ $@ $(LIB_DOMINIO)/carrito
 
+$(LIB_CARPETA_IMAGENES)/direccion_de_entrega_1920x1080.png: \
+		html/ventanas/finalizar_compra.ventana.html \
+		js/controladores/secundarios/finalizar_compra.controlador.js
+	python $(SCRIPTS_CAPTURAS)/libreria_direccion_de_entrega.py \
+	$(LIB_DOMINIO)/ $@ $(LIB_DOMINIO)/cuenta
+
+$(LIB_CARPETA_IMAGENES)/resumen_de_compra_1920x1080.png: \
+		html/ventanas/finalizar_compra.ventana.html \
+		js/controladores/secundarios/finalizar_compra.controlador.js
+	python $(SCRIPTS_CAPTURAS)/libreria_resumen_de_compra.py \
+	$(LIB_DOMINIO)/ $@ $(LIB_DOMINIO)/cuenta
