@@ -40,6 +40,7 @@ LIB_CARPETA_FUENTES  := tienda/archivos_web
 LIB_LISTA_DE_FUENTES := inicio_1920x1080.png \
 												iniciar_sesion_1920x1080.png \
 												formulario_registro_1920x1080.png \
+												aviso_correo_1920x1080.png \
 												carrito_1920x1080.png \
 												cuenta_1920x1080.png \
 												formulario_tarjeta_1920x1080.png \
@@ -144,6 +145,11 @@ $(LIB_CARPETA_IMAGENES)/iniciar_sesion_1920x1080.png: \
 $(LIB_CARPETA_IMAGENES)/formulario_registro_1920x1080.png: \
 		html/ventanas/operar_usuario.ventana.html
 	python $(SCRIPTS_CAPTURAS)/libreria_registrar_usuario.py $(LIB_DOMINIO)/ $@
+
+$(LIB_CARPETA_IMAGENES)/aviso_correo_1920x1080.png: \
+		html/ventanas/operar_usuario.ventana.html \
+		js/controladores/secundarios/operar_usuario.controlador.js
+	python $(SCRIPTS_CAPTURAS)/libreria_aviso_de_correo.py $(LIB_DOMINIO)/ $@
 
 $(LIB_CARPETA_IMAGENES)/carrito_1920x1080.png: \
 		html/inicio.html
