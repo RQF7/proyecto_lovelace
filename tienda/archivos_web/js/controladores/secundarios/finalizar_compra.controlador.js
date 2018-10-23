@@ -93,10 +93,14 @@ tienda.controller('controladorFinalizarCompra', [
      * identificar ese caso y cerrar esta ventana (sin métodos de pago no se
      * debe poder continuar). */
 
-    if ($scope.tarjetas.length == 0) {
-      $scope.agregarMetodoDePago(undefined);
-    } else {
-      $scope.tarjeta = $scope.tarjetas[0];
-    }
+    api.obtenerTarjetas().then(function (respuesta) {
+      $scope.tarjetas = respuesta.data;
+      if ($scope.tarjetas.length == 0) {
+        $scope.agregarMetodoDePago(undefined);
+      } else {
+        $scope.temporal.tarjeta = $scope.tarjetas[0];
+      }
+    });
+
   }
 ]);
