@@ -32,7 +32,12 @@ tienda.controller('controladorCarrito', [
           targetEvent: $event,
           templateUrl: '/estaticos/html/ventanas/finalizar_compra.ventana.html',
           controller: 'controladorFinalizarCompra',
-          focusOnOpen: false
+          focusOnOpen: false,
+          locals: {
+            'libros': $scope.carrito.libros,
+            'tarjetas': $scope.tarjetas,
+            'agregarMetodoDePago': $scope.agregarMetodoDePago
+          }
         }).then(function (respuesta) {
           if (respuesta != undefined) {
             $scope.reiniciarCarrito();

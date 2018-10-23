@@ -22,15 +22,17 @@ tienda.controller('controladorCuenta', [
   {
     /* Funciones públicas. ***************************************************/
 
-    $scope.agregarMetodoDePago = function($event) {
+    $scope.actualizarUsuario = function ($event) {
+      var padre = angular.element(document.body);
       $mdDialog.show({
-        parent: angular.element(document.body),
+        parent: padre,
         targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/tarjeta.ventana.html',
-        controller: 'controladorFormularioTarjeta'
-      }).then(function (respuesta) {
-        if (respuesta != undefined) {
-          console.log(respuesta);
+        templateUrl: '/estaticos/html/ventanas/operar_usuario.ventana.html',
+        controller: 'controladorFormularioOperarUsuario',
+        locals: {
+          "tituloOperacion": "Actualizar datos",
+          "operacion": "actualizar",
+          "usuario": $scope.usuario
         }
       });
     };
@@ -89,15 +91,9 @@ tienda.controller('controladorCuenta', [
       }, function () {});
     };
 
-
     /* Secuencia de inicio. **************************************************/
     $scope.cambiarTitulo("Administración de cuenta", 3);
-    $scope.tarjetas = [];
     $scope.direcciones = [];
-
-    api.obtenerTarjetas().then(function (respuesta) {
-      $scope.tarjetas = respuesta.data;
-    });
 
     api.obtenerDirecciones().then(function (respuesta) {
       $scope.direcciones = respuesta.data

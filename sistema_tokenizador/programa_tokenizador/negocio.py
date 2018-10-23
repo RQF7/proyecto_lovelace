@@ -52,7 +52,7 @@ def verificarUnicidadDePAN (PAN, cliente_id):
 
   Regresa verdadero o falso."""
   try:
-    registro = Token.objects.filter(
+    registro = Token.objects.get(
       pan = PAN,
       usuario_id = cliente_id)
   except (Token.DoesNotExist):
@@ -131,4 +131,3 @@ def generarLlaves (cliente):
         nombre = 'actual'),
       usuario = cliente)
     llave.save()
-

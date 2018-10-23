@@ -11,18 +11,20 @@ tienda.controller('controladorFormularioOperarUsuario', [
   'api',
   'tituloOperacion',
   'operacion',
+  'usuario',
   function (
     $scope,
     $location,
     $mdDialog,
     api,
     tituloOperacion,
-    operacion
+    operacion,
+    usuario
   )
   {
     /* Datos públicos. *******************************************************/
 
-    $scope.usuario = {};
+    $scope.usuario = usuario;
     $scope.erNombre = '';
     $scope.erCorreo = @@include('expresiones_regulares/correo.txt');
     $scope.erContrasenia = @@include('expresiones_regulares/contrasenia.txt');
@@ -33,7 +35,6 @@ tienda.controller('controladorFormularioOperarUsuario', [
     mensaje = 'Para poder iniciar sesión es necesario que '
       + 'verifique su cuenta accediendo al vínculo enviado a su '
       + 'correo electrónico (revise su carpeta de spam).'
-
 
     /* Acciones públicas. ****************************************************/
 
@@ -68,9 +69,9 @@ tienda.controller('controladorFormularioOperarUsuario', [
       });
     };
 
-/*
+
     $scope.aceptarActualizacion = function ($event) {
-      api.actualizarCliente($scope.cliente).then(function (respuesta) {
+      api.actualizarUsuario($scope.usuario).then(function (respuesta) {
         if (respuesta.data == '0') {
           var aviso = $mdDialog.alert()
             .title('Actualización exitosa')
@@ -94,7 +95,6 @@ tienda.controller('controladorFormularioOperarUsuario', [
         }
       });
     };
-*/
 
   }
 ]);

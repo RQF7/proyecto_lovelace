@@ -7,7 +7,7 @@ Proyecto Lovelace.
 import datetime
 import django
 import json
-import datetime
+import traceback
 
 import tienda.utilidades as utilidades
 import tienda.libreria as libreria
@@ -23,7 +23,6 @@ from .models.tipo_de_direccion import TipoDeDireccion
 from .models.tipo_de_tarjeta import TipoDeTarjeta
 from .models.usuario import Usuario
 from ..tienda import negocio
-from .models.usuario import Usuario
 
 
 ################################################################################
@@ -56,15 +55,19 @@ def iniciarSesion (peticion):
 
   objetoDePeticion = json.loads(peticion.body)
   usuario = negocio.autentificar(objetoDePeticion)
-  if usuario != None:
-    peticion.session['usuario'] = \
-      json.dumps({
-        'pk': usuario.pk,
-        'nombre': usuario.nombre,
-        'correo': usuario.correo})
-    return django.http.HttpResponse(peticion.session['usuario'])
-  else:
+
+  if usuario == None:
     return django.http.HttpResponse("0")
+
+  if usuario.verificado == False:
+    return django.http.HttpResponse("1")
+
+  peticion.session['usuario'] = \
+    json.dumps({
+      'pk': usuario.pk,
+      'nombre': usuario.nombre,
+      'correo': usuario.correo})
+  return django.http.HttpResponse(peticion.session['usuario'])
 
 
 def cerrarSesion (peticion):
@@ -77,17 +80,18 @@ def cerrarSesion (peticion):
 # Operaciones de clientes ######################################################
 ################################################################################
 
+
 def operarUsuario (peticion):
   """Función diccionario para operaciones sobre un usuario."""
 
-  if(peticion.method == 'POST'):
+  if peticion.method == 'POST':
     return registrarUsuario(peticion)
 
-#  elif (peticion.method == 'PUT'):
-#    return actualizarUsuario(peticion, obtenerId(peticion))
-#
-#  elif (peticion.method == 'DELETE'):
-#    return eliminarUsuario(peticion, obtenerId(peticion))
+  elif peticion.method == 'PUT':
+    return actualizarUsuario(peticion)
+
+  else:
+    return django.http.HttpResponseNotAllowed()
 
 
 def registrarUsuario (peticion):
@@ -97,40 +101,73 @@ def registrarUsuario (peticion):
   el vínculo de verificación
 
   Regresa
-    0 en caso de exito.
+    0 en caso de éxito.
     1 en caso de que el usuario ya exista.                 """
 
   usuarioEnPeticion = json.loads(peticion.body)
 
   # verifica si ya existe el usuario
-  if negocio.existeUsuario(usuarioEnPeticion):
+  if negocio.correoPreviamenteRegistrado(usuarioEnPeticion):
     return django.http.HttpResponse("1")
 
   # Guarda al usuario
   usuario = negocio.guardarUsuario(usuarioEnPeticion)
 
-  # Envia el vinculo
-  negocio.enviarVinculoDeVerificacion(usuario,"registro")
-
   return django.http.HttpResponse("0")
 
 
-def verificarCorreoDeRegistro (peticion, vinculo):
-  """Verifica el correo asociado al vínculo de registro dado, haciendo
-  la verificación de fecha."""
-  usuario = Usuario.objects.get(vinculo = vinculo)
+@utilidades.privilegiosRequeridos
+def actualizarUsuario (peticion):
+  """Actualiza el usuario en sesión con los datos dados.
 
-  # Anterior a 72 horas, error:
-  if datetime.datetime.now() - usuario.fecha > datetime.timedelta(hours = 72):
+  Actualiza los datos del usuario dado en la base de datos y
+  envía un correo con el vínculo de verificación
+
+  Regresa
+    0 en caso de éxito.
+    1 en caso de error.                                    """
+
+  usuarioEnPeticion = json.loads(peticion.body)
+  pk = json.loads(peticion.session['usuario'])['pk']
+
+  # verifica si ya existe el correo
+  if negocio.correoPreviamenteRegistrado(usuarioEnPeticion, pk):
+    return django.http.HttpResponse("1")
+
+  # Guarda al usuario
+  banderaCorreoModificado = negocio.actualizarUsuario(usuarioEnPeticion, pk)
+
+  if banderaCorreoModificado:
+    return django.http.HttpResponse("2")
+  else:
+    return django.http.HttpResponse("0")
+
+
+def verificarCorreo (peticion, vinculo, hrs = None):
+  """ Verifica el correo asociado al vínculo dado.
+      Se puede o no poner las horas que tenía de vida el vínculo,
+      para ver si este ya expiró.                                   """
+
+  usuario = Usuario.objects.get(vinculo = vinculo)
+  if hrs != None and datetime.datetime.now() - usuario.fecha > \
+    datetime.timedelta(hours = hrs):
     usuario.delete()
     return django.http.HttpResponseRedirect('/?correo_no_verificado')
-
-  # Operación correcta:
   else:
-    usuario.verificado = 1
+    usuario.verificado = True
     usuario.vinculo = None
     usuario.save()
     return django.http.HttpResponseRedirect('/?correo_verificado')
+
+
+def verificarCorreoDeRegistro (peticion, vinculo):
+  """Verifica el correo asociado al vínculo de registro dado."""
+  return verificarCorreo(peticion, vinculo, 72)
+
+
+def verificarCorreoDeActualizacion (peticion, vinculo):
+  """Verifica el correo asociado al vínculo de actualización dado."""
+  return verificarCorreo(peticion, vinculo)
 
 
 ################################################################################
@@ -163,12 +200,9 @@ def guardarCarrito (peticion):
   return django.http.HttpResponse()
 
 
+@utilidades.privilegiosRequeridos
 def registrarCompra (peticion):
-  """Registra una compra del cliete en sesión.
-
-  TODO:
-  * Agregar decorador de privilegios.
-  """
+  """Registra una compra del cliete en sesión."""
 
   objetoDePeticion = json.loads(peticion.body)
   carrito = json.loads(peticion.session['carrito'])
@@ -181,6 +215,8 @@ def registrarCompra (peticion):
     usuario = Usuario.objects.get(pk = identificador),
     direccion = Direccion.objects.get(pk = objetoDePeticion['direccion']))
   compra.save()
+
+  tarjeta = Tarjeta.objects.get(pk = objetoDePeticion['tarjeta'])
 
   # Registrar libros de compra
   for libro in carrito['libros']:
@@ -196,20 +232,26 @@ def registrarCompra (peticion):
     paquete.libro.save()
 
   del peticion.session['carrito']
-  return django.http.HttpResponse()
+
+  try:
+    numeroDeTarjeta = negocio.detokenizar(tarjeta.token, str(tarjeta.metodo))
+    return django.http.HttpResponse(numeroDeTarjeta)
+  except Exception as error:
+    print(traceback.format_exc())
+    return django.http.HttpResponse()
 
 
 ################################################################################
 # Operaciones sobre tarjetas ###################################################
 ################################################################################
 
+@utilidades.privilegiosRequeridos
 def obtenerTarjetas (peticion):
   """Regresa arreglo con las tarjetas del usuario en sesión.
 
   TODO:
   *  El campo «tarjeta», del usuario, debería de ser «tarjetas»: por algo es un
      campo muchos a muchos.
-  *  Falta agregar decorador con permisos.
   """
   identificador = json.loads(peticion.session['usuario'])['pk']
   tarjetas = Usuario.objects.get(pk = identificador).tarjeta.filter(
@@ -217,13 +259,23 @@ def obtenerTarjetas (peticion):
   return utilidades.respuestaJSON(tarjetas)
 
 
-def operarTarjeta (peticion, idDeTarjeta):
-  """Gestión de tarjetas.
+def obtenerDireccionDeTarjeta (peticion, idDeDireccion):
+  """Regresa la dirección asociada a la tarjeta dada.
 
   TODO:
-  * Agregar decorador de privilegios."""
+  * Agregar decorador de privilegios.
+  * Validar que la dirección pedida sea del cliente en sesión."""
+  direccion = Direccion.objects.get(pk = idDeDireccion)
+  return utilidades.respuestaJSON(direccion)
+
+
+@utilidades.privilegiosRequeridos
+def operarTarjeta (peticion, idDeTarjeta = 0):
+  """Gestión de tarjetas."""
   if peticion.method == 'DELETE':
     return eliminarTarjeta(peticion, idDeTarjeta)
+  elif peticion.method == 'POST':
+    return agregarTarjeta(peticion)
   else:
     return django.http.HttpResponseNotAllowed()
 
@@ -231,11 +283,124 @@ def operarTarjeta (peticion, idDeTarjeta):
 def eliminarTarjeta (peticion, idDeTarjeta):
   """Elimina la tarjeta dada.
 
-  Pasa la tarjeta (dada por su identificador) a estado inactivo."""
+  Pasa la tarjeta (dada por su identificador) a estado inactivo.
+  TODO: validar que la tarjeta dada corresponda al usuario en sesión."""
   tarjeta = Tarjeta.objects.get(pk = idDeTarjeta)
   tarjeta.activa = False;
   tarjeta.save()
+
+  # Operar la dirección:
+  identificador = json.loads(peticion.session['usuario'])['pk']
+
+  # Si la consulta regresa al menos una tarjeta, entonces no se hace nada
+  # con la dirección.
+  tarjetas = Usuario.objects.get(pk = identificador).tarjeta.filter(
+    direccion = tarjeta.direccion).exclude(pk = tarjeta.pk).count()
+  if tarjetas == 0:
+    # La dirección no está asociada a ninguna tarjeta. Pasa a inactivo.
+    tarjeta.direccion.activa = False
+    tarjeta.direccion.save()
+
   return django.http.HttpResponse()
+
+
+@utilidades.privilegiosRequeridos
+def agregarTarjeta (peticion):
+  """Registra un nuevo método de pago del cliente en sesión.
+
+  Respuestas:
+  * En caso de una inserción exitosa, se regresa el objeto
+    de la nueva tarjeta.
+  * En caso de una inserción duplicada se regresa un 1.
+  * En caso de una inserción duplicada excepto por la fecha de
+    expiración, se regresa un 2.
+  * En caso de error al comunicarse con el sistema tokenizador,
+    se regresa un 3."""
+
+  objetoDePeticion = json.loads(peticion.body)
+  identificador = json.loads(peticion.session['usuario'])['pk']
+
+  try:
+    # Buscar tarjetas iguales
+    # Si no hay, se lanza excepción.
+    similar = Usuario.objects.get(pk = identificador).tarjeta.get(
+      terminacion = objetoDePeticion['pan'][-4:],
+      tipoDeTarjeta = TipoDeTarjeta.objects.get(pk = objetoDePeticion['tipo']),
+      emisor = Emisor.objects.get(pk = objetoDePeticion['emisor']),
+      titular = objetoDePeticion['titular'])
+
+    # Trayectoria alternativa 05E: La tarjeta ingresada ya ha sido almacenada.
+    if similar.activa == True:
+      fecha_uno = similar.expiracion
+      fecha_dos = django.utils.dateparse.parse_datetime(
+        objetoDePeticion['expiracion'])
+      if fecha_uno.year == fecha_dos.year and \
+        fecha_uno.month == fecha_dos.month:
+        return django.http.HttpResponse("1")
+
+      # Trayectoria alternativa 05H: Hay una tarjeta existente y activa
+      # con los mismos datos, excepto la fecha de vencimiento.
+      else:
+        return django.http.HttpResponse("2")
+
+    # Trayectoria alternativa 05F: La tarjeta ingresada ya ha sido
+    # almacenada y se encuentra inactiva.
+    else:
+      similar.expiracion = django.utils.dateparse.parse_datetime(
+        objetoDePeticion['expiracion'])
+      if objetoDePeticion['direccion']['pk'] == 0:
+        # Crear nueva dirección
+        # TODO: Para evitar posibles duplicados, antes de insertar la nueva
+        # dirección se tendría que buscar entre las direcciones inactivas.
+        direccion = negocio.crearDireccion(objetoDePeticion['direccion'])
+        similar.direccion = direccion;
+
+      else:
+        # Dirección existente
+        similar.direccion = Direccion.objects.get(
+          pk = objetoDePeticion['direccion']['pk'])
+
+      similar.activa = True
+      similar.save()
+      return utilidades.respuestaJSON(similar)
+
+  except Tarjeta.DoesNotExist:
+    pass
+
+  # Trayectoria principal
+  token = None
+  try:
+    token = negocio.tokenizar(
+      objetoDePeticion['pan'], objetoDePeticion['metodo'])
+  except Exception as error:
+    # Trayectoria alternativa 05G: El código HTTP de respuesta no es un 2XX.
+    print(traceback.format_exc())
+    return django.http.HttpResponse("3")
+
+  direccion = None
+  if objetoDePeticion['direccion']['pk'] == 0:
+    direccion = negocio.crearDireccion(objetoDePeticion['direccion'])
+  else:
+    direccion = Direccion.objects.get(
+      pk = objetoDePeticion['direccion']['pk'])
+
+  tarjeta = Tarjeta(
+    token = token,
+    terminacion = objetoDePeticion['pan'][-4:],
+    metodo = Metodo.objects.get(nombre = objetoDePeticion['metodo']),
+    emisor = Emisor.objects.get(pk = objetoDePeticion['emisor']),
+    titular = objetoDePeticion['titular'],
+    direccion = direccion,
+    expiracion = django.utils.dateparse.parse_datetime(
+      objetoDePeticion['expiracion']),
+    tipoDeTarjeta = TipoDeTarjeta.objects.get(pk = objetoDePeticion['tipo']),
+    activa = True)
+  tarjeta.save()
+
+  usuario = Usuario.objects.get(pk = identificador)
+  usuario.tarjeta.add(tarjeta);
+  usuario.save()
+  return utilidades.respuestaJSON(tarjeta)
 
 
 def obtenerEmisores (peticion):
@@ -260,13 +425,13 @@ def obtenerTipos (peticion):
 # Operaciones sobre direcciones ################################################
 ################################################################################
 
+@utilidades.privilegiosRequeridos
 def obtenerDirecciones (peticion):
   """Regresa arreglo con las direcciones del usuario en sesión.
 
   TODO:
-  *  El campo «tdireccion», del usuario, debería de ser «direcciones»: por
+  *  El campo «direccion», del usuario, debería de ser «direcciones»: por
      algo es un campo muchos a muchos.
-  *  Falta agregar decorador con permisos.
   """
   identificador = json.loads(peticion.session['usuario'])['pk']
   direcciones = Usuario.objects.get(pk = identificador).direccion.filter(
@@ -274,21 +439,23 @@ def obtenerDirecciones (peticion):
   return utilidades.respuestaJSON(direcciones)
 
 
+@utilidades.privilegiosRequeridos
 def operarDireccion (peticion, idDeDireccion):
-  """Gestión de direcciones.
-
-  TODO:
-  * Agregar decorador de privilegios."""
+  """Gestión de direcciones."""
   if peticion.method == 'DELETE':
     return eliminarDireccion(peticion, idDeDireccion)
   else:
     return django.http.HttpResponseNotAllowed()
 
 
+@utilidades.privilegiosRequeridos
 def eliminarDireccion (peticion, idDeDireccion):
   """Elimina la tarjeta dada.
 
-  Pasa la tarjeta (dada por su identificador) a estado inactivo."""
+  Pasa la tarjeta (dada por su identificador) a estado inactivo.
+  TODO:
+  * Validar que el identificador dado sea de una dirección del cliente en
+    sesión."""
   direccion = Direccion.objects.get(pk = idDeDireccion)
   direccion.activa = False;
   direccion.save()

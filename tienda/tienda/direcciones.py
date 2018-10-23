@@ -23,6 +23,8 @@ urlpatterns = [
     funciones_web.operarUsuario),
   django.urls.path('verificar_correo/registro/<vinculo>',
     funciones_web.verificarCorreoDeRegistro),
+  django.urls.path('verificar_correo/actualizacion/<vinculo>',
+    funciones_web.verificarCorreoDeActualizacion),
 
   # Operaciones de carrito
   django.urls.path('carrito',
@@ -33,6 +35,10 @@ urlpatterns = [
   # Operaciones sobre tarjetas
   django.urls.path('tarjetas',
     funciones_web.obtenerTarjetas),
+  django.urls.path('direccion_de_tarjeta/<int:idDeDireccion>',
+    funciones_web.obtenerDireccionDeTarjeta),
+  django.urls.path('tarjeta',
+    funciones_web.operarTarjeta),
   django.urls.path('tarjeta/<int:idDeTarjeta>',
     funciones_web.operarTarjeta),
   django.urls.path('emisores',

@@ -355,5 +355,3 @@ def retokenizar (peticion):
       str(cliente.id)], stdout = subprocess.PIPE)
 
     return django.http.HttpResponse(nuevoToken.stdout, status = 200)
-
-

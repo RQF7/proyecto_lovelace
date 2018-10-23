@@ -80,6 +80,8 @@ module.exports = function (grunt) {
           cc_tienda + 'js/tienda.aplicacion.js',
           cc_tienda + 'js/configuraciones/*.configuracion.js',
           cc_tienda + 'js/filtros/*.filtro.js',
+          cc_tienda + 'js/directivas/*.directiva.js',
+          cc_tienda + 'js/componentes/*.componente.js',
           cc_tienda + 'js/servicios/*.servicio.js',
           cc_tienda + 'js/controladores/*.controlador.js',
           cc_tienda + 'js/controladores/secundarios/*.controlador.js'
@@ -253,6 +255,12 @@ module.exports = function (grunt) {
             cwd: cc_tienda + 'compilados/html/ventanas',
             src: ['*.html'],
             dest: cc_tienda + 'compilados/html/ventanas/'
+          },
+          {
+            expand: true,
+            cwd: cc_tienda + 'compilados/preprocesados/html/componentes',
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/html/componentes/'
           }
         ]
       }
@@ -302,7 +310,8 @@ module.exports = function (grunt) {
           cc_tienda + '*.html',
           cc_tienda + 'html/*.html',
           cc_tienda + 'html/plantillas/*.html',
-          cc_tienda + 'html/ventanas/*.html'
+          cc_tienda + 'html/ventanas/*.html',
+          cc_tienda + 'html/componentes/*.html'
         ],
         tasks: [
           "includereplace:html_tienda",
@@ -395,7 +404,7 @@ module.exports = function (grunt) {
         options: {
           includesDir: 'documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_api_web/analisis/',
           processIncludeContents: function(contenido) {
-            return contenido.replace(/(?:\r\n|\r|\n)/g, '');
+            return contenido.replace(/(?:\r\n|\r|\n)/g, ' ');
           }
         },
         files: {
@@ -433,6 +442,12 @@ module.exports = function (grunt) {
             cwd: cc_tienda + 'html/ventanas',
             src: ['*.html'],
             dest: cc_tienda + 'compilados/html/ventanas/'
+          },
+          {
+            expand: true,
+            cwd: cc_tienda + 'html/componentes',
+            src: ['*.html'],
+            dest: cc_tienda + 'compilados/html/componentes/'
           }
         ]
       },
@@ -440,7 +455,7 @@ module.exports = function (grunt) {
         options: {
           includesDir: 'documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_tienda/analisis/',
           processIncludeContents: function(contenido) {
-            return contenido.replace(/(?:\r\n|\r|\n)/g, '');
+            return contenido.replace(/(?:\r\n|\r|\n)/g, ' ');
           }
         },
         files: {

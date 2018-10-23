@@ -27,7 +27,7 @@
         Selecciona el método de pago
       </h3>
       <md-divider></md-divider>
-      <md-radio-group ng-model="tarjeta">
+      <md-radio-group ng-model="temporal.tarjeta">
         <div
           ng-repeat='tarjeta in tarjetas'
           class="row">
@@ -37,8 +37,8 @@
             layout-align="start center">
             <md-radio-button
               flex
-              ng-value="tarjeta.pk"
-              class="md-primary">
+              ng-value="tarjeta"
+              class="md-accent">
               {{tarjeta.fields.titular}} -
               <em>
                 XXXX XXXX XXXX {{tarjeta.fields.terminacion}}
@@ -49,6 +49,7 @@
         </div>
       </md-radio-group>
       <md-button
+        ng-click="agregarMetodoDePago($event)"
         class="md-primary">
         Agregar método de pago
       </md-button>
@@ -61,7 +62,7 @@
         Selecciona la dirección de entrega
       </h3>
       <md-divider></md-divider>
-      <md-radio-group ng-model="direccion">
+      <md-radio-group ng-model="temporal.direccion"">
         <div
           ng-repeat='direccion in direcciones'
           class="row">
@@ -71,14 +72,9 @@
             layout-align="start center">
             <md-radio-button
               flex
-              ng-value="direccion.pk"
-              class="md-primary">
-              {{direccion.fields.calle}},
-              {{direccion.fields.numeroInterior}} -
-              {{direccion.fields.numeroExterior}},
-              {{direccion.fields.colonia}},
-              {{direccion.fields.municipio}},
-              {{direccion.fields.estado}}
+              ng-value="direccion"
+              class="md-accent">
+              <ego-direccion informacion="direccion"></ego-direccion>
             </md-radio-button>
           </div>
         </div>
@@ -96,7 +92,22 @@
         Resumen de compra
       </h3>
       <p>
-        En construcción.
+        <em>Forma de pago:</em> <br>
+        {{temporal.tarjeta.fields.titular}} -
+        XXXX XXXX XXXX {{temporal.tarjeta.fields.terminacion}}
+        ({{temporal.tarjeta.fields.emisor}})
+      </p>
+      <p>
+        <em>Punto de entrega:</em> <br>
+        <ego-direccion informacion="temporal.direccion"></ego-direccion>
+      </p>
+      <p>
+        <em>Libros:</em> <br>
+        <em ng-repeat='libro in libros'>
+          {{libro.cantidad}} - {{libro.titulo}},
+          {{libro.autor[0]}}. {{libro.precio | currency}}<br>
+        </em>
+        <em>Precio total:</em> {{precioTotal | currency}} <br>
       </p>
     </div>
   </md-dialog-content>
