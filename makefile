@@ -43,7 +43,8 @@ LIB_LISTA_DE_FUENTES := inicio_1920x1080.png \
 												carrito_1920x1080.png \
 												cuenta_1920x1080.png \
 												formulario_tarjeta_1920x1080.png \
-												formulario_actualizacion_de_usuario_1920x1080.png
+												formulario_actualizacion_de_usuario_1920x1080.png \
+												forma_de_pago_1920x1080.png
 LIB_LISTA_DE_OBJETOS := $(addprefix $(LIB_CARPETA_IMAGENES)/, \
 	                      $(LIB_LISTA_DE_FUENTES))
 
@@ -161,3 +162,9 @@ $(LIB_CARPETA_IMAGENES)/formulario_actualizacion_de_usuario_1920x1080.png: \
 		html/cuenta.html html/ventanas/operar_usuario.ventana.html
 	python $(SCRIPTS_CAPTURAS)/libreria_editar_usuario.py \
 		$(LIB_DOMINIO)/ $@ $(LIB_DOMINIO)/cuenta
+
+$(LIB_CARPETA_IMAGENES)/forma_de_pago_1920x1080.png: \
+		html/carrito.html
+	python $(SCRIPTS_CAPTURAS)/libreria_forma_de_pago.py \
+	$(LIB_DOMINIO)/ $@ $(LIB_DOMINIO)/carrito
+
