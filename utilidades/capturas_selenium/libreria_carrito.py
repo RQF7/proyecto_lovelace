@@ -5,29 +5,17 @@
 """
 
 import sys, time
-from captura_ventana import CapturaVentana
-from captura_con_sesion import CapturaConSesion
-from captura_generica_pagina import CapturaGenericaPagina
+from captura_carrito import CapturaCarrito
 
-class CapturaDeCarrito (CapturaVentana):
+class CapturaDeCarrito (CapturaCarrito):
   """
-  Sobreescribe el comportamiento de una captura genérica de página.
+  Sobreescribe el comportamiento de una captura CapturaCarrito.
   """
 
   def configuracionCapturaExtraGrande (ego):
     """Abre la ventana del formulario."""
-    CapturaGenericaPagina.configuracionCapturaExtraGrande(ego)
-    boton1 = ego.mNavegador.find_element_by_id('libro1')
-    boton2 = ego.mNavegador.find_element_by_id('libro2')
-    boton3 = ego.mNavegador.find_element_by_id('libro3')
-    boton4 = ego.mNavegador.find_element_by_id('libro4')
-    boton1.click()
-    boton2.click()
-    boton3.click()
-    boton4.click()
-    time.sleep(0.5)
-    CapturaConSesion.configuracionCapturaExtraGrande(ego)
-    boton = ego.mNavegador.find_element_by_id(ego.mIdDeBoton)
+    super().configuracionCapturaExtraGrande()
+    boton = ego.mNavegador.find_element_by_id('botonCarrito')
     boton.click()
     time.sleep(0.5)
 
@@ -35,5 +23,5 @@ class CapturaDeCarrito (CapturaVentana):
 if __name__ == '__main__':
 
   captura = CapturaDeCarrito(sys.argv[1], sys.argv[2],
-    'cliente@prueba.com', '123456', sys.argv[3], 'botonCarrito')
+    'cliente@prueba.com', '123456', sys.argv[3])
   captura.tomarCapturas()

@@ -11,7 +11,7 @@ from captura_generica_pagina import CapturaGenericaPagina
 
 class CapturaCarrito (CapturaVentana):
   """
-  Sobreescribe el comportamiento de una captura genérica de página.
+  Sobreescribe el comportamiento de una captura de ventana.
   """
 
   def configuracionCapturaExtraGrande (ego):
