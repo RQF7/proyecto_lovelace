@@ -64,7 +64,7 @@
     \umlimport{Negocio TV}{Modelos}
 
   \end{umlpackage}
-  \begin{umlpackage}[x = 15, y = 0]{Tienda de libros}
+  \begin{umlpackage}[x = 16, y = 0]{Tienda de libros}
 
     \umlclass{Operaciones web TL}{
       - utilidades : Utilidades \\
@@ -77,9 +77,9 @@
       - operaciones web}{
       + configurarURLs()}
 
-    \umlcompo{Direcciones TL}{Operaciones web TL}
+    \umlcompo[mult1 = 1]{Direcciones TL}{Operaciones web TL}
 
-    \begin{umlpackage}[x = -2, y = -5]{Modelos}
+    \begin{umlpackage}[x = 0, y = -5]{Modelos}
       \umlsimpleclass{Libro}
       \umlsimpleclass[x = 3,  y = 0]{Editorial}
       \umlsimpleclass[x = -3, y = 0]{Autor}
@@ -100,13 +100,13 @@
     + enviarCorreo() \\
     + algoritmoDeLuhn()}
 
-  \umlclass[x = 13, y = 3.5]{Direcciones}{
+  \umlclass[x = 12, y = 3.5]{Direcciones}{
     - direcciones tienda virtual \\
     - direcciones tienda de libros}{
     + configurarURLs()}
 
   \umlcompo[%
-    geometry = |-|]{Direcciones}{Direcciones TL}
+    geometry = --, anchor2 = 35, anchor1 = 283]{Direcciones}{Direcciones TL}
   \umlcompo[%
     geometry = -|,
     anchors = 180 and 90]{Direcciones}{Direcciones TV}
@@ -115,7 +115,7 @@
     anchor2 = 250,
     anchor1 = 61]{Operaciones web TV}{Utilidades}
   \umlcompo[%
-    geometry = |-, anchor2 = 525, anchor1 = 50]
+    geometry = |-, anchor2 = 525, anchor1 = 98]
     {Operaciones web TL}{Utilidades}
   \umlcompo[%
     geometry = --, anchor2 = 300, anchor1 = 494]{Negocio TV}{Utilidades}
