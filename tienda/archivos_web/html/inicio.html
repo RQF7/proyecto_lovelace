@@ -103,6 +103,7 @@
             -->
             <div>
               <md-button
+                id="{{'libro' + libro.pk}}"
                 ng-if="!libro.enCarrito"
                 ng-click="agregarAlCarrito(libro)"
                 class="md-primary conIcono"
