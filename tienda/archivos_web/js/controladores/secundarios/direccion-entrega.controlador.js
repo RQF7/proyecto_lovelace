@@ -37,6 +37,9 @@ tienda.controller('controladorFormularioDireccionEntrega', [
           $mdDialog.show(aviso).then(function (resultado) {
             $mdDialog.hide(respuesta.data);
           });
+          api.obtenerDirecciones().then(function (respuesta) {
+            $scope.direcciones = respuesta.data;
+          });
         }
       });
     };

@@ -67,6 +67,9 @@ tienda.controller('controladorCuenta', [
         if (respuesta != undefined) {
           console.log(respuesta);
         }
+        api.obtenerDirecciones().then(function (respuesta) {
+          $scope.direcciones = respuesta.data
+        });
       });
     };
 
