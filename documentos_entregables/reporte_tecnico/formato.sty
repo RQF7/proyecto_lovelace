@@ -275,6 +275,18 @@
 {}                                          % Antes de
 []                                          % Después de
 
+\titleformat{\subsection}[runin]
+{\normalfont\large\bfseries}
+{\thesubsection}{1em}
+{}
+[\vspace{1em}\newline]
+
+\titleformat{\subsubsection}[runin]
+{\normalfont\large\bfseries}
+{\thesubsubsection}{1em}
+{}
+[\vspace{1em}\newline]
+
 % izquierda, arriba, abajo
 \titlespacing*{\section}{0pc}{0pc}{0pc}
 \titlespacing*{\subsection}{0pc}{1pc}{0pc}
@@ -477,6 +489,21 @@
         %\penalty\@highpenalty
       \endgroup
     \fi}
+
+    % Sin saltos de página después de títulos
+    % (No funciona); se ocupa titlesec
+
+    %\let\subsectionAnterior\subsection
+    %\renewcommand{\subsection}[1]{%
+    %  \pagebreak[3]%
+    %  \subsectionAnterior{#1}%
+    %  \nopagebreak[4]}
+
+    %\let\subsubsectionAnterior\subsubsection
+    %\renewcommand{\subsubsection}[1]{%
+    %  \pagebreak[3]%
+    %  \subsubsectionAnterior{#1}%
+    %  \nopagebreak[4]}
 
 
 \makeatother
