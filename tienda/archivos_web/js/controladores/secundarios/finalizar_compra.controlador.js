@@ -18,13 +18,17 @@ tienda.controller('controladorFinalizarCompra', [
   'libros',
   'tarjetas',
   'agregarMetodoDePago',
+  'direcciones',
+  'agregarDireccionDeEntrega',
   function (
     $scope,
     $mdDialog,
     api,
     libros,
     tarjetas,
-    agregarMetodoDePago
+    agregarMetodoDePago,
+    direcciones,
+    agregarDireccionDeEntrega
   )
   {
     /* Funciones públicas. ****************************************************/
@@ -36,6 +40,11 @@ tienda.controller('controladorFinalizarCompra', [
     $scope.continuar = function ($event) {
       if ($scope.secuencia == 1) {
         $scope.secuencia = 2;
+        if ($scope.direcciones.length == 0) {
+          $scope.agregarDireccionDeEntrega(undefined);
+        } else {
+          $scope.temporal.direccion = $scope.direcciones[0];
+        }
       } else if ($scope.secuencia == 2) {
         $scope.secuencia = 3;
       } else if ($scope.secuencia == 3) {
@@ -67,6 +76,11 @@ tienda.controller('controladorFinalizarCompra', [
 
     /* Secuencia de inicio. ***************************************************/
 
+    $scope.secuencia = 1;
+    $scope.temporal = {};
+    $scope.temporal.direccion = 0;
+    $scope.temporal.tarjeta = 0;
+
     $scope.libros = libros;
     $scope.precioTotal = 0;
     for (i = 0; i < libros.length; i++) {
@@ -74,22 +88,14 @@ tienda.controller('controladorFinalizarCompra', [
     }
 
     $scope.tarjetas = tarjetas;
-    $scope.tarjeta = 0;
     $scope.agregarMetodoDePago = agregarMetodoDePago;
 
     /* TODO:
      * Hacer que «agregarMetodoDePago» regrese una promes; al terminar
      * se tiene que seleccionar el nuevo método. */
 
-    $scope.temporal = {};
-    $scope.direcciones = [];
-    $scope.temporal.direccion = 0;
-    $scope.secuencia = 1;
-
-    api.obtenerDirecciones().then(function (respuesta) {
-      $scope.direcciones = respuesta.data;
-      $scope.temporal.direccion = $scope.direcciones[0];
-    });
+    $scope.direcciones = direcciones;
+    $scope.agregarDireccionDeEntrega = agregarDireccionDeEntrega;
 
     /* TODO:
      * ¿Qué pasa si el usuario le dá «cancelar» a la ventana para agregar
@@ -102,5 +108,6 @@ tienda.controller('controladorFinalizarCompra', [
     } else {
       $scope.temporal.tarjeta = $scope.tarjetas[0];
     }
+
   }
 ]);

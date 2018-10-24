@@ -1,5 +1,5 @@
 /*
- * Controlador de página de carrito.
+ * Controlador de cuenta de usuario.
  * Tienda en línea.
  * Proyecto Lovelace.
  */
@@ -80,10 +80,6 @@ tienda.controller('controladorCuenta', [
 
     /* Secuencia de inicio. **************************************************/
     $scope.cambiarTitulo("Administración de cuenta", 3);
-    $scope.direcciones = [];
 
-    api.obtenerDirecciones().then(function (respuesta) {
-      $scope.direcciones = respuesta.data
-    });
   }
 ]);

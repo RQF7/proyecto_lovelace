@@ -94,6 +94,7 @@ tienda.controller('controladorGeneral', [
       if (respuesta.data != '') {
         $scope.usuario = respuesta.data;
         obtenerTarjetas();
+        obtenerDirecciones();
       }
     });
 
@@ -107,6 +108,7 @@ tienda.controller('controladorGeneral', [
         if (respuesta != undefined) {
           $scope.usuario = respuesta;
           obtenerTarjetas();
+          obtenerDirecciones();
         }
       });
     };
@@ -271,6 +273,21 @@ tienda.controller('controladorGeneral', [
       });
     };
 
+    $scope.direcciones = [];
+    $scope.agregarDireccionDeEntrega = function($event) {
+      $mdDialog.show({
+        parent: angular.element(document.body),
+        targetEvent: $event,
+        templateUrl: '/estaticos/html/ventanas/direccion.ventana.html',
+        controller: 'controladorFormularioDireccionEntrega',
+        multiple: true
+      }).then(function (respuesta) {
+        if (respuesta != undefined) {
+          $scope.direcciones.push(respuesta);
+        }
+      });
+    };
+
     /* Funciones privadas. ***************************************************/
 
     obtenerTarjetas = function () {
@@ -298,6 +315,12 @@ tienda.controller('controladorGeneral', [
               }
             });
         }
+      });
+    };
+
+    obtenerDirecciones = function () {
+      api.obtenerDirecciones().then(function (respuesta) {
+        $scope.direcciones = respuesta.data
       });
     };
 
