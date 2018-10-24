@@ -62,7 +62,7 @@
         Selecciona la dirección de entrega
       </h3>
       <md-divider></md-divider>
-      <md-radio-group ng-model="temporal.direccion"">
+      <md-radio-group ng-model="temporal.direccion">
         <div
           ng-repeat='direccion in direcciones'
           class="row">
@@ -80,6 +80,7 @@
         </div>
       </md-radio-group>
       <md-button
+        ng-click="agregarDireccionDeEntrega($event)"
         class="md-primary">
         Agregar dirección de entrega
       </md-button>

@@ -64,74 +64,9 @@
     md-row-height="290px"
     md-gutter="20px">
     <md-grid-tile ng-repeat="libro in libros">
-      <md-whiteframe
-        class="md-whiteframe-6dp tarjeta"
-        md-colors="{background: 'background-hue-2'}">
-        <div layout="column" style="height: 100%">
-          <div
-            layout="row">
-            <div flex="40">
-              <!-- TODO: ¿De donde sale la «l» del prefijo -->
-              <!-- TODO: En la consola salen peticiones a imágnes inexistentes.-->
-              <img src="estaticos/imagenes/libros/l{{libro.foto}}"/>
-            </div>
-            <div
-              flex="60"
-              class="descripcion">
-              <ego-etiqueta descripcion="'Título'">
-                {{libro.titulo | limitTo: 25}}
-                {{libro.titulo.length > 25 ? '...' : ''}}
-              </ego-etiqueta>
-              <!-- TODO:
-              comportamiento dinámico para cuando hay varios autores. -->
-              <ego-etiqueta descripcion="'Autor'">
-                {{libro.autor[0] | nombre}}
-              </ego-etiqueta>
-              <ego-etiqueta descripcion="'Precio'">
-                {{libro.precio | currency}}
-              </ego-etiqueta>
-            </div>
-          </div>
-          <span flex></span>
-          <div
-            flex="none"
-            layout="row"
-            layout-align="center center">
-            <!--
-            TODO: el tooltip «sin existencias» tarda demasiado en aparecer
-            en chromium.
-            -->
-            <div>
-              <md-button
-                id="{{'libro' + libro.pk}}"
-                ng-if="!libro.enCarrito"
-                ng-click="agregarAlCarrito(libro)"
-                class="md-primary conIcono"
-                ng-disabled="libro.existencias == 0">
-                <i class="material-icons">add_shopping_cart</i>
-                <md-tooltip>Agregar al carrito</md-tooltip>
-              </md-button>
-              <md-tooltip
-                ng-if="libro.existencias == 0">
-                Sin existencias
-              </md-tooltip>
-            </div>
-            <md-button
-              ng-if="libro.enCarrito"
-              ng-click="quitarDelCarrito(libro)"
-              class="md-primary conIcono">
-              <i class="material-icons">remove_shopping_cart</i>
-              <md-tooltip>Quitar del carrito</md-tooltip>
-            </md-button>
-            <md-button
-              ng-href="/libro/{{libro.pk}}"
-              class="md-primary conIcono">
-              <i class="material-icons">details</i>
-              <md-tooltip>Ver detalles</md-tooltip>
-            </md-button>
-          </div>
-        </div>
-      </md-whiteframe>
+      <ego-libro
+        datos="libro" 
+        class="md-whiteframe-4dp tarjeta"></ego-libro>
     </md-grid-tile>
   </md-grid-list>
 </div>

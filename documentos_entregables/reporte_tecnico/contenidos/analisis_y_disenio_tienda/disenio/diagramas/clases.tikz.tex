@@ -1,0 +1,123 @@
+%
+% Diagrama de clases de tienda en línea
+% Capítulo de análisis y diseño de tienda en línea
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[]
+  \begin{umlpackage}{Tienda virtual}
+
+    \umlclass{Operaciones web TV}{
+      - utilidades : Utilidades \\
+      - negocio : Negocio}{
+      + usuarioDeSesion(peticion) \\
+      + iniciarSesion(peticion) \\
+      + cerrarSesion(peticion) \\
+      + operarUsuario(peticion) \\
+      + registrarUsuario(peticion) \\
+      + operarCarrito(peticion) \\
+      + obtenerCarrito(peticion) \\
+      + registrarCompra(peticion)}
+
+    \umlclass[x = 6, y = 1.5]{Direcciones TV}{
+      - operaciones web}{
+      + configurarURLs()}
+
+    \umlclass[x = 5, y = -1]{Negocio TV}{
+      - utilidades : Utilidades}{
+      + autentificar(credenciales) \\
+      + tokenizar(tarjeta, algoritmo) \\
+      + detokenizar(token, algoritmo)}
+
+    \umlcompo[%
+      mult1 = 1,
+      anchor2 = 37]{Direcciones TV}{Operaciones web TV}
+    \umlcompo[%
+      mult1 = 1,
+      anchor1 = -27]{Operaciones web TV}{Negocio TV}
+
+    \begin{umlpackage}[x = 2.75, y = -5.5]{Modelos}
+      \umlsimpleclass{Compra}
+      \umlsimpleclass[x = -3, y = 1.2]{Libro}
+      \umlsimpleclass[x = 0,  y = 1.2]{Paquete}
+      \umlaggreg{Paquete}{Libro}
+      \umlcompo{Compra}{Paquete}
+      \umlsimpleclass[x = 0,  y = -1.3]{Usuario}
+      \umlsimpleclass[x = -3, y = -1.3]{Domicilio}
+      \umlassoc{Usuario}{Domicilio}
+      \umlsimpleclass[x = 3, y = -2]{Tarjeta}
+      \umlcompo{Compra}{Usuario}
+      \umlcompo[geometry=-|]{Compra}{Domicilio}
+      \umlcompo[geometry=-|]{Compra}{Tarjeta}
+      \umlassoc[geometry=-|]{Tarjeta}{Usuario}
+      \umlassoc[geometry=-|]{Tarjeta}{Domicilio}
+      \umlsimpleclass[x = 3,  y = -3.3]{Algoritmo}
+      \umlsimpleclass[x = 0,  y = -3.3]{Tipo}
+      \umlsimpleclass[x = -3, y =-3.3]{Emisor}
+
+      \umlaggreg[geometry=|-|]{Tarjeta}{Algoritmo}
+      \umlaggreg[geometry=|-|]{Tarjeta}{Tipo}
+      \umlaggreg[geometry=|-|]{Tarjeta}{Emisor}
+    \end{umlpackage}
+
+    \umlimport{Operaciones web TV}{Modelos}
+    \umlimport{Negocio TV}{Modelos}
+
+  \end{umlpackage}
+  \begin{umlpackage}[x = 16, y = 0]{Tienda de libros}
+
+    \umlclass{Operaciones web TL}{
+      - utilidades : Utilidades \\
+      - negocio : Negocio}{
+      + obtenerLibros(peticion, pagina, limite) \\
+      + obtenerLibro(peticion, idLibro) \\
+      + obtenerTotalDeLibros(peticion)}
+
+    \umlclass[x = -5, y = 0]{Direcciones TL}{
+      - operaciones web}{
+      + configurarURLs()}
+
+    \umlcompo[mult1 = 1]{Direcciones TL}{Operaciones web TL}
+
+    \begin{umlpackage}[x = 0, y = -5]{Modelos}
+      \umlsimpleclass{Libro}
+      \umlsimpleclass[x = 3,  y = 0]{Editorial}
+      \umlsimpleclass[x = -3, y = 0]{Autor}
+      \umlsimpleclass[x = 0,  y = 1.5]{Tipo}
+      \umlcompo{Libro}{Editorial}
+      \umlcompo{Libro}{Autor}
+      \umlcompo{Libro}{Tipo}
+    \end{umlpackage}
+
+    \umlimport{Operaciones web TL}{Modelos}
+  \end{umlpackage}
+
+  \umlclass[x = 3, y = 5]{Utilidades}{
+    - servidor SMTP \\
+    - correo \\
+    - contraseña}{
+    + decoradorDePrivilegios() \\
+    + enviarCorreo() \\
+    + algoritmoDeLuhn()}
+
+  \umlclass[x = 12, y = 3.5]{Direcciones}{
+    - direcciones tienda virtual \\
+    - direcciones tienda de libros}{
+    + configurarURLs()}
+
+  \umlcompo[%
+    geometry = --, anchor2 = 35, anchor1 = 283]{Direcciones}{Direcciones TL}
+  \umlcompo[%
+    geometry = -|,
+    anchors = 180 and 90]{Direcciones}{Direcciones TV}
+  \umlcompo[%
+    geometry = |-|,
+    anchor2 = 250,
+    anchor1 = 61]{Operaciones web TV}{Utilidades}
+  \umlcompo[%
+    geometry = |-, anchor2 = 525, anchor1 = 98]
+    {Operaciones web TL}{Utilidades}
+  \umlcompo[%
+    geometry = --, anchor2 = 300, anchor1 = 494]{Negocio TV}{Utilidades}
+
+\end{tikzpicture}

@@ -1,0 +1,69 @@
+<!--
+  Plantilla para componente de libro.
+  Tienda en línea.
+  Proyecto Lovelace.
+-->
+
+<div layout="column" style="height: 100%">
+  <div
+    layout="row">
+    <div flex="40">
+      <!-- TODO: ¿De donde sale la «l» del prefijo -->
+      <img ng-src="estaticos/imagenes/libros/l{{$ctrl.datos.foto}}"/>
+    </div>
+    <div
+      flex="60"
+      class="descripcion">
+      <ego-etiqueta descripcion="'Título'">
+        {{$ctrl.datos.titulo | limitTo: 25}}
+        {{$ctrl.datos.titulo.length > 25 ? '...' : ''}}
+      </ego-etiqueta>
+      <!-- TODO:
+      comportamiento dinámico para cuando hay varios autores. -->
+      <ego-etiqueta descripcion="'Autor'">
+        {{$ctrl.datos.autor[0] | nombre}}
+      </ego-etiqueta>
+      <ego-etiqueta descripcion="'Precio'">
+        {{$ctrl.datos.precio | currency}}
+      </ego-etiqueta>
+    </div>
+  </div>
+  <span flex></span>
+  <div
+    flex="none"
+    layout="row"
+    layout-align="center center">
+    <!--
+    TODO: el tooltip «sin existencias» tarda demasiado en aparecer
+    en chromium.
+    -->
+    <div>
+      <md-button
+        id="{{'libro' + libro.pk}}"
+        ng-if="!$ctrl.datos.enCarrito"
+        ng-click="agregarAlCarrito(libro)"
+        class="md-primary conIcono"
+        ng-disabled="$ctrl.datos.existencias == 0">
+        <i class="material-icons">add_shopping_cart</i>
+        <md-tooltip>Agregar al carrito</md-tooltip>
+      </md-button>
+      <md-tooltip
+        ng-if="$ctrl.datos.existencias == 0">
+        Sin existencias
+      </md-tooltip>
+    </div>
+    <md-button
+      ng-if="$ctrl.datos.enCarrito"
+      ng-click="quitarDelCarrito(libro)"
+      class="md-primary conIcono">
+      <i class="material-icons">remove_shopping_cart</i>
+      <md-tooltip>Quitar del carrito</md-tooltip>
+    </md-button>
+    <md-button
+      ng-href="/libro/{{$ctrl.datos.pk}}"
+      class="md-primary conIcono">
+      <i class="material-icons">details</i>
+      <md-tooltip>Ver detalles</md-tooltip>
+    </md-button>
+  </div>
+</div>

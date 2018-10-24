@@ -162,7 +162,7 @@ def tokenizar (numeroDeTarjeta, metodo):
   if peticion.status_code != 200:
     raise SystemError(
       'Error en tokenización: {0}'.format(peticion.status_code))
-  return peticion.text
+  return peticion.text.replace('\n','')
 
 
 def detokenizar (token, metodo):
@@ -178,6 +178,6 @@ def detokenizar (token, metodo):
     data = json.dumps({'token': token, 'metodo': metodo}))
   if peticion.status_code != 200:
     raise SystemError(
-      'Error en tokenización: {0}'.format(peticion.status_code))
-  return peticion.text
+      'Error en detokenización: {0}'.format(peticion.status_code))
+  return peticion.text.replace('\n','')
 

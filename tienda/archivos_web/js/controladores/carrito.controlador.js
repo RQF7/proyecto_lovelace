@@ -36,7 +36,9 @@ tienda.controller('controladorCarrito', [
           locals: {
             'libros': $scope.carrito.libros,
             'tarjetas': $scope.tarjetas,
-            'agregarMetodoDePago': $scope.agregarMetodoDePago
+            'agregarMetodoDePago': $scope.agregarMetodoDePago,
+            'direcciones': $scope.direcciones,
+            'agregarDireccionDeEntrega': $scope.agregarDireccionDeEntrega
           }
         }).then(function (respuesta) {
           if (respuesta != undefined) {

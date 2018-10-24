@@ -116,6 +116,7 @@ def registrarUsuario (peticion):
   return django.http.HttpResponse("0")
 
 
+@utilidades.privilegiosRequeridos
 def actualizarUsuario (peticion):
   """Actualiza el usuario en sesión con los datos dados.
 
@@ -144,11 +145,12 @@ def actualizarUsuario (peticion):
 
 def verificarCorreo (peticion, vinculo, hrs = None):
   """ Verifica el correo asociado al vínculo dado.
-      Se puede o no poner las horas que tenia de 'vida' el vinculo,
-      para ver si este ya expiro.                                   """
+      Se puede o no poner las horas que tenía de vida el vínculo,
+      para ver si este ya expiró.                                   """
 
   usuario = Usuario.objects.get(vinculo = vinculo)
-  if hrs != None and datetime.datetime.now() - usuario.fecha > datetime.timedelta(hours = hrs):
+  if hrs != None and datetime.datetime.now() - usuario.fecha > \
+    datetime.timedelta(hours = hrs):
     usuario.delete()
     return django.http.HttpResponseRedirect('/?correo_no_verificado')
   else:
@@ -198,12 +200,9 @@ def guardarCarrito (peticion):
   return django.http.HttpResponse()
 
 
+@utilidades.privilegiosRequeridos
 def registrarCompra (peticion):
-  """Registra una compra del cliete en sesión.
-
-  TODO:
-  * Agregar decorador de privilegios.
-  """
+  """Registra una compra del cliete en sesión."""
 
   objetoDePeticion = json.loads(peticion.body)
   carrito = json.loads(peticion.session['carrito'])
@@ -236,7 +235,6 @@ def registrarCompra (peticion):
 
   try:
     numeroDeTarjeta = negocio.detokenizar(tarjeta.token, str(tarjeta.metodo))
-    numeroDeTarjeta = numeroDeTarjeta.replace('\n','')
     return django.http.HttpResponse(numeroDeTarjeta)
   except Exception as error:
     print(traceback.format_exc())
@@ -247,13 +245,13 @@ def registrarCompra (peticion):
 # Operaciones sobre tarjetas ###################################################
 ################################################################################
 
+@utilidades.privilegiosRequeridos
 def obtenerTarjetas (peticion):
   """Regresa arreglo con las tarjetas del usuario en sesión.
 
   TODO:
   *  El campo «tarjeta», del usuario, debería de ser «tarjetas»: por algo es un
      campo muchos a muchos.
-  *  Falta agregar decorador con permisos.
   """
   identificador = json.loads(peticion.session['usuario'])['pk']
   tarjetas = Usuario.objects.get(pk = identificador).tarjeta.filter(
@@ -271,11 +269,9 @@ def obtenerDireccionDeTarjeta (peticion, idDeDireccion):
   return utilidades.respuestaJSON(direccion)
 
 
+@utilidades.privilegiosRequeridos
 def operarTarjeta (peticion, idDeTarjeta = 0):
-  """Gestión de tarjetas.
-
-  TODO:
-  * Agregar decorador de privilegios."""
+  """Gestión de tarjetas."""
   if peticion.method == 'DELETE':
     return eliminarTarjeta(peticion, idDeTarjeta)
   elif peticion.method == 'POST':
@@ -288,11 +284,7 @@ def eliminarTarjeta (peticion, idDeTarjeta):
   """Elimina la tarjeta dada.
 
   Pasa la tarjeta (dada por su identificador) a estado inactivo.
-  TODO:
-  * Validar que el identificador dado sea de una tarjeta del cliente en
-    sesión."""
-
-  # Pasar a estado inactivo:
+  TODO: validar que la tarjeta dada corresponda al usuario en sesión."""
   tarjeta = Tarjeta.objects.get(pk = idDeTarjeta)
   tarjeta.activa = False;
   tarjeta.save()
@@ -312,6 +304,7 @@ def eliminarTarjeta (peticion, idDeTarjeta):
   return django.http.HttpResponse()
 
 
+@utilidades.privilegiosRequeridos
 def agregarTarjeta (peticion):
   """Registra un nuevo método de pago del cliente en sesión.
 
@@ -379,7 +372,6 @@ def agregarTarjeta (peticion):
   try:
     token = negocio.tokenizar(
       objetoDePeticion['pan'], objetoDePeticion['metodo'])
-    token = token.replace('\n','')
   except Exception as error:
     # Trayectoria alternativa 05G: El código HTTP de respuesta no es un 2XX.
     print(traceback.format_exc())
@@ -433,13 +425,13 @@ def obtenerTipos (peticion):
 # Operaciones sobre direcciones ################################################
 ################################################################################
 
+@utilidades.privilegiosRequeridos
 def obtenerDirecciones (peticion):
   """Regresa arreglo con las direcciones del usuario en sesión.
 
   TODO:
-  *  El campo «tdireccion», del usuario, debería de ser «direcciones»: por
+  *  El campo «direccion», del usuario, debería de ser «direcciones»: por
      algo es un campo muchos a muchos.
-  *  Falta agregar decorador con permisos.
   """
   identificador = json.loads(peticion.session['usuario'])['pk']
   direcciones = Usuario.objects.get(pk = identificador).direccion.filter(
@@ -447,17 +439,16 @@ def obtenerDirecciones (peticion):
   return utilidades.respuestaJSON(direcciones)
 
 
+@utilidades.privilegiosRequeridos
 def operarDireccion (peticion, idDeDireccion):
-  """Gestión de direcciones.
-
-  TODO:
-  * Agregar decorador de privilegios."""
+  """Gestión de direcciones."""
   if peticion.method == 'DELETE':
     return eliminarDireccion(peticion, idDeDireccion)
   else:
     return django.http.HttpResponseNotAllowed()
 
 
+@utilidades.privilegiosRequeridos
 def eliminarDireccion (peticion, idDeDireccion):
   """Elimina la tarjeta dada.
 
@@ -475,3 +466,50 @@ def obtenerEstados (peticion):
   """Regresa el catálogo de estados."""
   estados = Estado.objects.all()
   return utilidades.respuestaJSON(estados)
+
+def agregarDireccionDeEntrega (peticion):
+  """Agrega a la base de datos la dirección dada."""
+  datosCrudos = json.loads(peticion.body)
+  identificador = json.loads(peticion.session['usuario'])['pk']
+
+  direccionNueva = Direccion(
+    tipoDeDireccion = TipoDeDireccion.objects.get(
+      nombre = 'Punto de entrega'),
+    estado = Estado.objects.get(nombre = datosCrudos['estado']),
+    municipio = datosCrudos['municipio'].lower(),
+    colonia = datosCrudos['colonia'].lower(),
+    calle = datosCrudos['calle'].lower(),
+    numeroExterior = datosCrudos['numeroExterior'],
+    cp = datosCrudos['cp'],
+    activa = True)
+
+  # Esta parte se incluye porque, por alguna extraña razón, el número interior
+  # no es opcional, sino obligatorio. También, ¿por qué están guardados como
+  # caracteres y no como números?
+  if 'numeroInterior' in datosCrudos:
+    direccionNueva.numeroInterior = datosCrudos['numeroInterior']
+  else:
+    direccionNueva.numeroInterior = 0
+
+  direcciones = Usuario.objects.get(pk = identificador).direccion.all()
+
+  for direccionGuardada in direcciones:
+    if direccionGuardada.calle.lower()  == direccionNueva.calle and \
+      direccionGuardada.numeroExterior  == str(direccionNueva.numeroExterior) and \
+      direccionGuardada.colonia.lower() == direccionNueva.colonia and \
+      direccionGuardada.municipio.lower()==direccionNueva.municipio and \
+      direccionGuardada.cp              == direccionNueva.cp and \
+      direccionGuardada.estado          == direccionNueva.estado and \
+      direccionGuardada.tipoDeDireccion == direccionNueva.tipoDeDireccion:
+
+      if direccionGuardada.activa == True:
+        return django.http.HttpResponse("0")
+      else:
+        direccionGuardada.activa = True;
+        direccionGuardada.save();
+        return utilidades.respuestaJSON(direccionNueva)
+
+  direccionNueva.save();
+  Usuario.objects.get(pk = identificador).direccion.add(direccionNueva);
+
+  return utilidades.respuestaJSON(direccionNueva)

@@ -55,5 +55,6 @@ urlpatterns = [
     funciones_web.operarDireccion),
   django.urls.path('estados',
     funciones_web.obtenerEstados),
-
+  django.urls.path('agregarDireccionDeEntrega',
+    funciones_web.agregarDireccionDeEntrega)
 ]
