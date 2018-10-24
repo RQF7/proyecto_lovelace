@@ -468,6 +468,7 @@ def obtenerEstados (peticion):
   return utilidades.respuestaJSON(estados)
 
 def agregarDireccionDeEntrega (peticion):
+  """Agrega a la base de datos la dirección dada."""
   datosCrudos = json.loads(peticion.body)
   identificador = json.loads(peticion.session['usuario'])['pk']
 
