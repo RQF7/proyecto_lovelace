@@ -284,7 +284,6 @@ tienda.controller('controladorGeneral', [
       }).then(function (respuesta) {
         if (respuesta != undefined) {
           $scope.direcciones.push(respuesta);
-          console.log(respuesta);
         }
       });
     };
