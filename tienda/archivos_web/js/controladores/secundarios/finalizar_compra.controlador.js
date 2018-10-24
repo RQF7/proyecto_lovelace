@@ -15,12 +15,14 @@ tienda.controller('controladorFinalizarCompra', [
   '$scope',
   '$mdDialog',
   'api',
+  'libros',
   'tarjetas',
   'agregarMetodoDePago',
   function (
     $scope,
     $mdDialog,
     api,
+    libros,
     tarjetas,
     agregarMetodoDePago
   )
@@ -38,12 +40,16 @@ tienda.controller('controladorFinalizarCompra', [
         $scope.secuencia = 3;
       } else if ($scope.secuencia == 3) {
         api.registrarCompra({
-          'tarjeta': $scope.tarjeta,
-          'direccion': $scope.direccion})
+          'tarjeta': $scope.temporal.tarjeta.pk,
+          'direccion': $scope.temporal.direccion.pk})
           .then(function (respuesta) {
             var aviso = $mdDialog.alert()
               .title('Registro exitoso')
-              .textContent('Su compra ha sido registrada correctamente')
+              .textContent('Su compra ha sido registrada con el número de tarjeta: '
+                + respuesta.data.substring(0, 4) + ' '
+                + respuesta.data.substring(4, 8) + ' '
+                + respuesta.data.substring(8, 12) + ' '
+                + respuesta.data.substring(12, 16) + '.')
               .ariaLabel('Registro exitoso')
               .targetEvent($event)
               .ok('Aceptar')
@@ -60,6 +66,13 @@ tienda.controller('controladorFinalizarCompra', [
     };
 
     /* Secuencia de inicio. ***************************************************/
+
+    $scope.libros = libros;
+    $scope.precioTotal = 0;
+    for (i = 0; i < libros.length; i++) {
+      $scope.precioTotal += libros[i].cantidad * libros[i].precio
+    }
+
     $scope.tarjetas = tarjetas;
     $scope.tarjeta = 0;
     $scope.agregarMetodoDePago = agregarMetodoDePago;
@@ -68,13 +81,14 @@ tienda.controller('controladorFinalizarCompra', [
      * Hacer que «agregarMetodoDePago» regrese una promes; al terminar
      * se tiene que seleccionar el nuevo método. */
 
+    $scope.temporal = {};
     $scope.direcciones = [];
-    $scope.direccion = 0;
+    $scope.temporal.direccion = 0;
     $scope.secuencia = 1;
 
     api.obtenerDirecciones().then(function (respuesta) {
       $scope.direcciones = respuesta.data;
-      $scope.direccion = $scope.direcciones[0].pk;
+      $scope.temporal.direccion = $scope.direcciones[0];
     });
 
     /* TODO:
@@ -86,7 +100,7 @@ tienda.controller('controladorFinalizarCompra', [
     if ($scope.tarjetas.length == 0) {
       $scope.agregarMetodoDePago(undefined);
     } else {
-      $scope.tarjeta = $scope.tarjetas[0].pk;
+      $scope.temporal.tarjeta = $scope.tarjetas[0];
     }
   }
 ]);
