@@ -6,9 +6,7 @@
 %
 
 \newcommand{\requerimientoConClasificacion}[4]
-[rq:\formatearnumero{contador_requerimientos}]
-{
+[rq:\formatearnumero{contador_requerimientos}]{%
   \requerimiento[#1]{#2}{%
-    \textbf{Clasificación:} \hipervinculo{#3}. \\
-    #4}
-}
+    \textbf{Clasificación:} \hipervinculo{#3}.\par%
+    #4}}
