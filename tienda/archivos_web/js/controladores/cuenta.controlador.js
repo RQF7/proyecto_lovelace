@@ -57,22 +57,6 @@ tienda.controller('controladorCuenta', [
       }, function () {});
     };
 
-    $scope.agregarDireccionDeEntrega = function($event) {
-      $mdDialog.show({
-        parent: angular.element(document.body),
-        targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/direccion.ventana.html',
-        controller: 'controladorFormularioDireccionEntrega'
-      }).then(function (respuesta) {
-        if (respuesta != undefined) {
-          console.log(respuesta);
-        }
-        api.obtenerDirecciones().then(function (respuesta) {
-          $scope.direcciones = respuesta.data
-        });
-      });
-    };
-
     $scope.quitarDireccionDeEntrega = function($event, direccion) {
       var confirmacion = $mdDialog.confirm()
         .title('Advertencia')
@@ -96,10 +80,6 @@ tienda.controller('controladorCuenta', [
 
     /* Secuencia de inicio. **************************************************/
     $scope.cambiarTitulo("Administración de cuenta", 3);
-    $scope.direcciones = [];
 
-    api.obtenerDirecciones().then(function (respuesta) {
-      $scope.direcciones = respuesta.data
-    });
   }
 ]);

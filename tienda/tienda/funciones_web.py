@@ -506,9 +506,9 @@ def agregarDireccionDeEntrega (peticion):
       else:
         direccionGuardada.activa = True;
         direccionGuardada.save();
-        return django.http.HttpResponse("200")
+        return utilidades.respuestaJSON(direccionNueva)
 
   direccionNueva.save();
   Usuario.objects.get(pk = identificador).direccion.add(direccionNueva);
 
-  return django.http.HttpResponse("200")
+  return utilidades.respuestaJSON(direccionNueva)
