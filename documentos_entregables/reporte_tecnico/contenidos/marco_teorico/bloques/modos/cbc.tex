@@ -73,3 +73,33 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
       regresar $Bm$
     fin
 \end{pseudocodigo}
+
+\paragraph{CBC-MAC}
+Este algoritmo está basado en el modo de operación \gls{gl:cbc} y una función
+$F$ que puede ser, por ejemplo, un cifrado por bloques. Se encarga de
+cifrar con una llave $l_1$ todo el mensaje $m$, pero lo único que se toma en
+cuenta es el último bloque, que es tomado como el código de autenticación
+(véase figura~\ref{mac:cbc1}). En algunos casos, se cifra de nuevo, con la
+misma función $F$, pero utilizando una llave $l_2$ distinta (véase
+figura~\ref{mac:cbc2}).
+
+CBC-MAC es considerado seguro cuando el mensaje $m$ tiene una longitud
+múltiplo del tamaño de bloque del cifrado por bloques. Como se le han
+encontrado varias vulnerabilidades, algoritmos basados en CBC-MAC han sido
+propuestos, tales como el \textit{eXtended CBC} o el \gls{gl:omac}.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.9\linewidth]{diagramas/cbcmac.png}
+    \caption{Esquema de CBC-MAC simple.}
+    \label{mac:cbc1}
+  \end{center}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.9\linewidth]{diagramas/cbcmaclb.png}
+    \caption{Esquema de CBC-MAC con el último bloque cifrado.}
+    \label{mac:cbc2}
+  \end{center}
+\end{figure}

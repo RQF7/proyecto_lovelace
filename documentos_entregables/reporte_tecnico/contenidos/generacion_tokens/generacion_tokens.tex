@@ -5,7 +5,7 @@
 % Proyecto Lovelace.
 %
 
-\capitulo{Estándares y publicaciones sobre la generación de \textit{tokens}}
+\capitulo{Algoritmos tokenizadores}
 {sec:generacion_de_tokens}
 {
   \epigrafe
@@ -20,17 +20,10 @@
 }
 
 \noindent
-Este capítulo inicia con un resumen sobre la composición de los números de
-tarjeta, posteriormente, se incluye una serie de resúmenes sobre los estándares
-publicados por el \gls{gl:pci} \gls{gl:ssc} y por el \gls{gl:nist} necesarios
-para las implementaciones realizadas; por ejemplo, las recomendaciones para la
-generación y administración de llaves y la generación de bits pseudoaleatorios.
-Dado que generadores de números pseudoaleatorios son utilizados frecuentemente
-en los algoritmos tokenizadores, también se incluye un resumen de las pruebas a
-las que deben someterse. Finalmente, se clasifican los algoritmos que serán
-implementados y, para cada uno, se agrega una subsección donde se explica su
-notación, composición y funcionamiento.
 
-\subimport{tarjetas/}{tarjetas}
-\subimport{nist_pci/}{nist_pci}
+Este capítulo se clasifican los algoritmos que serán implementados y, para
+cada uno, se agrega una subsección donde se explica su notación, composición y
+funcionamiento.
+
+\subimport{clasificacion_pci_dss/}{clasificacion_pci_dss}
 \subimport{algoritmos/}{algoritmos}
