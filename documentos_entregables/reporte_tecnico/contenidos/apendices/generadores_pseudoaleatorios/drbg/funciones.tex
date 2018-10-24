@@ -5,36 +5,42 @@
 % Proyecto Lovelace.
 %
 
-\subsubsection{Funciones}
+\section{Funciones}
 
 Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
-\begin{description}
-  \item [Instanciación] Antes de generar bits pseudoaleatorios, el \gls{gl:drbg}
-    debe ser instanciado; esta función se encarga de revisar que los parámetros
-    de entrada sean válidos, determina  el nivel de seguridad para la instancia
-    de \gls{gl:drbg} que se generará, obtiene la entrada de \gls{gl:entropia}
-    capaz de soportar el nivel de seguridad y el \gls{gl:nonce} (solo si es
-    requerido), determina el estado interno inicial y, si se tienen varias
-    instancias del \gls{gl:drbg} simultáneas, obtiene un manejador de estado.
-    Las entradas de la función son las siguientes:
-    \begin{enumerate}
-      \item Nivel de seguridad requerido.
-      \item Bandera que indica si se necesita o no la resistencia de predicción.
-      \item Cadena de personalización.
-      \item Entrada de \gls{gl:entropia}.
-      \item \gls{gl:nonce}
-    \end{enumerate}
-    Las primeras entradas deben ser provistas por la aplicación consumidora. La
-    salida de la función de instanciación a esta aplicación consiste en:
-    \begin{enumerate}
-      \item El estado del proceso; regresa un \textit{EXITOSO} o un estado
-        inválido indicando el error que hubo al instanciar al \gls{gl:drbg}.
-      \item El manejador de estado, utilizado para identificar el estado interno
-        de esta instancia para generar, cambiar la \gls{gl:semilla} y demás
-        funciones.
-    \end{enumerate}
-    El algoritmo de la función de instanciación se puede observar en el
-    pseudocódigo~\ref{drbg:1}.
+
+\subsection{Instanciación}
+
+Antes de generar bits pseudoaleatorios, el \gls{gl:drbg}
+debe ser instanciado; esta función se encarga de revisar que los parámetros
+de entrada sean válidos, determina  el nivel de seguridad para la instancia
+de \gls{gl:drbg} que se generará, obtiene la entrada de \gls{gl:entropia}
+capaz de soportar el nivel de seguridad y el \gls{gl:nonce} (solo si es
+requerido), determina el estado interno inicial y, si se tienen varias
+instancias del \gls{gl:drbg} simultáneas, obtiene un manejador de estado.
+Las entradas de la función son las siguientes:
+
+\begin{enumerate}
+  \item Nivel de seguridad requerido.
+  \item Bandera que indica si se necesita o no la resistencia de predicción.
+  \item Cadena de personalización.
+  \item Entrada de \gls{gl:entropia}.
+  \item \gls{gl:nonce}
+\end{enumerate}
+
+Las primeras entradas deben ser provistas por la aplicación consumidora. La
+salida de la función de instanciación a esta aplicación consiste en:
+
+\begin{enumerate}
+  \item El estado del proceso; regresa un \textit{EXITOSO} o un estado
+    inválido indicando el error que hubo al instanciar al \gls{gl:drbg}.
+  \item El manejador de estado, utilizado para identificar el estado interno
+    de esta instancia para generar, cambiar la \gls{gl:semilla} y demás
+    funciones.
+\end{enumerate}
+
+El algoritmo de la función de instanciación se puede observar en el
+pseudocódigo~\ref{drbg:1}.
 
 \begin{pseudocodigo}[caption={DRBG, instanciación.}, label={drbg:1}]
     entrada:  $nivel\_seguridad\_requerido$, $bandera\_prediccion$, $cadena\_personalizacion$
@@ -65,38 +71,47 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
     fin
 \end{pseudocodigo}
 
-  \item [Cambio de \gls{gl:semilla}] Cambiar la \gls{gl:semilla} de una
-    instancia no es requerido, pero es recomendado que se realice este proceso
-    cada que sea posible. Cambiar la \gls{gl:semilla} puede:
-    \begin{itemize}
-      \item Ser solicitado expresamente por la aplicación consumidora.
-      \item Realizado cuando la aplicación consumidora requiere resistencia de
-        predicción.
-      \item Disparada por la función generadora cuando se alcanza un número
-        predeterminado de salidas generadas.
-      \item Disparada por eventos externos.
-    \end{itemize}
-    La función se encarga de revisar la validez de los parámetros de entrada,
-    obtiene la entrada de \gls{gl:entropia} de una fuente de aleatoriedad y,
-    mediante el algoritmo de cambio de \gls{gl:semilla}, combina el estado de
-    trabajo actual con la nueva entrada de \gls{gl:entropia} y valores
-    adicionales para determinar el nuevo estado de trabajo actual. Las entradas
-    para la función de cambio de \gls{gl:semilla} son las siguientes:
-    \begin{enumerate}
-      \item El manejador de estado.
-      \item Bandera que indica si se requiere o no la resistencia de predicción.
-      \item Entradas adicionales (opcionales).
-      \item Entrada de \gls{gl:entropia}.
-      \item Valores del estado interno e información administrativa.
-    \end{enumerate}
-    Las primeras tres entradas deben ser provistas por la aplicación
-    consumidora. La salida consiste en lo siguiente:
-    \begin{enumerate}
-      \item Estado que regresa la función.
-      \item Nuevo estado de trabajo interno.
-    \end{enumerate}
-    El proceso para cambiar la \gls{gl:semilla} se observa en el pseudocódigo
-   ~\ref{drbg:2}.
+\subsection{Cambio de \gls{gl:semilla}}
+
+Cambiar la \gls{gl:semilla} de una instancia no es requerido, pero es
+recomendado que se realice este proceso cada que sea posible. Cambiar la
+\gls{gl:semilla} puede:
+
+\begin{itemize}
+  \item Ser solicitado expresamente por la aplicación consumidora.
+  \item Realizado cuando la aplicación consumidora requiere resistencia de
+    predicción.
+  \item Disparada por la función generadora cuando se alcanza un número
+    predeterminado de salidas generadas.
+  \item Disparada por eventos externos.
+\end{itemize}
+
+La función se encarga de revisar la validez de los parámetros de entrada,
+obtiene la entrada de \gls{gl:entropia} de una fuente de aleatoriedad y,
+mediante el algoritmo de cambio de \gls{gl:semilla}, combina el estado de
+trabajo actual con la nueva entrada de \gls{gl:entropia} y valores
+adicionales para determinar el nuevo estado de trabajo actual. Las entradas
+para la función de cambio de \gls{gl:semilla} son las siguientes:
+
+\begin{enumerate}
+  \item El manejador de estado.
+  \item Bandera que indica si se requiere o no la resistencia de predicción.
+  \item Entradas adicionales (opcionales).
+  \item Entrada de \gls{gl:entropia}.
+  \item Valores del estado interno e información administrativa.
+\end{enumerate}
+
+Las primeras tres entradas deben ser provistas por la aplicación
+consumidora. La salida consiste en lo siguiente:
+
+\begin{enumerate}
+  \item Estado que regresa la función.
+  \item Nuevo estado de trabajo interno.
+\end{enumerate}
+
+El proceso para cambiar la \gls{gl:semilla} se observa en el pseudocódigo
+~\ref{drbg:2}.
+
 \begin{pseudocodigo}[caption={DRBG, cambio de semilla.}, label={drbg:2}]
     entrada:  $bandera\_prediccion$, $manejador\_estado$, $entrada\_adicional$
               $entrada\_entropia$, $estado\_interno$
@@ -119,29 +134,34 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
     fin
 \end{pseudocodigo}
 
-  \item [Generación] Esta función es utilizada para generar bits
-    pseudoaleatorios después de haber utilizado la función de instanciación o
-    de cambio de \gls{gl:semilla}. Se encarga de validar los parámetros de
-    entrada, llamar a la función de cambio de \gls{gl:semilla} cuando sea
-    requerida \gls{gl:entropia} extra, generar los bits pseudoaleatorios,
-    actualizar el estado de trabajo y regresar los bits a la aplicación
-    consumidora que los pidió. La función tiene las siguientes entradas:
-    \begin{enumerate}
-      \item Manejador de estado.
-      \item El número de bits que se requieren.
-      \item El nivel de seguridad que se necesita.
-      \item Si debe ser resistente a predicción o no.
-      \item Entradas adicionales.
-      \item El estado de trabajo actual e información administrativa.
-    \end{enumerate}
-    Después de haber sido generado, la salida consiste en lo siguiente
-    \begin{enumerate}
-      \item Estado.
-      \item Bits pseudoaleatorios.
-      \item Nuevo estado de trabajo.
-    \end{enumerate}
-    El proceso para generar bits se puede observar en el pseudocódigo
-   ~\ref{drbg:3}.
+\subsection{Generación}
+Esta función es utilizada para generar bits pseudoaleatorios después de haber
+utilizado la función de instanciación o de cambio de \gls{gl:semilla}. Se
+encarga de validar los parámetros de entrada, llamar a la función de cambio de
+\gls{gl:semilla} cuando sea requerida \gls{gl:entropia} extra, generar los bits
+pseudoaleatorios, actualizar el estado de trabajo y regresar los bits a la
+aplicación consumidora que los pidió. La función tiene las siguientes entradas:
+
+\begin{enumerate}
+  \item Manejador de estado.
+  \item El número de bits que se requieren.
+  \item El nivel de seguridad que se necesita.
+  \item Si debe ser resistente a predicción o no.
+  \item Entradas adicionales.
+  \item El estado de trabajo actual e información administrativa.
+\end{enumerate}
+
+Después de haber sido generado, la salida consiste en lo siguiente
+
+\begin{enumerate}
+  \item Estado.
+  \item Bits pseudoaleatorios.
+  \item Nuevo estado de trabajo.
+\end{enumerate}
+
+El proceso para generar bits se puede observar en el pseudocódigo
+~\ref{drbg:3}.
+
 \begin{pseudocodigo}[caption={DRBG, generación.}, label={drbg:3}]
     entrada:  $bandera\_prediccion$, $manejador\_estado$, $entrada\_adicional$
               $nivel\_seguridad\_requerido$, $no\_bits\_requeridos$, $estado\_interno$
@@ -176,21 +196,23 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
       regresar $(EXITOSO, bits\_pseudoaleatorios)$
     fin
 \end{pseudocodigo}
-    Hay que tomar en cuenta cuando la implementación no tiene la capacidad de
-    hacer el cambio de \gls{gl:semilla} en el algoritmo: se quitan los pasos 6 y
-    7, y, si el estado indica que se necesita hacer el cambio, se regresa un
-    error que indique que el \gls{gl:drbg} no puede seguir siendo utilizado y
-    hay que eliminar la instancia. También se debe tener en mente cuando se
-    termina el ciclo de vida de la \gls{gl:semilla}: cada que se llama al
-    algoritmo generador, se revisa si el contador ha alcanzado el valor máximo
-    que se encuentra en el estado interno; en caso de ser así, la función debe
-    avisar que se requiere un cambio de \gls{gl:semilla}.
 
-  \item [Desinstanciación] Esta función se encarga de liberar el estado interno
-    de una instancia al borrar el contenido de su estado interno. La función
-    requiere del manejador de estado de la instancia que se va a eliminar y
-    regresa el estado de la función. El proceso para eliminar una instancia se
-    puede observar en el pseudocódigo~\ref{drbg:4}.
+Hay que tomar en cuenta cuando la implementación no tiene la capacidad de
+hacer el cambio de \gls{gl:semilla} en el algoritmo: se quitan los pasos 6 y
+7, y, si el estado indica que se necesita hacer el cambio, se regresa un
+error que indique que el \gls{gl:drbg} no puede seguir siendo utilizado y
+hay que eliminar la instancia. También se debe tener en mente cuando se
+termina el ciclo de vida de la \gls{gl:semilla}: cada que se llama al
+algoritmo generador, se revisa si el contador ha alcanzado el valor máximo
+que se encuentra en el estado interno; en caso de ser así, la función debe
+avisar que se requiere un cambio de \gls{gl:semilla}.
+
+\subsection{Desinstanciación}
+Esta función se encarga de liberar el estado interno de una instancia al borrar
+el contenido de su estado interno. La función requiere del manejador de estado
+de la instancia que se va a eliminar y regresa el estado de la función. El
+proceso para eliminar una instancia se puede observar en el
+pseudocódigo~\ref{drbg:4}.
 
 \begin{pseudocodigo}[caption={DRBG, desinstanciación.}, label={drbg:4}]
     entrada:  $manejador\_estado$
@@ -202,5 +224,3 @@ Un \gls{gl:drbg} necesita cinco funciones para poder funcionar correctamente.
       regresar $(EXITOSO)$
     fin
 \end{pseudocodigo}
-
-\end{description}
