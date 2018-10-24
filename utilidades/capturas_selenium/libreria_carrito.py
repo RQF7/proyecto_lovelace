@@ -1,7 +1,7 @@
 """
-  Script para captura de la pagina de carrito,
-  Caso de prueba: tienda de libros en línea.
-  Proyecto Lovelace.
+Script para captura de la página de carrito,
+Caso de prueba: tienda de libros en línea.
+Proyecto Lovelace.
 """
 
 import sys, time
