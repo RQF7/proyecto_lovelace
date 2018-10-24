@@ -34,6 +34,7 @@ tienda.controller('controladorCarrito', [
           controller: 'controladorFinalizarCompra',
           focusOnOpen: false,
           locals: {
+            'libros': $scope.carrito.libros,
             'tarjetas': $scope.tarjetas,
             'agregarMetodoDePago': $scope.agregarMetodoDePago
           }
