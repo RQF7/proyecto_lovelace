@@ -38,6 +38,7 @@ LISTA_DE_OBJETOS     := $(addprefix $(CARPETA_IMAGENES)/, \
 LIB_CARPETA_IMAGENES := $(RUTA_BASE)analisis_y_disenio_tienda/analisis/capturas
 LIB_CARPETA_FUENTES  := tienda/archivos_web
 LIB_LISTA_DE_FUENTES := inicio_1920x1080.png \
+											  detalles_1920x1080.png \
 												iniciar_sesion_1920x1080.png \
 												cuenta_1920x1080.png \
 												formulario_direccion_1920x1080.png \
@@ -131,6 +132,10 @@ lib_toma_de_capturas: $(LIB_LISTA_DE_OBJETOS)
 $(LIB_CARPETA_IMAGENES)/inicio_1920x1080.png: \
 		html/inicio.html
 	python $(SCRIPTS_CAPTURAS)/inicio.py $(LIB_DOMINIO)/ $@
+
+$(LIB_CARPETA_IMAGENES)/detalles_1920x1080.png: \
+		html/libro.html
+	python $(SCRIPTS_CAPTURAS)/inicio.py $(LIB_DOMINIO)/libro/6 $@
 
 $(LIB_CARPETA_IMAGENES)/iniciar_sesion_1920x1080.png: \
 		html/ventanas/iniciar_sesion.ventana.html
