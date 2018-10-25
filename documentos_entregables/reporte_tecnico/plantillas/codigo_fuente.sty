@@ -1,0 +1,39 @@
+%
+% Comando para insertar código fuente.
+% Reporte técnico.
+% Proyecto Lovelace.
+%
+% TODO:
+% * Que el nombre del archivo sea una liga a la documentación de doxygen.
+%
+
+% 1. Etiqueta (opcional).
+% 2. Línea inicial.
+% 3. Línea final.
+% 4. Lenguaje.
+% 5. Archivo fuente (relativo a la raíz del proyecto).
+% 6. Pie de figura.
+
+\newcommand{\codigoFuente}[6]
+[codigo:sin_etiqueta]{%
+  %
+  % Configuración.
+  %
+  \setlength{\separacionAnterior}{\parskip}%
+  \setlength{\parskip}{0em}%
+  %
+  % Código efectivo.
+  %
+  \begin{listing}%
+    \label{#1}%
+    \inputminted[%
+      firstline=#2,%
+      lastline=#3]%
+      {#4}{../#5}%
+    \captionsetup{justification=centering}%
+    \caption{#6 \\ \textbf{\texttt{\escapeus{#5}}}}%
+  \end{listing}%
+  %
+  % Estado previo.
+  %
+  \setlength{\parskip}{\separacionAnterior}}
