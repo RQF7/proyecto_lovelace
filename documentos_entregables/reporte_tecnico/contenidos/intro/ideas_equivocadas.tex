@@ -1,0 +1,57 @@
+%
+% Sección de ideas equivocadas sobre la tokenización,
+% Introducción
+% Reporte Técnico.
+%
+% Proyecto Lovelace.
+%
+
+\section{Ideas erróneas sobre la tokenización}
+
+Dado que el sustantivo \gls{gl:token} y el término \textit{tokenización} serán
+utilizados una y otra vez a lo largo del presente documento, es imperativo
+definirlos claramente. Actualmente, el vocablo \gls{gl:token} es ampliamente
+utilizado y su significado cambia dependiendo del contexto en el que se
+encuentra; a continuación se enlistan una serie de definiciones que
+ejemplifican lo cambiante que puede ser su definición:
+\begin{description}
+  \item [En el procesamiento de lenguaje natural,] la tokenización es el proceso
+    de segmentar un texto en unidades lingüísticas, tales como palabras, signos
+    de puntuación, números y símbolos; regularmente, un \gls{gl:token} es una
+    palabra lingüísticamente significativa~\cite{miscon_nlp}.
+  \item [En compiladores,] la tokenización (o análisis léxico) se refiere al
+    proceso de convertir una secuencia de caracteres a una secuencia de
+    \glspl{gl:token} (cadenas con significados)~\cite{miscon_comp}.
+  \item [En el contexto social,] se le llama tokenismo a la práctica de hacer
+    solo un intento simbólico de ser inclusivo con un colectivo discriminado
+    para aparentar diversidad (racial, sexual, etc.); quienes pertenecen a la
+    minoría son conocidos como \glspl{gl:token}~\cite{miscon_soc}.
+  \item [En el contexto bancario,] se le denomina \gls{gl:token} a un pequeño
+    aparato encargado de generar llaves para poder establecer una conexión con
+    sus servidores.
+\end{description}
+Probablemente una de las fuentes de confusión más grandes viene del contexto
+de las criptomonedas, pues el auge y la presencia que han tenido en los medios
+los últimos años las han relacionado intrínsecamente con los \glspl{gl:token}.
+Aunado a esto, dentro de este contexto, un \gls{gl:token} adquiere varios
+significados: puede utilizarse como sinónimo de criptomoneda (\textit{Ana %
+tiene 42 tokens de Bitcoin}) o puede hacer referencia a la cadena de números y
+letras que identifican una transacción.
+
+Después de identificar qué no significa un \gls{gl:token}, a continuación se
+provee una definición de lo que es un \gls{gl:token} en el contexto de la
+criptografía, particularmente, en el campo de los algoritmos tokenizadores: un
+\gls{gl:token} es un valor representativo de un dato sensible (e.g. un
+número de seguridad social, un número de tarjeta) que carece de una relación
+directa con el dato sensible en cuestión; dicho de otra manera, partiendo del
+\gls{gl:token}, es imposible llegar al dato sensible sin los medios adecuados.
+El proceso mediante el cual se genera el \gls{gl:token}, es conocido como
+\textit{tokenización} y esta hace uso de algoritmos tokenizadores; en el caso
+de este trabajo, los \glspl{gl:token} resultantes de este proceso de
+tokenización son cadenas que \textit{parecen} números de tarjetas bancarias
+pero que no lo son.
+
+Cabe resaltar que, aunque los algoritmos tokenizadores incluidos en este
+documento están optimizados para trabajar con números de tarjetas bancarias,
+la \textit{tokenización} puede utilizarse para proteger otros datos, tales
+como números de seguridad social, números telefónico o identificadores.
