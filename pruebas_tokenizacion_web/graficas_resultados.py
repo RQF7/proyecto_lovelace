@@ -47,5 +47,6 @@ formatter = FuncFormatter(millions)
 ax.yaxis.set_major_formatter(formatter)
 ax.legend()
 
-plt.savefig('peticiones_tokenizacion_grafica.png',
-    dpi=200, bbox_inches='tight')
+plt.savefig('../documentos_entregables/reporte_tecnico/contenidos/\
+implementacion_api_web/resultados/diagramas/peticiones_tokenizacion\
+_grafica.png', dpi=200, bbox_inches='tight')
