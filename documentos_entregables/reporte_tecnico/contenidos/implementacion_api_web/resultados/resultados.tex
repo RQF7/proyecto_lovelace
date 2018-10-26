@@ -8,17 +8,17 @@
 \section{Resultados}
 \label{sec:resultados_api}
 
-\subsection{Desempeño de la API}
+\subsection{Desempeño de la \texorpdfstring{\acrshort{gl:api}}{FFX}}
 \label{sec:comparacion_api}
 
-Con la finalidad de probar el desempeño de la API desarrollada, se hizo la
-medición del los tiempo de respuesta de las peticiones de operaciones de
-tokenización y detokenización con los 5 métodos disponibles.
+Con la finalidad de probar el desempeño de la \gls{gl:api} desarrollada, se
+hizo la medición del los tiempo de respuesta de las peticiones de operaciones
+de tokenización y detokenización con los 5 métodos disponibles.
 
 En la tabla~\ref{tabla:tiempos_peticiones_tokenizacion} se pueden observar
-los tiempos obtenidos de las pruebas de desempeño de la API, los cuales se
-obtuvieron al realizar 10K peticiones de operaciones de tokenización y
-detokenización con cada método posible.
+los tiempos obtenidos de las pruebas de desempeño de la \gls{gl:api}, los
+cuales se obtuvieron al realizar 10K peticiones de operaciones de
+tokenización y detokenización con cada método posible.
 
 \begin{table}
   \begin{center}
@@ -26,15 +26,15 @@ detokenización con cada método posible.
       \cline{2-3}
       & Tokenización & Detokenización \\
       \hline
-      \multicolumn{1}{|c|}{FFX}
+      \multicolumn{1}{|c|}{\texorpdfstring{\acrshort{gl:ffx}}{FFX}}
         & 206.526 s & 208.204 s \\\hline
-      \multicolumn{1}{|c|}{BPS}
+      \multicolumn{1}{|c|}{\texorpdfstring{\acrshort{gl:bps}}{BPS}}
         & 219.036 s & 219.448 s \\\hline
       \multicolumn{1}{|c|}{TKR}
         & 824.969 s & 103.854 s \\\hline
       \multicolumn{1}{|c|}{AHR}
         & 436.053 s & 132.297 s \\\hline
-      \multicolumn{1}{|c|}{DRBG}
+      \multicolumn{1}{|c|}{\texorpdfstring{\acrshort{gl:drbg}}{DRBG}}
         & 437.406 s & 124.064 s \\\hline
     \end{tabular}
     \caption{Comparación de tiempos.}
