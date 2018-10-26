@@ -27,7 +27,7 @@ citas para cada uno.
 5. >Understand well as I may, my comprehension can only be an infinitesimal
     fraction of all I want to understand, Ada Lovelace
 
-## Estándares y publicaciones sobre la generación de tokens
+## Algoritmos tokenizadores
 1. >Anyone who attempts to generate random numbers by deterministic means is, of
     course, living in a state of sin, John von Neunmann.
 2. >My brother has his sword, King Robert has his warhammer and I have my
@@ -36,7 +36,7 @@ citas para cada uno.
 3. >"Not bad, not bad at all," Diotallevi said. "To arrive at the truth through
     the painstaking reconstruction of a false text". Umberto Eco.
 
-## Análisis y diseño
+## Análisis y diseño de programa tokenizador
 1. >A common mistake that people make when trying to design something completely
     foolproof is to underestimate the ingenuity of complete fools,
     Douglas Adams, Mostly Harmless.
@@ -50,7 +50,7 @@ citas para cada uno.
 5. >This wasn't just plain terrible, this was fancy terrible. This was terrible
     with raisins in it, Dorothy Parker.
 
-## Implementación
+## Implementación de programa tokenizador
 1. >It is a mistake to think you can solve any major problems just with
     potatoes, Douglas Adams.
 2. >42, Douglas Adams.
@@ -106,7 +106,7 @@ citas para cada uno.
 8. >El universo es comparable a esas criptografías en las que no valen todos los
     símbolos y que sólo es verdad lo que sucede cada trescientas noches, JLB
 9. >Babilonia no es otra cosa que un infinito juego de azares, JLB
-10. >Por supuesto que la paz es el respeto al derecho ajeno, en eso tzodos
+10. >Por supuesto que la paz es el respeto al derecho ajeno, en eso todos
      estamos de acuerdo. En lo que nadie está de acuerdo es en cuál es el
      derecho ajeno, Jorge Ibargüengoitia, Instrucciones para vivir en México.
 11. >How do people go to sleep? I'm afraid I've lost the knack, Dorothy Parker
@@ -119,20 +119,54 @@ citas para cada uno.
 
 # Segunda ronda (TT2)
 
+Sin clasificación:
+
 1. >We live in a society exquisitely dependent on science and technology, in
     which hardly anyone knows anything about science and technology. Cosmos,
     Carl Sagan.
 2. >You don't understand anything until you learn it more than one way. Marvin
     Minsky.
-3. >"Begin at the beginning," the King said, very gravely, "and go on till you
+3. >People who think they know everything are a great annoyance to those
+    of us who do. Isaac Asimov.
+4. >Violence is the last refuge of the incompetent. Isaac Asimov, Fundación.
+5. >Never let your sense of morals get in the way of doing what's right.
+    Isaac Asimov, Fundación (creo).
+6. >You don't have to burn books to destroy a culture. Just get people to stop  
+    reading them. Ray Bradbury.
+7. >She believed in nothing; only her skepticism kept her from being
+    an atheist. Jean-Paul Sartre.
+8. >No tomamos decisiones, son las decisiones las que nos toman a nosotros.
+    Todos los nombres, José Saramago.
+9. >Lock up your libraries if you like; but there is no gate, no lock, no bolt
+    that you can set upon the freedom of my mind. A Room of One’s Own,
+    Virginia Woolf.
+10. >Heme aquı́, ya al final, y todavı́a no sé qué cara le daré a la muerte.
+     Rosario Castellanos.
+11. >Lolita, luz de mi vida, fuego de mis entrañas. Pecado mı́o, alma mı́a.
+     Lo-li-ta: la punta de la lengua emprende un viaje de tres pasos paladar
+     abajo hasta apoyarse, en el tercero, en el borde de los dientes.
+     Lo. Li. Ta. Lolita, Vladimir Nabokov.
+
+## Primera parte: programa tokenizador
+1. >"Begin at the beginning," the King said, very gravely, "and go on till you
     came to the end: then stop."
     Lewis Carroll.
-4. >People who think they know everything are a great annoyance to those
-    of us who do. Isaac Asimov.
-5. >Violence is the last refuge of the incompetent. Isaac Asimov, Fundación.
-6. >Never let your sense of morals get in the way of doing what's right.
-    Isaac Asimov, Fundación (creo).
-7. >You don't have to burn books to destroy a culture. Just get people to stop  
-    reading them. Ray Bradbury.
-8. >She believed in nothing; only her skepticism kept her from being
-    an atheist. Jean-Paul Sartre.
+
+## Segunda parte: api web
+
+## Análisis y diseño de api web
+
+## Implementación de api web
+
+## Tercera parte: tienda
+
+## Análisis y diseño de tienda
+
+## Implementación de tienda
+
+## Apéndices
+
+## Apéndice de LaTeX
+1. >The trouble with computer science today is an obsessive concern with
+    form instead of content. Form and Content in Computer Science, 1970 ACM
+    Turing Lecture, Marvin Minsky.
