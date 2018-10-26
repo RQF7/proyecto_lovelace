@@ -146,6 +146,18 @@ Sin clasificación:
      Lo-li-ta: la punta de la lengua emprende un viaje de tres pasos paladar
      abajo hasta apoyarse, en el tercero, en el borde de los dientes.
      Lo. Li. Ta. Lolita, Vladimir Nabokov.
+12. >The book Dynamic Programming by Richard Bellman is an important,
+     pioneering work in which a group of problems is collected together at the
+     end of some chapters under the heading "Exercises and Research Problems,"
+     with extremely trivial questions appearing in the midst of deep, unsolved
+     problems. It is rumored that someone once asked Dr. Bellman how to tell
+     the exercises apart from the research problems, and he replied: "If you
+     can solve it, it is an exercise; otherwise it's a research problem."
+     Donald Knuth.
+13. >I have a hunch that the unknown sequences of DNA will decode into
+     copyright notices and patent protections. Donald Knuth.
+14. >People said I should accept the world. Bullshit! I don't accept the world.
+     Richard Stallman.
 
 ## Primera parte: programa tokenizador
 1. >"Begin at the beginning," the King said, very gravely, "and go on till you
@@ -157,16 +169,48 @@ Sin clasificación:
 ## Análisis y diseño de api web
 
 ## Implementación de api web
+1. >Computer programming is an art, because it applies accumulated knowledge to
+    the world, because it requires skill and ingenuity, and especially because
+    it produces objects of beauty. A programmer who subconsciously views himself
+    as an artist will enjoy what he does and will do it better.
+    Computer Programming as an Art, Donald Knuth.
+2. >Computers are good at following instructions, but not at reading your mind.
+    The texbook, Donald Knuth.
+3. >When you write a program, think of it primarily as a work of literature.
+    You're trying to write something that human beings are going to read. Don't
+    think of it primarily as something a computer is going to follow. The more
+    effective you are at making your program readable, the more effective it's
+    going to be: You'll understand it today, you'll understand it next week, and
+    your successors who are going to maintain and modify it will understand it.
+    Donald Knuth.
 
 ## Tercera parte: tienda
 
 ## Análisis y diseño de tienda
 
 ## Implementación de tienda
+1. >Programming is the art of telling another human being what one wants the
+    computer to do. Donald Knuth.
+2. >An algorithm must be seen to be believed. The Art of Computer Programming:
+    Fundamental algorithms, Donald Knuth.
+3. >One of the most important lessons, perhaps, is the fact that SOFTWARE IS
+    HARD. From now on I shall have significantly greater respect for every
+    successful software tool that I encounter. During the past decade I was
+    surprised to learn that the writing of programs for TeX and Metafont proved
+    to be much more difficult than all the other things I had done (like
+    proving theorems or writing books). The creation of good software demand a
+    significiantly higher standard of accuracy than those other things do, and
+    it requires a longer attention span than other intellectual tasks.
+    Donald Knuth.
 
 ## Apéndices
+
 
 ## Apéndice de LaTeX
 1. >The trouble with computer science today is an obsessive concern with
     form instead of content. Form and Content in Computer Science, 1970 ACM
     Turing Lecture, Marvin Minsky.
+2. >The enjoyment of one's tools is an essential ingredient of successful work.
+    Donald Knuth.
+3. >I can’t go to a restaurant and order food because I keep looking at the
+    fonts on the menu. Donald Knuth.
