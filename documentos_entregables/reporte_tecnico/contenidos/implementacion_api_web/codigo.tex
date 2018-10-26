@@ -14,16 +14,16 @@ relevantes de la implementación del programa descrito en el capítulo anterior.
 El programa está dividido en dos grandes módulos: lo referente al programa
 tokenizador, y lo referente a las operaciones web (diagrama de
 clases~\ref{fig:clases_aplicacion_web}). Cada módulo tiene una sección de
-direcciones, una sección de operaciones de negocio, una más de las operaciones
-web y una de clases de modelos; exite también una sección de utilidades
-generales. A continuación se muestran ejemplos de cada una de estas secciones.
+direcciones, una de operaciones de negocio, una de operaciones web y una de
+clases de modelos; exite también una sección de utilidades generales. A
+continuación se muestran ejemplos de cada una de estas secciones.
 
 El código fuente~\ref{codigo:paginador_clientes_aprobados} muestra una
 operación web del módulo general: la petición de paginador para los clientes
-aprobados. Existen funciones similares para los clientes en estado de lista
-negra y los clientes en espera. Estas funciones se utilizan para armar e
-interactuar con los apginadores de la interfaz de un administrador (pantalla
-\hipervinculo{iu:administracion}).
+\textbf{aprobados}. Existen funciones similares para los clientes en estado de
+\textbf{lista negra} y los clientes \textbf{en espera}. Estas funciones se
+utilizan para armar e interactuar con los paginadores de la interfaz de un
+administrador (pantalla \hipervinculo{iu:administracion}).
 
 \codigoFuente[codigo:paginador_clientes_aprobados]{474}{491}{python}{%
   sistema_tokenizador/general/funciones_web.py}{%
@@ -44,10 +44,10 @@ compara contra lo que hay guardado en la base de datos.
 Como ejemplo de operación web del módulo tokenizador, los códigos
 fuente~\ref{codigo:tokenizar_uno} y~\ref{codigo:tokenizar_dos} muestran la
 operación de tokenización. Esta función representa casi la totalidad del caso
-de uno \hipervinculo{cu:tokenizar_tarjeta}. En esta función se puede apreciar
+de uso \hipervinculo{cu:tokenizar_tarjeta}. En esta función se puede apreciar
 mejor que en los códigos anteriores la interacción entre las distintas capas:
 las validaciones se hacen en la capa de negocio (línea~128); el módulo de
-configuraciones almacena constantes importantes (líneal~144), en este caso, se
+configuraciones almacena constantes importantes (línea~144), en este caso, se
 trata de la ruta del ejecutable al programa generador de tokens. Todos los
 códigos de error y mensajes que regresa está función son los descritos en la
 página de documentación
@@ -65,7 +65,7 @@ En el código fuente~\ref{codigo:contador_malas_acciones} se muestra un ejemplo
 de función de negocio de módulo generador de tokens. Se trata de la gestión del
 contador de malas acciones (regla de negocio \hipervinculo{rn:malas_acciones}).
 Al inicio del código se muestra también cómo se gestionan las constantes de
-incrementos y límetes. De esta forma se establecen en el código todas las
+incrementos y límites. De esta forma se establecen en el código todas las
 constantes definidas en las reglas de negocio (esto solamente debe de ir en los
 archivos de capa de negocio).
 
@@ -74,12 +74,12 @@ archivos de capa de negocio).
   Gestión de contador de malas acciones.}
 
 La realización de las capas de modelos de ambos módulos es a través de la
-\gls{gl:api} de Django (descrita de modo general en~\cite{django_modelos}). En
-el código fuente~\ref{codigo:modelo_de_token} se muestra la clase de modelo de
-un token. Django toma esta descripción para producir las funciones básicas de
-un \gls{gl:crud}. Ya se ha visto en los códigos anteriores cómo es la
-interacción con esta \gls{gl:api} (métodos como \texttt{save}, \texttt{filter},
-\texttt{get} o \texttt{delete}).
+\gls{gl:api} de \textit{Django} (descrita de modo general
+en~\cite{django_modelos}). En el código fuente~\ref{codigo:modelo_de_token} se
+muestra la clase de modelo de un token. Django toma esta descripción para
+producir las funciones básicas de un \gls{gl:crud}. Ya se ha visto en los
+códigos anteriores cómo es la interacción con esta \gls{gl:api} (métodos como
+\texttt{save}, \texttt{filter}, \texttt{get} o \texttt{delete}).
 
 \codigoFuente[codigo:modelo_de_token]{1}{45}{python}{%
   sistema_tokenizador/programa_tokenizador/models/token.py}{%
@@ -167,7 +167,7 @@ una expresión regular, solamente hay que modificar el archivo de texto
 correspondiente, y ambas dependencias, programa y documentación, se adecuarán
 al cambio. Este principio es conocido como \gls{gl:dry}, y es uno de los
 principios de diseño de las aplicaciones hechas en
-django~\cite{django_principios_de_disenio}.
+\textit{Django}~\cite{django_principios_de_disenio}.
 
 La comunicación con el programa servidor se define en una capa separada de los
 propios controladores. En el código fuente~\ref{codigo:api_javascript} se
