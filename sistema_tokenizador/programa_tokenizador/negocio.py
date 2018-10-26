@@ -30,7 +30,7 @@ def aumentarContadorDeMalasAcciones (cliente, incremento):
 
   Incrementa el contador de malas acciones del cliente dado. Después, verifica
   que el contador no haya  sobre pasado el límite de males acciones; de ser así,
-  cambia su estado a <<en lista negra>>."""
+  cambia su estado a «en lista negra»."""
 
   cliente.contadorDeMalasAcciones = cliente.contadorDeMalasAcciones + incremento
   cliente.save()

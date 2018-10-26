@@ -2,22 +2,14 @@
   Modelo de registro PAN-token para programa tokenizador,
   Aplicación web de sistena tokenizador.
   Proyecto Lovelace.
-
-  TODO: Actualizar campos que deben ser únicos;
-  De momento están así para no matar el script de pruebas de c++.
 """
 
 import django
-
 from .estado_de_token import EstadoDeToken
 
 
 def estadoPorDefecto ():
   return EstadoDeToken.objects.get(nombre = 'actual')
-
-
-def usuarioPorDefecto ():
-  return Usuario.objects.get(id = 1)
 
 
 class Token (django.db.models.Model):
@@ -47,7 +39,6 @@ class Token (django.db.models.Model):
 
   class Meta:
     unique_together = ('usuario', 'token')
-
 
   def __str__(self):
     """Representación en cadena de un tipo de usuario."""

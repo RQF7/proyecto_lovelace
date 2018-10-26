@@ -3,5 +3,58 @@
 % Reporte técnico.
 % Proyecto Lovelace.
 %
+% TODO: agregar cita a doucmentación de django.
+%
 
 \section{Aspectos relevenates de la implementación}
+
+En esta sección se muestran, a modo de ejemplo, algunos de los aspectos más relevantes de la implementación del programa descrito en el capítulo anterior.
+
+\subsection{Ejemplos por módulo}
+
+El programa está dividido en dos grandes módulos: lo referente al programa tokenizador, y lo referente a las operaciones web (diagrama de clases \ref{fig:clases_aplicacion_web}). Cada módulo tiene una sección de direcciones, una sección de operaciones de negocio, una más de las operaciones web y una de clases de negocio; exite también una sección de utilidades generales. A continuación se muestran ejemplos de cada una de estas secciones.
+
+El código fuente \ref{codigo:paginador_clientes_aprobados} muestra una operación web del módulo general: la petición de paginador para los clientes aprobados. Existen funciones similares para los clientes en estado de lista negra y los clientes en espera. Estas funciones se utilizan para armar e interactuar con los apginadores de la interfaz de un administrador (pantalla \hipervinculo{iu:administracion}).
+
+\codigoFuente[codigo:paginador_clientes_aprobados]{474}{491}{python}{%
+  sistema_tokenizador/general/funciones_web.py}{%
+  Paginador de clientes aprobados.}
+
+En el código fuente \ref{codigo:funcion_de_autentificacion} se muestra una operación de negocio del módulo general: la autentificación de los usarios. Esta función se utiliza al momento de un inicio de sesión. Este código representa el cumplemiento del requerimiento \hipervinculo{rqnf_api:alamcenamiento_de_contrasenias}, ya que para realizar el proceso de autentificación se calcula el hash de la entrada del usuario y se compara contra lo que hay guardado en la base de datos.
+
+\codigoFuente[codigo:funcion_de_autentificacion]{19}{31}{python}{%
+  sistema_tokenizador/general/negocio.py}{%
+  Operación de autentificación de usuarios.}
+
+Como ejemplo de operación web del módulo tokenizador, los códigos fuente \ref{codigo:tokenizar_uno} y \ref{codigo:tokenizar_dos} muestran la operación de tokenización. Esta función representa casi la totalidad del caso de uno \hipervinculo{cu:tokenizar_tarjeta}. En esta función se puede apreciar mejor que en los códigos anteriores la interacción entre las distintas capas: las validaciones se hacen en la capa de negocio (línea 128); el módulo de configuraciones almacena constantes importantes (líneal 144), en este caso, se trata de la ruta del ejecutable al programa generador de tokens. Todos los códigos de error y mensajes que regresa está función son los descritos en la página de documentación (\url{https://ricardo-quezada.159.56.43.6/lovelace/documentacion}).
+
+\codigoFuente[codigo:tokenizar_uno]{107}{151}{python}{%
+  sistema_tokenizador/programa_tokenizador/funciones_web.py}{%
+  Operación de tokenización (primera parte).}
+
+\codigoFuente[codigo:tokenizar_dos]{153}{184}{python}{%
+  sistema_tokenizador/programa_tokenizador/funciones_web.py}{%
+  Operación de tokenización (segunda parte).}
+
+En el código fuente \ref{codigo:contador_malas_acciones} se muestra un ejemplo de función de negocio de módulo generador de tokens. Se trata de la gestión del contador de malas acciones (regla de negocio \hipervinculo{rn:malas_acciones}). Al inicio del código se muestra también cómo se gestionan las constantes de incrementos y límetes. De esta forma se establecen en el código todas las constantes definidas en las reglas de negocio (esto solamente debe de ir en los archivos de capa de negocio).
+
+\codigoFuente[codigo:contador_malas_acciones]{23}{42}{python}{%
+  sistema_tokenizador/programa_tokenizador/negocio.py}{%
+  Gestión de contador de malas acciones.}
+
+La realización de las capas de modelos de ambos módulos es a través de la \gls{gl:api} de Django (descrita de modo general en \cite{}). En el código fuente \ref{codigo:modelo_de_token} se muestra la clase de modelo de un token. Django toma esta descripción para producir las funciones básicas de un \gls{gl:crud}. Ya se ha visto en los códigos anteriores cómo es la interacción con esta \gls{gl:api} (métodos como \texttt{save}, \texttt{filter}, \texttt{get} o \texttt{delete}).
+
+\codigoFuente[codigo:modelo_de_token]{1}{45}{python}{%
+  sistema_tokenizador/programa_tokenizador/models/token.py}{%
+  Modelo de token.}
+
+% TODO: Agregar referencias a wp de decoradores y a libro de patrones
+% de diseño.
+
+Por último, como ejemplo de la capa general de utilidades, en el código \ref{codigo:privilegios} se muestra una de las funciones más usadas en las implementaciones de las funciones web: la validación de los privilegios del usuario en sesión. Por ejemplo, esta función se utiliza en la línea 33 del código fuente \ref{codigo:paginador_clientes_aprobados} para validar que solamente un usuario de tipo \textbf{administrador} pueda acceder al paginador de los clientes aprobados. La función \texttt{privilegiosRequeridos} funciona como una fábrica de decoradores: toma como argumento el nombre del tipo de usuario y regresa una función decorador para ese tipo de usuario. Los decoradores en python son funciones que toman como argumentos a la función decorada: intercalan el nuevo código (en este caso la validación de las credenciales) con la llamada a la función de entrada.
+
+\codigoFuente[codigo:privilegios]{33}{79}{python}{%
+  sistema_tokenizador/utilidades.py}{%
+  Fábrica de decoradores para validación de privilegios.}
+
+\subsection{Ejemplo de caso de uso}
