@@ -247,6 +247,7 @@
 
 \RequirePackage{verbatim}
 
+
 % Profundidad de contador
 % Hasta subsubsecciones
 \setcounter{secnumdepth}{2}
@@ -378,6 +379,7 @@
 \import{reporte_tecnico/plantillas/}{epigrafe.sty}
 \import{reporte_tecnico/plantillas/}{expresion_regular.sty}
 \import{reporte_tecnico/plantillas/}{celda_con_parrafo.sty}
+\import{reporte_tecnico/plantillas/}{codigo_fuente.sty}
 \import{reporte_tecnico/plantillas/ingenieria_de_software/}
   {ingenieria_de_software.sty}
 
@@ -505,5 +507,13 @@
     %  \subsubsectionAnterior{#1}%
     %  \nopagebreak[4]}
 
+    % Comando para reemplazar los guiones bajos con su correspondiente
+    % secuencia de escape.
+    % https://tex.stackexchange.com/questions/20890/
+    % define-an-escape-underscore-environment
+    \DeclareRobustCommand*{\escapeus}[1]{%
+    \begingroup\@activeus\scantokens{#1\endinput}\endgroup}
+    \begingroup\lccode`\~=`\_\relax
+      \lowercase{\endgroup\def\@activeus{\catcode`\_=\active \let~\_}}
 
 \makeatother
