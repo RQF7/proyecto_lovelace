@@ -16,17 +16,13 @@
 
 \newcommand{\dependencia}[6]
 [dep:\formatearnumero{contador_dependencias}]{%
-  %
   % Configuración
-  %
   \refstepcounter{contador_dependencias}%
   \setlength{\separacionAnterior}{\parskip}%
   \setlength{\parskip}{0em}%
   \renewcommand{\etiqueta}%
     {DEP\prefijo-\formatearnumero{contador_dependencias}~#2:~#3}%
-  %
   % Código efectivo
-  %
   \pdfbookmark[3]{\etiqueta}{#1}%
   \vspace{1.0em}%
   \noindent%
@@ -43,8 +39,6 @@
     #6\par%
   \end{hangparas}%
   \pagebreak[3]%
-  %
   % Estado previo
-  %
   \setlength{\parskip}{\separacionAnterior}%
   \renewcommand{\etiqueta}{}}
