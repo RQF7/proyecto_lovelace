@@ -5,3 +5,36 @@
 %
 
 \section{Aspectos relevenates de la implementación}
+
+Al estar desarrollada sobre las mismas tecnologías, la implementación de la
+tienda en línea es bastante similar a la del sistema tokenizador. Por esta
+razón, el enfoque para mostrar ejemplos de código es distinto al de la sección
+\ref{sec:codigo_sistema_tokenizador} (los aspectos relevantes de la
+implementación del sistema tokenizador), en donde se mostró un ejemplo de cada
+módulo del programa, tanto en el servidor como en el cliente. Aquí se muestran
+los códigos fuente relacionados con la implementación de un solo caso de uso:
+\hipervinculo{lib_cu:comprar}.
+
+El primer paso consiste en la acción de inicio del usuario: el cliente presiona
+el botón \textit{Finalizar compra} en \hipervinculo{lib_iu:finalizar_compra}.
+En el código~\ref{codigo:pantalla_carrito} se muestra el fragmento de
+\gls{gl:html} correspondiente a ese botón. Como se puede observar en la
+línea~122, al presionar el botón se llama a la función \texttt{finalizarCompra}.
+Esta función se muestra en el código~\ref{codigo:controlador_carrito}.
+
+\codigoFuente[codigo:pantalla_carrito]{107}{127}{html}{%
+  tienda/archivos_web/html/carrito.html}{%
+  Botón \textit{Finalizar compra}, en pantalla de carrito.}
+
+\codigoFuente[codigo:pantalla_carrito]{24}{50}{js}{%
+  tienda/archivos_web/js/controladores/carrito.controlador.js}{%
+  Función de finalización de compra.}
+
+Lo primero que hacee esta función es verificar una de las condiciones de inicio
+del caso \hipervinculo{lib_cu:iniciar_sesion}: si el usuario presiona
+\textit{Finalizar compra} sin haber iniciado sesión antes, se le redirige a la
+pantalla \hipervinculo{lib_iu:iniciar_sesion}. Si el usuario ya inició sesión,
+se abre la ventana emergente con el proceso de finalización de compra. El
+controlador asociado recibe, entre otras cosas, un objeto con los libros del
+carrito, un arreglo con las tarjetas asociadas al usuario (paso número dos del
+caso de uso) y un arreglo con las direcciones de entrega del usuario.
