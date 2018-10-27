@@ -12,7 +12,7 @@
     form instead of content.%
   }
   {%
-    Form and Content in Computer Science, 1970 ACM Turing Lecture,
+    Form and Content in Computer Science, 1970 \acrshort{gl:acm} Turing Lecture,
     \textsc{Marvin Minsky}.%
   }
 }
@@ -25,10 +25,68 @@ específicamente para este reporte y se muestran, a modo de ejemplo, algunos de
 ellos; por último se presentan algunos de los problemas surgidos durante la
 elaboración junto con su respectiva solución.
 
+Primero, ¿por qué \LaTeX? Una de las principales ventajas con las que se
+promociona a \LaTeX~es la separación de responsabilidades: el autor de un
+documento solamente debe de procuparse por el contenido, mientras que el
+programa, \LaTeX, es el responsable de la forma, esto es, de la apariencia
+final del documento~\cite{introduccion_latex}. En el caso de este trabajo lo
+anterior no es enteramente cierto, dado que hay un alto grado de modificaciones
+sobre los comportamientos por defecto (de lo contrario no existiría este
+apéndice). Lo que sí es cierto es que el uso de \LaTeX~implica una separación
+base entre la forma y el contenido de una trabajo y, siendo cuidadosos, esta
+separación se puede mantener aún cuando se modifique el comportamiento por
+defecto.
+
+La segunda razón de peso tiene que ver con las circunstancias del producto
+requerido: se trata de un documento muy extenso que requiere modificaciones
+simultáneas de todo el equipo; en particular, se necesita que las
+modificaciones al documento estén adentro del seguimiento del control de
+versiones (dependencia \hipervinculo{dep:git}). A diferencia de un procesador
+de textos \gls{gl:wysiwyg}, \LaTeX~trabaja con archivos de texto plano, lo cual
+permite mantener el control de versiones tan claro como se quiera. El punto
+anterior también permite importar buenas prácticas de programación en la
+elaboración del documento: la modularización del código en archivos y carpetas
+significativos (este documento está distribuido en alrededor de~500 archivos,
+la estructura de los archivos emula a la estructura del documento); líneas
+cortas (80~caracteres en este caso) para facilitar la lectura directo en
+archivos fuente y para facilitar la comparación de versiones.
+
+% Qué dramático:
 La inclusión de este apéndice es una forma de reconocimiento hacia el tiempo y
 esfuerzo dedicados para que este documento llegara a ser lo que es.
 
 \section{Dependencias}
+
+El documento depende actualmente de 138 paquetes de \LaTeX; aquí se enlistan
+aquellos cuyo uso responde a un proceso de decisión, y no a una simple
+necesidad.
+
+\dependencia{Elaboración de diagramas}{Ti\textit{k}Z}{\acrshort{gl:lppl} v1.3}{%
+  https://www.ctan.org/pkg/pgf}{%
+  Existen varias ventajas al utilizar Ti\textit{k}Z. Las dos principales son
+  las mismas que las del propio \LaTeX: al trabajar con texto plano, los
+  diagramas se encuentran dentro del seguimiento del control de versiones; con
+  un poco de cuidado, se puede mantener separada a la forma del contenido, lo
+  cuál permite crear diagramas con exactamente el mismo aspecto. Otra ventaja
+  es la integración entre los diagramas y el propio documento: Ti\textit{k}Z
+  produce comandos en \gls{gl:pgf} que se encuentran incrustados directamente
+  en el \gls{gl:pdf} producto, lo cual implica que el texto de los diagramas es
+  seleccionable (en algunos diagramas incluso hay hipervínculos, por ejemplo,
+  el diagrama de estados~\ref{estados_actores}); la tipografía de la fuente es
+  la misma para diagramas y documento. La única desventaja está dada por el
+  tiempo de aprendizaje de la sintaxis, que en comparación con un editor
+  gráfico, es algo mucho más lento. A modo de ejemplo, el código
+  fuente~\ref{codigo:diagrama_tikz} muestra un fragmento del archivo fuente del
+  diagrama~\ref{diagrama:aes_add_round_key}}.
+
+% TODO:
+% La ruta a este archivo está demasiado larga.
+
+\codigoFuente[codigo:diagrama_tikz]{1}{38}{latex}{%
+  documentos_entregables/reporte_tecnico/contenidos/marco_teorico/%
+  bloques/diagramas/addRoundKey.tikz.tex}{%
+  Ejemplo de diagrama en Ti\textit{k}Z;
+  diagrama~\ref{diagrama:aes_add_round_key}}
 
 \section{Comandos propios}
 
