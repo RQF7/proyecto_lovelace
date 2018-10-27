@@ -139,3 +139,67 @@ código~\ref{codigo:componente_contenido} se muestra el contenido del componente
 \codigoFuente[codigo:componente_contenido]{1}{13}{html}{%
   tienda/archivos_web/html/componentes/direccion.componente.html}{%
   Contenido de componente de dirección.}
+
+Continuando con el caso de uso, después de seleccionar la dirección de entrega,
+el siguiente paso consiste en presionar el botón de \textit{Continuar} (código
+fuente~\ref{codigo:finalizar_compra_acciones_ventana}), que ejecuta el segundo
+bloque del condicional del
+código~\ref{codigo:finalizar_compra_acciones_controlador}. En este caso,
+simplemente se muestra la interfaz \hipervinculo{lib_iu:resumen_de_compra}. En
+el código fuente~\ref{codigo:ventana_resumen} se muestra el \gls{gl:html} de
+esta interfaz.
+
+\codigoFuente[codigo:ventana_resumen]{88}{114}{html}{%
+  tienda/archivos_web/html/ventanas/finalizar_compra.ventana.html}{%
+  Resumen de compra.}
+
+El siguiente paso es volver a presionar el botón \textit{Continuar}. En este
+caso se pasa al tercer bloque del condicional de la función del código
+fuente~\ref{codigo:finalizar_compra_acciones_controlador}. Aquí se llama a la
+función \texttt{api.registrarCompra}, que es la encargada de comunicarse con el
+programa servidor. En el código fuente~\ref{codigo:api_tienda} se muestra un
+fragmento de las funciones que se comunican con el servidor. En el caso de
+\texttt{registrarCompra}, se hace una petición \texttt{POST} a la \gls{gl:url}
+\texttt{/api/tienda/compra}, con un objeto \gls{gl:json} que representa
+la compra.
+
+\codigoFuente[codigo:api_tienda]{54}{76}{js}{%
+  tienda/archivos_web/js/servicios/api.servicio.js}{%
+  Fragmento de funciones de comunicación con el servidor.}
+
+En el código fuente~\ref{codigo:direcciones_generales} se muestra un fragmento
+de la configuración global de direcciones de la aplicación de la tienda. En el
+caso de la petición para registrar una compra, se pasa a la configuración de
+direcciones de la aplicación llamada \textit{tienda}. En el código
+fuente~\ref{codigo:direcciones_tienda} se muestra un fragmento de estas
+configuraciones. En el caso de la petición de registro de compra (línea~32), se
+llama a la función \texttt{funciones\_web.registrarCompra}.
+
+\codigoFuente[codigo:direcciones_generales]{1}{23}{python}{%
+  tienda/direcciones.py}{%
+  Configuración global de direcciones.}
+
+\codigoFuente[codigo:direcciones_tienda]{21}{39}{python}{%
+  tienda/tienda/direcciones.py}{%
+  Configuración de direcciones de aplicación \textit{tienda}.}
+
+La función de registro de compra se muestra en el
+código~\ref{codigo:registrar_compra}. La primera parte de la función consiste
+en el registro en la base de datos de la compra (y las tablas intermedias
+asociadas); cada libro comprado se resta de las existencias del inventario. Por
+último, se llama a la función \texttt{negocio.detokenizar}, que es la encargada
+de comunicarse con el sistema tokenizador.
+
+\codigoFuente[codigo:registrar_compra]{203}{241}{python}{%
+  tienda/tienda/funciones_web.py}{%
+  Función de registro de compra.}
+
+El código fuente~\ref{codigo:funcion_detokenizacion} muestra la función de la
+capa de negocios para hacer detokenizaciones. En caso de que la respuesta del
+sistema tokenizador sea un código de respuesta \texttt{200}, el flujo del caso
+de uso continúa por la trayectoria principal: se muestra el mensaje
+\hipervinculo{lib_msj:compra_registrada}.
+
+\codigoFuente[codigo:funcion_detokenizacion]{168}{182}{python}{%
+  tienda/tienda/negocio.py}{%
+  Función de comunicación con sistema tokenizador: operación de detokenización.}
