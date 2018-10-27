@@ -20,21 +20,122 @@ el botón \textit{Finalizar compra} en \hipervinculo{lib_iu:finalizar_compra}.
 En el código~\ref{codigo:pantalla_carrito} se muestra el fragmento de
 \gls{gl:html} correspondiente a ese botón. Como se puede observar en la
 línea~122, al presionar el botón se llama a la función \texttt{finalizarCompra}.
-Esta función se muestra en el código~\ref{codigo:controlador_carrito}.
+Esta función se muestra en el código~\ref{codigo:controlador_carrito}, que es
+el controlador asociado a la ventana del carrito.
 
 \codigoFuente[codigo:pantalla_carrito]{107}{127}{html}{%
   tienda/archivos_web/html/carrito.html}{%
   Botón \textit{Finalizar compra}, en pantalla de carrito.}
 
-\codigoFuente[codigo:pantalla_carrito]{24}{50}{js}{%
+\codigoFuente[codigo:controlador_carrito]{24}{50}{js}{%
   tienda/archivos_web/js/controladores/carrito.controlador.js}{%
   Función de finalización de compra.}
 
-Lo primero que hacee esta función es verificar una de las condiciones de inicio
-del caso \hipervinculo{lib_cu:iniciar_sesion}: si el usuario presiona
+El siguiente paso consiste en mostrar la interfaz
+\hipervinculo{lib_iu:seleccionar_forma_de_pago}. Esto se logra con la llamada
+de la función del código~\ref{codigo:controlador_carrito}. Lo primero que hace
+esta función es verificar una de las condiciones de inicio del caso
+\hipervinculo{lib_cu:iniciar_sesion}: si el usuario presiona
 \textit{Finalizar compra} sin haber iniciado sesión antes, se le redirige a la
 pantalla \hipervinculo{lib_iu:iniciar_sesion}. Si el usuario ya inició sesión,
 se abre la ventana emergente con el proceso de finalización de compra. El
 controlador asociado recibe, entre otras cosas, un objeto con los libros del
 carrito, un arreglo con las tarjetas asociadas al usuario (paso número dos del
 caso de uso) y un arreglo con las direcciones de entrega del usuario.
+
+El controlador de la ventanta del proceso de finalización de compra
+(\texttt{controladorFinalizarCompra}) le pide al servidor el \gls{gl:html} de
+la ventana a mostrar (\texttt{finalizar\_compra.ventana.html}). En el código
+fuente~\ref{codigo:inicio_controlador_finalizar_compra} se muestra la secuencia
+de inicio de \textit{javascript} ejecutada al momento de cargar la ventana. La
+variable \texttt{\$scope.secuencia} controla las interfaces mostradas
+al usuario:
+
+\begin{enumerate}
+  \item \hipervinculo{lib_iu:seleccionar_forma_de_pago}.
+  \item \hipervinculo{lib_iu:seleccionar_direccion_de_entrega}.
+  \item \hipervinculo{lib_iu:resumen_de_compra}
+\end{enumerate}
+
+\codigoFuente[codigo:inicio_controlador_finalizar_compra]{77}{110}{js}{%
+  tienda/archivos_web/js/controladores/secundarios/%
+  finalizar_compra.controlador.js}{%
+  Secuencia de inicio de controlador de finalización de compra.}
+
+El objeto \texttt{temporal} guarda la forma de pago y la dirección
+seleccionadas por el usuario. El objeto \texttt{libros} guarda la selección de
+libros del usuario. En el último fragmento del
+código~\ref{codigo:inicio_controlador_finalizar_compra} se puede observar una
+de las condiciones de inicio del caso de uso
+\hipervinculo{lib_cu:agregar_forma_de_pago}: si el cliente no tiene ninguna
+forma de pago asociada, se muestra la interfaz
+\hipervinculo{lib_iu:formulario_informacion_bancaria}.
+
+El siguiente paso consiste en la selección de la forma de pago. En el
+codigo fuente~\ref{codigo:seleccion_forma_de_pago} se muestra el fragmento
+de la ventana en donde se encuentran los botones radiales con las formas de
+pago asociadas al cliente en sesión. También se muestra el botón para agregar
+una nueva forma de pago. Esto último representa otra condición de inicio del
+caso de uso \hipervinculo{lib_cu:agregar_forma_de_pago}: si el cliente presiona
+el botón, se muestra la interfaz
+\hipervinculo{lib_iu:formulario_informacion_bancaria}.
+
+\codigoFuente[codigo:seleccion_forma_de_pago]{22}{56}{html}{%
+  tienda/archivos_web/html/ventanas/finalizar_compra.ventana.html}{%
+  Selección de forma de pago.}
+
+Después de seleccionar la forma de pago, el cliente debe de presionar el botón
+\textit{Continuar}. Este botón se muestra en el fragemnto del código
+fuente~\ref{codigo:finalizar_compra_acciones_ventana}; al ser presionado se
+llama a la función \texttt{continuar} (código
+fuente~\ref{codigo:finalizar_compra_acciones_controlador}). Se trata del primer
+caso del condicional, en donde se muestra la interfaz
+\hipervinculo{lib_iu:seleccionar_direccion_de_entrega} y se verifica una de las
+condiciones de inicio del caso de uso
+\hipervinculo{lib_cu:agregar_direccion_entrega}: en caso de que el cliente no
+tenga direcciones asociadas, se muestra la ventana
+\hipervinculo{lib_iu:formulario_direccion_de_entrega}.
+
+\codigoFuente[codigo:finalizar_compra_acciones_ventana]{114}{134}{html}{%
+  tienda/archivos_web/html/ventanas/finalizar_compra.ventana.html}{%
+  Acciones de ventana de finalización de compra.}
+
+\codigoFuente[codigo:finalizar_compra_acciones_controlador]{36}{75}{js}{%
+  tienda/archivos_web/js/controladores/secundarios/finalizar_compra.controlador.js}{%
+  Funciones de controlador de finalización de compra.}
+
+En los códigos fuente~\ref{codigo:finalizar_compra_acciones_ventana} y
+\ref{codigo:finalizar_compra_acciones_controlador} se muestra la trayectoria
+alternativa de cancelación. Si el cliente presiona el botón \textit{Cancelar}
+se regresa a la interfaz \hipervinculo{lib_iu:finalizar_compra}.
+
+El siguiente paso consiste en la selección de la dirección de entrega. En el
+código fuente~\ref{codigo:seleccionar_direccion_de_entrega} se muestra el
+fragmento de la ventana en donde se encuentran los botones radiales con las
+direcciones asociadas. También se muestra el botón para agregar una nueva
+dirección. Esto último es una condición de inicio más del caso de uso
+\hipervinculo{lib_cu:agregar_direccion_entrega}: si el cliente presiona el
+botón, se muestra la interfaz
+\hipervinculo{lib_iu:formulario_direccion_de_entrega}.
+
+\codigoFuente[codigo:seleccionar_direccion_de_entrega]{57}{86}{html}{%
+  tienda/archivos_web/html/ventanas/finalizar_compra.ventana.html}{%
+  Selección de dirección de entrega.}
+
+En la línea~77 del código~\ref{codigo:seleccionar_direccion_de_entrega} se
+puede ver el uso de un componente propio: \texttt{ego-direccion}. Los
+componentes de \textit{Angular} permiten reutilizar código a lo largo de una
+aplicación web~\cite{angular_componentes}. En este caso, el componente de la
+dirección está definiendo el formato con el que se muestran las direcciones: un
+cambio en este formato afecta a todos los puntos de la aplicación que muestran
+direcciones. En el código fuente~\ref{codigo:componente_registro} se muestra el
+registro del componente con la aplicación, y en el
+código~\ref{codigo:componente_contenido} se muestra el contenido del componente.
+
+\codigoFuente[codigo:componente_registro]{1}{13}{js}{%
+  tienda/archivos_web/js/componentes/direccion.componente.js}{%
+  Registro de componente de dirección.}
+
+\codigoFuente[codigo:componente_contenido]{1}{13}{html}{%
+  tienda/archivos_web/html/componentes/direccion.componente.html}{%
+  Contenido de componente de dirección.}
