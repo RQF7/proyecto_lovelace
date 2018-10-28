@@ -13,7 +13,7 @@ Como se puede observar en la figura~\ref{figura:pan}, un número de tarjeta
 \gls{gl:pan}, se compone por tres partes: el número identificador del emisor
 (\gls{gl:iin}), el número de cuenta y un dígito verificador; la longitud del
 \gls{gl:pan} puede variar e ir desde los 12 hasta los 19 dígitos. A
-continuación se explica con más detalle cada uno de sus componentes
+continuación se explica con más detalle cada uno de sus componentes.
 
 \subsection{Identificador del emisor}
 El \gls{gl:iin} comprende los primeros 6 dígitos del número de
@@ -54,7 +54,7 @@ de cuenta.
 
 Finalmente, se tiene el dígito verificador; este toma en cuenta todos los
 dígitos anteriores y se calcula mediante el algoritmo de Luhn, que se describe
-en~\ref{luhn:1}.
+en el pseudocódigo~\ref{luhn:1}.
 
 \begin{pseudocodigo}[%
     caption={Algoritmo de Luhn.},
