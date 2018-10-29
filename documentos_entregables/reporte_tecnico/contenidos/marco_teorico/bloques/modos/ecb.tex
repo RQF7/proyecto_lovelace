@@ -3,7 +3,7 @@
 % Proyecto Lovelace.
 %
 
-\subsubsection{\textit{Electronic Codebook} (ECB)}
+\subsubsection{\texorpdfstring{\acrfull{gl:ecb}}{Electronic Codebook (ECB)}}
 
 La figura~\ref{figura:ecb} muestra un diagrama esquemático de este
 \gls{gl:modo_de_operacion}. El algoritmo recibe a la entrada una llave y un
@@ -25,12 +25,12 @@ cada función del cifrado por bloques; el mensaje se debe de partir en bloques
       \caption{Descifrado.}
     \end{center}
   \end{subfigure}
-  \caption{\Gls{gl:modo_de_operacion} \gls{gl:ecb}.}
+  \caption{\Gls{gl:modo_de_operacion} \acrshort{gl:ecb}.}
   \label{figura:ecb}
 \end{figure}
 
 \begin{pseudocodigo}[%
-    caption={\Gls{gl:modo_de_operacion} \gls{gl:ecb}, cifrado.}%
+    caption={\Gls{gl:modo_de_operacion} \acrshort{gl:ecb}, cifrado.}%
   ]
     entrada: llave $ k $; bloques de mensaje $ Bm_1, Bm_2 \dots Bm_n $.
     salida:  bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
@@ -43,7 +43,7 @@ cada función del cifrado por bloques; el mensaje se debe de partir en bloques
 \end{pseudocodigo}
 
 \begin{pseudocodigo}[%
-    caption={\Gls{gl:modo_de_operacion} \gls{gl:ecb}, descifrado.}%
+    caption={\Gls{gl:modo_de_operacion} \acrshort{gl:ecb}, descifrado.}%
   ]
     entrada: llave $ k $; bloques de mensaje cifrado $ Bc_1, Bc_2 \dots Bc_n $.
     salida:  bloques de mensaje original $ B_1, B_2 \dots B_n $.
