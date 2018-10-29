@@ -3,7 +3,7 @@
 % Proyecto Lovelace.
 %
 
-\subsubsection{\textit{Cipher-block Chaining} (CBC)}
+\subsubsection{\texorpdfstring{\acrfull{gl:cbc}}{Cipher-block Chaining (CBC)}}
 \label{sec:cbc}
 
 En \gls{gl:cbc} la salida del bloque uno se introduce (junto con
@@ -28,7 +28,7 @@ respecto a \gls{gl:ecb}.
       \caption{Descifrado.}
     \end{center}
   \end{subfigure}
-  \caption{\Gls{gl:modo_de_operacion} \gls{gl:cbc}.}
+  \caption{\Gls{gl:modo_de_operacion} \acrshort{gl:cbc}.}
   \label{figura:cbc}
 \end{figure}
 
@@ -43,7 +43,7 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
 % la alineación tan rara de los comentarios del próximo pseudocódigo.
 
 \begin{pseudocodigo}[%
-    caption={\Gls{gl:modo_de_operacion} \gls{gl:cbc}, cifrado.},
+    caption={\Gls{gl:modo_de_operacion} \acrshort{gl:cbc}, cifrado.},
     label={cbc:1}%
   ]
     entrada: llave $ k $; vector de inicialización $ VI $;
@@ -59,7 +59,7 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
 \end{pseudocodigo}
 
 \begin{pseudocodigo}[%
-    caption={\Gls{gl:modo_de_operacion} \gls{gl:cbc}, descifrado.},
+    caption={\Gls{gl:modo_de_operacion} \acrshort{gl:cbc}, descifrado.},
     label={cbc:2}%
   ]
     entrada: llave $ k $; vector de inicialización $ VI $;
@@ -74,7 +74,8 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
     fin
 \end{pseudocodigo}
 
-\paragraph{CBC-MAC}
+\paragraph{\texorpdfstring{\acrshort{gl:cbc}}{CBC}-%
+  \texorpdfstring{\acrshort{gl:mac}}{MAC}}
 Este algoritmo está basado en el modo de operación \gls{gl:cbc} y una función
 $F$ que puede ser, por ejemplo, un cifrado por bloques. Se encarga de
 cifrar con una llave $l_1$ todo el mensaje $m$, pero lo único que se toma en
@@ -91,7 +92,7 @@ propuestos, tales como el \textit{eXtended CBC} o el \gls{gl:omac}.
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.9\linewidth]{diagramas/cbcmac.png}
-    \caption{Esquema de CBC-MAC simple.}
+    \caption{Esquema de \acrshort{gl:cbc}-\acrshort{gl:mac} simple.}
     \label{mac:cbc1}
   \end{center}
 \end{figure}
@@ -99,7 +100,8 @@ propuestos, tales como el \textit{eXtended CBC} o el \gls{gl:omac}.
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.9\linewidth]{diagramas/cbcmaclb.png}
-    \caption{Esquema de CBC-MAC con el último bloque cifrado.}
+    \caption{Esquema de \acrshort{gl:cbc}-\acrshort{gl:mac} 
+      con el último bloque cifrado.}
     \label{mac:cbc2}
   \end{center}
 \end{figure}
