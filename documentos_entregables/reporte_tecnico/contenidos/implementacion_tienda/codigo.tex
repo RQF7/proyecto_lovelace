@@ -43,7 +43,7 @@ controlador asociado recibe, entre otras cosas, un objeto con los libros del
 carrito, un arreglo con las tarjetas asociadas al usuario (paso número dos del
 caso de uso) y un arreglo con las direcciones de entrega del usuario.
 
-El controlador de la ventanta del proceso de finalización de compra
+El controlador de la ventana del proceso de finalización de compra
 (\texttt{controladorFinalizarCompra}) le pide al servidor el \gls{gl:html} de
 la ventana a mostrar (\texttt{finalizar\_compra.ventana.html}). En el código
 fuente~\ref{codigo:inicio_controlador_finalizar_compra} se muestra la secuencia
@@ -72,7 +72,7 @@ forma de pago asociada, se muestra la interfaz
 \hipervinculo{lib_iu:formulario_informacion_bancaria}.
 
 El siguiente paso consiste en la selección de la forma de pago. En el
-codigo fuente~\ref{codigo:seleccion_forma_de_pago} se muestra el fragmento
+código fuente~\ref{codigo:seleccion_forma_de_pago} se muestra el fragmento
 de la ventana en donde se encuentran los botones radiales con las formas de
 pago asociadas al cliente en sesión. También se muestra el botón para agregar
 una nueva forma de pago. Esto último representa otra condición de inicio del
@@ -85,7 +85,7 @@ el botón, se muestra la interfaz
   Selección de forma de pago.}
 
 Después de seleccionar la forma de pago, el cliente debe de presionar el botón
-\textit{Continuar}. Este botón se muestra en el fragemnto del código
+\textit{Continuar}. Este botón se muestra en el fragmento del código
 fuente~\ref{codigo:finalizar_compra_acciones_ventana}; al ser presionado se
 llama a la función \texttt{continuar} (código
 fuente~\ref{codigo:finalizar_compra_acciones_controlador}). Se trata del primer
@@ -128,9 +128,9 @@ componentes de \textit{Angular} permiten reutilizar código a lo largo de una
 aplicación web~\cite{angular_componentes}. En este caso, el componente de la
 dirección está definiendo el formato con el que se muestran las direcciones: un
 cambio en este formato afecta a todos los puntos de la aplicación que muestran
-direcciones. En el código fuente~\ref{codigo:componente_registro} se muestra el
-registro del componente con la aplicación, y en el
-código~\ref{codigo:componente_contenido} se muestra el contenido del componente.
+direcciones. En el código fuente~\ref{codigo:componente_registro}, se muestra 
+el registro del componente con la aplicación; y en el
+código~\ref{codigo:componente_contenido}, se muestra el contenido del componente.
 
 \codigoFuente[codigo:componente_registro]{1}{13}{js}{%
   tienda/archivos_web/js/componentes/direccion.componente.js}{%
@@ -146,7 +146,7 @@ fuente~\ref{codigo:finalizar_compra_acciones_ventana}), que ejecuta el segundo
 bloque del condicional del
 código~\ref{codigo:finalizar_compra_acciones_controlador}. En este caso,
 simplemente se muestra la interfaz \hipervinculo{lib_iu:resumen_de_compra}. En
-el código fuente~\ref{codigo:ventana_resumen} se muestra el \gls{gl:html} de
+el código fuente~\ref{codigo:ventana_resumen}, se muestra el \gls{gl:html} de
 esta interfaz.
 
 \codigoFuente[codigo:ventana_resumen]{88}{114}{html}{%
@@ -154,10 +154,10 @@ esta interfaz.
   Resumen de compra.}
 
 El siguiente paso es volver a presionar el botón \textit{Continuar}. En este
-caso se pasa al tercer bloque del condicional de la función del código
+caso, se pasa al tercer bloque del condicional de la función del código
 fuente~\ref{codigo:finalizar_compra_acciones_controlador}. Aquí se llama a la
 función \texttt{api.registrarCompra}, que es la encargada de comunicarse con el
-programa servidor. En el código fuente~\ref{codigo:api_tienda} se muestra un
+programa servidor. En el código fuente~\ref{codigo:api_tienda}, se muestra un
 fragmento de las funciones que se comunican con el servidor. En el caso de
 \texttt{registrarCompra}, se hace una petición \texttt{POST} a la \gls{gl:url}
 \texttt{/api/tienda/compra}, con un objeto \gls{gl:json} que representa
@@ -167,11 +167,11 @@ la compra.
   tienda/archivos_web/js/servicios/api.servicio.js}{%
   Fragmento de funciones de comunicación con el servidor.}
 
-En el código fuente~\ref{codigo:direcciones_generales} se muestra un fragmento
+En el código fuente~\ref{codigo:direcciones_generales}, se muestra un fragmento
 de la configuración global de direcciones de la aplicación de la tienda. En el
 caso de la petición para registrar una compra, se pasa a la configuración de
 direcciones de la aplicación llamada \textit{tienda}. En el código
-fuente~\ref{codigo:direcciones_tienda} se muestra un fragmento de estas
+fuente~\ref{codigo:direcciones_tienda}, se muestra un fragmento de estas
 configuraciones. En el caso de la petición de registro de compra (línea~32), se
 llama a la función \texttt{funciones\_web.registrarCompra}.
 
@@ -194,7 +194,7 @@ de comunicarse con el sistema tokenizador.
   tienda/tienda/funciones_web.py}{%
   Función de registro de compra.}
 
-El código fuente~\ref{codigo:funcion_detokenizacion} muestra la función de la
+El código fuente~\ref{codigo:funcion_detokenizacion}, muestra la función de la
 capa de negocios para hacer detokenizaciones. En caso de que la respuesta del
 sistema tokenizador sea un código de respuesta \texttt{200}, el flujo del caso
 de uso continúa por la trayectoria principal: se muestra el mensaje
