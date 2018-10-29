@@ -38,7 +38,7 @@
   \pdfbookmark[4]{\etiqueta}{#1}%
   \vspace{1.0em}%
   \begin{unidadirrompible}%
-    \noindent%
+    \ifthenelse{\equal{\banderaPrimerElementoDeSeccion}{1}}{}{\noindent}
     \textbf{\hypertarget{#1}{\etiqueta}.}\par%
     \begin{hangparas}{2em}{0}%
       #3%
@@ -50,7 +50,8 @@
   %
   \setlength{\parskip}{\separacionAnterior}%
   \setitemize{}%
-  \renewcommand{\etiqueta}{}}
+  \renewcommand{\etiqueta}{}
+  \renewcommand{\banderaPrimerElementoDeSeccion}{0}}
 
 % Comando para subrequerimientos no funcionales.
 % #1 -> Etiqueta (opcional).
