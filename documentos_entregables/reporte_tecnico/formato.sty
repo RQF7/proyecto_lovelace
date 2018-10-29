@@ -102,8 +102,10 @@
 % occurrence-of-every-section#153494
 \pretocmd{\chapter}{\glsresetall}{}{}
 \pretocmd{\section}{\glsresetall}{}{}
-\pretocmd{\subsection}{\glsresetall}{}{}
-%\pretocmd{\subsubsection}{\glsresetall}{}{}
+\pretocmd{\subsection}{\glsresetall\renewcommand{%
+  \banderaPrimerElementoDeSeccion}{1}}{}{}
+\pretocmd{\subsubsection}{\renewcommand{%
+  \banderaPrimerElementoDeSeccion}{1}}{}{}
 
 % http://mirrors.ctan.org/fonts/amsfonts/doc/amsfndoc.pdf
 \RequirePackage{amsfonts}
@@ -247,6 +249,7 @@
 
 \RequirePackage{verbatim}
 
+\RequirePackage{ifthen}
 
 % Profundidad de contador
 % Hasta subsubsecciones
@@ -366,6 +369,9 @@
 
 % Buffer temporal:
 \newcommand{\etiqueta}{}
+
+% Bandera para evaluar a los primeros elementos de sección:
+\newcommand{\banderaPrimerElementoDeSeccion}{0}
 
 % Archivos de plantillas
 \import{reporte_tecnico/plantillas/}{unidad_irrompible.sty}

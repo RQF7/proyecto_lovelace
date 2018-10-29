@@ -11,15 +11,15 @@ sección~\ref{sec:tkr}. En la sección~\ref{sec:tkr_disenio} se mostró la vista
 estática que tiene este módulo. En esta sección se muestran los aspectos más
 importantes de su implementación.
 
-\codigoFuente[codigo:tkr_cifrado]{41}{69}{c++}{%
+\codigoFuente[codigo:tkr_cifrado]{42}{76}{c++}{%
   implementaciones/tkr/tkr.cpp}{%
   Proceso de cifrado de TKR.}
 
-\codigoFuente[codigo:tkr_descifrado]{71}{86}{c++}{%
+\codigoFuente[codigo:tkr_descifrado]{78}{93}{c++}{%
   implementaciones/tkr/tkr.cpp}{%
   Proceso de descifrado de TKR.}
 
-Los códigos fuentes~\ref{codigo:tkr_cifrado} y~\ref{codigo:tkr_descifrado}
+Los códigos fuente~\ref{codigo:tkr_cifrado} y~\ref{codigo:tkr_descifrado}
 mustran los procesos de cifrado y descifrado, respectivamente. Estas operaciones
 están descritas por los pseudocódigos~\ref{tkr2_cifrado} y
 \ref{tkr2_descifrado}. La operación de cifrado depende de una función
@@ -37,7 +37,7 @@ los definidos por la interfaz. Al tratarse de un método irreversible,
 ambos procesos (tokenización y detokenización) reciben el \gls{gl:pan} o el
 \gls{gl:token} completos, según sea el caso.
 
-\codigoFuente[codigo:funcion_rn]{53}{75}{c++}{%
+\codigoFuente[codigo:funcion_rn]{53}{70}{c++}{%
   implementaciones/tkr/funcion_rn.cpp}{%
   Función RN.}
 

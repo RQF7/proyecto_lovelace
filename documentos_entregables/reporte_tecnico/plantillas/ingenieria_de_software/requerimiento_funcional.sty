@@ -63,19 +63,20 @@
   \pdfbookmark[4]{\etiqueta}{#1}%
   \vspace{1.0em}%
   \begin{unidadirrompible}%
-    \noindent%
+    \ifthenelse{\equal{\banderaPrimerElementoDeSeccion}{1}}{}{\noindent}
     \textbf{\hypertarget{#1}{\etiqueta}.}\par%
     \begin{hangparas}{2em}{0}%
       #3\par%
     \end{hangparas}%
   \end{unidadirrompible}%
-  \pagebreak[3]%
+  \pagebreak[1]%
   %
   % Regresar a estado previo
   %
   \setlength{\parskip}{\separacionAnterior}%
   \setitemize{}%
-  \renewcommand{\etiqueta}{}}
+  \renewcommand{\etiqueta}{}%
+  \renewcommand{\banderaPrimerElementoDeSeccion}{0}}
 
 % Comando para subrequerimientos.
 % #1 -> Etiqueta (opcional).
@@ -107,7 +108,7 @@
         #3\par%
       \end{hangparas}%
   \end{unidadirrompible}%
-  \pagebreak[3]%
+  \pagebreak[1]%
   %
   % Regresar a estado previo
   %
