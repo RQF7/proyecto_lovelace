@@ -75,7 +75,7 @@ def validarToken (token):
   if numeroDeElementos < 12 or numeroDeElementos > 19:
     return 0
 
-  if int(token[-1]) != (utilidades.calcularAlgoritmoLuhn(token) + 1):
+  if int(token[-1]) != ((utilidades.calcularAlgoritmoLuhn(token) + 1) % 10):
     return 0
 
   return 1
