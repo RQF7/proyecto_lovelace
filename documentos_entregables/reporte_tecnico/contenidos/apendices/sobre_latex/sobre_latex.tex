@@ -1,0 +1,232 @@
+%
+% Apéndice sobre el documento.
+% Reporte técnico.
+% Proyecto Lovelace.
+%
+
+\capitulo[TEX]{Sobre este documento}{sec:sobre_este_documento}
+{
+  \epigrafe
+  {%
+    The trouble with computer science today is an obsessive concern with
+    form instead of content.%
+  }
+  {%
+    Form and Content in Computer Science, 1970 \acrshort{gl:acm} Turing Lecture,
+    \textsc{Marvin Minsky}.%
+  }
+}
+
+\noindent
+En este apéndice se discuten algunos de los aspectos más relevantes de la
+elaboración de este documento. Primero, se presentan algunas de las dependencias
+más importantes de \LaTeX; después, se presenta una lista de los comandos hechos
+específicamente para este reporte y se muestran, a modo de ejemplo, algunos de
+ellos; por último, se presentan algunos de los problemas surgidos durante la
+elaboración junto con su respectiva solución.
+
+Primero, ¿por qué \LaTeX? Una de las principales ventajas con las que se
+promociona a \LaTeX~es la separación de responsabilidades: el autor de un
+documento solamente debe de procuparse por el contenido, mientras que el
+programa, \LaTeX, es el responsable de la forma, esto es, de la apariencia
+final del documento~\cite{introduccion_latex}. En el caso de este trabajo, lo
+anterior no es enteramente cierto, pues hay un alto grado de modificaciones
+sobre los comportamientos por defecto (de lo contrario no existiría este
+apéndice). Lo que sí es cierto es que el uso de \LaTeX~implica una separación
+base entre la forma y el contenido de una trabajo y, siendo cuidadosos, esta
+separación se puede mantener aún cuando se modifique el comportamiento por
+defecto.
+
+La segunda razón de peso tiene que ver con las circunstancias del producto
+requerido: se trata de un documento muy extenso que requiere modificaciones
+simultáneas de todo el equipo; en particular, se necesita que las
+modificaciones al documento estén adentro del seguimiento del control de
+versiones (dependencia \hipervinculo{dep:git}). A diferencia de un procesador
+de textos \gls{gl:wysiwyg}, \LaTeX~trabaja con archivos de texto plano, lo cual
+permite mantener el control de versiones tan claro como se quiera. El punto
+anterior también permite importar buenas prácticas de programación en la
+elaboración del documento: la modularización del código en archivos y carpetas
+significativos (este documento está distribuido en alrededor de~500 archivos,
+la estructura de los archivos emula a la estructura del documento); líneas
+cortas (80~caracteres en este caso) para facilitar la lectura directo en
+archivos fuente y para facilitar la comparación de versiones.
+
+% Qué dramático:
+La inclusión de este apéndice es una forma de reconocimiento hacia el tiempo y
+esfuerzo dedicados para que este documento llegara a ser lo que es.
+
+\section{Dependencias}
+
+El documento depende actualmente de 138 paquetes de \LaTeX; aquí se enlistan
+aquellos cuyo uso responde a un proceso de decisión, y no a una simple
+necesidad.
+
+\dependencia{Elaboración de diagramas}{Ti\textit{k}Z}{\acrshort{gl:lppl} v1.3}{%
+  https://www.ctan.org/pkg/pgf}{%
+  Existen varias ventajas al utilizar Ti\textit{k}Z. Las dos principales son
+  las mismas que las del propio \LaTeX: al trabajar con texto plano, los
+  diagramas se encuentran dentro del seguimiento del control de versiones; con
+  un poco de cuidado, se puede mantener separada a la forma del contenido, lo
+  cuál permite crear diagramas con exactamente el mismo aspecto. Otra ventaja
+  es la integración entre los diagramas y el propio documento: Ti\textit{k}Z
+  produce comandos en \gls{gl:pgf} que se encuentran incrustados directamente
+  en el \gls{gl:pdf} producto, lo cual implica que el texto de los diagramas es
+  seleccionable (en algunos diagramas incluso hay hipervínculos, por ejemplo,
+  el diagrama de estados~\ref{estados_actores}); la tipografía es
+  la misma para diagramas y documento. La única desventaja está dada por el
+  tiempo de aprendizaje de la sintaxis, que en comparación con un editor
+  gráfico, es algo mucho más lento. A modo de ejemplo, el código
+  fuente~\ref{codigo:diagrama_tikz} muestra un fragmento del archivo fuente del
+  diagrama~\ref{diagrama:aes_add_round_key}}.
+
+% TODO:
+% La ruta a este archivo está demasiado larga.
+
+\codigoFuente[codigo:diagrama_tikz]{1}{38}{latex}{%
+  documentos_entregables/reporte_tecnico/contenidos/marco_teorico/%
+  bloques/diagramas/addRoundKey.tikz.tex}{%
+  Ejemplo de diagrama en Ti\textit{k}Z;
+  diagrama~\ref{diagrama:aes_add_round_key}}
+
+% Dependencias a describir:
+% Import
+% Biblatex (biber, no bibtex).
+% Listings
+% Glossaries
+% Tikz-Uml
+% Minted
+
+\section{Comandos propios}
+
+Como parte de la elaboración de este documento se crearon los siguietes
+comandos y entornos:
+
+\begin{itemize}
+
+  \item \textbf{\texttt{{\textbackslash}capitulo}}
+    Para insertar capítulos con epígrafes.
+
+  \item \textbf{\texttt{{\textbackslash}codigoFuente}}
+    Construcción alrededor de \textit{minted} para insertar código fuente.
+
+  \item \textbf{\texttt{{\textbackslash}dependencia}}
+    Para definir una dependencia; por ejemplo, las de la sección anterior.
+
+  \item \textbf{\texttt{{\textbackslash}epigrafe}}
+    Construcción alrededor del paquete \textit{epigraph} para definir un
+    formato propio.
+
+  \item \textbf{\texttt{{\textbackslash}expresionRegular}}
+    Para insertar una expresión regular desde un archivo externo.
+
+  \item \textbf{\texttt{{\textbackslash}formatearNumero}}
+    Para colocar ceros a la izquierda de los comandos que ocupan contadores.
+
+  \item \textbf{\texttt{{\textbackslash}hipervinculo}}
+    Para definir vículos referenciables con una etiqueta en los cuales el
+    texto que aparece en el vínculo queda definido por el origen. La gran
+    mayoría de los vínculos \textsc{en este tipo de letra} fueron creados
+    con este comando.
+
+  \item \textbf{\texttt{{\textbackslash}parte}}
+    Para insertar partes con epígrafes.
+
+  \item \textbf{\texttt{{\textbackslash}portada}}
+    Para definir el formato de la portada del trabajo.
+
+  \item \textbf{\texttt{{\textbackslash}pseudocodigo}}
+    Construcción alrededor de \textit{listings} para la inserción de
+    pseudocódigo.
+
+  \item \textbf{\texttt{{\textbackslash}unidadIrrompible}}
+    Entorno para evitar saltos de página.
+
+  \item Comandos de los capítulos de análisis y diseño:
+
+    \begin{itemize}
+
+      \item \textbf{\texttt{{\textbackslash}casoDeUso}}
+        Para definir el formato de un caso de uso. Ocupa otros subcomandos,
+        propios del contexto de su caso de uso.
+
+        \begin{itemize}
+
+          \item \textbf{\texttt{{\textbackslash}etiquetaLocal}}
+            Define etiquetas con un prefijo único.
+
+          \item \textbf{\texttt{{\textbackslash}hipervinculoLocal}}
+            Para hacer referencia a una trayectoria alternativa mostrando
+            el nombre definido por esta.
+
+          \item \textbf{\texttt{{\textbackslash}refernciaLocal}}
+            Para hacer referencia a un paso de la trayectoria principal.
+
+          \item \textbf{\texttt{{\textbackslash}trayectoriaAlternativa}}
+            Entorno para enlistar los pasos de una trayectoria
+            alternativa.
+
+          \item \textbf{\texttt{{\textbackslash}trayectoriaPrincipal}}
+            Entorno para enlistar los pasos de la trayectoria
+            principal.
+
+        \end{itemize}
+
+      \item \textbf{\texttt{{\textbackslash}interfazDeUsuario}}
+        Para insertar el conjunto de capturas que forman la figura de una
+        interfaz de usuario.
+
+      \item \textbf{\texttt{{\textbackslash}mensaje}}
+        Para insertar un mensaje desde un archivo externo.
+
+      \item \textbf{\texttt{{\textbackslash}reglaDeNegocio}}
+        Para la definición de reglas de negocio.
+
+      \item \textbf{\texttt{{\textbackslash}requerimiento}}
+        Para la definición de requerimientos. Contiene comandos para la
+        definción de \textit{subrequerimientos} y \textit{subsubrequerimientos}.
+
+    \end{itemize}
+
+\end{itemize}
+
+% TODO:
+% Al parecer no están funcionando las referencias a los códigos.
+
+Es mediante la creación de estos comandos como se logra la separación de forma
+y contenido de la que se habló anteriormente: el comando define la forma,
+mientras que el contenido queda definido por el código dependiente del comando.
+Para exponer esto se muestra, en los códigos
+fuente~\ref{codigo:forma_de_dependencia} y~\ref{codigo:contenido_de_dependencia}
+la forma y el contenido, respectivamente, de las dependencias. Estos comandos
+se utilizan en las secciones de tecnologías de los capítulos de
+implementaciones, y en la sección anterior de este apéndice.
+
+\codigoFuente[codigo:forma_de_dependencia]{1}{44}{latex}{%
+  documentos_entregables/reporte_tecnico/plantillas/dependencia.sty}{%
+  Comando para las dependencias.}
+
+% LOL, tengo la oportunidad de hacer una inclusión totalmente recursiva:
+\codigoFuente[codigo:contenido_de_dependencia]{64}{80}{latex}{%
+  documentos_entregables/reporte_tecnico/contenidos/%
+  apendices/sobre_latex/sobre_latex.tex}{%
+  Uso del comando para dependencias.}
+
+Los casos de uso son, probablemente, los comandos más complejos; principalmente
+por el número de subcomandos y entornos asociados. Como ejemplo, el código
+fuente~\ref{codigo:ejemplo_caso_de_uso} muestra la definición del caso de uso
+\hipervinculo{cu:eliminar_cliente}. El primer argumento define la etiqueta para
+referirse a este caso de uso: el código
+\verb|\hipervinculo{cu:eliminar_cliente}| dará como resultado un vínculo como
+el del final de la oración anterior. El siguiente argumento define el nombre
+del caso de uso. El primer párrafo del tercer argumento determina la
+descripción del caso de uso; después de esto van los entornos de la trayectoria
+principal y las trayectorias alternativas.
+
+\codigoFuente[codigo:ejemplo_caso_de_uso]{1}{46}{latex}{%
+  documentos_entregables/reporte_tecnico/contenidos/%
+  analisis_y_disenio_api_web/analisis/casos_de_uso/eliminar_cliente.tex}{%
+  Ejemplo de definición de caso de uso.}
+
+\section{Otras configuraciones}
+
+% Hablar sobre el comando \hipervinculo y la redefinición de \hypertarget.

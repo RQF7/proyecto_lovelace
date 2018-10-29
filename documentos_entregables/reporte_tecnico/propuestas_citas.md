@@ -27,7 +27,7 @@ citas para cada uno.
 5. >Understand well as I may, my comprehension can only be an infinitesimal
     fraction of all I want to understand, Ada Lovelace
 
-## Estándares y publicaciones sobre la generación de tokens
+## Algoritmos tokenizadores
 1. >Anyone who attempts to generate random numbers by deterministic means is, of
     course, living in a state of sin, John von Neunmann.
 2. >My brother has his sword, King Robert has his warhammer and I have my
@@ -36,7 +36,7 @@ citas para cada uno.
 3. >"Not bad, not bad at all," Diotallevi said. "To arrive at the truth through
     the painstaking reconstruction of a false text". Umberto Eco.
 
-## Análisis y diseño
+## Análisis y diseño de programa tokenizador
 1. >A common mistake that people make when trying to design something completely
     foolproof is to underestimate the ingenuity of complete fools,
     Douglas Adams, Mostly Harmless.
@@ -50,7 +50,7 @@ citas para cada uno.
 5. >This wasn't just plain terrible, this was fancy terrible. This was terrible
     with raisins in it, Dorothy Parker.
 
-## Implementación
+## Implementación de programa tokenizador
 1. >It is a mistake to think you can solve any major problems just with
     potatoes, Douglas Adams.
 2. >42, Douglas Adams.
@@ -106,7 +106,7 @@ citas para cada uno.
 8. >El universo es comparable a esas criptografías en las que no valen todos los
     símbolos y que sólo es verdad lo que sucede cada trescientas noches, JLB
 9. >Babilonia no es otra cosa que un infinito juego de azares, JLB
-10. >Por supuesto que la paz es el respeto al derecho ajeno, en eso tzodos
+10. >Por supuesto que la paz es el respeto al derecho ajeno, en eso todos
      estamos de acuerdo. En lo que nadie está de acuerdo es en cuál es el
      derecho ajeno, Jorge Ibargüengoitia, Instrucciones para vivir en México.
 11. >How do people go to sleep? I'm afraid I've lost the knack, Dorothy Parker
@@ -119,20 +119,98 @@ citas para cada uno.
 
 # Segunda ronda (TT2)
 
+Sin clasificación:
+
 1. >We live in a society exquisitely dependent on science and technology, in
     which hardly anyone knows anything about science and technology. Cosmos,
     Carl Sagan.
 2. >You don't understand anything until you learn it more than one way. Marvin
     Minsky.
-3. >"Begin at the beginning," the King said, very gravely, "and go on till you
+3. >People who think they know everything are a great annoyance to those
+    of us who do. Isaac Asimov.
+4. >Violence is the last refuge of the incompetent. Isaac Asimov, Fundación.
+5. >Never let your sense of morals get in the way of doing what's right.
+    Isaac Asimov, Fundación (creo).
+6. >You don't have to burn books to destroy a culture. Just get people to stop  
+    reading them. Ray Bradbury.
+7. >She believed in nothing; only her skepticism kept her from being
+    an atheist. Jean-Paul Sartre.
+8. >No tomamos decisiones, son las decisiones las que nos toman a nosotros.
+    Todos los nombres, José Saramago.
+9. >Lock up your libraries if you like; but there is no gate, no lock, no bolt
+    that you can set upon the freedom of my mind. A Room of One’s Own,
+    Virginia Woolf.
+10. >Heme aquı́, ya al final, y todavı́a no sé qué cara le daré a la muerte.
+     Rosario Castellanos.
+11. >Lolita, luz de mi vida, fuego de mis entrañas. Pecado mı́o, alma mı́a.
+     Lo-li-ta: la punta de la lengua emprende un viaje de tres pasos paladar
+     abajo hasta apoyarse, en el tercero, en el borde de los dientes.
+     Lo. Li. Ta. Lolita, Vladimir Nabokov.
+12. >The book Dynamic Programming by Richard Bellman is an important,
+     pioneering work in which a group of problems is collected together at the
+     end of some chapters under the heading "Exercises and Research Problems,"
+     with extremely trivial questions appearing in the midst of deep, unsolved
+     problems. It is rumored that someone once asked Dr. Bellman how to tell
+     the exercises apart from the research problems, and he replied: "If you
+     can solve it, it is an exercise; otherwise it's a research problem."
+     Donald Knuth.
+13. >I have a hunch that the unknown sequences of DNA will decode into
+     copyright notices and patent protections. Donald Knuth.
+14. >People said I should accept the world. Bullshit! I don't accept the world.
+     Richard Stallman.
+
+## Primera parte: programa tokenizador
+1. >"Begin at the beginning," the King said, very gravely, "and go on till you
     came to the end: then stop."
     Lewis Carroll.
-4. >People who think they know everything are a great annoyance to those
-    of us who do. Isaac Asimov.
-5. >Violence is the last refuge of the incompetent. Isaac Asimov, Fundación.
-6. >Never let your sense of morals get in the way of doing what's right.
-    Isaac Asimov, Fundación (creo).
-7. >You don't have to burn books to destroy a culture. Just get people to stop  
-    reading them. Ray Bradbury.
-8. >She believed in nothing; only her skepticism kept her from being
-    an atheist. Jean-Paul Sartre.
+
+## Segunda parte: api web
+
+## Análisis y diseño de api web
+
+## Implementación de api web
+1. >Computer programming is an art, because it applies accumulated knowledge to
+    the world, because it requires skill and ingenuity, and especially because
+    it produces objects of beauty. A programmer who subconsciously views himself
+    as an artist will enjoy what he does and will do it better.
+    Computer Programming as an Art, Donald Knuth.
+2. >Computers are good at following instructions, but not at reading your mind.
+    The texbook, Donald Knuth.
+3. >When you write a program, think of it primarily as a work of literature.
+    You're trying to write something that human beings are going to read. Don't
+    think of it primarily as something a computer is going to follow. The more
+    effective you are at making your program readable, the more effective it's
+    going to be: You'll understand it today, you'll understand it next week, and
+    your successors who are going to maintain and modify it will understand it.
+    Donald Knuth.
+
+## Tercera parte: tienda
+
+## Análisis y diseño de tienda
+
+## Implementación de tienda
+1. >Programming is the art of telling another human being what one wants the
+    computer to do. Donald Knuth.
+2. >An algorithm must be seen to be believed. The Art of Computer Programming:
+    Fundamental algorithms, Donald Knuth.
+3. >One of the most important lessons, perhaps, is the fact that SOFTWARE IS
+    HARD. From now on I shall have significantly greater respect for every
+    successful software tool that I encounter. During the past decade I was
+    surprised to learn that the writing of programs for TeX and Metafont proved
+    to be much more difficult than all the other things I had done (like
+    proving theorems or writing books). The creation of good software demand a
+    significiantly higher standard of accuracy than those other things do, and
+    it requires a longer attention span than other intellectual tasks.
+    Donald Knuth.
+
+## Apéndices
+
+
+## Apéndice de LaTeX
+1. >The trouble with computer science today is an obsessive concern with
+    form instead of content. Form and Content in Computer Science, 1970 ACM
+    Turing Lecture, Marvin Minsky.
+2. >The enjoyment of one's tools is an essential ingredient of successful work.
+    Donald Knuth.
+3. >I can’t go to a restaurant and order food because I keep looking at the
+    fonts on the menu. Donald Knuth.
