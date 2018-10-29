@@ -151,25 +151,22 @@ comandos y entornos:
         \begin{itemize}
 
           \item \textbf{\texttt{{\textbackslash}etiquetaLocal}}
-            Define etiquetas con un prefijo único dentro del contexto de
-            un caso de uso.
+            Define etiquetas con un prefijo único.
 
           \item \textbf{\texttt{{\textbackslash}hipervinculoLocal}}
             Para hacer referencia a una trayectoria alternativa mostrando
-            el nombre definido por esta; esto solo funciona dentro del
-            contexto de un caso de uso.
+            el nombre definido por esta.
 
           \item \textbf{\texttt{{\textbackslash}refernciaLocal}}
-            Para hacer referencia a un paso de la trayectoria principal. Esto
-            solo funciona dentro del contexto de un caso de uso.
+            Para hacer referencia a un paso de la trayectoria principal.
 
           \item \textbf{\texttt{{\textbackslash}trayectoriaAlternativa}}
-            Entorno dentro del cual se enlistan los pasos de una trayectoria
-            alternativa de un caso de uso.
+            Entorno para enlistar los pasos de una trayectoria
+            alternativa.
 
           \item \textbf{\texttt{{\textbackslash}trayectoriaPrincipal}}
-            Entorno dentro del cual se enlistan los pasos de la trayectoria
-            principal de un caso de uso.
+            Entorno para enlistar los pasos de la trayectoria
+            principal.
 
         \end{itemize}
 
@@ -214,7 +211,7 @@ implementaciones, y en la sección anterior de este apéndice.
   Uso del comando para dependencias.}
 
 Los casos de uso son, probablemente, los comandos más complejos; principalmente
-por el número de comandos asociados. Como ejemplo, el código
+por el número de subcomandos y entornos asociados. Como ejemplo, el código
 fuente~\ref{codigo:ejemplo_caso_de_uso} muestra la definición del caso de uso
 \hipervinculo{cu:eliminar_cliente}. El primer argumento define la etiqueta para
 referirse a este caso de uso: el código
