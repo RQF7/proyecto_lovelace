@@ -33,7 +33,7 @@ objetos: aún cuando C es más rápido que C++, la diferencia no es tan grande,
 mientras que un programa con un buen diseño orientado a objetos sí puede ser
 mucho más mantenible que uno con un enfoque estructurado.
 
-\subsection{Dependencias}
+\subsection{Dependencias de distribución}
 
 A continuación se enlistan las principales dependencias del proyecto. Para
 cada una se da una breve argumentación sobre su uso, se especifíca, en donde
@@ -46,7 +46,8 @@ aplica, la licencia que tiene, y se coloca la versión ocupada.
 % 4. URL de página oficial.
 % 5. Descripción.
 
-\dependencia{Compilador}{\acrshort{gl:gcc} v7.3}{\acrshort{gl:gpl}
+\dependencia{Compilador}{\texorpdfstring{\acrshort{gl:gcc}}{GCC} 
+  v7.3}{\acrshort{gl:gpl}
   v3}{https://gcc.gnu.org/}
 {%
   La razón principal de su uso es porque se trata del compilador por defecto de
@@ -101,14 +102,15 @@ de estas dependencias no siguieron siempre un proceso de eliminación como las
 anteriores, sino que fueron seleccionadas por cuestión de facilidad
 de uso (de los autores).
 
-\dependencia{Control de versiones}{Git v2.17}{\acrshort{gl:gpl}
+\dependencia[dep:git]{Control de versiones}{Git v2.17}{\acrshort{gl:gpl}
   v2}{https://git-scm.com/}
 {%
   Es el \gls{gl:vcs} más común en entornos \acrshort{gl:gnu}/Linux.
   Es muy importante su integración con Github.
 }
 
-\dependencia{Servicio de \textit{hosting} para el \acrshort{gl:vcs}}{Github}{No
+\dependencia{Servicio de \textit{hosting} para el %
+  \texorpdfstring{\acrshort{gl:vcs}}{VCS}\acrshort{gl:vcs}}{Github}{No
   aplica (servicio)}{https://github.com}
 {%
   Aunque a la fecha soporta otros tipos de \gls{gl:vcs}, originalmente

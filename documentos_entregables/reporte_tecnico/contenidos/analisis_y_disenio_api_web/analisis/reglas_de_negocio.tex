@@ -5,6 +5,7 @@
 %
 
 \subsection{Reglas de negocio}
+\label{sec:reglas_de_negocio}
 
 El formato de las \glspl{gl:expresion_regular}, por cuestiones de optimización
 en tiempos de desarrollo, se presenta según el formato de \textit{JavaScript},
@@ -19,14 +20,14 @@ definido en~\cite{mozilla_er}.
 
   El número se divide en tres partes: el identificador del emisor (primeros 6
   dígitos), el número de cuenta y el dígito verificador (último dígito). Para
-  más detalles sobre este tema consultar la sección
- ~\ref{sec:composicion_tarjeta}. El dígito verificador se obtiene de tal forma
-  que el algoritmo de Luhn (sección~\ref{sec:algoritmo_luhn}) dé como resultado
-  cero.
+  más detalles sobre este tema consultar la
+  sección~\ref{sec:composicion_tarjeta}. El dígito verificador se obtiene de
+  tal forma que el algoritmo de Luhn (sección~\ref{sec:algoritmo_luhn}) dé como
+  resultado cero.
 }
 
 \reglaDeNegocio[rn:formato_token]
-{Composición de tokens}
+{Composición de \texorpdfstring{\gls{gl:token}}{token}}
 {
   El formato de un token es el mismo que para un número de tarjeta
   (\hipervinculo{rn:formato_numero_de_tarjeta}) con la única excepción de que el
@@ -44,8 +45,8 @@ definido en~\cite{mozilla_er}.
 \reglaDeNegocio[rn:correo_electronico]
 {Formato de correos electrónicos}
 {
-  Un correo electrónico queda definido, de acuerdo al \gls{gl:rfc} 5322
- ~\cite{DBLP:journals/rfc/rfc5322}, por la expresión regular:
+  Un correo electrónico queda definido, de acuerdo al
+  \gls{gl:rfc}~5322~\cite{DBLP:journals/rfc/rfc5322}, por la expresión regular:
 
   \expresionRegular{expresiones_regulares/correo.txt}
 }
@@ -143,7 +144,7 @@ definido en~\cite{mozilla_er}.
 \end{sidewaysfigure}
 
 \reglaDeNegocio[rn:estados_token]
-{Estados de un token}
+{Estados de un \texorpdfstring{\gls{gl:token}}{token}}
 {
   Un token puede tener los siguientes estados:
   \begin{itemize}
