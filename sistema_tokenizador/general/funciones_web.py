@@ -237,7 +237,7 @@ def actualizarCliente (peticion, idDeCliente):
 
   usuario.save(force_update=True)
 
-  # Si se cambio el correo, eliminar el correo viejo
+  # Si se cambió el correo, eliminar el correo viejo
   if (str(cliente.correo) != objetoDePeticion['correo']):
     Correo.objects.filter(correo = str(cliente.correo)).delete()
     negocio.enviarVinculoDeVerificacionDeActualizacion(usuario)
@@ -476,10 +476,8 @@ def obtenerClientesAprobados (peticion, pagina, limite):
   """Función de paginador para clientes aprobados.
 
   Regresa el rango solicitados de clientes aprobados.
-
   El objeto Q es para hacer consultas con OR: «filter» y
   «get» funcionan con AND.
-
   https://docs.djangoproject.com/en/2.1/topics/db/queries/
   #complex-lookups-with-q-objects"""
   todos = Usuario.objects.filter(

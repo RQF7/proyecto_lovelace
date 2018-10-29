@@ -25,14 +25,14 @@
   % Código efectivo.
   %
   \begin{listing}%
-    \label{#1}%
     \inputminted[%
       firstline=#2,%
       lastline=#3]%
       {#4}{../#5}%
     \captionsetup{justification=centering}%
     \caption{#6 \\
-      \href{https://github.com/RQF7/proyecto_lovelace/blob/master/#5}
+    \label{#1}%
+    \href{https://github.com/RQF7/proyecto_lovelace/blob/master/#5}
         {\nolinkurl{#5}}}%
   \end{listing}%
   %

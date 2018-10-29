@@ -6,3 +6,178 @@
 
 \section{Aspectos relevantes de la implementación}
 \label{sec:codigo_sistema_tokenizador}
+
+En esta sección se muestran, a modo de ejemplo, algunos de los aspectos más
+relevantes de la implementación del programa descrito en el capítulo anterior.
+
+\subsection{Ejemplos del programa servidor}
+
+El programa está dividido en dos grandes módulos: lo referente al programa
+tokenizador, y lo referente a las operaciones web (diagrama de
+clases~\ref{fig:clases_aplicacion_web}). Cada módulo tiene una sección de
+direcciones, una de operaciones de negocio, una de operaciones web y una de
+clases de modelos; exite también una sección de utilidades generales. A
+continuación se muestran ejemplos de cada una de estas secciones.
+
+El código fuente~\ref{codigo:paginador_clientes_aprobados} muestra una
+operación web del módulo general: la petición de paginador para los clientes
+\textbf{aprobados}. Existen funciones similares para los clientes en estado de
+\textbf{lista negra} y los clientes \textbf{en espera}. Estas funciones se
+utilizan para armar e interactuar con los paginadores de la interfaz de un
+administrador (pantalla \hipervinculo{iu:administracion}).
+
+\codigoFuente[codigo:paginador_clientes_aprobados]{474}{491}{python}{%
+  sistema_tokenizador/general/funciones_web.py}{%
+  Paginador de clientes aprobados.}
+
+En el código fuente~\ref{codigo:funcion_de_autentificacion} se muestra una
+operación de negocio del módulo general: la autentificación de los usuarios.
+Esta función se utiliza al momento de un inicio de sesión. Este código
+representa el cumplemiento del requerimiento
+\hipervinculo{rqnf_api:alamcenamiento_de_contrasenias}, ya que para realizar el
+proceso de autentificación se calcula el hash de la entrada del usuario y se
+compara contra lo que hay guardado en la base de datos.
+
+\codigoFuente[codigo:funcion_de_autentificacion]{19}{31}{python}{%
+  sistema_tokenizador/general/negocio.py}{%
+  Operación de autentificación de usuarios.}
+
+Como ejemplo de operación web del módulo tokenizador, los códigos
+fuente~\ref{codigo:tokenizar_uno} y~\ref{codigo:tokenizar_dos} muestran la
+operación de tokenización. Esta función representa casi la totalidad del caso
+de uso \hipervinculo{cu:tokenizar_tarjeta}. En esta función se puede apreciar
+mejor que en los códigos anteriores la interacción entre las distintas capas:
+las validaciones se hacen en la capa de negocio (línea~128); el módulo de
+configuraciones almacena constantes importantes (línea~144), en este caso, se
+trata de la ruta del ejecutable al programa generador de tokens. Todos los
+códigos de error y mensajes que regresa está función son los descritos en la
+página de documentación
+(\url{https://ricardo-quezada.159.56.43.6/lovelace/documentacion}).
+
+\codigoFuente[codigo:tokenizar_uno]{107}{151}{python}{%
+  sistema_tokenizador/programa_tokenizador/funciones_web.py}{%
+  Operación de tokenización (primera parte).}
+
+\codigoFuente[codigo:tokenizar_dos]{153}{184}{python}{%
+  sistema_tokenizador/programa_tokenizador/funciones_web.py}{%
+  Operación de tokenización (segunda parte).}
+
+En el código fuente~\ref{codigo:contador_malas_acciones} se muestra un ejemplo
+de función de negocio de módulo generador de tokens. Se trata de la gestión del
+contador de malas acciones (regla de negocio \hipervinculo{rn:malas_acciones}).
+Al inicio del código se muestra también cómo se gestionan las constantes de
+incrementos y límites. De esta forma se establecen en el código todas las
+constantes definidas en las reglas de negocio (esto solamente debe de ir en los
+archivos de capa de negocio).
+
+\codigoFuente[codigo:contador_malas_acciones]{23}{42}{python}{%
+  sistema_tokenizador/programa_tokenizador/negocio.py}{%
+  Gestión de contador de malas acciones.}
+
+La realización de las capas de modelos de ambos módulos es a través de la
+\gls{gl:api} de \textit{Django} (descrita de modo general
+en~\cite{django_modelos}). En el código fuente~\ref{codigo:modelo_de_token} se
+muestra la clase de modelo de un token. Django toma esta descripción para
+producir las funciones básicas de un \gls{gl:crud}. Ya se ha visto en los
+códigos anteriores cómo es la interacción con esta \gls{gl:api} (métodos como
+\texttt{save}, \texttt{filter}, \texttt{get} o \texttt{delete}).
+
+\codigoFuente[codigo:modelo_de_token]{1}{45}{python}{%
+  sistema_tokenizador/programa_tokenizador/models/token.py}{%
+  Modelo de token.}
+
+Por último, como ejemplo de la capa general de utilidades, en el
+código~\ref{codigo:privilegios} se muestra una de las funciones más usadas en
+las implementaciones de las funciones web: la validación de los privilegios del
+usuario en sesión. Por ejemplo, esta función se utiliza en la línea~33 del
+código fuente~\ref{codigo:paginador_clientes_aprobados} para validar que
+solamente un usuario de tipo \textbf{administrador} pueda acceder al paginador
+de los clientes aprobados. La función \texttt{privilegiosRequeridos} funciona
+como una fábrica de decoradores: toma como argumento el nombre del tipo de
+usuario y regresa una función decorador para ese tipo de usuario. Los
+decoradores en \textit{python} son funciones que toman como argumentos a la
+función decorada: intercalan el nuevo código (en este caso la validación de las
+credenciales) con la llamada a la función de entrada~\cite{python_decoradores}.
+
+Con la función de validación de privilegios se ocupan dos patrones de diseño:
+una fábrica y un decorador. Aunque su realización es distinta de lo que se
+esperaría en un lenguaje completamente orientado a objetos y, por lo tanto, de
+la descrita en~\cite{patrones_de_disenio}, la funcionalidad obtenida en un
+último término corresponde a la obtenida por los patrones de diseño originales.
+La fábrica permite la creación de objetos (en este caso, métodos) con una
+estructura determinada en tiempo de ejecución; aquí, la estructura se encuentra
+representada por el tipo de usuario al que se le desean dar privilegios. Los
+decoradores permiten extender o alterar la funcionalidad de un método:
+el decorador agrega la validación de privilegios justo antes de ejecutar
+la propia función decorada.
+
+\codigoFuente[codigo:privilegios]{33}{79}{python}{%
+  sistema_tokenizador/utilidades.py}{%
+  Fábrica de decoradores para validación de privilegios.}
+
+\subsection{Ejemplos del programa cliente}
+
+En el código fuente~\ref{codigo:ventana_clientes} se muestra el inicio del
+\gls{gl:html} de la ventana para operar a un cliente (dependiendo del contexto,
+se puede tratar de la interfaz \hipervinculo{iu:registrar_usuario} o de
+\hipervinculo{iu:actualizar_cliente}). Como se puede observar al inicio del
+archivo, hay reglas que permiten modificar el tamaño de las ventanas dependiendo
+del tamaño de la pantalla del usuario.
+
+\codigoFuente[codigo:ventana_clientes]{1}{45}{html}{%
+  sistema_tokenizador/archivos_web/html/ventanas/operar_cliente.ventana.html}{%
+  Ventana emergente para operaciones de un cliente.}
+
+Cada \gls{gl:html} tiene un controlador de \textit{javascript} asociado. En el
+caso de la ventana de operación de un cliente
+(código~\ref{codigo:ventana_clientes}), un fragmento de su controlador se
+muestra en el código fuente~\ref{codigo:controlador_clientes}. \textit{Angular}
+sigue un patrón de inyección de dependencias~\cite{inyeccion_de_dependencias}
+para la construcción de controladores: después del nombre dado al controlador,
+recibe un arreglo con cadenas que representan los nombres de las dependencias
+que el inyector tiene que buscar para construir la función (el último elemento
+del arreglo recibido)~\cite{angular_inyector}.
+
+% TODO: La ruta del controlador es demasiado larga: el comando de codigoFuente
+% debería de partirla, o de tomar solo lo último.
+% Los marcadores de grunt están resaltados con rojo.
+
+\codigoFuente[codigo:controlador_clientes]{1}{40}{javascript}{%
+  sistema_tokenizador/archivos_web/js/controladores/secundarios/%
+  operar_cliente.controlador.js}{%
+  Controlador de ventana emergente para operaciones de un cliente.}
+
+Los dos códigos anteriores, la ventana y su controlador, dejan ver cómo es la
+gestión de los mensajes y las expresiones regulares en el código del cliente.
+En los archivos \gls{gl:html} hay marcadores con formato \verb|<!-- @@ -->|
+(línea~42 del código~\ref{codigo:ventana_clientes}); en los archivos
+\textit{javascript} hay marcadores con formato \verb|@@( )| (línea~26 del
+código~\ref{codigo:controlador_clientes}). Estos marcadores son sustituidos en
+tiempo de compilación por un componente de \textit{Grunt}
+(\textit{includereplace}): el marcador indica un archivo de texto plano en
+donde se encuentra definido el mensaje o la regla de negocios en cuestión. Estos
+archivos se producen en una etapa de análisis y son los mismos que utiliza este
+documento en la sección de reglas de negocio~(\ref{sec:reglas_de_negocio}) o la
+sección del catálogo de mensajes~(\ref{sec:catalogo_de_mensajes}).
+
+El punto anterior busca satisfacer una buena práctica de programación: las
+definiciones redundantes son malas; la información debe de estar en un solo
+lugar y de ahí debe de ser usada por los códigos dependientes. Por ejemplo,
+en un supuesto de que se quiera cambiar el contenido de un mensaje, o modificar
+una expresión regular, solamente hay que modificar el archivo de texto
+correspondiente y ambas dependencias, programa y documentación, se adecuarán
+al cambio. Este principio es conocido como \gls{gl:dry} y es uno de los
+principios de diseño de las aplicaciones hechas en
+\textit{Django}~\cite{django_principios_de_disenio}.
+
+La comunicación con el programa servidor se define en una capa separada de los
+propios controladores. En el código fuente~\ref{codigo:api_javascript} se
+muestra un fragmento de esta capa. Este es un modo de separar las direcciones y
+fuentes de datos que se obtienen del servidor, del propio funcionamiento de
+cada controlador.
+
+% TODO: hablar aquí sobre los métodos de http y de la tesis de Roy Fielding.
+
+\codigoFuente[codigo:controlador_clientes]{1}{46}{javascript}{%
+  sistema_tokenizador/archivos_web/js/servicios/api.servicio.js}{%
+  Definición de comunicación con programa servidor.}
