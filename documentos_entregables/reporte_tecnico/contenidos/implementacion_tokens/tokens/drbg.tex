@@ -14,12 +14,9 @@ hash y la  otra basada en un cifrado por bloques. En~\ref{sec:drbg_disenio} se
 explica la distribución de las clases creada para este módulo. En esta sección
 se muestran los apsectos más significativos de las implementaciones.
 
-\begin{listing}
-  \inputminted[firstline=66, lastline=90]
-    {c++}{../implementaciones/drbg/drbg.cpp}
-  \caption{Función pública de generadores pseudoaleatorios}
-  \label{codigo:drbg}
-\end{listing}
+\codigoFuente[codigo:drbg]{66}{90}{c++}{%
+  implementaciones/drbg/drbg.cpp}{%
+  Función pública de generadores pseudoaleatorios.}
 
 Como se muestra en el diagrama~\ref{clases_drbg}, un generador solamente
 expone una función pública: \texttt{operar} para la generación de bytes; el
@@ -28,21 +25,24 @@ recibe enteros y regresa arreglos de bytes. El código fuente~\ref{codigo:drbg}
 muestra esta implementación, la cuál depende de \texttt{generarBytes}, que
 dentro del contexto de un \gls{gl:drbg} genérico, es abstracta.
 
-De acuerdo a lo explicado en la sección~\ref{}, el comportamiento por defecto del constructor de un DRBG es determinar, en tiempo de ejecución, si el soportador actual soporta la instrucción de ensamblador RD-SEED. En caso positivo, la fuente de entropía es una instancia de la clase de aleatoriedad por hardware. En caso negativo, la entropía es una instancia de la clase de aleatoriedad trivial. También existe la posibilidad de que el constructor reciba una fuente de aleatoriedad creada con anterioridad; en este caso, el DRBG no es responsable de la gestión de la memoria. Esta segunda característica permite instanciar varios generadores con una misma fuente de aleatoriedad.
+De acuerdo a lo explicado en la sección~\ref{sec:intel}, el comportamiento por
+defecto del constructor de un DRBG es determinar, en tiempo de ejecución, si el
+procesador actual soporta la instrucción de ensamblador RD-SEED. En caso
+positivo, la fuente de entropía es una instancia de la clase de aleatoriedad
+por hardware. En caso negativo, la entropía es una instancia de la clase de
+aleatoriedad trivial. También existe la posibilidad de que el constructor
+reciba una fuente de aleatoriedad creada con anterioridad; en este caso, el
+DRBG no es responsable de la gestión de la memoria. Esta segunda
+característica permite instanciar varios generadores con una misma fuente de
+aleatoriedad.
 
-\begin{listing}
-  \inputminted[firstline=117, lastline=135]
-    {c++}{../implementaciones/drbg/hash_drbg.cpp}
-  \caption{Función de generación de bytes de hash \gls{gl:drbg}}
-  \label{codigo:hash_drbg_uno}
-\end{listing}
+\codigoFuente[codigo:hash_drbg_uno]{117}{135}{c++}{%
+  implementaciones/drbg/hash_drbg.cpp}{%
+  Función de generación de bytes de hash \gls{gl:drbg}.}
 
-\begin{listing}
-  \inputminted[firstline=166, lastline=186]
-    {c++}{../implementaciones/drbg/hash_drbg.cpp}
-  \caption{Función de generación interna de hash \gls{gl:drbg}}
-  \label{codigo:hash_drbg_dos}
-\end{listing}
+\codigoFuente[codigo:hash_drbg_dos]{166}{186}{c++}{%
+  implementaciones/drbg/hash_drbg.cpp}{%
+  Función de generación interna de hash \gls{gl:drbg}.}
 
 En los códigos fuente~\ref{codigo:hash_drbg_uno} y~\ref{codigo:hash_drbg_dos}
 se muestran las dos operaciones más importantes del generador basado en
@@ -51,19 +51,13 @@ Como se puede ver en el primero de los códigos, la función de generación de
 bytes depende de la función interna: esta genera los bytes pedidos y después,
 la función de generación de bytes, se encarga de actualizar el estado interno.
 
-\begin{listing}
-  \inputminted[firstline=82, lastline=101]
-    {c++}{../implementaciones/drbg/ctr_drbg.cpp}
-  \caption{Función de generación de bytes de CTR \gls{gl:drbg}}
-  \label{codigo:hash_ctr_uno}
-\end{listing}
+\codigoFuente[codigo:hash_ctr_uno]{82}{101}{c++}{%
+  implementaciones/drbg/ctr_drbg.cpp}{%
+  Función de generación de bytes de CTR \gls{gl:drbg}.}
 
-\begin{listing}
-  \inputminted[firstline=103, lastline=123]
-    {c++}{../implementaciones/drbg/ctr_drbg.cpp}
-  \caption{Función de actualización de estado de CTR \gls{gl:drbg}}
-  \label{codigo:hash_ctr_dos}
-\end{listing}
+\codigoFuente[codigo:hash_ctr_dos]{103}{123}{c++}{%
+  implementaciones/drbg/ctr_drbg.cpp}{%
+  Función de actualización de estado de CTR \gls{gl:drbg}.}
 
 En los códigos fuente~\ref{codigo:hash_ctr_uno} y~\ref{codigo:hash_ctr_dos}
 se muestran las dos operaciones más importantes del generador basado en un

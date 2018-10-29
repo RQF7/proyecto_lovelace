@@ -16,12 +16,9 @@ implementación de este proceso; el código fuente
 \ref{codigo:red_feistel_operar} muestra la operación de cifrado y
 \ref{codigo:red_feistel_deoperar} muestra el descifrado.
 
-\begin{listing}
-  \inputminted[firstline=125, lastline=188]
-    {c++}{../implementaciones/ffx/cabeceras/ronda_ffx_a10.hh}
-  \caption{Función de ronda de \gls{gl:ffx}}
-  \label{codigo:ffx_ronda}
-\end{listing}
+\codigoFuente[codigo:ffx_ronda]{158}{206}{c++}{%
+  implementaciones/ffx/cabeceras/ronda_ffx_a10.hh}{%
+  Función de ronda de \gls{gl:ffx}}
 
 Como se mostró en el diseño del programa (capítulo
 \ref{sec:analisis_y_disenio}), la función de ronda implementa la
@@ -34,19 +31,13 @@ claramente distingibles: el armado de la entrada a la primitiva (hasta la línea
 160); la operación de la primitiva (hasta la línea 166); y por último, el
 formateo de la salida para la preservación del formato (el resto de la función).
 
-\begin{listing}
-  \inputminted[firstline=146, lastline=176]
-    {c++}{../implementaciones/redes_feistel/cabeceras/red_feistel_alternante.hh}
-  \caption{Cifrado con red Feistel alternante}
-  \label{codigo:red_feistel_operar}
-\end{listing}
+\codigoFuente[codigo:red_feistel_operar]{146}{176}{c++}{%
+  implementaciones/redes_feistel/cabeceras/red_feistel_alternante.hh}{%
+  Cifrado con red Feistel alternante}
 
-\begin{listing}
-  \inputminted[firstline=178, lastline=209]
-    {c++}{../implementaciones/redes_feistel/cabeceras/red_feistel_alternante.hh}
-  \caption{Descifrado con red Feistel alternante}
-  \label{codigo:red_feistel_deoperar}
-\end{listing}
+\codigoFuente[codigo:red_feistel_deoperar]{178}{209}{c++}{%
+  implementaciones/redes_feistel/cabeceras/red_feistel_alternante.hh}{%
+  Descifrado con red Feistel alternante}
 
 Una red Feistel alternante es una red Feistel, la cuál a su vez implementa a
 una función con inverso; es por esto que los métodos mostrados en los códigos

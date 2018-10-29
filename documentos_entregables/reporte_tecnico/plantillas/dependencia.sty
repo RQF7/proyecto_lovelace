@@ -28,19 +28,20 @@
   % Código efectivo
   %
   \pdfbookmark[3]{\etiqueta}{#1}%
-  \pagebreak[3]%
-  \vspace{\separacionAnterior}%
+  \vspace{1.0em}%
   \noindent%
   \textbf{\hypertarget{#1}{\etiqueta}.}\par%
   \nopagebreak[4]%
-  \noindent%
-  \textbf{Licencia:} #4\par%
-  \nopagebreak[4]%
-  \noindent%
-  \textbf{Página oficial:} \url{#5}\par%
-  \nopagebreak[4]%
-  \noindent%
-  #6\par%
+  \begin{hangparas}{2em}{0}%
+    \noindent%
+    \textbf{Licencia:} #4\par%
+    \nopagebreak[4]%
+    \noindent%
+    \textbf{Página oficial:} \url{#5}\par%
+    \nopagebreak[4]%
+    \noindent%
+    #6\par%
+  \end{hangparas}%
   \pagebreak[3]%
   %
   % Estado previo

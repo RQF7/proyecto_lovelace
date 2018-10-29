@@ -102,8 +102,10 @@
 % occurrence-of-every-section#153494
 \pretocmd{\chapter}{\glsresetall}{}{}
 \pretocmd{\section}{\glsresetall}{}{}
-\pretocmd{\subsection}{\glsresetall}{}{}
-%\pretocmd{\subsubsection}{\glsresetall}{}{}
+\pretocmd{\subsection}{\glsresetall\renewcommand{%
+  \banderaPrimerElementoDeSeccion}{1}}{}{}
+\pretocmd{\subsubsection}{\renewcommand{%
+  \banderaPrimerElementoDeSeccion}{1}}{}{}
 
 % http://mirrors.ctan.org/fonts/amsfonts/doc/amsfndoc.pdf
 \RequirePackage{amsfonts}
@@ -247,6 +249,8 @@
 
 \RequirePackage{verbatim}
 
+\RequirePackage{ifthen}
+
 % Profundidad de contador
 % Hasta subsubsecciones
 \setcounter{secnumdepth}{2}
@@ -366,6 +370,9 @@
 % Buffer temporal:
 \newcommand{\etiqueta}{}
 
+% Bandera para evaluar a los primeros elementos de sección:
+\newcommand{\banderaPrimerElementoDeSeccion}{0}
+
 % Archivos de plantillas
 \import{reporte_tecnico/plantillas/}{unidad_irrompible.sty}
 \import{reporte_tecnico/plantillas/}{hipervinculo.sty}
@@ -378,6 +385,7 @@
 \import{reporte_tecnico/plantillas/}{epigrafe.sty}
 \import{reporte_tecnico/plantillas/}{expresion_regular.sty}
 \import{reporte_tecnico/plantillas/}{celda_con_parrafo.sty}
+\import{reporte_tecnico/plantillas/}{codigo_fuente.sty}
 \import{reporte_tecnico/plantillas/ingenieria_de_software/}
   {ingenieria_de_software.sty}
 
@@ -505,5 +513,13 @@
     %  \subsubsectionAnterior{#1}%
     %  \nopagebreak[4]}
 
+    % Comando para reemplazar los guiones bajos con su correspondiente
+    % secuencia de escape.
+    % https://tex.stackexchange.com/questions/20890/
+    % define-an-escape-underscore-environment
+    \DeclareRobustCommand*{\escapeus}[1]{%
+    \begingroup\@activeus\scantokens{#1\endinput}\endgroup}
+    \begingroup\lccode`\~=`\_\relax
+      \lowercase{\endgroup\def\@activeus{\catcode`\_=\active \let~\_}}
 
 \makeatother

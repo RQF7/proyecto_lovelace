@@ -33,7 +33,7 @@ objetos: aún cuando C es más rápido que C++, la diferencia no es tan grande,
 mientras que un programa con un buen diseño orientado a objetos sí puede ser
 mucho más mantenible que uno con un enfoque estructurado.
 
-\subsection{Dependencias}
+\subsection{Dependencias de distribución}
 
 A continuación se enlistan las principales dependencias del proyecto. Para
 cada una se da una breve argumentación sobre su uso, se especifíca, en donde
@@ -173,5 +173,5 @@ flexible posible: si la arquitectura en la corre el programa soporta las
 instrucciones en cuestión, perfecto, sino, se buscan alternativas que de todas
 formas permitan ejecutar el programa. El el caso de AES-NI, la alternativa es
 utilizar la implementación de AES de Cryptopp. Para RD-SEED, se ocupa el
-generador del kernel de linux (\textit{/dev/random} en modo bloqueante y
-\textit{/dev/urandom} en modo no bloqueante).
+generador del kernel de linux (\texttt{/dev/random} en modo bloqueante y
+\texttt{/dev/urandom} en modo no bloqueante).
