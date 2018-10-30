@@ -53,7 +53,22 @@ está permitido.
 % Luego el PCI les cambia el nombre, tengo que buscar más a fondo.
 % Misma historia para EHD.
 
-\begin{table}
+% ¿Qué son los bits de seguridad? (glosario)
+La tabla~\ref{hash_permitidos} enlista los algoritmos hash (sección
+\ref{sec:hash}) permitidos. Para evitar introducir fallas de seguridad a
+través de las funciones hash, estas deben proveer al menos tantos bits de
+seguridad como el algoritmo criptográfico usado, y en cualquier caso, no
+menos de 128 bits (lo que deja fuera a \gls{gl:md4} y \gls{gl:md5}).
+
+El número de bits de entropía utilizados para los generadores de números
+aleatorios debe de ser mayor o igual al número de bits de seguridad utilizados
+para las primitivas anteriores. Cuando se utilicen generadores determinísticos,
+estos deben seguir las recomendaciones del \gls{gl:nist} en
+\cite{nist_aleatorios}.
+
+\newpage
+
+\begin{table}[H]
   \centering
   \begin{tabular}{| c | c | c |}
     \hline
@@ -90,14 +105,7 @@ está permitido.
   \label{minimo_llaves}
 \end{table}
 
-% ¿Qué son los bits de seguridad? (glosario)
-La tabla~\ref{hash_permitidos} enlista los algoritmos hash (sección
-\ref{sec:hash}) permitidos. Para evitar introducir fallas de seguridad a
-través de las funciones hash, estas deben proveer al menos tantos bits de
-seguridad como el algoritmo criptográfico usado, y en cualquier caso, no
-menos de 128 bits (lo que deja fuera a \gls{gl:md4} y \gls{gl:md5}).
-
-\begin{table}
+\begin{table}[H]
   \centering
   \begin{tabular}{| c | c |}
     \hline
@@ -118,9 +126,3 @@ menos de 128 bits (lo que deja fuera a \gls{gl:md4} y \gls{gl:md5}).
   \caption{Algoritmos hash permitidos}
   \label{hash_permitidos}
 \end{table}
-
-El número de bits de entropía utilizados para los generadores de números
-aleatorios debe de ser mayor o igual al número de bits de seguridad utilizados
-para las primitivas anteriores. Cuando se utilicen generadores determinísticos,
-estos deben seguir las recomendaciones del \gls{gl:nist} en
-\cite{nist_aleatorios}.
