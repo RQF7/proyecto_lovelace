@@ -11,11 +11,16 @@
 % 3 y 4 -> Etiqueta y epígrafe.
 %
 
-\newcommand{\capitulo}[4][SD]
-{
-  \renewcommand{\prefijo}{#1}
-  \chapter{#2}
-  \label{#3}
-  #4
-  \newpage
-}
+\newcommand{\capitulo}[4][SD]{%
+  \renewcommand{\prefijo}{#1}%
+  \chapter{#2}%
+  \label{#3}%
+  #4%
+  \newpage}
+
+\newcommand{\capituloSinNumero}[4][SD]{%
+  \renewcommand{\prefijo}{#1}%
+  \chapter*{#2}%
+  \label{#3}%
+  #4%
+  \newpage}

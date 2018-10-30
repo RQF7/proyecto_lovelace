@@ -94,14 +94,6 @@
   {}                                          % Antes de
   []                                          % Después de
 
-  \renewcommand{\capitulo}[3]
-  {
-    \chapter*{#1}
-    \label{#2}
-    #3
-    \newpage
-  }
-
   % Coloca glosarios afuera de los apéndices
   \bookmarksetup{startatroot}
 
@@ -113,7 +105,7 @@
 
   \phantomsection
   \addcontentsline{toc}{chapter}{Siglas y acrónimos}
-  \capitulo{Siglas y acrónimos}{sec:siglas}
+  \capituloSinNumero{Siglas y acrónimos}{sec:siglas}
   {
     \epigrafe
     {%
@@ -150,15 +142,10 @@
     title={De instituciones y asociaciones}
   ]
 
-  %\printglossary[
-  %  type=\acronymtype,
-  %  title={Misceláneos}
-  %]
-
   \newpage
   \phantomsection
   \addcontentsline{toc}{chapter}{Bibliografía}
-  \capitulo{Bibliografía}{sec:referencias}
+  \capituloSinNumero{Bibliografía}{sec:referencias}
   {
     \epigrafe
     {%
