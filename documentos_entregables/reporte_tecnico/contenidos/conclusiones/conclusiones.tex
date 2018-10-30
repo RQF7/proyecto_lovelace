@@ -17,32 +17,58 @@
 }
 
 \noindent
-El principal resultado de este Trabajo Terminal I es el desarrollo del primer
-módulo del proyecto (descrito en~\ref{sec:objetivos}): un programa generador de
-\glspl{gl:token} para proveer confidencialidad a los datos de las tarjetas
-bancarias. Para lograrlo, primero se estudiaron, como se expone en el capítulo
-\ref{sec:marco_teorico}, aspectos de la criptografía relacionados con la
-generación de \glspl{gl:token}; posteriormente, como se observa en el capítulo
-\ref{sec:generacion_de_tokens}, se revisaron los estándares y las
-recomendaciones asociadas al tema; en el mismo capítulo se describieron los
-algoritmos generadores de \glspl{gl:token} implementados.
+Como se planteó al inicio, este trabajo fue desarrollado en tres grandes
+módulos:
+\begin{description}
+  \item [Programa generador de tokens] Aquí se analizaron e implementaron
+    cinco algitomtos tokenizadores: \acrshort{gl:ffx}, \acrshort{gl:bps}, TKR,
+    AHR y \acrshort{gl:drbg}.
+  \item [Servicio de tokenización] Se encarga de proveer una interfaz de
+    comunicación entre el programa generador de tokens y los posibles clientes;
+    además, incluye una aplicación web que permite gestionar a los usuarios.
+  \item [Caso de prueba: tienda de libros en línea] Se implementaron,
+    principalmente, las partes que involucran comunicación con el servicio de
+    tokenización (agregar método de pago y simulación de una compra).
+\end{description}
 
-Además de la implementación de los algoritmos, que cubre el primer objetivo
-específico, se realizaron pruebas de comparación de desempeño en aras de
-disminuir la desinformación que rodea al tema de la tokenización.
+Sobre el desempeño de los algoritmos, se concluye que los reversibles
+(\acrshort{gl:ffx} y \acrshort{gl:bps}) son considerablemente más rápidos que
+los tres irreversibles (TKR, AHR y \acrshort{gl:drbg}). También es posible
+observar que, para los métodos irreversibles, el proceso de detokenización es
+mucho más rápido que la generación de tokens.  Estos dos resultados dejan ver
+un poco la carga de las operaciones en los métodos irreversibles: la
+tokenización involucra una consulta a la base de datos, la generación del
+\gls{gl:token} y una inserción; la detokenización solamente es una consulta.
 
-Otra parte importante del trabajo fue la implementación de un generador de
-números aleatorios capaz de satisfacer las pruebas estadísticas de aleatoriedad
-establecidas por el \gls{gl:nist}\footnotemark.
+El que \acrshort{gl:ffx} y \acrshort{gl:bps} sean más rápidos puede resultar
+un poco contraintuitivo, pues la generación de tokens reversibles involucra
+más operaciones; cuando en la medición de tiempos se excluye el acceso a  la
+base de datos, el algoritmo más veloz es \acrshort{gl:drbg}, seguido de cerca
+por TKR y AHR; los dos reversibles terminan siendo los más lentos.
 
-\footnotetext{
-  Instituto norteamericano encargado de la publicación de estándares
-  relacionados con tecnología y computación.
-}
+Además de los tiempos de ejecución, también es importante señalar que los
+irreversibles, al operar como funciones de un solo sentido, son más seguros
+que los reversibles: un atacante con acceso a la llave de cifrado puede
+obtener el número de tarjeta correspondiente si se trata de un método
+reversible, mientras que con un método irreversible necesita también acceso a
+la base de datos.
 
-La siguiente parte del proyecto, que será desarrollada en Trabajo Terminal II,
-consiste en la elaboración de los dos módulos siguientes: una interfaz en red
-que permita comunicarse con el programa tokenizador y una tienda en línea que la
-utilice. Esto permitirá que lo desarrollado en el primer módulo llegue hasta los
-usuarios finales, esto es, hasta los clientes de las tiendas en línea.
-De esta forma se cubrirán los otros dos objetivos específicos del trabajo.
+También es posible concluir que la denominación \textit{no criptográficos}, de
+la clasificación del PCI DSS resulta totalmente confusa, pues en realidad todos
+los métodos conocidos que caen en esa categoría utilizan primitivas
+criptográficas. La segunda categoría (irreversibles) carece de utilidad para
+aplicaciones que procesan pagos con tarjetas de crédito, pues la capacidad de
+regresar al número de tarjeta a partir de su token es uno de los requerimientos
+principales para los sistemas tokenizadores.
+
+Respecto a los objetivos planteados en la sección~\ref{sec:objetivos}, podemos
+concluir que se satisficieron los tres objetivos específicos: revisar diversos
+algoritmos para la generación de \glspl{gl:token} (corresponde al módulo de
+\textit{Programa generador de tokens}); diseñar e implementar un servicio web
+que proporcione el servicio de generación de tokens (corresponde al módulo de
+\textit{Servicio de tokenización}) y, finalmente, implementar una tienda que
+use el servicio de tokenización (corresponde al módulo de \textit{Caso de
+prueba}). También se cumplió el objetivo general, pues se implementaron
+algoritmos criptográficos y no criptográficos\footnote{Tomando en cuenta la
+clasificación propuesta por el \gls{gl:pci} \gls{gl:ssc}, descrita en la
+sección~\ref{sec:pci_dss}.}.
