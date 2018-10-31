@@ -1,0 +1,15 @@
+%
+% Entorno para definir un párrafo que hace referencia a una lista contigua.
+% Reporte técnico.
+% Proyecto Lovelace.
+%
+% Coloca tanto el párrafo como la lista dentro de una unidad irrompible, por
+% tanto, solamente está pensado para listas con pocos elementos.
+%
+
+\newenvironment{parrafoConListaCorta}[1]{%
+  \begin{unidadirrompible}%
+    #1\par%
+    \begin{itemize}[nosep]}{%
+    \end{itemize}%
+  \end{unidadirrompible}}
