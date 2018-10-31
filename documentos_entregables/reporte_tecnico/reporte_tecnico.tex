@@ -28,57 +28,39 @@
   \import{reporte_tecnico/contenidos/intro/}{intro.tex}
   \import{reporte_tecnico/contenidos/marco_teorico/}{marco_teorico.tex}
 
-  \parte{Generación de tokens}{parte:tokens}
-  {
-    \epigrafe
-    {%
+  \parte{Generación de tokens}{parte:tokens}{%
+    \epigrafe{%
       ``Begin at the beginning,'' the King said, very gravely, ``and go on till
-      you came to the end: then stop.''%
-    }
-    {%
-      \textsc{Lewis Carroll}.%
-    }
-  }
+      you came to the end: then stop.''}{%
+      \textsc{Lewis Carroll}.}}
 
   \import{reporte_tecnico/contenidos/generacion_tokens/}{generacion_tokens.tex}
-  \import{reporte_tecnico/contenidos/analisis_y_disenio_tokens/}
-    {analisis_y_disenio.tex}
-  \import{reporte_tecnico/contenidos/implementacion_tokens/}
-    {implementacion.tex}
+  \import{reporte_tecnico/contenidos/analisis_y_disenio_tokens/}{%
+    analisis_y_disenio.tex}
+  \import{reporte_tecnico/contenidos/implementacion_tokens/}{%
+    implementacion.tex}
 
-  \parte{Aplicación web de sistema tokenizador}{parte:api}
-  {
-    \epigrafe
-    {%
+  \parte{Aplicación web de sistema tokenizador}{parte:api}{%
+    \epigrafe{%
       People who think they know everything are a great annoyance to those
-      of us who do.%
-    }
-    {%
-      \textsc{Isaac Asimov}.%
-    }
-  }
+      of us who do.}{%
+      \textsc{Isaac Asimov}.}}
 
-  \import{reporte_tecnico/contenidos/analisis_y_disenio_api_web/}
-    {analisis_y_disenio.tex}
-  \import{reporte_tecnico/contenidos/implementacion_api_web/}
-    {implementacion.tex}
+  \import{reporte_tecnico/contenidos/analisis_y_disenio_api_web/}{%
+    analisis_y_disenio.tex}
+  \import{reporte_tecnico/contenidos/implementacion_api_web/}{%
+    implementacion.tex}
 
-  \parte{Caso de prueba: tienda de libros en línea}{parte:tienda}
-  {
-    \epigrafe
-    {%
+  \parte{Caso de prueba: tienda de libros en línea}{parte:tienda}{%
+    \epigrafe{%
       She believed in nothing; only her skepticism kept her from being
-      an atheist.%
-    }
-    {%
-      \textsc{Jean-Paul Sartre}.%
-    }
-  }
+      an atheist.}{%
+      \textsc{Jean-Paul Sartre}.}}
 
-  \import{reporte_tecnico/contenidos/analisis_y_disenio_tienda/}
-    {analisis_y_disenio.tex}
-  \import{reporte_tecnico/contenidos/implementacion_tienda/}
-    {implementacion.tex}
+  \import{reporte_tecnico/contenidos/analisis_y_disenio_tienda/}{%
+    analisis_y_disenio.tex}
+  \import{reporte_tecnico/contenidos/implementacion_tienda/}{%
+    implementacion.tex}
 
 
   % Coloca a las conclusiones afuera de cualquier parte
@@ -99,8 +81,7 @@
   \setglossarystyle{altlist}
   \printglossary[
     type=main,
-    entrycounter=true
-  ]
+    entrycounter=true]
 
   \phantomsection
   \addcontentsline{toc}{chapter}{Siglas y acrónimos}
@@ -117,41 +98,31 @@
 
   \printglossary[
     type=siglas_cripto,
-    title={Criptográficos}
-  ]
+    title={Criptográficos}]
 
   \printglossary[
     type=siglas_computacionales,
-    title={Computacionales}
-  ]
+    title={Computacionales}]
 
   \printglossary[
     type=siglas_bancarias,
-    title={Bancarios}
-  ]
+    title={Bancarios}]
 
   \printglossary[
     type=siglas_instituciones,
-    title={De instituciones y asociaciones}
-  ]
+    title={De instituciones y asociaciones}]
 
   \newpage
   \phantomsection
   \addcontentsline{toc}{chapter}{Bibliografía}
-  \capituloSinNumero{Bibliografía}{sec:referencias}
-  {
-    \epigrafe
-    {%
-      Those who believe in telekinetics, raise my hand.%
-    }
-    {%
-      \textsc{Kurt Vonnegut}.%
-    }
-  }
+  \capituloSinNumero{Bibliografía}{sec:referencias}{
+    \epigrafe{%
+      Those who believe in telekinetics, raise my hand.}{%
+      \textsc{Kurt Vonnegut}.}}
+  %
   \printbibliography[
     heading=none,
-    title={Bibliografía}
-  ]
+    title={Bibliografía}]
 
   \newpage
   \phantomsection
