@@ -27,7 +27,7 @@
 \RequirePackage{xcolor}
 
 % http://mirrors.ctan.org/macros/latex/contrib/titlesec/titlesec.pdf
-\RequirePackage{titlesec}
+\RequirePackage[nobottomtitles*]{titlesec}
 
 % http://mirrors.ctan.org/macros/latex/required/amsmath/amsmath.pdf
 \RequirePackage{amsmath}
@@ -102,10 +102,7 @@
 % occurrence-of-every-section#153494
 \pretocmd{\chapter}{\glsresetall}{}{}
 \pretocmd{\section}{\glsresetall}{}{}
-\pretocmd{\subsection}{\glsresetall\renewcommand{%
-  \banderaPrimerElementoDeSeccion}{1}}{}{}
-\pretocmd{\subsubsection}{\renewcommand{%
-  \banderaPrimerElementoDeSeccion}{1}}{}{}
+\pretocmd{\subsection}{\glsresetall}{}{}
 
 % http://mirrors.ctan.org/fonts/amsfonts/doc/amsfndoc.pdf
 \RequirePackage{amsfonts}
@@ -260,9 +257,6 @@
 \setlength{\parskip}{1em}                   % Espacio entre párrafos
 \renewcommand{\baselinestretch}{1.25}       % Interlineado
 
-% Formato de listas
-\setlength\itemsep{0em}
-
 % Formato de títulos
 \titleformat{\chapter}[display]
 {\bfseries\Huge\centering}                  % Formato
@@ -279,17 +273,17 @@
 {}                                          % Antes de
 []                                          % Después de
 
-\titleformat{\subsection}[runin]
-{\normalfont\large\bfseries}
-{\thesubsection}{1em}
-{}
-[\vspace{1em}\newline]
-
-\titleformat{\subsubsection}[runin]
-{\normalfont\large\bfseries}
-{\thesubsubsection}{1em}
-{}
-[\vspace{1em}\newline]
+%\titleformat{\subsection}[hang]
+%{\normalfont\large\bfseries}
+%{\thesubsection}{1em}
+%{}
+%[]
+%
+%\titleformat{\subsubsection}[hang]
+%{\normalfont\large\bfseries}
+%{\thesubsubsection}{1em}
+%{}
+%[]
 
 % izquierda, arriba, abajo
 \titlespacing*{\section}{0pc}{0pc}{0pc}
@@ -369,9 +363,6 @@
 
 % Buffer temporal:
 \newcommand{\etiqueta}{}
-
-% Bandera para evaluar a los primeros elementos de sección:
-\newcommand{\banderaPrimerElementoDeSeccion}{0}
 
 % Archivos de plantillas
 \import{reporte_tecnico/plantillas/}{unidad_irrompible.sty}
