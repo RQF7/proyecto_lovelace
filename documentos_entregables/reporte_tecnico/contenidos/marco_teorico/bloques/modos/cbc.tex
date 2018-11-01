@@ -92,18 +92,21 @@ encontrado varias vulnerabilidades, algoritmos basados en CBC-MAC han sido
 propuestos, tales como el \textit{eXtended CBC} o el \gls{gl:omac}.
 
 \begin{figure}
-  \begin{center}
-    \subimport{diagramas/}{cbc_mac.tikz.tex}
-    \caption{Esquema de \acrshort{gl:cbc}-\acrshort{gl:mac} simple.}
-    \label{mac:cbc1}
-  \end{center}
-\end{figure}
-
-\begin{figure}
-  \begin{center}
-    \subimport{diagramas/}{cbc_mac_compuesto.tikz.tex}
-    \caption{Esquema de \acrshort{gl:cbc}-\acrshort{gl:mac}
-      con el último bloque cifrado.}
-    \label{mac:cbc2}
-  \end{center}
+  \centering
+  \begin{subfigure}{0.45\textwidth}
+    \begin{center}
+      \subimport{diagramas/}{cbc_mac.tikz.tex}
+      \caption{\acrshort{gl:cbc}-\acrshort{gl:mac} simple.}
+      \label{mac:cbc1}
+    \end{center}
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+    \begin{center}
+      \subimport{diagramas/}{cbc_mac_compuesto.tikz.tex}
+      \caption{\acrshort{gl:cbc}-\acrshort{gl:mac} con último bloque cifrado.}
+      \label{mac:cbc2}
+    \end{center}
+  \end{subfigure}
+  \caption{\acrshort{gl:cbc}-\acrshort{gl:mac}.}
+  \label{figura:cbc_mac}
 \end{figure}
