@@ -61,8 +61,8 @@ El documento depende actualmente de 138 paquetes de \LaTeX; aquí se enlistan
 aquellos cuyo uso responde a un proceso de decisión, y no a una simple
 necesidad.
 
-\dependencia{Elaboración de diagramas}{Ti\textit{k}Z}{\acrshort{gl:lppl} v1.3}{%
-  https://www.ctan.org/pkg/pgf}{%
+\dependencia[dep:tikz]{Elaboración de diagramas}{Ti\textit{k}Z}{%
+  \acrshort{gl:lppl} v1.3}{https://www.ctan.org/pkg/pgf}{%
   Paquete para crear gráficos. La interfaz al usuario es similar a la de
   \LaTeX: define un lenguaje para la descripción del gráfico; el producto
   final se obtiene mediante un proceso de compilado.
@@ -83,22 +83,88 @@ necesidad.
   fuente~\ref{codigo:diagrama_tikz} muestra un fragmento del archivo fuente del
   diagrama~\ref{diagrama:aes_add_round_key}}.
 
-% TODO:
-% La ruta a este archivo está demasiado larga.
-
 \codigoFuente[codigo:diagrama_tikz]{1}{38}{latex}{%
   documentos_entregables/reporte_tecnico/contenidos/marco_teorico/%
   bloques/diagramas/addRoundKey.tikz.tex}{%
   Ejemplo de diagrama en Ti\textit{k}Z;
   diagrama~\ref{diagrama:aes_add_round_key}}
 
+\dependencia{Diagramas \acrshort{gl:uml}}{Ti\textit{k}Z-\acrshort{gl:uml}}{%
+  \gls{gl:lppl}}{http://perso.ensta-paristech.fr/~kielbasi/tikzuml/index.php}{%
+  Conjunto de comandos alrededor de \hipervinculo{dep:tikz} para la creación de
+  diagramas en \gls{gl:uml}.
+
+  Define una sintaxis que permite crear diagramas de Ti\textit{k}Z pensando
+  solamente en el contenido, sin tener que preocuparse por el aspecto. El
+  código fuente~\ref{codigo:muestra_tikz_uml} muestra un fragmento del
+  diagrama de secuencia~\ref{fig:secuencia_registrar_cliente}.}
+
+\codigoFuente[codigo:muestra_tikz_uml]{1}{31}{latex}{%
+  documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_api_web%
+  /disenio/diagramas/secuencia_registrar_cliente.tikz.tex}{%
+  Ejemplo de diagrama en Ti\textit{k}Z-\acrshort{gl:uml};
+  diagrama~\ref{fig:secuencia_registrar_cliente}.}
+
+\dependencia{Para distribución de código fuente}{Import}{%
+  \acrshort{gl:pds}}{https://www.ctan.org/pkg/import}{%
+  Paquete para importar archivos fuente de forma relativa al archivo fuente
+  actual.
+
+  Si se trabaja con documentos pequeños, la importancia de este paquete no es
+  muy clara; sin embargo, al trabajar con un documento distribuido en más
+  de~500 archivos, los importados relativos son indispensables. Además de que,
+  si se trabajara con el comportamiento por defecto (importados absolutos al
+  archivo origen) las rutas internas de los archivos más profundos serían
+  ridículamente largas e inmanejables, el importado relativo también permite
+  mover carpetas enteras sin tener que alterar el código interno.
+  Por ejemplo, para cambiar una sección de capítulo basta con mover la carpeta
+  correspondiente de lugar y cambiar la línea de llamada. En el código
+  fuente~\ref{codigo:muestra_imports} se muestra un fragmento del archivo
+  principal del documento en donde se hace uso de este paquete.}
+
+\codigoFuente[codigo:muestra_imports]{27}{41}{latex}{%
+  documentos_entregables/reporte_tecnico/reporte_tecnico.tex}{%
+  Muestra de importados relativos.}
+
+\dependencia{Para administración de fuentes bibliográficas}{Bib\LaTeX~y Biber}{%
+  \acrshort{gl:lppl} y \acrshort{gl:pal}}{https://www.ctan.org/pkg/biber}{%
+  Bib\LaTeX~es el sucesor de Bib\TeX, el gestor de fuentes bibliográficas
+  por defecto de \LaTeX. Bib\LaTeX~ es la interfaz para Biber: un programa
+  en Perl que se encarga de la construcción de la bibliografía.
+
+  En el archivo fuente~\ref{codigo:muestra_fuentes} se muestran un par de las
+  referencias de este documento~(\cite{DBLP:journals/rfc/rfc4648}
+  y~\cite{DBLP:books/crc/AU1992})\footnotemark{}. Existen varias ventajas al
+  trabajar de esta forma. Primero, en la misma línea que algunas de las
+  ventajas de otros paquetes y de \LaTeX~mismo, la forma y el contenido son
+  independientes entre sí (véase \gls{gl:acoplamiento}); el contenido es el
+  que se muestra en el fragmento de código~\ref{codigo:muestra_fuentes},
+  mientras que la forma va dada por la configuración de Bib\LaTeX. Por ejemplo,
+  las referencias en este trabajo se encuentran en formato \gls{gl:ieee}, sin
+  embargo, en el supuesto de que se quisieran cambiar a \gls{gl:apa}, bastaría
+  con dar la orden al programa, sin tener que cambiar las descripciones fuente.
+  Otra ventaja es la reutilización de las fuentes a través de distintos
+  documentos: el mismo archivo de referencias se usa en este documento, en las
+  presentaciones de Trabajo Terminal, en el artículo sobre tokenización,
+  etcétera.}
+
+% TODO:
+% ¿En nuestro reporte técnico no tenemos que citar el artículo de RCI?
+% ¿Eso se va a publicar, no?
+
+\codigoFuente[codigo:muestra_fuentes]{899}{924}{latex}{%
+  documentos_entregables/referencias.bib}{%
+  Muestra de fuentes bibliográficas.}
+
+\footnotetext{
+  \gls{gl:dblp} es una base de datos en línea (\url{http://dblp.org/}) enfocada
+  a documentos de ciencias de la computación. Muchas de las fuentes de este
+  trabajo provienen de esta herramienta.}
+
 % Dependencias a describir:
-% Import
-% Biblatex (biber, no bibtex).
 % Listings
-% Glossaries
-% Tikz-Uml
 % Minted
+% Glossaries
 
 \section{Comandos propios}
 
