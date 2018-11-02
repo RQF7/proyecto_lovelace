@@ -1,0 +1,13 @@
+%
+% Entorno para definir un párrafo que hace referencia a una lista contigua.
+% Reporte técnico.
+% Proyecto Lovelace.
+%
+% Hay un \nopagebreak entre el párrafo y el primer elemento de la lista.
+%
+
+\newenvironment{parrafoConListaLarga}[1]{%
+  #1\par%
+  \nopagebreak[4]
+  \begin{itemize}[nosep]}{%
+  \end{itemize}}

@@ -4,32 +4,30 @@
 % Proyecto Lovelace
 %
 
-\capitulo{Administración de llaves}{sec:administracion_llaves}
-{
-  \epigrafe
-  {%
+\capitulo{Administración de llaves}{sec:administracion_llaves}{%
+  \epigrafe{%
     Cangrejo: ... un maravilloso concierto de piano para dos manos izquierdas.
     El penúltimo (y único) movimiento era una fuga a una voz. No puede imaginar
     lo intrincada que era. Como finale, tocamos la novena Zenfonía de Beethoven.
     Cuando terminó, toda la audiencia se puso de pie y aplaudió con una mano.
-    Fue sobrecogedor.%
-  }
-  {%
+    Fue sobrecogedor.}{%
     Gödel, Escher, Bach: An Eternal Golden Braid, Contrafactus,
-    \textsc{Douglas R. Hofstadter}.%
-  }
-}
+    \textsc{Douglas R. Hofstadter}.}}%
+%
+En este apéndice se explican los puntos más importantes del estándar del
+\gls{gl:nist} con respecto a la administración de llaves criptográficas,
+\textit{\gls{gl:nist} Special Publication 800-57 - Recommendation for Key
+Management}, descrito en~\cite{nist_llaves}.
 
 \section{Tipos de llaves}
 
-En~\cite{nist_llaves}, el \gls{gl:nist} divide a las llaves criptográficas en
-19 categorías, las cuales surgen de la combinación de la naturaleza de la
-llave (simétrica, pública o privada) con la funcionalidad que se le da
-(firmas, autenticación, cifrado, entre otras). En la tabla
-\ref{clasificacion_llaves} se muestran dichas categorías: se marca con
-$ \checkmark $ las combinaciones que tienen sentido práctico; por ejemplo, para
-firmar (y posteriormente validar) solamente se ocupan las llaves de un esquema
-asimétrico (esto es, públicas y privadas).
+Las llaves criptográficas se dividen en 19 categorías, las cuales surgen de la
+combinación de la naturaleza de la llave (simétrica, pública o privada) con la
+funcionalidad que se le da (firmas, autenticación, cifrado, entre otras). En la
+tabla~\ref{clasificacion_llaves} se muestran dichas categorías: se marca
+con~$ \checkmark $ las combinaciones que tienen sentido práctico; por ejemplo,
+para firmar (y posteriormente validar) solamente se ocupan las llaves de un
+esquema asimétrico (esto es, públicas y privadas).
 
 \begin{description}
 
