@@ -1,0 +1,81 @@
+%
+% Presentación de TT2.
+% Proyecto Lovelace.
+%
+% Estructura de exposición de TT2
+%------------------------------------------------------------------------------
+% # Recapitulación                                           (6.5 mins)
+%   + Planteamiento del problema                             (1.5 mins) [01]
+%   + Nuestros prototipos                                    (1.0 min ) [02]
+%   + Prototipo de generación de tokens
+%     - Marco Teórico (Clasificaciones)                      (2.0 mins) [03,04]
+%     - Algoritmos implementados (reversibles)               (1.0 mins) [05]
+%     - Algoritmos implementados (irreversibles)             (1.0 mins) [06]
+%------------------------------------------------------------------------------
+% # Prototipo de servicio web                                (7.5 mins)
+%   + Casos de uso (Diagrama general)                        (1.5 mins) [07]
+%   + Tokenizar y Detokenizar                                (1.0 min ) [08]
+%   + Retokenizar y refresco de llaves                       (2.0 min ) [09]
+%   + Demostración                                           (3.0 mins) [##]
+%------------------------------------------------------------------------------
+% # Prototipo de tienda en línea                             (7.5 mins)
+%   + Casos de uso (Diagrama general)                        (1.5 mins) [10]
+%   + Integración con el servicio tokenizador                (1.0 mins) [11]
+%   + Diagrama de secuencias de Registro de pago             (1.0 min ) [12]
+%   + Diagrama de secuencias de Comprar                      (1.0 min ) [13]
+%   + Demostración                                           (3.0 mins) [##]
+%------------------------------------------------------------------------------
+% # Resultados                                               (3.0 mins)
+%   + Pruebas de desempeño                                   (1.0 min ) [14]
+%   + Pruebas de estrés                                      (1.0 min ) [15]
+% # Conclusiones                                             (1.0 mins) [16,17]
+%------------------------------------------------------------------------------
+%  TIEMPO TOTAL = 24.5 minutos.
+
+\documentclass{beamer}
+\usepackage{formato}
+\newcommand{\Titulo}{Generación de tokens para proteger
+                     los datos de tarjetas bancarias}
+\newcommand{\Fecha}{Ciudad de México, 9 de noviembre de 2018}
+\usepackage{formato_presentaciones}
+
+\begin{document}
+
+  {\setbeamertemplate{footline}{}
+  \frame{\titlepage}}
+
+  \begin{frame}
+    \frametitle{Contenido}
+    \setcounter{tocdepth}{1}
+    \tableofcontents
+  \end{frame}
+
+  % Espacio entre párrafos
+  \setlength{\parskip}{0.5em}
+
+  \import{presentacion_tt_dos/contenidos/recapitulacion/}
+    {recapitulacion}
+  
+  \import{presentacion_tt_dos/contenidos/servicio_web/}
+    {servicio_web}
+  
+  \import{presentacion_tt_dos/contenidos/tienda_en_linea/}
+    {tienda_en_linea}
+  
+  \import{presentacion_tt_dos/contenidos/resultados/}
+    {resultados}
+  
+  \import{presentacion_tt_dos/contenidos/conclusiones/}
+    {conclusiones}
+
+  \begin{frame}[allowframebreaks]{Bibliografía}
+    \printbibliography
+  \end{frame}
+
+  % Espacio entre párrafos
+  \setlength{\parskip}{0.0em}
+
+  {\setbeamertemplate{footline}{}
+  \frame{\titlepage}}
+
+\end{document}

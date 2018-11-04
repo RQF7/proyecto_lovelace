@@ -1,0 +1,168 @@
+%
+% Diagrama de cifrado del modo CBC,
+% capítulo del marco teórico.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[
+  bloque/.style = {
+    rectangle,
+    draw = black,
+    thin,
+    align = center,
+    inner sep = 4mm},
+  combinacion/.style = {
+    draw = black,
+    thin,
+    minimum size = 5mm,
+    circle}]
+
+  \node[bloque]
+    (e_1)
+    {$ F $};
+
+  \draw[-Stealth]
+    ($(e_1.west) + (-0.8in - 2.6mm, +0.1in)$)
+    node[
+      anchor = east]
+      {$ Bm_1 $}
+    --
+    ($(e_1.west) + (0, +0.1in)$);
+  \draw[-Stealth]
+    ($(e_1.west) + (-0.8in - 2.6mm, -0.1in)$)
+    node[
+      anchor = east]
+      {$ l_1 $}
+    --
+    ($(e_1.west) + (0, -0.1in)$);
+
+  \node[bloque]
+    (e_2)
+    [below = 0.3in of e_1]
+    {$ F $};
+
+  \node[combinacion]
+    (c_2)
+    at ($(e_2.west) + (-0.4in, 0.1in)$)
+    {};
+  \draw[-]
+    (c_2.north)
+    --
+    (c_2.south);
+  \draw[-]
+    (c_2.west)
+    --
+    (c_2.east);
+
+  \draw[-Stealth]
+    (c_2.east)
+    --
+    ($(e_2.west) + (0, 0.1in)$);
+  \draw[-Stealth]
+    ($(c_2.west) + (-0.4in, 0)$)
+    node[
+      anchor = east]
+      {$ Bm_2 $}
+    --
+    (c_2.west);
+  \draw[-Stealth]
+    ($(e_2.west) + (-0.8in - 2.6mm, -0.1in)$)
+    node[
+      anchor = east]
+      {$ l_1 $}
+    --
+    ($(e_2.west) + (0, -0.1in)$);
+  \draw[-Stealth]
+    (e_1.east)
+    --
+    ($(e_1.east) + (0.3in, 0)$)
+    --
+    ($(e_1.east) + (0.3in, -0.15in - 5mm)$)
+    -|
+    (c_2.north);
+
+  \node
+    (puntos)
+    [below = 0.2in of e_2]
+    {$ \dots $};
+
+  \node[bloque]
+    (e_n)
+    [below = 0.2in of puntos]
+    {$ F $};
+
+  \node[combinacion]
+    (c_n)
+    at ($(e_n.west) + (-0.4in, 0.1in)$)
+    {};
+  \draw[-]
+    (c_n.north)
+    --
+    (c_n.south);
+  \draw[-]
+    (c_n.west)
+    --
+    (c_n.east);
+
+  \draw[-Stealth]
+    (c_n.east)
+    --
+    ($(e_n.west) + (0, 0.1in)$);
+  \draw[-Stealth]
+    ($(c_n.west) + (-0.4in, 0)$)
+    node[
+      anchor = east]
+      {$ Bm_n $}
+    --
+    (c_n.west);
+  \draw[-Stealth]
+    ($(e_n.west) + (-0.8in - 2.6mm, -0.1in)$)
+    node[
+      anchor = east]
+      {$ l_1 $}
+    --
+    ($(e_n.west) + (0, -0.1in)$);
+
+  \draw[-Stealth]
+    (e_2.east)
+    --
+    ($(e_2.east) + (0.3in, 0)$)
+    --
+    ($(e_2.east) + (0.3in, -0.15in - 5mm)$);
+  \draw[-Stealth]
+    ($(e_2.east) + (0.3in, -0.6in)$)
+    -|
+    (c_n.north);
+
+  \node[bloque]
+    (e_n_2)
+    [below = 0.3in of e_n]
+    {$ F $};
+
+  \draw[-Stealth]
+    ($(e_n_2.west) + (-0.8in - 2.6mm, -0.1in)$)
+    node[
+      anchor = east]
+      {$ l_2 $}
+    --
+    ($(e_n_2.west) + (0, -0.1in)$);
+  \draw[-Stealth]
+    (e_n_2.east)
+    --
+    ($(e_n_2.east) + (0.6in, 0)$)
+    node[
+      anchor = west]
+      {$ MAC $};
+
+  \draw[-Stealth]
+    (e_n.east)
+    --
+    ($(e_n.east) + (0.3in, 0)$)
+    --
+    ($(e_n.east) + (0.3in, -0.15in - 5mm)$)
+    -|
+    ($(e_n_2.west) + (-0.4in, 0.1in)$)
+    --
+    ($(e_n_2.west) + (0, 0.1in)$);
+
+\end{tikzpicture}
