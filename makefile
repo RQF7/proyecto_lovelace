@@ -203,7 +203,9 @@ $(LIB_CARPETA_IMAGENES)/resumen_de_compra_1920x1080.png: \
 FUENTES   := $(RUTA_BASE)apendices/paginas_estaticas/
 PRODUCTOS := $(RUTA_BASE)analisis_y_disenio_api_web/analisis/paginas_estaticas/
 
-paginas_estaticas: paginas_estaticas_inicio
+paginas_estaticas: \
+		paginas_estaticas_inicio \
+		$(PRODUCTOS)/documentacion.producto.html
 	@echo "Traducción de páginas estáticas lista"
 
 paginas_estaticas_inicio: \
@@ -272,6 +274,15 @@ $(PRODUCTOS)/inicio/drbg.producto.html: $(FUENTES)/inicio/drbg.tex
 
 $(PRODUCTOS)/inicio/comparacion.producto.html: $(FUENTES)/inicio/comparacion.tex
 	mkdir -p $(PRODUCTOS)/inicio
+	pandoc \
+		--filter pandoc-latex-levelup	\
+		-f latex \
+		-t html \
+		-o $@ \
+		$<
+
+$(PRODUCTOS)/documentacion.producto.html: $(FUENTES)/documentacion.tex
+	mkdir -p $(PRODUCTOS)
 	pandoc \
 		--filter pandoc-latex-levelup	\
 		-f latex \
