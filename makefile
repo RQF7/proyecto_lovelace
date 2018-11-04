@@ -49,7 +49,7 @@ LIB_LISTA_DE_FUENTES := inicio_1920x1080.png \
 												formulario_actualizacion_de_usuario_1920x1080.png \
 												forma_de_pago_1920x1080.png \
 												direccion_de_entrega_1920x1080.png \
-												resumen_de_compra_1920x1080.png 
+												resumen_de_compra_1920x1080.png
 LIB_LISTA_DE_OBJETOS := $(addprefix $(LIB_CARPETA_IMAGENES)/, \
 	                      $(LIB_LISTA_DE_FUENTES))
 
@@ -198,3 +198,19 @@ $(LIB_CARPETA_IMAGENES)/resumen_de_compra_1920x1080.png: \
 		js/controladores/secundarios/finalizar_compra.controlador.js
 	python $(SCRIPTS_CAPTURAS)/libreria_resumen_de_compra.py \
 	$(LIB_DOMINIO)/ $@ $(LIB_DOMINIO)/cuenta
+
+# Traducción de archivos de latex a archivos de html
+FUENTES   := $(RUTA_BASE)apendices/paginas_estaticas/
+PRODUCTOS := $(RUTA_BASE)analisis_y_disenio_api_web/analisis/paginas_estaticas/
+
+paginas_estaticas: $(PRODUCTOS)/inicio.producto.html
+	@echo "Traducción de páginas estáticas lista"
+
+$(PRODUCTOS)/inicio.producto.html: $(FUENTES)/inicio.tex
+	mkdir -p $(PRODUCTOS)
+	pandoc \
+		--filter pandoc-latex-levelup	\
+		-f latex \
+		-t html \
+		-o $@ \
+		$<
