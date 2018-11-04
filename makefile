@@ -212,7 +212,8 @@ paginas_estaticas_inicio: \
 		$(PRODUCTOS)/inicio/bps.producto.html \
 		$(PRODUCTOS)/inicio/tkr.producto.html \
 		$(PRODUCTOS)/inicio/ahr.producto.html \
-		$(PRODUCTOS)/inicio/drbg.producto.html
+		$(PRODUCTOS)/inicio/drbg.producto.html \
+		$(PRODUCTOS)/inicio/comparacion.producto.html
 	@echo "Traducción de páginas estáticas de inicio lista"
 
 $(PRODUCTOS)/inicio/inicio.producto.html: $(FUENTES)/inicio/inicio.tex
@@ -261,6 +262,15 @@ $(PRODUCTOS)/inicio/ahr.producto.html: $(FUENTES)/inicio/ahr.tex
 		$<
 
 $(PRODUCTOS)/inicio/drbg.producto.html: $(FUENTES)/inicio/drbg.tex
+	mkdir -p $(PRODUCTOS)/inicio
+	pandoc \
+		--filter pandoc-latex-levelup	\
+		-f latex \
+		-t html \
+		-o $@ \
+		$<
+
+$(PRODUCTOS)/inicio/comparacion.producto.html: $(FUENTES)/inicio/comparacion.tex
 	mkdir -p $(PRODUCTOS)/inicio
 	pandoc \
 		--filter pandoc-latex-levelup	\
