@@ -203,11 +203,65 @@ $(LIB_CARPETA_IMAGENES)/resumen_de_compra_1920x1080.png: \
 FUENTES   := $(RUTA_BASE)apendices/paginas_estaticas/
 PRODUCTOS := $(RUTA_BASE)analisis_y_disenio_api_web/analisis/paginas_estaticas/
 
-paginas_estaticas: $(PRODUCTOS)/inicio.producto.html
+paginas_estaticas: paginas_estaticas_inicio
 	@echo "Traducción de páginas estáticas lista"
 
-$(PRODUCTOS)/inicio.producto.html: $(FUENTES)/inicio.tex
-	mkdir -p $(PRODUCTOS)
+paginas_estaticas_inicio: \
+		$(PRODUCTOS)/inicio/inicio.producto.html \
+		$(PRODUCTOS)/inicio/ffx.producto.html \
+		$(PRODUCTOS)/inicio/bps.producto.html \
+		$(PRODUCTOS)/inicio/tkr.producto.html \
+		$(PRODUCTOS)/inicio/ahr.producto.html \
+		$(PRODUCTOS)/inicio/drbg.producto.html
+	@echo "Traducción de páginas estáticas de inicio lista"
+
+$(PRODUCTOS)/inicio/inicio.producto.html: $(FUENTES)/inicio/inicio.tex
+	mkdir -p $(PRODUCTOS)/inicio
+	pandoc \
+		--filter pandoc-latex-levelup	\
+		-f latex \
+		-t html \
+		-o $@ \
+		$<
+
+$(PRODUCTOS)/inicio/ffx.producto.html: $(FUENTES)/inicio/ffx.tex
+	mkdir -p $(PRODUCTOS)/inicio
+	pandoc \
+		--filter pandoc-latex-levelup	\
+		-f latex \
+		-t html \
+		-o $@ \
+		$<
+
+$(PRODUCTOS)/inicio/bps.producto.html: $(FUENTES)/inicio/bps.tex
+	mkdir -p $(PRODUCTOS)/inicio
+	pandoc \
+		--filter pandoc-latex-levelup	\
+		-f latex \
+		-t html \
+		-o $@ \
+		$<
+
+$(PRODUCTOS)/inicio/tkr.producto.html: $(FUENTES)/inicio/tkr.tex
+	mkdir -p $(PRODUCTOS)/inicio
+	pandoc \
+		--filter pandoc-latex-levelup	\
+		-f latex \
+		-t html \
+		-o $@ \
+		$<
+
+$(PRODUCTOS)/inicio/ahr.producto.html: $(FUENTES)/inicio/ahr.tex
+	mkdir -p $(PRODUCTOS)/inicio
+	pandoc \
+		--filter pandoc-latex-levelup	\
+		-f latex \
+		-t html \
+		-o $@ \
+		$<
+
+$(PRODUCTOS)/inicio/drbg.producto.html: $(FUENTES)/inicio/drbg.tex
+	mkdir -p $(PRODUCTOS)/inicio
 	pandoc \
 		--filter pandoc-latex-levelup	\
 		-f latex \
