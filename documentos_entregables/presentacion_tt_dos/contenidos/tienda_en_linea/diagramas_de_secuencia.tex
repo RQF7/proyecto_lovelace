@@ -8,9 +8,27 @@
 
 \subsection{Diagramas de secuencia}
 
-\begin{frame}{Diagramas de secuencia}{CU de registro de pago}
-  
-  Info
+% NOTA: Aun no tenemos el diagrama de registro de pago, si nos falta
+%       tiempo lo podemos hacer y ponerlo aquí
+
+%\begin{frame}{Diagramas de secuencia}{CU de registro de pago}
+%
+%  Info
+%
+%  \note{
+%    notas
+%  }
+%
+%\end{frame}
+
+\begin{frame}{Diagramas de secuencia}{CU de compra}
+
+  \begin{figure}
+    \begin{center}
+      \subimport{diagramas/}{secuencia_comprar.tikz.tex}
+      \caption{Diagrama de secuencia completo del caso de uso de compra.}
+    \end{center}
+  \end{figure}
 
   \note{
     notas
@@ -18,9 +36,31 @@
 
 \end{frame}
 
-\begin{frame}{Diagramas de secuencia}{CU de compra}
-  
-  Info
+\begin{frame}{Diagramas de secuencia}{CU de compra, obtención de datos}
+
+  \begin{figure}
+    \begin{center}
+      \subimport{diagramas/}{secuencia_comprar_p1.tikz.tex}
+      \caption{Parte de la obtención de datos del diagrama de secuencia
+        del CU de compra.}
+    \end{center}
+  \end{figure}
+
+  \note{
+    notas
+  }
+
+\end{frame}
+
+\begin{frame}{Diagramas de secuencia}{CU de compra, finalización de compra}
+
+  \begin{figure}
+    \begin{center}
+      \subimport{diagramas/}{secuencia_comprar_p2.tikz.tex}
+      \caption{Parte de la finalización de a compra del diagrama de
+        secuencia del CU de compra.}
+    \end{center}
+  \end{figure}
 
   \note{
     notas
