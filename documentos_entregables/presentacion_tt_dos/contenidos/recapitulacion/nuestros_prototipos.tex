@@ -6,14 +6,37 @@
 % Nuestros prototipos.
 %
 
-\subsection{Nuestros prototipos}
+\subsection{Prototipos}
 
-\begin{frame}{Nuestros prototipos}
-  
-  Info
+\begin{frame}{Prototipos}
+
+  \begin{itemize}
+    \item \textbf{Generación de tokens} [TT-I]
+      \begin{itemize}
+        \item Implementación de cinco algoritmos generadores de tokens.
+        \item Pruebas de desempeño entre los algoritmos implementados.
+      \end{itemize}
+    \item \textbf{Servicio web} [TT-II]
+      \begin{itemize}
+        \item API que comunica al programa tokenizador con sus clientes.
+        \item Aplicación web que permite administrar a los usuarios y el
+          servicio.
+      \end{itemize}
+    \item \textbf{Caso de prueba: tienda en línea} [TT-II]
+      \begin{itemize}
+        \item Librería en línea que utiliza el servicio web.
+        \begin{itemize}
+          \item Permite \emph{guardar} un método de pago mediante tokenización.
+          \item Permite realizar una compra utilizando la detokenización.
+        \end{itemize}
+      \end{itemize}
+  \end{itemize}
 
   \note{
-    notas
+    Explicar brevemente la separación de los módulos. Resaltar que la tienda
+    en línea es un caso de prueba y por lo mismo NO ESTÁ COMPLETA; se
+    programaron los casos de uso necesarios para realizar las acciones que
+    involucran al servicio web.  
   }
 
 \end{frame}
