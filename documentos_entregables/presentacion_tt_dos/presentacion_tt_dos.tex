@@ -51,6 +51,20 @@
 font=\footnotesize}
 
 
+\usepackage{bold-extra}
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows.meta,
+  decorations.pathmorphing,
+  backgrounds,
+  positioning,
+  calc,
+  scopes,
+  shapes}
+
+\tikzset{
+font=\tiny}
+
 \begin{document}
 
   {\setbeamertemplate{footline}{}
@@ -67,16 +81,16 @@ font=\footnotesize}
 
   \import{presentacion_tt_dos/contenidos/recapitulacion/}
     {recapitulacion}
-  
+
   \import{presentacion_tt_dos/contenidos/servicio_web/}
     {servicio_web}
-  
+
   \import{presentacion_tt_dos/contenidos/tienda_en_linea/}
     {tienda_en_linea}
-  
+
   \import{presentacion_tt_dos/contenidos/resultados/}
     {resultados}
-  
+
   \import{presentacion_tt_dos/contenidos/conclusiones/}
     {conclusiones}
 
