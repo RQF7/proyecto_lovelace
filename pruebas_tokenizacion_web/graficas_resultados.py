@@ -39,9 +39,9 @@ ax.yaxis.grid(True, color='#424242', linestyle=':')
 ax.set_xticklabels(metodos)
 
 ax.bar(indice - ancho/2, tokenizacion, ancho,
-  color='#616161', label='Tokenización')
+  color='#424242', label='Tokenización')
 ax.bar(indice + ancho/2, detokenizacion, ancho,
-  color='#757575', label='Detokenización')
+  color='#BDBDBD', label='Detokenización')
 
 formatter = FuncFormatter(millions)
 ax.yaxis.set_major_formatter(formatter)

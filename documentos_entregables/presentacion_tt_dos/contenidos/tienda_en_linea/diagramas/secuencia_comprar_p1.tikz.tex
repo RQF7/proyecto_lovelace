@@ -1,0 +1,59 @@
+%
+% Diagrama de secuencia para realizar una compra con la tienda en línea
+% Proyecto Lovelace.
+%
+
+\resizebox{\textwidth}{!}{%
+
+  \begin{tikzpicture}
+    \begin {umlseqdiag}
+
+      % Líneas de vida %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+      \umlactor   [x=00, fill=gray!20, class = Usuario]{cliente}
+      \umlboundary[x=06, fill=gray!20, no ddots]{navegador}
+      \umlcontrol [x=12, fill=gray!20, class = Servicio]{servicioGeneral}
+      \umldatabase[x=18, fill=gray!20, no ddots]{Modelo}
+
+      % Obtener formas de pago  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+      \begin{umlcall}[fill=gray!15, padding=1, dt=10,%
+        op = {Botón «Finalizar compra»},%
+        return = IULIB-10]{cliente}{navegador}
+        \begin{umlcall}[fill=gray!15,%
+          op = {obtenerFormasDePago(cliente)},%
+          return = {200 OK formasDePago}]{navegador}{servicioGeneral}
+          \begin{umlcall}[fill=gray!15, padding=4,%
+            op = {obtenerTarjetas(cliente)},%
+            return = tarjetas]{servicioGeneral}{Modelo}
+          \end{umlcall}
+        \end{umlcall}
+      \end{umlcall}
+
+      % Seleccionar forma de pago  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+      \begin{umlcall}[fill=gray!15, padding=1, dt=5,%
+        op = {Tarjeta}, %
+        return = IULIB-11]{cliente}{navegador}
+        \begin{umlcall}[fill=gray!15,%
+          op = {Botón «Continuar»}]{cliente}{navegador}
+          \begin{umlcall}[fill=gray!15,%
+            op = {compra.AgregarFormaPago(tarjeta)}]
+            {navegador}{navegador}
+            \begin{umlcall}[fill=gray!15,%
+              op = {obtenerDirecciones(cliente)},%
+              return = {200 OK direcciones}]{navegador}{servicioGeneral}
+              \begin{umlcall}[fill=gray!15, padding=4,%
+                op = {obtenerDirecciones(cliente)},%
+                return = {direcciones}]{servicioGeneral}{Modelo}
+              \end{umlcall}
+            \end{umlcall}
+          \end{umlcall}
+        \end{umlcall}
+      \end{umlcall}
+
+      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \end{umlseqdiag}
+  \end{tikzpicture}
+}

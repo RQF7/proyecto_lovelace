@@ -10,10 +10,43 @@
 
 \begin{frame}{Integración con el servicio web}
   
-  Info
+  Esta tienda en línea se desarrolló con la finalidad de ser el caso de prueba
+  del servicio web de tokenización.
+
+  Las partes donde se integra el servicio son:
+
+  \begin{itemize}
+    \item \textbf{El registro de una forma de pago.}
+
+      Se necesita el servicio de tokenización dado que no se desea guardar
+      el número de tarjeta ingresado, sino su token.
+      \newline
+
+    \item \textbf{La realización de una compra.}
+
+      Requiere de la detokenización, ya que se tiene almacenado el token de
+      la tarjeta y se requiere el número original para la transacción bancaria.
+
+  \end{itemize}
 
   \note{
-    notas
+    Dado la finalidad de de la implementación de esta tienda, que es el de ser
+    un caso de prueba que nos permite corroborar el correcto funcionamiento del
+    servicio web, los casos de uso que mas nos interesan son los de registrar
+    una forma me pago, que es registrar un número de tarjeta de crédito, y el
+    de la realización de una compra.
+
+    Viendo a esta tienda como el software de un tercero, ajeno al servicio de
+    tokenización. El registro de una forma de pago es importante debido a que
+    la tienda desea delegar el la protección de los datos bancarios, razón por
+    lo que no puede almacenar los datos de forma directa, sino sus tokens
+    representativos, lo que se logra, haciendo una petición de tokenización.
+    y guardado el valor regresado en ves de el número ingresado.
+
+    En cuanto a la realización de una compra, también es relevante, dado que
+    para hacer transacciones bancarias, son necesarios los número de las
+    tarjetas, las cual no se tienen, pero se consiguen solicitando la
+    detokenización del los tokens guardados como forma de pago.
   }
 
 \end{frame}

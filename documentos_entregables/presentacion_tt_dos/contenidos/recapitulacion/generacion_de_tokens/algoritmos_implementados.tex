@@ -9,24 +9,71 @@
 
 \subsubsection{Algoritmos implementados}
 
-\begin{frame}{Prototipo de generación de tokens}
+\begin{frame}{Generación de tokens}
 {Algoritmos implementados (reversibles)}
-  
-  Info
+
+  Entre los algoritmos reversibles, se encuentran FFX y BPS.
+  \begin{itemize}
+    \item Métodos que utilizan cifrados que preservan el formato.
+    \item Cifran la tarjeta y descifran el token.
+    \item Se volvieron estándares en 2016 y fueron renombrados por el NIST
+      a FF1 y FF3 respectivamente~\cite{nist_fpe}.
+    \item Están basados en redes Feistel.
+  \end{itemize}
 
   \note{
-    notas
-  }
+    Estos algoritmos utilizan AES y CBC-MAC. Recordar también que la seguridad
+    de estos algoritmos tokenizadores SÍ ha sido probada criptográficamente,
+    pues están basados en cifrados que preservan el formato.}
 
 \end{frame}
 
-\begin{frame}{Prototipo de generación de tokens}
+\begin{frame}{Generación de tokens}
+  {Algoritmos implementados (reversibles)}
+  \begin{figure}
+    \centering
+    \subimport{diagramas/}{tokenizacion_reversible.tikz.tex}
+    \caption{Proceso de tokenización, método reversible.}
+  \end{figure}
+
+  \begin{figure}
+    \centering
+    \subimport{diagramas/}{detokenizacion_reversible.tikz.tex}
+    \caption{Proceso de detokenización, método reversible.}
+  \end{figure}
+
+\end{frame}
+
+\begin{frame}{Generación de tokens}
 {Algoritmos implementados (irreversibles)}
-  
-  Info
+
+  Entre los algoritmos irreversibles, se encuentran TKR, AHR y DRBG.
+  \begin{itemize}
+    \item Utilizan varias primitivas criptográficas (cifrados por bloque,
+      funciones hash, generadores pseudoaleatorios).
+    \item Requieren guardar la relación tarjeta-token.
+    \item Su desempeño está ligado al desempeño de la base de datos.
+  \end{itemize}
 
   \note{
-    notas
-  }
+    Hacer énfasis en que estos algoritmos pertenecen a los
+    \emph{no criptográficos} en la clasificación del PCI, cuando en realidad
+    utilizan cifrados por bloque y funciones hash.}
+
+\end{frame}
+
+\begin{frame}{Generación de tokens}
+  {Algoritmos implementados (irreversibles)}
+  \begin{figure}
+    \centering
+    \subimport{diagramas/}{tokenizacion_irreversible.tikz.tex}
+    \caption{Proceso de tokenización, método irreversible.}
+  \end{figure}
+
+  \begin{figure}
+    \centering
+    \subimport{diagramas/}{detokenizacion_irreversible.tikz.tex}
+    \caption{Proceso de detokenización, método irreversible.}
+  \end{figure}
 
 \end{frame}
