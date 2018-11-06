@@ -41,7 +41,7 @@
       <md-button
         id="{{'libro' + $ctrl.datos.pk}}"
         ng-if="!$ctrl.datos.enCarrito"
-        ng-click="agregarAlCarrito(libro)"
+        ng-click="$ctrl.agregarAlCarrito($ctrl.datos)"
         class="md-primary conIcono"
         ng-disabled="$ctrl.datos.existencias == 0">
         <i class="material-icons">add_shopping_cart</i>
@@ -54,7 +54,7 @@
     </div>
     <md-button
       ng-if="$ctrl.datos.enCarrito"
-      ng-click="quitarDelCarrito(libro)"
+      ng-click="$ctrl.quitarDelCarrito($ctrl.datos)"
       class="md-primary conIcono">
       <i class="material-icons">remove_shopping_cart</i>
       <md-tooltip>Quitar del carrito</md-tooltip>

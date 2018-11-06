@@ -8,22 +8,77 @@
 
 \subsection{Diagramas de secuencia}
 
-\begin{frame}{Diagramas de secuencia}{CU de registro de pago}
-  
-  Info
+% NOTA: Aun no tenemos el diagrama de registro de pago, si nos falta
+%       tiempo lo podemos hacer y ponerlo aquí
+
+%\begin{frame}{Diagramas de secuencia}{CU de registro de pago}
+%
+%  Info
+%
+%  \note{
+%    notas
+%  }
+%
+%\end{frame}
+
+\begin{frame}{Diagramas de secuencia}{CU de compra}
+
+  \begin{figure}
+    \begin{center}
+      \subimport{diagramas/}{secuencia_comprar.tikz.tex}
+      \caption{Diagrama de secuencia completo del caso de uso de compra.}
+    \end{center}
+  \end{figure}
 
   \note{
-    notas
+    Para dejar más claro el comportamiento de un compra, y ver integración
+    del servicio web con la tienda, vamos a describir el diagrama de
+    secuencias de una compra.
+    Este es el diagrama completo, pero para que se puede ver mejor, se
+    partió en dos.
   }
 
 \end{frame}
 
-\begin{frame}{Diagramas de secuencia}{CU de compra}
-  
-  Info
+\begin{frame}{Diagramas de secuencia}{CU de compra, obtención de datos}
+
+  \begin{figure}
+    \begin{center}
+      \subimport{diagramas/}{secuencia_comprar_p1.tikz.tex}
+      \caption{Parte de la obtención de datos del diagrama de secuencia
+        del CU de compra.}
+    \end{center}
+  \end{figure}
 
   \note{
-    notas
+    Primero, una ves que un cliente ya puso libros en el carrito de compras
+    va a esta sección y finaliza la compra.
+    Entonces el navegador le solicita las formas de pago al servicio de la
+    tienda, que las obtiene de la base de datos en las que están almacenas.
+    El usuario selecciona la forma de pago que desea, y se hace el mismo
+    proceso, pero ahora con las direcciones que se tienen para la entrega
+    de los libros.
+  }
+
+\end{frame}
+
+\begin{frame}{Diagramas de secuencia}{CU de compra, finalización de compra}
+
+  \begin{figure}
+    \begin{center}
+      \subimport{diagramas/}{secuencia_comprar_p2.tikz.tex}
+      \caption{Parte de la finalización de a compra del diagrama de
+        secuencia del CU de compra.}
+    \end{center}
+  \end{figure}
+
+  \note{
+    Posteriormente, ya selecciona la forma de pago y la dirección de entrega,
+    el usuario acepta la compra, lo que hace que el servicio de la tienda le
+    solicite la detokenización el valor que se estableció como forma de pago,
+    para proseguir con la transacción bancario (que no hacemos por cuestión
+    de alcance) y el registro de la compra en la base de datos del sistema
+    de la tienda.
   }
 
 \end{frame}

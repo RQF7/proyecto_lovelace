@@ -6,14 +6,20 @@
 % CU de tokenizar y detokenizar.
 %
 
-\subsection{CU de tokenizar y detokenizar}
+\subsection{Tokenización y detokenización}
 
-\begin{frame}{CU de tokenizar y detokenizar}
-  
-  Info
+\begin{frame}{Tokenización y detokenización}
+  {Tokenización y detokenización}
 
-  \note{
-    notas
-  }
+  \begin{itemize}
+    \item Dos de las operaciones más importantes del servicio.
+    \item Utilizan el prototipo de generación de tokens.
+    \item Utilizan el estilo arquitectónico REST\footnotemark{}.
+    \item En el encabezado se proveen las credenciales del usuario.
+    \item El método a utilizar es especificado en el cuerpo de la petición.
+    \item Se regresa el token con un código \texttt{HTTP 200}.
+  \end{itemize}
+
+  \footnotetext{\textit{REpresentational State Transfer}}
 
 \end{frame}

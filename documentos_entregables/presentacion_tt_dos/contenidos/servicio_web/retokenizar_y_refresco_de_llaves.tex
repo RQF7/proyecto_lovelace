@@ -6,14 +6,66 @@
 % CU de retokenizar y refresco de llaves.
 %
 
-\subsection{CU de retokenizar y refresco de llaves}
+\subsection{Refresco de llaves y retokenización}
 
-\begin{frame}{CU de retokenizar y refresco de llaves}
-  
-  Info
+\begin{frame}{Refresco de llaves y retokenización}{Refresco de llaves}
+  \begin{itemize}
+    \item En el estándar del NIST sobre la administración de las llaves
+    criptográficas (NIST SP-800-57~\cite{nist_llaves}) se habla sobre los
+    criptoperiodos y se hace énfasis en cambiar las llaves cada que estos se
+    cumplan.
+    \item El PCI DSS especifica que debe existir un mecanismo que permita a los
+    usuarios reemplazar sus llaves y actualizar sus tokens.
+
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Refresco de llaves y retokenización}{Refresco de llaves}
+  El servicio web logra esto mediante un mecanismo llamado \textbf{refresco de
+  llaves} existente en la aplicación web.
+  \begin{itemize}
+    \item Cambia el estado del cliente a \emph{en cambio de llaves}.
+    \item Se crean nuevas llaves.
+    \item Las tokenizaciones se realizan con las llaves nuevas.
+    \item Las detokenizaciones se pueden realizar con ambas llaves.
+  \end{itemize}
+  Cuando el cliente termina el \textbf{refresco de llaves}, se le regresa a su
+  estado anterior y se eliminan los tokens que no fueron actualizados y las
+  llaves anteriores.
 
   \note{
-    notas
-  }
+    \begin{itemize}
+      \item Especificar que, aunque el sistema le manda unas alertas, el
+        cliente tiene la responsabilidad de hacer el cambio de llaves.
+      \item Recordar que se pueden realizar detokenizaciones con ambas
+        llaves y, que si no se especifica, se van a utilizar las viejas.
+      \item También que se consideraron otras alternativas, como enviar el
+        token nuevo cuando se realizase una detokenización, pero esto obligaba
+        al cliente a estar escuchando siempre. También está la de cambiarlas
+        nosotros solos, pero solo funcionaba con los algoritmos irreversibles,
+        pues si había tokens reversibles que se atrasasen dos periodos, sería
+        imposible recuperar el PAN.
+      \item Recalcar que se le avisa al usuario que no ha terminado de
+        retokenizar sus tokens, porque una vez que los pierde, lo cargó el
+        payaso.
+    \end{itemize}}
+\end{frame}
 
+\begin{frame}{Refresco de llaves y retokenización}{Retokenización}
+  La retokenización permite obtener la versión actual de los tokens:
+  \begin{enumerate}
+    \item El cliente envía el token anterior.
+    \item El servicio detokeniza el token recibido.
+    \item El servicio tokeniza el PAN obtenido en el paso anterior.
+    \item El servicio envía el token actualizado al cliente.
+  \end{enumerate}
+
+  La retokenización está permitida solamente durante un refresco de llaves.
+
+  \note{
+    Notar que este es el proceso general, falta anotar que se cambia el estado
+    de los tokens cuando son irreversibles y que el contador de malas acciones
+    aumenta cuando se intenta retokenizar sin estar en el estado correcto o se
+    mandan tokens que no son tokens.}
 \end{frame}
