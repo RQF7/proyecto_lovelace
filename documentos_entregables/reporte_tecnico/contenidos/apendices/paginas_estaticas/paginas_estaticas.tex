@@ -1,0 +1,66 @@
+%
+% Apéndice con contenido de páginas estáticas para sistema tokenizador.
+% Reporte técnico.
+% Proyecto Lovelace.
+%
+
+\capitulo[EST]{Páginas estáticas}{sec:paginas_estaticas}{%
+  \epigrafe{%
+    Our intellectual powers are rather geared to master static relations and
+    that our powers to visualize processes evolving in time are relatively
+    poorly developed. For that reason we should do (as wise programmers aware
+    of our limitations) our utmost to shorten the conceptual gap between the
+    static program and the dynamic process, to make the correspondence between
+    the program (spread out in text space) and the process (spread out in time)
+    as trivial as possible.}{%
+    \textsc{Edsger Dijkstra}.}}%
+%
+\begin{parrafoConListaCorta}{%
+  \noindent
+  En este apéndice se muestran los contenidos de las páginas estáticas de
+  la aplicación web del servicio tokenizador: la página de inicio y la
+  página de documentación. El contenido de estas dos páginas está regido por
+  los requerimientos \hipervinculo{rq:mostrar_promocion} y
+  \hipervinculo{rq:mostrar_documentacion}, respectivamente. Estas páginas se
+  encuentran disponibles en:}
+  \item \url{https://ricardo-quezada.159.65.96.59.xip.io/lovelace/}
+  \item \url{https://ricardo-quezada.159.65.96.59.xip.io/lovelace/documentacion}
+\end{parrafoConListaCorta}
+
+Para evitar el duplicado de información se ocuparon las siguientes
+dependencias. La fuente de información original es el archivo \texttt{.tex},
+mientras que el que ocupa la aplicación web es un \texttt{.html} dependiente
+del primero.
+
+\dependencia[dep:pandoc]{Traductor entre lenguajes de marcado}{Pandoc}{%
+  \acrshort{gl:gpl} v2}{https://github.com/jgm/pandoc}{%
+    Permite hacer converciones entre archivos de marcado. En este caso,
+    se ocupa para pasar de un archivo fuente de \LaTeX~a un \gls{gl:html}.}
+
+\dependencia{Filtro para archivos de~\LaTeX}{Pandoc-latex-levelup}{%
+  \acrshort{gl:bsd}}{https://github.com/daamien/pandoc-latex-levelup}{%
+    Filtro para \hipervinculo{dep:pandoc}. Permite hacer corrimientos entre
+    la profundidad de los archivos de origen y los archivos destino.}
+
+\section{Página de inicio}
+\subimport{inicio/}{inicio.tex}
+
+\subsubsection{\texorpdfstring{\acrshort{gl:ffx}}{FFX}}
+\subimport{inicio/}{ffx.tex}
+
+\subsubsection{\texorpdfstring{\acrshort{gl:bps}}{BPS}}
+\subimport{inicio/}{bps.tex}
+
+\subsubsection{TKR}
+\subimport{inicio/}{tkr.tex}
+
+\subsubsection{AHR}
+\subimport{inicio/}{ahr.tex}
+
+\subsubsection{\texorpdfstring{\acrshort{gl:drbg}}{DRBG}}
+\subimport{inicio/}{drbg.tex}
+
+\subimport{inicio/}{comparacion.tex}
+
+\section{Página de documentación}
+\subimport{/}{documentacion.tex}

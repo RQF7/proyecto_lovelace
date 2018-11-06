@@ -1,0 +1,50 @@
+%
+% Presentación de TT2.
+% Proyecto Lovelace.
+%
+% Recapitulación.
+% Generación de tokens.
+% Diagrama de detokenización con métodos reversibles.
+%
+
+\begin{tikzpicture}[
+  entorno/.style={
+    rectangle,
+    draw = black,
+    thin,
+    inner sep = 1mm,
+    text width = 15mm,
+    align = center,
+    minimum height = 1.0cm},
+  etiqueta/.style={
+    align = center
+  }]
+  \node[entorno]
+    (fpe_inverso)
+    {$ {FPE}^{-1} $};
+
+  \draw[-Stealth]
+    ($(fpe_inverso.west) + (0, 3mm) + (-0.5in, 0)$)
+    node[etiqueta, anchor = east]
+      {\texttt{1758 9855 9830 7620}}
+    --
+    node[etiqueta, above]
+      {Cifrado}
+    ($(fpe_inverso.west) + (0, 3mm)$);
+
+  \draw[-Stealth]
+    ($(fpe_inverso.west) - (0, 3mm) + (-0.5in, 0)$)
+    --
+    node[etiqueta, below]
+      {Llave}
+    ($(fpe_inverso.west) - (0, 3mm)$);
+
+  \draw[-Stealth]
+    (fpe_inverso.east)
+    --
+    node[etiqueta, above]
+      {Mensaje}
+    ($(fpe_inverso.east) + (0.5in, 0)$)
+    node[etiqueta, anchor = west]
+      {\texttt{5221 3001 9867 8764}};
+\end{tikzpicture}

@@ -1,0 +1,24 @@
+%
+% Explicación de FFX en página estática de inicio.
+% Reporte técnico y aplicación web de sistema tokenizador.
+% Proyecto Lovelace.
+%
+
+Este es un cifrado que permite cifrar cadenas de cualquier
+tamaño, compuestas por cualquier tipo de caracteres, el cual es
+usado para tokenizar. Fue publicado por Mihir Bellare, Phillip
+Rogaway y Terence Spies en 2009, y, en 2016, el National
+Institute of Standards and Technology (NIST) le dio el nombre de
+FF1 a este algoritmo.
+
+De forma general, el algoritmo usa redes Feistel junto con
+primitivas criptográficas (funciones hash o cifrados por bloques)
+adaptadas en la función de ronda de la red para lograr preservar
+el formato del dato dado para tokenizar; esto significa que el
+token tendrá la misma longitud y se mantendrá en el mismo
+dominio que el dato original.
+
+Para conocer más sobre este algoritmo revise el siguiente
+artículo:
+\href{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.304.1736&rep=rep1&type=pdf}
+{The FFX Mode of Operation for Format-Preserving Encryption}.

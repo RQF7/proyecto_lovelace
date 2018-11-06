@@ -9,24 +9,81 @@
 
 \subsubsection{Marco teórico}
 
-\begin{frame}{Prototipo de generación de tokens}
-{Marco teórico, clasificación del PCI}
-  
-  Info
+\begin{frame}{Generación de tokens}
+{Clasificación del PCI}
+
+  A continuación, la clasificación propuesta por el PCI SSC~\cite{pci_tokens}.
+
+  \begin{itemize}
+    \item Reversibles
+    \begin{itemize}
+      \item Criptográficos (FFX, BPS)
+      \item No criptográficos (TKR, AHR, DRBG)
+    \end{itemize}
+    \item Irreversibles
+    \begin{itemize}
+      \item Autenticables
+      \item No autenticables
+    \end{itemize}
+  \end{itemize}
 
   \note{
-    notas
+    \begin{itemize}
+      \item \textbf{Irreversibles.}
+        Bajo NINGUNA circunstancia se puede recuperar el PAN partiendo del
+        token.
+        \begin{itemize}
+          \item \textbf{Autenticables.}
+            Permiten validar que un token dado pertenece a un PAN.
+          \item \textbf{No autenticables.}
+            Sabrá Dios para qué quieren estos tokens: no puedes volver al PAN
+            con el token ni puedes saber si un PAN fue utilizado para generar
+            X token.
+        \end{itemize}
+
+      \item \textbf{Reversibles.}
+      \begin{itemize}
+        \item \textbf{Criptográficos.}
+          Utilizan criptografía \emph{fuerte}; además, el token no se almacena,
+          solo la llave con la que fue cifrado.
+        \item \textbf{No criptográficos.}
+          Se guarda la relación PAN-token en una base de datos; además, la
+          base de datos debe estar cifrada.
+      \end{itemize}
+    \end{itemize}
   }
 
 \end{frame}
 
 \begin{frame}{Prototipo de generación de tokens}
-{Marco teórico, nueva clasificación}
-  
-  Info
+{Clasificación propuesta}
+
+  A continuación, la clasificación propuesta.
+
+  \begin{itemize}
+    \item Criptográficos
+    \begin{itemize}
+      \item Reversibles (FFX, BPS)
+      \item No reversibles (TKR, AHR, DRBG)
+    \end{itemize}
+    \item No criptográficos
+  \end{itemize}
 
   \note{
-    notas
+    \begin{itemize}
+      \item Primero se separan los que usan criptografía y los que ño.
+      \item Luego, con unos nombres más transparentes, le siguen, los
+        reversibles e irreversibles.
+      \item Los reversibles, como su nombre lo dice, tienen la posibilidad de
+        regresar, partiendo del token, al PAN. Es el equivalente a los
+        \emph{criptográficos} en la clasificación del PCI, pues se guarda
+        solo la llave con la que fueron creados.
+      \item Los irreversibles no pueden hacer esto. Es menester guardar la
+        relación entre un PAN y su token; si se pierde la relación, es
+        imposible regresar, partiendo del token, al PAN.
+      \item El ejemplo por antonomasia de los no criprográficos es el generador
+        de bits VERDADERAMENTE aleatorio; pero son costosos y medio raros.
+    \end{itemize}
   }
 
 \end{frame}

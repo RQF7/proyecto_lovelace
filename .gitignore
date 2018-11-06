@@ -67,3 +67,5 @@ presentacion_tt_uno.pdf
 presentacion_tt_dos.pdf
 reporte_tecnico.pdf
 
+# Html productos
+*.producto.html
