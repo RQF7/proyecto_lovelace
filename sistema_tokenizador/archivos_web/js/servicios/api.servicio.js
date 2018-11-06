@@ -11,7 +11,7 @@ sistemaTokenizador.factory('api', [
   )
   {
     var API = {};
-    var RUTA_BASE = '/lovelace/api/general';
+    var RUTA_BASE = '/sistema_tokenizador/api/general';
 
     /* Operaciones de sesión. *************************************************/
 

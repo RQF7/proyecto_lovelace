@@ -11,7 +11,7 @@
    )
    {
      var API = {};
-     var RUTA_BASE = '/api';
+     var RUTA_BASE = '/libreria/api';
      var RUTA_TIENDA = '/tienda';
      var RUTA_LIBRERIA = '/libreria';
 

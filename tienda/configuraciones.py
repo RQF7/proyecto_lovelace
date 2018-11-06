@@ -92,8 +92,8 @@ STATICFILES_DIRS = [
 ]
 
 # En teoría, para desactivar la caché en esta versión de desarrollo
-CACHES = {
-  'default': {
-    'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-  }
-}
+# CACHES = {
+#   'default': {
+#     'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+#   }
+# }
