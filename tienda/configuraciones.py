@@ -12,9 +12,9 @@ import os
 
 # Configuraciones propias #####################################################
 
-DOMINIO = 'http://127.0.0.1:8081'
-DIRECTORIO_BASE = ''
-SISTEMA_TOKENIZADOR = 'http://127.0.0.1:8080'
+DOMINIO = 'https://ricardo-quezada.159.65.96.59.xip.io/tienda'
+DIRECTORIO_BASE = '/home/ricardo/proyecto_lovelace/'
+SISTEMA_TOKENIZADOR = 'https://ricardo-quezada.159.65.96.59.xip.io/sistema_tokenizador'
 USUARIO_ST = 'administracion@tienda-en-linea.com'
 CONTRASENIA_ST = '123456'
 
@@ -25,7 +25,7 @@ LOGIN_URL = '/'
 SECRET_KEY = 'pdm$49m@g!kedc&f!t+tem!hex-t4p^3+id(4v354lmog3su0c'
 DEBUG = True
 ALLOWED_HOSTS = [
-  "127.0.0.1"
+  "ricardo-quezada.159.65.96.59.xip.io"
 ]
 
 # Definición de aplicaciones ##################################################
