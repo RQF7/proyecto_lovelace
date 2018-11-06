@@ -65,7 +65,9 @@
     md-gutter="20px">
     <md-grid-tile ng-repeat="libro in libros">
       <ego-libro
-        datos="libro" 
+        datos="libro",
+        agregar-al-carrito="agregarAlCarrito"
+        quitar-del-carrito="quitarDelCarrito"
         class="md-whiteframe-4dp tarjeta"></ego-libro>
     </md-grid-tile>
   </md-grid-list>
