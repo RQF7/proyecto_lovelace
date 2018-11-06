@@ -1,0 +1,58 @@
+%
+% Presentación de TT2.
+% Proyecto Lovelace.
+%
+% Recapitulación.
+% Generación de tokens.
+% Diagrama de detokenización con métodos irreversibles.
+%
+
+\begin{tikzpicture}[
+  entorno/.style={
+    rectangle,
+    draw = black,
+    thin,
+    inner sep = 1mm,
+    text width = 15mm,
+    align = center,
+    minimum height = 1.0cm},
+  etiqueta/.style={
+    align = center
+  },
+  database/.style={
+    scale=0.6,
+    cylinder,
+    cylinder uses custom fill,
+    cylinder body fill=white!50,
+    cylinder end fill=white!50,
+    shape border rotate=90,
+    aspect=0.25,
+    node distance=0.8cm,
+    minimum width=3.5cm,
+    minimum height=1.2cm,
+    font=\footnotesize,
+    draw
+  }]
+
+  \node[database, right = 0.5in of irreversible, yshift = -0.31in]
+    (base_dos_down) [text=white] {Base de datos};
+  \node[database, above of=base_dos_down]
+    (base_dos) [text=black] {Base de datos};
+  \node[database, above of=base_dos]
+    (base_dos_top) [text=white] {Base de datos};
+
+  \draw[-Stealth]
+    ($(base_dos.west) + (-0.5in, 0)$)
+    node[etiqueta, anchor = east]
+      {Token}
+    --
+    (base_dos.west);
+
+  \draw[-Stealth]
+    (base_dos.east)
+    --
+    ($(base_dos.east) + (0.5in, 0)$)
+    node[etiqueta, anchor = west]
+      {Número de \\ tarjeta};
+
+\end{tikzpicture}
