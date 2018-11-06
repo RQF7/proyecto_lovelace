@@ -15,6 +15,7 @@ sistemaTokenizador.controller('controladorGeneral', [
   '$timeout',
   '$mdSidenav',
   '$mdDialog',
+  '$mdColors',
   'api',
   function (
     $scope,
@@ -24,6 +25,7 @@ sistemaTokenizador.controller('controladorGeneral', [
     $timeout,
     $mdSidenav,
     $mdDialog,
+    $mdColors,
     api
   )
   {
@@ -197,6 +199,13 @@ sistemaTokenizador.controller('controladorGeneral', [
         }
       });
     };
+
+  /* Estilos en tiempo de ejecución. *****************************************/
+  var estilosEnEjecucion = document.createElement("style");
+  estilosEnEjecucion.type = "text/css";
+  estilosEnEjecucion.innerHTML = "a { color: "
+    + $mdColors.getThemeColor('accent') + " }";
+  document.body.appendChild(estilosEnEjecucion);
 
   }
 ]);
