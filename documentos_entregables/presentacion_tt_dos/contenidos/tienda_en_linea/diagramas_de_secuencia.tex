@@ -31,7 +31,11 @@
   \end{figure}
 
   \note{
-    notas
+    Para dejar más claro el comportamiento de un compra, y ver integración
+    del servicio web con la tienda, vamos a describir el diagrama de
+    secuencias de una compra.
+    Este es el diagrama completo, pero para que se puede ver mejor, se
+    partió en dos.
   }
 
 \end{frame}
@@ -47,7 +51,13 @@
   \end{figure}
 
   \note{
-    notas
+    Primero, una ves que un cliente ya puso libros en el carrito de compras
+    va a esta sección y finaliza la compra.
+    Entonces el navegador le solicita las formas de pago al servicio de la
+    tienda, que las obtiene de la base de datos en las que están almacenas.
+    El usuario selecciona la forma de pago que desea, y se hace el mismo
+    proceso, pero ahora con las direcciones que se tienen para la entrega
+    de los libros.
   }
 
 \end{frame}
@@ -63,7 +73,12 @@
   \end{figure}
 
   \note{
-    notas
+    Posteriormente, ya selecciona la forma de pago y la dirección de entrega,
+    el usuario acepta la compra, lo que hace que el servicio de la tienda le
+    solicite la detokenización el valor que se estableció como forma de pago,
+    para proseguir con la transacción bancario (que no hacemos por cuestión
+    de alcance) y el registro de la compra en la base de datos del sistema
+    de la tienda.
   }
 
 \end{frame}

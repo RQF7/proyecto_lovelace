@@ -30,12 +30,27 @@
 %        \end{tabular}
 %      }
 %    \end{table}
-    \caption{Comparación de tiempos de operación.}
+    \caption{Comparación de tiempos de 10K operaciones.}
   \end{figure}
 
-
   \note{
-    notas
+    Como se quería ver el desempeño del servicio de tokenización, se decidió
+    medir los tiempos de respuesta de las peticiones de tokenización y
+    detokenización.
+
+    En la gráfica se observan los tiempos que se obtuvieron al realizar 10K
+    peticiones con los 5 métodos disponibles.
+
+    Bueno, como se observa los tiempos de tokenización para los 2 primeros
+    métodos que son los irreversibles son considerablemente mas pequeños
+    que los tiempos de los siguientes 3 métodos los cuales son irreversibles.
+    Pero en contra parte, los tiempos de detokenización de estos métodos son
+    mejores, dado que detokenización solo una consulta a la base de datos.
+
+    Con esto se puede ver que los métodos irreversibles mostrarían un mejor
+    desempeño cuando un sistema necesita hacer mas operaciones de
+    detokenización que de tokenización, y en caso contrario los métodos
+    reversibles tendrían mejores resultados
   }
 
 \end{frame}
