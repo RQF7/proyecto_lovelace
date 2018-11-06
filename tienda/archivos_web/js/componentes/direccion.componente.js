@@ -6,7 +6,7 @@
 
 tienda.component('egoDireccion', {
   restrict: 'E',
-  templateUrl: '/estaticos/html/componentes/direccion.componente.html',
+  templateUrl: '/libreria/estaticos/html/componentes/direccion.componente.html',
   bindings: {
     informacionDeDireccion: '=informacion'
   }

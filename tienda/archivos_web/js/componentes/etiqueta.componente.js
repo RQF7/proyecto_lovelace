@@ -7,7 +7,7 @@
 tienda.component('egoEtiqueta', {
   restrict: 'E',
   transclude: true,
-  templateUrl: '/estaticos/html/componentes/etiqueta.componente.html',
+  templateUrl: '/libreria/estaticos/html/componentes/etiqueta.componente.html',
   bindings: {
     descripcion: '='
   }

@@ -108,7 +108,7 @@
         <!-- Inicio. -->
         <md-button
           flex="none"
-          href="/">
+          href="/libreria/">
           Inicio
           <div
             class="circulo-marca"
@@ -122,7 +122,7 @@
           id="botonCarrito"
           ng-if="carrito.libros.length > 0"
           flex="none"
-          href="/carrito">
+          href="/libreria/carrito">
           Carrito
           <span class="total-de-carrito">
             {{carrito.total | currency}}
@@ -138,7 +138,7 @@
         <md-button
           ng-if="usuario != undefined"
           flex="none"
-          href="/cuenta">
+          href="/libreria/cuenta">
           Cuenta
           <div
             class="circulo-marca"

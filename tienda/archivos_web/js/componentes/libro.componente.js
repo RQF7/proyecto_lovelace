@@ -6,7 +6,7 @@
 
 tienda.component('egoLibro', {
   restrict: 'E',
-  templateUrl: '/estaticos/html/componentes/libro.componente.html',
+  templateUrl: '/libreria/estaticos/html/componentes/libro.componente.html',
   bindings: {
     datos: '='
   }

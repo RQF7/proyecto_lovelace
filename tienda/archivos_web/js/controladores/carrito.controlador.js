@@ -30,7 +30,7 @@ tienda.controller('controladorCarrito', [
         $mdDialog.show({
           parent: angular.element(document.body),
           targetEvent: $event,
-          templateUrl: '/estaticos/html/ventanas/finalizar_compra.ventana.html',
+          templateUrl: '/libreria/estaticos/html/ventanas/finalizar_compra.ventana.html',
           controller: 'controladorFinalizarCompra',
           focusOnOpen: false,
           locals: {

@@ -27,7 +27,7 @@ tienda.controller('controladorCuenta', [
       $mdDialog.show({
         parent: padre,
         targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/operar_usuario.ventana.html',
+        templateUrl: '/libreria/estaticos/html/ventanas/operar_usuario.ventana.html',
         controller: 'controladorFormularioOperarUsuario',
         locals: {
           "tituloOperacion": "Actualizar datos",

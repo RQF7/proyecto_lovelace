@@ -102,7 +102,7 @@ tienda.controller('controladorGeneral', [
       $mdDialog.show({
         parent: angular.element(document.body),
         targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/iniciar_sesion.ventana.html',
+        templateUrl: '/libreria/estaticos/html/ventanas/iniciar_sesion.ventana.html',
         controller: 'controladorFormularioIniciarSesion'
       }).then(function (respuesta) {
         if (respuesta != undefined) {
@@ -132,7 +132,7 @@ tienda.controller('controladorGeneral', [
       $mdDialog.show({
         parent: padre,
         targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/operar_usuario.ventana.html',
+        templateUrl: '/libreria/estaticos/html/ventanas/operar_usuario.ventana.html',
         controller: 'controladorFormularioOperarUsuario',
         locals: {
           "tituloOperacion": "Registrar datos",
@@ -199,6 +199,7 @@ tienda.controller('controladorGeneral', [
     };
 
     $scope.agregarAlCarrito = function (libro) {
+      console.log("DEBUG");
       libro.cantidad = 1;
       libro.enCarrito = true;
       $scope.carrito.libros.push(libro);
@@ -250,7 +251,7 @@ tienda.controller('controladorGeneral', [
       $mdDialog.show({
         parent: angular.element(document.body),
         targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/tarjeta.ventana.html',
+        templateUrl: '/libreria/estaticos/html/ventanas/tarjeta.ventana.html',
         controller: 'controladorFormularioTarjeta',
         multiple: true,
         locals: {
@@ -278,7 +279,7 @@ tienda.controller('controladorGeneral', [
       $mdDialog.show({
         parent: angular.element(document.body),
         targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/direccion.ventana.html',
+        templateUrl: '/libreria/estaticos/html/ventanas/direccion.ventana.html',
         controller: 'controladorFormularioDireccionEntrega',
         multiple: true
       }).then(function (respuesta) {
