@@ -10,7 +10,24 @@
 
 \begin{frame}{Integración con el servicio web}
   
-  Info
+  Esta tienda en línea se desarrolló con la finalidad de ser el caso de prueba
+  del servicio web de tokenización, por lo cual básicamente solo se realizaron
+  las partes en las que se tuvieran la necesidad de usar dicho servicio, las
+  cuales son:
+
+  \begin{itemize}
+    \item \textbf{El registro de una forma de pago.}
+
+      Se necesita el servicio de tokenización dado que no se desea guardar
+      el número de tarjeta ingresado, sino su token.
+      \newline
+
+    \item \textbf{La realización de una compra.}
+
+      Requiere de la detokenización, ya que se tiene almacenado el token de
+      la tarjeta y se requiere el número original para la transacción bancaria.
+
+  \end{itemize}
 
   \note{
     notas
