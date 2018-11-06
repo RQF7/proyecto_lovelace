@@ -5,14 +5,15 @@
 %
 
 \subsection{Módulo de AHR}
+
 En esta sección se explica, de manera general, la implementación del algoritmo
-AHR, descrito en la sección \ref{sec:ahr}.
+AHR, descrito en la sección~\ref{sec:ahr}.
 
 Partiendo de lo general hacia lo particular, en la sección de código
 \ref{codigo:ahr_tok} se ve el método \textit{principal}; primero, dependiendo de
 la longitud del \gls{gl:pan} calcula los límites entre los cuales el
 \gls{gl:token} será válido. Posteriormente, mediante el método
-\textit{crearBloqueT}, descrito en \ref{codigo:ahr_tok1}, se concatena a la
+\textit{crearBloqueT}, descrito en~\ref{codigo:ahr_tok1}, se concatena a la
 salida de la función SHA256 (que recibe como entrada el \gls{gl:iin}), la
 representación binaria de la entrada $X$, que es el número de cuenta que se
 va a tokenizar. Una vez que se tiene el bloque $T$, se cifra mediante
@@ -30,23 +31,14 @@ el algoritmo desde el inicio. Respecto a la detokenización, como se observa en
 en caso de no encontrar el \gls{gl:token} ingresado, lanza un error indicando
 que no existe en la base de datos.
 
-\begin{listing}
-  \inputminted[firstline=284, lastline=328]
-    {c++}{../implementaciones/ahr/ahr.cpp}
-  \caption{Tokenización mediante AHR.}
-  \label{codigo:ahr_tok}
-\end{listing}
+\codigoFuente[codigo:ahr_tok]{284}{328}{c++}{%
+  implementaciones/ahr/ahr.cpp}{%
+  Tokenización mediante AHR.}
 
-\begin{listing}
-  \inputminted[firstline=193, lastline=223]
-    {c++}{../implementaciones/ahr/ahr.cpp}
-  \caption{Primer paso para la tokenización con AHR.}
-  \label{codigo:ahr_tok1}
-\end{listing}
+\codigoFuente[codigo:ahr_tok1]{193}{223}{c++}{%
+  implementaciones/ahr/ahr.cpp}{%
+  Primer paso para la tokenización con AHR.}
 
-\begin{listing}
-  \inputminted[firstline=360, lastline=372]
-    {c++}{../implementaciones/ahr/ahr.cpp}
-  \caption{Primer paso para la detokenización con AHR.}
-  \label{codigo:ahr_tok2}
-\end{listing}
+\codigoFuente[codigo:ahr_tok2]{360}{372}{c++}{%
+  implementaciones/ahr/ahr.cpp}{%
+  Primer paso para la detokenización con AHR.}

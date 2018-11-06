@@ -108,6 +108,31 @@ referencias_tt1:
 	biber --input-directory $(CARPETA_TEMPORAL) \
 		$(CARPETA_TEMPORAL)/$(PRESENTACION_TT1).bcf
 
+# Presentación TT2 ###########################################################
+
+PRESENTACION_TT2 					:= presentacion_tt_dos
+CARPETA_PRESENTACION_TT2 	:= presentacion_tt_dos
+FUENTES_PRESENTACION_TT2  := \
+	$(shell find presentacion_tt_dos/ -type f -name '*.tex' -o -name '*.sty')
+COMPILACION_PRESENTACION_TT2 := $(COMPILACION) \
+	$(CARPETA_PRESENTACION_TT2)/$(PRESENTACION_TT2).tex
+
+$(CARPETA_PRESENTACION_TT2)/$(PRESENTACION_TT2).pdf: $(FUENTES_PRESENTACION_TT2)
+	mkdir -p $(CARPETA_TEMPORAL)
+	$(COMPILACION_PRESENTACION_TT2) | tee salida.temporal
+	@if grep "Please (re)run Biber" salida.temporal; then\
+		make referencias_tt2;\
+		$(COMPILACION_PRESENTACION_TT2) | tee salida.temporal;\
+	else\
+		echo "La bibliografía están al día.";\
+	fi
+	rm -f salida.temporal
+	mv $(CARPETA_TEMPORAL)/$(PRESENTACION_TT2).pdf ./$(CARPETA_PRESENTACION_TT2)/
+
+referencias_tt2:
+	biber --input-directory $(CARPETA_TEMPORAL) \
+		$(CARPETA_TEMPORAL)/$(PRESENTACION_TT2).bcf
+
 # Presentación congreso #######################################################
 
 PRESENTACION_RCI 					:= presentacion_rci
@@ -132,6 +157,11 @@ $(CARPETA_PRESENTACION_RCI)/$(PRESENTACION_RCI).pdf: $(FUENTES_PRESENTACION_RCI)
 referencias_rci:
 	biber --input-directory $(CARPETA_TEMPORAL) \
 		$(CARPETA_TEMPORAL)/$(PRESENTACION_RCI).bcf
+
+rci_autocompilable:
+	fswatch -1 $(FUENTES_PRESENTACION_RCI)
+	make $(CARPETA_PRESENTACION_RCI)/$(PRESENTACION_RCI).pdf
+	make rci_autocompilable
 
 # Cronograma ##################################################################
 

@@ -3,37 +3,33 @@
 % Proyecto Lovelace.
 %
 
-\capitulo{Marco teórico}{sec:marco_teorico}
-{
-  \epigrafe
-  {%
+\capitulo{Marco teórico}{sec:marco_teorico}{%
+  \epigrafe{%
     Desvarío laborioso y empobrecedor el de componer vastos libros; el de
     explayar en quinientas páginas una idea cuya perfecta exposición oral cabe
     en pocos minutos. Mejor procedimiento es simular que esos libros ya existen
-    y ofrecer un resumen, un comentario.%
-  }
-  {%
+    y ofrecer un resumen, un comentario.}{%
     El jardín de senderos que se bifurcan,
-    \textsc{Jorge Luis Borges}.%
-  }
-}
-
-\noindent
+    \textsc{Jorge Luis Borges}.}}%
+%
 El marco teórico contiene la mayoría de los conceptos utilizados para la
 implementación de los algoritmos generadores de \glspl{gl:token}. Comienza con
 la introducción a la criptografía, sus objetivos, ataques y tipos.
 Posteriormente, se tiene un resumen de los cifrados por bloque, haciendo énfasis
 en el funcionamiento de las redes Feistel y el cifrado \gls{gl:aes} y los modos
-de operación \gls{gl:ecb}, \gls{gl:cbc} y \gls{gl:ctr}; después, se agregan unas
-nociones básicas sobre cifrados por flujos, funciones hash, códigos
-\gls{gl:mac} y \gls{gl:tes}. El capítulo finaliza con los cifrados que preservan
-el formato. Cada sección indica al inicio las fuentes bibliográficas que fueron
-consultadas en caso de que el lector desee profundizar en algún tema tratado.
+de operación \gls{gl:ecb}, \gls{gl:cbc} y \gls{gl:ctr}; después, se agregan los
+cifrados que preservan el formato y finaliza con una descripción sobre la
+composición de un número de tarjeta y los estándares del \gls{gl:nist} y
+\gls{gl:pci} \gls{gl:ssc} que se utilizaron en este trabajo. Cada sección
+indica al inicio las fuentes bibliográficas que fueron consultadas en caso de
+que el lector desee profundizar en algún tema tratado.
 
 \subimport{intro/}{intro}
 \subimport{bloques/}{bloques}
 %\subimport{cifrados_de_flujo/}{cifrados_de_flujo}
 \subimport{hash/}{hash}
-\subimport{mac/}{mac}
-\subimport{tes/}{tes}
+% \subimport{mac/}{mac}
+% \subimport{tes/}{tes}
 \subimport{fpe/}{fpe}
+\subimport{tarjetas/}{tarjetas}
+\subimport{nist_pci/}{nist_pci}

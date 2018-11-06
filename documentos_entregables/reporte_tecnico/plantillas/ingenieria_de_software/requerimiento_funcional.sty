@@ -16,6 +16,11 @@
 % * Por «razones históricas» el nombre de este comando (y los contadores)
 %   se refieren a requerimientos en general; habría que actualizarlos
 %   para reflejar el hecho de que son requerimientos funcionales.
+% * \setitemize{} Regresa a los valores por defecto. Es necesario dado que
+%   \nosep no tiene un comando inverso. Lo malo es que la hacer esto se
+%   mueren las configuraciones globales.
+% * Las subsubseccions justo antes de un requerimiento tienen una alineación
+%   extraña.
 %
 
 % Contadores de requerimientos y variables auxiliares
@@ -39,93 +44,107 @@
 % Los paquetes «twoopt» o «xarg» automatizan esta técnica.
 
 \newcommand{\requerimiento}[3]
-[rq:\formatearnumero{contador_requerimientos}]
-{
+[rq:\formatearnumero{contador_requerimientos}]{%
+  %
   % Configuración
-  \refstepcounter{contador_requerimientos}
-  \setcounter{contador_subrequerimientos}{0}
-  \setlength{\separacionAnterior}{\parskip}
-  \setlength{\parskip}{0em}
-  \setitemize{
-    leftmargin = 4em}
-
+  %
+  \refstepcounter{contador_requerimientos}%
+  \setcounter{contador_subrequerimientos}{0}%
+  \setlength{\separacionAnterior}{\parskip}%
+  \setlength{\parskip}{0em}%
+  \setitemize{%
+    leftmargin = 4em,%
+    nosep}%
+  \renewcommand{\etiqueta}{%
+    REQF\prefijo-\formatearnumero{contador_requerimientos}~#2}%
+  %
   % Código efectivo
-  \vspace{1.0em}
-  \noindent
-  \textbf{\hypertarget{#1}
-    {REQF\prefijo-\formatearnumero{contador_requerimientos} #2}.}
-  \par
-  \nopagebreak[4]
-  \begin{hangparas}{2em}{0}
-    #3
-  \end{hangparas}
-
+  %
+  \pdfbookmark[4]{\etiqueta}{#1}%
+  \vspace{1.0em}%
+  \begin{unidadirrompible}%
+    \noindent%
+    \textbf{\hypertarget{#1}{\etiqueta}.}\par%
+    \begin{hangparas}{2em}{0}%
+      #3\par%
+    \end{hangparas}%
+  \end{unidadirrompible}%
+  %
   % Regresar a estado previo
-  \setlength{\parskip}{\separacionAnterior}
-  \setitemize{
-    leftmargin = 2em}
-}
+  %
+  \setlength{\parskip}{\separacionAnterior}%
+  \setitemize{}%
+  \renewcommand{\etiqueta}{}}
 
 % Comando para subrequerimientos.
 % #1 -> Etiqueta (opcional).
 % #2 -> Título del subrequerimiento.
 % #3 -> Descripción.
-% ATENCIÓN:  Los subrequerimientos siempre deben estar dentro de la
-% descripción de un requerimiento.
 
 \newcommand{\subrequerimiento}[3]
 [rq:\formatearnumero{contador_requerimientos}_%
-  \arabic{contador_subrequerimientos}]
-{
+  \arabic{contador_subrequerimientos}]{%
+  %
   % Configuración
-  \setcounter{contador_subsubrequerimientos}{0}
-  \refstepcounter{contador_subrequerimientos}
-  \setitemize{
-    leftmargin = 6em}
-
+  %
+  \setcounter{contador_subsubrequerimientos}{0}%
+  \refstepcounter{contador_subrequerimientos}%
+  \setlength{\separacionAnterior}{\parskip}%
+  \setlength{\parskip}{0em}%
+  \setitemize{%
+    leftmargin = 6em,
+    nosep}%
+  %
   % Código efectivo
-  \vspace{1.0em}
-  \textbf{\hypertarget{#1}
-    {SUBREQF\prefijo-\formatearnumero{contador_requerimientos}%
-      /\arabic{contador_subrequerimientos} #2}.}
-  \par
-  \nopagebreak[4]
-  \begin{hangparas}{4em}{0}
-    #3
-  \end{hangparas}
-
-  \setitemize{
-    leftmargin = 4em}
-}
+  %
+  \vspace{1.0em}%
+  \begin{unidadirrompible}%
+    \textbf{\hypertarget{#1}%
+      {SUBREQF\prefijo-\formatearnumero{contador_requerimientos}%
+        /\arabic{contador_subrequerimientos} #2}.}\par%
+      \begin{hangparas}{4em}{0}%
+        #3\par%
+      \end{hangparas}%
+  \end{unidadirrompible}%
+  %
+  % Regresar a estado previo
+  %
+  \setlength{\parskip}{\separacionAnterior}%
+  \setitemize{}}
 
 % Comando para subsubrequerimientos.
 % #1 -> Etiqueta (opcional).
 % #2 -> Título del subsubrequerimiento.
 % #3 -> Descripción.
-% ATENCIÓN:  Los subsubrequerimientos siempre deben estar dentro de la
-% descripción de un subrequerimiento.
 
 \newcommand{\subsubrequerimiento}[3]
 [rq:\formatearnumero{contador_requerimientos}_%
-  \arabic{contador_subrequerimientos}\Alph{contador_subsubrequerimientos}]
-{
+  \arabic{contador_subrequerimientos}\Alph{contador_subsubrequerimientos}]{%
+  %
   % Configuración
-  \refstepcounter{contador_subsubrequerimientos}
-  \setitemize{
-    leftmargin = 8em}
-
+  %
+  \refstepcounter{contador_subsubrequerimientos}%
+  \setlength{\separacionAnterior}{\parskip}%
+  \setlength{\parskip}{0em}%
+  \setitemize{%
+    leftmargin = 8em,
+    nosep}%
+  %
   % Código efectivo
-  \vspace{1.0em}
-  \textbf{\hypertarget{#1}
-    {SUBSUBREQF\prefijo-\formatearnumero{contador_requerimientos}%
-      /\arabic{contador_subrequerimientos}%
-      \Alph{contador_subsubrequerimientos} #2}.}
-  \par
-  \nopagebreak[4]
-  \begin{hangparas}{6em}{0}
-    #3
-  \end{hangparas}
-
-  \setitemize{
-    leftmargin = 6em}
-}
+  %
+  \vspace{1.0em }%
+  \begin{unidadirrompible}%
+    \textbf{\hypertarget{#1}%
+      {SUBSUBREQF\prefijo-\formatearnumero{contador_requerimientos}%
+        /\arabic{contador_subrequerimientos}%
+        \Alph{contador_subsubrequerimientos} #2}.}\par%
+    \begin{hangparas}{6em}{0}%
+      #3\par%
+    \end{hangparas}%
+  \end{unidadirrompible}%
+  \pagebreak[3]%
+  %
+  % Configuración anterior
+  %
+  \setlength{\parskip}{\separacionAnterior}%
+  \setitemize{}}

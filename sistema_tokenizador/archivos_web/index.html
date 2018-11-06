@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   index.html
-  HTML principal de aplicación.
+  HTML principal de aplicación de sistema tokenizador.
   Proyecto Lovelace.
 -->
 <html
@@ -244,9 +244,13 @@
           ng-if="usuario != undefined">
           <span flex></span>
           <div layout="row">
-            <p>
-              {{usuario.fields.correo}} &nbsp;
-            </p>
+            <div layout="column">
+              <span flex></span>
+              <p class="sin-estilo">
+                {{usuario.fields.correo}} &nbsp;
+              </p>
+              <span flex></span>
+            </div>
             <md-button
               id="botonCerrarSesion"
               ng-click="cerrarSesion()"
@@ -272,8 +276,8 @@
       <span flex></span>
       <p id="licencia">
         Copyright &#169; 2018 Proyecto Lovelace -
-        <a href="https://www.gnu.org/licenses/gpl.html" target="_blank"
-          md-colors="{color: 'accent'}">GPL v3.0</a>
+        <a href="https://www.gnu.org/licenses/gpl.html"
+          target="_blank">GPL v3.0</a>
       </p>
     </md-content>
   </body>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<!--
+  index.html
+  HTML principal de tienda en línea.
+  Proyecto Lovelace.
+-->
+<html
+  ng-app="tienda"
+  ng-controller="controladorGeneral as ctrl"
+  lang="es">
+  <head>
+
+    <!-- Codificación de documento. -->
+    <meta charset="utf-8"/>
+
+    <!-- Compatibilidad para dispositivos móviles. -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"/>
+
+    <!-- Ícono de aplicación (tratado según navegador). -->
+    <link
+      rel="icon"
+      href="/estaticos/imagenes/icono.png">
+
+    <!-- Título de página principal (tratado según navegador). -->
+    <title>Librería</title>
+
+    <!-- Liga a compilado de librerías css (angular material). -->
+    <link
+      rel="stylesheet"
+      href="/estaticos/css/librerias.min.css"/>
+
+    <!-- Liga a compilado de estilos propios (original en sass). -->
+    <link
+      rel="stylesheet"
+      href="/estaticos/css/estilos.css"/>
+
+    <!-- Liga a compilado de librerías js (angular material, en su mayoría). -->
+    <script src="/estaticos/js/librerias.min.js"></script>
+
+    <!-- Liga a scripts propios: aplicación, controladores, api, etc. -->
+    <script src="/estaticos/js/scripts.min.js"></script>
+
+    <!-- URL base (solo para HTML5) -->
+    <base href="/"/>
+
+  </head>
+  <body
+    layout="row"
+    ng-cloak>
+
+    <!--
+      Barra de navegación lateral.
+      https://material.angularjs.org/latest/api/directive/mdSidenav
+      https://material.angularjs.org/latest/demo/sidenav
+    -->
+    <md-sidenav
+      class="md-sidenav-left"
+      md-component-id="barraDeNavegacion"
+      md-is-locked-open="$mdMedia('gt-md')"
+      md-whiteframe="6"
+      layout="column">
+
+      <!--
+        Encabezado de barra lateral.
+        https://material.angularjs.org/latest/api/directive/mdToolbar
+      -->
+      <md-toolbar
+        class="md-medium-tall"
+        md-colors="{background: 'background-hue-2'}"
+        flex="none"
+        layout="row">
+        <div
+          flex
+          layout="column">
+          <span flex></span>
+          <div class="md-toolbar-tools">
+            <div layout="column">
+              <h1>Librería en línea</h1>
+            </div>
+          </div>
+          <span flex></span>
+        </div>
+        <div
+          layout="column"
+          flex="none"
+          hide-gt-md>
+          <span flex></span>
+          <md-button
+            flex="none"
+            ng-click="cambiarEstadoBarra()"
+            class="icono-menu"
+            id="icono-menu-adentro">
+              <md-tooltip md-direction="left">Ocultar menú lateral</md-tooltip>
+              <i class="material-icons">chevron_left</i>
+          </md-button>
+          <span flex></span>
+        </div>
+      </md-toolbar>
+      <md-content
+        layout-padding=""
+        flex
+        layout="column"
+        layout-fill
+        md-colors="{background: 'background-hue-2'}">
+
+        <!-- Inicio. -->
+        <md-button
+          flex="none"
+          href="/">
+          Inicio
+          <div
+            class="circulo-marca"
+            ng-if="seccion == 1"
+            md-colors="{background: 'accent'}">
+          </div>
+        </md-button>
+
+        <!-- Finalizar compra/Carrito. -->
+        <md-button
+          id="botonCarrito"
+          ng-if="carrito.libros.length > 0"
+          flex="none"
+          href="/carrito">
+          Carrito
+          <span class="total-de-carrito">
+            {{carrito.total | currency}}
+          </span>
+          <div
+            class="circulo-marca"
+            ng-if="seccion == 2"
+            md-colors="{background: 'accent'}">
+          </div>
+        </md-button>
+
+        <!-- Administración de cuenta. -->
+        <md-button
+          ng-if="usuario != undefined"
+          flex="none"
+          href="/cuenta">
+          Cuenta
+          <div
+            class="circulo-marca"
+            ng-if="seccion == 3"
+            md-colors="{background: 'accent'}">
+          </div>
+        </md-button>
+      </md-content>
+    </md-sidenav>
+
+    <!-- Contenidos. -->
+    <md-content
+      flex=""
+      layout-padding=""
+      layout="column"
+      id="contenidos">
+      <div
+        class="titulo"
+        layout="row"
+        md-whiteframe="6"
+        flex="none"
+        md-colors="{background: 'background-hue-2'}">
+        <div
+          layout="column"
+          flex="none"
+          hide-gt-md>
+          <span flex></span>
+          <md-button
+            flex="none"
+            ng-click="cambiarEstadoBarra()"
+            class="icono-menu"
+            id="icono-menu-afuera">
+            <md-tooltip md-direction="right">
+              Mostrar menú lateral
+            </md-tooltip>
+            <i class="material-icons">
+              chevron_right
+            </i>
+          </md-button>
+          <span flex></span>
+        </div>
+        <div
+          layout="column"
+          flex>
+          <span flex></span>
+          <h1>{{tituloDeSeccion}}</h1>
+          <span flex></span>
+        </div>
+        <!--
+          TODO: el tooltip no se ve (cuando menos en chromium).
+        -->
+        <div
+          layout="column"
+          flex="none"
+          ng-if="usuario == undefined">
+          <span flex></span>
+          <div layout="row">
+            <md-button
+              id="botonRegistrarse"
+              ng-click="registrarse($event)"
+              class="md-primary conIcono">
+              <span hide show-gt-sm>
+                Registrarse
+              </span>
+              <span hide show-sm show-xs>
+                <i class="material-icons">person_add</i>
+                <md-tooltip>Registrarse</md-tooltip>
+              </span>
+            </md-button>
+            <md-button
+              id="botonIniciarSesion"
+              ng-click="iniciarSesion($event)"
+              class="md-primary md-raised conIcono">
+              <span hide show-gt-sm>
+                Iniciar sesión
+              </span>
+              <span hide show-sm show-xs>
+                <i class="material-icons">person</i>
+                <md-tooltip>Iniciar sesión</md-tooltip>
+              </span>
+            </md-button>
+          </div>
+          <span flex></span>
+        </div>
+        <!--
+          TODO:
+          En pantallas chicas y extra chicas el título se sobrepone al nombre de
+          usuario. Hay que idear una manera de redistribuir todo.
+        -->
+        <div
+          layout="column"
+          flex="none"
+          ng-if="usuario != undefined">
+          <span flex></span>
+          <div layout="row">
+            <div layout="column">
+              <span flex></span>
+              <p class="sin-estilo">
+                {{usuario.nombre}} &nbsp;
+              </p>
+              <span flex></span>
+            </div>
+            <md-button
+              id="botonCerrarSesion"
+              ng-click="cerrarSesion()"
+              class="md-primary md-raised conIcono">
+              <span hide show-gt-sm>
+                Cerrar sesión
+              </span>
+              <span hide show-sm show-xs>
+                <i class="material-icons">person_outline</i>
+                <md-tooltip>Cerrar sesión</md-tooltip>
+              </span>
+            </md-button>
+          </div>
+          <span flex></span>
+        </div>
+      </div>
+      <div
+        id="contenidos-internos"
+        flex="none"
+        ng-view
+        layout="column">
+      </div>
+      <span flex></span>
+      <p id="licencia">
+        Copyright &#169; 2018 Proyecto Lovelace -
+        <a href="https://www.gnu.org/licenses/gpl.html" target="_blank"
+          md-colors="{color: 'accent'}">GPL v3.0</a>
+      </p>
+    </md-content>
+  </body>
+</html>

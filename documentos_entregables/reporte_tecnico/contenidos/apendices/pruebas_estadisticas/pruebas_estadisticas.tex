@@ -7,18 +7,16 @@
 %
 
 \capitulo{Pruebas estadísticas para generadores de números
-aleatorios y pseudoaleatorios}{sec:pruebas_para_generadores}
-{
-  \epigrafe
-  {%
-    Someone has to protect this family from the man who protect this family.%
-  }
-  {%
-    Breaking Bad.%
-  }
-}
-
-% NIST 800-22 R1A ---
+  aleatorios y pseudoaleatorios}{sec:pruebas_para_generadores}{%
+  \epigrafe{%
+    Someone has to protect this family from the man who protect this family.}{%
+    Breaking Bad.}}%
+%
+En este apéndice se explican los puntos más importantes del estándar del
+\gls{gl:nist} referente a las pruebas estadísticas para los generadores
+de números aleatorios, \textit{\gls{gl:nist} Special Publication 800-22 Revision
+1a - A Statistical Test Suite for Random and Pseudorandom Number Generators for
+Cryptographic Applications}, descrito en \cite{nist:pruebas}.
 
 \section{Definiciones} %=======================================================
 
@@ -37,7 +35,7 @@ necesario que la salida satisfaga pruebas estadísticas para determinar que
 dicha salida parece aleatoria.
 
 Los \gls{gl:rng} que se usan con fines criptográficos tienen que ser
-impredecibles (ver sección \ref{sec:impredecibilidad}), por lo cual es
+impredecibles (ver sección~\ref{sec:impredecibilidad}), por lo cual es
 recomendado combinar varias fuentes de \gls{gl:entropia}, dado que algunas
 (como los vectores de tiempo) son demasiado predecibles. De cualquier forma,
 en la mayoría de los casos es mejor usar los \gls{gl:prng} para obtener de
@@ -95,11 +93,11 @@ completo, y que el resultado de determinada prueba es complementado por
 otros, motivo por el cual los resultados obtenidos deben ser interpretados
 cuidadosamente para no llegar a conclusiones incorrectas.
 
-En \cite{nist_pruebas} se determina que las pruebas estadísticas están
+En~\cite{nist_pruebas} se determina que las pruebas estadísticas están
 formuladas para determinar si una secuencia binaria cumple con la hipótesis
 nula \textit{(H0)}, o la hipótesis alternativa \textit{(Ha)}, las cuales dicen
 que la secuencia probada es aleatoria y no aleatoria respectivamente. Cada
-prueba descrita en la sección \ref{sec:lista_pruebas} consiste en aceptar
+prueba descrita en la sección~\ref{sec:lista_pruebas} consiste en aceptar
 alguna de las dos hipótesis mencionadas.
 
 Para cada prueba, es necesario elegir una medida estadística relevante de
@@ -156,7 +154,7 @@ el valor de $\alpha$ se elige en el rango de $[0.001,\: 0.01]$.
 
 El paquete de pruebas descrito en el estándar del \gls{gl:nist}
 \textit{800-22R1A: Statistical Suite for Random Number Generators}, disponible
-en \cite{nist_pruebas}, es un conjunto de 15 algoritmos que se encargan de
+en~\cite{nist_pruebas}, es un conjunto de 15 algoritmos que se encargan de
 probar la aleatoriedad de secuencias binarias de longitudes arbitrariamente
 largas producidas por un \gls{gl:rng} o un \gls{gl:prng}.
 

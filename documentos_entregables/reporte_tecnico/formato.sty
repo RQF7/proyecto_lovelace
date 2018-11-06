@@ -27,7 +27,7 @@
 \RequirePackage{xcolor}
 
 % http://mirrors.ctan.org/macros/latex/contrib/titlesec/titlesec.pdf
-\RequirePackage{titlesec}
+\RequirePackage[nobottomtitles*]{titlesec}
 
 % http://mirrors.ctan.org/macros/latex/required/amsmath/amsmath.pdf
 \RequirePackage{amsmath}
@@ -62,8 +62,7 @@
 
 % http://mirrors.ctan.org/macros/latex/contrib/hyperref/doc/manual.pdf
 \RequirePackage{hyperref}
-\hypersetup
-{
+\hypersetup{
   pdftitle={\Titulo},
   pdfsubject={\Subtitulo},
   bookmarksnumbered=true,
@@ -79,8 +78,7 @@
   menubordercolor=white,
   urlbordercolor=white,
   pdfborder={0 0 0},
-  frenchlinks
-}
+  frenchlinks}
 
 % Caracteres de salto de línea en URLs:
 % \def\UrlBreaks{\do\/\do-\do p}
@@ -105,7 +103,6 @@
 \pretocmd{\chapter}{\glsresetall}{}{}
 \pretocmd{\section}{\glsresetall}{}{}
 \pretocmd{\subsection}{\glsresetall}{}{}
-%\pretocmd{\subsubsection}{\glsresetall}{}{}
 
 % http://mirrors.ctan.org/fonts/amsfonts/doc/amsfndoc.pdf
 \RequirePackage{amsfonts}
@@ -133,8 +130,6 @@
 \setenumerate
 {
   topsep=0pt,
-%  parsep=0pt,
-%  partopsep=0pt,
   leftmargin=2em
 }
 
@@ -227,8 +222,7 @@
   fontsize=\scriptsize,
   linenos,
   numbersep=6pt,
-  samepage=true
-}
+  samepage=true}
 
 % http://ctan.math.washington.edu/tex-archive/macros/latex/contrib/
 % epigraph/epigraph.pdf
@@ -252,6 +246,8 @@
 
 \RequirePackage{verbatim}
 
+\RequirePackage{ifthen}
+
 % Profundidad de contador
 % Hasta subsubsecciones
 \setcounter{secnumdepth}{2}
@@ -260,9 +256,6 @@
 \setlength{\parindent}{2em}                 % Sangría
 \setlength{\parskip}{1em}                   % Espacio entre párrafos
 \renewcommand{\baselinestretch}{1.25}       % Interlineado
-
-% Formato de listas
-\setlength\itemsep{0em}
 
 % Formato de títulos
 \titleformat{\chapter}[display]
@@ -279,6 +272,18 @@
 {0.5ex}                                     % Separación
 {}                                          % Antes de
 []                                          % Después de
+
+%\titleformat{\subsection}[hang]
+%{\normalfont\large\bfseries}
+%{\thesubsection}{1em}
+%{}
+%[]
+%
+%\titleformat{\subsubsection}[hang]
+%{\normalfont\large\bfseries}
+%{\thesubsubsection}{1em}
+%{}
+%[]
 
 % izquierda, arriba, abajo
 \titlespacing*{\section}{0pc}{0pc}{0pc}
@@ -307,8 +312,8 @@
      de \pageref{LastPage}}                 % Derecha abajo
   \fancyfoot[RE, LO]{\Subtitulo}            % Izquierda abajo
   \renewcommand{\headrulewidth}{0.4pt}      % Línea encabezado
-  \renewcommand{\footrulewidth}{0.4pt}      % Línea pie
-}
+  \renewcommand{\footrulewidth}{0.4pt}}     % Línea pie
+
 
 % Estilo de páginas previas al primer capítulo
 \fancypagestyle{intro} {
@@ -317,8 +322,7 @@
   \fancyfoot[LE, RO]{Página \thepage}
   \fancyfoot[RE, LO]{\Subtitulo}
   \renewcommand{\headrulewidth}{0.4pt}
-  \renewcommand{\footrulewidth}{0.4pt}
-}
+  \renewcommand{\footrulewidth}{0.4pt}}
 
 % 0.4pt es el equivalente de \thin en tikz. Este es el grosor
 % por defecto utilizado en los diagramas.
@@ -330,15 +334,13 @@
   \fancyfoot[LO, RE]{}
   \fancyhead[CE, CO]{}
   \renewcommand{\headrulewidth}{0.0pt}
-  \renewcommand{\footrulewidth}{0.0pt}
-}
+  \renewcommand{\footrulewidth}{0.0pt}}
 
 % Alto de celdas de tablas
 %\renewcommand{\arraystretch}{1.8}
 
 % Cambios en las traducciones de babel
-\addto\captionsspanish
-{
+\addto\captionsspanish{
   \renewcommand*\contentsname{Índice}
   \renewcommand*\listfigurename{Lista de figuras}
   \renewcommand*\tablename{Tabla}
@@ -348,8 +350,7 @@
   \renewcommand*{\andname}{y}               % En listas de referencias cruzadas.
   \renewcommand*\appendixname{Apéndice}
   \renewcommand*\appendixtocname{Apéndice}
-  \renewcommand*\appendixpagename{Apéndices}
-}
+  \renewcommand*\appendixpagename{Apéndices}}
 
 % Babel no define traducciones para esto. Por eso están afuera.
 \renewcommand\listingscaption{Código fuente}
@@ -359,6 +360,9 @@
 \title{\Titulo{}}
 \author{\Autor{}}
 \date{\today}
+
+% Buffer temporal:
+\newcommand{\etiqueta}{}
 
 % Archivos de plantillas
 \import{reporte_tecnico/plantillas/}{unidad_irrompible.sty}
@@ -371,6 +375,10 @@
 \import{reporte_tecnico/plantillas/}{capitulo.sty}
 \import{reporte_tecnico/plantillas/}{epigrafe.sty}
 \import{reporte_tecnico/plantillas/}{expresion_regular.sty}
+\import{reporte_tecnico/plantillas/}{celda_con_parrafo.sty}
+\import{reporte_tecnico/plantillas/}{codigo_fuente.sty}
+\import{reporte_tecnico/plantillas/}{parrafo_con_lista_corta.sty}
+\import{reporte_tecnico/plantillas/}{parrafo_con_lista_larga.sty}
 \import{reporte_tecnico/plantillas/ingenieria_de_software/}
   {ingenieria_de_software.sty}
 
@@ -385,43 +393,37 @@
   % Redefinición de listas y de bibliografía.
   % Se hacen secciones en lugar de capítulos.
 
-  \renewcommand\listoffigures{
-    \section*{\listfigurename}
-      \@mkboth{\MakeUppercase\listfigurename}
-              {\MakeUppercase\listfigurename}
-    \@starttoc{lof}
-  }
+  \renewcommand\listoffigures{%
+    \section*{\listfigurename}%
+      \@mkboth{\MakeUppercase\listfigurename}%
+              {\MakeUppercase\listfigurename}%
+    \@starttoc{lof}}
 
-  \renewcommand\listoftables{
-    \section*{\listtablename}
-      \@mkboth{\MakeUppercase\listtablename}
-              {\MakeUppercase\listtablename}
-    \@starttoc{lot}
-  }
+  \renewcommand\listoftables{%
+    \section*{\listtablename}%
+      \@mkboth{\MakeUppercase\listtablename}%
+              {\MakeUppercase\listtablename}%
+    \@starttoc{lot}}
 
-  \renewcommand\lstlistoflistings{
-    \section*{\lstlistlistingname}
-      \@mkboth{\MakeUppercase\lstlistlistingname}
-              {\MakeUppercase\lstlistlistingname}
-    \@starttoc{lol}
-  }
+  \renewcommand\lstlistoflistings{%
+    \section*{\lstlistlistingname}%
+      \@mkboth{\MakeUppercase\lstlistlistingname}%
+              {\MakeUppercase\lstlistlistingname}%
+    \@starttoc{lol}}
 
-  \renewcommand\tableofcontents{
-    \section*{\contentsname}
-      \@mkboth{\MakeUppercase\contentsname}
-              {\MakeUppercase\contentsname}
-    \@starttoc{toc}
-  }
+  \renewcommand\tableofcontents{%
+    \section*{\contentsname}%
+      \@mkboth{\MakeUppercase\contentsname}%
+              {\MakeUppercase\contentsname}%
+    \@starttoc{toc}}
 
   % Redefinir hypertarget para guardar referencia en .aux
   \let\hypertargetanterior\hypertarget
   \renewcommand{\hypertarget}[2]{%
     \hypertargetanterior{#1}{#2}%
     \protected@write\@mainaux{}{%
-      \string\expandafter\string\gdef
-      \string\csname\string\detokenize{#1}\string\endcsname{#2}%
-    }%
-  }
+      \string\expandafter\string\gdef%
+      \string\csname\string\detokenize{#1}\string\endcsname{#2}}}
 
   % Redefinición de lista de referencias cruzadas para el glosario:
   % solamente se agrega el punto final.
@@ -432,24 +434,21 @@
 
   % Redefinición de «claerdoublepage» para que las páginas en blanco no
   % tengan encabezado ni pie.
-  \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+  \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else%
    \hbox{}\thispagestyle{empty}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
 
   % Redefinición de frontmatter y mainmatter
   \renewcommand{\frontmatter}{
-    \cleardoublepage
-    \@mainmatterfalse
-    \pagenumbering{Roman}
-    \pagestyle{intro}
-  }
+    \cleardoublepage%
+    \@mainmatterfalse%
+    \pagenumbering{Roman}%
+    \pagestyle{intro}}
 
-  \renewcommand{\mainmatter}{
-    \cleardoublepage
-    \@mainmattertrue
-    \pagenumbering{arabic}
-    \pagestyle{contenido}
-    %\setcounter{page}{2}
-  }
+  \renewcommand{\mainmatter}{%
+    \cleardoublepage%
+    \@mainmattertrue%
+    \pagenumbering{arabic}%
+    \pagestyle{contenido}}
 
   % Para poder centrar una columna especifica en una tabla.
   \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
@@ -460,9 +459,60 @@
   % Redefinición de los epígrafes para aumentar el espaciado entre cita y
   % fuente.
   \renewcommand{\epigraph}[2]{\vspace{\beforeepigraphskip}
-    {\epigraphsize\begin{\epigraphflush}\begin{minipage}{\epigraphwidth}
-      \@epitext{#1}\\ \vspace{0.8em}\\ \@episource{#2}
-      \end{minipage}\end{\epigraphflush}
+    {\epigraphsize\begin{\epigraphflush}\begin{minipage}{\epigraphwidth}%
+      \@epitext{#1}\\ \vspace{0.8em}\\ \@episource{#2}%
+      \end{minipage}\end{\epigraphflush}%
       \vspace{\afterepigraphskip}}}
+
+  % Redefinición de entradas de capítulos en tabla de contenidos.
+  % En lugar de «\penalty\@highpenalty», después de la línea producto,
+  % ocupo «\nopagebreak[4]».
+  % No estoy muy seguro de cuál es la diferencia (se supone que la
+  % penalización más alta es 4), el caso es que la segunda funciona:
+  % no se deja que haya un salto de página después de la entrada de un
+  % capítulo.
+  %
+  % La definición original salió de:
+  % /usr/share/texmf-dist/tex/latex/base/book.cls
+  \renewcommand*\l@chapter[2]{%
+    \ifnum \c@tocdepth >\m@ne
+      %\addpenalty{-\@highpenalty}%
+      \vskip 1.0em \@plus\p@
+      \setlength\@tempdima{1.5em}%
+      \begingroup
+        \parindent \z@ \rightskip \@pnumwidth
+        \parfillskip -\@pnumwidth
+        \leavevmode \bfseries
+        \advance\leftskip\@tempdima
+        \hskip -\leftskip
+        #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+        \nopagebreak[4]
+        %\penalty\@highpenalty
+      \endgroup
+    \fi}
+
+    % Sin saltos de página después de títulos
+    % (No funciona); se ocupa titlesec
+
+    %\let\subsectionAnterior\subsection
+    %\renewcommand{\subsection}[1]{%
+    %  \pagebreak[3]%
+    %  \subsectionAnterior{#1}%
+    %  \nopagebreak[4]}
+
+    %\let\subsubsectionAnterior\subsubsection
+    %\renewcommand{\subsubsection}[1]{%
+    %  \pagebreak[3]%
+    %  \subsubsectionAnterior{#1}%
+    %  \nopagebreak[4]}
+
+    % Comando para reemplazar los guiones bajos con su correspondiente
+    % secuencia de escape.
+    % https://tex.stackexchange.com/questions/20890/
+    % define-an-escape-underscore-environment
+    \DeclareRobustCommand*{\escapeus}[1]{%
+    \begingroup\@activeus\scantokens{#1\endinput}\endgroup}
+    \begingroup\lccode`\~=`\_\relax
+      \lowercase{\endgroup\def\@activeus{\catcode`\_=\active \let~\_}}
 
 \makeatother

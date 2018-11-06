@@ -6,15 +6,15 @@ Proyecto Lovelace.
 
 import django
 
-from ..programa_tokenizador import funciones
+from ..programa_tokenizador import funciones_web
 
 urlpatterns = [
 
   django.urls.path('tokenizar',
-    funciones.tokenizar),
+    funciones_web.tokenizar),
   django.urls.path('detokenizar',
-    funciones.detokenizar),
+    funciones_web.detokenizar),
   django.urls.path('retokenizar',
-    funciones.retokenizar)
+    funciones_web.retokenizar)
 
 ]

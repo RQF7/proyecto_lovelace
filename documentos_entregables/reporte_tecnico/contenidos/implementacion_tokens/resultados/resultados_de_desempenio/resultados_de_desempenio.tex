@@ -8,7 +8,7 @@
 \subsection{Comparación de desempeño}
 \label{sec:comparacion}
 
-Como se indicó en la introducción de este trabajo, la tokenización digital es un
+Como se indicó en la introducción de este trabajo, la tokenización es un
 proceso relativamente nuevo y la mayoría de los proveedores de este servicio
 aprovechan la confusión y desinformación existente para atraer a clientes
 potenciales, pues pocos comparten la manera en que crean sus \glspl{gl:token}.
@@ -16,7 +16,7 @@ Esta sección busca resarcir un poco el daño, presentado una comparación entre
 los tiempos de respuesta de tokenización y detokenización de los algoritmos
 implementados.
 
-En la tabla \ref{tabla:tiempos_tokenizacion} se puede observar el tiempo
+En la tabla~\ref{tabla:tiempos_tokenizacion} se puede observar el tiempo
 promedio que le toma a cada algoritmo hacer una operación de tokenización
 y detokenización; estos valores se obtuvieron al ejecutar varias veces 15K
 operaciones de tokenización y detokenización, luego obtener el promedio
@@ -51,17 +51,17 @@ poder obtener de nuevo el \gls{gl:pan}.
   \end{center}
 \end{table}
 
-Los datos de la tabla \ref{tabla:tiempos_tokenizacion} fueron utilizados para
-crear una serie de gráficas: en la figura \ref{figura:tok_todos} se comparan los
+Los datos de la tabla~\ref{tabla:tiempos_tokenizacion} fueron utilizados para
+crear una serie de gráficas: en la figura~\ref{figura:tok_todos} se comparan los
 tiempos de tokenización y detokenización de todos los algoritmos, tanto
 reversibles como irreversibles; la velocidad de los algoritmos reversibles es
 notoria, en especial al momento de la operación de tokenización. Posteriormente,
-en la figura \ref{figura:tok_rev}, se compararon solo los algoritmos reversibles
+en la figura~\ref{figura:tok_rev}, se compararon solo los algoritmos reversibles
 (\hyperref[sec:bps]{BPS} y \hyperref[sec:ffx]{FFX}), siendo el segundo el más
 rápido de los dos; la similitud del comportamiento de estos algoritmos en ambas
 operaciones se debe a que se realizan casi las mismas operaciones para cifrar
 como para cifrar. Finalmente, se compararon los tiempos para los algoritmos
-irreversibles en las gráficas de la figura \ref{figura:tok_irrev}: durante las
+irreversibles en las gráficas de la figura~\ref{figura:tok_irrev}: durante las
 operaciones de tokenización, aunque están relativamente cerrados los tiempos,
 \hyperref[sec:ahr]{AHR} queda como el más rápido de los tres, mientras que
 \hyperref[sec:drbg_lista]{DRBG} queda en segundo lugar; es menester recordar
@@ -73,24 +73,27 @@ necesitan bits pseudoaleatorios, y si el generador de bits pseudoaleatorios
 tarda en obtenerlos, los algoritmos se ven afectados; finalmente, en las
 operaciones de detokenización, \hyperref[sec:drbg_lista]{DRBG} es el más rápido
 de todos, mientras que \hyperref[sec:ahr]{AHR} queda como el más lento de los
-tres. En la figura \ref{figura:tok_comp} se puede ver la diferencia de tiempos
+tres. En la figura~\ref{figura:tok_comp} se puede ver la diferencia de tiempos
 entre las operaciones de tokenización y detokenización; los tiempos de los
 algoritmos reversibles son casi idénticos en ambas operaciones, mientras que
 se observa un cambio notorio entre los tiempos de tokenización y detokenización
 de los irreversibles.
+
+% :rage: No debería haber archivos duplicados. ¿Cuál es la diferecia entre lo
+% que hay en diagramas comunes y lo que hay en diagramas?
 
 \begin{figure}
   \centering
   \begin{subfigure}{1\textwidth}
     \begin{center}
       \includegraphics[width=1\linewidth]
-        {../../../../../diagramas_comunes/desempenio/tok_todos}
+        {../../../../../diagramas_comunes/desempenio/tok_todos_bn}
       \caption{Tiempos de tokenización.}
     \end{center}
   \end{subfigure}
   \begin{subfigure}{0.9\textwidth}
     \begin{center}
-      \includegraphics[width=1\linewidth]{diagramas/detok_todos}
+      \includegraphics[width=1\linewidth]{diagramas/detok_todos_bn}
       \caption{Tiempos de detokenización.}
     \end{center}
   \end{subfigure}
@@ -103,13 +106,13 @@ de los irreversibles.
   \begin{subfigure}{1\textwidth}
     \begin{center}
       \includegraphics[width=1\linewidth]
-        {../../../../../diagramas_comunes/desempenio/tok_rev}
+        {../../../../../diagramas_comunes/desempenio/tok_rev_bn}
       \caption{Tiempos de tokenización.}
     \end{center}
   \end{subfigure}
   \begin{subfigure}{0.9\textwidth}
     \begin{center}
-      \includegraphics[width=1\linewidth]{diagramas/detok_rev}
+      \includegraphics[width=1\linewidth]{diagramas/detok_rev_bn}
       \caption{Tiempos de detokenización.}
     \end{center}
   \end{subfigure}
@@ -122,13 +125,13 @@ de los irreversibles.
   \begin{subfigure}{1\textwidth}
     \begin{center}
       \includegraphics[width=1\linewidth]
-        {../../../../../diagramas_comunes/desempenio/tok_irrev}
+        {../../../../../diagramas_comunes/desempenio/tok_irrev_bn}
       \caption{Tiempos de tokenización.}
     \end{center}
   \end{subfigure}
   \begin{subfigure}{0.9\textwidth}
     \begin{center}
-      \includegraphics[width=1\linewidth]{diagramas/detok_irrev}
+      \includegraphics[width=1\linewidth]{diagramas/detok_irrev_bn}
       \caption{Tiempos de detokenización.}
     \end{center}
   \end{subfigure}
@@ -140,13 +143,13 @@ de los irreversibles.
   \centering
   \begin{subfigure}{1\textwidth}
     \begin{center}
-      \includegraphics[width=1\linewidth]{diagramas/todo_irrev}
+      \includegraphics[width=1\linewidth]{diagramas/todo_irrev_bn}
       \caption{Algoritmos de tokenización irreversibles.}
     \end{center}
   \end{subfigure}
   \begin{subfigure}{0.9\textwidth}
     \begin{center}
-      \includegraphics[width=1\linewidth]{diagramas/todo_rev}
+      \includegraphics[width=1\linewidth]{diagramas/todo_rev_bn}
       \caption{Algoritmos de tokenización reversibles.}
     \end{center}
   \end{subfigure}

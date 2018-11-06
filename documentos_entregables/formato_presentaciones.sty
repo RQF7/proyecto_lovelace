@@ -62,6 +62,10 @@
 % Redefinir comandos de índice para incluir números
 \newcounter{sectionpage}
 
+% Justificación de contenidos
+\RequirePackage{ragged2e}
+\apptocmd{\frame}{}{\justifying}{}
+
 % Estilo de la presentación
 \import{estilos_de_presentaciones/}{rqf7.sty}
 %\import{estilos_de_presentaciones/}{dresden_lsc.sty}
@@ -109,5 +113,32 @@
     \beamer@ifempty{#2}{\beamer@atbeginsubsections}{\beamer@atbeginsubsection}%
   \fi%
   \beamer@resumemode}
+
+% Redefinición de itemize para justificar listas.
+% https://tex.stackexchange.com/questions/50004/
+% justify-text-inside-itemize-environment-with-beamer-class#50019
+\renewcommand{\itemize}[1][]{%
+  \beamer@ifempty{#1}{}{\def\beamer@defaultospec{#1}}%
+  \ifnum \@itemdepth >2\relax\@toodeep\else
+    \advance\@itemdepth\@ne
+    \beamer@computepref\@itemdepth% sets \beameritemnestingprefix
+    \usebeamerfont{itemize/enumerate \beameritemnestingprefix body}%
+    \usebeamercolor[fg]{itemize/enumerate \beameritemnestingprefix body}%
+    \usebeamertemplate{itemize/enumerate \beameritemnestingprefix body begin}%
+    \list
+      {\usebeamertemplate{itemize \beameritemnestingprefix item}}
+      {\def\makelabel##1{%
+          {%
+            \hss\llap{{%
+                \usebeamerfont*{itemize \beameritemnestingprefix item}%
+                \usebeamercolor[fg]{itemize \beameritemnestingprefix item}##1}}%
+          }%
+        }%
+      }
+  \fi%
+  \beamer@cramped%
+  \justifying%
+  \beamer@firstlineitemizeunskip%
+}
 
 \makeatother

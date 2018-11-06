@@ -16,23 +16,17 @@
 {%
   \phantomsection%
   \addcontentsline{toc}{chapter}{Glosario}%
-  \capitulo{Glosario}{sec:glosario}
-  {
-    \epigrafe
-    {%
+  \capituloSinNumero{Glosario}{sec:glosario}{%
+    \epigrafe{%
       The most important thing in a programming language is the name. A
       language will not succeed without a good name. I have recently invented a
-      very good name and now I am looking for a suitable language.%
-    }
-    {%
-      \textsc{Donald Knuth}.%
-    }
-  }%
-  \noindent
+      very good name and now I am looking for a suitable language.}{%
+      \textsc{Donald Knuth}.}}%
+  %
   Glosario de términos de computación, criptográficos y matemáticos. Las
-  principales fuentes bibliográficas usadas son \cite{menezes} y
-  \cite{stallings}; en caso de tratarse de una fuente distinta, se indica en la
-  entrada en particular.
+  principales fuentes bibliográficas usadas son~\cite{menezes}
+  y ~\cite{stallings}; en caso de tratarse de una fuente distinta, se indica
+  en la entrada en particular.
 }
 
 \newglossaryentry{gl:modo_de_operacion}
@@ -267,7 +261,7 @@
   description = {
     (\textit{Cryptographic primitive}) Algoritmos criptográficos que son usados
     con frecuencia para la construcción de protocolos de seguridad. En
-    \cite{menezes} se clasifican en tres categorías principales: de llave
+   ~\cite{menezes} se clasifican en tres categorías principales: de llave
     simétrica, de llave pública y sin llave%
   }
 }
@@ -337,7 +331,7 @@
     y, tercero, se desplaza hacia la derecha, hacia la izquierda o se detiene.
     De forma más concreta, una máquina de Turing puede ser vista como una
     máquina de estados finitos con un método de almacenamiento asociado (la
-    cinta infinita) \cite{minsky, DBLP:books/daglib/0023088,
+    cinta infinita)~\cite{minsky, DBLP:books/daglib/0023088,
     DBLP:books/daglib/0032222}%
   },
   see={gl:maquina_de_estados_finitos}
@@ -563,7 +557,7 @@
   see={gl:registro_de_desplazamiento}
 }
 
-\newglossaryentry{gl:acomplamiento}
+\newglossaryentry{gl:acoplamiento}
 {
   name = acoplamiento,
   description = {
@@ -572,7 +566,7 @@
     fuerte complica a un sistema, dado que es más difícil de entender,
     cambiar o corregir. La complejidad de un programa se puede reducir
     buscando el menor acoplamiento posible entre módulos
-    \cite{DBLP:books/daglib/0019905}%
+   ~\cite{DBLP:books/daglib/0019905}%
   }
 }
 
@@ -583,7 +577,7 @@
   description = {
     (\textit{Unit testing}) Proceso para probar componentes más simples de un
     programa de forma individual (funciones u objetos aislados)
-    \cite{DBLP:books/lib/Sommerville07}%
+   ~\cite{DBLP:books/lib/Sommerville07}%
   }
 }
 
@@ -594,7 +588,7 @@
   description = {
     (\textit{Component testing}) Pruebas de componentes hechos a partir de
     objetos que interactúan entre sí
-    \cite{DBLP:books/lib/Sommerville07}%
+   ~\cite{DBLP:books/lib/Sommerville07}%
   }
 }
 
@@ -604,10 +598,10 @@
   description = {
     (\textit{Cryptocurrency}) Moneda digital que funciona con herramientas
     criptográficas modernas. La primera y más exitosa a la fecha, llamada
-    \textit{bitcoin}, fue propuesta en \cite{bitcoin} por el epónimo
+    \textit{bitcoin}, fue propuesta en~\cite{bitcoin} por el epónimo
     \textit{Satoshi Nakamoto}. La característica más importante de las
     \textit{criptomonedas} es que no están respaldadas por alguna autoridad
-    central \cite{DBLP:journals/iacr/BhattacherjeeS17}%
+    central~\cite{DBLP:journals/iacr/BhattacherjeeS17}%
   }
 }
 
@@ -644,7 +638,7 @@
     Forma algebraica de definir patrones. El conjunto de patrones que puede ser
     expresado mediante las expresiones regulares es exactamente el mismo que el
     conjunto de patrones que puede ser descrito por las transiciones de una
-    máquina de estados finitos \cite{DBLP:books/crc/AU1992}%
+    máquina de estados finitos~\cite{DBLP:books/crc/AU1992}%
   },
   see={gl:maquina_de_estados_finitos}
 }
@@ -656,7 +650,7 @@
   description = {
    Modelo idealizado de una máquina que opera en tiempos discretos. La operación
    completa de la máquina se define por un conjunto finito de estados junto con
-   las reglas de cambios entre estados \cite{minsky}%
+   las reglas de cambios entre estados~\cite{minsky}%
   }
 }
 

@@ -1,0 +1,1 @@
+Usted tiene otra tarjeta con los mismos datos y una fecha de vencimiento distinta; no puede tener dos números iguales y distintas fechas de vencimiento, así que, si desea agregar este método de pago, elimine la otra forma de pago antes de intentarlo de nuevo.

@@ -1,0 +1,227 @@
+%
+% Contenido estático de página de documentación.
+% Reporte técnico y aplicación web de sistema tokenizador.
+% Proyecto Lovelace.
+%
+
+\subsection{Cómo utilizar la API web}
+
+La API permite realizar tres operaciones que se explican a continuación;
+todas las operaciones se deben realizar mediante peticiones HTTP utilizando
+el método POST. Todas las peticiones deben tener los encabezados de tipo de
+contenido (especificando que se está enviando un JSON) y el encabezado de
+autenticación básica (siguiendo el formato dado en el
+\href{https://tools.ietf.org/html/rfc7617}{RFC 7617}). En el cuerpo de
+la petición se especifica el método y el PAN o el método y el token.
+
+\subsubsection{Tokenización}
+
+Permite, a partir del número de una tarjeta, obtener un token asociado a
+él. Debe encontrarse en estado \textbf{aprobado} o \textbf{en cambio de
+llaves}; en todos los casos, la llave que se utilizará al tokenizar
+siempre será la que tenga estado \textbf{actual}.
+
+\paragraph{Uso y ejemplo}
+
+En el cuerpo de la petición se debe señalar el \textbf{PAN} y el
+\textbf{método}, siguiendo el siguiente esquema:
+
+\begin{verbatim}
+  POST /programa_tokenizador/tokenizar HTTP/1.1
+  {
+    Authorization: Basic QWxhZgRpbjpPcGVuU2VYW11
+    Content-Type: Application/JSON
+  }
+  {
+    "pan" : "28045869693113314",
+    "metodo" : "FFX"
+  }
+\end{verbatim}
+
+Los valores para el campo método son: FFX, BPS, TKR, AHR o DRBG.
+
+\paragraph{Errores}
+
+A continuación se listan los errores que pueden surgir al tokenizar un PAN.
+
+\begin{itemize}
+
+  \item \verb|400 - El PAN recibido es inválido.| \\
+    El PAN enviado no es válido; para serlo debe tener una longitud de 12
+    a 19 dígitos y el último dígito debe ser calculado mediante el
+    algoritmo de Luhn.
+
+  \item \verb|400 - Ya existe un token asociado, utilice la función de retokenización.| \\
+    El PAN que fue enviado ya tiene un token asignado, pero se encuentra
+    en cambio de llaves; retokenice este token.
+
+  \item \verb|401 - Es necesario proveer credenciales para realizar esta operación| \\
+    Este error surge cuando el encabezado de autenticación no se ha
+    encontrado.
+
+  \item \verb|401 - Las credenciales son incorrectas| \\
+    Este error surge cuando las credenciales especificadas en el
+    encabezado no se encuentran registradas en el sistema.
+
+  \item \verb|403 - El usuario no tiene los privilegios para esta operación| \\
+    Aunque el usuario está registrado, no tiene los permisos necesarios
+    para realizar esta operación.
+
+  \item \verb|403 - EL usuario no se encuentra en el estado necesario para esta operación| \\
+    Aunque el usuario está registrado, no se encuentra en el estado
+    requerido (\verb|aprobado| o \verb|en cambio de llaves|)
+    para realizar esta operación; podría aún no estar aprobado o haber
+    sido rechazado o puesto en la lista negra.
+
+  \item \verb|403 - [Token]| \\
+    Ya existe un token asociado al PAN que envió para tokenizar;
+    por regla, solo se puede tener uno, así que se regresa el token que
+    fue creado para este PAN. Si se encuentra \textbf{en cambio de llaves},
+    y el token ya fue retokenizado, regresa el más nuevo.
+
+  \item \verb|403 - Parámetros incompletos o incorrectos| \\
+    El servidor no pudo encontrar el parámetro \verb|pan|,
+    \verb|metodo| o ambos.
+
+\end{itemize}
+
+\subsubsection{Detokenización}
+
+Permite, a partir de un token, obtener el PAN asociado a él.
+Debe encontrarse en estado \textbf{aprobado} o \textbf{en cambio de llaves};
+el segundo estado se alcanza cuando se inicia el refresco de llaves desde
+el sitio web y, en caso de haberlo iniciado, es menester especificar si se
+desea detokenizar utilizando la llave \textbf{anterior} o la llave que fue
+creada al iniciar el refresco de llaves (la llave \textbf{actual}). Si no
+es especificado, se utiliza la llave \textbf{actual}.
+
+\paragraph{Uso y ejemplo}
+
+En el cuerpo de la petición se debe señalar el \textbf{PAN} y el
+\textbf{método}, siguiendo el siguiente esquema:
+
+\begin{verbatim}
+  POST /programa_tokenizador/detokenizar HTTP/1.1
+  {
+    Authorization: Basic QWxhZgRpbjpPcGVuU2VYW11
+    Content-Type: Application/JSON
+  }
+  {
+    "token" : "28045869693113314",
+    "metodo" : "FFX"
+    "versionLlave" : "anterior"
+  }
+\end{verbatim}
+
+Los valores para el campo método son: FFX, BPS, TKR, AHR o DRBG. Los valores
+para el campo de versiónLlave son: anterior y actual.
+
+\paragraph{Errores}
+
+A continuación se listan los errores que pueden surgir al detokenizar un
+token.
+
+\begin{itemize}
+
+  \item \verb|400 - El token recibido es inválido| \\
+    El servidor recibió un token que no es válido o generado por este
+    servicio.
+
+  \item \verb|400 - El token no existe en la base de datos.| \\
+    El token, aunque válido, no se encuentra registrado y asociado con
+    el cliente que envió la petición.
+
+  \item \verb|401 - Es necesario proveer credenciales para realizar esta operación| \\
+    Este error surge cuando el encabezado de autenticación no se ha
+    encontrado.
+
+  \item \verb|401 - Las credenciales son incorrectas| \\
+    Este error surge cuando las credenciales especificadas en el
+    encabezado no se encuentran registradas en el sistema.
+
+  \item \verb|403 - El usuario no tiene los privilegios para esta operación| \\
+    Aunque el usuario está registrado, no tiene los permisos necesarios
+    para realizar esta operación.
+
+  \item \verb|403 - El usuario no se encuentra en el estado necesario para esta operación| \\
+    Aunque el usuario está registrado, no se encuentra en el estado
+    requerido (\verb|aprobado| o \verb|en cambio de llaves|)
+    para realizar esta operación; podría aún no estar aprobado o haber
+    sido rechazado o puesto en la lista negra. Ingrese al sitio web para
+    obtener más información sobre su estado.
+
+  \item \verb|403 - Parámetros incompletos o incorrectos| \\
+    El servidor no pudo encontrar el parámetro \verb|token|,
+    \verb|metodo| o ambos.
+
+\end{itemize}
+
+\subsubsection{Retokenización}
+
+Permite, a partir de un token, obtener la nueva versión del mismo.
+Debe encontrarse en estado \textbf{en cambio de llaves} y proveer en el cuerpo
+de la petición el token que se desea actualizar; para obtener esta nueva
+versión del token, se detokenizará con la llave anterior y el resultado
+se tokenizará con la llave actual. Es menester utilizar el mismo método con
+el que fue creado el token para realizar esta operación.
+
+\paragraph{Uso y ejemplo}
+
+En el cuerpo de la petición se debe señalar el \textbf{token} y el
+\textbf{método}, siguiendo el siguiente esquema:
+
+\begin{verbatim}
+  POST /programa_tokenizador/retokenizar HTTP/1.1
+  {
+    Authorization: Basic QWxhZgRpbjpPcGVuU2VYW11
+    Content-Type: Application/JSON
+  }
+  {
+    "token" : "28045869693113314",
+    "metodo" : "FFX"
+  }
+\end{verbatim}
+
+Los valores para el campo método son: FFX, BPS, TKR, AHR o DRBG.
+
+\paragraph{Errores}
+
+A continuación se listan los errores que pueden surgir al detokenizar un
+token.
+
+\begin{itemize}
+
+  \item \verb|400 - El token recibido es inválido| \\
+    El servidor recibió un token que no es válido o generado por este
+    servicio.
+
+  \item \verb|400 - El token no existe en la base de datos| \\
+    El token, aunque válido, no se encuentra registrado y asociado con
+    el cliente que envió la petición.
+
+  \item \verb|401 - Es necesario proveer credenciales para realizar esta operación| \\
+    Este error surge cuando el encabezado de autenticación no se ha
+    encontrado.
+
+  \item \verb|401 - Las credenciales son incorrectas| \\
+    Este error surge cuando las credenciales especificadas en el
+    encabezado no se encuentran registradas en el sistema.
+
+  \item \verb|403 - El usuario no tiene los privilegios para esta operación| \\
+    Aunque el usuario está registrado, no tiene los permisos necesarios
+    para realizar esta operación.
+
+  \item \verb|403 - EL usuario no se encuentra en el estado necesario para esta operación| \\
+    Aunque el usuario está registrado, no se encuentra en el estado
+    requerido (\verb|en cambio de llaves|). Ingrese al sitio web
+    para otener más información sobre su estado.
+
+  \item \verb|403 - Parámetros incompletos o incorrectos| \\
+    El servidor no pudo encontrar el parámetro \verb|token|,
+    \verb|metodo| o ambos.
+
+  \item \verb|403 - [Token]| \\
+    Está intentando retokenizar un token que ya fue retokenizado. El
+    servidor regresa el token creado más recientemente.
+
+\end{itemize}

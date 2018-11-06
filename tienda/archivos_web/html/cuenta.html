@@ -1,0 +1,204 @@
+<!--
+  Html de página de administración de cuenta.
+  Tienda en línea.
+  Proyecto Lovelace.
+-->
+
+<div
+  class="seccion"
+  flex="none"
+  layout="column">
+  <h2>
+    Información personal
+  </h2>
+  <md-divider class="divisor-de-seccion"></md-divider>
+  <div
+    layout="row">
+    <ego-etiqueta descripcion="'Nombre de usuario'">
+      {{usuario.nombre}}
+    </ego-etiqueta>
+    <div class="separador-horizontal-40"></div>
+    <ego-etiqueta descripcion="'Correo electrónico'">
+      {{usuario.correo}}
+    </ego-etiqueta>
+  </div>
+  <div
+    layout="row"
+    layout-align="start">
+    <md-button
+      id="boton-editar-info-usuario"
+      ng-click="actualizarUsuario($event)"
+      class="md-primary md-raised boton-en-texto">
+      Editar información
+    </md-button>
+  </div>
+  <h2>
+    Métodos de pago
+  </h2>
+  <md-divider class="divisor-de-seccion"></md-divider>
+  <p ng-if="tarjetas.length == 0">
+    <em>
+      No hay ningún método de pago guardado.
+    </em>
+  </p>
+  <md-grid-list
+    md-cols="4"
+    md-cols-xs="1"
+    md-cols-sm="2"
+    md-cols-md="3"
+    md-cols-xl="3"
+    md-row-height="480px"
+    md-gutter="20px">
+    <!--
+      TODO: Agregar reglas para que no se rompan lineas en los
+      campos de las etiquetas.
+    -->
+    <md-grid-tile ng-repeat="tarjeta in tarjetas">
+      <md-whiteframe
+        class="md-whiteframe-6dp tarjeta"
+        md-colors="{background: 'background-hue-2'}">
+        <div
+          layout="column"
+          style="height: 100%">
+          <div
+            layout="row">
+            <div
+              layout="column"
+              flex="50">
+              <ego-etiqueta descripcion="'Titular'">
+                {{tarjeta.fields.titular}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Terminación'">
+                <em>{{tarjeta.fields.terminacion}}</em>
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Fecha de expiración'">
+                {{tarjeta.fields.expiracion | date}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Emisor'">
+                {{tarjeta.fields.emisor}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Tipo de tarjeta'">
+                {{tarjeta.fields.tipoDeTarjeta}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Método de tokenización'">
+                {{tarjeta.fields.metodo}}
+              </ego-etiqueta>
+            </div>
+            <div
+              layout="column"
+              flex="50">
+              <ego-etiqueta descripcion="'Calle'">
+                {{tarjeta.direccion.fields.calle}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Número interior'">
+                {{tarjeta.direccion.fields.numeroInterior}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Número exterior'">
+                {{tarjeta.direccion.fields.numeroExterior}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Colonia'">
+                {{tarjeta.direccion.fields.colonia}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Municipio'">
+                {{tarjeta.direccion.fields.municipio}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Estado'">
+                {{tarjeta.direccion.fields.estado}}
+              </ego-etiqueta>
+              <ego-etiqueta descripcion="'Código postal'">
+                {{tarjeta.direccion.fields.cp}}
+              </ego-etiqueta>
+            </div>
+          </div>
+          <span flex></span>
+          <div
+            layout="row"
+            layout-align="center">
+            <md-button
+              ng-click="quitarMetodoDePago($event, tarjeta)"
+              class="md-primary">
+              Quitar método
+            </md-button>
+          </div>
+        </div>
+      </md-whiteframe>
+    </md-grid-tile>
+  </md-grid-list>
+  <div
+    layout="row"
+    layout-align="start">
+    <md-button
+      id="boton-agregar-metodo-de-pago"
+      ng-click="agregarMetodoDePago($event)"
+      class="md-primary md-raised boton-en-texto">
+      Agregar método de pago
+    </md-button>
+  </div>
+  <h2>
+    Direcciones de entrega
+  </h2>
+  <md-divider class="divisor-de-seccion"></md-divider>
+  <p ng-if="direcciones.length == 0">
+    <em>
+      No hay ninguna dirección de entrega guardada.
+    </em>
+  </p>
+  <md-grid-list
+    md-cols="4"
+    md-cols-xs="1"
+    md-cols-sm="2"
+    md-cols-md="3"
+    md-cols-xl="5"
+    md-row-height="480px"
+    md-gutter="20px">
+    <md-grid-tile ng-repeat="direccion in direcciones">
+      <md-whiteframe
+        class="md-whiteframe-6dp tarjeta"
+        md-colors="{background: 'background-hue-2'}">
+        <div layout="column" style="height: 100%">
+          <ego-etiqueta descripcion="'Calle'">
+            {{direccion.fields.calle}}
+          </ego-etiqueta>
+          <ego-etiqueta descripcion="'Número interior'">
+            {{direccion.fields.numeroInterior}}
+          </ego-etiqueta>
+          <ego-etiqueta descripcion="'Número exterior'">
+            {{direccion.fields.numeroExterior}}
+          </ego-etiqueta>
+          <ego-etiqueta descripcion="'Colonia'">
+            {{direccion.fields.colonia}}
+          </ego-etiqueta>
+          <ego-etiqueta descripcion="'Municipio'">
+            {{direccion.fields.municipio}}
+          </ego-etiqueta>
+          <ego-etiqueta descripcion="'Estado'">
+            {{direccion.fields.estado}}
+          </ego-etiqueta>
+          <ego-etiqueta descripcion="'Código postal'">
+            {{direccion.fields.cp}}
+          </ego-etiqueta>
+          <span flex></span>
+          <div
+            layout="row"
+            layout-align="center">
+            <md-button
+              ng-click="quitarDireccionDeEntrega($event, direccion)"
+              class="md-primary">
+              Quitar dirección
+            </md-button>
+          </div>
+        </div>
+      </md-whiteframe>
+    </md-grid-tile>
+  </md-grid-list>
+  <div
+    layout="row"
+    layout-align="start">
+    <md-button
+      id="boton-agregar-direccion"
+      ng-click="agregarDireccionDeEntrega($event)"
+      class="md-primary md-raised boton-en-texto">
+      Agregar dirección de entrega
+    </md-button>
+  </div>
+</div>

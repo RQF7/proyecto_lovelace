@@ -8,58 +8,59 @@
 
 % RC1B
 % TODO: el documento explica por qué esta cantidad; aún no lo entiendo.
-\requerimiento{Probabilidad de adivinar relaciones (criptográficos)}
+\requerimientoConClasificacion
+{Probabilidad de adivinar relaciones (criptográficos)}
+{clasificacion:algoritmos}
 {
   La probabilidad de adivinar la relación entre un \gls{gl:token} y un
   \gls{gl:pan} debe de ser menor que $ 1 $ en $ 10^6 $.
+}
 
-  % RC1B-1
-  \subrequerimiento[rq_pci:cr_distribucion_uniforme]
-  {Distribución uniforme (criptográficos)}
-  {
-    Para un \gls{gl:pan} dado, todos los \glspl{gl:token} deben ser
-    equiprobables; esto es, el mecanismo tokenizador no debe exhibir
-    tendencias probabilísticas que lo expongan a ataques estadísticos.
-  }
+% RC1B-1
+\subrequerimiento[rq_pci:cr_distribucion_uniforme]
+{Distribución uniforme (criptográficos)}
+{
+  Para un \gls{gl:pan} dado, todos los \glspl{gl:token} deben ser
+  equiprobables; esto es, el mecanismo tokenizador no debe exhibir
+  tendencias probabilísticas que lo expongan a ataques estadísticos.
+}
 
-  % RC1B-2 permutación aleatoria
-  % TODO: ¿Cuál es la diferencia entre una «permutación aleatoria» y una
-  % «permutación aleatoria fuerte»?
-  % Si el mapeo es entre dos espacios distintos... ya no se llama
-  % permutación, ¿o sí?
-  \subrequerimiento[rq_pci:cr_permutacion_aleatoria]
-  {Permutación aleatoria (criptográficos)}
-  {
-    El método de tokenización debe actuar como una familia de
-    \glspl{gl:permutacion} aleatoria desde el espacio de \gls{gl:pan} al
-    espacio de \glspl{gl:token}.
-  }
+% RC1B-2 permutación aleatoria
+% TODO: ¿Cuál es la diferencia entre una «permutación aleatoria» y una
+% «permutación aleatoria fuerte»?
+% Si el mapeo es entre dos espacios distintos... ya no se llama
+% permutación, ¿o sí?
+\subrequerimiento[rq_pci:cr_permutacion_aleatoria]
+{Permutación aleatoria (criptográficos)}
+{
+  El método de tokenización debe actuar como una familia de
+  \glspl{gl:permutacion} aleatoria desde el espacio de \gls{gl:pan} al
+  espacio de \glspl{gl:token}.
+}
 
-  % RC1B-3
-  \subrequerimiento[rq_pci:cr_cambio_de_llave]
-  {Cambio de llave (criptográficos)}
-  {
-    Un cambio en la llave se debe ver reflejado en un cambio en el
-    \gls{gl:token} resultado.
-  }
+% RC1B-3
+\subrequerimiento[rq_pci:cr_cambio_de_llave]
+{Cambio de llave (criptográficos)}
+{
+  Un cambio en la llave se debe ver reflejado en un cambio en el
+  \gls{gl:token} resultado.
+}
 
-  % RC1B-4
-  \subrequerimiento[rq_pci:cr_cambio_de_pan]
-  {Cambio de \gls{gl:pan} (criptográficos)}
-  {
-    Un cambio en el \gls{gl:pan} se debe ver reflejado en un cambio en el
-    \gls{gl:token} resultado.
-  }
+% RC1B-4
+\subrequerimiento[rq_pci:cr_cambio_de_pan]
+{Cambio de \texorpdfstring{\gls{gl:pan}}{PAN} (criptográficos)}
+{
+  Un cambio en el \gls{gl:pan} se debe ver reflejado en un cambio en el
+  \gls{gl:token} resultado.
+}
 
-  % RC1B-5
-  \subrequerimiento[rq_pci:cr_aleatoriedad_digitos]
-  {Verificación de la aleatoriedad (criptográficos)}
-  {
-    Se debe tener un medio para verificar de forma práctica la aleatorización
-    de dígitos, de acuerdo a lo establecido en \gls{gl:nist} 800-90A
-    \cite{nist_aleatorios}.
-  }
-
+% RC1B-5
+\subrequerimiento[rq_pci:cr_aleatoriedad_digitos]
+{Verificación de la aleatoriedad (criptográficos)}
+{
+  Se debe tener un medio para verificar de forma práctica la aleatorización
+  de dígitos, de acuerdo a lo establecido en \gls{gl:nist} 800-90A
+ ~\cite{nist_aleatorios}.
 }
 
 % RC1C almacenamiento duplicado
@@ -67,15 +68,16 @@
 % nunca se almacenaba el token?; segundo, aún suponiendo que este
 % requerimiento fuera en realidad para los no criptográficos, ¿Cuál es la
 % diferencia entre guardar el PAN completo y guardar el PAN truncado?
-\requerimiento[rq_pci:cr_almacenamiento_tokens]
-{Almacenamiento de tokens (criptográficos)}
+\requerimientoConClasificacion[rq_pci:cr_almacenamiento_tokens]
+{Almacenamiento de \texorpdfstring{\glspl{gl:token}}{tokens} (criptográficos)}
+{clasificacion:sistema}
 {
   Los \glspl{gl:token} generados no se deben almacenar en ningún punto del
   sistema.
 }
 
 El requerimiento anterior (\hipervinculo{rq_pci:cr_almacenamiento_tokens},
-RC1C en \cite{pci_tokens}) es un tanto difícil de interpretar; la versión
+RC1C en~\cite{pci_tokens}) es un tanto difícil de interpretar; la versión
 original establece: \textit{los \glspl{gl:token} basados en el \gls{gl:pan}
 completo no se deben almacenar si el producto tokenizador también almacena
 su \gls{gl:pan} truncado correspondiente}. Es un requerimiento de los
@@ -85,19 +87,21 @@ almacenar bajo ninguna circunstancia (según la propia clasificación del
 reflejar este hecho.
 
 % RC4A
-\requerimiento[rq_pci:cr_administracion_llaves]
+\requerimientoConClasificacion[rq_pci:cr_administracion_llaves]
 {Seguridad de la administración de llaves (criptográficos)}
+{clasificacion:sistema}
 {
   Todas la operaciones sobre la administración de las llaves criptográficas
   deben realizarse en un dispositivo criptográfico seguro y aprobado: el
   \gls{gl:pci} \gls{gl:ssc} se encarga de hacer validaciones; también puede ser
   cualquier dispositivo validado por \gls{gl:fips} 140-2 nivel 3 o superior
-  \cite{nist_modulos_criptograficos} o por la \gls{gl:iso} 13491-1.
+ ~\cite{nist_modulos_criptograficos} o por la \gls{gl:iso} 13491-1.
 }
 
 % RC4C-1 y 2
-\requerimiento[rq_pci:cr_longitud_llaves]
+\requerimientoConClasificacion[rq_pci:cr_longitud_llaves]
 {Sobre la longitud de las llaves (criptográficos)}
+{clasificacion:implementaciones}
 {
   Las llaves para \textit{tokenizar} deben tener una
   \gls{gl:fuerza_efectiva} de, al menos, 128 bits. Cualquier llave utilizada
@@ -106,10 +110,11 @@ reflejar este hecho.
 }
 
 % RC4D
-\requerimiento[rq_pci:cr_independencia_estadistica]
+\requerimientoConClasificacion[rq_pci:cr_independencia_estadistica]
 {Independencia estadística (criptográficos)}
+{clasificacion:algoritmos}
 {
-  Si el espacio de llaves es usado para producir \glspl{gl:token} es dos
+  Si el espacio de llaves es usado para producir \glspl{gl:token} en dos
   contextos distintos (p. ej. para distintos comerciantes), estas deben ser
   \glspl{gl:estidisticamente_independiente}.
 }

@@ -1,0 +1,101 @@
+%
+% Caso de uso para iniciar sesión,
+% Capítulo de análisis y diseño de tienda en línea,
+% Proyecto Lovelace.
+%
+
+\casoDeUso[lib_cu:iniciar_sesion]
+{Iniciar sesión}
+{
+  Caso que permite que un \textbf{visitante} se identifique ante el sistema. El
+  \textbf{visitante} introduce su correo electrónico y contraseña y,
+  dependiendo de dónde se encontraba (en inicio o finalizando una compra) es
+  redirigido a la página correspondiente.
+
+  \begin{trayectoriaPrincipal}
+
+    \item[origen] El visitante presiona el botón \textit{Iniciar sesión}, en
+      la pantalla principal \hipervinculo{lib_iu:inicio} o
+      \textit{Finalizar compra} en \hipervinculo{lib_iu:finalizar_compra} sin
+      haber iniciado sesión.
+
+    \item[interfaz] El sistema muestra la pantalla
+      \hipervinculo{lib_iu:iniciar_sesion} con el botón \textit{iniciar sesión}
+      deshabilitado.
+
+    \item[datos] El visitante introduce su correo electrónico y contraseña;
+      [\hipervinculoLocal{lib_ta:cancelar}].
+
+    \item El sistema habilita el botón \textit{iniciar sesión}.
+
+    \item El visitante presiona el botón \textit{iniciar sesión};
+      [\hipervinculoLocal{lib_ta:cancelar}].
+
+    \item El sistema valida las credenciales del usuario; [%
+      \hipervinculoLocal{lib_ta:credenciales_incorrectas},
+      \hipervinculoLocal{lib_ta:correo_no_verificado}].
+
+    \item El sistema registra al usuario en las variables de sesión.
+
+    \item El sistema verifica que el usuario no esté realizando una compra
+      [\hipervinculoLocal{lib_ta:mitad_de_compra}].
+
+    \item El sistema muestra la pantalla \hipervinculo{lib_iu:inicio}.
+
+  \end{trayectoriaPrincipal}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:cancelar]
+    {El visitante cancela la operación}
+
+    \item El visitante presiona el botón \textit{cancelar}.
+
+    \item El sistema muestra la interfaz de origen del paso
+      \referenciaLocal{origen} de la trayectoria principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:credenciales_incorrectas]
+    {Credenciales incorrectas}
+
+    \item El correo electrónico no se encuentra registrado en el sistema o la
+      contraseña dada no corresponde al correo electrónico dado.
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:credenciales_incorrectas}.
+
+    \item Se regresa al paso \referenciaLocal{interfaz} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:correo_no_verificado]
+    {Cliente no verificado}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:correo_no_verificado}.
+
+    \item Se regresa al paso \referenciaLocal{datos} de la trayectoria
+      principal.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:mitad_de_compra]
+    {El cliente estaba finalizando una compra}
+
+    \item El sistema obtiene los datos de todos los libros que se encuentran en
+      el carrito del usuario.
+
+    \item El sistema arma y muestra la interfaz
+      \hipervinculo{lib_iu:finalizar_compra} con los datos obtenidos en el paso
+      anterior.
+
+  \end{trayectoriaAlternativa}
+}

@@ -6,54 +6,54 @@ Proyecto Lovelace.
 
 import django
 
-from ..general import funciones
+from ..general import funciones_web
 
 urlpatterns = [
 
   # Operaciones de sesión
   django.urls.path('usuario_de_sesion',
-    funciones.usuarioDeSesion),
+    funciones_web.usuarioDeSesion),
   django.urls.path('iniciar_sesion',
-    funciones.iniciarSesion),
+    funciones_web.iniciarSesion),
   django.urls.path('cerrar_sesion',
-    funciones.cerrarSesion),
-  django.urls.path('operar_cliente',
-    funciones.operarCliente),
+    funciones_web.cerrarSesion),
 
   # Operaciones de cliente
+  django.urls.path('operar_cliente',
+    funciones_web.operarCliente),
   django.urls.path('verificar_correo/registro/<vinculo>',
-    funciones.verificarCorreoDeRegistro),
+    funciones_web.verificarCorreoDeRegistro),
   django.urls.path('verificar_correo/actualizacion/<vinculo>',
-    funciones.verificarCorreoDeActualizacion),
+    funciones_web.verificarCorreoDeActualizacion),
   django.urls.path('iniciar_refresco_de_llaves',
-    funciones.iniciarRefrescoDeLlaves),
+    funciones_web.iniciarRefrescoDeLlaves),
   django.urls.path('terminar_refresco_de_llaves',
-    funciones.terminarRefrescoDeLlaves),
+    funciones_web.terminarRefrescoDeLlaves),
   django.urls.path('eliminar_tokens',
-    funciones.eliminarTokens),
+    funciones_web.eliminarTokens),
   django.urls.path('verificar_criptoperiodo',
-    funciones.verificarCriptoperiodo),
+    funciones_web.verificarCriptoperiodo),
 
   # Operaciones de administración
   django.urls.path('clientes_en_espera/<int:pagina>/<int:limite>',
-    funciones.obtenerClientesEnEspera),
+    funciones_web.obtenerClientesEnEspera),
   django.urls.path('total_de_clientes_en_espera',
-    funciones.obtenerTotalDeClientesEnEspera),
+    funciones_web.obtenerTotalDeClientesEnEspera),
   django.urls.path('clientes_en_lista_negra/<int:pagina>/<int:limite>',
-    funciones.obtenerClientesEnListaNegra),
+    funciones_web.obtenerClientesEnListaNegra),
   django.urls.path('total_de_clientes_en_lista_negra',
-    funciones.obtenerTotalDeClientesEnListaNegra),
+    funciones_web.obtenerTotalDeClientesEnListaNegra),
   django.urls.path('clientes_aprobados/<int:pagina>/<int:limite>',
-    funciones.obtenerClientesAprobados),
+    funciones_web.obtenerClientesAprobados),
   django.urls.path('total_de_clientes_aprobados',
-    funciones.obtenerTotalDeClientesAprobados),
+    funciones_web.obtenerTotalDeClientesAprobados),
   django.urls.path('aprobar_cliente/<int:idDeCliente>',
-    funciones.aprobarCliente),
+    funciones_web.aprobarCliente),
   django.urls.path('rechazar_cliente/<int:idDeCliente>',
-    funciones.rechazarCliente),
+    funciones_web.rechazarCliente),
   django.urls.path('vetar_cliente/<int:idDeCliente>',
-    funciones.vetarCliente),
+    funciones_web.vetarCliente),
   django.urls.path('desvetar_cliente/<int:idDeCliente>',
-    funciones.desvetarCliente)
+    funciones_web.desvetarCliente)
 
 ]

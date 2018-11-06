@@ -31,13 +31,12 @@ def respuestaJSON (objeto):
 
 
 def privilegiosRequeridos (tipoDeUsuario):
-  """Fábrica de decoradores para vistas con privilegios.
+  """Fábrica de decoradores para operaciones web con privilegios.
 
-  Permite decorar las funciones de vistas (todas las definiciones de funciones
-  que hay en cualquier funciones.py) para reestringir el uso de esa función
-  a cierto tipo de usuario. El argumento recibido es un entero que representa
-  el identificador de los tipos de usuarios que deben poder acceder a la
-  función.
+  Permite decorar las funciones web (todas las definiciones de funciones
+  que hay en cualquier funciones_web.py) para reestringir el uso de esa función
+  a cierto tipo de usuario. El argumento recibido es una cadena con el nombre
+  del tipo de usuario que debe poder acceder a la función.
 
   Si no hay ningún usuario en sesión o el usuario de sesión no tiene los
   privilegios necesarios, se regresa un 304 para obligar al cliente a ir
@@ -143,4 +142,3 @@ def calcularAlgoritmoLuhn (arreglo):
     j = j + 1
 
   return (suma * 9) % 10
-

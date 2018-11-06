@@ -1,0 +1,102 @@
+%
+% Diagrama de secuencia de registro de usuario,
+% Análisis y diseño de tienda en línea,
+% Reporte técnico.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[]
+  \begin {umlseqdiag}
+
+    % Líneas de vida
+    \umlactor[class = Usuario]{visitante}
+    \umlboundary[no ddots]{IUAPI-01}
+    \umlcontrol[class = Servicio]{servicioGeneral}
+    \umlentity[class = Negocio]{negocioGeneral}
+    \umldatabase[no ddots]{Modelo}
+
+    % Presionar botón
+    \begin{umlcall}[%
+      op = {Botón «Registrar»},%
+      return = IULIB-02]{visitante}{IUAPI-01}
+    \end{umlcall}
+
+    % Llenar cuestionario %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Entrada de nombre
+    \begin{umlcall}[%
+      op = {Nombre},
+      return = resultado]{visitante}{IUAPI-01}
+    \end{umlcall}
+
+    % Entrada de correo
+    \begin{umlcall}[%
+      op = {Correo electrónico},
+      return = resultado]{visitante}{IUAPI-01}
+      \begin{umlcall}[%
+        op = {validarCorreo(correo)}]{IUAPI-01}{IUAPI-01}
+      \end{umlcall}
+    \end{umlcall}
+
+    % Entrada de contraseña
+    \begin{umlcall}[%
+      op = {Contraseña},
+      return = resultado]{visitante}{IUAPI-01}
+      \begin{umlcall}[%
+        op = {validarContraseña(contraseña)}]{IUAPI-01}{IUAPI-01}
+      \end{umlcall}
+    \end{umlcall}
+
+    % Entrada de validación de contraseña
+    \begin{umlcall}[%
+      op = {Confirmación de contraseña},
+      return = resultado]{visitante}{IUAPI-01}
+      \begin{umlcall}[%
+        op = {compararContraseña(confirmación)}]{IUAPI-01}{IUAPI-01}
+      \end{umlcall}
+    \end{umlcall}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Guardar datos en el servidor%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{umlcall}[%
+      op = {Botón «Aceptar»},%
+      return = IUAPI-03]{visitante}{IUAPI-01}
+      \begin{umlcall}[%
+        op = {POST /cliente},%
+        return = {200 OK}]{IUAPI-01}{servicioGeneral}
+        \begin{umlcall}[%
+          op = {validarCliente(cliente)},%
+          return = true]{servicioGeneral}{negocioGeneral}
+        \end{umlcall}
+        \begin{umlcall}[%
+          op = {cliente.guardar()},
+          return = true]{servicioGeneral}{Modelo}
+        \end{umlcall}
+        \begin{umlcall}[%
+          op = {correoDeVerificacion(cliente)},%
+          return = true]{servicioGeneral}{negocioGeneral}
+        \end{umlcall}
+      \end{umlcall}
+    \end{umlcall}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Correo de confirmación %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \begin{umlcall}[%
+      op = {GET /verificar\_correo/\{hash\}},%
+      return = IULIB-01]{visitante}{servicioGeneral}
+      \begin{umlcall}[%
+        op = {validarVinculo(vinculo)},%
+        return = true]{servicioGeneral}{negocioGeneral}
+      \end{umlcall}
+      \begin{umlcall}[%
+        op = {cliente.cambiarEstado()},%
+        return = true]{servicioGeneral}{Modelo}
+      \end{umlcall}
+    \end{umlcall}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \end{umlseqdiag}
+\end{tikzpicture}

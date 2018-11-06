@@ -1,0 +1,178 @@
+<!--
+  Formulario para agregar una dirección de entrega,
+  Tienda en línea.
+  Proyecto Lovelace.
+-->
+
+<md-dialog
+  flex="60">
+  <md-dialog-content>
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h1>Agregar dirección de entrega</h1>
+      </div>
+    </md-toolbar>
+    <div
+      layout="row"
+      layout-align="center center">
+      <form
+        name="formularioDireccionEntrega"
+        id="formularioDireccionEntrega"
+        novalidate
+        flex="90  "
+        ng-submit="aceptar($event)">
+        <h3>
+          Dirección de entrega
+        </h3>
+        <md-divider class="divisor-de-seccion"></md-divider>
+        <div
+          layout="row"
+          layout-align="center center">
+          <md-input-container flex="70">
+            <label>Calle</label>
+            <input name="calle"
+              ng-model="direccion.calle"
+              md-no-asterisk
+              required
+              ng-minlength="5"
+              spellcheck="false">
+            <div ng-messages="formularioDireccionEntrega.calle.$error">
+              <div ng-message="required">
+                Campo obligatorio.
+              </div>
+              <div ng-message="minlength">
+                Longitud mínima: 5 caracteres.
+              </div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="10">
+            <label>No. int.</label>
+            <input name="numeroInterior"
+              ng-model="direccion.numeroInterior"
+              md-no-asterisk
+              type="number"
+              spellcheck="false">
+          </md-input-container>
+          <md-input-container flex="10">
+            <label>No. ext.</label>
+            <input name="numeroExterior"
+              ng-model="direccion.numeroExterior"
+              required
+              md-no-asterisk
+              type="number"
+              spellcheck="false">
+            <div ng-messages="formularioDireccionEntrega.numeroExterior.$error">
+              <div ng-message="required">
+                Campo obligatorio.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+        <div
+          layout="row"
+          layout-align="center center">
+          <md-input-container flex="30">
+            <label>Colonia</label>
+            <input name="colonia"
+              ng-model="direccion.colonia"
+              md-no-asterisk
+              required
+              ng-minlength="5"
+              spellcheck="false">
+            <div ng-messages="formularioDireccionEntrega.colonia.$error">
+              <div ng-message="required">
+                Campo obligatorio.
+              </div>
+              <div ng-message="minlength">
+                Longitud mínima: 5 caracteres.
+              </div>
+            </div>
+          </md-input-container>
+          <md-input-container flex="30">
+            <label>Municipio</label>
+            <input name="municipio"
+              ng-model="direccion.municipio"
+              md-no-asterisk
+              required
+              ng-minlength="5"
+              spellcheck="false">
+            <div ng-messages="formularioDireccionEntrega.municipio.$error">
+              <div ng-message="required">
+                Campo obligatorio.
+              </div>
+              <div ng-message="minlength">
+                Longitud mínima: 5 caracteres.
+              </div>
+            </div>
+          </md-input-container>
+          <md-input-container
+            flex="30">
+            <label>
+              Estado
+            </label>
+            <md-select
+              name="estado"
+              ng-model="direccion.estado"
+              required
+              md-no-asterisk>
+              <md-option
+                ng-repeat="estado in estados"
+                ng-value="estado.pk">
+                {{estado.pk}}
+              </md-option>
+            </md-select>
+            <div ng-messages="formularioDireccionEntrega.emisor.$error">
+              <div ng-message="required">Campo obligatorio.</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div
+          layout="row"
+          layout-align="center center">
+          <md-input-container
+            flex="30">
+            <label>Código postal</label>
+            <input name="cp"
+              ng-model="direccion.cp"
+              md-no-asterisk
+              required
+              ng-minlength="5"
+              spellcheck="false"
+              ng-disabled="objetoPadre.direccionAnterior != undefined">
+            <div ng-messages="formularioTarjeta.cp.$error">
+              <div ng-message="required">
+                Campo obligatorio.
+              </div>
+              <div ng-message="minlength">
+                Longitud mínima: 5 caracteres.
+              </div>
+            </div>
+          </md-input-container>
+          <md-input-container
+            flex="60">
+            <div
+              ng-if="error == 'repetida'"
+              class="mensajes"
+              md-colors="{color: 'accent'}">
+              <!-- @@include('mensajes/direccion_de_entrega_existente.txt') -->
+            </div>
+          </md-input-container>
+        </div>
+      </form>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button
+      ng-click="cancelar()"
+      class="md-primary">
+      Cancelar
+    </md-button>
+    <md-button
+      class="md-raised md-primary"
+      type="submit"
+      ng-disabled="formularioDireccionEntrega.$invalid"
+      form="formularioDireccionEntrega">
+      Aceptar
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

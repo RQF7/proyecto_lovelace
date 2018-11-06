@@ -3,9 +3,10 @@
 % Proyecto Lovelace.
 %
 
-\subsubsection{\textit{Cipher-block Chaining} (CBC)}
+\subsubsection{\texorpdfstring{\acrfull{gl:cbc}}{Cipher-block Chaining (CBC)}}
 \label{sec:cbc}
 
+\nopagebreak[4]
 En \gls{gl:cbc} la salida del bloque uno se introduce (junto con
 el siguiente bloque del mensaje) en el bloque dos, y así en sucesivo.
 Para poder replicar este comportamiento en todos los bloque, este
@@ -28,12 +29,12 @@ respecto a \gls{gl:ecb}.
       \caption{Descifrado.}
     \end{center}
   \end{subfigure}
-  \caption{\Gls{gl:modo_de_operacion} \gls{gl:cbc}.}
+  \caption{\Gls{gl:modo_de_operacion} \acrshort{gl:cbc}.}
   \label{figura:cbc}
 \end{figure}
 
-En la figura \ref{figura:cbc} se muestran los diagramas esquemáticos para
-cifrar y descifrar; en los pseudocódigos \ref{cbc:1} y \ref{cbc:2} se muestran
+En la figura~\ref{figura:cbc} se muestran los diagramas esquemáticos para
+cifrar y descifrar; en los pseudocódigos~\ref{cbc:1} y~\ref{cbc:2} se muestran
 unos de los posibles algoritmos a seguir. Es importante notar que mientras que
 el proceso de cifrado debe ser forzosamente secuencial (por la dependencias
 entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
@@ -43,7 +44,7 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
 % la alineación tan rara de los comentarios del próximo pseudocódigo.
 
 \begin{pseudocodigo}[%
-    caption={\Gls{gl:modo_de_operacion} \gls{gl:cbc}, cifrado.},
+    caption={\Gls{gl:modo_de_operacion} \acrshort{gl:cbc}, cifrado.},
     label={cbc:1}%
   ]
     entrada: llave $ k $; vector de inicialización $ VI $;
@@ -59,7 +60,7 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
 \end{pseudocodigo}
 
 \begin{pseudocodigo}[%
-    caption={\Gls{gl:modo_de_operacion} \gls{gl:cbc}, descifrado.},
+    caption={\Gls{gl:modo_de_operacion} \acrshort{gl:cbc}, descifrado.},
     label={cbc:2}%
   ]
     entrada: llave $ k $; vector de inicialización $ VI $;
@@ -73,3 +74,39 @@ entre salidas), el proceso de descifrado puede ser ejecutado en paralelo.
       regresar $Bm$
     fin
 \end{pseudocodigo}
+
+\paragraph{\texorpdfstring{\acrshort{gl:cbc}}{CBC}-%
+  \texorpdfstring{\acrshort{gl:mac}}{MAC}}
+
+Este algoritmo está basado en el modo de operación \gls{gl:cbc} y una función
+$F$ que puede ser, por ejemplo, un cifrado por bloques. Se encarga de
+cifrar con una llave $l_1$ todo el mensaje $m$, pero lo único que se toma en
+cuenta es el último bloque, que es tomado como el código de autenticación
+(véase figura~\ref{mac:cbc1}). En algunos casos, se cifra de nuevo, con la
+misma función $F$, pero utilizando una llave $l_2$ distinta (véase
+figura~\ref{mac:cbc2}).
+
+CBC-MAC es considerado seguro cuando el mensaje $m$ tiene una longitud
+múltiplo del tamaño de bloque del cifrado por bloques. Como se le han
+encontrado varias vulnerabilidades, algoritmos basados en CBC-MAC han sido
+propuestos, tales como el \textit{eXtended CBC} o el \gls{gl:omac}.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}{0.45\textwidth}
+    \begin{center}
+      \subimport{diagramas/}{cbc_mac.tikz.tex}
+      \caption{\acrshort{gl:cbc}-\acrshort{gl:mac} simple.}
+      \label{mac:cbc1}
+    \end{center}
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+    \begin{center}
+      \subimport{diagramas/}{cbc_mac_compuesto.tikz.tex}
+      \caption{\acrshort{gl:cbc}-\acrshort{gl:mac} con último bloque cifrado.}
+      \label{mac:cbc2}
+    \end{center}
+  \end{subfigure}
+  \caption{\acrshort{gl:cbc}-\acrshort{gl:mac}.}
+  \label{figura:cbc_mac}
+\end{figure}

@@ -1,0 +1,82 @@
+<!--
+  Formulario de inicio de sesión,
+  Tienda en línea.
+  Proyecto Lovelace.
+
+  TODO: configurar el preprocesado de grunt para los mensajes.
+-->
+
+<md-dialog
+  flex="20"
+  flex-lg="30"
+  flex-md="40"
+  flex-sm="60"
+  flex-xs="80">
+  <md-dialog-content>
+    <md-toolbar class="md-primary">
+      <div class="md-toolbar-tools">
+        <h1>Iniciar sesión</h1>
+      </div>
+    </md-toolbar>
+    <div
+      layout="row"
+      layout-align="center center">
+      <form
+        name="formularioIniciarSesion"
+        id="formularioIniciarSesion"
+        novalidate
+        flex="90"
+        ng-submit="aceptar($evento)">
+        <md-input-container>
+          <label>Correo electrónico</label>
+          <input
+            name="correo"
+            ng-model="usuario.correo"
+            md-no-asterisk
+            required
+            md-autofocus
+            autocomplete="off"
+            spellcheck="false">
+        </md-input-container>
+        <md-input-container>
+          <label>Contraseña</label>
+          <input
+            name="contrasenia"
+            type="password"
+            ng-model="usuario.contrasenia"
+            md-no-asterisk
+            required
+            autocomplete="off"
+            spellcheck="false">
+        </md-input-container>
+        <div
+          ng-if="error == 'incorrecto'"
+          class="mensajes"
+          md-colors="{color: 'accent'}">
+          <!-- @@include('mensajes/credenciales_incorrectas.txt') -->
+        </div>
+        <div
+          ng-if="error == 'no verificado'"
+          class="mensajes"
+          md-colors="{color: 'accent'}">
+          <!-- @@include('mensajes/correo_no_verificado.txt') -->
+        </div>
+      </form>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button
+      ng-click="cancelar()"
+      class="md-primary">
+      Cancelar
+    </md-button>
+    <md-button
+      id="formularioBotonIniciarSesion"
+      class="md-raised md-primary"
+      type="submit"
+      ng-disabled="formularioIniciarSesion.$invalid"
+      form="formularioIniciarSesion">
+      Iniciar sesión
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

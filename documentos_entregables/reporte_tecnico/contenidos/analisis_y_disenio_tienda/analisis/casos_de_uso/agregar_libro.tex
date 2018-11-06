@@ -1,0 +1,64 @@
+%
+% Caso para agregar un libro al carrito,
+% análisis y diseño de tienda en línea.
+% Proyecto Lovelace.
+%
+
+\casoDeUso[lib_cu:agregar_libro]
+{Agregar libro}
+{
+  Caso que permite que un \textbf{cliente} o un \textbf{visitante} agregue
+  libros al carrito de compra.
+
+  \begin{trayectoriaPrincipal}
+
+    \item El usuario presiona el botón \textit{Agregar al carrito} en
+      cualquiera de estas interfaces:
+      \begin{itemize}
+        \item En \hipervinculo{lib_iu:inicio}, en el botón correspondiente
+          al libro deseado.
+        \item En \hipervinculo{lib_iu:detalles_de_libro}.
+      \end{itemize}
+
+      \item El sistema actualiza la interfaz para reflejar que el libro
+        seleccionado se encuentra en el carrito.
+
+      \item El sistema guarda el libro en los datos de sesión.
+
+      \item Si la pantalla de origen del paso 1 es
+        \hipervinculo{lib_iu:detalles_de_libro} el sistema muestra un entrada
+        numérica para introducir la cantidad de ejemplares a comprar (con un
+        valor por defecto de uno);
+        [\hipervinculoLocal{lib_ta:modificar_cantidad}].
+
+  \end{trayectoriaPrincipal}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:modificar_cantidad]
+    {El usuario modifica la cantidad por defecto}
+
+    \item El usuario introduce la cantidad de ejemplares del
+      libro deseado.
+
+    \item El sistema verifica que las existencias del libro seleccionado
+      sean suficientes para la cantidad de ejemplares introducida por el
+      usuario; [\hipervinculoLocal{lib_ta:ejemplares_insuficientes}].
+
+    \item El sistema guarda el dato introducido en los datos de sesión.
+
+  \end{trayectoriaAlternativa}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{trayectoriaAlternativa}[lib_ta:ejemplares_insuficientes]
+    {Ejemplares insuficientes}
+
+    \item El sistema muestra el mensaje
+      \hipervinculo{lib_msj:ejemplares_insuficientes}.
+
+    \item Se regresa al paso 1 de la trayectoria
+      anterior.
+
+  \end{trayectoriaAlternativa}
+}

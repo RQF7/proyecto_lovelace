@@ -44,7 +44,7 @@ comunes en \gls{gl:fpe}:
 
 \subsection{Clasificación de los cifrados que preservan el formato}
 
-En \cite{sinopsis_rogaway} Phillip Rogaway propone una clasificación para los
+En~\cite{sinopsis_rogaway} Phillip Rogaway propone una clasificación para los
 cifrados que preservan el formato que se basa en el tamaño del espacio de
 mensajes ($ N = |X| $):
 
@@ -63,7 +63,7 @@ mensajes ($ N = |X| $):
 
     Algunos ejemplos de cómo hacer el preproceso de cifrado son el
     \textit{Knuth shuffle} (también conocido como \textit{Fisher-Yates shuffle},
-    pseudocódigo \ref{knuth_shuffle}) o un \gls{gl:cifrado_con_prefijo}.
+    pseudocódigo~\ref{knuth_shuffle}) o un \gls{gl:cifrado_con_prefijo}.
 
   \item[Espacios pequeños]
 
@@ -78,15 +78,15 @@ mensajes ($ N = |X| $):
     $ m = 10 $, por lo que $ N = 10^{16} $ (diez mil trillones); lo cual es
     aproximadamente $ 2.93 \times 10^{-21} \% $ de $ 2^{128} $.
 
-    Los algoritmos que preservan el formato expuestos en la sección
-    \ref{sec:algoritmos} pertenencen a esta categoría.
+    Los algoritmos que preservan el formato expuestos en la
+    sección~\ref{sec:algoritmos} pertenencen a esta categoría.
 
   \item[Espacios grandes]
 
     El espacio es más grande que $ 2^w $. Para estos casos, el mensaje se ve
     como una cadena binaria. Las técnicas utilizadas incluyen cualquier cifrado
     cuya salida sea de la misma longitud que la entrada (p. ej. los
-    TES: CMC, EME, HCH, etc. Sección \ref{sec:tes}).
+    \gls{gl:tes}: \gls{gl:cmc}, \gls{gl:eme}, HCH, etcétera).
 
 \end{description}
 
@@ -95,11 +95,11 @@ de números de tarjetas de crédito es un problema de espacios pequeños.
 
 En marzo de 2016 el \gls{gl:nist} publicó un estándar referente a los cifrados
 que preservan el formato\cite{nist_fpe}. En él se definen dos posibles métodos:
-FF1 (lo que en este documento es \gls{gl:ffx}, sección \ref{sec:ffx}) y FF3
-(\gls{gl:bps}, sección \ref{sec:bps}).
+FF1 (lo que en este documento es \gls{gl:ffx}, sección~\ref{sec:ffx}) y FF3
+(\gls{gl:bps}, sección~\ref{sec:bps}).
 
 \begin{pseudocodigo}[%
-  caption={\textit{Knuth shuffle}, \cite{DBLP:books/aw/Knuth69}.},
+  caption={\textit{Knuth shuffle},~\cite{DBLP:books/aw/Knuth69}.},
   label={knuth_shuffle}%
 ]
     entrada: lista $ l[0, \dots, n - 1] $

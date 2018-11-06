@@ -8,21 +8,20 @@
 \newpage
 \phantomsection
 \addcontentsline{toc}{part}{Apéndices}
-\parteSinNumero{Apéndices}{parte:apendices}
-{
-  \epigrafe
-  {%
+\parteSinNumero{Apéndices}{parte:apendices}{%
+  \epigrafe{%
     ``Begin at the beginning,'' the King said, very gravely, ``and go on till
-    you came to the end: then stop.''%
-  }
-  {%
-    \textsc{Lewis Carroll}.%
-  }
-}
+    you came to the end: then stop.''}{%
+    \textsc{Lewis Carroll}.}}
 
 \begin{appendices}
-  \subimport{administracion_llaves/}{administracion_llaves}
+  \subimport{primitivas/}{primitivas}
+  \subimport{generadores_pseudoaleatorios/}{generadores_pseudoaleatorios}
   \subimport{pruebas_estadisticas/}{pruebas_estadisticas}
+  \subimport{generacion_llaves/}{generacion_llaves}
+  \subimport{administracion_llaves/}{administracion_llaves}
+  \subimport{paginas_estaticas/}{paginas_estaticas}
+  \subimport{sobre_latex/}{sobre_latex}
 \end{appendices}
 
 \newpage

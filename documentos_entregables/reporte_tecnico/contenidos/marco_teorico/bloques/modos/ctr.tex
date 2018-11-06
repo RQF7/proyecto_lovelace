@@ -3,16 +3,16 @@
 % Proyecto Lovelace.
 %
 
-\subsubsection{\textit{Counter Mode} (CTR)}
+\subsubsection{\texorpdfstring{\acrfull{gl:ctr}}{Counter Mode (CTR)}}
 \label{sec:ctr}
 
 Este toma a la entrada un \gls{gl:vector_de_inicializacion} y en cada iteración
 lo incrementa y lo cifra. El resultado se obtiene combinando el $ VI $ cifrado
 con el bloque de texto cifrado (mediante una operación \verb|xor|). El proceso
-de cifrado y descifrado se detallan en el pseudocódigo \ref{ctr:1}.
+de cifrado y descifrado se detallan en el pseudocódigo~\ref{ctr:1}.
 
 \begin{pseudocodigo}[%
-    caption={\Gls{gl:modo_de_operacion} \gls{gl:ctr}%
+    caption={\Gls{gl:modo_de_operacion} \acrshort{gl:ctr}%
       (cifrado y descifrado).},
     label={ctr:1}%
   ]

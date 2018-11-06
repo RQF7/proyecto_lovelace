@@ -7,8 +7,8 @@
 \label{sec:hash}
 
 La información presentada a continuación puede consultarse con más profundidad
-en las siguientes referencias
-\cite{hash_hussein, menezes, DBLP:series/isc/DelfsK07, hash_gupta}.
+en las siguientes referencias~\cite{hash_hussein, menezes,
+DBLP:series/isc/DelfsK07, hash_gupta}.
 
 Se refiere al conjunto de funciones computacionalmente eficientes que
 mapean cadenas binarias de una longitud arbitraria a cadenas binarias
@@ -20,7 +20,6 @@ de una longitud fija, llamadas valores hash.
     \caption{Diagrama del funcionamiento de una función hash.}
    \end{center}
 \end{figure}
-
 
 Matemáticamente, una función hash es una función
 \begin{equation}
@@ -137,25 +136,25 @@ pueden ser los administradores.
 % un mensaje $m$ firmado por Alice, genere un mensaje nuevo $n$ y utilice
 % $\sigma$ como una firma válida de Alice para $n$.
 
-\subsection{Message Digest-4 (MD4)}
+% \subsection{Message Digest-4 (MD4)}
+%
+% En la década de 1990 esta función hash fue diseñada por Ronald Rivest.
+% Tiene entradas de longitud arbitraria y la longitud de la salida
+% procesada es de 128 bits. El \gls{gl:md4} fue innovador y
+% clave en el diseño para los algoritmos venideros de esta clase (como
+% el \gls{gl:md5}).
+%
+% \subsection{RIPEMD}
+%
+% Esta función hash, publicada en 1996, está basada en \gls{gl:md4} y fue
+% diseñada por Hans Dobbertin y otros. Consiste en dos formas equivalentes de la
+% función de compresión de \gls{gl:md4}. El algoritmo original (RIPEMD-160)
+% devuelve bloques \textit{procesados} de 160 bits; cuando en 1996 Hans
+% descubrió una colisión en dos rondas, se desarrollaron nuevas versiones
+% mejoradas: RIPEMD-128, RIPE-256, RIPE-320; las cuales dan bloques procesados de
+% 128, 256 y 320 bits respectivamente.
 
-En la década de 1990 esta función hash fue diseñada por Ronald Rivest.
-Tiene entradas de longitud arbitraria y la longitud de la salida
-procesada es de 128 bits. El \gls{gl:md4} fue innovador y
-clave en el diseño para los algoritmos venideros de esta clase (como
-el \gls{gl:md5}).
-
-\subsection{RIPEMD}
-
-Esta función hash, publicada en 1996, está basada en \gls{gl:md4} y fue
-diseñada por Hans Dobbertin y otros. Consiste en dos formas equivalentes de la
-función de compresión de \gls{gl:md4}. El algoritmo original (RIPEMD-160)
-devuelve bloques \textit{procesados} de 160 bits; cuando en 1996 Hans
-descubrió una colisión en dos rondas, se desarrollaron nuevas versiones
-mejoradas: RIPEMD-128, RIPE-256, RIPE-320; las cuales dan bloques procesados de
-128, 256 y 320 bits respectivamente.
-
-\subsection{\textit{Secure Hash Algorithm (SHA)}}
+\subsection{\texorpdfstring{\acrfull{gl:sha}}{Secure Hash Algorithm (SHA)}}
 
 El algoritmo \gls{gl:sha} fue publicado por \gls{gl:nist} y
 \gls{gl:nsa} en 1993; este algoritmo produce bloques de 160 bits y

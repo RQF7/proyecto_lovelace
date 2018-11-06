@@ -20,6 +20,8 @@
   \setcounter{contador_trayectorias_alternativas}{0}
   \setlength{\separacionAnterior}{\parskip}
   \setlength{\parskip}{0em}
+  \setitemize{
+    leftmargin = 4em}
 
   % Código efectivo
   \vspace{1.0em}
@@ -35,6 +37,8 @@
 
   % Estado previo
   \setlength{\parskip}{\separacionAnterior}
+  \setitemize{
+    leftmargin = 2em}
 }
 
 % Entorno para trayectorias principales
@@ -67,9 +71,11 @@
   \vspace{1.0em}
   \noindent
   \begin{itemize}[
-    topsep=0em]
+    topsep=0em,
+    leftmargin=2em]
     \item[] \textbf{Trayectoria principal}.
   \end{itemize}
+  \nopagebreak[4]
   \begin{enumerate}[
     leftmargin=4em,
     itemsep=0em]
@@ -101,12 +107,14 @@
   \vspace{1.0em}
   \noindent
   \begin{itemize}[
-    topsep=0em]
+    topsep=0em,
+    leftmargin=2em]
     \item[] \textbf{Trayectoria alternativa
       \hypertarget{\etiquetaLocal{#1}}{%
       \formatearnumero{contador_casos_de_uso}%
       \Alph{contador_trayectorias_alternativas}:~#2}.}
   \end{itemize}
+  \nopagebreak[4]
   \begin{enumerate}[
     leftmargin=4em,
     itemsep=0em]
@@ -140,7 +148,4 @@
 % los hipervículos, solo que en este caso se ocupa el par tradicional de
 % «label-ref».
 
-\newcommand{\referenciaLocal}[1]
-{%
-  \ref{\etiquetaLocal{#1}}%
-}
+\newcommand{\referenciaLocal}[1]{\ref{\etiquetaLocal{#1}}}

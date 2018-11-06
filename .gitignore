@@ -1,5 +1,5 @@
 
-# Archivos generados por latex; sólo se sube el pdf.
+# Archivos generados por latex.
 temporales_de_latex
 
 # Archivos temporales de vim
@@ -59,3 +59,13 @@ node_modules
 
 # Compilados por grunt
 compilados
+
+# Productos de LaTeX
+cronograma.pdf
+presentacion_fpe.pdf
+presentacion_tt_uno.pdf
+presentacion_tt_dos.pdf
+reporte_tecnico.pdf
+
+# Html productos
+*.producto.html

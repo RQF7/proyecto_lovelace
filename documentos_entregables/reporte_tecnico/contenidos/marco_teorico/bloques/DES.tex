@@ -3,7 +3,7 @@
 % Proyecto Lovelace.
 %
 
-\subsection{Data Encryption Standard (DES)}
+\subsection{\texorpdfstring{\acrfull{gl:des}}{Data Encryption Standard (DES)}}
 \label{sec:des}
 
 Este es, probablemente, el cifrado simétrico por bloques más conocido;
@@ -64,15 +64,14 @@ $K_{16}, K_{15}, \dots, K_1$.
 
 \subsubsection{Llaves débiles}
 
-Tomando en cuenta las siguientes definiciones
-
-\begin{itemize}
+\begin{parrafoConListaLarga}{%
+  Tomando en cuenta las siguientes definiciones:}
   \item Llave débil: una llave $K$ tal que $E_K(E_K(M)) = M$ para toda
     $x$; en otras palabras, una llave débil permite que, al cifrar dos
     veces con la misma llave, se obtenga de nuevo el mensaje en claro.
   \item Llaves semidébiles: se tiene un par de llaves $K_1, K_2$ tal que
     $E_{K_1}(E_{K_2}(x)) = x$.
-\end{itemize}
+\end{parrafoConListaLarga}
 
 \gls{gl:des} tiene cuatro llaves débiles y seis pares de llaves
 semidébiles. Las cuatro llaves débiles generan subllaves $K_i$ iguales y,

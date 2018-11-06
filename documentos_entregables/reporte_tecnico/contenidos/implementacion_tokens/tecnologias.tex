@@ -33,7 +33,7 @@ objetos: aún cuando C es más rápido que C++, la diferencia no es tan grande,
 mientras que un programa con un buen diseño orientado a objetos sí puede ser
 mucho más mantenible que uno con un enfoque estructurado.
 
-\subsection{Dependencias}
+\subsection{Dependencias de distribución}
 
 A continuación se enlistan las principales dependencias del proyecto. Para
 cada una se da una breve argumentación sobre su uso, se especifíca, en donde
@@ -46,7 +46,8 @@ aplica, la licencia que tiene, y se coloca la versión ocupada.
 % 4. URL de página oficial.
 % 5. Descripción.
 
-\dependencia{Compilador}{\acrshort{gl:gcc} v7.3}{\acrshort{gl:gpl}
+\dependencia{Compilador}{\texorpdfstring{\acrshort{gl:gcc}}{GCC}
+  v7.3}{\acrshort{gl:gpl}
   v3}{https://gcc.gnu.org/}
 {%
   La razón principal de su uso es porque se trata del compilador por defecto de
@@ -54,21 +55,17 @@ aplica, la licencia que tiene, y se coloca la versión ocupada.
   se utiliza es C++14 (opción \texttt{-std=c++14} del compilador). Por razones
   de compatibilidad con algunas otras dependencias (en particular, el conector
   de la base de datos) no es posible utilizar la última versión al momento,
-  C++17.
-}
+  C++17.}
 
-\dependencia{Gestor de bases de datos}{MariaDB v10.1}{\acrshort{gl:gpl}
-  v2}{https://mariadb.org/}
-{%
+\dependencia[dep:mysql]{Gestor de base de datos}{MariaDB v10.1}{%
+  \acrshort{gl:gpl} v2}{https://mariadb.org/}{%
   El gestor de base de datos que más se ha utilizado en la carrera es MySQL,
   por lo que es el seleccionado para el programa tokenizador; en realidad,
   se trata de una bifurcación de MySQL: MariaDB, cuyo uso ha sido ampliamente
-  difundido en varias distribuciones de \acrshort{gl:gnu}/Linux.
-}
+  difundido en varias distribuciones de \acrshort{gl:gnu}/Linux.}
 
 \dependencia{Librería criptográfica}{Crypto++ v7}{\acrshort{gl:bsl}
-  v1}{https://cryptopp.com/}
-{%
+  v1}{https://cryptopp.com/}{%
   Otra decisión importante a tomar antes de hacer las implementaciones de los
   algoritmos tokenizadores fue la librería de funciones criptográficas que
   se utilizaría. De todas las posibles librerías que están validadas
@@ -78,18 +75,21 @@ aplica, la licencia que tiene, y se coloca la versión ocupada.
   que utiliza Opengpg y Openssh). Crypto++ cuenta con una extensa red de
   colaboradores, implementa una gran cantidad de algoritmos y está escrita sólo
   en C++. De ambas, la que se encontró más fácil de usar fue Crypto++, por lo
-  que es la que se utiliza en las implementaciones.
-}
+  que es la que se utiliza en las implementaciones.}
 
 \dependencia{Librería alrededor de AES-NI}{libaesni}{
-  Sin licencia}{https://github.com/amiralis/libaesni}
-{%
+  Sin licencia}{https://github.com/amiralis/libaesni}{%
   Envoltura en C alrededor de las instrucciones de ensamblador de Intel para
-  \gls{gl:aes} (sección \ref{sec:intel}). La razón de ser de esta librería
+  \gls{gl:aes} (sección~\ref{sec:intel}). La razón de ser de esta librería
   dentro de las dependencias es para evitar tener que escribir código
   directamente en ensamblador. Este programa funciona como interfaz en C con las
-  instrucciones de Intel.
-}
+  instrucciones de Intel.}
+
+%
+% TODO:
+% * Make.
+% * Conector de c++ con mysql.
+%
 
 \subsection{Dependencias de desarrollo}
 
@@ -101,42 +101,42 @@ de estas dependencias no siguieron siempre un proceso de eliminación como las
 anteriores, sino que fueron seleccionadas por cuestión de facilidad
 de uso (de los autores).
 
-\dependencia{Control de versiones}{Git v2.17}{\acrshort{gl:gpl}
+\dependencia[dep:git]{Control de versiones}{Git v2.17}{\acrshort{gl:gpl}
   v2}{https://git-scm.com/}
 {%
   Es el \gls{gl:vcs} más común en entornos \acrshort{gl:gnu}/Linux.
-  Es muy importante su integración con Github.
-}
+  Es muy importante su integración con Github.}
 
-\dependencia{Servicio de \textit{hosting} para el \acrshort{gl:vcs}}{Github}{No
+\dependencia[dqp:github]{Servicio de \textit{hosting} para el
+  \texorpdfstring{\acrshort{gl:vcs}}{VCS}\acrshort{gl:vcs}}{Github}{No
   aplica (servicio)}{https://github.com}
 {%
   Aunque a la fecha soporta otros tipos de \gls{gl:vcs}, originalmente
   era exclusivo a Git. Su función principal es mantener una copia
   remota del código, desde la cuál un desarrollador baja la última versión
-  y en donde actualiza sus cambios. También se llegó a utilizar algunas
+  y en donde actualiza sus cambios. También se llegaron a utilizar algunas
   funcionalidades adicionales, como el reporte de problemas, los comentarios
-  en código y la integración con Travis.
-}
+  en código y la integración con Travis.}
 
-\dependencia{Herramienta de integración continua}{Travis}{No
-  aplica (servicio)}{https://travis-ci.org/}
-{%
+\dependencia[dep:travis]{Herramienta de integración continua}{Travis}{No
+  aplica (servicio)}{https://travis-ci.org/}{%
   Entre sus principales tareas están compilar desde cero el proyecto, ejecutar
   todas las pruebas, generar y desplegar la documentación y el reporte de
   vuelta a github, ejecutar las pruebas de desempeño y guardar los resultados
-  en la base de datos.
-}
+  en la base de datos.}
+
+%
+% TODO:
+% Actualizar rutas a documentación.
+%
 
 \dependencia{Documentación de código}{Doxygen}{\acrshort{gl:gpl}
-  v2}{https://www.stack.nl/~dimitri/doxygen/}
-{%
+  v2}{https://www.stack.nl/~dimitri/doxygen/}{%
   Herramienta para generar documentación del código. Permite mantener la
   documentación en los mismos archivos fuente, ya que la salida es generada
   a partir de comentarios. Se cuentan con dos versiones, una en
   \acrshort{gl:html} (\url{https://rqf7.github.io/proyecto_lovelace/documentacion_doxygen/html/index.html})
-  y la otra como \acrshort{gl:pdf} (\url{https://rqf7.github.io/proyecto_lovelace/documentacion_doxygen/latex/refman.pdf}).
-}
+  y la otra como \acrshort{gl:pdf} (\url{https://rqf7.github.io/proyecto_lovelace/documentacion_doxygen/latex/refman.pdf}).}
 
 \subsection{Instrucciones de ensamblador}
 \label{sec:intel}
@@ -146,7 +146,7 @@ conjuntos de instrucciones desarrollados por Intel: el primero es AES-NI y el
 segundo RD-SEED.
 
 AES-NI son siete instrucciones que implementan directamente, a nivel de
-hardware, algunos de los procesos del algoritmo de AES (sección \ref{sec:aes}).
+hardware, algunos de los procesos del algoritmo de AES (sección~\ref{sec:aes}).
 Estas instrucciones fueron sacadas al mercado en en septiembre de 2010, para la
 familia de procesadorer de microarquitectua de 32nm\cite{aesni_wp}. Su objetivo
 es acelerar la operación de AES, una de los cifrados por bloque más
@@ -155,14 +155,14 @@ utilizados.
 RD-SEED se publicó junto con otra instrucción, RD-RAND. RD-SEED es un generador
 de números aleatorios que obtiene entropía de procesos físicos relacionados con
 el ptrocesador; cumple con los estándares definidos por el NIST en
-\cite{nist_aleatorios} (sección \ref{sec:generadores_pseudoaleatorios}). Su
+\cite{nist_aleatorios} (sección~\ref{sec:generadores_pseudoaleatorios}). Su
 función es servir como fuente de entropía a generadores pseudoaleatorios.
 RD-RAND es un generador de números pseudoaleatorios que cumple con el estándar
 del NIST 800-90A. Ambas instrucciones estuvieron disponibles a partir de 2014,
 con la versión de procesadores de microarquitectura \textit{broadwell}
 \cite{aesni_wp}. Para los fines de este proyecto, la instrucción que ocupamos
 es RD-SEED; RD-RAND es equivalente a nuestra implementación del generador
-pseudoaleatorio (sección \ref{sec:implementacion_drbg}). También es importante
+pseudoaleatorio (sección~\ref{sec:implementacion_drbg}). También es importante
 recalcar que RD-RAND, por su naturaleza de algoritmo, se encuentra disponible en
 casi todos los procesadores de Intel y AMD, mientras que RD-SEED implica
 funcionalidades en hardware que solo soportan algunas versiones de procesadores
@@ -173,5 +173,5 @@ flexible posible: si la arquitectura en la corre el programa soporta las
 instrucciones en cuestión, perfecto, sino, se buscan alternativas que de todas
 formas permitan ejecutar el programa. El el caso de AES-NI, la alternativa es
 utilizar la implementación de AES de Cryptopp. Para RD-SEED, se ocupa el
-generador del kernel de linux (\textit{/dev/random} en modo bloqueante y
-\textit{/dev/urandom} en modo no bloqueante).
+generador del kernel de linux (\texttt{/dev/random} en modo bloqueante y
+\texttt{/dev/urandom} en modo no bloqueante).

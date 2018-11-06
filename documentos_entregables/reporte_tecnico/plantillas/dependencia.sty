@@ -7,30 +7,38 @@
 \newcounter{contador_dependencias}[chapter]
 
 % Comando para definir una nueva dependencia:
-% 1. Nombre de categoría.
-% 2. Nombre de dependencia (con versión).
-% 3. Licencia.
-% 4. URL de página oficial.
-% 5. Descripción.
-%
-% TODO: El espacio vertical del inicio hace que los primeros de página se
-% vean extraños.
+% 1. Etiqueta (opcional).
+% 2. Nombre de categoría.
+% 3. Nombre de dependencia (con versión).
+% 4. Licencia.
+% 5. URL de página oficial.
+% 6. Descripción.
 
-\newcommand{\dependencia}[5]
-{
-  \refstepcounter{contador_dependencias}
-  %\begin{unidadirrompible}
-    \vspace{0.5em}
-    \noindent
-    \textbf{DEP\formatearnumero{contador_dependencias} #1:} #2
-    \setlength{\parskip}{0em}
-    {\footnotesize
-    \begin{description}
-      \item[Licencia:] #3
-      \item[Página oficial:] \url{#4}
-    \end{description}}
-    \noindent
-    #5
-  %\end{unidadirrompible}
-  \setlength{\parskip}{1.0em}
-}
+\newcommand{\dependencia}[6]
+[dep:\formatearnumero{contador_dependencias}]{%
+  % Configuración
+  \refstepcounter{contador_dependencias}%
+  \setlength{\separacionAnterior}{\parskip}%
+  \setlength{\parskip}{0em}%
+  \renewcommand{\etiqueta}%
+    {DEP\prefijo-\formatearnumero{contador_dependencias}~#2:~#3}%
+  % Código efectivo
+  \pdfbookmark[3]{\etiqueta}{#1}%
+  \vspace{1.0em}%
+  \noindent%
+  \textbf{\hypertarget{#1}{\etiqueta}.}\par%
+  \nopagebreak[4]%
+  \begin{hangparas}{2em}{0}%
+    \noindent%
+    \textbf{Licencia:} #4\par%
+    \nopagebreak[4]%
+    \noindent%
+    \textbf{Página oficial:} \url{#5}\par%
+    \nopagebreak[4]%
+    \noindent%
+    #6\par%
+  \end{hangparas}%
+  \pagebreak[3]%
+  % Estado previo
+  \setlength{\parskip}{\separacionAnterior}%
+  \renewcommand{\etiqueta}{}}

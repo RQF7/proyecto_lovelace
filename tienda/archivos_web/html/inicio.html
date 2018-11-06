@@ -1,0 +1,72 @@
+<!--
+  Html de página de inicio.
+  Tienda en línea.
+  Proyecto Lovelace.
+
+  TODO:
+  * Agregar barra de búsqueda/filtros.
+-->
+
+<div
+  class="seccion"
+  flex="none"
+  layout="column">
+  <div
+    layout="row"
+    layout-align="center center">
+    <md-button
+      ng-disabled="paginador.pagina == 1"
+      ng-click="retrocederPagina()"
+      class="md-primary conIcono">
+      <i class="material-icons">navigate_before</i>
+      <md-tooltip>Página anterior</md-tooltip>
+    </md-button>
+    <p flex="none"
+      class="texto-de-formulario">
+      Página:
+    </p>
+    <md-input-container
+      flex="10"
+      layout-margin="10">
+      <md-select
+        ng-model="paginador.pagina"
+        ng-change="obtenerLibros()">
+        <md-option
+          ng-repeat="pagina in paginador.paginas"
+          value="{{pagina}}">
+          {{pagina}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+    <p flex="none"
+      class="texto-de-formulario">
+      {{(paginador.pagina - 1) * paginador.limite + 1}} -
+      {{(paginador.pagina * paginador.limite > totalDeLibros) ?
+        totalDeLibros :
+        paginador.pagina * paginador.limite}}
+      de {{totalDeLibros}}
+    </p>
+    <md-button
+      ng-disabled="paginador.pagina ==
+        paginador.paginas[paginador.paginas.length - 1]"
+      ng-click="avanzarPagina()"
+      class="md-primary conIcono">
+      <i class="material-icons">navigate_next</i>
+      <md-tooltip>Siguiente página</md-tooltip>
+    </md-button>
+  </div>
+  <md-grid-list
+    md-cols="4"
+    md-cols-xs="1"
+    md-cols-sm="2"
+    md-cols-md="3"
+    md-cols-xl="5"
+    md-row-height="290px"
+    md-gutter="20px">
+    <md-grid-tile ng-repeat="libro in libros">
+      <ego-libro
+        datos="libro" 
+        class="md-whiteframe-4dp tarjeta"></ego-libro>
+    </md-grid-tile>
+  </md-grid-list>
+</div>

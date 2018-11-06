@@ -30,7 +30,7 @@ def aumentarContadorDeMalasAcciones (cliente, incremento):
 
   Incrementa el contador de malas acciones del cliente dado. Después, verifica
   que el contador no haya  sobre pasado el límite de males acciones; de ser así,
-  cambia su estado a <<en lista negra>>."""
+  cambia su estado a «en lista negra»."""
 
   cliente.contadorDeMalasAcciones = cliente.contadorDeMalasAcciones + incremento
   cliente.save()
@@ -52,7 +52,7 @@ def verificarUnicidadDePAN (PAN, cliente_id):
 
   Regresa verdadero o falso."""
   try:
-    registro = Token.objects.filter(
+    registro = Token.objects.get(
       pan = PAN,
       usuario_id = cliente_id)
   except (Token.DoesNotExist):
@@ -75,7 +75,7 @@ def validarToken (token):
   if numeroDeElementos < 12 or numeroDeElementos > 19:
     return 0
 
-  if int(token[-1]) != (utilidades.calcularAlgoritmoLuhn(token) + 1):
+  if int(token[-1]) != ((utilidades.calcularAlgoritmoLuhn(token) + 1) % 10):
     return 0
 
   return 1
@@ -131,4 +131,3 @@ def generarLlaves (cliente):
         nombre = 'actual'),
       usuario = cliente)
     llave.save()
-

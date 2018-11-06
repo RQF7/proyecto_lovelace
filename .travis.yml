@@ -77,8 +77,8 @@ install:
     dependencias_temporales.txt
   - pip install -r dependencias_temporales.txt
   - rm dependencias_temporales.txt
-  - python administrar.py makemigrations general programa_tokenizador
-  - python administrar.py migrate
+  - python administrar_sistema_tokenizador.py makemigrations general programa_tokenizador
+  - python administrar_sistema_tokenizador.py migrate
   - python bases_de_datos/datos_base.py
   - python bases_de_datos/datos_de_prueba.py
 

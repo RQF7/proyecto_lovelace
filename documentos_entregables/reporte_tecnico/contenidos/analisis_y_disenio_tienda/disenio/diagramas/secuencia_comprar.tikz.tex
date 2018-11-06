@@ -1,0 +1,102 @@
+%
+% Diagrama de secuencia para realizar una compra,
+% Análisis y diseño de tienda en línea,
+% Reporte técnico.
+% Proyecto Lovelace.
+%
+
+\begin{tikzpicture}[]
+  \begin {umlseqdiag}
+
+    % Líneas de vida
+    \umlactor[class = Usuario]{cliente}
+    \umlboundary[no ddots]{navegador}
+    \umlcontrol[class = Servicio]{servicioGeneral}
+    \umlcontrol[class = Servicio]{servicioTokenizador}
+    \umlentity[class = Negocio]{negocioGeneral}
+    \umldatabase[no ddots]{Modelo}
+
+    % Obtener formas de pago %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{umlcall}[%
+      op = {Botón «Finalizar compra»},%
+      return = IULIB-10]{cliente}{navegador}
+      \begin{umlcall}[%
+        op = {obtenerFormasDePago(cliente)},%
+        return = {200 OK formasDePago}]{navegador}{servicioGeneral}
+        \begin{umlcall}[%
+          op = {obtenerTarjetas(cliente)},%
+          return = tarjetas]{servicioGeneral}{Modelo}
+        \end{umlcall}
+      \end{umlcall}
+    \end{umlcall}
+
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Seleccionar forma de pago %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \begin{umlcall}[%
+      op = {Tarjeta}, %
+      return = IULIB-11]{cliente}{navegador}
+      \begin{umlcall}[%
+        op = {Botón «Continuar»}]{cliente}{navegador}
+        \begin{umlcall}[op = {compra.AgregarFormaPago(tarjeta)}]
+          {navegador}{navegador}
+          \begin{umlcall}[%
+            op = {obtenerDirecciones(cliente)},%
+            return = {200 OK direcciones}]{navegador}{servicioGeneral}
+            \begin{umlcall}[%
+              op = {obtenerDirecciones(cliente)},%
+              return = {direcciones}]{servicioGeneral}{Modelo}
+            \end{umlcall}
+          \end{umlcall}
+        \end{umlcall}
+      \end{umlcall}
+    \end{umlcall}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Seleccionar dirección de entrega  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{umlcall}[%
+      op = {Dirección de entrega}, %
+      return = UILIB-14]{cliente}{navegador}
+      \begin{umlcall}[op = {Botón «Continuar»}]
+        {cliente}{navegador}
+        \begin{umlcall}[%
+          op = {compra.AgregarDireccion(dirección)}]{navegador}{navegador}
+        \end{umlcall}
+      \end{umlcall}
+    \end{umlcall}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Finalizar compra  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{umlcall}[%
+      op = {Botón «Aceptar»}, %
+      return = MSJLIB-17]{cliente}{navegador}
+      \begin{umlcall}[%
+        op = {POST /comprar/\{compra\}}, %
+        return = {true}]{navegador}{servicioGeneral}
+        \begin{umlcall}[%
+          op = {obtenerToken(compra.ultimosDigitos)}, %
+          return = token]{servicioGeneral}{Modelo}
+        \end{umlcall}
+        \begin{umlcall}[%
+          op = {POST api/detokenizar/\{token\}}, %
+          return = tarjeta]{servicioGeneral}{servicioTokenizador}
+        \end{umlcall}
+        \begin{umlcall}[%
+          op = {registrarCompra(compra)}, %
+          return = true]{servicioGeneral}{negocioGeneral}
+          \begin{umlcall}[%
+            op = {compra.guardar()}, %
+            return = true]{negocioGeneral}{Modelo}
+          \end{umlcall}
+      \end{umlcall}
+      \end{umlcall}
+    \end{umlcall}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \end{umlseqdiag}
+\end{tikzpicture}

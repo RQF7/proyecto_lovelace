@@ -1,6 +1,7 @@
 """
 direcciones.py Configuración de urls del sistema.
-Proyecto Lovelace
+Sistema tokenizador.
+Proyecto Lovelace.
 
 Documentación asociada:
 https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -29,10 +30,10 @@ urlpatterns = [
       'sistema_tokenizador.programa_tokenizador.direcciones')),
 
   # URLs estáticas
-  django.urls.path('', general.funciones.inicio, name = 'inicio'),
-  django.urls.path('documentación', general.funciones.inicio),
-  django.urls.path('control', general.funciones.control),
-  django.urls.path('administración', general.funciones.administracion),
+  django.urls.path('', general.funciones_web.inicio, name = 'inicio'),
+  django.urls.path('documentación', general.funciones_web.inicio),
+  django.urls.path('control', general.funciones_web.control),
+  django.urls.path('administración', general.funciones_web.administracion),
 
 ]
 
@@ -41,4 +42,3 @@ urlpatterns = [
 # cuando tiene el path completo.
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns += django.contrib.staticfiles.urls.staticfiles_urlpatterns()
-
