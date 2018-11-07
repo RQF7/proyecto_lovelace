@@ -11,19 +11,41 @@
 \begin{frame}{Refresco de llaves y retokenización}{Refresco de llaves}
   \begin{itemize}
     \item En el estándar del NIST sobre la administración de las llaves
-    criptográficas (NIST SP-800-57~\cite{nist_llaves}) se habla sobre los
-    criptoperiodos y se hace énfasis en cambiar las llaves cada que estos se
-    cumplan.
+      criptográficas (NIST SP-800-57~\cite{nist_llaves}) se habla sobre los
+      criptoperiodos y se hace énfasis en cambiar las llaves cada que estos se
+      cumplan.
     \item El PCI DSS especifica que debe existir un mecanismo que permita a los
-    usuarios reemplazar sus llaves y actualizar sus tokens.
-
+      usuarios reemplazar sus llaves y actualizar sus tokens.
+    \item En~\cite{DBLP:conf/fc/CachinCFL17} se propone un esquema denominado
+      UTO: \textit{Updatable Tokenization}.
   \end{itemize}
+
+  \note{
+    \begin{itemize}
+      \item En el reporte técnico es el apéndice E.
+      \item Son 19 categorías. Primero se clasifican según su naturaleza:
+        simétricas, públicas y privadas. Después se clasifican según su uso:
+        para firmas, para autenticación, para cifrado, como envoltura de otras
+        llaves.
+      \item Entre otras recomendaciones generales, se habla de los
+        criptoperiodos: el tiempo que cada tipo de llave debe de estar activa.
+      \item Para el caso de las llaves utilizadas para la generación de
+        tokens, los algoritmos reversibles ocupan llaves simétricas para
+        el cifrado de datos; su uso debe de ser menor a dos años; los
+        algoritmos irreversibles ocupan llaves simétricas para generadores,
+        con un criptoperiodo menor a dos años.
+      \item Los autores del artículo de UTO son un grupo de investigación
+        de IBM.
+      \item Nosotros no usamos UTO por dos razones: no se adapta totalmente
+        a los esquemas irreversibles; se incrementa demasiado la dependencia
+        entre aplicaciones.
+    \end{itemize}}
 
 \end{frame}
 
 \begin{frame}{Refresco de llaves y retokenización}{Refresco de llaves}
   El servicio web logra esto mediante un mecanismo llamado \textbf{refresco de
-  llaves} existente en la aplicación web.
+  llaves}.
   \begin{itemize}
     \item Cambia el estado del cliente a \emph{en cambio de llaves}.
     \item Se crean nuevas llaves.

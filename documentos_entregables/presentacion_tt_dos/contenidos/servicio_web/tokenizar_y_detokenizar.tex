@@ -12,14 +12,37 @@
   {Operaciones básicas del servicio web}
 
   \begin{itemize}
-    \item Dos de las operaciones más importantes del servicio.
     \item Utilizan el prototipo de generación de tokens.
     \item Utilizan el estilo arquitectónico REST\footnotemark{}.
-    \item En el encabezado se proveen las credenciales del usuario.
-    \item El método a utilizar es especificado en el cuerpo de la petición.
-    \item Se regresa el token con un código \texttt{HTTP 200}.
+    \item Se sigue un esquema de autenticación básico: las credenciales
+      viajan en el encabezado de la petición.
+    \item El protocolo encargado de asegurar la confidencialidad de los
+      datos es HTTPS.
+    \item La autoridad certificadora ocupada es \textit{Let's  Encrypt}. Para
+      evitar tener que conseguir un nombre de dominio se ocupa el servicio de
+      \url{xip.io}.
   \end{itemize}
 
   \footnotetext{\textit{REpresentational State Transfer}}
+
+  \note{
+    \begin{itemize}
+      \item Estos dos casos de uso, más allá de todas las trayectorias
+        alternativas que implican, son muy simples: la tokenización
+        recibe un número de tarjeta y el método a ocupar, regresa un token.
+        La detokenización recibe el token y el método, regresa el número
+        de tarjeta asociado.
+      \item REST fue creado por Roy Fielding: uno de los principales autores
+        de la especificación de HTTP y el creador del proyecto Apache.
+      \item Hasta lo que concierne al esquema básico de autenticación, las
+        credenciales viajan en texto claro (en base 64). Es el protocolo
+        envolvente, HTTPS, el encargado de asegurar la confidencialidad.
+      \item \textit{Let's  Encrypt} funciona con puro software libre y su
+        administración es pública. Es un proyecto de la EFF.
+      \item \url{xip.io} es un servidor DNS modificado. Un servidor DNS normal
+        recibe un nombre de dominio y regresa la IP asociada. Este servidor DNS
+        recibe el nombre del dominio, del nombre del dominio decodifica la IP
+        que se quiere regresar y ya está: certificados gratis para todos.
+    \end{itemize}}
 
 \end{frame}
