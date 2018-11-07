@@ -3,59 +3,59 @@
 % Proyecto Lovelace.
 %
 
-\resizebox{0.88\textwidth}{!}{%
+\resizebox{1\textwidth}{!}{%
   \begin{tikzpicture}
-    \umlactor[x=11, y=4.25, scale=1.2]{Visitante}
-    \umlactor[x=-4, y=6.00, scale=1.2]{Cliente}
+    \umlactor[x=13, y=4.25, scale=1.2]{Visitante}
+    \umlactor[x=-3, y=4.00, scale=1.2]{Cliente}
 
     \begin{umlsystem}{Tienda de libros}
 
       % Casos de uso %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       % CU de un visistante
-      \umlusecase[x=07, y=7.5, width=2.6cm, scale=0.7,
+      \umlusecase[x=10, y=07, width=2.8cm, scale=0.7,
         name=registrar_cliente, fill=white]
-        {Registrar cliente}
+        {\textbf{REGISTRAR CLIENTE}}
 
-      \umlusecase[x=07, y=06,  width=2.6cm, scale=0.7,
+      \umlusecase[x=10, y=05,  width=2.8cm, scale=0.7,
         name=iniciar_sesion, fill=white]
-        {Iniciar sesion}
+        {\textbf{INICIAR SESION}}
 
       % CU de un cliente
-      \umlusecase[x=00, y=10.5, width=2.6cm, scale=0.7,
+      \umlusecase[x=03, y=07, width=2.8cm, scale=0.7,
         name=agregar_direccion_entrega, fill=white]
-        {Agregar direccion de entrega}
+        {\textbf{AGREGAR DIRECCION DE ENTREGA}}
 
-      \umlusecase[x=00, y=09, width=2.6cm, scale=0.7,
+      \umlusecase[x=00, y=06, width=2.8cm, scale=0.7,
         name=eliminar_direccion_entrega, fill=white]
-        {Eliminar direccion de entrega}
+        {\textbf{ELIMINAR DIRECCION DE ENTREGA}}
 
-      \umlusecase[x=00, y=7.5, width=2.6cm, scale=0.7,
+      \umlusecase[x=03, y=05, width=2.8cm, scale=0.7,
         name=actualizar_informacion, fill=white]
-        {Actualizar informacion personal}
+        {\textbf{ACTUALIZAR INFORMARCION PERSONAL}}
 
-      \umlusecase[x=00, y=06, width=2.6cm, scale=0.7,
-        name=agregar_forma_de_pago, fill=white]
-        {Agregar forma de pago}
+      \umlusecase[x=00, y=04, width=2.8cm, scale=0.7,
+        name=agregar_forma_de_pago, fill=gray!20]
+        {\textbf{AGREGAR FORMA DE PAGO}}
 
-      \umlusecase[x=00, y=4.5, width=2.6cm, scale=0.7,
+      \umlusecase[x=03, y=03, width=2.8cm, scale=0.7,
         name=eliminar_forma_de_pago, fill=white]
-        {Eliminar forma de pago}
+        {\textbf{ELIMINAR FORMA DE PAGO}}
 
-      \umlusecase[x=00, y=03, width=2.6cm, scale=0.7,
+      \umlusecase[x=00, y=02, width=2.8cm, scale=0.7,
         name=cerrar_sesion, fill=white]
-        {Cerrar sesion}
+        {\textbf{CERRAR SESION}}
 
-      \umlusecase[x=00, y=1.5, width=2.6cm, scale=0.7,
-        name=comprar, fill=white]
-        {Comprar}
+      \umlusecase[x=03, y=01, width=2.8cm, scale=0.7,
+        name=comprar, fill=gray!20]
+        {\textbf{COMPRAR}}
 
-      \umlusecase[x=07, y=03, width=2.6cm, scale=0.7,
+      \umlusecase[x=10, y=03, width=2.8cm, scale=0.7,
         name=eliminar_libro, fill=white]
-        {Quitar libro}
+        {\textbf{QUITAR LIBRO}}
 
-      \umlusecase[x=07, y=1.5, width=2.6cm, scale=0.7,
+      \umlusecase[x=10, y=01, width=2.8cm, scale=0.7,
         name=agregar_libro, fill=white]
-        {Agregar libro}
+        {\textbf{AGREGAR LIBRO}}
 
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
