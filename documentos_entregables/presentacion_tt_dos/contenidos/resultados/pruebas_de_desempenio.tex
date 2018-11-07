@@ -8,7 +8,25 @@
 
 \subsection{Pruebas de desempeño}
 
-\begin{frame}{Pruebas de desempeño}
+\begin{frame}{Pruebas de desempeño}{Especificaciones del equipo}
+  Las pruebas mostradas a continuación se realizaron en una computadora
+  Acer Spin-5 con las siguientes especificaciones:
+  \begin{itemize}
+    \item Procesador Intel Core i5-8250U.
+    \begin{itemize}
+      \item 6M caché, hasta 2.2GHz.
+      \item 8 núcleos.
+    \end{itemize}
+    \item 8GB de RAM.
+    \item En los casos pertinentes, se utilizó AES-NI\footnotemark.
+    \item Se utilizó el compilador GCC versión 7.3.1.
+  \end{itemize}
+  \footnotetext{
+    \textit{Intel Advanced Encryption Standard New Instructions}.
+  }
+\end{frame}
+
+\begin{frame}{Pruebas de desempeño}{Comparación de tiempos}
 
   \begin{figure}
     \begin{center}
@@ -54,4 +72,3 @@
   }
 
 \end{frame}
-

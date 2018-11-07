@@ -33,26 +33,18 @@
 %  TIEMPO TOTAL = 24.5 minutos.
 
 \documentclass{beamer}
+
 \usepackage{formato}
+\usepackage{bold-extra}
+\usepackage{tikz}
+
+\RequirePackage{tikz-uml}
+
 \newcommand{\Titulo}{Generación de tokens para proteger
                      los datos de tarjetas bancarias}
 \newcommand{\Fecha}{Ciudad de México, 9 de noviembre de 2018}
 \usepackage{formato_presentaciones}
 
-\usepackage{tikz}
-\RequirePackage{tikz-uml}
-\usetikzlibrary{
-  arrows.meta,
-  positioning,
-  calc,
-  scopes,
-  shapes}
-
-\tikzset{
-font=\footnotesize}
-
-\usepackage{bold-extra}
-\usepackage{tikz}
 \usetikzlibrary{
   arrows.meta,
   decorations.pathmorphing,
@@ -103,5 +95,13 @@ font=\tiny}
 
   {\setbeamertemplate{footline}{}
   \frame{\titlepage}}
+
+  \begin{frame}{Láminas de apoyo}
+    \huge
+    Diapositivas auxiliares
+  \end{frame}
+
+  \import{presentacion_tt_dos/contenidos/recapitulacion/generacion_de_tokens/}
+  {marco_teorico}
 
 \end{document}
