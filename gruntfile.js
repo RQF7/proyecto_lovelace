@@ -404,7 +404,7 @@ module.exports = function (grunt) {
         options: {
           includesDir: 'documentos_entregables/reporte_tecnico/contenidos/analisis_y_disenio_api_web/analisis/',
           processIncludeContents: function(contenido) {
-            return contenido.replace(/(?:\r\n|\r|\n)/g, ' ');
+            return contenido.replace(/(?:\r\n|\r|\n)/g, '');
           }
         },
         files: {

@@ -3,37 +3,37 @@
 % Proyecto Lovelace.
 %
 
-\resizebox{0.80\textwidth}{!}{%
+\resizebox{0.87\textwidth}{!}{%
   \begin{tikzpicture}
-    \umlactor[x=07,   y=13,   scale=1.5]{Visitante}
-    \umlactor[x=-2.5, y=06,   scale=1.5]{Cliente}
-    \umlactor[x=16.5, y=06,   scale=1.5]{Administrador}
-    \umlactor[x=07,   y=-1.5, scale=1.5]{Ap cliente}
+    \umlactor[x=07.5, y=12.7, scale=1]{Visitante}
+    \umlactor[x=-2.2, y=06,   scale=1]{Cliente}
+    \umlactor[x=16.4, y=06,   scale=1]{Administrador}
+    \umlactor[x=07.5, y=-1.2, scale=1]{App cliente}
 
     \begin{umlsystem}{Sistema tokenizador}
 
       % CU de un visistante %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      \umlusecase[x=05, y=10, width=2.2cm, fill=white]
-        {Registrar cliente}
+      \umlusecase[x=05.2, y=10, width=2.4cm, fill=white]
+        {\textbf{REGISTRAR CLIENTE}}
 
-      \umlusecase[x=09, y=8,  width=2.2cm, fill=white]
-        {Iniciar sesion}
+      \umlusecase[x=09.2, y=8,  width=2.4cm, fill=white]
+        {\textbf{INICIAR SESION}}
 
       \umlHVassoc{Visitante}{usecase-1}
       \umlHVassoc{Visitante}{usecase-2}
 
       % CU de un cliente %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      \umlusecase[x=01, y=10, width=2.2cm, fill=white]
-        {Actualizar cliente}
+      \umlusecase[x=01, y=10, width=2.5cm, fill=white]
+        {\textbf{ACTUALIZAR CLIENTE}}
 
-      \umlusecase[x=01, y=07, width=2.2cm, fill=white]
-        {Eliminar cliente}
+      \umlusecase[x=01, y=07, width=2.4cm, fill=white]
+        {\textbf{ELIMINAR CLIENTE}}
 
-      \umlusecase[x=01, y=04, width=2.2cm, fill=white]
-        {Iniciar refresco}
+      \umlusecase[x=01, y=04, width=2.4cm, fill=white]
+        {\textbf{INICIAR REFRESCO}}
 
-      \umlusecase[x=01, y=01, width=2.2cm, fill=white]
-        {Terminar refresco}
+      \umlusecase[x=01, y=01, width=2.4cm, fill=white]
+        {\textbf{TERMINAR REFRESCO}}
 
       \umlassoc{Cliente}{usecase-3}
       \umlassoc{Cliente}{usecase-4}
@@ -41,17 +41,17 @@
       \umlassoc{Cliente}{usecase-6}
 
       % CU de un administrador %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      \umlusecase[x=13, y=10, width=2.2cm, fill=white]
-        {Aprobar cliente}
+      \umlusecase[x=14, y=10, width=2.4cm, fill=white]
+        {\textbf{APROBAR CLIENTE}}
 
-      \umlusecase[x=13, y=07, width=2.2cm, fill=white]
-        {Rechazar cliente}
+      \umlusecase[x=14, y=07, width=2.4cm, fill=white]
+        {\textbf{RECHAZAR CLIENTE}}
 
-      \umlusecase[x=13, y=04, width=2.2cm, fill=white]
-        {Vetar cliente}
+      \umlusecase[x=14, y=04, width=2.4cm, fill=white]
+        {\textbf{VETAR CLIENTE}}
 
-      \umlusecase[x=13, y=01, width=2.2cm, fill=white]
-        {Desvetar cliente}
+      \umlusecase[x=14, y=01, width=2.4cm, fill=white]
+        {\textbf{DESVETAR CLIENTE}}
 
       \umlassoc{Administrador}{usecase-7}
       \umlassoc{Administrador}{usecase-8}
@@ -59,21 +59,21 @@
       \umlassoc{Administrador}{usecase-10}
 
       % CU de la aplicación del cliente %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      \umlusecase[x=05, y=01, width=2.2cm, fill=white]
-        {Retokenizar token}
+      \umlusecase[x=05.2, y=01, width=2.8cm, fill=gray!20]
+        {\textbf{RETOKENIZAR TOKEN}}
 
-      \umlusecase[x=07, y=03, width=2.2cm, fill=white]
-        {Tokenizar tarjeta}
+      \umlusecase[x=07.5, y=03, width=2.8cm, fill=gray!20]
+        {\textbf{TOKENIZAR TARJETA}}
 
-      \umlusecase[x=09, y=01, width=2.2cm, fill=white]
-        {Detokenizar token}
+      \umlusecase[x=09.8, y=01, width=2.8cm, fill=gray!20]
+        {\textbf{DETOKENIZAR TOKEN}}
 
-      \umlassoc{Ap cliente}{usecase-11}
-      \umlassoc{Ap cliente}{usecase-12}
-      \umlassoc{Ap cliente}{usecase-13}
+      \umlassoc{App cliente}{usecase-11}
+      \umlassoc{App cliente}{usecase-12}
+      \umlassoc{App cliente}{usecase-13}
 
-      \umlusecase[x=08, y=05, width=2.2cm, fill=white]
-        {Cerrar sesion}
+      \umlusecase[x=08, y=05, width=2.4cm, fill=white]
+        {\textbf{CERRAR SESION}}
 
       \umlassoc{Administrador}{usecase-14}
       \umlassoc{Cliente}{usecase-14}
