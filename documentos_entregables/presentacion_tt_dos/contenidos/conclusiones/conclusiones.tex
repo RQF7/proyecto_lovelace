@@ -7,22 +7,118 @@
 
 \section{Conclusiones}
 
-\begin{frame}{Conclusiones}
-  
-  Conclusiones
-
-  \note{
-    notas
-  }
-
+\begin{frame}{Sobre los objetivos}
+  Los objetivos planteados al inicio de este trabajo terminal fueron cumplidos:
+  \begin{itemize}
+    \item<1-> Implementar algoritmos generadores de tokens.
+      \note<1>{
+        Resaltar que, para implementar los algoritmos tokenizadores,
+        primero tuvimos que revisar otros conceptos criptográficos. También
+        que Sandra ayudó bastante para encontrar información sobre algoritmos
+        tokenizadores (¿recuerdan que estuvimos buscando algoritmos y no
+        encontramos muchos que digamos?).}
+    \item<2-> Diseñar e implementar un servicio web que proporcione la
+      generación de tokens a, al menos, una tienda en línea.
+      \note<2>{
+        Recuerden que, aunque sí proveemos lo de la generación de tokens
+        y la detokenización en el  servicio, en realidad faltan requerimientos
+        por cumplir (como auditorías, tener certificaciones, etcétera) que
+        quedaron fuera del alcance el proyecto (ya sea por factores de tiempo
+        o económicos). También: Ricardo se esforzó mil para que tengamos un
+        certificado y el servicio pueda usar el HTTPS.}
+    \item<3-> Implementar una tienda en línea que utilice el servicio de
+      generación de tokens.
+      \note<3>{
+        Hacer énfasis en que solo se implementaron los casos de uso que
+        eran necesarios para probar la interacción con el sistema tokenizador,
+        EVIDENTEMENTE, el sistema de la librería no está completo. También que,
+        aunque estuvimos buscando en varios sitios que podrían utilizar
+        servicios de tokenización (Ticketmaster, Gandhi, Porrúa, El Sótano,
+        IKEA, El fondo de cultura económica, El Péndulo, MercadoLibre, Amazon,
+        Uber, Spotify), no encontramos ninguno que especificara que utiliza
+        un servicio de tokenización; empero, encontramos MUCHOS que hacían uso
+        de una API de PayPal que nos hace pensar que tiene un vil MONOPOLIO.}
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{Conclusiones}
-  
-  Conclusiones
+\begin{frame}{Sobre los algoritmos}
+  \begin{itemize}
+    \item<1-> La \emph{detokenización} es más rápida que la generación de
+      tokens para los algoritmos irreversibles (TKR, AHR, DRBG).
+      \note<1>{
+        Recordar que la tokenización en los algoritmos irreversibles
+        involucra consultas en la base de datos y hace uso de entropía (y que
+        puede tomar su tiempo el obtenerla). También recalcar que las
+        detokenizaciones aquí son una vil consulta a la base de datos. Y que
+        super depende del gestor de la base de datos y del número de datos
+        que se tienen (cuando hacíamos pruebas, si no reiniciabas la base de
+        datos entre cada algoritmo, los últimos eran los que peor se
+        desempeñaban {porque la base tenía TODOS los tokens de los algoritmos
+        anteriores}). Probablemente este útlimo punto es un super factor
+        a considerar, los irreversibles podrían ser muy útiles cuando no vas
+        a realizar muchas tokenizaciones y no piensas tener muuuchos tokens.}
+    \item<2-> Los algoritmos reversibles (FFX y BPS) son más veloces que los
+      irreversibles al \emph{tokenizar}.
+      \note<2>{
+        Resaltar aquí que, de buenas a primeras, está medio extraño que
+        los reversibles sean más rápidos que los irreversibles, pues los
+        primeros realizan más operaciones al tokenizar. Explicar que, de hecho,
+        cuando no se toma en cuenta el tiempo de acceso a la base de datos,
+        los algoritmos irreversibles son MUCHO MÁS rápidos que los reversibles,
+        pero pues que no sirve de mucho, porque en la vida real, en un caso
+        práctico, está medio en chino quitar (o reducir) ese tiempo de acceso.}
+    \item<3-> Con la llave de cifrado, un atacante puede...
+      \begin{itemize}
+        \item Tokenizar \emph{y} detokenizar \textbf{si} se utilizó un
+          algoritmo reversible.
+        \item \emph{Solo} tokenizar \textbf{si} se utilizó un algoritmo
+          irreversible.
+      \end{itemize}
+      \note<3>{
+        Dejar MUY en claro que no por esto los algoritmos reversibles son
+        inseguros (o sea, están basados en redes Feistel), solo que sirven
+        más para realizar tokenizaciones rápidamente, en especial cuando
+        se maneja una gran cantidad de tokens.}
+  \end{itemize}
+\end{frame}
 
-  \note{
-    notas
-  }
+\begin{frame}{Sobre la clasificación}
+  Uno de los resultados más importantes, es la clasificación propuesta por
+  los autores para los algoritmos tokenizadores en respuesta a la clasificación
+  del PCI.
+  \begin{itemize}
+    \item<1-> La denominación de \emph{no criptográficos} es engañosa.
+      \note<1>{
+        Este nombre hace pensar que los algoritmos que están aquí NO utilizan
+        criptografía para nada; cuando en realidad, aquí caen varios
+        algoritmos que la usan en gran medida Los que sí podían ir aquí, son
+        los generadores verdaderamente aleatorios, pero son pocos y no comunes;
+        de hecho, esta clasificación puede ser, sino uno de los orígenes, una
+        de las principales fuentes de la creencia de que la tokenización y la
+        criptografía no se llevan y el de que la tokenización siga rodeada
+        de una aurora de misterio e intriga (bien dramática la conclusión).}
+    \item<2-> La denominación \emph{irreversibles} no es muy útil para las
+      aplicaciones que tokenizan números de tarjetas.
+      \note<2>{
+        Primero: recordar que el PCI es EL concilio de tarjetas ¿para pagos?,
+        uno pensaría que todas sus aplicaciones están orientadas a este fin,
+        luego, ¿para que tomarse tanto tiempo ¿para generar tokens (y gastar
+        tiempo y recursos) si luego será imposible utilizarlos? Deberían dar
+        mejores ejemplos del uso de estos tokens.}
+  \end{itemize}
+\end{frame}
 
+\begin{frame}{Sobre el trabajo desarrollado}
+  \begin{itemize}
+    \item Se escribió un artículo con los resultados de este trabajo y fue
+      presentado en la \textit{Reunión de Ciberseguridad para la Industria 4.0}
+      (RCI4.0 2018); será publicado en las memorias del evento.
+    \item Las implementaciones de los algoritmos son públicas.
+    \item Tanto el servicio tokenizador como la tienda en línea pueden ser
+      consultadas en las siguientes direcciones:
+      \begin{itemize}
+        \item \texttt{dominio/servicio}
+        \item \texttt{dominio/servicio}
+      \end{itemize}
+  \end{itemize}
 \end{frame}
