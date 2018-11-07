@@ -105,7 +105,7 @@ def generarLlave (tamanio):
 
   Se genera una llave en un archivo, este se lee y se borra cuando ya se
   obtuvo la llave."""
-  dirBuffer = "BUFFER"
+  dirBuffer = configuraciones.DIRECTORIO_BASE + "BUFFER"
   resultado = subprocess.run([configuraciones.EJECUTABLE_TOKENIZADOR,
     "-k", dirBuffer, str(tamanio)], stdout = subprocess.PIPE)
   llave = open(dirBuffer).read()

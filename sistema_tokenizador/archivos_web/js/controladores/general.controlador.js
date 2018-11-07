@@ -165,9 +165,9 @@ sistemaTokenizador.controller('controladorGeneral', [
             $location.path($scope.$routeParams.siguiente);
             $location.search('siguiente', null)
           } else if ($scope.usuario.fields.tipoDeUsuario == 'cliente') {
-            $location.path('sistema_tokenizador/control');
+            $location.path('control');
           } else {
-            $location.path('sistema_tokenizador/administración');
+            $location.path('administración');
           }
         }
       });

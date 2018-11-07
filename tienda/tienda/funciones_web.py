@@ -152,12 +152,12 @@ def verificarCorreo (peticion, vinculo, hrs = None):
   if hrs != None and datetime.datetime.now() - usuario.fecha > \
     datetime.timedelta(hours = hrs):
     usuario.delete()
-    return django.http.HttpResponseRedirect('/?correo_no_verificado')
+    return django.http.HttpResponseRedirect('/libreria/?correo_no_verificado')
   else:
     usuario.verificado = True
     usuario.vinculo = None
     usuario.save()
-    return django.http.HttpResponseRedirect('/?correo_verificado')
+    return django.http.HttpResponseRedirect('/libreria/?correo_verificado')
 
 
 def verificarCorreoDeRegistro (peticion, vinculo):

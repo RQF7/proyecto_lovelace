@@ -362,7 +362,7 @@ def verificarCorreoDeRegistro (peticion, vinculo):
     usuario.delete()
     referenciaAnterior.delete()
     correo.delete()
-    return django.http.HttpResponseRedirect('/?correo_no_verificado')
+    return django.http.HttpResponseRedirect('/sistema_tokenizador/?correo_no_verificado')
 
   # Operación correcta:
   else:
@@ -372,7 +372,7 @@ def verificarCorreoDeRegistro (peticion, vinculo):
     correo.vinculo = None
     correo.save()
     referenciaAnterior.delete()
-    return django.http.HttpResponseRedirect('/?correo_verificado')
+    return django.http.HttpResponseRedirect('/sistema_tokenizador/?correo_verificado')
 
 
 @utilidades.privilegiosRequeridos('cliente')

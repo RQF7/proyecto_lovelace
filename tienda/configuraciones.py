@@ -12,7 +12,7 @@ import os
 
 # Configuraciones propias #####################################################
 
-DOMINIO = 'https://ricardo-quezada.159.65.96.59.xip.io/tienda'
+DOMINIO = 'https://ricardo-quezada.159.65.96.59.xip.io/libreria'
 DIRECTORIO_BASE = '/home/ricardo/proyecto_lovelace/'
 SISTEMA_TOKENIZADOR = 'https://ricardo-quezada.159.65.96.59.xip.io/sistema_tokenizador'
 USUARIO_ST = 'administracion@tienda-en-linea.com'
