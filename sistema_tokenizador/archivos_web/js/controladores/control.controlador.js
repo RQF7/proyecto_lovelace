@@ -29,7 +29,7 @@ sistemaTokenizador.controller('controladorControl', [
       $mdDialog.show({
         parent: padre,
         targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/operar_cliente.ventana.html',
+        templateUrl: '/sistema_tokenizador/estaticos/html/ventanas/operar_cliente.ventana.html',
         controller: 'controladorFormularioOperarCliente',
         locals: {
           "tituloOperacion": "Actualizar datos",

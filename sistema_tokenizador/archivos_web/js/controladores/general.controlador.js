@@ -156,7 +156,7 @@ sistemaTokenizador.controller('controladorGeneral', [
       $mdDialog.show({
         parent: padre,
         targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/iniciar_sesion.ventana.html',
+        templateUrl: '/sistema_tokenizador/estaticos/html/ventanas/iniciar_sesion.ventana.html',
         controller: 'controladorFormularioIniciarSesion'
       }).then(function (respuesta) {
         if (respuesta != undefined) {
@@ -165,9 +165,9 @@ sistemaTokenizador.controller('controladorGeneral', [
             $location.path($scope.$routeParams.siguiente);
             $location.search('siguiente', null)
           } else if ($scope.usuario.fields.tipoDeUsuario == 'cliente') {
-            $location.path('/control');
+            $location.path('sistema_tokenizador/control');
           } else {
-            $location.path('/administración');
+            $location.path('sistema_tokenizador/administración');
           }
         }
       });
@@ -187,7 +187,7 @@ sistemaTokenizador.controller('controladorGeneral', [
       $mdDialog.show({
         parent: padre,
         targetEvent: $event,
-        templateUrl: '/estaticos/html/ventanas/operar_cliente.ventana.html',
+        templateUrl: '/sistema_tokenizador/estaticos/html/ventanas/operar_cliente.ventana.html',
         controller: 'controladorFormularioOperarCliente',
         locals: {
           "tituloOperacion": "Registrar datos",
