@@ -223,6 +223,9 @@ class Arreglo<unsigned char> : public ArregloBase<unsigned char>
     /** \brief Herencia de constructores. */
     using ArregloBase<unsigned char>::ArregloBase;
 
+    /** \brief Constructor por defecto. */
+    explicit Arreglo<unsigned char>();
+
     /** \brief Descomposición en bytes de entero. */
     Arreglo<unsigned char>(entero numero);
 

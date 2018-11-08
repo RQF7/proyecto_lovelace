@@ -11,6 +11,13 @@
 
 using namespace std;
 
+/** */
+
+Arreglo<unsigned char>::Arreglo()
+: ArregloBase<unsigned char>()
+{
+}
+
 /**
  * Construye un arreglo equivalente (en bytes) al entero dado.
  * Esto se podría generalizar para cualquier tamaño de entero, con signo o sin
