@@ -94,10 +94,11 @@ Arreglo<unsigned char> CTRDRBG::generarBytes(
   Arreglo<unsigned char> resultado;
   while (resultado.obtenerNumeroDeElementos() < longitudLocal)
   {
-    mSemilla = ((mSemilla + 1ull) / Arreglo<unsigned int>{mLongitudBloque})[0];
+    mSemilla = (mSemilla + 1ull).fragmentar(
+      Arreglo<unsigned int>{mLongitudBloque})[0];
     resultado = resultado || cifrarBloque(mSemilla);
   }
-  return (resultado / Arreglo<unsigned int>{longitudLocal})[0];
+  return resultado.fragmentar(Arreglo<unsigned int>{longitudLocal})[0];
 }
 
 /**
@@ -113,13 +114,17 @@ void CTRDRBG::actualizarEstado(
   Arreglo<unsigned char> temporal;
   while (temporal.obtenerNumeroDeElementos() < mLongitudSemilla)
   {
-    mSemilla = ((mSemilla + 1ull) / Arreglo<unsigned int>{mLongitudBloque})[0];
+    mSemilla = (mSemilla + 1ull).fragmentar(
+      Arreglo<unsigned int>{mLongitudBloque})[0];
     temporal = temporal || cifrarBloque(mSemilla);
   }
-  temporal = (temporal / Arreglo<unsigned int>{mLongitudSemilla})[0];
+  temporal = temporal.fragmentar(
+    Arreglo<unsigned int>{mLongitudSemilla})[0];
   temporal = temporal ^ entrada;
-  mLlave = (temporal / Arreglo<unsigned int>{mLongitudLlave})[0];
-  mSemilla = (temporal / Arreglo<unsigned int>{mLongitudSemilla})[0];
+  mLlave = temporal.fragmentar(
+    Arreglo<unsigned int>{mLongitudLlave})[0];
+  mSemilla = temporal.fragmentar(
+    Arreglo<unsigned int>{mLongitudSemilla})[0];
 }
 
 /**

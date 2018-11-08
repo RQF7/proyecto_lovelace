@@ -169,6 +169,10 @@ class ArregloBase
     Arreglo<Arreglo<tipo>> operator/(
       const Arreglo<unsigned int> &marcasDivisorias) const;
 
+    /** \brief División entre arreglo de índices. Función de compatibilidad. */
+    Arreglo<Arreglo<tipo>> fragmentar(
+      const Arreglo<unsigned int> &marcasDivisorias) const;
+
     /** \brief Error para representar un acceso ilegal. */
     struct AccesoFueraDeRango : public Utilidades::Error
     { inline AccesoFueraDeRango(std::string mensaje)
@@ -624,11 +628,29 @@ ArregloBase<tipo> ArregloBase<tipo>::partir(
  *
  * \tparam marcasDivisorias Arreglo con marcas divisorias.
  *
+ * \sa fragmentar.
+ *
  * \return Arreglo de arreglos con subpartes del original.
  */
 
 template<typename tipo>
 Arreglo<Arreglo<tipo>> ArregloBase<tipo>::operator/(
+  const Arreglo<unsigned int> &marcasDivisorias
+)
+const
+{
+  return fragmentar(marcasDivisorias);
+}
+
+/**
+ * Función espejo de ArregloBase<tipo>::operator/
+ * Para compiladores que mueren con la otra función (GCC 6).
+ *
+ * \return Arreglo de arreglos con subpartes del original.
+ */
+
+template <typename tipo>
+Arreglo<Arreglo<tipo>> ArregloBase<tipo>::fragmentar(
   const Arreglo<unsigned int> &marcasDivisorias
 )
 const
