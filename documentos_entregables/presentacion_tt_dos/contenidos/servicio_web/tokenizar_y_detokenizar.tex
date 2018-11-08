@@ -12,18 +12,25 @@
   {Operaciones básicas del servicio web}
 
   \begin{itemize}
-    \item Utilizan el prototipo de generación de tokens.
-    \item Utilizan el estilo arquitectónico REST\footnotemark{}.
+    \item Ocupan el prototipo de generación de tokens.
+
+    \item La aplicación sigue el modelo arquitectónico REST\footnotemark{}.
+
+      \footnotetext{\textit{REpresentational State Transfer}}
+
     \item Se sigue un esquema de autenticación básico: las credenciales
       viajan en el encabezado de la petición.
+
     \item El protocolo encargado de asegurar la confidencialidad de los
-      datos es HTTPS.
+      datos es HTTPS\footnotemark{}.
+
+      \footnotetext{\textit{HyperText Transfer Protocol} con SSL/TLS}
+
     \item La autoridad certificadora ocupada es \textit{Let's  Encrypt}. Para
       evitar tener que conseguir un nombre de dominio se ocupa el servicio de
       \url{xip.io}.
-  \end{itemize}
 
-  \footnotetext{\textit{REpresentational State Transfer}}
+  \end{itemize}
 
   \note{
     \begin{itemize}
