@@ -91,7 +91,7 @@ namespace Implementaciones
        * se mantenga en secreto.
        */
 
-      Arreglo<unsigned char> mConstanteSemilla;
+      Arreglo<unsigned char> mConstanteSemilla = 0u;
 
       /** \brief Tipo de función hash usada. */
       TipoDeFuncionHash mTipoDeFuncionHash;
