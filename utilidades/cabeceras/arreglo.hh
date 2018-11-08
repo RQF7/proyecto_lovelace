@@ -120,8 +120,8 @@ class ArregloBase
     /** \brief Construcción mediante lista de inicialización. */
     ArregloBase(std::initializer_list<tipo> elementos);
 
-		/** \brief Construcción por memoria ya existente. */
-		ArregloBase(unsigned int numeroDeElementos, tipo* &&memoria);
+    /** \brief Construcción por memoria ya existente. */
+    ArregloBase(unsigned int numeroDeElementos, tipo* &&memoria);
 
     /** \brief Constructor de operación de copiado. */
     ArregloBase(const ArregloBase &arreglo);

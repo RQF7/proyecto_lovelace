@@ -95,9 +95,9 @@ int main(int numeroDeArgumentos, char** argumentos)
   {
     string nombreDeArchivo {argumentos[2]};
     int longitud {stoi(string{argumentos[3]})};
-    cout << "Generar llave de " << longitud << " bits." << endl;
+    //cout << "Generar llave de " << longitud << " bits." << endl;
     generarLlave(nombreDeArchivo, longitud);
-    cout << "Llave guardada en " << nombreDeArchivo << "." << endl;
+    //cout << "Llave guardada en " << nombreDeArchivo << "." << endl;
   }
   /* Tokenizar. */
   /* lovelace -e FFX [PAN] [archivoLlave] */
@@ -219,6 +219,7 @@ void generarLlave(
   fstream archivo {nombreDeArchivo.c_str(),
     fstream::out | fstream::binary | fstream::trunc};
   archivo.write(llaveCodificada.c_str(), llaveCodificada.size());
+  cout << llaveCodificada << endl;
   archivo.close();
 }
 
