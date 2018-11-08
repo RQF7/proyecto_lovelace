@@ -161,8 +161,7 @@ Arreglo<unsigned char> HashDRBG::funcionDeDerivacion(
     auto salidaHash = hash(entrada);
     resultado = resultado || salidaHash;
   }
-  //return (resultado / Arreglo<unsigned int>{longitudDeSalida})[0];
-  return resultado;
+  return resultado.fragmentar(Arreglo<unsigned int>{longitudDeSalida})[0];
 }
 
 /**
@@ -184,8 +183,7 @@ Arreglo<unsigned char> HashDRBG::funcionDeGeneracion(
     resultado = resultado || hash(datos);
     datos = datos || Arreglo<unsigned char>{1};
   }
-  //oreturn (resultado / Arreglo<unsigned int>{longitudDeSalida})[0];
-  return resultado;
+  return resultado.fragmentar(Arreglo<unsigned int>{longitudDeSalida})[0];
 }
 
 /**

@@ -5,8 +5,8 @@
 
 \resizebox{1\textwidth}{!}{%
   \begin{tikzpicture}
-    \umlactor[x=13, y=4.25, scale=1.2]{Visitante}
-    \umlactor[x=-3, y=4.00, scale=1.2]{Cliente}
+    \umlactor[x=13, y=4.25, scale=1]{Visitante}
+    \umlactor[x=-3, y=4.00, scale=1]{Cliente}
 
     \begin{umlsystem}{Tienda de libros}
 
@@ -18,20 +18,20 @@
 
       \umlusecase[x=10, y=05,  width=2.8cm, scale=0.7,
         name=iniciar_sesion, fill=white]
-        {\textbf{INICIAR SESION}}
+        {\textbf{INICIAR SESIÓN}}
 
       % CU de un cliente
       \umlusecase[x=03, y=07, width=2.8cm, scale=0.7,
         name=agregar_direccion_entrega, fill=white]
-        {\textbf{AGREGAR DIRECCION DE ENTREGA}}
+        {\textbf{AGREGAR DIRECCIÓN DE ENTREGA}}
 
       \umlusecase[x=00, y=06, width=2.8cm, scale=0.7,
         name=eliminar_direccion_entrega, fill=white]
-        {\textbf{ELIMINAR DIRECCION DE ENTREGA}}
+        {\textbf{ELIMINAR DIRECCIÓN DE ENTREGA}}
 
       \umlusecase[x=03, y=05, width=2.8cm, scale=0.7,
         name=actualizar_informacion, fill=white]
-        {\textbf{ACTUALIZAR INFORMARCION PERSONAL}}
+        {\textbf{ACTUALIZAR INFORMARCIÓN PERSONAL}}
 
       \umlusecase[x=00, y=04, width=2.8cm, scale=0.7,
         name=agregar_forma_de_pago, fill=gray!20]
@@ -43,7 +43,7 @@
 
       \umlusecase[x=00, y=02, width=2.8cm, scale=0.7,
         name=cerrar_sesion, fill=white]
-        {\textbf{CERRAR SESION}}
+        {\textbf{CERRAR SESIÓN}}
 
       \umlusecase[x=03, y=01, width=2.8cm, scale=0.7,
         name=comprar, fill=gray!20]

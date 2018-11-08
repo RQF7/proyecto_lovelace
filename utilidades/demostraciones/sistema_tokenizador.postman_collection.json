@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "96eb1caf-ddd7-47bc-8906-66f15d64cb8d",
+		"name": "Sistema tokenizador",
+		"description": "Peticiones de API de sistema tokenizador",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tokenizar",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cliente@prueba.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"pan\": \"0000000000000000\",\n\t\"metodo\": \"FFX\"\n}"
+				},
+				"url": {
+					"raw": "{{Servidor}}/api/programa_tokenizador/tokenizar",
+					"host": [
+						"{{Servidor}}"
+					],
+					"path": [
+						"api",
+						"programa_tokenizador",
+						"tokenizar"
+					]
+				},
+				"description": "Petición de tokenización"
+			},
+			"response": []
+		},
+		{
+			"name": "Detokenizar",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cliente@prueba.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"0000003197694396\",\n\t\"metodo\": \"FFX\"\n}"
+				},
+				"url": {
+					"raw": "{{Servidor}}/api/programa_tokenizador/detokenizar",
+					"host": [
+						"{{Servidor}}"
+					],
+					"path": [
+						"api",
+						"programa_tokenizador",
+						"detokenizar"
+					]
+				},
+				"description": "Petición de tokenización"
+			},
+			"response": []
+		},
+		{
+			"name": "Retokenizar",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cliente@prueba.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"0000003197694396\",\n\t\"metodo\": \"TKR\"\n}"
+				},
+				"url": {
+					"raw": "{{Servidor}}/api/programa_tokenizador/retokenizar",
+					"host": [
+						"{{Servidor}}"
+					],
+					"path": [
+						"api",
+						"programa_tokenizador",
+						"retokenizar"
+					]
+				},
+				"description": "Petición de tokenización"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "123456",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "cliente@prueba.com",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "bdaf37d6-382f-4cd5-beab-8b19ef2a41a7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8e1b6c3e-2418-4e72-a889-5dc8f86c71b4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

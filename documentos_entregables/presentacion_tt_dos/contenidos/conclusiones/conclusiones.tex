@@ -42,47 +42,47 @@
   \end{itemize}}
 \end{frame}
 
-\begin{frame}{Sobre los algoritmos}
-  \begin{itemize}
-    \item La \emph{detokenización} es más rápida que la generación de
-      tokens para los algoritmos irreversibles (TKR, AHR, DRBG).
-    \item Los algoritmos reversibles (FFX y BPS) son más veloces que los
-      irreversibles al \emph{tokenizar}.
-    \item Con la llave de cifrado, un atacante puede...
-      \begin{itemize}
-        \item Tokenizar \emph{y} detokenizar \textbf{si} se utilizó un
-          algoritmo reversible.
-        \item \emph{Solo} tokenizar \textbf{si} se utilizó un algoritmo
-          irreversible.
-      \end{itemize}
-  \end{itemize}
-
-  \note{
-    \begin{itemize}
-      \item Recordar que la tokenización en los algoritmos irreversibles
-        involucra consultas en la base de datos y hace uso de entropía (y que
-        puede tomar su tiempo el obtenerla). También recalcar que las
-        detokenizaciones aquí son una vil consulta a la base de datos. Y que
-        super depende del gestor de la base de datos y del número de datos
-        que se tienen (cuando hacíamos pruebas, si no reiniciabas la base de
-        datos entre cada algoritmo, los últimos eran los que peor se
-        desempeñaban {porque la base tenía TODOS los tokens de los algoritmos
-        anteriores}). Probablemente este útlimo punto es un super factor
-        a considerar, los irreversibles podrían ser muy útiles cuando no vas
-        a realizar muchas tokenizaciones y no piensas tener muuuchos tokens.
-      \item Resaltar aquí que, de buenas a primeras, está medio extraño que
-        los reversibles sean más rápidos que los irreversibles, pues los
-        primeros realizan más operaciones al tokenizar. Explicar que, de hecho,
-        cuando no se toma en cuenta el tiempo de acceso a la base de datos,
-        los algoritmos irreversibles son MUCHO MÁS rápidos que los reversibles,
-        pero pues que no sirve de mucho, porque en la vida real, en un caso
-        práctico, está medio en chino quitar (o reducir) ese tiempo de acceso.
-      \item Dejar MUY en claro que no por esto los algoritmos reversibles son
-        inseguros (o sea, están basados en redes Feistel), solo que sirven
-        más para realizar tokenizaciones rápidamente, en especial cuando
-        se maneja una gran cantidad de tokens.
-    \end{itemize}}
-\end{frame}
+% \begin{frame}{Sobre los algoritmos}
+%   \begin{itemize}
+%     \item La \emph{detokenización} es más rápida que la generación de
+%       tokens para los algoritmos irreversibles (TKR, AHR, DRBG).
+%     \item Los algoritmos reversibles (FFX y BPS) son más veloces que los
+%       irreversibles al \emph{tokenizar}.
+%     \item Con la llave de cifrado, un atacante puede...
+%       \begin{itemize}
+%         \item Tokenizar \emph{y} detokenizar \textbf{si} se utilizó un
+%           algoritmo reversible.
+%         \item \emph{Solo} tokenizar \textbf{si} se utilizó un algoritmo
+%           irreversible.
+%       \end{itemize}
+%   \end{itemize}
+%
+%   \note{
+%     \begin{itemize}
+%       \item Recordar que la tokenización en los algoritmos irreversibles
+%         involucra consultas en la base de datos y hace uso de entropía (y que
+%         puede tomar su tiempo el obtenerla). También recalcar que las
+%         detokenizaciones aquí son una vil consulta a la base de datos. Y que
+%         super depende del gestor de la base de datos y del número de datos
+%         que se tienen (cuando hacíamos pruebas, si no reiniciabas la base de
+%         datos entre cada algoritmo, los últimos eran los que peor se
+%         desempeñaban {porque la base tenía TODOS los tokens de los algoritmos
+%         anteriores}). Probablemente este útlimo punto es un super factor
+%         a considerar, los irreversibles podrían ser muy útiles cuando no vas
+%         a realizar muchas tokenizaciones y no piensas tener muuuchos tokens.
+%       \item Resaltar aquí que, de buenas a primeras, está medio extraño que
+%         los reversibles sean más rápidos que los irreversibles, pues los
+%         primeros realizan más operaciones al tokenizar. Explicar que, de hecho,
+%         cuando no se toma en cuenta el tiempo de acceso a la base de datos,
+%         los algoritmos irreversibles son MUCHO MÁS rápidos que los reversibles,
+%         pero pues que no sirve de mucho, porque en la vida real, en un caso
+%         práctico, está medio en chino quitar (o reducir) ese tiempo de acceso.
+%       \item Dejar MUY en claro que no por esto los algoritmos reversibles son
+%         inseguros (o sea, están basados en redes Feistel), solo que sirven
+%         más para realizar tokenizaciones rápidamente, en especial cuando
+%         se maneja una gran cantidad de tokens.
+%     \end{itemize}}
+% \end{frame}
 
 \begin{frame}{Sobre la clasificación}
   Uno de los resultados más importantes, es la clasificación propuesta por
