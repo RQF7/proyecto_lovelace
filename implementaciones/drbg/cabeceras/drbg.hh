@@ -167,7 +167,7 @@ namespace Implementaciones
        * secreto.
        */
 
-      Arreglo<unsigned char> mSemilla = 0u;
+      Arreglo<unsigned char> mSemilla;
 
       /**
        * \brief Control de reservación de recursos.

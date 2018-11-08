@@ -148,7 +148,7 @@ Arreglo<unsigned char> HashDRBG::funcionDeDerivacion(
   unsigned int longitudDeSalida                   /**< Longitud de salida. */
 )
 {
-  Arreglo<unsigned char> resultado = 0u;
+  Arreglo<unsigned char> resultado;
   unsigned int longitud = mFuncionHash->DigestSize();
   unsigned int numeroDeBloques = ceil(
     static_cast<double>(longitudDeSalida) / longitud);
@@ -173,7 +173,7 @@ Arreglo<unsigned char> HashDRBG::funcionDeGeneracion(
   unsigned int longitudDeSalida     /**< Longitud de la salida. */
 )
 {
-  Arreglo<unsigned char> resultado = 0u;
+  Arreglo<unsigned char> resultado;
   unsigned int longitud = mFuncionHash->DigestSize();
   unsigned int numeroDeBloques = ceil(
     static_cast<double>(longitudDeSalida) / longitud);
