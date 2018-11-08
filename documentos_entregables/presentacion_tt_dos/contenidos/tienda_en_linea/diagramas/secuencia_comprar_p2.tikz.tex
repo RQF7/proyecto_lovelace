@@ -10,7 +10,7 @@
 
       % Líneas de vida %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-      \umlcontrol [x=00, fill=gray!20, class = Servicio]{servicioGeneral}
+      \umlcontrol [x=00, fill=gray!20, class = Servicio]{servicioTienda}
       \umlcontrol [x=06, fill=gray!20, class = Servicio]{servicioTokenizador}
       \umlentity  [x=12, fill=gray!20, class = Negocio] {negocioGeneral}
       \umldatabase[x=18, fill=gray!20, no ddots]        {Modelo}
@@ -19,17 +19,17 @@
 
       \begin{umlcall}[fill=gray!15, padding=4, dt=10,%
         op = {obtenerToken(compra.ultimosDigitos)}, %
-        return = token]{servicioGeneral}{Modelo}
+        return = token]{servicioTienda}{Modelo}
       \end{umlcall}
 
       \begin{umlcall}[fill=gray!15, padding=4, dt=5,%
         op = {POST api/detokenizar/\{token\}}, %
-        return = tarjeta]{servicioGeneral}{servicioTokenizador}
+        return = tarjeta]{servicioTienda}{servicioTokenizador}
       \end{umlcall}
 
       \begin{umlcall}[fill=gray!15, padding=4, dt=5,%
         op = {registrarCompra(compra)}, %
-        return = true]{servicioGeneral}{negocioGeneral}
+        return = true]{servicioTienda}{negocioGeneral}
         \begin{umlcall}[fill=gray!15, padding=4, dt=5,%
           op = {compra.guardar()}, %
           return = true]{negocioGeneral}{Modelo}

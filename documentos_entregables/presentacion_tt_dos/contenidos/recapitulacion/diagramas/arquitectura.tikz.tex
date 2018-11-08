@@ -34,11 +34,6 @@
     (sistema_tokenizador)
     [right = of tienda]
     {\textbf{Sistema tokenizador}};
-  \only<2>{
-    \node[entorno]
-      (banco)
-      [right = of sistema_tokenizador]
-      {Entorno bancario};}
 
   \draw[-Stealth]
     ($(usuario.north) + (0.1in, 0)$)
@@ -48,9 +43,7 @@
     node[
       etiqueta,
       above]
-      {1.
-        \only<1>{Tarjeta: \\ \texttt{1234567891234567}}
-        \only<2>{Petición de \\ compra}}
+      {1. Tarjeta: \\ \texttt{1234567891234567}}
     ($(tienda.north) + (-0.1in, 0.1in)$)
     --
     ($(tienda.north) + (-0.1in, 0)$);
@@ -63,39 +56,10 @@
     node[
       etiqueta,
       above]
-      {2.
-        \only<1>{Tarjeta: \\ \texttt{1234567891234567}}
-        \only<2>{Token: \\ \texttt{2954634586102951}}}
+      {2. Tarjeta: \\ \texttt{1234567891234567}}
     ($(sistema_tokenizador.north) + (-0.1in, 0.1in)$)
     --
     ($(sistema_tokenizador.north) + (-0.1in, 0)$);
-
-  \only<2>{
-    \draw[-Stealth]
-      ($(sistema_tokenizador.north) + (0.1in, 0)$)
-      --
-      ($(sistema_tokenizador.north) + (0.1in, 0.1in)$)
-      --
-      node[
-        etiqueta,
-        above]
-        {3. Tarjeta: \\ \texttt{1234567891234567}}
-      ($(banco.north) + (-0.1in, 0.1in)$)
-      --
-      ($(banco.north) + (-0.1in, 0)$);
-
-    \draw[-Stealth]
-      ($(banco.south) + (-0.1in, 0)$)
-      --
-      ($(banco.south) + (-0.1in, -0.1in)$)
-      --
-      node[
-        etiqueta,
-        below]
-        {4. Resultado de \\ operación}
-      ($(sistema_tokenizador.south) + (0.1in, -0.1in)$)
-      --
-      ($(sistema_tokenizador.south) + (0.1in, 0)$);}
 
   \draw[-Stealth]
     ($(sistema_tokenizador.south) + (-0.1in, 0)$)
@@ -105,8 +69,7 @@
     node[
       etiqueta,
       below]
-      {\only<1>{3. Token: \\ \texttt{2954634586102951}}
-       \only<2>{5. Resultado de \\ operación}}
+      {3. Token: \\ \texttt{2954634586102951}}
     ($(tienda.south) + (0.1in, -0.1in)$)
     --
     ($(tienda.south) + (0.1in, 0)$);
@@ -119,7 +82,7 @@
     node[
       etiqueta,
       below]
-      {\only<1>{4}\only<2>{6}. Resultado de \\ operación}
+      {4. Resultado de \\ operación}
     ($(usuario.south) + (0.1in, -0.1in)$)
     --
     ($(usuario.south) + (0.1in, 0)$);

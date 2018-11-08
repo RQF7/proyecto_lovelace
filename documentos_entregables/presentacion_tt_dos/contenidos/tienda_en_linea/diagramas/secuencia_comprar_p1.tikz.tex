@@ -12,7 +12,7 @@
 
       \umlactor   [x=00, fill=gray!20, class = Usuario]{cliente}
       \umlboundary[x=06, fill=gray!20, no ddots]{navegador}
-      \umlcontrol [x=12, fill=gray!20, class = Servicio]{servicioGeneral}
+      \umlcontrol [x=12, fill=gray!20, class = Servicio]{servicioTienda}
       \umldatabase[x=18, fill=gray!20, no ddots]{Modelo}
 
       % Obtener formas de pago  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -22,10 +22,10 @@
         return = IULIB-10]{cliente}{navegador}
         \begin{umlcall}[fill=gray!15,%
           op = {obtenerFormasDePago(cliente)},%
-          return = {200 OK formasDePago}]{navegador}{servicioGeneral}
+          return = {200 OK formasDePago}]{navegador}{servicioTienda}
           \begin{umlcall}[fill=gray!15, padding=4,%
             op = {obtenerTarjetas(cliente)},%
-            return = tarjetas]{servicioGeneral}{Modelo}
+            return = tarjetas]{servicioTienda}{Modelo}
           \end{umlcall}
         \end{umlcall}
       \end{umlcall}
@@ -42,10 +42,10 @@
             {navegador}{navegador}
             \begin{umlcall}[fill=gray!15,%
               op = {obtenerDirecciones(cliente)},%
-              return = {200 OK direcciones}]{navegador}{servicioGeneral}
+              return = {200 OK direcciones}]{navegador}{servicioTienda}
               \begin{umlcall}[fill=gray!15, padding=4,%
                 op = {obtenerDirecciones(cliente)},%
-                return = {direcciones}]{servicioGeneral}{Modelo}
+                return = {direcciones}]{servicioTienda}{Modelo}
               \end{umlcall}
             \end{umlcall}
           \end{umlcall}
