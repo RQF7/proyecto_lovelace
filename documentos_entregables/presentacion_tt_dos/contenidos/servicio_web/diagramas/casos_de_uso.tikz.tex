@@ -8,7 +8,7 @@
     \umlactor[x=07.5, y=12.9, scale=1]{Visitante}
     \umlactor[x=-2.8, y=06,   scale=1]{Cliente}
     \umlactor[x=17.8, y=06,   scale=1]{Administrador}
-    \umlactor[x=07.5, y=-1.2, scale=1]{Ap{.} cliente}
+    \umlactor[x=07.5, y=-1.5, scale=1]{Ap{.} cliente}
 
     \begin{umlsystem}{Sistema tokenizador}
 
@@ -48,10 +48,10 @@
         {\textbf{RECHAZAR CLIENTE}}
 
       \umlusecase[x=14, y=04, width=2.4cm, fill=white]
-        {\textbf{VETAR CLIENTE}}
+        {\textbf{PONER EN LISTA NEGRA}}
 
       \umlusecase[x=14, y=01, width=2.4cm, fill=white]
-        {\textbf{DESVETAR CLIENTE}}
+        {\textbf{QUITAR DE LISTA NEGRA}}
 
       \umlassoc{Administrador}{usecase-7}
       \umlassoc{Administrador}{usecase-8}
