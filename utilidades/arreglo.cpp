@@ -11,7 +11,13 @@
 
 using namespace std;
 
-/** */
+/**
+ * Construye un arreglo de bytes vacío. Este es un paso inútil en compiladores
+ * que funcionan bien con la herencia de constructores: la clase general ya
+ * tiene un constructor vacío. En compiladores viejos (por lo menos GCC6),
+ * el compilador no encuentra este constructor en la clase generalizada, por
+ * lo que hay que definirlo a mano en la clase especializada (esta).
+ */
 
 Arreglo<unsigned char>::Arreglo()
 : ArregloBase<unsigned char>()
