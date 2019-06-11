@@ -1,0 +1,42 @@
+\documentclass{article}
+
+\usepackage{datos}
+\usepackage{pdfpages}
+
+% Formato de página
+\usepackage[
+  paperwidth=120mm,
+  paperheight=120mm,
+  top=5mm,
+  left=25mm,
+  bottom=5mm,
+  right=5mm]{geometry}
+\setlength{\parskip}{2.5em}
+
+% Fondo
+\usepackage{draftwatermark}
+\SetWatermarkAngle{0.0}
+\SetWatermarkText{%
+  \includegraphics{recursos/fondo_de_empastado.png}}
+
+\begin{document}
+  \begin{center}
+    \instituto \\
+    \escuela \par
+    \acronimoDeEscuela \par
+    Trabajo de titulación \\
+    ``\titulo'' \par
+    Que para cumplir con la opción de titulación curricular \\
+    en la carrera de \\
+    ``Ingeniería en Sistemas Computacionales''\par
+    Presentan\\
+    Daniel Ayala Zamorano \\
+    Laura Natalia Borbolla Palacios \\
+    Ricardo Quezada Figueroa \par
+    Directora \\
+    Doctora Sandra Díaz Santiago \par
+  \end{center}
+  \newpage
+  \SetWatermarkText{}
+  \includepdf[pages=1-4]{../../reporte_tecnico.pdf}
+\end{document}

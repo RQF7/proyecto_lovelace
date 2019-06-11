@@ -1,0 +1,27 @@
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{datos}[2019/06/05 Datos comunes en documentos de titulación]
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+% Datos
+\newcommand{\titulo}{%
+  Generación de tokens para proteger los datos \\
+  de tarjetas bancarias}
+\newcommand{\registro}{%
+  ISCCR0127-2017-B008/2019}
+
+\newcommand{\instituto}{%
+  INSTITUTO POLITÉCNICO NACIONAL}
+\newcommand{\escuela}{%
+  ESCUELA SUPERIOR DE CÓMPUTO}
+\newcommand{\acronimoDeEscuela}{%
+  ESCOM}
+
+% Fuente
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+% Sin números de página
+\pagenumbering{gobble}

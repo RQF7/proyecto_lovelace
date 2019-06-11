@@ -1,0 +1,119 @@
+\documentclass{article}
+
+\usepackage{datos}
+
+% Formato de página
+\usepackage[
+  letterpaper,
+  top=2cm,
+  left=3cm,
+  bottom=2cm,
+  right=2cm]{geometry}
+\setlength{\parskip}{5em}
+\renewcommand{\baselinestretch}{1.5}
+
+% Fondo
+\usepackage{draftwatermark}
+\SetWatermarkAngle{0.0}
+
+% Tamaños de fuente
+\makeatletter
+\renewcommand\Huge{%
+  \@setfontsize\Huge{20pt}{0pt}
+  \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@%
+  \abovedisplayshortskip \z@ \@plus2\p@%
+  \belowdisplayshortskip 5\p@ \@plus2\p@ \@minus3\p@%
+  \belowdisplayskip \abovedisplayskip%
+  \let\@listi\@listI}
+\Huge
+\renewcommand\huge{%
+  \@setfontsize\huge{16pt}{0pt}
+  \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@%
+  \abovedisplayshortskip \z@ \@plus2\p@%
+  \belowdisplayshortskip 5\p@ \@plus2\p@ \@minus3\p@%
+  \belowdisplayskip \abovedisplayskip%
+  \let\@listi\@listI}
+\huge
+\renewcommand\Large{%
+  \@setfontsize\Large{14pt}{0pt}
+  \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@%
+  \abovedisplayshortskip \z@ \@plus2\p@%
+  \belowdisplayshortskip 5\p@ \@plus2\p@ \@minus3\p@%
+  \belowdisplayskip \abovedisplayskip%
+  \let\@listi\@listI}
+\huge
+\makeatother
+
+\usepackage{afterpage}
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+\begin{document}
+  \SetWatermarkText{%
+    \includegraphics{recursos/fondo_uno.png}}
+  \vspace*{-10mm} 
+  \begin{center}
+    \textbf{{\Huge\instituto}} \\
+    \textbf{{\huge\escuela}} \par
+    \textbf{{\Huge\acronimoDeEscuela}} \par
+    \textit{{\Large Trabajo de titulación}} \\
+    \vspace{1.5em}
+    \textbf{{\huge ``\titulo''}} \par
+    \textit{{\Large Que para cumplir con la opción de titulación curricular \\
+    en la carrera de}} \\
+    \vspace{1.5em}
+    \textbf{{\huge ``Ingeniería en Sistemas Computacionales''}} \par
+    \textit{{\Large Presentan}} \\
+    \vspace{1.5em}
+    \textbf{{\Large Daniel Ayala Zamorano}} \\
+    \textbf{{\Large Laura Natalia Borbolla Palacios}} \\
+    \textbf{{\Large Ricardo Quezada Figueroa}} \par
+    \textit{{\Large Directora}} \\
+    \vspace{1.5em}
+    \textbf{{\Large Doctora Sandra Díaz Santiago}} \\
+  \end{center}
+  \newpage
+  \setlength{\parskip}{3em}
+  \SetWatermarkText{%
+    \includegraphics{recursos/fondo_dos.png}}
+  \vspace*{-15mm} 
+  \begin{center}
+    \textbf{{\huge\instituto}} \\
+    \textbf{{\huge\escuela}} \\
+    \textbf{{\huge SUBDIRECCIÓN ACADÉMICA}} \par
+  \end{center}
+  \noindent
+  Registro de titulación: \registro 
+  \hfill Fecha: Junio 2019 \par
+  \begin{center}
+    {\Large Documento técnico} \\
+    \vspace{1.5em}
+    \textbf{{\huge ``\titulo''}} \par
+    \textit{{\Large Presentan}} \\
+    \vspace{1.5em}
+    \textbf{{\Large Daniel Ayala Zamorano%
+      \footnote{\texttt{daz23ayala@gmail.com}}}} \\
+    \textbf{{\Large Laura Natalia Borbolla Palacios%
+      \footnote{\texttt{ln.borbolla.42@gmail.com}}}} \\
+    \textbf{{\Large Ricardo Quezada Figueroa%
+      \footnote{\texttt{qf7.ricardo@gmail.com}}}} \par
+    \textit{{\Large Directora}} \\
+    \vspace{1.5em}
+    \textbf{{\Large Doctora Sandra Díaz Santiago}} \par
+    \textbf{{\Large RESUMEN}}
+  \end{center}
+  \vspace{-3em}
+  Hoy en día, es bien conocido que los datos de tarjetas bancarias son datos 
+  sensibles y, por tanto, garantizar su privacidad, es de suma importancia. 
+  Una solución que se ha vuelto muy popular es sustituir el dato sensible por 
+  un token, es decir, un valor que no revela la información original. 
+  Lamentablemente, la mayor parte de las soluciones que existen en el mercado 
+  son muy poco claras sobre sus métodos de generación de tokens, ya que, al no 
+  existir un estudio criptográfico formal, no hay ninguna certeza sobre la 
+  seguridad de sus métodos. En este trabajo se analizarán e implementarán 
+  diversos algoritmos para la generación de tokens. \\
+  Palabras clave: criptografía, seguridad, tecnologías web, tarjetas bancarias.
+\end{document}
